@@ -19,6 +19,7 @@ int upk_test_is(
         printf("ok %d\n", ++TESTS);
     } else {
         printf("not ok %d\n", ++TESTS);
+        printf(" should be '%d' but is '%d'\n", should, is);
     }
 }
 
@@ -43,5 +44,6 @@ int upk_test_eq(
     }
 
     printf("not ok %d\n", ++TESTS);
+    printf(" should be '%s' but is '%s'\n", should, is);
     return( 0 );
 }

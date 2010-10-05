@@ -280,10 +280,52 @@ void _upk_db_status_checker_testcallback(
             package, service, status_desired, status_actual);
 }
 
+void upk_db_status_checker_launchcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
+) {
+    if( status_desired == NULL ||
+        status_actual  == NULL ) {
+          /* Service not initialized, do nothing */
+        return;
+    }
+
+    if( !strcmp( status_actual, UPK_STATUS_VALUE_STOP ) &&
+        !strcmp( status_desired, UPK_STATUS_VALUE_START ) ) {
+        printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
+                package, service, status_actual, status_desired);
+        printf("Launching %s-%s\n", package, service);
+    }
+}
+
 void upk_db_status_checker( 
     sqlite3 *pdb, 
     void (*callback)()
 ) {
-    /* */
-    callback( pdb, "p", "s", "d", "a" );
+    char         *sql;
+    sqlite3_stmt *stmt;
+    int           rc, ncols;
+
+    sql = "SELECT package, service, state_desired, state_actual "
+          "FROM services;";
+
+    sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
+
+    ncols = sqlite3_column_count( stmt );
+    rc = sqlite3_step( stmt );
+
+    while( rc == SQLITE_ROW ) {
+        (*callback)( pdb, 
+                sqlite3_column_text( stmt, 0 ),
+                sqlite3_column_text( stmt, 1 ),
+                sqlite3_column_text( stmt, 2 ),
+                sqlite3_column_text( stmt, 3 )
+                );
+        rc = sqlite3_step( stmt );
+    }
+
+    sqlite3_finalize( stmt );
 }
