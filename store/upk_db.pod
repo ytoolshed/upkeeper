@@ -1,0 +1,80 @@
+=head2 Upkeeper Data Store
+
+To keep track of different system events, like when a service was 
+started, stopped, or crashed, Upkeeper relies on a SQLite-based 
+data store. The Data Store API explained below is used to communicate 
+with this sub system.
+
+=over 4
+
+=item upk_db_init( char *file, sqlite3 **pdb );
+
+Initialize communication with the Upkeeper data store. Returns a sqlite3
+db handle to be used with future calls.
+
+    #include <sqlite3.h>
+    #include "upk_db.h"
+
+    int      rc;
+    sqlite3 *pdb;
+    char    *file = "/home/y/var/upkeeper/datastore.sqlite";
+
+    rc = upk_db_init( file, &pdb );
+
+    /* check rc */
+    if( rc != UPK_OK ) {
+        printf("Can't open Upkeeper DB (%s)\n", upk_db_error();
+    }
+
+Returns 0 on success, and negative numbers on failure.
+
+=item char *upk_db_service_actual_status( pdb, event, svc, new_status )
+
+Get/set actual status of a service. Setting also updates the events table.
+
+    char *upk_db_service_actual_status( 
+        sqlite3 *pdb, 
+        char    *package, 
+        char    *service,
+        char    *new_status
+    );
+
+Returns the found status as a static string and NULL otherwise.
+
+=item char *upk_db_service_desired_status( pdb, event, svc, new_status )
+
+    char *upk_db_service_desired_status( 
+        sqlite3 *pdb, 
+        char    *package, 
+        char    *service,
+        char    *new_status
+    );
+
+Returns the found status as a static string and NULL otherwise.
+
+=item char *upk_db_time_now_mstring()
+
+Obtain a date string with today's date and the current time to use in
+the database.
+
+    char *date_string;
+
+    date_string = upk_db_time_now_mstring();
+
+    /* ... use date_string ... */
+
+      /* release memory allocated */
+    sqlite3_free( date_string );
+
+=item char *upk_db_error()
+
+Returns a textual description of the last error.
+
+=back
+
+=head2 Error Codes
+
+    UPK_DB_OK
+    UPK_DB_UNKNOWN_SERVICE
+    UPK_DB_UNKNOWN_PACKAGE
+    UPK_DB_INTERNAL_ERROR

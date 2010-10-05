@@ -1,0 +1,7 @@
+
+sqlite3 store.sqlite <<EOT
+.mode column
+.header on
+SELECT etime, event, package, service FROM events, services WHERE
+service_id = services.id;
+EOT
