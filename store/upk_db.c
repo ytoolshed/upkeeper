@@ -269,6 +269,21 @@ char *upk_db_service_desired_status(
                                     UPK_STATUS_DESIRED ) );
 }
 
-/* TODO: 
-   - db_clean_old_events
- */
+void _upk_db_status_checker_testcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
+) {
+    printf("Callback: %s-%s %s-%s\n",
+            package, service, status_desired, status_actual);
+}
+
+void upk_db_status_checker( 
+    sqlite3 *pdb, 
+    void (*callback)()
+) {
+    /* */
+    callback( pdb, "p", "s", "d", "a" );
+}

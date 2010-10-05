@@ -51,6 +51,19 @@ int upk_db_service_find(
     char    *service
 );
 
+void upk_db_status_checker( 
+    sqlite3 *pdb, 
+    void (*callback)()
+);
+
+void _upk_db_status_checker_testcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
+);
+
 int upk_test_is(
     int is,
     int should
