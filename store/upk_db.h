@@ -9,6 +9,9 @@
 #define UPK_STATUS_ACTUAL  0
 #define UPK_STATUS_DESIRED 1
 
+#define UPK_STATUS_VALUE_START "start"
+#define UPK_STATUS_VALUE_STOP  "stop"
+
 /* Prototypes */
 
 #include <sqlite3.h>
@@ -49,6 +52,27 @@ int upk_db_service_find(
     sqlite3 *pdb, 
     char    *package, 
     char    *service
+);
+
+void upk_db_status_checker( 
+    sqlite3 *pdb, 
+    void (*callback)()
+);
+
+void _upk_db_status_checker_testcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
+);
+
+void upk_db_status_checker_launchcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
 );
 
 int upk_test_is(
