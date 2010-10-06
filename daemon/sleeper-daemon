@@ -1,0 +1,27 @@
+#!/usr/local/bin/perl -w
+###########################################
+# xx -- 
+# Mike Schilli, 2010 (m@perlmeister.com)
+###########################################
+use strict;
+use App::Daemon qw(daemonize);
+use Log::Log4perl qw(:easy);
+
+my($pkg, $service, $cmd) = @ARGV;
+
+if(!defined $service) {
+    die "usage $0 pkg service\n";
+}
+
+shift;
+shift;
+
+$App::Daemon::pidfile = "/tmp/upkeeper-test-$pkg-$service.pid";
+$App::Daemon::logfile = "/tmp/upkeeper.log";
+
+daemonize();
+
+while(1) {
+    DEBUG "$pkg-$service sleeping 1";
+    sleep(1);
+}
