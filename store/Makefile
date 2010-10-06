@@ -13,7 +13,7 @@ test: $(MAIN)
 	./sqlite-dump
 
 $(LIB): $(LIB_OBJS)
-	gcc -shared -lsqlite3 -o $(LIB) $(LIB_OBJS)
+	gcc -shared -undefined dynamic_lookup -lsqlite3 -o $(LIB) $(LIB_OBJS)
 
 $(MAIN): $(MAIN_OBJS) $(LIB)
 	cc -o $(MAIN) $(LIB) -lsqlite3 $(MAIN_OBJS)
