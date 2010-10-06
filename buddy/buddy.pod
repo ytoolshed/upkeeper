@@ -1,0 +1,26 @@
+=head2 Upkeeper Buddy
+
+Upkeeper Buddy takes care of launching supervised processes and reporting 
+their status to the upkeeper database.
+
+When called via
+
+    upkeeper-buddy cmd-line
+
+upkeeper-buddy sets up a SIGCHLD signal handler and forks the new process 
+with the command line given. It then updates the process status to
+"start" in the upkeeper database. Then, it stays alive and blocks via waitpid
+until the forked process dies. As soon as this happens, it updates the
+status of the process in the upkeeper database to "stop".
+
+When called from the command line, upkeeper-buddy won't detach from the 
+terminal but stay in foreground. To send it to the background, use
+
+    upkeeper-buddy cmd-line &
+
+from the command line or a fork() call with the upkeeper-buddy API
+explained below.
+
+=head2 Upkeeper Buddy API
+
+
