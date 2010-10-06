@@ -269,6 +269,10 @@ char *upk_db_service_desired_status(
                                     UPK_STATUS_DESIRED ) );
 }
 
+/* 
+ * Test callback for the status checker, which just prints out all 
+ * entries it is called with.
+ */
 void _upk_db_status_checker_testcallback( 
     sqlite3 *pdb, 
     char    *package, 
@@ -280,6 +284,11 @@ void _upk_db_status_checker_testcallback(
             package, service, status_desired, status_actual);
 }
 
+/* 
+ * Launcher callback for the status checker. 
+ * Starts up processes with actual=stop and desired=start.
+ * Shuts down processes with actual=start and desired=stop.
+ */
 void upk_db_status_checker_launchcallback( 
     sqlite3 *pdb, 
     char    *package, 
@@ -301,6 +310,10 @@ void upk_db_status_checker_launchcallback(
     }
 }
 
+/* 
+ * Status checker iterates through all configured pkg/services in the DB and
+ * calls the provided callback functions for every entry it finds.
+ */
 void upk_db_status_checker( 
     sqlite3 *pdb, 
     void (*callback)()
