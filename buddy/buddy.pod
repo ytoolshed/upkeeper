@@ -7,20 +7,47 @@ When called via
 
     upkeeper-buddy cmd-line
 
-upkeeper-buddy sets up a SIGCHLD signal handler and forks the new process 
-with the command line given. It then updates the process status to
-"start" in the upkeeper database. Then, it stays alive and blocks via waitpid
-until the forked process dies. As soon as this happens, it updates the
-status of the process in the upkeeper database to "stop".
-
-When called from the command line, upkeeper-buddy won't detach from the 
-terminal but stay in foreground. To send it to the background, use
-
-    upkeeper-buddy cmd-line &
-
-from the command line or a fork() call with the upkeeper-buddy API
-explained below.
+upkeeper-buddy launches the application process in cmd-line with a 'buddy'
+which updates the upkeeper database when the application has been started
+and when it got stopped or crashed.
 
 =head2 Upkeeper Buddy API
 
+=over 4
 
+=item * upk_buddy_start
+
+    int buddy_pid = upk_buddy_start(
+      sqlite3  pdb, 
+      char    *package,
+      char    *service,
+      const   *char argv[], 
+      const   *char env[]
+    );
+
+Forks two processes, a buddy process (ps line changed to "upk-buddy-argv[0]")
+and the application process given in argv[] with the environment in
+env[].
+
+The buddy process sets up a SIGCHLD signal handler and forks the application
+process which then execle()s the command line given in argv[]. 
+The buddy then updates the process 
+status to "start" in the upkeeper database. It stays alive and blocks via 
+waitpid until the forked application process dies, which it gets notified
+of immediately via the SIGCHLD/waitpid setup. As soon as this happens, 
+it updates the status of the process in the upkeeper database to "stop".
+
+Returns the buddy process pid on success and a number < 0 on error.
+
+=item * upk_buddy_start
+
+    int
+    upk_buddy_stop(
+      sqlite3  pdb, 
+      int      buddy_pid,
+    );
+
+Stops the process launched by a previous call to upk_buddy_start() and
+updates the upkeeper database accordingly.
+
+Returns 0 on success and a number < 0 on error.
