@@ -2,9 +2,9 @@
 
 When the Upkeeper Buddy Controller starts up (usually at system reboot via
 inittab/respawn), it sifts through the upkeeper data store and figures out 
-which application
-processes need to be started. If an application's actual state is down, but its
-desired state is up, the buddy controller restarts it with a buddy process.
+which application processes need to be started. If an application's actual 
+state is down, but its desired state is up, the buddy controller restarts 
+it with a buddy process.
 
 A buddy process launches an application process and takes
 care of the necessary status bookkeeping chores with the upkeeper backend. 
@@ -15,24 +15,24 @@ The buddy also reacts to SIGTERM signals, which it interprets as a 'stop'
 command for the application process. Upon receiving a SIGTERM, the buddy
 sends a SIGTERM signal to the forked application process and then waits 
 a configurable time until it stops. After a configurable number of 
-retries, it forces the application to stop via SIGKILL. Once it has
-accomplished stopping the application, it marks its new actual
-state in the upkeeper data store and exits.
+retries, it forces the application process to stop via SIGKILL. Once it has
+accomplished stopping the application (and verified that it's down), 
+it marks its new actual state in the upkeeper data store and exits.
 
 The Upkeeper Buddy Controller needs to be started before any other application
 in the system. If started with the --bootstrap option,
 upkeeper-buddy-controller assumes that all of its applications are down, even
-if they're marked running in the data store. This is necessary as system
+if they're marked running in the data store. This is necessary at system
 reboot, as the system might have crashed and rebooted with all applications
 down, without the opportunity to mark them as such in the data store.
 
 The Upkeeper Buddy Controller keeps running as a daemon at all times and gets
 notified by the buddies if any of their controlled applications was shut down
 or crashed. In this case, the buddy's blocking waitpid() triggers and 
-it marks the application as 'stopped' in the data store.
-This also sends a SIGHUP signal to the buddy controller via a SQLite 
-trigger, which causes teh controller to initiate a new scan of the
-services table, finding out which need to be restarted.
+the buddy marks the application as 'stopped' in the data store.
+This also sends a SIGHUP signal to the buddy controller via an SQLite 
+update trigger on the services table, which causes teh controller to 
+initiate a new table scan, finding out which apps to be restarted.
 
 =head2 Upkeeper Buddy
 
