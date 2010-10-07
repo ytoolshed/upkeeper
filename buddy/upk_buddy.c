@@ -22,6 +22,7 @@ int upk_buddy_start(
   char    *argv[], 
   char    *env[]
 ) {
+    printf("upk_buddy_start %s-%s\n", package, service);
 }
 
 /* 
@@ -40,6 +41,5 @@ upk_buddy_stop(
     int   found_id;
     char  *cp;
 
-    sql = sqlite3_mprintf( "SELECT id from services" );
-    sqlite3_free( sql );
+    printf("upk_buddy_stop pid=%d\n", buddy_pid);
 }

@@ -3,6 +3,7 @@ MAIN_OBJS=${MAIN_SRCS:.c=.o}
 MAIN=buddytest
 CFLAGS=-g
 GCC_UNDEF_FLAG=-undefined dynamic_lookup
+EXT_LIBS=../store/libupk.so
 
 LDFLAGS=
 #gcc >=4.2
@@ -19,7 +20,7 @@ $(LIB): $(LIB_OBJS)
 	gcc -shared -lsqlite3 $(LDFLAGS) -o $(LIB) $(LIB_OBJS)
 
 $(MAIN): $(MAIN_OBJS) $(LIB)
-	cc -o $(MAIN) $(LIB) -lsqlite3 $(MAIN_OBJS)
+	cc -o $(MAIN) $(LIB) -lsqlite3 $(MAIN_OBJS) $(EXT_LIBS)
 
 clean:
 	rm -f *.o $(MAIN) $(LIB)
