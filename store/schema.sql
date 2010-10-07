@@ -2,21 +2,22 @@ DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS processes;
 
-CREATE TABLE processes (
+CREATE TABLE procruns (
     id            INTEGER PRIMARY KEY,
     cmdline       VARCHAR,
-    user          VARCHAR
+    user          VARCHAR,
+    pid           INTEGER
 );
 
 CREATE TABLE services (
     id            INTEGER PRIMARY KEY,
     package       VARCHAR,
     service       VARCHAR,
-    process_id    INT,
+    procrun_id    INT,
     state_desired INT,
     state_actual  INT,
-    FOREIGN KEY (process_id)
-        REFERENCES processes(id)
+    FOREIGN KEY (procrun_id)
+        REFERENCES procrun(id)
 );
 
 CREATE TABLE events (
