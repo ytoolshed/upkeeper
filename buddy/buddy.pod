@@ -1,3 +1,30 @@
+=head2 Buddy Controller
+
+When the Buddy Controller starts up (usually at sytem reboot), it sifts 
+through the upkeeper data store and figures out which application
+processes need to be started. If an application is down, but its
+desired state is up, the buddy controller restarts it with a buddy
+process.
+
+upkeeper-buddy-controller keeps running as a daemon at all times and 
+gets notified by the buddies
+if any of their controlled applications was shut down or crashed. In this
+case, the buddy receives a SIGCHLD signal (or the blocking waitpid() 
+triggers) and marks the application with status 'stop' in the data store.
+It also sends a message to the buddy controller's control port (or SIGHUP?), 
+which triggers a new scan of processes to be restarted.
+
+upkeeper-buddy-controller needs to be started before any other application in
+the system. If started with the --bootstrap option, upkeeper-buddy-controller
+assumes that all of its applications are down, if they're marked running in the
+data store. This is necessary, as the system might crash and reboot with all
+applications down.
+
+
+before
+
+* after system reboot, how mark processes as 'stopped'?
+
 =head2 Upkeeper Buddy
 
 Upkeeper Buddy takes care of launching supervised processes and reporting 
@@ -51,3 +78,16 @@ Stops the process launched by a previous call to upk_buddy_start() and
 updates the upkeeper database accordingly.
 
 Returns 0 on success and a number < 0 on error.
+
+=item * upk_buddy_call_home
+
+    int
+    upk_buddy_call_home(
+      sqlite3  pdb, 
+      int      buddy_pid,
+    );
+
+Launched application processes can opt to report their status back to the
+buddy controller in regular intervals. This ensures that the buddy controller
+can be sure that the application process actually is making progress
+instead of just being alive in a vegetative state.
