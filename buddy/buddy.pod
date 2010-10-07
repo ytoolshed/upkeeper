@@ -1,29 +1,37 @@
 =head2 Buddy Controller
 
-When the Buddy Controller starts up (usually at sytem reboot), it sifts 
+When the Buddy Controller starts up (usually at system reboot), it sifts 
 through the upkeeper data store and figures out which application
-processes need to be started. If an application is down, but its
-desired state is up, the buddy controller restarts it with a buddy
-process.
+processes need to be started. If an application's actual state
+is down, but its desired state is up, the buddy controller restarts it with 
+a buddy process.
 
-upkeeper-buddy-controller keeps running as a daemon at all times and 
-gets notified by the buddies
-if any of their controlled applications was shut down or crashed. In this
-case, the buddy receives a SIGCHLD signal (or the blocking waitpid() 
-triggers) and marks the application with status 'stop' in the data store.
-It also sends a message to the buddy controller's control port (or SIGHUP?), 
+A buddy process launches an application process and takes
+care of the necessary status bookkeeping chores with the upkeeper backend. 
+After forking, the buddy's parent process issues a blocking waidpid()
+on the child, which execs the application process.
+
+The buddy also reacts to SIGTERM signals, which it interprets as a 'stop'
+command for the application process. Upon receiving a SIGTERM, the buddy
+sends a SIGTERM signal to the forked application process and then waits 
+a configurable time until it stops. After a configurable number of 
+retries, it forces the application to stop via SIGKILL. Once it has
+accomplished stopping the application, it marks its new actual
+state in the upkeeper data store and exits.
+
+The Upkeeper Buddy Controller needs to be started before any other application
+in the system. If started with the --bootstrap option,
+upkeeper-buddy-controller assumes that all of its applications are down, even
+if they're marked running in the data store. This is necessary as system
+reboot, as the system might have crashed and rebooted with all applications
+down, without the opportunity to mark them as such in the data store.
+
+upkeeper-buddy-controller keeps running as a daemon at all times and gets
+notified by the buddies if any of their controlled applications was shut down
+or crashed. In this case, the buddy receives a SIGCHLD signal (or the blocking
+waitpid() triggers) and marks the application as 'stopped' in the data store.
+It also sends a message to the buddy controller's control port (or SIGHUP?),
 which triggers a new scan of processes to be restarted.
-
-upkeeper-buddy-controller needs to be started before any other application in
-the system. If started with the --bootstrap option, upkeeper-buddy-controller
-assumes that all of its applications are down, if they're marked running in the
-data store. This is necessary, as the system might crash and reboot with all
-applications down.
-
-
-before
-
-* after system reboot, how mark processes as 'stopped'?
 
 =head2 Upkeeper Buddy
 
