@@ -1,10 +1,10 @@
 =head2 Buddy Controller
 
-When the Buddy Controller starts up (usually at system reboot), it sifts 
-through the upkeeper data store and figures out which application
-processes need to be started. If an application's actual state
-is down, but its desired state is up, the buddy controller restarts it with 
-a buddy process.
+When the Upkeeper Buddy Controller starts up (usually at system reboot via
+inittab/respawn), it sifts through the upkeeper data store and figures out 
+which application
+processes need to be started. If an application's actual state is down, but its
+desired state is up, the buddy controller restarts it with a buddy process.
 
 A buddy process launches an application process and takes
 care of the necessary status bookkeeping chores with the upkeeper backend. 
@@ -26,12 +26,13 @@ if they're marked running in the data store. This is necessary as system
 reboot, as the system might have crashed and rebooted with all applications
 down, without the opportunity to mark them as such in the data store.
 
-upkeeper-buddy-controller keeps running as a daemon at all times and gets
+The Upkeeper Buddy Controller keeps running as a daemon at all times and gets
 notified by the buddies if any of their controlled applications was shut down
-or crashed. In this case, the buddy receives a SIGCHLD signal (or the blocking
-waitpid() triggers) and marks the application as 'stopped' in the data store.
-It also sends a message to the buddy controller's control port (or SIGHUP?),
-which triggers a new scan of processes to be restarted.
+or crashed. In this case, the buddy's blocking waitpid() triggers and 
+it marks the application as 'stopped' in the data store.
+This also sends a SIGHUP signal to the buddy controller via a SQLite 
+trigger, which causes teh controller to initiate a new scan of the
+services table, finding out which need to be restarted.
 
 =head2 Upkeeper Buddy
 
