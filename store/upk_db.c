@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
+#include <errno.h>
 
 #include "upk_db.h"
 
@@ -50,7 +51,70 @@ db_init(
 	return(rc);
     }
 
+    rc = db_init_functions_define( *ppdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
     return(0);
+}
+
+/* Send a Unix signal to a process. Usage:
+ *  SELECT signal_send( pid, signal_number );
+ */
+void signal_send(
+    sqlite3_context *ctx, 
+    int              nargs, 
+    sqlite3_value  **values
+) {
+    int   signal_no;
+    int   pid;
+    int   rc;
+    char *message;
+
+    pid       = atoi( sqlite3_value_text( values[0] ) );
+    signal_no = atoi( sqlite3_value_text( values[1] ) );
+
+    if( DEBUG ) {
+        printf( "Sending signal %d to process %d\n", signal_no, pid );
+    }
+
+    rc = kill( (pid_t) pid, signal_no );
+
+    if( rc != 0 ) {
+
+        message = sqlite3_mprintf(
+	    "kill(%d, %d) failed: %s", 
+	    pid, signal_no, strerror( errno ) );
+
+	if( DEBUG ) {
+	    printf( "%s\n", message );
+	}
+
+	sqlite3_result_error( ctx, message, strlen( message ) ); 
+	sqlite3_free( message );
+	return;
+    }
+
+    sqlite3_result_int( ctx, 0 );
+}
+
+int db_init_functions_define( sqlite3 *pdb ) {
+    int      rc;
+
+    /* SELECT signal_send( signal_number, pid )
+     */
+    rc = sqlite3_create_function( pdb, "signal_send", 
+	                     2,  /* args */
+			     SQLITE_UTF8, NULL,
+			     signal_send, NULL, NULL );
+    if( rc != 0 ) {
+	return( rc );
+    }
+
+    return( 0 );
 }
 
 /* 

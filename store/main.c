@@ -71,6 +71,8 @@ int main(
 
     upk_db_status_checker( pdb, upk_db_status_checker_launchcallback );
 
+    upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" );
+
     sqlite3_close( pdb );
 
     return(0);
