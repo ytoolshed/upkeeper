@@ -21,6 +21,10 @@ int upk_db_init(
     sqlite3 **ppdb 
 );
 
+int upk_db_close(
+    sqlite3 *pdb 
+);
+
 char *upk_db_service_actual_status( 
     sqlite3 *pdb, 
     char    *package, 

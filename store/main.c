@@ -25,10 +25,10 @@ int main(
     /* test */
     upk_test_is( 1, 1 );
 
-    rc = db_init( file, &pdb );
+    rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
-	printf("db_init failed. Exiting.\n");
+	printf("upk_db_init failed. Exiting.\n");
 	exit(-1);
     }
  

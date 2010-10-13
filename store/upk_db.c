@@ -30,7 +30,7 @@ char *_upk_db_service_status(
  * exist yet.
  */
 int 
-db_init(
+upk_db_init(
     char     *file, 
     sqlite3 **ppdb 
 ) {
@@ -51,7 +51,7 @@ db_init(
 	return(rc);
     }
 
-    rc = db_init_functions_define( *ppdb );
+    rc = upk_db_init_functions_define( *ppdb );
 
     if(rc != 0) {
 	printf("Defining db extensions failed: %d\n", rc );
@@ -59,6 +59,16 @@ db_init(
     }
 
     return(0);
+}
+
+/* 
+ * Close the DB connection.
+ */
+int 
+upk_db_close(
+    sqlite3 *pdb 
+) {
+    sqlite3_close( pdb );
 }
 
 /* Send a Unix signal to a process. Usage:
@@ -101,7 +111,7 @@ void signal_send(
     sqlite3_result_int( ctx, 0 );
 }
 
-int db_init_functions_define( sqlite3 *pdb ) {
+int upk_db_init_functions_define( sqlite3 *pdb ) {
     int      rc;
 
     /* SELECT signal_send( signal_number, pid )
