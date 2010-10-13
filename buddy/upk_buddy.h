@@ -18,3 +18,9 @@ upk_buddy_stop(
   sqlite3 *pdb, 
   int      buddy_pid
 );
+
+int
+upk_buddy_call_home(
+  sqlite3  pdb, 
+  int      buddy_pid,
+);
