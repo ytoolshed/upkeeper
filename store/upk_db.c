@@ -50,7 +50,47 @@ db_init(
 	return(rc);
     }
 
+    rc = db_init_functions_define( *ppdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
     return(0);
+}
+
+/* Send a Unix signal to a process. Usage:
+ *  SELECT signal_send( signal_number, pid );
+ */
+void signal_send( 
+    sqlite3_context *ctx, 
+    int              nargs, 
+    sqlite3_value  **values
+) {
+    int signal_no;
+    int pid;
+
+    signal_no = atoi( sqlite3_value_text( values[0] ) );
+    pid       = atoi( sqlite3_value_text( values[1] ) );
+
+    printf( "Sending signal %d to process %d\n", signal_no, pid );
+}
+
+int db_init_functions_define( sqlite3 *pdb ) {
+    int      rc;
+
+    /* SELECT signal_send( signal_number, pid )
+     */
+    rc = sqlite3_create_function( pdb, "signal_send", 
+	                     2,  /* args */
+			     SQLITE_UTF8, NULL,
+			     signal_send, NULL, NULL );
+    if( rc != 0 ) {
+	return( rc );
+    }
+
+    return( 0 );
 }
 
 /* 
