@@ -63,7 +63,7 @@ db_init(
 /* Send a Unix signal to a process. Usage:
  *  SELECT signal_send( signal_number, pid );
  */
-void signal_send( 
+void signal_send(
     sqlite3_context *ctx, 
     int              nargs, 
     sqlite3_value  **values
@@ -74,7 +74,11 @@ void signal_send(
     signal_no = atoi( sqlite3_value_text( values[0] ) );
     pid       = atoi( sqlite3_value_text( values[1] ) );
 
-    printf( "Sending signal %d to process %d\n", signal_no, pid );
+    if( DEBUG ) {
+        printf( "Sending signal %d to process %d\n", signal_no, pid );
+    }
+
+    kill( (pid_t) pid, signal_no );
 }
 
 int db_init_functions_define( sqlite3 *pdb ) {
