@@ -11,13 +11,9 @@ extern int DEBUG;
 
 static char EXEC_SINGLE_BUF[255];
 
-/* 
- * Convenience function to execute SQL which spits out a single 
- * result row.
- */
 char *upk_db_exec_single( 
     sqlite3  *pdb, 
-    char     *sql
+    const char     *sql
 ) {
     int    rc;
     char  *zErr;

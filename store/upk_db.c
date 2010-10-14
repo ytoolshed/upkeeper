@@ -5,6 +5,8 @@
 #include <time.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/types.h>
+#include <signal.h>
 
 #include "upk_db.h"
 
@@ -12,54 +14,18 @@ extern int DEBUG;
 
 int _upk_db_event_add( 
     sqlite3 *pdb, 
-    char    *event, 
-    char    *package, 
-    char    *service
+    const char    *event, 
+    const char    *package, 
+    const char    *service
 );
 
-char *_upk_db_service_status( 
+const char *_upk_db_service_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status,
+    const char    *package, 
+    const char    *service,
+    const char    *new_status,
     int     type
 );
-
-/* 
- * Initialize the DB connection, create the DB file if it doesn't 
- * exist yet.
- */
-int 
-db_init(
-    char     *file, 
-    sqlite3 **ppdb 
-) {
-    int      rc;
-
-      /* Check if database has been set up at all */
-    rc = open( file, O_RDONLY );
-
-    if(rc < 0) {
-	printf("Can't read DB file '%s'.\n", file);
-	return(rc);
-    }
-
-    rc = sqlite3_open( file, ppdb );
-
-    if(rc != 0) {
-	printf("sqlite3_open '%s' failed: %d\n", file, rc);
-	return(rc);
-    }
-
-    rc = db_init_functions_define( *ppdb );
-
-    if(rc != 0) {
-	printf("Defining db extensions failed: %d\n", rc );
-	return(rc);
-    }
-
-    return(0);
-}
 
 /* Send a Unix signal to a process. Usage:
  *  SELECT signal_send( pid, signal_number );
@@ -74,14 +40,15 @@ void signal_send(
     int   rc;
     char *message;
 
-    pid       = atoi( sqlite3_value_text( values[0] ) );
-    signal_no = atoi( sqlite3_value_text( values[1] ) );
+    pid       = sqlite3_value_int(values[0]);
+    signal_no = sqlite3_value_int(values[1]);
 
     if( DEBUG ) {
         printf( "Sending signal %d to process %d\n", signal_no, pid );
+        
     }
 
-    rc = kill( (pid_t) pid, signal_no );
+    rc = kill( pid, signal_no );
 
     if( rc != 0 ) {
 
@@ -101,7 +68,7 @@ void signal_send(
     sqlite3_result_int( ctx, 0 );
 }
 
-int db_init_functions_define( sqlite3 *pdb ) {
+static int db_init_functions_define( sqlite3 *pdb ) {
     int      rc;
 
     /* SELECT signal_send( signal_number, pid )
@@ -122,17 +89,15 @@ int db_init_functions_define( sqlite3 *pdb ) {
  */
 int _upk_db_service_find( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
+    const char    *package, 
+    const char    *service,
     int      create
 ) {
 
     int    rc;
     char  *zErr;
     char  *sql;
-    char  *id;
-    int   found_id;
-    char  *cp;
+    const char  *id;
 
     /* We're using a transaction here to avoid the race condition
      * which occurs when we first search for an existing record and
@@ -187,8 +152,8 @@ int _upk_db_service_find(
  */
 int upk_db_service_find( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service
+    const char    *package, 
+    const char    *service
 ) {
     return( _upk_db_service_find( pdb, package, service, 0 ) );
 }
@@ -199,8 +164,8 @@ int upk_db_service_find(
  */
 int upk_db_service_find_or_create( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service
+    const char    *package, 
+    const char    *service
 ) {
     return( _upk_db_service_find( pdb, package, service, 1 ) );
 }
@@ -211,18 +176,16 @@ int upk_db_service_find_or_create(
 int 
 _upk_db_event_add(
     sqlite3 *pdb, 
-    char    *event, 
-    char    *package, 
-    char    *service
+    const char    *event, 
+    const char    *package, 
+    const char    *service
 ) {
 
     int    rc;
     char  *zErr;
     char  *date_string = upk_db_time_now_mstring();
-    time_t now;
     int    service_id;
-    struct tm *now_tm;
-
+    
     service_id = upk_db_service_find_or_create( pdb, package, service );
 
     if( service_id < 0 ) {
@@ -254,12 +217,12 @@ _upk_db_event_add(
 /* 
  * Get/Set the a actual/desired status of a service.
  */
-char *
+const char *
 _upk_db_service_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status,
+    const char    *package, 
+    const char    *service,
+    const char    *new_status,
     int     type
 ) {
     int    service_id;
@@ -267,7 +230,7 @@ _upk_db_service_status(
     char  *state_field = "state_actual";
     int    rc;
     char *zErr;
-    char *status;
+    const char *status;
 
     if( type == UPK_STATUS_DESIRED ) {
         state_field = "state_desired";
@@ -310,11 +273,11 @@ _upk_db_service_status(
 /* 
  * Get/Set the a actual status of a service.
  */
-char *upk_db_service_actual_status( 
+const char *upk_db_service_actual_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status
+    const char    *package, 
+    const char    *service,
+    const char    *new_status
 ) {
     return( _upk_db_service_status( pdb, package, service, new_status, 
                                     UPK_STATUS_ACTUAL ) );
@@ -323,11 +286,11 @@ char *upk_db_service_actual_status(
 /* 
  * Get/Set the a desired status of a service.
  */
-char *upk_db_service_desired_status( 
+const char *upk_db_service_desired_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status
+    const char    *package, 
+    const char    *service,
+    const char    *new_status
 ) {
     return( _upk_db_service_status( pdb, package, service, new_status, 
                                     UPK_STATUS_DESIRED ) );
@@ -339,10 +302,10 @@ char *upk_db_service_desired_status(
  */
 void _upk_db_status_checker_testcallback( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    const char    *package, 
+    const char    *service,
+    const char    *status_desired,
+    const char    *status_actual
 ) {
     printf("Callback: %s-%s %s-%s\n",
             package, service, status_desired, status_actual);
@@ -355,10 +318,10 @@ void _upk_db_status_checker_testcallback(
  */
 void upk_db_status_checker_launchcallback( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    const char    *package, 
+    const char    *service,
+    const char    *status_desired,
+    const char    *status_actual
 ) {
     if( status_desired == NULL ||
         status_actual  == NULL ) {
@@ -382,7 +345,7 @@ void upk_db_status_checker(
     sqlite3 *pdb, 
     void (*callback)()
 ) {
-    char         *sql;
+    const char         *sql;
     sqlite3_stmt *stmt;
     int           rc, ncols;
 
@@ -406,3 +369,40 @@ void upk_db_status_checker(
 
     sqlite3_finalize( stmt );
 }
+
+/* 
+ * Initialize the DB connection, create the DB file if it doesn't 
+ * exist yet.
+ */
+int 
+upk_db_init(
+    const char     *file, 
+    sqlite3 **ppdb 
+) {
+    int      rc;
+
+      /* Check if database has been set up at all */
+    rc = open( file, O_RDONLY );
+
+    if(rc < 0) {
+	printf("Can't read DB file '%s'.\n", file);
+	return(rc);
+    }
+
+    rc = sqlite3_open( file, ppdb );
+
+    if(rc != 0) {
+	printf("sqlite3_open '%s' failed: %d\n", file, rc);
+	return(rc);
+    }
+
+    rc = db_init_functions_define( *ppdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
+    return(0);
+}
+

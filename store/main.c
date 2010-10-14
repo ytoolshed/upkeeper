@@ -16,16 +16,14 @@ int main(
     char    *file = "store.sqlite";
     int      rc;
     int      i;
-    char    *event;
-    char    *status;
     char    *service;
     char    *package;
-    char    *cp;
+    const char    *cp;
 
     /* test */
     upk_test_is( 1, 1 );
 
-    rc = db_init( file, &pdb );
+    rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");

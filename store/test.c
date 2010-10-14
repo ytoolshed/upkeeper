@@ -24,8 +24,8 @@ int upk_test_is(
 }
 
 int upk_test_eq(
-    char *is,
-    char *should
+    const char *is,
+    const char *should
 ) {
 
     if(is == should) {
