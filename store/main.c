@@ -16,11 +16,9 @@ int main(
     char    *file = "store.sqlite";
     int      rc;
     int      i;
-    char    *event;
-    char    *status;
     char    *service;
     char    *package;
-    char    *cp;
+    const char    *cp;
 
     /* test */
     upk_test_is( 1, 1 );

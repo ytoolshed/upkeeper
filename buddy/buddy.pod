@@ -31,8 +31,8 @@ notified by the buddies if any of their controlled applications was shut down
 or crashed. In this case, the buddy's blocking waitpid() triggers and 
 the buddy marks the application as 'stopped' in the data store.
 This also sends a SIGHUP signal to the buddy controller via an SQLite 
-update trigger on the services table, which causes teh controller to 
-initiate a new table scan, finding out which apps to be restarted.
+update trigger on the services table, which causes the controller to 
+initiate a new table scan, finding out which apps are to be restarted.
 
 =head2 Upkeeper Buddy
 
@@ -75,7 +75,7 @@ it updates the status of the process in the upkeeper database to "stop".
 
 Returns the buddy process pid on success and a number < 0 on error.
 
-=item * upk_buddy_start
+=item * upk_buddy_stop
 
     int
     upk_buddy_stop(

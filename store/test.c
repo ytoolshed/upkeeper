@@ -21,11 +21,13 @@ int upk_test_is(
         printf("not ok %d\n", ++TESTS);
         printf(" should be '%d' but is '%d'\n", should, is);
     }
+
+    return( 0 );
 }
 
 int upk_test_eq(
-    char *is,
-    char *should
+    const char *is,
+    const char *should
 ) {
 
     if(is == should) {

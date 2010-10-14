@@ -16,46 +16,49 @@
 
 #include <sqlite3.h>
 
-int upk_db_init(
-    char     *file, 
-    sqlite3 **ppdb 
-);
+int upk_db_init( const char *file, sqlite3 **ppdb );
 
 int upk_db_close(
     sqlite3 *pdb 
 );
 
-char *upk_db_service_actual_status( 
+typedef enum { 
+  UP,         /* Set by buddy upon sucessful fork() */
+  DOWN,       /* Set on buddy resumption after sigchld   */
+  ALIVE       /* Set by */
+} process_states;
+
+const char *upk_db_service_actual_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status
+    const char    *package, 
+    const char    *service,
+    const char    *new_status
 );
 
-char *upk_db_service_desired_status( 
+const char *upk_db_service_desired_status( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *new_status
+    const char    *package, 
+    const char    *service,
+    const char    *new_status
 );
 
 char *upk_db_time_now_mstring( void );
 
 char *upk_db_exec_single( 
     sqlite3  *pdb, 
-    char     *sql
+    const char     *sql
 );
 
 int upk_db_service_find_or_create( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service
+    const char    *package, 
+    const char    *service
 );
 
 int upk_db_service_find( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service
+    const char    *package, 
+    const char    *service
 );
 
 void upk_db_status_checker( 
@@ -65,18 +68,18 @@ void upk_db_status_checker(
 
 void _upk_db_status_checker_testcallback( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    const char    *package, 
+    const char    *service,
+    const char    *status_desired,
+    const char    *status_actual
 );
 
 void upk_db_status_checker_launchcallback( 
     sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    const char    *package, 
+    const char    *service,
+    const char    *status_desired,
+    const char    *status_actual
 );
 
 int upk_test_is(
@@ -85,6 +88,6 @@ int upk_test_is(
 );
 
 int upk_test_eq(
-    char *is,
-    char *should
+    const char *is,
+    const char *should
 );

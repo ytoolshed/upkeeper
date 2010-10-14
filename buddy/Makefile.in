@@ -1,10 +1,6 @@
-MAIN_SRCS=main.c
-MAIN_OBJS=${MAIN_SRCS:.c=.o}
-MAIN=buddytest
-CFLAGS=-g
-GCC_UNDEF_FLAG=-undefined dynamic_lookup
-EXT_LIBS=../store/libupk.so
+all:
 
+GCC_UNDEF_FLAG=-undefined dynamic_lookup
 LDFLAGS=
 #gcc >=4.2
 #LDFLAGS=$(GCC_UNDEF_FLAG)
@@ -29,3 +25,5 @@ clean:
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
+%:
+	@$(MAKE) -C ..
