@@ -24,14 +24,7 @@ typedef enum {
   ALIVE       /* Set by */
 } process_states;
 
-/* xxx opague */
-struct service {
-        const sqlite3 *pdb,
-                const char *package,
-          const char    *service
-                };
 
-DOWN upk_status
 const char *upk_db_service_actual_status( 
     sqlite3 *pdb, 
     const char    *package, 

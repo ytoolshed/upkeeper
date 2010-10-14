@@ -1,5 +1,5 @@
 # push directory on stack
-include begin.mk
+include .mk/begin
 
 # objects, targets
 $(OBJS) 	:= $(d)/upk_db.o $(d)/util.o $(d)/test.o
@@ -18,4 +18,4 @@ CLEAN		:= $(CLEAN) store.sqlite
 
 # Standard things
 
-include end.mk
+include .mk/end

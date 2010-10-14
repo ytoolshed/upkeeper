@@ -4,7 +4,6 @@
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
-typedef struct 
 /* 
    Create a buddies to start and watch a processe.
 
@@ -21,7 +20,7 @@ int upk_buddy_start(
                     const char    *package,
                     const char    *service,
                     const char    *command,
-                    const char    *env[],
+                    const char    *env[]
 );
 
 /* 
