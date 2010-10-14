@@ -3,6 +3,7 @@
 #include <getopt.h>
 #include "../store/upk_db.h"
 #include <unistd.h>
+#include "controller.h"
 
 int DEBUG = 1;
 
@@ -33,11 +34,41 @@ int main(
          */
 	if( DEBUG )
 	    printf("Bootstrap mode.\n");
+
+	upk_controller_bootstrap( pdb );
     }
 
     upk_db_close( pdb );
 
     return(0);
+}
+
+/* 
+ * Status iterator callback to reset all states to 'stop'.
+ */
+void upk_db_reset_launchcallback( 
+    sqlite3 *pdb, 
+    char    *package, 
+    char    *service,
+    char    *status_desired,
+    char    *status_actual
+) {
+
+    if( status_actual != NULL &&
+	strcmp( status_actual, "start" ) == 0 ) {
+	if( DEBUG )
+	    printf( "Resetting status of service %s-%s.\n", package, service );
+        upk_db_service_actual_status( pdb, package, service, "stop" );
+    }
+}
+
+/* 
+ * Reset all services during bootstrap.
+ */
+void upk_controller_bootstrap( 
+    sqlite3 *pdb
+) {
+    upk_db_status_checker( pdb, upk_db_reset_launchcallback );
 }
 
 /* 
