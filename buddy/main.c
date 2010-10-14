@@ -4,7 +4,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
-#include "../store/upk_db.h"
+#include "store/upk_db.h"
 #include "upk_buddy.h"
 
 int DEBUG = 0;
@@ -23,16 +23,16 @@ int main(
     char    *service;
     char    *package;
     char    *cp;
-    char    *args[] = { "sleep", "30", NULL };
+    const char    *command = "./do-sleep";
 
-    rc = db_init( file, &pdb );
+    rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
  
-    pid = upk_buddy_start( pdb, "package-1", "service-1", args, args );
+    pid = upk_buddy_start( pdb, "package-1", "service-1", command, NULL);
 
     if( pid < 0 ) {
 	printf( "upk_buddy_start failed (%d)\n", pid );
