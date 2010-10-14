@@ -25,10 +25,10 @@ int main(
     /* test */
     upk_test_is( 1, 1 );
 
-    rc = db_init( file, &pdb );
+    rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
-	printf("db_init failed. Exiting.\n");
+	printf("upk_db_init failed. Exiting.\n");
 	exit(-1);
     }
  
@@ -70,6 +70,8 @@ int main(
     upk_test_eq( cp, "stop" );
 
     upk_db_status_checker( pdb, upk_db_status_checker_launchcallback );
+
+    upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" );
 
     sqlite3_close( pdb );
 

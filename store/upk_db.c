@@ -4,6 +4,7 @@
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
+#include <errno.h>
 
 #include "upk_db.h"
 
@@ -29,7 +30,7 @@ char *_upk_db_service_status(
  * exist yet.
  */
 int 
-db_init(
+upk_db_init(
     char     *file, 
     sqlite3 **ppdb 
 ) {
@@ -50,7 +51,80 @@ db_init(
 	return(rc);
     }
 
+    rc = upk_db_init_functions_define( *ppdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
     return(0);
+}
+
+/* 
+ * Close the DB connection.
+ */
+int 
+upk_db_close(
+    sqlite3 *pdb 
+) {
+    sqlite3_close( pdb );
+}
+
+/* Send a Unix signal to a process. Usage:
+ *  SELECT signal_send( pid, signal_number );
+ */
+void signal_send(
+    sqlite3_context *ctx, 
+    int              nargs, 
+    sqlite3_value  **values
+) {
+    int   signal_no;
+    int   pid;
+    int   rc;
+    char *message;
+
+    pid       = atoi( sqlite3_value_text( values[0] ) );
+    signal_no = atoi( sqlite3_value_text( values[1] ) );
+
+    if( DEBUG ) {
+        printf( "Sending signal %d to process %d\n", signal_no, pid );
+    }
+
+    rc = kill( (pid_t) pid, signal_no );
+
+    if( rc != 0 ) {
+
+        message = sqlite3_mprintf(
+	    "kill(%d, %d) failed: %s", 
+	    pid, signal_no, strerror( errno ) );
+
+	if( DEBUG ) {
+	    printf( "%s\n", message );
+	}
+
+	sqlite3_result_error( ctx, message, strlen( message ) ); 
+	sqlite3_free( message );
+	return;
+    }
+
+    sqlite3_result_int( ctx, 0 );
+}
+
+int upk_db_init_functions_define( sqlite3 *pdb ) {
+    int      rc;
+
+    /* SELECT signal_send( signal_number, pid )
+     */
+    rc = sqlite3_create_function( pdb, "signal_send", 
+	                     2,  /* args */
+			     SQLITE_UTF8, NULL,
+			     signal_send, NULL, NULL );
+    if( rc != 0 ) {
+	return( rc );
+    }
+
+    return( 0 );
 }
 
 /* 
@@ -269,6 +343,10 @@ char *upk_db_service_desired_status(
                                     UPK_STATUS_DESIRED ) );
 }
 
+/* 
+ * Test callback for the status checker, which just prints out all 
+ * entries it is called with.
+ */
 void _upk_db_status_checker_testcallback( 
     sqlite3 *pdb, 
     char    *package, 
@@ -280,6 +358,11 @@ void _upk_db_status_checker_testcallback(
             package, service, status_desired, status_actual);
 }
 
+/* 
+ * Launcher callback for the status checker. 
+ * Starts up processes with actual=stop and desired=start.
+ * Shuts down processes with actual=start and desired=stop.
+ */
 void upk_db_status_checker_launchcallback( 
     sqlite3 *pdb, 
     char    *package, 
@@ -301,6 +384,10 @@ void upk_db_status_checker_launchcallback(
     }
 }
 
+/* 
+ * Status checker iterates through all configured pkg/services in the DB and
+ * calls the provided callback functions for every entry it finds.
+ */
 void upk_db_status_checker( 
     sqlite3 *pdb, 
     void (*callback)()
