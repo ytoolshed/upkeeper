@@ -27,6 +27,54 @@ const char *_upk_db_service_status(
     int     type
 );
 
+static int db_init_functions_define( sqlite3 *pdb );
+
+/* 
+ * Initialize the DB connection, create the DB file if it doesn't 
+ * exist yet.
+ */
+int 
+upk_db_init(
+    const char     *file, 
+    sqlite3 **ppdb 
+) {
+    int      rc;
+
+      /* Check if database has been set up at all */
+    rc = open( file, O_RDONLY );
+
+    if(rc < 0) {
+	printf("Can't read DB file '%s'.\n", file);
+	return(rc);
+    }
+
+    rc = sqlite3_open( file, ppdb );
+
+    if(rc != 0) {
+	printf("sqlite3_open '%s' failed: %d\n", file, rc);
+	return(rc);
+    }
+
+    rc = db_init_functions_define( *ppdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
+    return(0);
+}
+
+/* 
+ * Close the DB connection.
+ */
+int 
+upk_db_close(
+    sqlite3 *pdb 
+) {
+    return sqlite3_close( pdb );
+}
+
 /* Send a Unix signal to a process. Usage:
  *  SELECT signal_send( pid, signal_number );
  */
@@ -369,40 +417,3 @@ void upk_db_status_checker(
 
     sqlite3_finalize( stmt );
 }
-
-/* 
- * Initialize the DB connection, create the DB file if it doesn't 
- * exist yet.
- */
-int 
-upk_db_init(
-    const char     *file, 
-    sqlite3 **ppdb 
-) {
-    int      rc;
-
-      /* Check if database has been set up at all */
-    rc = open( file, O_RDONLY );
-
-    if(rc < 0) {
-	printf("Can't read DB file '%s'.\n", file);
-	return(rc);
-    }
-
-    rc = sqlite3_open( file, ppdb );
-
-    if(rc != 0) {
-	printf("sqlite3_open '%s' failed: %d\n", file, rc);
-	return(rc);
-    }
-
-    rc = db_init_functions_define( *ppdb );
-
-    if(rc != 0) {
-	printf("Defining db extensions failed: %d\n", rc );
-	return(rc);
-    }
-
-    return(0);
-}
-

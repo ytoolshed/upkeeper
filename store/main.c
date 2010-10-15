@@ -26,7 +26,7 @@ int main(
     rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
-	printf("db_init failed. Exiting.\n");
+	printf("upk_db_init failed. Exiting.\n");
 	exit(-1);
     }
  

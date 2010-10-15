@@ -18,12 +18,15 @@
 
 int upk_db_init( const char *file, sqlite3 **ppdb );
 
+int upk_db_close(
+    sqlite3 *pdb 
+);
+
 typedef enum { 
   UP,         /* Set by buddy upon sucessful fork() */
   DOWN,       /* Set on buddy resumption after sigchld   */
   ALIVE       /* Set by */
 } process_states;
-
 
 const char *upk_db_service_actual_status( 
     sqlite3 *pdb, 
