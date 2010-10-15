@@ -1,19 +1,21 @@
 include 	begin.mk
 
-
-$(OBJS)	:= $(d)/upk_buddy.o $(d)/sigblock.o
+$(OBJS)	:= $(d)/upk_buddy.o
 $(DEPS)	:= $(OBJS_$(d):.o=.d)
-
-CLEAN	:= $(CLEAN) $(OBJS_$(d)) $(DEPS_$(d))
-
-$(BIN)	:= $(d)/upkb
+$(BIN)	:= $(d)/buddytest
 $(LIB)	:= $(d)/buddy.a 
 
-$(d)/buddy.a: $($(OBJS))
-	$(ARCH)
+CF_$(d) += -I$(d) -Istore
+LL_$(d) := store/store.a $(d)/buddy.a deps/sqlite/sqlite3.a common/common.a
 
-$(d)/upkb: $(d)/main.o store/store.a $(d)/buddy.a deps/sqlite/sqlite3.a
-	$(LINK)
+CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
+CHECK	+= $(d)/buddytest.tap
+
+$(d)/buddy.a:   $($(OBJS))
+	$(ARCH)
+$(d)/buddytest.tap: $(d)/buddytest
+$(d)/buddytest: $(d)/main.c $(LL_$(d))
+	$(COMPLINK)
 
 # Standard things
 include 	end.mk

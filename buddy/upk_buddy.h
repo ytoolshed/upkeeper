@@ -1,16 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
+
 #include <sqlite3.h>
-#include <fcntl.h>
-#include <time.h>
-#include <string.h>
+
 /* 
    Create a buddies to start and watch a processe.
-
-   * TODO:
-   Create n buddies to start and watch m processes.
-   n is implementation defined.
-   m is the length of length of struct command
 
    todo: less args
    todo: list return type / multiple arg
@@ -28,11 +20,12 @@ int upk_buddy_start(
    TODO: see buddy_start return type.
 
  */
-
 int upk_buddy_stop(
   sqlite3 *pdb, 
-  int      buddy_pid
+  const char *package,
+  const char *service
 );
+
 
 
 /*

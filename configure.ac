@@ -9,34 +9,53 @@ AC_CONFIG_HEADERS([config.h])
 # Checks for programs.
 AC_PROG_CC
 
-# The Mac's gcc wants this option to handle a external global int
-# in the shared library (the variable DEBUG) which is defined in
-# the main program
-# AX_CFLAGS_GCC_OPTION([undefined dynamic_lookup])
-AC_ARG_ENABLE(shared, [AS_HELP_STRING(
-  [--enable-shared], [build shared libraries [default=yes]])], 
-  [], [enable_shared=yes])
-if test x"$enable_threadsafe" != "xno"; then
-  THREADSAFE_FLAGS=-DSQLITE_THREADSAFE=1
-  AC_SEARCH_LIBS(pthread_create, pthread)
-fi
-AC_SUBST(THREADSAFE_FLAGS)
-
 # Checks for libraries.
-# FIXME: Replace `main' with a function in `-lsqlite3':
 AC_CHECK_LIB([sqlite3], [sqlite3_open])
 
 # Checks for header files.
 AC_CHECK_HEADERS([fcntl.h stdlib.h string.h unistd.h])
-
+AC_CHECK_HEADERS([sys/file.h sys/type.h])
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T
+AC_TYPE_UINT64_T
 
 # Checks for library functions.
-AC_CHECK_FUNCS([strerror])
+AC_CHECK_FUNCS([strerror fchdir gettimeofday mkdir mkfifo select])
 
+
+AC_CHECK_HEADERS([sys/time.h])
+AC_FUNC_FORK
+AC_FUNC_GETGROUPS
+AC_FUNC_MALLOC
+AC_FUNC_WAIT3
+AC_PROG_RANLIB
+AC_TYPE_OFF_T
+
+
+AC_DEFUN([AX_HAVE_POLL], [dnl
+  AC_MSG_CHECKING([for poll(2)])
+  AC_CACHE_VAL([ax_cv_have_poll], [dnl
+    AC_LINK_IFELSE([dnl
+      AC_LANG_PROGRAM(
+        [#include <poll.h>],
+        [int rc; rc = poll((struct pollfd *)(0), 0, 0);])],
+      [ax_cv_have_poll=yes],
+      [ax_cv_have_poll=no])])
+  AS_IF([test "${ax_cv_have_poll}" = "yes"],
+    [AC_MSG_RESULT([yes])
+$1],[AC_MSG_RESULT([no])
+$2])
+])dnl
+
+
+AX_HAVE_POLL([AC_DEFINE([HAVE_POLL],[],[System includes poll(2)])],[])
 AC_CONFIG_FILES([Makefile
 		 buddy/Makefile
                  controller/Makefile
                  store/Makefile])
+
+
+
 AC_OUTPUT
+
+

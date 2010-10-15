@@ -91,3 +91,15 @@ int upk_test_eq(
     const char *is,
     const char *should
 );
+int upk_test_isnt(
+    int is,
+    int shouldnt 
+);
+
+const char *upk_db_service_run( 
+    sqlite3 *pdb, 
+    const char    *package, 
+    const char    *service,
+    const char    *cmdline,
+    int   pid
+                                );

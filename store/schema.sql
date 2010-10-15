@@ -2,6 +2,9 @@ DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS processes;
 
+
+
+
 CREATE TABLE procruns (
     id            INTEGER PRIMARY KEY,
     cmdline       VARCHAR,
@@ -28,3 +31,16 @@ CREATE TABLE events (
     FOREIGN KEY (service_id)
         REFERENCES service(id)
 );
+
+CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
+WHEN   new.state_desired = 'stop'
+       BEGIN
+              INSERT INTO events
+              (etime,event,service_id)
+              SELECT     datetime('now'),
+                         'kill' + procruns.pid + signal_send(procruns.pid,15),
+                         new.id
+              FROM  procruns 
+              WHERE new.procrun_id    = procruns.id;
+       END
+ ;

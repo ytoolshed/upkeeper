@@ -25,6 +25,20 @@ int upk_test_is(
     return( 0 );
 }
 
+int upk_test_isnt(
+                  int is,
+                  int shouldnt 
+                  ) {
+    if(is != shouldnt) {
+        printf("ok %d\n", ++TESTS);
+    } else {
+        printf("not ok %d\n", ++TESTS);
+        printf(" shouldnt be '%d' but is\n", shouldnt, is);
+    }
+
+    return( 0 );
+}  
+
 int upk_test_eq(
     const char *is,
     const char *should

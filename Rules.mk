@@ -1,7 +1,4 @@
-# Standard stuff
-all:		targets
-
-
+CHECK :=
 # Subdirectories, in random order
 dir	:= buddy
 include		$(dir)/Rules.mk
@@ -9,20 +6,15 @@ dir	:= store
 include		$(dir)/Rules.mk
 dir	:= deps
 include		$(dir)/Rules.mk
+dir	:= common
+include		$(dir)/Rules.mk
 
 CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB)
 
 
-
-# General directory independent rules
-
-.c.o:		
-		$(COMP)
-
-
-
-# The variables TGT_*, CLEAN and CMD_INST* may be added to by the Makefile
+# The variables TGT_*, CHECK, CLEAN and CMD_INST* may be added to by the Makefile
 # fragments in the various subdirectories.
+# The variables
 
 .PHONY:		targets
 targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
@@ -31,9 +23,20 @@ targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
 clean:
 		rm -f $(CLEAN)
 
+check:		$(CHECK)
+
+install:
 # Prevent make from removing any build targets, including intermediate ones
 
 .SECONDARY:	$(CLEAN)
 
 echo-%: 
 	echo $* $($*)
+
+
+.c.o: 	
+	$(COMP)
+
+
+.t.tap:
+	$< | tee $@

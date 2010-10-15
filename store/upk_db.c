@@ -95,7 +95,6 @@ void signal_send(
         printf( "Sending signal %d to process %d\n", signal_no, pid );
         
     }
-
     rc = kill( pid, signal_no );
 
     if( rc != 0 ) {
@@ -329,6 +328,35 @@ const char *upk_db_service_actual_status(
 ) {
     return( _upk_db_service_status( pdb, package, service, new_status, 
                                     UPK_STATUS_ACTUAL ) );
+}
+
+/* 
+ * Get/Set the a actual status of a service.
+ */
+const char *upk_db_service_run( 
+    sqlite3 *pdb, 
+    const char    *package, 
+    const char    *service,
+    const char    *cmdline,
+    int   pid
+) {
+  const char *status;
+  const char *id;
+  int service_id;
+  service_id = upk_db_service_find_or_create( pdb, package, service );
+  _upk_db_service_status( pdb, package, service, "start", 
+                          UPK_STATUS_ACTUAL);
+  char *sql =     
+    sqlite3_mprintf(
+                    "INSERT INTO procruns (cmdline,pid) "
+                    "values (%Q, %d)",
+                    cmdline,pid);
+  status = upk_db_exec_single( pdb, sql );
+  id = upk_db_exec_single( pdb, "SELECT last_insert_rowid();" );  
+
+  sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
+                        "WHERE id = %d ", id,service_id);
+  status = upk_db_exec_single( pdb, sql );
 }
 
 /* 
