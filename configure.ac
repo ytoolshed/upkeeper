@@ -13,6 +13,14 @@ AC_PROG_CC
 # in the shared library (the variable DEBUG) which is defined in
 # the main program
 # AX_CFLAGS_GCC_OPTION([undefined dynamic_lookup])
+AC_ARG_ENABLE(shared, [AS_HELP_STRING(
+  [--enable-shared], [build shared libraries [default=yes]])], 
+  [], [enable_shared=yes])
+if test x"$enable_threadsafe" != "xno"; then
+  THREADSAFE_FLAGS=-DSQLITE_THREADSAFE=1
+  AC_SEARCH_LIBS(pthread_create, pthread)
+fi
+AC_SUBST(THREADSAFE_FLAGS)
 
 # Checks for libraries.
 # FIXME: Replace `main' with a function in `-lsqlite3':

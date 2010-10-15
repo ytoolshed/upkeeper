@@ -7,6 +7,8 @@ dir	:= buddy
 include		$(dir)/Rules.mk
 dir	:= store
 include		$(dir)/Rules.mk
+dir	:= deps
+include		$(dir)/Rules.mk
 
 CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB)
 
@@ -14,14 +16,9 @@ CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB)
 
 # General directory independent rules
 
-%.o:		%.c
+.c.o:		
 		$(COMP)
 
-%:		%.o
-		$(LINK)
-
-%:		%.c
-		$(COMPLINK)
 
 
 # The variables TGT_*, CLEAN and CMD_INST* may be added to by the Makefile

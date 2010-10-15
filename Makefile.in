@@ -1,7 +1,17 @@
+SHELL           = @SHELL@
+CFLAGS          = -g -Wall -I. -MD
+LDFLAGS         = 
+LDLIBS          =
 
 all:
 
-AUTOCONF_LEFTOVERS=autom4te.cache autoscan.log config.h config.h.in~ config.log config.status Makefile */Makefile
+AUTOCONF_LEFTOVERS=autom4te.cache autoscan.log config.h config.h.in~ config.log config.status */Makefile
 
 clean:
-	rm -rf $(AUTOCONF_LEFTOVERS)
+	
+
+distclean:
+	rm -f $(AUTOCONF_LEFTOVERS) Makefile
+
+
+
