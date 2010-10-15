@@ -39,4 +39,4 @@ echo-%:
 
 
 .t.tap:
-	$< | tee $@
+	exec $< > $@

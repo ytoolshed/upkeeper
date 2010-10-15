@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <sqlite3.h>
 #include "common/sig.h"
 #include "common/iopause.h"
@@ -63,9 +64,7 @@ void idle (sqlite3 *db,
   for (;;) {
     taia_uint(&deadline,3600);
 
-    if (sd_config && sd_config->wait) {
-      if (sd_config->wait == -1) break;
-
+    if (sd_config && sd_config->wait != -1) {
       kill(childpid,sd_config->signal);
       taia_uint(&deadline,sd_config->wait);
       sd_config++;
@@ -80,18 +79,19 @@ void idle (sqlite3 *db,
 
     sig_block(sig_child);
     sig_block(sig_term);
-    read(selfpipe[0],&sig,1);
-    
-    for (;;) {
-      pid = wait_nohang();
-      if (!pid) break;
-      if (pid == -1 && errno != EINTR) break;
+    if (read(selfpipe[0],&sig,1) > 0) {
+      if (sig == sig_term && !sd_config) {
+        sd_config = get_shutdown(package,service);
+      }
+    }
+
+    pid = wait_nohang();
+    if (pid) {
       upk_db_service_actual_status(db, package, service, 
                                    UPK_STATUS_VALUE_STOP);
-    } 
-    if (sig == sig_term && !sd_config) {
-      sd_config = get_shutdown(package,service);
+      break;
     }
+
     sig_unblock(sig_child);
     sig_unblock(sig_term);
 
@@ -114,6 +114,7 @@ int upk_buddy_start(
 ) {
   int ppipe[2];
   int pid;
+  int w;
   char f;
   if (pipe(ppipe) == -1) {
     strerr_warn4(WARNING," pipe for ",service," failed : ",&strerr_sys);
@@ -134,23 +135,23 @@ int upk_buddy_start(
 
   pid = fork();
   if (-1 == pid)  {
-    pid = write(ppipe[1],"fork failed",1);
+    w = write(ppipe[1],"fork failed",1);
     exit(123);
   }
   if (pid == 0) {
     execle(command, command, NULL, env);
-    pid = write(ppipe[1],"exec failed",1);
+    w = write(ppipe[1],"exec failed",1);
     exit(123);
   }
   if (pipe(selfpipe) == -1) { 
-    pid = write(ppipe[1],"pipe failed",1);
+    w = write(ppipe[1],"pipe failed",1);
     exit(123);
   }
   ndelay_on(selfpipe[0]);
   ndelay_on(selfpipe[1]);
   sig_catch(sig_child,handler);
   sig_catch(sig_term,handler);
-  pid = write(ppipe[1],"u",1);
+  w = write(ppipe[1],"u",1);
   close(ppipe[1]);
   idle(pdb, pid, package, service);
   exit(0);
