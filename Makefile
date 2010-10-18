@@ -1,6 +1,6 @@
-SHELL           = /bin/bash
-CF_ALL	        = -g -O2  -MD -I. -ldl
-LDFLAGS         = 
+SHELL           = /bin/sh
+CF_ALL	        = -g -O2  -MD -I. 
+LF_ALL          = -ldl
 LDLIBS          =
 CC		= gcc
 
@@ -9,7 +9,7 @@ CC		= gcc
 
 COMP            = $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
 LINK            = $(CC) $(CF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) $(LL_DIR)
-COMPLINK        = $(CC) $(CF_ALL) $(CF_TGT) $(LF_DIR) $(LF_TGT) -o $@ $^ $(LL_TGT) 
+COMPLINK        = $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) 
 ARCH		= $(AR) $(ARFLAGS) $@ $^
 
 
