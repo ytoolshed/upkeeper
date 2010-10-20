@@ -7,7 +7,7 @@ $(DEPS)		:= $(OBJS_$(d):.o=.d)
 $(BIN)		:= $(d)/upk
 $(LIB)		:= $(d)/store.a
 
-$(d)/upk: $(d)/main.o $(d)/store.a deps/sqlite/sqlite3.a
+$(d)/upk: $(d)/main.c $(d)/store.a deps/sqlite/sqlite3.a
 	$(COMPLINK)
 
 $(d)/store.a: $($(OBJS))
