@@ -8,6 +8,8 @@ dir	:= deps
 include		$(dir)/Rules.mk
 dir	:= common
 include		$(dir)/Rules.mk
+dir	:= controller
+include		$(dir)/Rules.mk
 
 CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB)
 
