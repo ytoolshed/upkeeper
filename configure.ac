@@ -1,7 +1,7 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.65])
+AC_PREREQ([2.59])
 AC_INIT([upkeeper], [0.01])
 AC_CONFIG_SRCDIR([buddy/upk_buddy.h])
 AC_CONFIG_HEADERS([config.h])
@@ -17,7 +17,7 @@ AC_CHECK_HEADERS([fcntl.h stdlib.h string.h unistd.h])
 AC_CHECK_HEADERS([sys/file.h sys/type.h])
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_PID_T
-AC_TYPE_UINT64_T
+#AC_TYPE_UINT64_T
 
 # Checks for library functions.
 AC_CHECK_FUNCS([strerror fchdir gettimeofday mkdir mkfifo select])
@@ -50,11 +50,7 @@ $2])
 
 AX_HAVE_POLL([AC_DEFINE([HAVE_POLL],[],[System includes poll(2)])],[])
 AC_CONFIG_FILES([Makefile
-		 buddy/Makefile
-                 controller/Makefile
-                 store/Makefile])
-
-
+                ])
 
 AC_OUTPUT
 
