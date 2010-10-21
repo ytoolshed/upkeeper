@@ -10,6 +10,7 @@
 int DEBUG        = 0;
 int OPT_ALL_UP   = 0;
 int OPT_ALL_DOWN = 0;
+int OPT_HELP     = 0;
 
 int main( 
     int   argc, 
@@ -22,8 +23,14 @@ int main(
     char    *service;
     char    *package;
     const char    *cp;
+    int      nof_options;
 
-    options_parse( argc, argv );
+    nof_options = options_parse( argc, argv );
+
+    if( nof_options == 0 || OPT_HELP ) {
+	help();
+	exit( 0 );
+    }
 
     rc = upk_db_init( file, &pdb );
 
@@ -65,12 +72,14 @@ int options_parse(
 ) {
     int c;
     int option_index;
+    int nof_options = 0;
+
     static struct option long_options[] = {
         { "all-up",   0, &OPT_ALL_UP,   1 },
         { "all-down", 0, &OPT_ALL_DOWN, 1 },
+        { "help",     0, &OPT_HELP, 1 },
 	{ 0, 0, 0, 0 }
     };
-
 
     if( DEBUG ) {
         printf( "Parsing command line options\n" );
@@ -84,5 +93,20 @@ int options_parse(
         if( c == -1 ) {
             break;
         }
+
+	nof_options++;
     }
+
+    return nof_options;
+}
+
+/*
+ * Print Help
+ */
+int help( ) {
+    printf("usage: upk [options]\n\n");
+
+    printf(" --help:     Print this help page\n");
+    printf(" --all-up:   Set all services to 'start'\n");
+    printf(" --all-down: Set all services to 'stop'\n");
 }
