@@ -18,7 +18,7 @@ $(d)/store.a: $($(OBJS))
 CLEAN		:= $(CLEAN) store.sqlite
 
 $(d)/store-test: $(d)/main.c $(LL_$(d))
-	$(COMPLINK)
+	$(COMPLINK) $(LL_store)
 
 # Standard things
 

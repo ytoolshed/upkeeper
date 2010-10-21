@@ -13,7 +13,7 @@ CHECK	+= $(d)/uptop.tap
 
 $(d)/uptop.tap: $(d)/uptop
 $(d)/uptop: $(d)/main.c $(LL_$(d))
-	$(COMPLINK)
+	$(COMPLINK) $(LL_uptop)
 
 # Standard things
 include 	end.mk

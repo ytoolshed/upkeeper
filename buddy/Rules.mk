@@ -14,7 +14,7 @@ $(d)/buddy.a:   $($(OBJS))
 	$(ARCH)
 $(d)/buddytest.tap: $(d)/buddytest
 $(d)/buddytest: $(d)/main.c $(LL_$(d))
-	$(COMPLINK)
+	$(COMPLINK) $(LL_buddy)
 
 # Standard things
 include 	end.mk
