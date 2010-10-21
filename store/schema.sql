@@ -35,6 +35,7 @@ CREATE TABLE events (
 CREATE TABLE listeners (
     id        INTEGER PRIMARY KEY,
     component VARCHAR,
+    signal    INTEGER,
     pid       INTEGER
 );
 

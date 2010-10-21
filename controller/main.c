@@ -38,6 +38,9 @@ int main(
 	upk_controller_bootstrap( pdb );
     }
 
+    /* Notify all listeners */
+    upk_db_listener_send_all_signals( pdb );
+
     upk_db_close( pdb );
 
     return(0);

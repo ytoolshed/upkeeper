@@ -108,7 +108,8 @@ int
 upk_db_listener_add(
     sqlite3    *pdb, 
     const char *component, 
-    int         pid
+    int         pid,
+    int         signal
 );
 
 int 
@@ -119,6 +120,8 @@ upk_db_listener_remove(
 
 void upk_db_listener_checker( 
     sqlite3 *pdb, 
-    char    *component,
     void (*callback)()
 );
+
+void upk_db_listener_send_all_signals( sqlite3 *pdb );
+

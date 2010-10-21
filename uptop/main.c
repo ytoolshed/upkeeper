@@ -8,6 +8,8 @@
 #include <ncurses.h>
 #include <time.h>
 
+#define COMPONENT "uptop"
+
 int        DEBUG = 0;
 sqlite3   *PDB;
 static int OPT_VERSION = 0;
@@ -36,6 +38,10 @@ int main(
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
+
+    /* Register with the upkeeper listener service */
+    upk_db_listener_remove( PDB, COMPONENT ); /* remove previous leftovers */
+    upk_db_listener_add( PDB, COMPONENT, getpid(), SIGUSR1 );
 
     (void) signal( SIGUSR1, uptop_signal_handler );
 

@@ -455,14 +455,15 @@ int
 upk_db_listener_add(
     sqlite3    *pdb, 
     const char *component, 
-    int         pid
+    int         pid,
+    int         signal
 ) {
-    int    rc;
-    char  *zErr;
+    int   rc;
+    char *zErr;
     char *sql = sqlite3_mprintf(
-	          "INSERT INTO listeners (component, pid) "
-                  "values (%Q, %d)",
-	        component, pid );
+	          "INSERT INTO listeners (component, pid, signal) "
+                  "values (%Q, %d, %d)",
+	        component, pid, signal );
 
     rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
 
@@ -506,16 +507,15 @@ upk_db_listener_remove(
  * Visit all listeners for a component and call a callback with the pid
  * each time.
  */
-void upk_db_listener_checker( 
+void upk_db_listener_visitor( 
     sqlite3 *pdb, 
-    char    *component,
     void (*callback)()
 ) {
     const char   *sql;
     sqlite3_stmt *stmt;
     int           rc, ncols;
 
-    sql = "SELECT component, pid "
+    sql = "SELECT component, pid, signal "
           "FROM listeners "
 	  ";";
 
@@ -525,12 +525,40 @@ void upk_db_listener_checker(
     rc = sqlite3_step( stmt );
 
     while( rc == SQLITE_ROW ) {
-        (*callback)( pdb, 
+        (*callback)( pdb,
                 sqlite3_column_text( stmt, 0 ),
-                sqlite3_column_text( stmt, 1 )
+                sqlite3_column_int( stmt, 1 ),
+                sqlite3_column_int( stmt, 2 )
                 );
         rc = sqlite3_step( stmt );
     }
 
     sqlite3_finalize( stmt );
+}
+
+/* 
+ * Callback to send signals to listeners
+ */
+void _upk_db_listener_signal_callback( 
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid,
+    int         signal
+) {
+    if( DEBUG ) {
+        printf( "Sending signal to component %s: kill %d %d\n",
+            component, pid, signal );
+    }
+    
+    /* best effort only, don't care if that process actually exists */
+    kill( pid, signal );
+}
+
+/* 
+ * Deliver all signals
+ */
+void upk_db_listener_send_all_signals(
+    sqlite3    *pdb
+) {
+    upk_db_listener_visitor( pdb, _upk_db_listener_signal_callback );
 }
