@@ -13,6 +13,7 @@ sqlite3   *PDB;
 static int OPT_VERSION = 0;
 
 void uptop_signal_handler( int sig );
+const char *time_as_string();
 
 int main(
     int   argc, 
@@ -143,9 +144,6 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
-    const time_t now     = time( NULL );
-    const char *time_str = ctime( &now );
-
     clear();
     attron( A_BOLD );
     printw( "upkeeper 1.0 dashboard\n\n" );
@@ -154,8 +152,18 @@ void uptop_services_print(
     printw( "----------------------------------------\n" );
     upk_db_status_checker( pdb, uptop_print_callback );
     printw( "----------------------------------------\n" );
-    printw( "Updated at: %s\n", time_str );
+    printw( "Updated at: %s\n", time_as_string() );
 
     refresh(); /* Update Curses */
 }
 
+/* 
+ * Get current time as string
+ */
+const char *time_as_string (
+) {
+    const time_t now     = time( NULL );
+    const char *time_str = ctime( &now );
+
+    return time_str;
+}
