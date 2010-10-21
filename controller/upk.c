@@ -11,6 +11,7 @@ int DEBUG        = 0;
 int OPT_ALL_UP   = 0;
 int OPT_ALL_DOWN = 0;
 int OPT_HELP     = 0;
+int OPT_INIT     = 0;
 
 int main( 
     int   argc, 
@@ -22,7 +23,6 @@ int main(
     int      i;
     char    *service;
     char    *package;
-    const char    *cp;
     int      nof_options;
 
     nof_options = options_parse( argc, argv );
@@ -39,6 +39,20 @@ int main(
 	exit(-1);
     }
  
+    if( OPT_INIT ) {
+
+        upk_db_clear( pdb );
+
+        for( i=0; i<=5; i++ ) {
+            service = sqlite3_mprintf("service-%d", i);
+            package = sqlite3_mprintf("package-%d", i);
+            upk_db_service_actual_status( pdb, package, service, "stop");
+            upk_db_service_desired_status( pdb, package, service, "start");
+            sqlite3_free( service );
+            sqlite3_free( package );
+        }
+    }
+
     if( OPT_ALL_UP || OPT_ALL_DOWN ) {
 
 	char *status = "start";
@@ -78,6 +92,7 @@ int options_parse(
         { "all-up",   0, &OPT_ALL_UP,   1 },
         { "all-down", 0, &OPT_ALL_DOWN, 1 },
         { "help",     0, &OPT_HELP, 1 },
+        { "init",     0, &OPT_INIT, 1 },
 	{ 0, 0, 0, 0 }
     };
 

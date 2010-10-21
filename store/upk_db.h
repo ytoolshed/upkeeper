@@ -136,3 +136,7 @@ _upk_db_dead_listener_remove_callback(
 void upk_db_listener_remove_dead(
     sqlite3    *pdb
 );
+
+void upk_db_clear(
+    sqlite3    *pdb
+);

@@ -606,3 +606,15 @@ void upk_db_listener_remove_dead(
 ) {
     upk_db_listener_visitor( pdb, _upk_db_dead_listener_remove_callback );
 }
+
+/* 
+ * Wipe all DB tables
+ */
+void upk_db_clear(
+    sqlite3    *pdb
+) {
+    upk_db_exec_single( pdb, "DELETE FROM procruns;" );
+    upk_db_exec_single( pdb, "DELETE FROM services;" );
+    upk_db_exec_single( pdb, "DELETE FROM listeners;" );
+    upk_db_exec_single( pdb, "DELETE FROM events;" );
+}

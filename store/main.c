@@ -40,7 +40,7 @@ int main(
     for( i=0; i<=5; i++ ) {
         service = sqlite3_mprintf("service-%d", i);
         package = sqlite3_mprintf("package-%d", i);
-        upk_db_service_actual_status( pdb, package, service, "stop");
+        upk_db_service_actual_status( pdb, package, service, "start");
         upk_db_service_desired_status( pdb, package, service, "start");
         sqlite3_free( service );
         sqlite3_free( package );
@@ -69,7 +69,9 @@ int main(
 
     upk_db_status_checker( pdb, upk_db_status_checker_launchcallback );
 
-    upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" );
+    /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
+
+    upk_db_listener_send_all_signals( pdb );
 
     sqlite3_close( pdb );
 
