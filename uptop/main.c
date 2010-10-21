@@ -4,33 +4,52 @@
 #include "../store/upk_db.h"
 #include <unistd.h>
 #include "uptop.h"
+#include <signal.h>
 
-int DEBUG = 0;
+int        DEBUG = 0;
+sqlite3   *PDB;
+static int OPT_VERSION = 0;
 
-static OPT_VERSION = 0;
+void uptop_signal_handler( int sig );
 
 int main(
     int   argc, 
     char *argv[] 
 ) {
-    sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
 
     options_parse( argc, argv );
 
-    rc = upk_db_init( file, &pdb );
+    rc = upk_db_init( file, &PDB );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
 
-    uptop_services_print( pdb );
+    printf("HUP me at pid %d\n", getpid());
 
-    upk_db_close( pdb );
+    (void) signal( SIGUSR1, uptop_signal_handler );
+
+    uptop_services_print( PDB );
+
+    while(1) {
+        sleep( 60 );
+    }
+
+    upk_db_close( PDB );
 
     return(0);
+}
+
+/* 
+ * Handle refresh signal
+ */
+void uptop_signal_handler(
+    int sig
+) {
+    uptop_services_print( PDB );
 }
 
 /* 
@@ -93,6 +112,8 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
+    printf("----------------------------------------\n");
     upk_db_status_checker( pdb, uptop_print_callback );
+    printf("----------------------------------------\n");
 }
 
