@@ -447,3 +447,90 @@ void upk_db_status_checker(
 
     sqlite3_finalize( stmt );
 }
+
+/* 
+ * Add a listener for a component. Nuke all existing ones for this component.
+ */
+int 
+upk_db_listener_add(
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid
+) {
+    int    rc;
+    char  *zErr;
+    char *sql = sqlite3_mprintf(
+	          "INSERT INTO listeners (component, pid) "
+                  "values (%Q, %d)",
+	        component, pid );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener insert failed: %s\n", zErr);
+	return( UPK_ERROR_INTERNAL );
+    }
+
+    sqlite3_free( sql );
+
+    return( 0 );
+}
+
+/* 
+ * Remove all listeners for a component.
+ */
+int 
+upk_db_listener_remove(
+    sqlite3    *pdb, 
+    const char *component
+) {
+    int    rc;
+    char  *zErr;
+    char *sql = sqlite3_mprintf(
+	          "DELETE FROM listeners WHERE component = %Q",
+	        component );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener remove failed: %s\n", zErr);
+	return( UPK_ERROR_INTERNAL );
+    }
+
+    sqlite3_free( sql );
+
+    return( 0 );
+}
+
+/* 
+ * Visit all listeners for a component and call a callback with the pid
+ * each time.
+ */
+void upk_db_listener_checker( 
+    sqlite3 *pdb, 
+    char    *component,
+    void (*callback)()
+) {
+    const char   *sql;
+    sqlite3_stmt *stmt;
+    int           rc, ncols;
+
+    sql = "SELECT component, pid "
+          "FROM listeners "
+	  ";";
+
+    sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
+
+    ncols = sqlite3_column_count( stmt );
+    rc = sqlite3_step( stmt );
+
+    while( rc == SQLITE_ROW ) {
+        (*callback)( pdb, 
+                sqlite3_column_text( stmt, 0 ),
+                sqlite3_column_text( stmt, 1 )
+                );
+        rc = sqlite3_step( stmt );
+    }
+
+    sqlite3_finalize( stmt );
+}

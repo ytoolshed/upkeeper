@@ -102,4 +102,23 @@ const char *upk_db_service_run(
     const char    *service,
     const char    *cmdline,
     int   pid
-                                );
+);
+
+int 
+upk_db_listener_add(
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid
+);
+
+int 
+upk_db_listener_remove(
+    sqlite3    *pdb, 
+    const char *component
+);
+
+void upk_db_listener_checker( 
+    sqlite3 *pdb, 
+    char    *component,
+    void (*callback)()
+);

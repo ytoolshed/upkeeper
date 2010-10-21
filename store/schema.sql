@@ -33,8 +33,9 @@ CREATE TABLE events (
 );
 
 CREATE TABLE listeners (
-    id         INTEGER PRIMARY KEY,
-    pid        INTEGER
+    id        INTEGER PRIMARY KEY,
+    component VARCHAR,
+    pid       INTEGER
 );
 
 CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
