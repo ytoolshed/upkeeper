@@ -14,6 +14,8 @@ static int OPT_VERSION = 0;
 
 void uptop_signal_handler( int sig );
 const char *time_as_string();
+void clock_update ();
+void cursor_corner ();
 
 int main(
     int   argc, 
@@ -49,6 +51,9 @@ int main(
 	if( ch != ERR ) {
 	    break;
 	}
+
+        clock_update();
+	cursor_corner();
     }
 
     upk_db_close( PDB );
@@ -144,6 +149,8 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
+    int x,y;
+
     clear();
     attron( A_BOLD );
     printw( "upkeeper 1.0 dashboard\n\n" );
@@ -152,9 +159,38 @@ void uptop_services_print(
     printw( "----------------------------------------\n" );
     upk_db_status_checker( pdb, uptop_print_callback );
     printw( "----------------------------------------\n" );
+
+    getmaxyx( stdscr, y, x );
+
+    move(y-2, 0);
     printw( "Updated at: %s\n", time_as_string() );
 
     refresh(); /* Update Curses */
+}
+
+/* 
+ * Update the ticking clock
+ */
+void clock_update (
+) {
+    int x,y;
+
+    getmaxyx( stdscr, y, x );
+
+    move(y-1, 0);
+    printw( "Time now  : %s\n", time_as_string() );
+}
+
+/* 
+ * Put the cursor in the corner
+ */
+void cursor_corner (
+) {
+    int x,y;
+
+    getmaxyx( stdscr, y, x );
+
+    move(y-1, x-1);
 }
 
 /* 
