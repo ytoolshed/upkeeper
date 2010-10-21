@@ -5,9 +5,10 @@
 #include <unistd.h>
 #include "controller.h"
 
-int DEBUG = 1;
+int DEBUG = 0;
 
-static OPT_BOOTSTRAP = 0;
+static int OPT_BOOTSTRAP        = 0;
+static int OPT_SIGNAL_LISTENERS = 0;
 
 int main( 
     int   argc, 
@@ -26,11 +27,15 @@ int main(
 	exit(-1);
     }
 
-    /* In bootstrap mode, reset all process entries in the DB to 
-     * "down" to start with a clean slate.
-     */
+    if( OPT_SIGNAL_LISTENERS ) {
+	/* Just signal all registered listeners and exit */
+        upk_db_listener_send_all_signals( pdb );
+	goto SHUTDOWN;
+    }
+
     if( OPT_BOOTSTRAP ) {
-        /* 
+        /* In bootstrap mode, reset all process entries in the DB to 
+         * "down" to start with a clean slate.
          */
 	if( DEBUG )
 	    printf("Bootstrap mode.\n");
@@ -41,6 +46,7 @@ int main(
     /* Notify all listeners */
     upk_db_listener_send_all_signals( pdb );
 
+SHUTDOWN:
     upk_db_close( pdb );
 
     return(0);
@@ -85,6 +91,7 @@ int options_parse(
     int option_index;
     static struct option long_options[] = {
         { "bootstrap", 0, &OPT_BOOTSTRAP, 1 },
+        { "signal-listeners", 0, &OPT_SIGNAL_LISTENERS, 1 },
 	{ 0, 0, 0, 0 }
     };
 
