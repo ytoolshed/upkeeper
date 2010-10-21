@@ -6,6 +6,7 @@
 #include "uptop.h"
 #include <signal.h>
 #include <ncurses.h>
+#include <time.h>
 
 int        DEBUG = 0;
 sqlite3   *PDB;
@@ -133,6 +134,9 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
+    const time_t now     = time( NULL );
+    const char *time_str = ctime( &now );
+
     clear();
     attron( A_BOLD );
     printw( "upkeeper 1.0 dashboard\n\n" );
@@ -141,6 +145,7 @@ void uptop_services_print(
     printw( "----------------------------------------\n" );
     upk_db_status_checker( pdb, uptop_print_callback );
     printw( "----------------------------------------\n" );
+    printw( "Updated at: %s\n", time_str );
 
     refresh(); /* Update Curses */
 }
