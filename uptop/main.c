@@ -31,14 +31,13 @@ int main(
 	exit(-1);
     }
 
-    printw("USR1 me at pid %d\n", getpid());
-
     (void) signal( SIGUSR1, uptop_signal_handler );
 
     uptop_services_print( PDB );
 
     while(1) {
-        sleep( 60 );
+	/* use select for higher granularity */
+        sleep( 1 );
     }
 
     upk_db_close( PDB );
@@ -88,7 +87,13 @@ void uptop_print_callback(
     fq_service = sqlite3_mprintf(
 	    "%s-%s", package, service);
 
-    printw( "%-20s: %-5s [%-5s]\n", fq_service, status_actual, status_desired );
+    printw( "%-20s: ", fq_service );
+    if( strcmp( status_actual, status_desired ) != 0 ) {
+	attron( A_BOLD );
+    }
+    printw( "%-5s", status_actual );
+    attroff( A_BOLD );
+    printw( " [%-5s]\n", status_desired );
 
     sqlite3_free( fq_service );
 }
@@ -128,9 +133,14 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
-    printw("----------------------------------------\n");
+    clear();
+    attron( A_BOLD );
+    printw( "upkeeper 1.0 dashboard\n\n" );
+    attroff( A_BOLD );
+    printw( "USR1 me at pid %d\n", getpid() );
+    printw( "----------------------------------------\n" );
     upk_db_status_checker( pdb, uptop_print_callback );
-    printw("----------------------------------------\n");
+    printw( "----------------------------------------\n" );
 
     refresh(); /* Update Curses */
 }
