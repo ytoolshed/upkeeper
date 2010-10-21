@@ -32,6 +32,11 @@ CREATE TABLE events (
         REFERENCES service(id)
 );
 
+CREATE TABLE listeners (
+    id         INTEGER PRIMARY KEY,
+    pid        INTEGER
+);
+
 CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
 WHEN   new.state_desired = 'stop'
        BEGIN
