@@ -485,8 +485,8 @@ upk_db_listener_remove(
     sqlite3    *pdb, 
     const char *component
 ) {
-    int    rc;
-    char  *zErr;
+    int   rc;
+    char *zErr;
     char *sql = sqlite3_mprintf(
 	          "DELETE FROM listeners WHERE component = %Q",
 	        component );
@@ -501,6 +501,41 @@ upk_db_listener_remove(
     sqlite3_free( sql );
 
     return( 0 );
+}
+
+/* 
+ * Visitor callback to remove a dead listener.
+ */
+void 
+_upk_db_dead_listener_remove_callback(
+    sqlite3    *pdb,
+    const char *component,
+    int         pid,
+    int         signal
+) {
+    int   rc;
+    char *zErr;
+    char *sql;
+   
+    if( kill( pid, 0 ) == 0 ) {
+	/* Process is alive, ignore */
+	return;
+    }
+
+    sql = sqlite3_mprintf(
+	          "DELETE FROM listeners WHERE pid = %d",
+	        pid );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener remove failed: %s\n", zErr);
+	return;
+    }
+
+    sqlite3_free( sql );
+
+    return;
 }
 
 /* 
@@ -561,4 +596,13 @@ void upk_db_listener_send_all_signals(
     sqlite3    *pdb
 ) {
     upk_db_listener_visitor( pdb, _upk_db_listener_signal_callback );
+}
+
+/* 
+ * Remove dead listeners
+ */
+void upk_db_listener_remove_dead(
+    sqlite3    *pdb
+) {
+    upk_db_listener_visitor( pdb, _upk_db_dead_listener_remove_callback );
 }

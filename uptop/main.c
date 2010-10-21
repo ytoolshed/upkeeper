@@ -40,7 +40,9 @@ int main(
     }
 
     /* Register with the upkeeper listener service */
-    upk_db_listener_remove( PDB, COMPONENT ); /* remove previous leftovers */
+
+      /* remove previous leftovers */
+    upk_db_listener_remove_dead( PDB ); 
     upk_db_listener_add( PDB, COMPONENT, getpid(), SIGUSR1 );
 
     (void) signal( SIGUSR1, uptop_signal_handler );

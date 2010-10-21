@@ -125,3 +125,14 @@ void upk_db_listener_checker(
 
 void upk_db_listener_send_all_signals( sqlite3 *pdb );
 
+void 
+_upk_db_dead_listener_remove_callback(
+    sqlite3    *pdb,
+    const char *component,
+    int         pid,
+    int         signal
+);
+
+void upk_db_listener_remove_dead(
+    sqlite3    *pdb
+);
