@@ -5,6 +5,7 @@
 #include <unistd.h>
 #include "uptop.h"
 #include <signal.h>
+#include <ncurses.h>
 
 int        DEBUG = 0;
 sqlite3   *PDB;
@@ -21,6 +22,8 @@ int main(
 
     options_parse( argc, argv );
 
+    initscr(); /* Curses init */
+
     rc = upk_db_init( file, &PDB );
 
     if(rc < 0) {
@@ -28,7 +31,7 @@ int main(
 	exit(-1);
     }
 
-    printf("HUP me at pid %d\n", getpid());
+    printw("USR1 me at pid %d\n", getpid());
 
     (void) signal( SIGUSR1, uptop_signal_handler );
 
@@ -40,6 +43,8 @@ int main(
 
     upk_db_close( PDB );
 
+    endwin(); /* Curses exit */
+
     return(0);
 }
 
@@ -49,7 +54,18 @@ int main(
 void uptop_signal_handler(
     int sig
 ) {
-    uptop_services_print( PDB );
+    switch( sig ) {
+        case SIGUSR1:
+            initscr();
+            refresh();
+            uptop_services_print( PDB );
+            break;
+        case SIGTERM:
+            endwin(); /* Curses exit */
+            upk_db_close( PDB );
+            exit( 0 );
+            break;
+    }
 }
 
 /* 
@@ -72,7 +88,7 @@ void uptop_print_callback(
     fq_service = sqlite3_mprintf(
 	    "%s-%s", package, service);
 
-    printf( "%-20s: %-5s [%-5s]\n", fq_service, status_actual, status_desired );
+    printw( "%-20s: %-5s [%-5s]\n", fq_service, status_actual, status_desired );
 
     sqlite3_free( fq_service );
 }
@@ -112,8 +128,10 @@ int options_parse(
 void uptop_services_print(
     sqlite3 *pdb
 ) {
-    printf("----------------------------------------\n");
+    printw("----------------------------------------\n");
     upk_db_status_checker( pdb, uptop_print_callback );
-    printf("----------------------------------------\n");
+    printw("----------------------------------------\n");
+
+    refresh(); /* Update Curses */
 }
 
