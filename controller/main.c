@@ -54,7 +54,7 @@ void upk_db_reset_launchcallback(
     char    *status_actual
 ) {
 
-    if( status_actual != NULL &&
+    if( status_actual == NULL ||
 	strcmp( status_actual, "start" ) == 0 ) {
 	if( DEBUG )
 	    printf( "Resetting status of service %s-%s.\n", package, service );
@@ -85,11 +85,11 @@ int options_parse(
 	{ 0, 0, 0, 0 }
     };
 
-    while (1) {
+    if( DEBUG ) {
+        printf( "Parsing command line options\n" );
+    }
 
-	if( DEBUG ) {
-	    printf( "Parsing command line options\n" );
-	}
+    while (1) {
 
         c = getopt_long (argc, argv, "",
                          long_options, &option_index);
