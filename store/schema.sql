@@ -17,8 +17,8 @@ CREATE TABLE services (
     package       VARCHAR,
     service       VARCHAR,
     procrun_id    INT,
-    state_desired INT,
-    state_actual  INT,
+    state_desired INT DEFAULT 'stop',
+    state_actual  INT DEFAULT 'stop',
     FOREIGN KEY (procrun_id)
         REFERENCES procrun(id)
 );

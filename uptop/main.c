@@ -53,7 +53,7 @@ void uptop_print_callback(
     fq_service = sqlite3_mprintf(
 	    "%s-%s", package, service);
 
-    printf( "%-40s: %s\n", fq_service, status_actual );
+    printf( "%-20s: %-5s [%-5s]\n", fq_service, status_actual, status_desired );
 
     sqlite3_free( fq_service );
 }
