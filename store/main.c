@@ -46,8 +46,8 @@ int main(
         sqlite3_free( package );
     }
     
-    service = sqlite3_mprintf("service-10", i);
-    package = sqlite3_mprintf("package-10", i);
+    service = sqlite3_mprintf("service-9", i);
+    package = sqlite3_mprintf("package-9", i);
     upk_db_service_actual_status( pdb, package, service, "stop");
     sqlite3_free( service );
     sqlite3_free( package );
@@ -64,7 +64,7 @@ int main(
     upk_test_eq( cp, NULL );
     cp = upk_db_service_actual_status( pdb, "package-1", "service-9", NULL );
     upk_test_eq( cp, NULL );
-    cp = upk_db_service_actual_status( pdb, "package-10", "service-10", NULL );
+    cp = upk_db_service_actual_status( pdb, "package-9", "service-9", NULL );
     upk_test_eq( cp, "stop" );
 
     upk_db_status_checker( pdb, upk_db_status_checker_launchcallback );

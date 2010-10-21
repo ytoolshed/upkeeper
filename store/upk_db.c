@@ -426,7 +426,9 @@ void upk_db_status_checker(
     int           rc, ncols;
 
     sql = "SELECT package, service, state_desired, state_actual "
-          "FROM services;";
+          "FROM services "
+	  "ORDER by package, service "
+	  ";";
 
     sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
 

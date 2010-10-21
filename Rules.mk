@@ -10,6 +10,8 @@ dir	:= common
 include		$(dir)/Rules.mk
 dir	:= controller
 include		$(dir)/Rules.mk
+dir	:= uptop
+include		$(dir)/Rules.mk
 
 CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB) $(TGT_DEPS)
 
