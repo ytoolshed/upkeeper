@@ -18,8 +18,10 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = "../store/store.sqlite";
-    int      rc;
+    char  *file = "../store/store.sqlite";
+    int    rc;
+    int    ch;
+    struct timeval timeout = { 0, 100 };
 
     options_parse( argc, argv );
 
@@ -36,9 +38,16 @@ int main(
 
     uptop_services_print( PDB );
 
+    nodelay( stdscr, TRUE );
+
     while(1) {
-	/* use select for higher granularity */
-        sleep( 1 );
+	/* use select for sleeping 100ms */
+	select( 0, NULL, NULL, NULL, &timeout );
+
+	ch = getch();
+	if( ch != ERR ) {
+	    break;
+	}
     }
 
     upk_db_close( PDB );
