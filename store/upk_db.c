@@ -55,6 +55,8 @@ upk_db_init(
 	return(rc);
     }
 
+    sqlite3_busy_timeout( *ppdb, 20000 );
+
     rc = db_init_functions_define( *ppdb );
 
     if(rc != 0) {
