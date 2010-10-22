@@ -15,6 +15,7 @@ int OPT_ALL_UP,
     OPT_DEFINE,
     OPT_UNDEFINE,
     OPT_SET_DESIRED_STATE,
+    OPT_SET_PID,
     OPT_NONE
     = 0;
 
@@ -31,6 +32,7 @@ int main(
     char   **cmdline;
     char     cmdline_buf[1024];
     int      nof_options;
+    int      pid;
 
     nof_options = options_parse( argc, argv );
 
@@ -91,6 +93,17 @@ int main(
             printf( "Adding cmdline: '%s'\n", cmdline_buf );
         }
         upk_db_service_cmdline( pdb, package, service, cmdline_buf );
+    }
+
+    if( OPT_SET_PID ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
+            exit(1);
+        }
+        package = argv[2];
+        service = argv[3];
+        int pid = atoi( argv[4] );
+        upk_db_service_pid( pdb, package, service, pid );
     }
 
     upk_db_listener_send_all_signals( pdb );
@@ -164,6 +177,7 @@ int options_parse(
         { "undefine",    0, &OPT_UNDEFINE, 1 },
         { "set-desired-state", 
                          0, &OPT_SET_DESIRED_STATE, 1 },
+        { "set-pid",     0, &OPT_SET_PID, 1 },
 	{ 0, 0, 0, 0 }
     };
 
@@ -198,4 +212,5 @@ int help( ) {
     printf(" --define pkg srvc cmdline: Define a service\n");
     printf(" --undefine pkg srvc: Delete a service\n");
     printf(" --set-desired-state pkg srvc state: Set desired state\n");
+    printf(" --set-pid pkg srvc pid Set pid of a service process\n");
 }
