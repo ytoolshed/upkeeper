@@ -9,7 +9,7 @@ LL_$(d) := store/store.a buddy/buddy.a deps/sqlite/sqlite3.a common/common.a
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
-CHECK	+= $(d)/buddy-controller.tap
+CHECK	+= $(d)/buddy-controller.t
 
 $(d)/buddy-controller.tap: $(d)/buddy-controller
 

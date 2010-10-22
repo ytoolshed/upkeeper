@@ -7,7 +7,7 @@
 #include "store/upk_db.h"
 #include "upk_buddy.h"
 
-int DEBUG = 1;
+int DEBUG = 0;
 
 int main( 
     int   argc, 
@@ -24,6 +24,8 @@ int main(
     char    *package;
     const char    *cp;
     const char    *command = "./do-sleep";
+
+    printf("1..3\n");
 
     rc = upk_db_init( file, &pdb );
 

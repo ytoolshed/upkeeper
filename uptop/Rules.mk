@@ -9,7 +9,7 @@ LL_$(d) := store/store.a deps/sqlite/sqlite3.a
 LF_ALL  += -lncurses
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
-CHECK	+= $(d)/uptop.tap
+CHECK	+= $(d)/uptop.t
 
 $(d)/uptop.tap: $(d)/uptop
 $(d)/uptop: $(d)/main.c $(LL_$(d))

@@ -28,6 +28,7 @@ Makefile: Makefile.in configure.ac
 	./config.status
 
 check: 	$(CHECK)
+	perl -MTest::Harness -e'runtests(qw($(CHECK)))'
 
 all:	targets
 

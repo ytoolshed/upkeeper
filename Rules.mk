@@ -44,6 +44,3 @@ echo-%:
 .c.o: 	
 	$(COMP)
 
-
-.t.tap:
-	@exec perl -MTest::Harness -e'runtests("$<")' $<
