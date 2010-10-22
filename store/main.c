@@ -20,6 +20,8 @@ int main(
     char    *package;
     const char    *cp;
 
+    printf("1..8\n");
+
     /* test */
     upk_test_is( 1, 1 );
 

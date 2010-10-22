@@ -46,4 +46,4 @@ echo-%:
 
 
 .t.tap:
-	exec $< > $@
+	@exec perl -MTest::Harness -e'runtests("$<")' $<

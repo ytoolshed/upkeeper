@@ -15,6 +15,8 @@ $(d)/upk: $(d)/main.c $(d)/store.a deps/sqlite/sqlite3.a
 $(d)/store.a: $($(OBJS))
 	$(ARCH)
 
+CHECK	+= $(d)/store-test.tap
+
 CLEAN		:= $(CLEAN) store.sqlite
 
 $(d)/store-test: $(d)/main.c $(LL_$(d))

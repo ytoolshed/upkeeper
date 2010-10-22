@@ -407,9 +407,11 @@ void upk_db_status_checker_launchcallback(
 
     if( !strcmp( status_actual, UPK_STATUS_VALUE_STOP ) &&
         !strcmp( status_desired, UPK_STATUS_VALUE_START ) ) {
-        printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
-                package, service, status_actual, status_desired);
-        printf("Launching %s-%s\n", package, service);
+	if( DEBUG ) {
+            printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
+                    package, service, status_actual, status_desired);
+            printf("Launching %s-%s\n", package, service);
+	}
     }
 }
 
