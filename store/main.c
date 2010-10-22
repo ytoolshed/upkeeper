@@ -20,12 +20,24 @@ int main(
     char    *package;
     const char    *cp;
 
-    printf("1..8\n");
+    printf("1..10\n");
 
     /* test */
     upk_test_is( 1, 1 );
 
     rc = upk_db_init( file, &pdb );
+
+        /* setter */
+    upk_db_service_cmdline( pdb, "wonk", "bonk", "cmdline" );
+        /* getter */
+    upk_test_eq( upk_db_service_cmdline( pdb, "wonk", "bonk", NULL ),
+                 "cmdline" );
+
+        /* setter */
+    upk_db_service_pid( pdb, "wonk", "bonk", 123 );
+        /* getter */
+    upk_test_is( upk_db_service_pid( pdb, "wonk", "bonk", 0 ),
+                 123 );
 
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");
