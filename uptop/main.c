@@ -27,6 +27,10 @@ int main(
     int    rc;
     int    ch;
     struct timeval timeout = { 0, 100 };
+    /*
+      const struct timespec request = { 0, 1000000 };
+      struct timespec remain;
+    */
 
     options_parse( argc, argv );
 
@@ -53,7 +57,9 @@ int main(
 
     while(1) {
 	/* use select for sleeping 100ms */
-	select( 0, NULL, NULL, NULL, &timeout );
+        sleep(1);
+        /* select( 0, NULL, NULL, NULL, &timeout ); */
+        /* clock_nanosleep( 0, 0, &request, &remain ); */
 
 	ch = getch();
 	if( ch != ERR ) {
