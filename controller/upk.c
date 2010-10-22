@@ -193,6 +193,7 @@ int options_parse(
         { "init",        0, &OPT_INIT, 1 },
         { "define",      0, &OPT_DEFINE, 1 },
         { "undefine",    0, &OPT_UNDEFINE, 1 },
+        { "hup",         0, NULL, 1 },
         { "set-desired-state", 
                          0, &OPT_SET_DESIRED_STATE, 1 },
         { "set-actual-state", 
