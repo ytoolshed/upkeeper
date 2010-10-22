@@ -15,6 +15,7 @@ int OPT_ALL_UP,
     OPT_DEFINE,
     OPT_UNDEFINE,
     OPT_SET_DESIRED_STATE,
+    OPT_SET_ACTUAL_STATE,
     OPT_SET_PID,
     OPT_NONE
     = 0;
@@ -103,7 +104,24 @@ int main(
         package = argv[2];
         service = argv[3];
         int pid = atoi( argv[4] );
+	if( pid == 0 ) {
+	    pid = -1;
+	}
         upk_db_service_pid( pdb, package, service, pid );
+    }
+
+    if( OPT_SET_ACTUAL_STATE || OPT_SET_DESIRED_STATE ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc state\n", argv[0]);
+            exit(1);
+        }
+        package = argv[2];
+        service = argv[3];
+	if( OPT_SET_ACTUAL_STATE ) {
+            upk_db_service_actual_status( pdb, package, service, argv[4] );
+	} else {
+            upk_db_service_desired_status( pdb, package, service, argv[4] );
+	}
     }
 
     upk_db_listener_send_all_signals( pdb );
@@ -138,7 +156,7 @@ int cmdline_join(
         }
 
         if( cp - buf + strlen( argv[i] ) > buf_len - 2 ) {
-            printf("Buffer overflow in cmdline_join (%d > %d)\n",
+            printf("Buffer overflow in cmdline_join (%ld > %d)\n",
                     cp - buf + strlen( argv[i] ), buf_len - 2 );
             return( -1 );
         }
@@ -177,6 +195,8 @@ int options_parse(
         { "undefine",    0, &OPT_UNDEFINE, 1 },
         { "set-desired-state", 
                          0, &OPT_SET_DESIRED_STATE, 1 },
+        { "set-actual-state", 
+                         0, &OPT_SET_ACTUAL_STATE, 1 },
         { "set-pid",     0, &OPT_SET_PID, 1 },
 	{ 0, 0, 0, 0 }
     };
@@ -212,5 +232,6 @@ int help( ) {
     printf(" --define pkg srvc cmdline: Define a service\n");
     printf(" --undefine pkg srvc: Delete a service\n");
     printf(" --set-desired-state pkg srvc state: Set desired state\n");
+    printf(" --set-actual-state pkg srvc state: Set actual state\n");
     printf(" --set-pid pkg srvc pid Set pid of a service process\n");
 }

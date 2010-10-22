@@ -480,8 +480,14 @@ int upk_db_service_pid(
   id = upk_db_exec_single( pdb, sql );
   sqlite3_free( sql );
  
-  sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
-                        "WHERE id = %d ", pid, atoi( id ));
+  if( pid < 0 ) {
+      sql = sqlite3_mprintf("UPDATE procruns SET pid=NULL "
+                            "WHERE id = %d ", atoi( id ));
+  } else {
+      sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
+                            "WHERE id = %d ", pid, atoi( id ));
+  }
+
   upk_db_exec_single( pdb, sql );
   sqlite3_free( sql );
 
