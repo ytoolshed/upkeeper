@@ -360,6 +360,81 @@ const char *upk_db_service_run(
 }
 
 /* 
+ * Get/Set the command line of a service.
+ */
+const char *upk_db_service_cmdline( 
+    sqlite3    *pdb, 
+    const char *package, 
+    const char *service,
+    const char *cmdline
+) {
+  char       *result;
+  char       *sql;
+  int         service_id;
+  const char *id;
+
+  sql = sqlite3_mprintf( "SELECT cmdline from services, procruns "
+          "WHERE package = %Q "
+          "AND service = %Q "
+          "AND services.procrun_id = procruns.id ",
+          package, service );
+
+  result =  upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+
+  if( cmdline == NULL ) {
+      /* 'get' calls end here */
+      return ( result );
+  }
+
+  /* 'set' call */
+  if( result == NULL ) {
+      /* Entry doesn't exist yet, create a new one */
+      service_id = upk_db_service_find_or_create( pdb, package, service );
+      sql =     sqlite3_mprintf(
+                    "INSERT INTO procruns (cmdline) "
+                    "values (%Q)",
+                    cmdline );
+      upk_db_exec_single( pdb, sql );
+      sqlite3_free( sql );
+      id = upk_db_exec_single( pdb, "SELECT last_insert_rowid();" );  
+
+      sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
+                            "WHERE id = %d ", id, service_id );
+      upk_db_exec_single( pdb, sql );
+      sqlite3_free( sql );
+  } else {
+      /* Update an existing entry */
+      sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
+              "WHERE services.procrun_id = procruns.id "
+              "AND package = %Q "
+              "AND service = %Q",
+              package, service );
+      id = upk_db_exec_single( pdb, sql );
+      sqlite3_free( sql );
+
+      sql = sqlite3_mprintf("UPDATE procruns SET cmdline=%Q "
+                            "WHERE id = %d ", cmdline, atoi( id ));
+      upk_db_exec_single( pdb, sql );
+      sqlite3_free( sql );
+  }
+
+  return( cmdline );
+}
+
+/* 
+ * Get/Set the pid of a service.
+ */
+const char *upk_db_service_pid( 
+    sqlite3 *pdb, 
+    const char    *package, 
+    const char    *service,
+    int   pid
+) {
+    return( NULL );
+}
+
+/* 
  * Get/Set the a desired status of a service.
  */
 const char *upk_db_service_desired_status( 

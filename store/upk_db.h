@@ -140,3 +140,10 @@ void upk_db_listener_remove_dead(
 void upk_db_clear(
     sqlite3    *pdb
 );
+
+const char *upk_db_service_cmdline( 
+    sqlite3    *pdb, 
+    const char *package, 
+    const char *service,
+    const char *cmdline
+);
