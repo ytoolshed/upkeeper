@@ -108,7 +108,9 @@ void uptop_print_callback(
     char    *status_actual
 ) {
 
-    char *fq_service;
+    char       *fq_service;
+    const char *cmdline;
+    int         pid;
 
     if( status_actual == NULL ) {
 	status_actual = "UNDEF";
@@ -123,7 +125,22 @@ void uptop_print_callback(
     }
     printw( "%-5s", status_actual );
     attroff( A_BOLD );
-    printw( " [%-5s]\n", status_desired );
+    printw( " [%-5s]", status_desired );
+
+    pid = upk_db_service_pid( pdb, package, service, 0 );
+    if( pid == 0 ) {
+        printw( " [     ]" );
+    } else {
+        printw( " [%5d]", pid );
+    }
+
+    cmdline = upk_db_service_cmdline( pdb, package, service, NULL );
+    if( cmdline == NULL ) {
+        cmdline = "";
+    }
+    printw( " %s", cmdline );
+
+    printw( "\n" );
 
     sqlite3_free( fq_service );
 }
