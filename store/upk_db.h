@@ -147,3 +147,10 @@ const char *upk_db_service_cmdline(
     const char *service,
     const char *cmdline
 );
+
+int upk_db_service_pid( 
+    sqlite3    *pdb, 
+    const char *package, 
+    const char *service,
+    int         pid
+);

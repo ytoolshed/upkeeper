@@ -318,6 +318,19 @@ _upk_db_service_status(
 }
 
 /* 
+ * Get/Set the a desired status of a service.
+ */
+const char *upk_db_service_desired_status( 
+    sqlite3 *pdb, 
+    const char    *package, 
+    const char    *service,
+    const char    *new_status
+) {
+    return( _upk_db_service_status( pdb, package, service, new_status, 
+                                    UPK_STATUS_DESIRED ) );
+}
+
+/* 
  * Get/Set the a actual status of a service.
  */
 const char *upk_db_service_actual_status( 
@@ -361,6 +374,7 @@ const char *upk_db_service_run(
 
 /* 
  * Get/Set the command line of a service.
+ * Creates the procruns entry if it doesn't exist yet.
  */
 const char *upk_db_service_cmdline( 
     sqlite3    *pdb, 
@@ -424,27 +438,54 @@ const char *upk_db_service_cmdline(
 
 /* 
  * Get/Set the pid of a service.
+ * Requires the procruns entry to exist.
  */
-const char *upk_db_service_pid( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    int   pid
+int upk_db_service_pid( 
+    sqlite3    *pdb, 
+    const char *package, 
+    const char *service,
+    int         pid
 ) {
-    return( NULL );
-}
+  char       *result;
+  char       *sql;
+  int         service_id;
+  const char *id;
 
-/* 
- * Get/Set the a desired status of a service.
- */
-const char *upk_db_service_desired_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status
-) {
-    return( _upk_db_service_status( pdb, package, service, new_status, 
-                                    UPK_STATUS_DESIRED ) );
+  sql = sqlite3_mprintf( "SELECT pid from services, procruns "
+          "WHERE package = %Q "
+          "AND service = %Q "
+          "AND services.procrun_id = procruns.id ",
+          package, service );
+
+  result =  upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+
+  if( pid == 0 ) {
+      /* 'get' calls end here */
+      if( result == NULL ) {
+          pid = 0;
+      } else {
+          pid = atoi( result );
+      }
+      return ( pid );
+  }
+
+  /* 'set' call */
+  /* Update an existing entry only! */
+  sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
+          "WHERE services.procrun_id = procruns.id "
+          "AND package = %Q "
+          "AND service = %Q",
+          package, service );
+  id = upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+ 
+  sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
+                        "WHERE id = %d ", pid, atoi( id ));
+  upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+
+  return( pid );
 }
 
 /* 
