@@ -21,7 +21,7 @@ AUTOCONF_LEFTOVERS=autom4te.cache autoscan.log config.h config.h.in~ config.log 
 DEPS_LEFTOVERS=*/*.dSYM
 
 distclean: clean
-	rm -rf $(AUTOCONF_LEFTOVERS) $(DEPS_LEFTOVERS) Makefile
+	rm -rf $(AUTOCONF_LEFTOVERS) $(DEPS_LEFTOVERS) Makefile store/store.sqlite
 
 
 Makefile: Makefile.in configure.ac 
