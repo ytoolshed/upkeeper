@@ -7,11 +7,16 @@
 #include <string.h>
 #include "../store/upk_db.h"
 
-int DEBUG        = 0;
-int OPT_ALL_UP   = 0;
-int OPT_ALL_DOWN = 0;
-int OPT_HELP     = 0;
-int OPT_INIT     = 0;
+int DEBUG           = 1;
+int OPT_ALL_UP,
+    OPT_ALL_DOWN,
+    OPT_HELP,
+    OPT_INIT,
+    OPT_DEFINE,
+    OPT_UNDEFINE,
+    OPT_SET_DESIRED_STATE,
+    OPT_NONE
+    = 0;
 
 int main( 
     int   argc, 
@@ -23,6 +28,8 @@ int main(
     int      i;
     char    *service;
     char    *package;
+    char   **cmdline;
+    char     cmdline_buf[1024];
     int      nof_options;
 
     nof_options = options_parse( argc, argv );
@@ -70,11 +77,71 @@ int main(
         }
     }
 
+    if( OPT_DEFINE ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
+            exit(1);
+        }
+        package = argv[2];
+        service = argv[3];
+        cmdline = &argv[4];
+        cmdline_join( argc - 4, cmdline, cmdline_buf, sizeof( cmdline_buf ) );
+
+        if( DEBUG ) {
+            printf( "Adding cmdline: '%s'\n", cmdline_buf );
+        }
+        upk_db_service_cmdline( pdb, package, service, cmdline_buf );
+    }
+
     upk_db_listener_send_all_signals( pdb );
 
     sqlite3_close( pdb );
 
     return(0);
+}
+
+/* 
+ * Command line join
+ */
+int cmdline_join( 
+    int   argc,
+    char *argv[], 
+    char *buf,
+    int   buf_len
+) {
+    int   i;
+    char *cp = buf;
+
+    if( DEBUG ) {
+        printf( "Joining %d args\n", argc );
+    }
+
+    buf[0] = '\0';
+
+    for( i=0; i<argc; i++ ) {
+
+        if( DEBUG ) {
+            printf( "Adding arg '%s' to buf\n", argv[i] );
+        }
+
+        if( cp - buf + strlen( argv[i] ) > buf_len - 2 ) {
+            printf("Buffer overflow in cmdline_join (%d > %d)\n",
+                    cp - buf + strlen( argv[i] ), buf_len - 2 );
+            return( -1 );
+        }
+        if( cp != buf ) {
+            strcat( buf, " " );
+        }
+        strcat( buf, argv[i] );
+
+        cp += strlen(buf) + 1;
+    }
+
+    if( DEBUG ) {
+        printf( "Joined: '%s'\n", buf );
+    }
+
+    return( 0 );
 }
 
 /* 
@@ -89,10 +156,14 @@ int options_parse(
     int nof_options = 0;
 
     static struct option long_options[] = {
-        { "all-up",   0, &OPT_ALL_UP,   1 },
-        { "all-down", 0, &OPT_ALL_DOWN, 1 },
-        { "help",     0, &OPT_HELP, 1 },
-        { "init",     0, &OPT_INIT, 1 },
+        { "all-up",      0, &OPT_ALL_UP,   1 },
+        { "all-down",    0, &OPT_ALL_DOWN, 1 },
+        { "help",        0, &OPT_HELP, 1 },
+        { "init",        0, &OPT_INIT, 1 },
+        { "define",      0, &OPT_DEFINE, 1 },
+        { "undefine",    0, &OPT_UNDEFINE, 1 },
+        { "set-desired-state", 
+                         0, &OPT_SET_DESIRED_STATE, 1 },
 	{ 0, 0, 0, 0 }
     };
 
@@ -124,4 +195,7 @@ int help( ) {
     printf(" --help:     Print this help page\n");
     printf(" --all-up:   Set all services to 'start'\n");
     printf(" --all-down: Set all services to 'stop'\n");
+    printf(" --define pkg srvc cmdline: Define a service\n");
+    printf(" --undefine pkg srvc: Delete a service\n");
+    printf(" --set-desired-state pkg srvc state: Set desired state\n");
 }
