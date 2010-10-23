@@ -1,7 +1,8 @@
 SHELL           = @SHELL@
-CF_ALL	        = @CFLAGS@  -MD -I. -ldl
+CF_ALL	        = @CFLAGS@  -MD -I. 
 LDFLAGS         = @LDFLAGS@
 LDLIBS          =
+LF_ALL		= @LDFLAGS@ -ldl
 CC		= @CC@
 
 .SUFFIXES:
@@ -9,7 +10,7 @@ CC		= @CC@
 
 COMP            = $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
 LINK            = $(CC) $(CF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) $(LL_DIR)
-COMPLINK        = $(CC) $(CF_ALL) $(CF_TGT) $(LF_DIR) $(LF_TGT) -o $@ $^ $(LL_TGT) 
+COMPLINK        = $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) 
 ARCH		= $(AR) $(ARFLAGS) $@ $^
 
 
@@ -17,8 +18,8 @@ all:
 
 AUTOCONF_LEFTOVERS=autom4te.cache autoscan.log config.h config.h.in~ config.log config.status */Makefile
 
-distclean:
-	rm -f $(AUTOCONF_LEFTOVERS) Makefile
+distclean: clean
+	rm -rf $(AUTOCONF_LEFTOVERS) Makefile
 
 
 Makefile: Makefile.in configure.ac 
