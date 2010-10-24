@@ -10,21 +10,22 @@
 
 #include "upk_db.h"
 
+#include "schema.c"
+
+const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
+
+
 extern int DEBUG;
 
-int _upk_db_event_add( 
-    sqlite3 *pdb, 
-    const char    *event, 
-    const char    *package, 
-    const char    *service
+static int upk_db_event_add( 
+                            upk_srvc_t srvc,
+                            const char *event
 );
 
 const char *_upk_db_service_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status,
-    int     type
+    upk_srvc_t    srvc,                                   
+    upk_state     state,
+    int           type
 );
 
 static int db_init_functions_define( sqlite3 *pdb );
@@ -77,6 +78,7 @@ upk_db_close(
 
 /* Send a Unix signal to a process. Usage:
  *  SELECT signal_send( pid, signal_number );
+ *  XXX: ERROR HANDLING
  */
 void signal_send(
     sqlite3_context *ctx, 
@@ -198,11 +200,9 @@ int _upk_db_service_find(
  * Find an existing package/service combination and return its id (>=1)
  */
 int upk_db_service_find( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service
+   upk_srvc_t srvc
 ) {
-    return( _upk_db_service_find( pdb, package, service, 0 ) );
+    return( _upk_db_service_find( srvc->pdb, srvc->package, srvc->service, 0 ) );
 }
 
 /* 
@@ -210,11 +210,9 @@ int upk_db_service_find(
  * Create it if it doesn't exist yet.
  */
 int upk_db_service_find_or_create( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service
+   upk_srvc_t srvc
 ) {
-    return( _upk_db_service_find( pdb, package, service, 1 ) );
+    return( _upk_db_service_find( srvc->pdb, srvc->package, srvc->service, 1 ) );
 }
 
 /* 
@@ -222,18 +220,17 @@ int upk_db_service_find_or_create(
  */
 int 
 _upk_db_event_add(
-    sqlite3 *pdb, 
-    const char    *event, 
-    const char    *package, 
-    const char    *service
+                  upk_srvc_t srvc,
+                  const char    *event
 ) {
 
     int    rc;
     char  *zErr;
     char  *date_string = upk_db_time_now_mstring();
     int    service_id;
-    
-    service_id = upk_db_service_find_or_create( pdb, package, service );
+    char  *sql;
+
+    service_id = upk_db_service_find_or_create( srvc );
 
     if( service_id < 0 ) {
         printf( "Can't create service\n" );
@@ -244,12 +241,12 @@ _upk_db_event_add(
         printf("Inserting %s %s %d\n", date_string, event, service_id);
     }
 
-    char *sql = sqlite3_mprintf(
+    sql = sqlite3_mprintf(
 	          "INSERT INTO events (etime, event, service_id) "
                   "values (%Q, %Q, %d)",
 	        date_string, event, service_id);
 
-    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+    rc = sqlite3_exec( srvc->pdb, sql, NULL, NULL, &zErr );
     sqlite3_free( date_string );
 
     if(rc != SQLITE_OK) {
@@ -266,10 +263,8 @@ _upk_db_event_add(
  */
 const char *
 _upk_db_service_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status,
+    upk_srvc_t srvc,
+    upk_state state,
     int     type
 ) {
     int    service_id;
@@ -277,32 +272,32 @@ _upk_db_service_status(
     char  *state_field = "state_actual";
     int    rc;
     char *zErr;
-    const char *status;
+    const char *status = upk_states[state];
 
     if( type == UPK_STATUS_DESIRED ) {
         state_field = "state_desired";
     }
 
-    if( new_status ) {
-        service_id = upk_db_service_find_or_create( pdb, package, service );
+    if( state ) {
+      service_id = upk_db_service_find_or_create( srvc );
 
         sql = sqlite3_mprintf(
                 "UPDATE services SET %s=%Q WHERE id = %d;",
-	        state_field, new_status, service_id);
+	        state_field, status, service_id);
 
-        rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+        rc = sqlite3_exec( srvc->pdb, sql, NULL, NULL, &zErr );
         if( rc != SQLITE_OK ) {
 	    printf( "Updating service state failed: %s\n", zErr );
 	    return( NULL );
         }
         sqlite3_free( sql );
 
-        _upk_db_event_add( pdb, new_status, package, service );
+        _upk_db_event_add( srvc, status );
     }
 
-    service_id = upk_db_service_find( pdb, package, service );
+    service_id = upk_db_service_find( srvc );
 
-    if( service_id <= 0 && new_status == NULL ) {
+    if( service_id <= 0 && !state) {
         /* Service not found, so there can't be a status either */
         return( NULL );
     }
@@ -311,80 +306,78 @@ _upk_db_service_status(
       "select %s from services where id = %d;",
       state_field, service_id);
 
-    status = upk_db_exec_single( pdb, sql );
+    status = upk_db_exec_single( srvc->pdb, sql );
     sqlite3_free( sql );
 
     return( status );
 }
 
-/* 
- * Get/Set the a actual status of a service.
- */
-const char *upk_db_service_actual_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status
-) {
-    return( _upk_db_service_status( pdb, package, service, new_status, 
-                                    UPK_STATUS_ACTUAL ) );
-}
 
 /* 
- * Get/Set the a actual status of a service.
+ * Register an attempted run. -1 for failed.
  */
 const char *upk_db_service_run( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+     upk_srvc_t    srvc,                          
     const char    *cmdline,
     int   pid
 ) {
   const char *status;
   const char *id;
+  sqlite3 *pdb = srvc->pdb;
   int service_id;
-  service_id = upk_db_service_find_or_create( pdb, package, service );
-  _upk_db_service_status( pdb, package, service, "start", 
-                          UPK_STATUS_ACTUAL);
-  char *sql =     
-    sqlite3_mprintf(
+  char *sql;
+  service_id = upk_db_service_find_or_create( srvc );
+
+  _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
+
+
+  sql = sqlite3_mprintf(
                     "INSERT INTO procruns (cmdline,pid) "
                     "values (%Q, %d)",
-                    cmdline,pid);
+                    cmdline, pid);
+
   status = upk_db_exec_single( pdb, sql );
-  id = upk_db_exec_single( pdb, "SELECT last_insert_rowid();" );  
+  id     = upk_db_exec_single( pdb, "SELECT last_insert_rowid();" );  
 
   sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
                         "WHERE id = %d ", id,service_id);
   status = upk_db_exec_single( pdb, sql );
+  
+  return status;
 }
 
 /* 
  * Get/Set the a desired status of a service.
  */
 const char *upk_db_service_desired_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status
+    upk_srvc_t    srvc,
+    upk_state     state
 ) {
-    return( _upk_db_service_status( pdb, package, service, new_status, 
-                                    UPK_STATUS_DESIRED ) );
+    return( _upk_db_service_status( srvc, state, UPK_STATUS_DESIRED ) );
 }
+
+/* 
+ * Get/Set the a actual status of a service.
+ */
+const char * upk_db_service_actual_status( 
+     upk_srvc_t srvc,
+     upk_state  state
+) {
+  return( _upk_db_service_status( srvc, state, UPK_STATUS_ACTUAL ) );
+}
+
 
 /* 
  * Test callback for the status checker, which just prints out all 
  * entries it is called with.
  */
 void _upk_db_status_checker_testcallback( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+    upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
 ) {
     printf("Callback: %s-%s %s-%s\n",
-            package, service, status_desired, status_actual);
+            srvc->package, srvc->service, status_desired, status_actual);
 }
 
 /* 
@@ -393,9 +386,7 @@ void _upk_db_status_checker_testcallback(
  * Shuts down processes with actual=start and desired=stop.
  */
 void upk_db_status_checker_launchcallback( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+    upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
 ) {
@@ -404,13 +395,10 @@ void upk_db_status_checker_launchcallback(
           /* Service not initialized, do nothing */
         return;
     }
-
-    if( !strcmp( status_actual, UPK_STATUS_VALUE_STOP ) &&
-        !strcmp( status_desired, UPK_STATUS_VALUE_START ) ) {
-        printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
-                package, service, status_actual, status_desired);
-        printf("Launching %s-%s\n", package, service);
-    }
+    
+    printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
+           srvc->package, srvc->service, status_actual, status_desired);
+    printf("Launching %s-%s\n", srvc->package, srvc->service);
 }
 
 /* 
@@ -424,7 +412,7 @@ void upk_db_status_checker(
     const char         *sql;
     sqlite3_stmt *stmt;
     int           rc, ncols;
-
+    struct upk_srvc s = { pdb };
     sql = "SELECT package, service, state_desired, state_actual "
           "FROM services;";
 
@@ -434,9 +422,10 @@ void upk_db_status_checker(
     rc = sqlite3_step( stmt );
 
     while( rc == SQLITE_ROW ) {
-        (*callback)( pdb, 
-                sqlite3_column_text( stmt, 0 ),
-                sqlite3_column_text( stmt, 1 ),
+      s.package = (char *)sqlite3_column_text( stmt, 0 );
+      s.service = (char *)sqlite3_column_text( stmt, 1 ),
+
+        (*callback)( &s,
                 sqlite3_column_text( stmt, 2 ),
                 sqlite3_column_text( stmt, 3 )
                 );

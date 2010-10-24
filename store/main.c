@@ -12,66 +12,65 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    sqlite3 *pdb;
     char    *file = "store.sqlite";
     int      rc;
     int      i;
-    char    *service;
-    char    *package;
     const char    *cp;
+    struct upk_srvc s = {NULL, "package", "service-1" };
 
     /* test */
-    upk_test_is( 1, 1 );
+    upk_test_is( 1, 1, "one is one" );
 
-    rc = upk_db_init( file, &pdb );
-
+    rc = upk_db_init( file, &s.pdb );
+    
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");
 	exit(-1);
     }
  
     for( i=0; i<=2; i++ ) {
-        service = sqlite3_mprintf("service-%d", i);
-        rc = upk_db_service_find_or_create(
-                pdb, "package", service );
-        sqlite3_free( service );
+      s.service = sqlite3_mprintf("service-%d", i);
+
+      rc = upk_db_service_find_or_create( &s );
     }
 
     for( i=0; i<=5; i++ ) {
-        service = sqlite3_mprintf("service-%d", i);
-        package = sqlite3_mprintf("package-%d", i);
-        upk_db_service_actual_status( pdb, package, service, "stop");
-        upk_db_service_desired_status( pdb, package, service, "start");
-        sqlite3_free( service );
-        sqlite3_free( package );
+      
+      s.service = sqlite3_mprintf("service-%d", i);
+      s.package = sqlite3_mprintf("package-%d", i);
+      cp = upk_db_service_actual_status( &s ,  UPK_STATUS_VALUE_STOP);
+      upk_test_eq( cp, "stop" );
+      cp = upk_db_service_desired_status( &s , UPK_STATUS_VALUE_START);
+      upk_test_eq( cp, "start" );
+      sqlite3_free( s.service );
+      sqlite3_free( s.package );
     }
     
-    service = sqlite3_mprintf("service-10", i);
-    package = sqlite3_mprintf("package-10", i);
-    upk_db_service_actual_status( pdb, package, service, "stop");
-    sqlite3_free( service );
-    sqlite3_free( package );
+    s.service = "service-10";
+    s.package = "package-10";
+    upk_db_service_actual_status( &s , UPK_STATUS_VALUE_STOP);
 
-    cp = upk_db_service_actual_status( pdb, "package-1", "service-1", NULL );
-    upk_test_eq( cp, "stop" );
-    cp = upk_db_service_actual_status( pdb, "package-2", "service-2", NULL );
-    upk_test_eq( cp, "stop" );
-    cp = upk_db_service_actual_status( pdb, "package-5", "service-5", NULL );
-    upk_test_eq( cp, "stop" );
-    cp = upk_db_service_actual_status( pdb, "package-1", "service-2", NULL );
-    upk_test_eq( cp, NULL );
-    cp = upk_db_service_actual_status( pdb, "package-0", "service-2", NULL );
-    upk_test_eq( cp, NULL );
-    cp = upk_db_service_actual_status( pdb, "package-1", "service-9", NULL );
-    upk_test_eq( cp, NULL );
-    cp = upk_db_service_actual_status( pdb, "package-10", "service-10", NULL );
-    upk_test_eq( cp, "stop" );
+    s.service = "service-1"; s.package = "package-1";
+    cp = upk_db_service_desired_status( &s, 0 );    upk_test_eq( cp, "start" );
+    s.service = "service-2"; s.package = "package-2";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    s.service = "service-5"; s.package = "package-5";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    s.service = "service-2"; s.package = "package-1";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    s.service = "service-2"; s.package = "package-0";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    s.service = "service-9"; s.package = "package-1";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    s.service = "service-10"; s.package = "package-10";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    s.service = "service-9"; s.package = "package-1";
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL);
+    upk_db_status_checker( s.pdb, upk_db_status_checker_launchcallback );
 
-    upk_db_status_checker( pdb, upk_db_status_checker_launchcallback );
+    upk_db_exec_single( s.pdb, "SELECT signal_send( 456456, 1 )" );
 
-    upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" );
-
-    sqlite3_close( pdb );
+    sqlite3_close( s.pdb );
 
     return(0);
 }

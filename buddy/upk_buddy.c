@@ -35,7 +35,7 @@ static void handler(int sig)  {
 
 
 static struct shutdown_step *
-get_shutdown(const char *service, const char *package) 
+get_shutdown(upk_srvc_t srvc)
 { 
   static struct shutdown_step s[3];
   s[0].signal = sig_term;
@@ -49,11 +49,9 @@ get_shutdown(const char *service, const char *package)
 
 
 
-void idle (sqlite3 *db, 
-           int      childpid,
-     const char    *package,
-     const char    *service
-) {
+void idle (upk_srvc_t srvc,
+           int      childpid)
+ {
 
   struct taia now;
   struct taia deadline;
@@ -81,14 +79,14 @@ void idle (sqlite3 *db,
     sig_block(sig_term);
     if (read(selfpipe[0],&sig,1) > 0) {
       if (sig == sig_term && !sd_config) {
-        sd_config = get_shutdown(package,service);
+        sd_config = get_shutdown(srvc);
       }
     }
 
-    pid = wait_nohang();
+    pid = wait_nohang(&status);
     if (pid) {
-      upk_db_service_actual_status(db, package, service, 
-                                   UPK_STATUS_VALUE_STOP);
+      /* write to socket? pipe? */
+      /*      upk_db_service_actual_status(srvc, UPK_STATUS_VALUE_STOP);*/
       break;
     }
 
@@ -106,9 +104,7 @@ void idle (sqlite3 *db,
  */
 
 int upk_buddy_start(
-  sqlite3 *pdb, 
-  const char    *package,
-  const char    *service,
+  upk_srvc_t    srvc,                    
   const char    *command,
   const char    *env[]
 ) {
@@ -116,8 +112,10 @@ int upk_buddy_start(
   int pid;
   int w;
   char f;
+  
+  /* set up communication path */
   if (pipe(ppipe) == -1) {
-    strerr_warn4(WARNING," pipe for ",service," failed : ",&strerr_sys);
+    strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);
     return;
 
   }
@@ -127,7 +125,7 @@ int upk_buddy_start(
     if (read(ppipe[0],&f,1)==-1) { }
     if (f == 'd') { return -1; }
     upk_db_service_run(
-                       pdb, package, service, command, pid);
+                       srvc, command, pid);
     close(ppipe[1]);
     return pid;
   }
@@ -153,7 +151,7 @@ int upk_buddy_start(
   sig_catch(sig_term,handler);
   w = write(ppipe[1],"u",1);
   close(ppipe[1]);
-  idle(pdb, pid, package, service);
+  idle(srvc, pid);
   exit(0);
 }
 
@@ -164,18 +162,14 @@ int upk_buddy_start(
  * the upkeeper runtable information.
  */
 int
-upk_buddy_stop(
-               sqlite3 *pdb,
-               const char *package,
-               const char *service
-               )
+upk_buddy_stop( upk_srvc_t srvc )
 {
   if (upk_db_service_desired_status(
-                               pdb, package, service, 
+                               srvc,
                                UPK_STATUS_VALUE_STOP)) { 
     wait(NULL);
     return 0;
- }
+  }
   
   return 1;
 }

@@ -13,39 +13,40 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
     int      i;
     int      pid;
     char    *event;
     char    *status;
-    char    *service;
-    char    *package;
     const char    *cp;
     const char    *command = "./do-sleep";
-
-    rc = upk_db_init( file, &pdb );
+    struct upk_srvc s = {NULL, "package-1", "service-1" };
+    rc = upk_db_init( file, &s.pdb );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
-    upk_db_service_actual_status( pdb, "package-1", "service-1", "stop" );
-    upk_db_service_desired_status( pdb, "package-1", "service-1", "start" );
-    pid = upk_buddy_start( pdb, "package-1", "service-1", command, NULL);
-    upk_test_isnt(pid,-1);
+
+    cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_STOP );
+    upk_test_eq( cp, "stop" );
+    cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_START );
+    upk_test_eq( cp, "start" );
+
+    pid = upk_buddy_start( &s, command, NULL);
+    upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
 
     if( pid < 0 ) {
 	printf( "upk_buddy_start failed (%d)\n", pid );
 	exit( -1 );
     }
     for (;;) {
-      cp = upk_db_service_actual_status( pdb, "package-1", "service-1", NULL );
+      cp = upk_db_service_actual_status( &s, 0 );
       if (!strcmp(cp,"start")) { break; }
     }
-    upk_test_is (upk_buddy_stop( pdb, "package-1", "service-1" ),0);
-    upk_test_eq( cp, "stop" );
+    upk_test_is (upk_buddy_stop( &s ),0, "stopping the buddy returned 0");
+    upk_test_eq( cp, "stop");
     
-    sqlite3_close( pdb );
+    sqlite3_close( s.pdb );
 }

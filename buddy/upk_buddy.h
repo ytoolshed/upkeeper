@@ -8,22 +8,16 @@
    todo: list return type / multiple arg
 */
 int upk_buddy_start(
-                    sqlite3 *pdb, 
-                    const char    *package,
-                    const char    *service,
+                    upk_srvc_t    srvc,
                     const char    *command,
                     const char    *env[]
 );
 
 /* 
    stop the application that buddy was watching.
-   TODO: see buddy_start return type.
-
  */
 int upk_buddy_stop(
-  sqlite3 *pdb, 
-  const char *package,
-  const char *service
+  upk_srvc_t s                   
 );
 
 

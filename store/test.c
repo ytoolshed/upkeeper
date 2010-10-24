@@ -13,12 +13,14 @@ int TESTS = 0;
 
 int upk_test_is(
     int is,
-    int should
+    int should,
+    const char *msg
 ) {
+    if (!msg) msg = "unexplained";
     if(is == should) {
-        printf("ok %d\n", ++TESTS);
+      printf("ok %d, %s\n", ++TESTS,msg);
     } else {
-        printf("not ok %d\n", ++TESTS);
+      printf("not ok %d, %s\n", ++TESTS, msg);
         printf(" should be '%d' but is '%d'\n", should, is);
     }
 
@@ -27,12 +29,13 @@ int upk_test_is(
 
 int upk_test_isnt(
                   int is,
-                  int shouldnt 
+                  int shouldnt ,
+                  const char * msg
                   ) {
     if(is != shouldnt) {
-        printf("ok %d\n", ++TESTS);
+      printf("ok %d %s\n", ++TESTS,msg);
     } else {
-        printf("not ok %d\n", ++TESTS);
+      printf("not ok %d %s\n", ++TESTS,msg);
         printf(" shouldnt be '%d' but is\n", shouldnt, is);
     }
 
@@ -49,7 +52,7 @@ int upk_test_eq(
         return( 1 );
     }
 
-    if( is == NULL ) {
+    if( is == NULL || should == NULL) {
         printf("not ok %d\n", ++TESTS);
         return( 0 );
     }

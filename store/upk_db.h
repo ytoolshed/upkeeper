@@ -6,12 +6,6 @@
 #define UPK_ERROR_INTERNAL        -3
 #define UPK_DB_ERROR              -4
 
-#define UPK_STATUS_ACTUAL  0
-#define UPK_STATUS_DESIRED 1
-
-#define UPK_STATUS_VALUE_START "start"
-#define UPK_STATUS_VALUE_STOP  "stop"
-
 /* Prototypes */
 
 #include <sqlite3.h>
@@ -23,43 +17,56 @@ int upk_db_close(
 );
 
 typedef enum { 
-  UP,         /* Set by buddy upon sucessful fork() */
-  DOWN,       /* Set on buddy resumption after sigchld   */
-  ALIVE       /* Set by */
-} process_states;
+  UPK_STATUS_VALUE_UNKNOWN = 0,    
+  UPK_STATUS_VALUE_START   = 1,   /* Set by buddy upon sucessful fork() */
+  UPK_STATUS_VALUE_STOP    = 2,
+         /* Set on buddy resumption after sigchld   */
+  UPK_STATUS_VALUE_INVALID = 3,    /* Error type */
+  UPK_STATUS_VALUE_MAX     = 4
 
-const char *upk_db_service_actual_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status
+} upk_state;
+
+typedef enum {
+  UPK_STATUS_ACTUAL  = 0,
+  UPK_STATUS_DESIRED
+} upk_status_t;
+
+
+
+typedef struct upk_srvc {
+  sqlite3 *pdb;
+  char    *package;
+  char    *service;
+} *upk_srvc_t;
+
+
+const char *
+ upk_db_service_actual_status( 
+                              upk_srvc_t srvc,
+                              upk_state  state
+                               );
+
+/* getter/setter. */
+const char *
+upk_db_service_desired_status( 
+                              upk_srvc_t srvc,
+                              upk_state  state
 );
 
-const char *upk_db_service_desired_status( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
-    const char    *new_status
-);
-
+/* hmm */
 char *upk_db_time_now_mstring( void );
 
+/* 
+ * Speak to memory allocation ? */
 char *upk_db_exec_single( 
     sqlite3  *pdb, 
     const char     *sql
 );
 
-int upk_db_service_find_or_create( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service
-);
 
-int upk_db_service_find( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service
-);
+
+int upk_db_service_find_or_create( upk_srvc_t );
+int upk_db_service_find( upk_srvc_t );
 
 void upk_db_status_checker( 
     sqlite3 *pdb, 
@@ -67,24 +74,21 @@ void upk_db_status_checker(
 );
 
 void _upk_db_status_checker_testcallback( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+    upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
 );
 
 void upk_db_status_checker_launchcallback( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+    upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
 );
 
 int upk_test_is(
     int is,
-    int should
+    int should,
+    const char *msg
 );
 
 int upk_test_eq(
@@ -93,13 +97,12 @@ int upk_test_eq(
 );
 int upk_test_isnt(
     int is,
-    int shouldnt 
+    int shouldnt ,
+    const char *msg
 );
 
 const char *upk_db_service_run( 
-    sqlite3 *pdb, 
-    const char    *package, 
-    const char    *service,
+    upk_srvc_t    srvc,                                         
     const char    *cmdline,
     int   pid
                                 );
