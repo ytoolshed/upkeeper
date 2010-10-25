@@ -7,7 +7,7 @@
 #include "store/upk_db.h"
 #include "upk_buddy.h"
 
-int DEBUG = 1;
+int DEBUG = 0;
 
 int main( 
     int   argc, 
