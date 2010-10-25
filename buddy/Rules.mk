@@ -17,10 +17,10 @@ $(d)/buddytest.tap: $(d)/buddytest
 $(d)/buddytest: $(d)/main.c $(LL_$(d))
 	$(COMPLINK) $(LL_buddy)
 
-$(d)/buddy: $(d)/buddy.c $(LL_$(d))
+$(d)/buddy: $(d)/buddy.c $(LL_$(d)) $(d)/buddy.usage.c
 	$(COMPLINK) $(LL_buddy)
 
-$(d)/buddy.c: $(d)/buddy.usage.c
+$(d)/buddy.c: 
 
 $(d)/buddy.usage.c: $(d)/buddy.usage.txt
 	sed -e 's/^/"/' -e 's/$$/"/' < $< >> $@
