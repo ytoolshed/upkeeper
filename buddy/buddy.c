@@ -13,6 +13,7 @@
 #include "common/error.h"
 #include "common/wait.h"
 #include "common/strerr.h"
+#include "common/sig.h"
 
 #define FATAL "buddy: fatal: "
 

@@ -105,4 +105,51 @@ const char *upk_db_service_run(
     upk_srvc_t    srvc,                                         
     const char    *cmdline,
     int   pid
-                                );
+);
+
+int 
+upk_db_listener_add(
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid,
+    int         signal
+);
+
+int 
+upk_db_listener_remove(
+    sqlite3    *pdb, 
+    const char *component
+);
+
+void upk_db_listener_checker( 
+    sqlite3 *pdb, 
+    void (*callback)()
+);
+
+void upk_db_listener_send_all_signals( sqlite3 *pdb );
+
+void 
+_upk_db_dead_listener_remove_callback(
+    sqlite3    *pdb,
+    const char *component,
+    int         pid,
+    int         signal
+);
+
+void upk_db_listener_remove_dead(
+    sqlite3    *pdb
+);
+
+void upk_db_clear(
+    sqlite3    *pdb
+);
+
+const char *upk_db_service_cmdline( 
+                                   upk_srvc_t svc,
+                                   const char *cmdline
+);
+
+int upk_db_service_pid( 
+                                   upk_srvc_t svc,
+                                   int         pid
+);

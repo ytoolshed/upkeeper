@@ -56,6 +56,8 @@ upk_db_init(
 	return(rc);
     }
 
+    sqlite3_busy_timeout( *ppdb, 20000 );
+
     rc = db_init_functions_define( *ppdb );
 
     if(rc != 0) {
@@ -312,7 +314,6 @@ _upk_db_service_status(
     return( status );
 }
 
-
 /* 
  * Register an attempted run. -1 for failed.
  */
@@ -326,6 +327,7 @@ const char *upk_db_service_run(
   sqlite3 *pdb = srvc->pdb;
   int service_id;
   char *sql;
+
   service_id = upk_db_service_find_or_create( srvc );
 
   _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
@@ -347,13 +349,129 @@ const char *upk_db_service_run(
 }
 
 /* 
- * Get/Set the a desired status of a service.
+ * Get/Set the command line of a service.
+ * Creates the procruns entry if it doesn't exist yet.
  */
 const char *upk_db_service_desired_status( 
     upk_srvc_t    srvc,
     upk_state     state
 ) {
     return( _upk_db_service_status( srvc, state, UPK_STATUS_DESIRED ) );
+}
+
+
+const char *upk_db_service_cmdline( 
+                                   upk_srvc_t srvc,
+                                   const char *cmdline
+) {
+  char       *result;
+  char       *sql;
+  int         service_id;
+  const char *id;
+
+  sql = sqlite3_mprintf( "SELECT cmdline from services, procruns "
+          "WHERE package = %Q "
+          "AND service = %Q "
+          "AND services.procrun_id = procruns.id ",
+                         srvc->package, srvc->service );
+
+  result =  upk_db_exec_single( srvc->pdb, sql );
+  sqlite3_free( sql );
+
+  if( cmdline == NULL ) {
+      /* 'get' calls end here */
+      return ( result );
+  }
+
+  /* 'set' call */
+  if( result == NULL ) {
+      /* Entry doesn't exist yet, create a new one */
+    service_id = upk_db_service_find_or_create( srvc );
+      sql =     sqlite3_mprintf(
+                    "INSERT INTO procruns (cmdline) "
+                    "values (%Q)",
+                    cmdline );
+      upk_db_exec_single( srvc->pdb, sql );
+      sqlite3_free( sql );
+      id = upk_db_exec_single( srvc->pdb, "SELECT last_insert_rowid();" );  
+
+      sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
+                            "WHERE id = %d ", id, service_id );
+      upk_db_exec_single( srvc->pdb, sql );
+      sqlite3_free( sql );
+  } else {
+      /* Update an existing entry */
+      sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
+              "WHERE services.procrun_id = procruns.id "
+              "AND package = %Q "
+              "AND service = %Q",
+                             srvc->package, srvc->service );
+      id = upk_db_exec_single( srvc->pdb, sql );
+      sqlite3_free( sql );
+
+      sql = sqlite3_mprintf("UPDATE procruns SET cmdline=%Q "
+                            "WHERE id = %d ", cmdline, atoi( id ));
+      upk_db_exec_single( srvc->pdb, sql );
+      sqlite3_free( sql );
+  }
+
+  return( cmdline );
+}
+
+/* 
+ * Get/Set the pid of a service.
+ * Requires the procruns entry to exist.
+ */
+int upk_db_service_pid( 
+                       upk_srvc_t srvc,
+                       int         pid
+) {
+  char       *result;
+  char       *sql;
+  int         service_id;
+  const char *id;
+  sqlite3    *pdb = srvc->pdb;
+  sql = sqlite3_mprintf( "SELECT pid from services, procruns "
+          "WHERE package = %Q "
+          "AND service = %Q "
+          "AND services.procrun_id = procruns.id ",
+          srvc->package, srvc->service );
+
+  result =  upk_db_exec_single( srvc->pdb, sql );
+  sqlite3_free( sql );
+
+  if( pid == 0 ) {
+      /* 'get' calls end here */
+      if( result == NULL ) {
+          pid = 0;
+      } else {
+          pid = atoi( result );
+      }
+      return ( pid );
+  }
+
+  /* 'set' call */
+  /* Update an existing entry only! */
+  sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
+          "WHERE services.procrun_id = procruns.id "
+          "AND package = %Q "
+          "AND service = %Q",
+          srvc->package, srvc->service );
+  id = upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+ 
+  if( pid < 0 ) {
+      sql = sqlite3_mprintf("UPDATE procruns SET pid=NULL "
+                            "WHERE id = %d ", atoi( id ));
+  } else {
+      sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
+                            "WHERE id = %d ", pid, atoi( id ));
+  }
+
+  upk_db_exec_single( pdb, sql );
+  sqlite3_free( sql );
+
+  return( pid );
 }
 
 /* 
@@ -395,10 +513,11 @@ void upk_db_status_checker_launchcallback(
           /* Service not initialized, do nothing */
         return;
     }
-    
+    if ( DEBUG) {
     printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
            srvc->package, srvc->service, status_actual, status_desired);
     printf("Launching %s-%s\n", srvc->package, srvc->service);
+    }
 }
 
 /* 
@@ -414,7 +533,9 @@ void upk_db_status_checker(
     int           rc, ncols;
     struct upk_srvc s = { pdb };
     sql = "SELECT package, service, state_desired, state_actual "
-          "FROM services;";
+          "FROM services "
+	  "ORDER by package, service "
+	  ";";
 
     sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
 
@@ -433,4 +554,175 @@ void upk_db_status_checker(
     }
 
     sqlite3_finalize( stmt );
+}
+
+/* 
+ * Add a listener for a component. Nuke all existing ones for this component.
+ */
+int 
+upk_db_listener_add(
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid,
+    int         signal
+) {
+    int   rc;
+    char *zErr;
+    char *sql = sqlite3_mprintf(
+	          "INSERT INTO listeners (component, pid, signal) "
+                  "values (%Q, %d, %d)",
+	        component, pid, signal );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener insert failed: %s\n", zErr);
+	return( UPK_ERROR_INTERNAL );
+    }
+
+    sqlite3_free( sql );
+
+    return( 0 );
+}
+
+/* 
+ * Remove all listeners for a component.
+ */
+int 
+upk_db_listener_remove(
+    sqlite3    *pdb, 
+    const char *component
+) {
+    int   rc;
+    char *zErr;
+    char *sql = sqlite3_mprintf(
+	          "DELETE FROM listeners WHERE component = %Q",
+	        component );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener remove failed: %s\n", zErr);
+	return( UPK_ERROR_INTERNAL );
+    }
+
+    sqlite3_free( sql );
+
+    return( 0 );
+}
+
+/* 
+ * Visitor callback to remove a dead listener.
+ */
+void 
+_upk_db_dead_listener_remove_callback(
+    sqlite3    *pdb,
+    const char *component,
+    int         pid,
+    int         signal
+) {
+    int   rc;
+    char *zErr;
+    char *sql;
+   
+    if( kill( pid, 0 ) == 0 ) {
+	/* Process is alive, ignore */
+	return;
+    }
+
+    sql = sqlite3_mprintf(
+	          "DELETE FROM listeners WHERE pid = %d",
+	        pid );
+
+    rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+    if(rc != SQLITE_OK) {
+	printf("Listener remove failed: %s\n", zErr);
+	return;
+    }
+
+    sqlite3_free( sql );
+
+    return;
+}
+
+/* 
+ * Visit all listeners for a component and call a callback with the pid
+ * each time.
+ */
+void upk_db_listener_visitor( 
+    sqlite3 *pdb, 
+    void (*callback)()
+) {
+    const char   *sql;
+    sqlite3_stmt *stmt;
+    int           rc, ncols;
+
+    sql = "SELECT component, pid, signal "
+          "FROM listeners "
+	  ";";
+
+    sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
+
+    ncols = sqlite3_column_count( stmt );
+    rc = sqlite3_step( stmt );
+
+    while( rc == SQLITE_ROW ) {
+        (*callback)( pdb,
+                sqlite3_column_text( stmt, 0 ),
+                sqlite3_column_int( stmt, 1 ),
+                sqlite3_column_int( stmt, 2 )
+                );
+        rc = sqlite3_step( stmt );
+    }
+
+    sqlite3_finalize( stmt );
+}
+
+/* 
+ * Callback to send signals to listeners
+ */
+void _upk_db_listener_signal_callback( 
+    sqlite3    *pdb, 
+    const char *component, 
+    int         pid,
+    int         signal
+) {
+    if( DEBUG ) {
+        printf( "Sending signal to component %s: kill %d %d\n",
+            component, pid, signal );
+    }
+    
+    /* best effort only, don't care if that process actually exists */
+    kill( pid, signal );
+}
+
+/* 
+ * Deliver all signals
+ */
+void upk_db_listener_send_all_signals(
+    sqlite3    *pdb
+) {
+    upk_db_listener_visitor( pdb, _upk_db_listener_signal_callback );
+}
+
+/* 
+ * Remove dead listeners
+ */
+void upk_db_listener_remove_dead(
+    sqlite3    *pdb
+) {
+    upk_db_listener_visitor( pdb, _upk_db_dead_listener_remove_callback );
+}
+
+/* 
+ * Wipe all DB tables
+ */
+void upk_db_clear(
+    sqlite3    *pdb
+) {
+    upk_db_exec_single( pdb, "DELETE FROM procruns;" );
+    upk_db_exec_single( pdb, "DELETE FROM services;" );
+    upk_db_exec_single( pdb, "DELETE FROM listeners;" );
+    upk_db_exec_single( pdb, "DELETE FROM events;" );
 }

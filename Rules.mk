@@ -10,6 +10,10 @@ dir	:= common
 include		$(dir)/Rules.mk
 dir	:= controller
 include		$(dir)/Rules.mk
+dir	:= uptop
+include		$(dir)/Rules.mk
+
+DEPS_LEFTOVERS=*/*.dSYM
 
 CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB) $(TGT_DEPS)
 
@@ -24,6 +28,7 @@ targets:	$(TGT_BIN) $(TGT_SBIN) $(TGT_ETC) $(TGT_LIB)
 .PHONY:		clean
 clean:
 		rm -f $(CLEAN)
+		rm -rf $(DEPS_LEFTOVERS)
 
 check:		$(CHECK)
 
@@ -39,6 +44,3 @@ echo-%:
 .c.o: 	
 	$(COMP)
 
-
-.t.tap:
-	exec $< > $@

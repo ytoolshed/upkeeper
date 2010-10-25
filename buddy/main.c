@@ -22,6 +22,9 @@ int main(
     const char    *cp;
     const char    *command = "./do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
+
+    printf("1..3\n");
+
     rc = upk_db_init( file, &s.pdb );
 
     if(rc < 0) {

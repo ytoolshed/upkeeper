@@ -32,12 +32,21 @@ CREATE TABLE events (
         REFERENCES service(id)
 );
 
+CREATE TABLE listeners (
+    id        INTEGER PRIMARY KEY,
+    component VARCHAR,
+    signal    INTEGER,
+    pid       INTEGER
+);
+
 CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
 WHEN   new.state_desired = 'stop'
        BEGIN
-              SELECT     signal_send(procruns.pid,15)
-              FROM       procruns 
-              WHERE      new.procrun_id    = procruns.id;
-       END
- ;
-
+              INSERT INTO events
+              (etime,event,service_id)
+              SELECT     datetime('now'),
+                         'kill' + procruns.pid + signal_send(procruns.pid,15),
+                         new.id
+              FROM  procruns 
+              WHERE new.procrun_id    = procruns.id;
+END;

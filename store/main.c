@@ -18,11 +18,25 @@ int main(
     const char    *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
 
+    printf("1..10\n");
+
     /* test */
     upk_test_is( 1, 1, "one is one" );
 
     rc = upk_db_init( file, &s.pdb );
     
+        /* setter */
+    upk_db_service_cmdline( &s, "cmdline" );
+        /* getter */
+    upk_test_eq( upk_db_service_cmdline( &s, NULL ),
+                 "cmdline" );
+
+        /* setter */
+    upk_db_service_pid( &s, 123 );
+        /* getter */
+    upk_test_is( upk_db_service_pid( &s, 0 ),
+                 123, "get 123 back as pid" );
+
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");
 	exit(-1);
@@ -68,8 +82,9 @@ int main(
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL);
     upk_db_status_checker( s.pdb, upk_db_status_checker_launchcallback );
 
-    upk_db_exec_single( s.pdb, "SELECT signal_send( 456456, 1 )" );
+    /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 
+    upk_db_listener_send_all_signals( s.pdb );
     sqlite3_close( s.pdb );
 
     return(0);
