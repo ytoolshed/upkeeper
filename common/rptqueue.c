@@ -1,9 +1,11 @@
+#include <string.h>
 #include "rptqueue.h"
 
 void rpt_init(struct rptqueue *rpt)
 {
-  rpt->buf = { -1, '\0' };
-  rpt->dpos = display;
+  rpt->buf[0] = -1;
+  rpt->buf[1] = -1;
+  rpt->dpos = rpt->display;
 
   if (rpt->ofd != -1)
     ndelay_on(rpt->ofd);
@@ -11,47 +13,31 @@ void rpt_init(struct rptqueue *rpt)
   ndelay_on(rpt->ifd);
 
   if (!rpt->dlen) {
-    rpt->dlen = strlen(display);
+    rpt->dlen = strlen(rpt->display);
   }
 }
 
-static void dooutput (struct rptqueue *rpt) 
-{
-  if (rpt->ofd != -1) {}
-
-  
-  rpt->buf[1] = '\0';
-  return;
-
-}  
-
 int rpt_status_update(struct rptqueue *rpt)
 {
-  int read;
-  dooutput(rpt);
-  if (rpt->ifd == -1) return;
+  int red;
+  if (rpt->ifd == -1) return 1;
 
-  red = read(rpt->ifd,buf[1],1);
-  if (red != 1) return red;
+  while (read(rpt->ifd,&(rpt->buf[1]),1) > 0) {
+    rpt_write_status(rpt,rpt->buf[1]);
 
-  rpt_write_status(rpt,rpt->buf, 1);
+    if (rpt->ofd != -1) 
+      write(rpt->ofd,&rpt->buf[1],1);
+  }
 
   return 1;
 }
  
-int rpt_write_status (struct rptqueue *rpt, const char *msg, int len)
+int rpt_write_status (struct rptqueue *rpt, const char msg)
 {
-  int tostore = len, tomove;
-  while((dpos < rpt->display + rpt->dlen) && tostore--) {
-    *dpos++ = *msg++;
-  }
+  int i = 3;
+  while (i++ < rpt->dlen) 
+    rpt->display[i-1] = rpt->display[i];
 
-  tomove = rpt->dlen - len;
-  if (tomove > 0) {
-    byte_copy(rpt->display + 3, tomove, rpt->display + 3 + tomove);
-    byte_copy(rpt->display + 3 + tomove, len, msg);
-  } else {
-    byte_copy(rpt->display + 3, rpt->dlen - 3, msg + len - rpt->dlen - 3);
-  }
-
+  rpt->display[rpt->dlen-1] = msg;
+  
 }

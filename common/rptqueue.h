@@ -21,7 +21,7 @@ struct rptqueue {
 
 /* returns the number of bytes transferred */
 int rpt_status_update(struct rptqueue *rpt);
-int rpt_write_status (struct rptqueue *rpt, const char *msg);
+int rpt_write_status (struct rptqueue *rpt, const char msg);
 
 void rpt_init(struct rptqueue *rpt);
 

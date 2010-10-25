@@ -13,6 +13,7 @@ $(d)/byte_copy.o\
 $(d)/byte_cr.o\
 $(d)/byte_diff.o\
 $(d)/byte_rchr.o\
+$(d)/coe.o\
 $(d)/deepsleep.o\
 $(d)/error.o\
 $(d)/error_str.o\
@@ -23,6 +24,7 @@ $(d)/fmt_uint.o\
 $(d)/fmt_ulong.o\
 $(d)/iopause.o\
 $(d)/ndelay_on.o\
+$(d)/rptqueue.o\
 $(d)/sig_block.o\
 $(d)/sig.o\
 $(d)/sig_catch.o\
