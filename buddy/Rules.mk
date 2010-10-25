@@ -7,7 +7,7 @@ $(LIB)	:= $(d)/buddy.a
 
 CF_$(d) += -I$(d) -Istore
 LL_$(d) := store/store.a $(d)/buddy.a deps/sqlite/sqlite3.a common/common.a
-CLEAN   += buddy.usage.c
+CLEAN   += $(d)/buddy.usage.c
 
 CHECK	+= $(d)/buddytest.tap
 

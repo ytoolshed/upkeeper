@@ -7,95 +7,14 @@
 #include "common/iopause.h"
 #include "common/tai.h"
 #include "common/taia.h"
+#include "common/coe.h"
 #include "common/error.h"
 #include "common/wait.h"
 #include "common/strerr.h"
 
 #include "store/upk_db.h"
 #include "upk_buddy.h"
-#include "sigblock.h"
-
-#define FATAL "buddy: fatal: "
-#define WARNING "buddy: warning: "
-
-extern int DEBUG;
-
-static int sigchld  = 0;
-static int sigterm  = 0;
-static int selfpipe[2] = {};
-struct shutdown_step {
-  int signal;
-  int wait;
-};
-
-static void handler(int sig)  { 
-  char sigc = sig;
-  sig = write(selfpipe[1],&sigc,1); 
-} 
-
-
-static struct shutdown_step *
-get_shutdown(upk_srvc_t srvc)
-{ 
-  static struct shutdown_step s[3];
-  s[0].signal = sig_term;
-  s[0].wait   = 15;
-  s[1].signal = sig_kill;
-  s[1].wait   = 5;
-  s[2].signal = -1;
-  s[2].wait   = -1;
-  return s;
-}
-
-
-
-void idle (upk_srvc_t srvc,
-           int      childpid)
- {
-
-  struct taia now;
-  struct taia deadline;
-  iopause_fd x;
-  char sig;
-  int status, pid;
-  struct shutdown_step *sd_config = (struct shutdown_step *)0;
-  for (;;) {
-    taia_uint(&deadline,3600);
-
-    if (sd_config && sd_config->wait != -1) {
-      kill(childpid,sd_config->signal);
-      taia_uint(&deadline,sd_config->wait);
-      sd_config++;
-    }
-
-    x.fd = selfpipe[0];
-    x.events = IOPAUSE_READ;
-    taia_now(&now);
-
-    taia_add(&deadline,&now,&deadline);
-    iopause(&x,1,&deadline,&now);
-
-    sig_block(sig_child);
-    sig_block(sig_term);
-    if (read(selfpipe[0],&sig,1) > 0) {
-      if (sig == sig_term && !sd_config) {
-        sd_config = get_shutdown(srvc);
-      }
-    }
-
-    pid = wait_nohang(&status);
-    if (pid) {
-      /* write to socket? pipe? */
-      /*      upk_db_service_actual_status(srvc, UPK_STATUS_VALUE_STOP);*/
-      break;
-    }
-
-    sig_unblock(sig_child);
-    sig_unblock(sig_term);
-
-  }
-  _exit (0);
-}
+#define BUDDYPATH "./buddy"
 
 /* 
  * Launches the application process in argv[] with a 'buddy'
@@ -109,50 +28,44 @@ int upk_buddy_start(
   const char    *env[]
 ) {
   int ppipe[2];
-  int pid;
+  int pid,bpid;
+  int wstat;
   int w;
-  char f;
   
   /* set up communication path */
   if (pipe(ppipe) == -1) {
-    strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);
-    return;
+    /*strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);*/
+    return -1;
 
   }
+  coe(ppipe[0]);
 
-  if ((pid = fork())) {
+  bpid = fork();
+  if (bpid == -1) return -1;
+
+  if (bpid == 0) {
+    if (fd_copy(3, ppipe[1]) == -1)
+      close(ppipe[1]);
+
+    execle(BUDDYPATH, 
+           BUDDYPATH, 
+           command, 
+           "........................................",
+           NULL,
+           env);
     close(ppipe[1]);
-    if (read(ppipe[0],&f,1)==-1) { }
-    if (f == 'd') { return -1; }
-    upk_db_service_run(
-                       srvc, command, pid);
-    close(ppipe[1]);
+    exit(1);
+  }
+
+  close(ppipe[1]);
+  if (read(ppipe[0],&pid,4) == 4) { 
+    upk_db_service_run(srvc, command, pid);      
     return pid;
   }
-  close(ppipe[0]);
 
-  pid = fork();
-  if (-1 == pid)  {
-    w = write(ppipe[1],"fork failed",1);
-    exit(123);
-  }
-  if (pid == 0) {
-    execle(command, command, NULL, env);
-    w = write(ppipe[1],"exec failed",1);
-    exit(123);
-  }
-  if (pipe(selfpipe) == -1) { 
-    w = write(ppipe[1],"pipe failed",1);
-    exit(123);
-  }
-  ndelay_on(selfpipe[0]);
-  ndelay_on(selfpipe[1]);
-  sig_catch(sig_child,handler);
-  sig_catch(sig_term,handler);
-  w = write(ppipe[1],"u",1);
-  close(ppipe[1]);
-  idle(srvc, pid);
-  exit(0);
+  close(ppipe[0]);
+  return pid;
+  
 }
 
 
