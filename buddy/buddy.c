@@ -136,10 +136,10 @@ static void idle (void)
     wpid = wait_nohang(&status);
     
     if (wpid == pid) {
-      printf("status for %d - %d\n",wpid,status);
+      /* printf("status for %d - %d\n",wpid,status); */
       break;
     } 
-    printf("status for %d\n",wpid);
+    /* printf("status for %d\n",wpid); */
     if (term) {
       if (term == 1) {
         kill(pid,sig_term);

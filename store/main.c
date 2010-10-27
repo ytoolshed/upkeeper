@@ -18,7 +18,7 @@ int main(
     const char    *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
 
-    printf("1..10\n");
+    printf("1..23\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
