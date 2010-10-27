@@ -7,6 +7,7 @@
 #include <signal.h>
 #include <ncurses.h>
 #include <time.h>
+#include <assert.h>
 
 #define COMPONENT "uptop"
 
@@ -111,6 +112,10 @@ void uptop_print_callback(
     char       *fq_service;
     const char *cmdline;
     int         pid;
+
+    if( status_desired == NULL ) {
+        return;
+    }
 
     if( status_actual == NULL ) {
 	status_actual = "UNDEF";
