@@ -7,7 +7,7 @@
 #include <string.h>
 #include "../store/upk_db.h"
 
-int DEBUG           = 0;
+int DEBUG           = 1;
 int OPT_ALL_UP,
     OPT_ALL_DOWN,
     OPT_HELP,
@@ -154,7 +154,7 @@ int cmdline_join(
         }
 
         if( cp - buf + strlen( argv[i] ) > buf_len - 2 ) {
-            printf("Buffer overflow in cmdline_join (%ld > %d)\n",
+            printf("Buffer overflow in cmdline_join (%d > %d)\n",
                     cp - buf + strlen( argv[i] ), buf_len - 2 );
             return( -1 );
         }
