@@ -56,19 +56,17 @@ SHUTDOWN:
  * Status iterator callback to reset all states to 'stop'.
  */
 void upk_db_reset_launchcallback( 
-    sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
+    upk_srvc_t  srvc,                                    
     char    *status_desired,
     char    *status_actual
 ) {
-  struct upk_srvc s = { pdb, package, service };
   if( status_actual != NULL &&
       strcmp( status_actual, "start" ) == 0 ) {
     if( DEBUG )
-      printf( "Resetting status of service %s-%s.\n", package, service );
+      printf( "Resetting status of service %s-%s.\n", 
+	      srvc->package, srvc->service );
    
-    upk_db_service_actual_status( &s, UPK_STATUS_VALUE_STOP );
+    upk_db_service_actual_status( srvc, UPK_STATUS_VALUE_STOP );
   }
 }
 

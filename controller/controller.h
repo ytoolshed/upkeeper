@@ -1,7 +1,5 @@
 void upk_db_reset_launchcallback( 
-    sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
+    upk_srvc_t  srvc,                                    
     char    *status_desired,
     char    *status_actual
 );
