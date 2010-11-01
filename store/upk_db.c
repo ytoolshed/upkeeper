@@ -1,3 +1,4 @@
+#define __UPK_DB_C
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlite3.h>
@@ -11,9 +12,6 @@
 #include "upk_db.h"
 
 #include "schema.c"
-
-const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
-
 
 extern int DEBUG;
 
