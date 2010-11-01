@@ -1,10 +1,8 @@
 
 void uptop_print_callback( 
-    sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    upk_srvc_t  srvc,                                    
+    const char *status_desired,
+    const char *status_actual
 );
 
 void uptop_services_print(

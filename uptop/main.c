@@ -102,13 +102,10 @@ void uptop_signal_handler(
  * Status iterator callback to reset all states to 'stop'.
  */
 void uptop_print_callback( 
-    sqlite3 *pdb, 
-    char    *package, 
-    char    *service,
-    char    *status_desired,
-    char    *status_actual
+    upk_srvc_t  srvc,                                    
+    const char *status_desired,
+    const char *status_actual
 ) {
-  struct upk_srvc s = { pdb, package, service };
     char       *fq_service;
     const char *cmdline;
     int         pid;
@@ -122,7 +119,7 @@ void uptop_print_callback(
     }
 
     fq_service = sqlite3_mprintf(
-	    "%s-%s", package, service);
+	    "%s-%s", srvc->package, srvc->service);
 
     printw( "%-20s: ", fq_service );
     if( strcmp( status_actual, status_desired ) != 0 ) {
@@ -132,14 +129,14 @@ void uptop_print_callback(
     attroff( A_BOLD );
     printw( " [%-5s]", status_desired );
 
-    pid = upk_db_service_pid( &s, 0 );
+    pid = upk_db_service_pid( srvc, 0 );
     if( pid == 0 ) {
         printw( " [     ]" );
     } else {
         printw( " [%5d]", pid );
     }
 
-    cmdline = upk_db_service_cmdline( &s, NULL );
+    cmdline = upk_db_service_cmdline( srvc, NULL );
     if( cmdline == NULL ) {
         cmdline = "";
     }
