@@ -19,6 +19,9 @@ $(d)/buddy-controller: $(d)/main.c $(LL_$(d))
 $(d)/upk: $(d)/upk.c $(LL_$(d))
 	$(COMPLINK) $(LL_controller)
 
+$(d)/buddy: buddy/buddy
+	ln -sf $< $@
+
 # Standard things
 include 	end.mk
 
