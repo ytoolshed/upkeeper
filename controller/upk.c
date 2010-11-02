@@ -116,9 +116,9 @@ int main(
         srvc.package = argv[2];
         srvc.service = argv[3];
 	if( OPT_SET_ACTUAL_STATE ) {
-          upk_db_service_actual_status( &srvc, strcmp(argv[4],"up") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
+          upk_db_service_actual_status( &srvc, strcmp(argv[4],"stop") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
 	} else {
-          upk_db_service_desired_status( &srvc, strcmp(argv[4],"up") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
+          upk_db_service_desired_status( &srvc, strcmp(argv[4],"stop") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
 	}
     }
 
