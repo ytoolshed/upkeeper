@@ -1,0 +1,28 @@
+upkeeper ipc. how does it work?
+================
+Today, upk_buddy_start causes a pipe() to be created which is used to
+communicate back to the parent process, the buddy controller. There's
+been some suggestion that this should be replaced with a unix domain
+socket, but all those suggestions are predicated on the belief that
+the controller needs to be a restartable process. I'm not sure why.
+
+
+Other Options
+================
+1. The buddy could listen on a domain socket and report stuff to the
+   controller that way. This has a problem that the buddy needs
+   infinite memory to handle the case where the controlller is missing
+   for long periods of time (or we'll have to define how events are dropped).
+
+2. The buddy could spit json to stdout/stderr (or to the special pipe as
+   today). This would lead to the buddy blocking on this pipe in the
+   degenerate case.
+
+3. The controller could have a unix domain socket, the buddies could
+   connect to this and report stuff that way.
+
+4. The buddy could write directly to the sqlite3 database. This has
+   been ruled out but I'm not sure why.
+
+
+
