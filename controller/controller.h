@@ -4,3 +4,4 @@ void upk_db_reset_launchcallback(
     char    *status_actual
 );
 void upk_controller_bootstrap( sqlite3 *pdb );
+void upk_controller_status_fixer( sqlite3 *pdb );
