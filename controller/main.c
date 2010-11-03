@@ -81,7 +81,7 @@ void upk_db_reset_launchcallback(
 void upk_controller_bootstrap( 
     sqlite3 *pdb
 ) {
-    upk_db_status_checker( pdb, upk_db_reset_launchcallback );
+    upk_db_status_visitor( pdb, upk_db_reset_launchcallback );
 }
 
 /* 

@@ -79,13 +79,13 @@ void upk_db_status_visitor(
     void (*callback)()
 );
 
-void _upk_db_status_checker_testcallback( 
+void _upk_db_status_visitor_testcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
 );
 
-void upk_db_status_checker_launchcallback( 
+void upk_db_status_visitor_launchcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
@@ -127,7 +127,7 @@ upk_db_listener_remove(
     const char *component
 );
 
-void upk_db_listener_checker( 
+void upk_db_listener_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 );

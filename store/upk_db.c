@@ -484,7 +484,7 @@ const char * upk_db_service_actual_status(
 
 
 /* 
- * Test callback for the status checker, which just prints out all 
+ * Test callback for the status visitor, which just prints out all 
  * entries it is called with.
  */
 void _upk_db_status_visitor_testcallback( 
@@ -497,7 +497,7 @@ void _upk_db_status_visitor_testcallback(
 }
 
 /* 
- * Launcher callback for the status checker. 
+ * Launcher callback for the status visitor. 
  * Starts up processes with actual=stop and desired=start.
  * Shuts down processes with actual=start and desired=stop.
  */
@@ -519,7 +519,7 @@ void upk_db_status_visitor_launchcallback(
 }
 
 /* 
- * Status checker iterates through all configured pkg/services in the DB and
+ * Status visitor iterates through all configured pkg/services in the DB and
  * calls the provided callback functions for every entry it finds.
  */
 void upk_db_status_visitor( 
