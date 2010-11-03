@@ -7,7 +7,7 @@
 #include <string.h>
 #include "../store/upk_db.h"
 
-int DEBUG           = 1;
+int DEBUG           = 0;
 int OPT_ALL_UP,
     OPT_ALL_DOWN,
     OPT_HELP,
