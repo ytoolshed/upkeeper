@@ -113,7 +113,7 @@ void upk_controller_status_fixer_callback(
 void upk_controller_status_fixer( 
     sqlite3 *pdb
 ) {
-    upk_db_status_checker( pdb, upk_controller_status_fixer_callback );
+    upk_db_status_visitor( pdb, upk_controller_status_fixer_callback );
 }
 
 /* 

@@ -74,7 +74,7 @@ char *upk_db_exec_single(
 int upk_db_service_find_or_create( upk_srvc_t );
 int upk_db_service_find( upk_srvc_t );
 
-void upk_db_status_checker( 
+void upk_db_status_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 );

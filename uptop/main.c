@@ -190,7 +190,7 @@ void uptop_services_print(
     attroff( A_BOLD );
     printw( "USR1 me at pid %d\n", getpid() );
     printw( "----------------------------------------\n" );
-    upk_db_status_checker( pdb, uptop_print_callback );
+    upk_db_status_visitor( pdb, uptop_print_callback );
     printw( "----------------------------------------\n" );
 
     getmaxyx( stdscr, y, x );
