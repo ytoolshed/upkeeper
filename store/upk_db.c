@@ -1,3 +1,4 @@
+#define __UPK_DB_C
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlite3.h>
@@ -11,9 +12,6 @@
 #include "upk_db.h"
 
 #include "schema.c"
-
-const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
-
 
 extern int DEBUG;
 
@@ -486,10 +484,10 @@ const char * upk_db_service_actual_status(
 
 
 /* 
- * Test callback for the status checker, which just prints out all 
+ * Test callback for the status visitor, which just prints out all 
  * entries it is called with.
  */
-void _upk_db_status_checker_testcallback( 
+void _upk_db_status_visitor_testcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
@@ -499,11 +497,11 @@ void _upk_db_status_checker_testcallback(
 }
 
 /* 
- * Launcher callback for the status checker. 
+ * Launcher callback for the status visitor. 
  * Starts up processes with actual=stop and desired=start.
  * Shuts down processes with actual=start and desired=stop.
  */
-void upk_db_status_checker_launchcallback( 
+void upk_db_status_visitor_launchcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
@@ -521,10 +519,10 @@ void upk_db_status_checker_launchcallback(
 }
 
 /* 
- * Status checker iterates through all configured pkg/services in the DB and
+ * Status visitor iterates through all configured pkg/services in the DB and
  * calls the provided callback functions for every entry it finds.
  */
-void upk_db_status_checker( 
+void upk_db_status_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 ) {

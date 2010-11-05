@@ -16,6 +16,12 @@ int upk_db_close(
     sqlite3 *pdb 
 );
 
+#ifdef __UPK_DB_C
+const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
+#else
+extern const char *upk_states[];
+#endif
+
 typedef enum { 
   UPK_STATUS_VALUE_UNKNOWN = 0,    
   UPK_STATUS_VALUE_START   = 1,   /* Set by buddy upon sucessful fork() */
@@ -68,18 +74,18 @@ char *upk_db_exec_single(
 int upk_db_service_find_or_create( upk_srvc_t );
 int upk_db_service_find( upk_srvc_t );
 
-void upk_db_status_checker( 
+void upk_db_status_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 );
 
-void _upk_db_status_checker_testcallback( 
+void _upk_db_status_visitor_testcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
 );
 
-void upk_db_status_checker_launchcallback( 
+void upk_db_status_visitor_launchcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
     const char    *status_actual
@@ -121,7 +127,7 @@ upk_db_listener_remove(
     const char *component
 );
 
-void upk_db_listener_checker( 
+void upk_db_listener_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 );
