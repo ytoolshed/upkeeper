@@ -1,15 +1,19 @@
 include 	begin.mk
 
-$(OBJS)	:= $(d)/main.o $(d)/upk.o
+$(OBJS)	:= $(d)/controller.o
 $(DEPS)	:= $(OBJS_$(d):.o=.d)
 $(BIN)	:= $(d)/buddy-controller $(d)/upk
+$(LIB)  := $(d)/controller.a
 
 CF_$(d) += -I$(d) -Istore
-LL_$(d) := store/store.a buddy/buddy.a deps/sqlite/sqlite3.a common/common.a
+LL_$(d) := store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlite3.a common/common.a
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
 CHECK	+= $(d)/buddy-controller.t
+
+$(d)/controller.a: $($(OBJS))
+	$(ARCH)
 
 $(d)/buddy-controller.tap: $(d)/buddy-controller
 
@@ -24,4 +28,3 @@ $(d)/buddy: buddy/buddy
 
 # Standard things
 include 	end.mk
-
