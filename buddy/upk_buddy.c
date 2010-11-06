@@ -16,6 +16,8 @@
 #include "upk_buddy.h"
 #define BUDDYPATH "./buddy"
 
+extern int DEBUG;
+
 /* 
  * Launches the application process in argv[] with a 'buddy'
  * which updates the upkeeper database when the application has been started
@@ -32,6 +34,11 @@ int upk_buddy_start(
   int wstat;
   int w;
   
+  if( DEBUG ) {
+      printf("upk_buddy_start %s/%s %s\n",
+              srvc->service, srvc->package, command);
+  }
+
   /* set up communication path */
   if (pipe(ppipe) == -1) {
     /*strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);*/
