@@ -32,6 +32,10 @@ void upk_controller_status_fixer_callback(
         return;
     }
 
+      /* We got a static buffer which is going to be overridden with the
+         next sql call, allocate memory */
+    cmdline = strdup( cmdline );
+
     if( strcmp( status_desired, upk_states[ UPK_STATUS_VALUE_START ] ) == 0 ) {
 	/* service needs to be started */
         if( DEBUG ) {
@@ -47,6 +51,7 @@ void upk_controller_status_fixer_callback(
         upk_buddy_stop( srvc );
     }
 
+    free( cmdline );
     return;
 }
 
