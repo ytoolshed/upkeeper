@@ -31,7 +31,6 @@ int upk_buddy_start(
   int pid,bpid;
   int wstat;
   int w;
-  
   /* set up communication path */
   if (pipe(ppipe) == -1) {
     /*strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);*/
@@ -44,12 +43,10 @@ int upk_buddy_start(
   if (bpid == -1) return -1;
 
   if (bpid == 0) {
-    if (fd_copy(3, ppipe[1]) == -1)
-      close(ppipe[1]);
-
     execle(BUDDYPATH, 
            BUDDYPATH, 
            command, 
+           "-f",
            "........................................",
            NULL,
            env);

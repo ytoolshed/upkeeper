@@ -54,11 +54,9 @@ and when it got stopped or crashed.
 =item * upk_buddy_start
 
     int buddy_pid = upk_buddy_start(
-      sqlite3  pdb, 
-      char    *package,
-      char    *service,
-      const   *char argv[], 
-      const   *char env[]
+        upk_srvc_t svc
+        const char *command,
+        const char *env[]
     );
 
 Forks two processes, a buddy process (ps line changed to "upk-buddy-argv[0]")
@@ -78,13 +76,10 @@ Returns the buddy process pid on success and a number < 0 on error.
 =item * upk_buddy_stop
 
     int
-    upk_buddy_stop(
-      sqlite3  pdb, 
-      int      buddy_pid,
-    );
+    upk_buddy_stop( upk_srvc_t );
 
-Stops the process launched by a previous call to upk_buddy_start() and
-updates the upkeeper database accordingly.
+Stops all processes process associated with the upkeeper service
+passed.
 
 Returns 0 on success and a number < 0 on error.
 

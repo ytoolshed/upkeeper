@@ -1,4 +1,4 @@
-CHECK :=
+CHECK := $(CHECK)
 # Subdirectories, in random order
 dir	:= buddy
 include		$(dir)/Rules.mk
@@ -10,8 +10,8 @@ dir	:= common
 include		$(dir)/Rules.mk
 dir	:= controller
 include		$(dir)/Rules.mk
-dir	:= uptop
-include		$(dir)/Rules.mk
+#dir	:= uptop
+#include		$(dir)/Rules.mk
 
 DEPS_LEFTOVERS=*/*.dSYM
 
@@ -31,11 +31,17 @@ clean:
 		rm -rf $(DEPS_LEFTOVERS)
 
 check:		$(CHECK)
+t-files:	
+	echo $(CHECK)
+
 
 install:
 # Prevent make from removing any build targets, including intermediate ones
 
 .SECONDARY:	$(CLEAN)
+
+.t.tap:
+	exec $< > $@
 
 echo-%: 
 	echo $* $($*)

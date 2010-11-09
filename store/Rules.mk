@@ -22,12 +22,14 @@ $(d)/schema.c: $(d)/schema.sql
 	sed -e 's/^/"/' -e 's/$$/"/' < $< >> $@
 	echo ';' >> $@
 
-CHECK	+= $(d)/store-test.t
+CHECK	+= $(d)/store-test.tap
 
 CLEAN		:= $(CLEAN) store.sqlite
 CLEAN		:= $(CLEAN) store.sqlite $(d)/schema.c
 
-$(d)/store-test: $(d)/main.c $(LL_$(d))
+$(d)/store-test.tap: $(d)/store-test
+
+$(d)/store-test: $(d)/main.c $(LL_store)
 	$(COMPLINK) $(LL_store)
 
 # Standard things
