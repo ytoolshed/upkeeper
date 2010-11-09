@@ -1,5 +1,6 @@
 #include <string.h>
 #include "rptqueue.h"
+#include "nonblock.h"
 
 void rpt_init(struct rptqueue *rpt)
 {
@@ -8,9 +9,9 @@ void rpt_init(struct rptqueue *rpt)
   rpt->dpos = rpt->display;
 
   if (rpt->ofd != -1)
-    ndelay_on(rpt->ofd);
+    nonblock(rpt->ofd);
 
-  ndelay_on(rpt->ifd);
+  nonblock(rpt->ifd);
 
   if (!rpt->dlen) {
     rpt->dlen = strlen(rpt->display);

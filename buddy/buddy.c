@@ -5,15 +5,15 @@
 #include <string.h>
 #include <sqlite3.h>
 #include <getopt.h>
-#include "common/sig.h"
-#include "common/iopause.h"
-#include "common/tai.h"
-#include "common/taia.h"
+#include <errno.h>
+#include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
 #include "common/rptqueue.h"
-#include "common/error.h"
-#include "common/wait.h"
-#include "common/strerr.h"
-#include "common/sig.h"
+#include "common/sigblock.h"
+#include "common/nonblock.h"
 
 #define FATAL "buddy: fatal: "
 
@@ -27,10 +27,17 @@ static int logpipe[2] = { -1, -1 },
 int child = 0, term = 0;
 int pid;
 
+static void sysdie(int e, const char *a,const char *b, const char *c)
+{
+  fprintf(stderr, "%s%s%s%s\n",a,b,c,strerror(errno));
+  exit(e);
+}
+
+
 static void idle (void);
 static void handler(int sig)  
 { 
-  if (sig == sig_child) child = 1;
+  if (sig == SIGCHLD) child = 1;
   else term = 1;
   sig = write(selfpipe[1]," ",1); 
 } 
@@ -43,46 +50,46 @@ int main(int ac, char **av, char **envp)
 
   if (parentfd) {
     coe(parentfd);
-    ndelay_on(parentfd);
+    nonblock(parentfd);
   }
 
-  sig_catch(sig_child, handler);
-  sig_catch(sig_term, handler);
-  sig_block(sig_child);
+  upk_catch_signal(SIGCHLD, handler);
+  upk_catch_signal(SIGTERM, handler);
+  upk_block_signal(SIGCHLD);
   
   if (lbuf) {
     if (pipe(logpipe) == -1) 
-      strerr_die3sys(111,FATAL, "failed to create log pipe for ",prog);
+      sysdie(111,FATAL, "failed to create log pipe for ",prog);
 
-    ndelay_on(logpipe[0]); ndelay_on(logpipe[1]);
+    nonblock(logpipe[0]); nonblock(logpipe[1]);
     coe(logpipe[0]); coe(logpipe[1]);
   }
 
   if (pipe(selfpipe) == -1)
-    strerr_die3sys(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",prog);
 
   coe(selfpipe[0]); coe(selfpipe[1]);
-  ndelay_on(selfpipe[0]);
+  nonblock(selfpipe[0]);
 
   if ((pid = fork()) == -1) 
-    strerr_die3sys(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",prog);
   
 
   if (pid == 0) {
-    sig_uncatch(sig_child);
-    sig_uncatch(sig_term);
-    sig_unblock(sig_child);
+    upk_uncatch_signal(SIGCHLD);
+    upk_uncatch_signal(SIGTERM);
+    upk_unblock_signal(SIGCHLD);
 
     if (lbuf) {
-      if (fd_copy(1, logpipe[1]) == -1)
-        strerr_die3sys(111,FATAL, "failed to set log for ",prog);
+      if (dup2(logpipe[1],1) == -1)
+        sysdie(111,FATAL, "failed to set log for ",prog);
       
       close(logpipe[1]);
       close(logpipe[0]);
     }
     execle(prog, prog, NULL, envp);
     
-    strerr_die3sys(111,FATAL, "failed to exec ",prog);
+    sysdie(111,FATAL, "failed to exec ",prog);
   }
 
   if (lbuf) 
@@ -96,8 +103,6 @@ int main(int ac, char **av, char **envp)
 static void idle (void)
 {
 
-  struct taia now, deadline;
-  iopause_fd x[2] = {};
   char sig;
   int status, i, ret,wpid;
   int limit = lbuf ? 2 : 1;
@@ -111,41 +116,36 @@ static void idle (void)
     rpt_init(&proctitle);
 
   for (;;) {
-    x[0].fd = selfpipe[0];
-    x[0].events = IOPAUSE_READ;
-    x[1].fd = logpipe[0];
-    x[1].events = IOPAUSE_READ;
-
-    taia_uint(&deadline,3600);
-    taia_now(&now);
-    taia_add(&deadline,&now,&deadline);
-
-    sig_unblock(sig_child);
-    sig_unblock(sig_term);
-    iopause(x,limit,&deadline,&now);
-    sig_block(sig_child);
-    sig_block(sig_term);
+    struct timeval period;
+    int retval;
+    fd_set rfds;
+    
+    /* Watch stdin (fd 0) to see when it has input. */
+    FD_ZERO(&rfds);
+    FD_SET(selfpipe[0], &rfds);
+    FD_SET(logpipe[0], &rfds);
+    period.tv_sec=60;
 
     /* output */
-    if (x[1].revents & IOPAUSE_READ) 
+    if (FD_ISSET(logpipe[0], &rfds)) 
       ret = rpt_status_update(&proctitle);
-
+      
     while(read(selfpipe[0],&sig,1) > 0) 
       ;
 
-    wpid = wait_nohang(&status);
+    wpid = waitpid(-1,&status,WNOHANG);
     
     if (wpid == pid) {
       printf("status for %d - %d\n",wpid,status);
       break;
     } 
-    printf("status for %d\n",wpid);
+
     if (term) {
       if (term == 1) {
-        kill(pid,sig_term);
-        kill(pid,sig_cont);
+        kill(pid,SIGTERM);
+        kill(pid,SIGCONT);
       }
-      if (term == 2) kill(pid,sig_kill);
+      if (term == 2) kill(pid,SIGKILL);
       if (term == 3) break;
       term++;
     }
@@ -158,8 +158,7 @@ static void idle (void)
 void usage(void) 
 {
   const char usage[] = 
-#include "buddy.usage.c"
-    ;
+    "buddy: usage: buddy [-d dir] [-f] command";
   write(2,usage,sizeof(usage));
   exit(111);
 }
@@ -172,8 +171,7 @@ int options_parse(int argc, char *argv[], char *envp[])
   int doing_log = 0;
   char *logbuf =  ".......................................";
   static struct option long_options[] = {
-    { "djb",    1, 0, 'd' },
-    { "skip-fd",     2, 0, 'f' },
+    { "fd",     2, 0, 'f' },
     { 0, 0, 0, 0 }
   };
 
@@ -204,7 +202,7 @@ int options_parse(int argc, char *argv[], char *envp[])
     }
     argv[argc-1] = logbuf;
     execve(argv[0],argv,envp);
-    strerr_die4sys(111,FATAL,"unable to restart self ",argv[0],": ");
+    sysdie(111,FATAL,"unable to restart self ",argv[0]);
   }
   if (optind == argc) { usage(); }
 

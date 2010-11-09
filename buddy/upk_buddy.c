@@ -3,14 +3,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sqlite3.h>
-#include "common/sig.h"
-#include "common/iopause.h"
-#include "common/tai.h"
-#include "common/taia.h"
-#include "common/coe.h"
-#include "common/error.h"
-#include "common/wait.h"
-#include "common/strerr.h"
 
 #include "store/upk_db.h"
 #include "upk_buddy.h"
@@ -34,7 +26,6 @@ int upk_buddy_start(
   
   /* set up communication path */
   if (pipe(ppipe) == -1) {
-    /*strerr_warn4(WARNING," pipe for ",srvc->service," failed : ",&strerr_sys);*/
     return -1;
 
   }
@@ -44,7 +35,7 @@ int upk_buddy_start(
   if (bpid == -1) return -1;
 
   if (bpid == 0) {
-    if (fd_copy(3, ppipe[1]) == -1)
+    if (dup2(ppipe[1],3) == -1)
       close(ppipe[1]);
 
     execle(BUDDYPATH, 
