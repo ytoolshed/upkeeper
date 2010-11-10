@@ -16,6 +16,12 @@ int upk_db_close(
     sqlite3 *pdb 
 );
 
+#ifdef __UPK_DB_C
+const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
+#else
+extern const char *upk_states[];
+#endif
+
 typedef enum { 
   UPK_STATUS_VALUE_UNKNOWN = 0,    
   UPK_STATUS_VALUE_START   = 1,
