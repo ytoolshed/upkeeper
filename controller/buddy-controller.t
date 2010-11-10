@@ -1,3 +1,3 @@
-# uptop.t
-print "1..1\n";
-print "ok 1\n";
+#!/bin/sh
+echo "1..1\n";
+echo "ok 1\n";

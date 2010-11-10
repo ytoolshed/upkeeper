@@ -20,15 +20,15 @@ AUTOCONF_LEFTOVERS=autom4te.cache autoscan.log config.h config.h.in~ config.log 
 
 DEPS_LEFTOVERS=*/*.dSYM
 
+test-files:
+	echo $(CHECK)
+
 distclean: clean
 	rm -rf $(AUTOCONF_LEFTOVERS) $(DEPS_LEFTOVERS) Makefile store/store.sqlite controller/buddy
 
 
 Makefile: Makefile.in configure.ac 
 	./config.status
-
-check: 	$(CHECK)
-	perl -MTest::Harness -e'runtests(qw($(CHECK)))'
 
 all:	targets
 

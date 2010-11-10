@@ -10,7 +10,7 @@ LL_$(d) := store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlit
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
-CHECK	+= $(d)/buddy-controller.t
+CHECK	+= $(d)/buddy-controller.tap
 
 $(d)/controller.a: $($(OBJS))
 	$(ARCH)

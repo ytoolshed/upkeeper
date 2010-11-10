@@ -1,5 +1,2 @@
-use strict;
-
-chdir "store";
-system("./init.sh");
-system("./store-test");
+#!/bin/sh
+cd `dirname $0` && ./init.sh && exec ./store-test

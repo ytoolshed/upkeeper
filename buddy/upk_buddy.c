@@ -48,6 +48,7 @@ int upk_buddy_start(
     execle(BUDDYPATH, 
            BUDDYPATH, 
            command, 
+           "-f",
            "........................................",
            NULL,
            env);

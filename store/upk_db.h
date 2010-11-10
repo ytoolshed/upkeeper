@@ -24,10 +24,9 @@ extern const char *upk_states[];
 
 typedef enum { 
   UPK_STATUS_VALUE_UNKNOWN = 0,    
-  UPK_STATUS_VALUE_START   = 1,   /* Set by buddy upon sucessful fork() */
+  UPK_STATUS_VALUE_START   = 1,
   UPK_STATUS_VALUE_STOP    = 2,
-         /* Set on buddy resumption after sigchld   */
-  UPK_STATUS_VALUE_INVALID = 3,    /* Error type */
+  UPK_STATUS_VALUE_INVALID = 3,
   UPK_STATUS_VALUE_MAX     = 4
 
 } upk_state;

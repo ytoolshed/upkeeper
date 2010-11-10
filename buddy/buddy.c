@@ -18,22 +18,56 @@
 
 #define FATAL "buddy: fatal: "
 
+static const char *event_path = NULL;
+static       char *lbuf = NULL;
+
+
+struct eventfd {
+  int fd;
+  enum { SOCKET, NOT_SOCKET, DUNNO } fdt;
+};
+
+struct eventfd eventfd = { -1, DUNNO };
+
+
 int DEBUG = 0;
+
 
 struct upk_srvc srvc = { NULL, NULL, NULL };
 
 static const char *djb_compat_dir = NULL;
-static       char *lbuf = NULL;
+static       char *lbuf           = NULL;
 
-static char *prog;
+static char  *prog;
 static char **envp;
+static int  pid = 0;
 
-static int parentfd = 3;                         
-static int logpipe[2] = { -1, -1 },
-  selfpipe[2];
+static int parentfd = -1;                         
+static int logp[2]  = 0;
+static int sigp[2] = 0;
 
 int child = 0, term = 0;
-int pid;
+
+static ssize_t event_write (struct eventfd *fd, const void * data, size_t len )
+{
+  ssize_t ret;
+
+  switch (fd->fdt) {
+  case SOCKET:
+    return send(fd->fd, data, len, 0);
+  case NOT_SOCKET:
+    return write(fd->fd, data, len);
+  case DUNNO:
+  default:
+    ret = send(fd->fd, data, len, 0);
+    if (ret == -1 && errno == ENOTSOCK) {
+      fd->fdt = NOT_SOCKET;
+      return event_write(fd,data,len);
+    }
+    fd->fdt = SOCKET;
+    return ret;
+  }
+}
 
 static void sysdie(int e, const char *a,const char *b, const char *c)
 {
@@ -45,10 +79,13 @@ static void sysdie(int e, const char *a,const char *b, const char *c)
 static void idle (void);
 static void handler(int sig)  
 { 
-  if (sig == SIGCHLD) child = 1;
-  else term = 1;
-  sig = write(selfpipe[1]," ",1); 
-} 
+  switch (sig) {
+  case SIGCHILD: child = 1 ; break;
+  case  SIGTERM: term  = 1 ; break;
+  default: warn("unknown signal", sig);
+  }
+  sig = write(sigp[1]," ",1);
+}
 
 static void note_exit(int status) 
 {
@@ -56,7 +93,6 @@ static void note_exit(int status)
     upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_STOP);
   }
 }
-
 
 
 static void start_child(void) 
@@ -70,14 +106,14 @@ static void start_child(void)
     upk_unblock_signal(SIGCHLD);
 
     if (lbuf) {
-      if (dup2(logpipe[1],1) == -1)
+      if (dup2(logp[1],1) == -1)
         sysdie(111,FATAL, "failed to set log for ",prog);
       
-      close(logpipe[1]);
-      close(logpipe[0]);
+      close(logp[1]);
+      close(logp[0]);
     }
     execle(prog, prog, NULL, envp);
-    
+
     sysdie(111,FATAL"failed to exec ",prog, ": ");
   }
 
@@ -85,10 +121,10 @@ static void start_child(void)
     upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_START);
   }
 
-  if (lbuf) 
-    close(logpipe[1]);
+  if (lbuf)
+    close(logp[1]);
   
-  (void)write(parentfd, &pid, 4);
+  if (eventfd.fd != -1) {   event_write(&eventfd, &pid, 4);  }
 }
 
 int main(int ac, char **av, char **ep) 
@@ -107,18 +143,18 @@ int main(int ac, char **av, char **ep)
   upk_block_signal(SIGCHLD);
   
   if (lbuf) {
-    if (pipe(logpipe) == -1) 
+    if (pipe(logp) == -1) 
        sysdie(111,FATAL, "failed to create log pipe for ",prog);
 
-    nonblock(logpipe[0]); nonblock(logpipe[1]);
-    coe(logpipe[0]); coe(logpipe[1]);
+    nonblock(logp[0]); nonblock(logp[1]);
+    coe(logp[0]); coe(logp[1]);
   }
 
-  if (pipe(selfpipe) == -1)
+  if (pipe(sigp) == -1)
     sysdie(111,FATAL, "failed to create pipe for ",prog);
 
-  coe(selfpipe[0]); coe(selfpipe[1]);
-  nonblock(selfpipe[0]);
+  coe(sigp[0]); coe(sigp[1]);
+  nonblock(sigp[0]);
 
   start_child();
   idle();
@@ -130,9 +166,9 @@ static void idle (void)
   int status, i, ret, wpid;
   int limit = lbuf ? 2 : 1;
   struct rptqueue proctitle = { lbuf,
-                                lbuf ? strlen(lbuf) : 0, 
-                                lbuf, 
-                                logpipe[0],  
+                                lbuf ? strlen(lbuf) : 0,
+                                lbuf,
+                                logp[0],
                                 1,
                                 { -1, '\0' } };
   if (lbuf)
@@ -142,25 +178,25 @@ static void idle (void)
   for (;;) {
     struct timeval period;
     int retval;
-    int maxfd = selfpipe[0];
+    int maxfd = sigp[0];
     fd_set rfds;
 
     /* Watch stdin (fd 0) to see when it has input. */
     FD_ZERO(&rfds);
-    FD_SET(selfpipe[0], &rfds);
-    if (logpipe[0] != -1) {
-      if (logpipe[0] > maxfd) { maxfd = logpipe[0]; }
-      FD_SET(logpipe[0], &rfds);
+    FD_SET(sigp[0], &rfds);
+    if (logp[0] != -1) {
+      if (logp[0] > maxfd) { maxfd = logp[0]; }
+      FD_SET(logp[0], &rfds);
     }
     period.tv_sec  = 60;
     period.tv_usec = 0;
     select(maxfd+1, &rfds, NULL, NULL, &period);
 
     /* output */
-    if (logpipe[0] != -1 && FD_ISSET(logpipe[0], &rfds)) 
+    if (logp[0] != -1 && FD_ISSET(logp[0], &rfds)) 
       ret = rpt_status_update(&proctitle);
       
-    while(read(selfpipe[0],&sig,1) > 0) 
+    while(read(sigp[0],&sig,1) > 0) 
       ;
 
     upk_block_signal(SIGCHLD);    
@@ -189,8 +225,7 @@ static void idle (void)
   _exit (0);
 }
 
-
-void usage(void) 
+void usage(void)
 {
   const char usage[] = 
     "buddy: usage: buddy [--db /path/to/db -s service -p package] [-f] command\n";
@@ -210,7 +245,7 @@ int options_parse(int argc, char *argv[], char *envp[])
     { "package",     1, 0, 'p' },
     { "service",     1, 0, 's' },
     { "db",          1, 0, 'd' },
-
+    { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
@@ -233,16 +268,15 @@ int options_parse(int argc, char *argv[], char *envp[])
       srvc.package = strdup(optarg);
       break;
     case 'f':
-      parentfd = 0;
+      eventfd.fd = 3;
       break;
     default:
       break;
     }
     if (c == -1) { break; }
   }
-  /* no logbuf */
-  
-  if (doing_log && (argc - optind == 1)) { 
+
+  if (doing_log && (argc - optind == 1)) {
     for (i = doing_log; i+1 < argc; i++) {
       argv[i] = argv[i+1];
     }
