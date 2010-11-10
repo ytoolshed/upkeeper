@@ -1,9 +1,7 @@
-/* Public domain. */
-
+#include <unistd.h>
 #include <fcntl.h>
-#include "coe.h"
 
-int coe(int fd)
+int coe (int fd) 
 {
-  return fcntl(fd,F_SETFD,1);
+  return fcntl(fd,F_SETFD,FD_CLOEXEC);
 }
