@@ -7,13 +7,14 @@
 #include <string.h>
 #include "../store/upk_db.h"
 
-int DEBUG           = 0;
+int DEBUG           = 1;
 int OPT_ALL_UP,
     OPT_ALL_DOWN,
     OPT_HELP,
     OPT_INIT,
     OPT_DEFINE,
     OPT_UNDEFINE,
+    OPT_STATUS_FIXER,
     OPT_SET_DESIRED_STATE,
     OPT_SET_ACTUAL_STATE,
     OPT_SET_PID,
@@ -78,6 +79,10 @@ int main(
         }
     }
 
+    if( OPT_STATUS_FIXER ) {
+        upk_controller_status_fixer( srvc.pdb );
+    }
+
     if( OPT_DEFINE ) {
         if( argc < 5 ) {
             printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
@@ -116,9 +121,11 @@ int main(
         srvc.package = argv[2];
         srvc.service = argv[3];
 	if( OPT_SET_ACTUAL_STATE ) {
-          upk_db_service_actual_status( &srvc, strcmp(argv[4],"stop") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
+          upk_db_service_actual_status( &srvc, strcmp(argv[4],"stop") ? 
+              UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
 	} else {
-          upk_db_service_desired_status( &srvc, strcmp(argv[4],"stop") ? UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
+          upk_db_service_desired_status( &srvc, strcmp(argv[4],"stop") ? 
+              UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
 	}
     }
 
@@ -191,6 +198,7 @@ int options_parse(
         { "init",        0, &OPT_INIT, 1 },
         { "define",      0, &OPT_DEFINE, 1 },
         { "undefine",    0, &OPT_UNDEFINE, 1 },
+        { "status-fixer",0, &OPT_STATUS_FIXER, 1 },
         { "hup",         0, NULL, 1 },
         { "set-desired-state", 
                          0, &OPT_SET_DESIRED_STATE, 1 },
@@ -233,4 +241,5 @@ int help( ) {
     printf(" --set-desired-state pkg srvc state: Set desired state\n");
     printf(" --set-actual-state pkg srvc state: Set actual state\n");
     printf(" --set-pid pkg srvc pid Set pid of a service process\n");
+    printf(" --status-fixer\n");
 }

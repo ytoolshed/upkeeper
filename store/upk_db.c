@@ -238,7 +238,7 @@ _upk_db_event_add(
     }
 
     if( DEBUG ) {
-        printf("Inserting %s %s %d\n", date_string, event, service_id);
+        printf("upk_db_event_add %s %s %d\n", date_string, event, service_id);
     }
 
     sql = sqlite3_mprintf(
@@ -326,10 +326,18 @@ const char *upk_db_service_run(
   int service_id;
   char *sql;
 
+  if( DEBUG ) {
+      printf("++upk_db_service_run %s/%s %s\n",
+              srvc->package, srvc->service, cmdline);
+  }
+
   service_id = upk_db_service_find_or_create( srvc );
 
   _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
 
+  if( DEBUG ) {
+      printf("++Insert into procruns: %s %d\n", cmdline, pid);
+  }
 
   sql = sqlite3_mprintf(
                     "INSERT INTO procruns (cmdline,pid) "
@@ -366,6 +374,11 @@ const char *upk_db_service_cmdline(
   char       *sql;
   int         service_id;
   const char *id;
+
+  if( DEBUG ) {
+      printf("upk_db_service_cmdline %s/%s %s\n",
+              srvc->package, srvc->service, cmdline);
+  }
 
   sql = sqlite3_mprintf( "SELECT cmdline from services, procruns "
           "WHERE package = %Q "
