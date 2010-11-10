@@ -161,7 +161,7 @@ int cmdline_join(
         }
 
         if( cp - buf + strlen( argv[i] ) > buf_len - 2 ) {
-            printf("Buffer overflow in cmdline_join (%d > %d)\n",
+            printf("Buffer overflow in cmdline_join (%ld > %d)\n",
                     cp - buf + strlen( argv[i] ), buf_len - 2 );
             return( -1 );
         }
