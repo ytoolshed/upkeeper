@@ -48,5 +48,8 @@ WHEN   new.state_desired = 'stop'
                          'kill' + procruns.pid + signal_send(procruns.pid,15),
                          new.id
               FROM  procruns 
-              WHERE new.procrun_id    = procruns.id;
+              WHERE new.procrun_id    = procruns.id
+              and   procruns.pid     is not null
+              and   procruns.pid     != 0;
+
 END;
