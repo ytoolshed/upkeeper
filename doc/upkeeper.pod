@@ -36,7 +36,11 @@ state of each process are stored in the table.
 At startup, if the buddy controller notices a process that is down
 but should be up, it will bring it up by launching a buddy whose job
 it then is to start the process and restart it should it ever 
-fall down. As soon as 
+fall down. 
+
+=head3 Buddy
+
+As soon as 
 the buddy has launched the process, it marks it 'started' in the 
 database table. If it detects that the process has fallen down, it 
 marks its actual state as 'stopped', and then tries to bring it back
@@ -45,3 +49,11 @@ as 'started' in the database. Configuration values defined how often
 the buddy tries to restart the process, how long to pause between
 restarts and when to give up.
 
+=head3 Buddy Controller Restart
+
+If the buddy controller crashes for whatever reason, it can simply restart,
+go through the database tables and verify that all services that have
+a desired state of 'started' also have an actual state of 'started'.
+Secondly, it verifies that every service marked as 'started' actually has
+a running Buddy process. If a buddy process is missing (in the rare event
+of a buddy crash), it restarts it.
