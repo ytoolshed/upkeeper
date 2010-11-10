@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
 #include "../store/upk_db.h"
@@ -17,6 +18,7 @@ void upk_controller_status_fixer_callback(
     char    *status_actual
 ) {
     const char *cmdline;
+    char       *cmdline_alloc;
 
     if( strcmp( status_desired, status_actual ) == 0 ) {
 	return; /* We're good */
@@ -34,24 +36,24 @@ void upk_controller_status_fixer_callback(
 
       /* We got a static buffer which is going to be overridden with the
          next sql call, allocate memory */
-    cmdline = strdup( cmdline );
+    cmdline_alloc = strdup( cmdline );
 
     if( strcmp( status_desired, upk_states[ UPK_STATUS_VALUE_START ] ) == 0 ) {
 	/* service needs to be started */
         if( DEBUG ) {
 	    printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
-                                             cmdline );
+                                             cmdline_alloc );
         }
-        upk_buddy_start( srvc, cmdline, NULL );
+        upk_buddy_start( srvc, cmdline_alloc, NULL );
     } else {
         if( DEBUG ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
-                                             cmdline );
+                                             cmdline_alloc );
         }
         upk_buddy_stop( srvc );
     }
 
-    free( cmdline );
+    free( cmdline_alloc );
     return;
 }
 
