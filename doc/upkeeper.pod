@@ -1,0 +1,30 @@
+=head2 Upkeeper Architecture
+
+Upkeeper helps with launching Unix daemon processes, keeping them up,
+and monitoring their status in a terminal-based interface.
+
+=head3 Buddy Controller
+
+After startup, the Buddy Controller rummages through the 'services'
+table of the SQLite database and figures out which processes are defined
+and what their desired and actual state is. Both values are stored in
+the table. 
+
+    CREATE TABLE services (
+        id            INTEGER PRIMARY KEY,
+        package       VARCHAR,
+        service       VARCHAR,
+        procrun_id    INT,
+        state_desired VARCHAR,
+        state_actual  VARCHAR,
+        FOREIGN KEY (procrun_id)
+            REFERENCES procrun(id)
+    );
+
+If the buddy controller notices a process that is down
+but should be up, it will bring it up by launching a buddy whose job
+it is to start the process and restart it if it falls down. As soon as 
+the buddy has launched the process, it marks it 'launched' in the table.
+If it detects that it is has fallen down, it marks its actual
+state as 'felldown'. Configuration values defined how often this is tried,
+before the buddy gives up and marks the process 'stop'.
