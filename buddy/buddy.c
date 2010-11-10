@@ -11,14 +11,22 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+#include "store/upk_db.h"
 #include "common/rptqueue.h"
 #include "common/sigblock.h"
 #include "common/nonblock.h"
 
 #define FATAL "buddy: fatal: "
 
+int DEBUG = 0;
+
+struct upk_srvc srvc = { NULL, NULL, NULL };
+
 static const char *djb_compat_dir = NULL;
 static       char *lbuf = NULL;
+
+static char *prog;
+static char **envp;
 
 static int parentfd = 3;                         
 static int logpipe[2] = { -1, -1 },
@@ -42,39 +50,20 @@ static void handler(int sig)
   sig = write(selfpipe[1]," ",1); 
 } 
 
-
-int main(int ac, char **av, char **envp) 
+static void note_exit(int status) 
 {
-  int i;
-  char *prog = av[options_parse(ac,av,envp)];
-
-  if (parentfd) {
-    coe(parentfd);
-    nonblock(parentfd);
+  if (srvc.pdb) {
+    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_STOP);
   }
+}
 
-  upk_catch_signal(SIGCHLD, handler);
-  upk_catch_signal(SIGTERM, handler);
-  upk_block_signal(SIGCHLD);
-  
-  if (lbuf) {
-    if (pipe(logpipe) == -1) 
-      sysdie(111,FATAL, "failed to create log pipe for ",prog);
 
-    nonblock(logpipe[0]); nonblock(logpipe[1]);
-    coe(logpipe[0]); coe(logpipe[1]);
-  }
 
-  if (pipe(selfpipe) == -1)
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
-
-  coe(selfpipe[0]); coe(selfpipe[1]);
-  nonblock(selfpipe[0]);
-
+static void start_child(void) 
+{
   if ((pid = fork()) == -1) 
     sysdie(111,FATAL, "failed to create pipe for ",prog);
   
-
   if (pid == 0) {
     upk_uncatch_signal(SIGCHLD);
     upk_uncatch_signal(SIGTERM);
@@ -89,22 +78,56 @@ int main(int ac, char **av, char **envp)
     }
     execle(prog, prog, NULL, envp);
     
-    sysdie(111,FATAL, "failed to exec ",prog);
+    sysdie(111,FATAL"failed to exec ",prog, ": ");
+  }
+
+  if (srvc.pdb) {
+    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_START);
   }
 
   if (lbuf) 
     close(logpipe[1]);
   
   (void)write(parentfd, &pid, 4);
-    
-  idle();
 }
 
+int main(int ac, char **av, char **ep) 
+{
+  int i;
+  envp = ep;
+  prog = av[options_parse(ac,av,envp)];
+
+  if (parentfd) {
+    coe(parentfd);
+    nonblock(parentfd);
+  }
+
+  upk_catch_signal(SIGCHLD, handler);
+  upk_catch_signal(SIGTERM, handler);
+  upk_block_signal(SIGCHLD);
+  
+  if (lbuf) {
+    if (pipe(logpipe) == -1) 
+       sysdie(111,FATAL, "failed to create log pipe for ",prog);
+
+    nonblock(logpipe[0]); nonblock(logpipe[1]);
+    coe(logpipe[0]); coe(logpipe[1]);
+  }
+
+  if (pipe(selfpipe) == -1)
+    sysdie(111,FATAL, "failed to create pipe for ",prog);
+
+  coe(selfpipe[0]); coe(selfpipe[1]);
+  nonblock(selfpipe[0]);
+
+  start_child();
+  idle();
+}
 static void idle (void)
 {
 
   char sig;
-  int status, i, ret,wpid;
+  int status, i, ret, wpid;
   int limit = lbuf ? 2 : 1;
   struct rptqueue proctitle = { lbuf,
                                 lbuf ? strlen(lbuf) : 0, 
@@ -115,31 +138,42 @@ static void idle (void)
   if (lbuf)
     rpt_init(&proctitle);
 
+  upk_unblock_signal(SIGCHLD);
   for (;;) {
     struct timeval period;
     int retval;
+    int maxfd = selfpipe[0];
     fd_set rfds;
-    
+
     /* Watch stdin (fd 0) to see when it has input. */
     FD_ZERO(&rfds);
     FD_SET(selfpipe[0], &rfds);
-    FD_SET(logpipe[0], &rfds);
-    period.tv_sec=60;
+    if (logpipe[0] != -1) {
+      if (logpipe[0] > maxfd) { maxfd = logpipe[0]; }
+      FD_SET(logpipe[0], &rfds);
+    }
+    period.tv_sec  = 60;
+    period.tv_usec = 0;
+    select(maxfd+1, &rfds, NULL, NULL, &period);
 
     /* output */
-    if (FD_ISSET(logpipe[0], &rfds)) 
+    if (logpipe[0] != -1 && FD_ISSET(logpipe[0], &rfds)) 
       ret = rpt_status_update(&proctitle);
       
     while(read(selfpipe[0],&sig,1) > 0) 
       ;
 
+    upk_block_signal(SIGCHLD);    
+
     wpid = waitpid(-1,&status,WNOHANG);
     
     if (wpid == pid) {
-      printf("status for %d - %d\n",wpid,status);
-      break;
+      note_exit(status);
+      start_child();
+      sleep(1);
     } 
 
+    upk_unblock_signal(SIGCHLD);    
     if (term) {
       if (term == 1) {
         kill(pid,SIGTERM);
@@ -158,7 +192,7 @@ static void idle (void)
 void usage(void) 
 {
   const char usage[] = 
-    "buddy: usage: buddy [-d dir] [-f] command";
+    "buddy: usage: buddy [--db /path/to/db -s service -p package] [-f] command\n";
   write(2,usage,sizeof(usage));
   exit(111);
 }
@@ -171,20 +205,31 @@ int options_parse(int argc, char *argv[], char *envp[])
   int doing_log = 0;
   char *logbuf =  ".......................................";
   static struct option long_options[] = {
-    { "fd",     2, 0, 'f' },
-    { 0, 0, 0, 0 }
+    { "fd",          2, 0, 'f' },
+    { "package",     1, 0, 'p' },
+    { "service",     1, 0, 's' },
+    { "db",          1, 0, 'd' },
+
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "d:l",
+    c = getopt_long (argc, argv, "d:s:p:l",
                      long_options, &option_index);
 
     switch (c) {
     case 'l':
       doing_log = 1;
     case 'd':
-      djb_compat_dir = optarg;
+      if (upk_db_init(optarg, &srvc.pdb)) {
+        sysdie(111,FATAL"opening database (", optarg,") failed: ");
+      }
+      break;
+    case 's':
+      srvc.service = strdup(optarg);
+      break;
+    case 'p':
+      srvc.package = strdup(optarg);
       break;
     case 'f':
       parentfd = 0;
@@ -204,6 +249,9 @@ int options_parse(int argc, char *argv[], char *envp[])
     execve(argv[0],argv,envp);
     sysdie(111,FATAL,"unable to restart self ",argv[0]);
   }
+
+  if (srvc.pdb && (!srvc.service || !srvc.package)) {  usage();  }
+
   if (optind == argc) { usage(); }
 
   if (argc > optind + 1) { lbuf = argv[argc-1]; }
