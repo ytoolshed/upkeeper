@@ -1,14 +1,26 @@
 =head2 Upkeeper Architecture
 
-Upkeeper helps with launching Unix daemon processes, keeping them up,
-and monitoring their status in a terminal-based interface.
+Upkeeper launches Unix daemon processes, keeps them up,
+and displays their real-time status in a terminal-based interface.
+
+Every process controlled by upkeeper 
+gets a 'buddy' process assigned which watches over it 
+and restarts it if necessary. Upkeeper also features a single buddy 
+controller daemon which bootstraps the system and monitors its state.
+
+All state is stored in a SQLite database, which also serves as 
+communication mechanism between the buddy controller, the buddies,
+and the real-time UI.
+
+Upkeeper also maintains a collection of historical process data and 
+displays useful stats on which processes where restarted, how often and when.
 
 =head3 Buddy Controller
 
-After startup, the Buddy Controller rummages through the 'services'
-table of the SQLite database and figures out which processes are defined
-and what their desired and actual state is. Both values are stored in
-the table. 
+At system boot time, the Buddy Controller rummages through the 'services'
+table of the SQLite database to figure out which processes are defined
+and what their desired and actual state is. Both desired and actual 
+state of each process are stored in the table.
 
     CREATE TABLE services (
         id            INTEGER PRIMARY KEY,
@@ -21,10 +33,15 @@ the table.
             REFERENCES procrun(id)
     );
 
-If the buddy controller notices a process that is down
+At startup, if the buddy controller notices a process that is down
 but should be up, it will bring it up by launching a buddy whose job
-it is to start the process and restart it if it falls down. As soon as 
-the buddy has launched the process, it marks it 'launched' in the table.
-If it detects that it is has fallen down, it marks its actual
-state as 'felldown'. Configuration values defined how often this is tried,
-before the buddy gives up and marks the process 'stop'.
+it then is to start the process and restart it should it ever 
+fall down. As soon as 
+the buddy has launched the process, it marks it 'started' in the 
+database table. If it detects that the process has fallen down, it 
+marks its actual state as 'stopped', and then tries to bring it back
+up immediately. As soon as it's up, it marks the process' actual state
+as 'started' in the database. Configuration values defined how often 
+the buddy tries to restart the process, how long to pause between
+restarts and when to give up.
+
