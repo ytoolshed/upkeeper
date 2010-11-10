@@ -24,7 +24,6 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
     int      i;
@@ -41,7 +40,7 @@ int main(
 	exit( 0 );
     }
 
-    rc = upk_db_init( file, &pdb );
+    rc = upk_db_init( file, &srvc.pdb );
 
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");
@@ -50,7 +49,7 @@ int main(
  
     if( OPT_INIT ) {
 
-        upk_db_clear( pdb );
+        upk_db_clear( srvc.pdb );
 
         for( i=0; i<=5; i++ ) {
             srvc.service = sqlite3_mprintf("service-%d", i);
@@ -123,9 +122,9 @@ int main(
 	}
     }
 
-    upk_db_listener_send_all_signals( pdb );
+    upk_db_listener_send_all_signals( srvc.pdb );
 
-    sqlite3_close( pdb );
+    sqlite3_close( srvc.pdb );
 
     return(0);
 }

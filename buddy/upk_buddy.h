@@ -16,9 +16,7 @@ int upk_buddy_start(
 /* 
    stop the application that buddy was watching.
  */
-int upk_buddy_stop(
-  upk_srvc_t s                   
-);
+int upk_buddy_stop( upk_srvc_t s );                   
 
 
 

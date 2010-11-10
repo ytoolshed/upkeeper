@@ -19,7 +19,6 @@ $(d)/buddytest: $(d)/main.c $(LL_$(d))
 $(d)/buddy: $(d)/buddy.c $(LL_$(d))
 	$(COMPLINK) $(LL_buddy) $(LF_buddy)
 
-
 # Standard things
 include 	end.mk
 
