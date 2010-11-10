@@ -29,22 +29,18 @@ struct eventfd {
 
 struct eventfd eventfd = { -1, DUNNO };
 
-
 int DEBUG = 0;
 
 
 struct upk_srvc srvc = { NULL, NULL, NULL };
-
-static const char *djb_compat_dir = NULL;
-static       char *lbuf           = NULL;
 
 static char  *prog;
 static char **envp;
 static int  pid = 0;
 
 static int parentfd = -1;                         
-static int logp[2]  = 0;
-static int sigp[2] = 0;
+static int logp[2]  = {-1,-1};
+static int sigp[2] =  {-1,-1};
 
 int child = 0, term = 0;
 
@@ -80,7 +76,7 @@ static void idle (void);
 static void handler(int sig)  
 { 
   switch (sig) {
-  case SIGCHILD: child = 1 ; break;
+  case  SIGCHLD: child = 1 ; break;
   case  SIGTERM: term  = 1 ; break;
   default: warn("unknown signal", sig);
   }
