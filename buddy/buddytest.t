@@ -1,5 +1,6 @@
-#!/bin/sh 
-exec 2>/dev/null
-echo "1..1"
-echo "ok 1 Buddy ok"
-exit 0
+#!/bin/sh -xe
+
+mkdir bt || echo ok
+(cd bt && cat ../../store/schema.sql | sqlite3 store.sqlite) 
+(cd bt && ../buddytest)
+(cd bt && ../../store/sqlite-dump)
