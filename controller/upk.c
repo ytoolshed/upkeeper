@@ -18,6 +18,7 @@ int OPT_ALL_UP,
     OPT_SET_DESIRED_STATE,
     OPT_SET_ACTUAL_STATE,
     OPT_SET_PID,
+    OPT_VERBOSE,
     OPT_NONE
     = 0;
 
@@ -39,6 +40,10 @@ int main(
     if( nof_options == 0 || OPT_HELP ) {
 	help();
 	exit( 0 );
+    }
+
+    if(OPT_VERBOSE) {
+	DEBUG = 1;
     }
 
     rc = upk_db_init( file, &srvc.pdb );
@@ -192,6 +197,7 @@ int options_parse(
     int nof_options = 0;
 
     static struct option long_options[] = {
+        { "verbose",     0, &OPT_VERBOSE,   1 },
         { "all-up",      0, &OPT_ALL_UP,   1 },
         { "all-down",    0, &OPT_ALL_DOWN, 1 },
         { "help",        0, &OPT_HELP, 1 },
@@ -240,6 +246,7 @@ int help( ) {
     printf(" --undefine pkg srvc: Delete a service\n");
     printf(" --set-desired-state pkg srvc state: Set desired state\n");
     printf(" --set-actual-state pkg srvc state: Set actual state\n");
-    printf(" --set-pid pkg srvc pid Set pid of a service process\n");
+    printf(" --set-pid pkg srvc pid: Set pid of a service process\n");
+    printf(" --verbose: Print debug messages\n");
     printf(" --status-fixer\n");
 }
