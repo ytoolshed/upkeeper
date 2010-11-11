@@ -17,6 +17,7 @@ int main(
     int      rc;
     int      i;
     int      pid;
+    int      stat_loc;
     char    *event;
     char    *status;
     const char    *cp;
@@ -63,7 +64,7 @@ int main(
     upk_db_service_cmdline(&s, "../talker");
     pid = upk_buddy_start( &s, "../talker", NULL);
     upk_buddy_stop( &s );
-    wait();
+    wait( &stat_loc );
     
     sqlite3_close( s.pdb );
 }
