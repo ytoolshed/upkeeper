@@ -27,7 +27,7 @@ int upk_buddy_start(
   int w;
   
   if( DEBUG ) {
-      printf("upk_buddy_start %s/%s %s\n",
+      printf("upk_buddy_start '%s' '%s' [%s]\n",
               srvc->service, srvc->package, command);
   }
 
@@ -48,7 +48,6 @@ int upk_buddy_start(
     execle(BUDDYPATH, 
            BUDDYPATH, 
            command, 
-           "-f",
            "........................................",
            NULL,
            env);
