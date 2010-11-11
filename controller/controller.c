@@ -44,7 +44,7 @@ void upk_controller_status_fixer_callback(
 	    printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
                                              cmdline_alloc );
         }
-        upk_buddy_start( srvc, cmdline_alloc, NULL );
+        upk_buddy_start_async( srvc, cmdline_alloc, NULL );
     } else {
         if( DEBUG ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
