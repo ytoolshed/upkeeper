@@ -6,7 +6,7 @@
 
 #include "store/upk_db.h"
 #include "upk_buddy.h"
-#define BUDDYPATH "./buddy"
+#define BUDDYPATH "../buddy"
 
 extern int DEBUG;
 
@@ -16,72 +16,85 @@ extern int DEBUG;
  * and when it got stopped or crashed.
  */
 
-int upk_buddy_start(
+int upk_buddy_start_1(
   upk_srvc_t    srvc,                    
   const char    *command,
-  const char    *env[]
+  const char    *env[],
+  int async
 ) {
-  int ppipe[2];
-  int pid,bpid;
-  int wstat;
-  int w;
-  
+  int   bpid;
+  int   p[2]; 
+  char  c;
+
   if( DEBUG ) {
-      printf("upk_buddy_start '%s' '%s' [%s]\n",
-              srvc->service, srvc->package, command);
+      printf("upk_buddy_start '%s' '%s' [%s] async=%d\n",
+              srvc->service, srvc->package, command, async);
   }
 
-  /* set up communication path */
-  if (pipe(ppipe) == -1) {
-    return -1;
-
-  }
-  coe(ppipe[0]);
-
+  if (!async && pipe(p) == -1) return -1;
+  coe(p[0]); coe(p[1]);
   bpid = fork();
-  if (bpid == -1) return -1;
+  
+  if (bpid == -1) { 
+    close(p[0]); close(p[1]);
+    return -1;
+  }
 
   if (bpid == 0) {
-    if (dup2(ppipe[1],3) == -1)
-      close(ppipe[1]);
-
+    if (!async && !dup2(p[1],3)) {
+        exit(111);
+    }
     execle(BUDDYPATH, 
            BUDDYPATH, 
            command, 
            "........................................",
+           "-s", srvc->service,
+           "-p", srvc->package,
+           "-d", "./store.sqlite",
+           "-f",
            NULL,
            env);
-    close(ppipe[1]);
-    exit(1);
+    exit(112);
   }
-
-  close(ppipe[1]);
-  if (read(ppipe[0],&pid,4) == 4) { 
-    upk_db_service_run(srvc, command, pid);      
-    return pid;
+  close(p[1]);
+  if (!async && read(p[0],&c, 1) != 1){
+    return -1;
   }
-
-  close(ppipe[0]);
-  return pid;
-  
+  close(p[0]);
+  return bpid;
 }
 
+int upk_buddy_start(
+  upk_srvc_t    srvc,                    
+  const char    *command,
+  const char    *env[]
 
+) {
+  return upk_buddy_start_1(srvc,command,env,0);
+}
 
+int upk_buddy_start_async(
+  upk_srvc_t    srvc,                    
+  const char    *command,
+  const char    *env[]
+
+) {
+  return upk_buddy_start_1(srvc,command,env,1);
+}
 /* 
  * Stops a previously launched buddied application process and updates
  * the upkeeper runtable information.
  */
-int
+  int
 upk_buddy_stop( upk_srvc_t srvc )
 {
   if (upk_db_service_desired_status(
                                srvc,
                                UPK_STATUS_VALUE_STOP)) { 
-    wait(NULL);
     return 0;
   }
   
   return 1;
 }
+
 

@@ -16,18 +16,13 @@ int upk_db_close(
     sqlite3 *pdb 
 );
 
-#ifdef __UPK_DB_C
-const char *upk_states[] = { "unknown", "start", "stop",  "invalid" };
-#else
-extern const char *upk_states[];
-#endif
-
 typedef enum { 
   UPK_STATUS_VALUE_UNKNOWN = 0,    
   UPK_STATUS_VALUE_START   = 1,
   UPK_STATUS_VALUE_STOP    = 2,
-  UPK_STATUS_VALUE_INVALID = 3,
-  UPK_STATUS_VALUE_MAX     = 4
+  UPK_STATUS_VALUE_EXITED  = 3,
+  UPK_STATUS_VALUE_INVALID = 4,
+  UPK_STATUS_VALUE_MAX     = 5
 
 } upk_state;
 
@@ -36,7 +31,7 @@ typedef enum {
   UPK_STATUS_DESIRED
 } upk_status_t;
 
-
+extern const char *upk_states[];
 
 typedef struct upk_srvc {
   sqlite3 *pdb;
@@ -109,7 +104,8 @@ int upk_test_isnt(
 const char *upk_db_service_run( 
     upk_srvc_t    srvc,                                         
     const char    *cmdline,
-    int   pid
+    int   pid,
+    int  bpid
 );
 
 int 

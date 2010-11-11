@@ -13,6 +13,9 @@
 
 #include "schema.c"
 
+const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
+
+
 extern int DEBUG;
 
 static int upk_db_event_add( 
@@ -54,6 +57,7 @@ upk_db_init(
 	return(rc);
     }
 
+    sqlite3_busy_timeout( *ppdb, 20000 );
     rc = db_init_functions_define( *ppdb );
 
     if(rc != 0) {
@@ -115,6 +119,14 @@ void signal_send(
     sqlite3_result_int( ctx, 0 );
 }
 
+void get_pid(
+    sqlite3_context *ctx, 
+    int              nargs, 
+    sqlite3_value  **values
+) {
+  sqlite3_result_int( ctx, getpid() );
+}
+
 static int db_init_functions_define( sqlite3 *pdb ) {
     int      rc;
 
@@ -124,12 +136,17 @@ static int db_init_functions_define( sqlite3 *pdb ) {
 	                     2,  /* args */
 			     SQLITE_UTF8, NULL,
 			     signal_send, NULL, NULL );
+    rc = sqlite3_create_function( pdb, "get_pid", 
+                                  0,
+			     SQLITE_UTF8, NULL,
+			     get_pid, NULL, NULL );
     if( rc != 0 ) {
 	return( rc );
     }
 
     return( 0 );
 }
+
 
 /* 
  * Find an existing package/service combination and return its id.
@@ -219,7 +236,9 @@ int upk_db_service_find_or_create(
 int 
 _upk_db_event_add(
                   upk_srvc_t srvc,
-                  const char    *event
+                  const char    *event,
+                  const char    *extra
+
 ) {
 
     int    rc;
@@ -241,8 +260,8 @@ _upk_db_event_add(
 
     sql = sqlite3_mprintf(
 	          "INSERT INTO events (etime, event, service_id) "
-                  "values (%Q, %Q, %d)",
-	        date_string, event, service_id);
+                  "values (%Q, %Q%Q, %d)",
+                  date_string, event, extra, service_id);
 
     rc = sqlite3_exec( srvc->pdb, sql, NULL, NULL, &zErr );
     sqlite3_free( date_string );
@@ -289,8 +308,9 @@ _upk_db_service_status(
 	    return( NULL );
         }
         sqlite3_free( sql );
-
-        _upk_db_event_add( srvc, status );
+        _upk_db_event_add( srvc, 
+                           type == UPK_STATUS_DESIRED ? "want " : "got " , 
+                           status );
     }
 
     service_id = upk_db_service_find( srvc );
@@ -315,8 +335,9 @@ _upk_db_service_status(
  */
 const char *upk_db_service_run( 
      upk_srvc_t    srvc,                          
-    const char    *cmdline,
-    int   pid
+     const char    *cmdline,
+     int   pid,
+     int  bpid
 ) {
   const char *status;
   const char *id;
@@ -325,7 +346,7 @@ const char *upk_db_service_run(
   char *sql;
 
   if( DEBUG ) {
-      printf("++upk_db_service_run %s/%s %s\n",
+      printf("upk_db_service_run %s/%s %s\n",
               srvc->package, srvc->service, cmdline);
   }
 
@@ -334,7 +355,7 @@ const char *upk_db_service_run(
   _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
 
   if( DEBUG ) {
-      printf("++Insert into procruns: %s %d\n", cmdline, pid);
+      printf("Insert into procruns: %s %d\n", cmdline, pid);
   }
 
   sql = sqlite3_mprintf(

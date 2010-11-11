@@ -1,8 +1,11 @@
 
 sqlite3 store.sqlite <<EOT
 .mode column
+.timeout 2000
 .header on
-SELECT etime, event, package, service FROM events, services WHERE
+SELECT events.id,pid,etime, event, package, service FROM events, services WHERE
 service_id = services.id;
 SELECT * from services;
+SELECT * from listeners;
+SELECT * from procruns  ;
 EOT
