@@ -13,6 +13,12 @@ int upk_buddy_start(
                     const char    *env[]
 );
 
+int upk_buddy_start_async(
+                    upk_srvc_t    srvc,
+                    const char    *command,
+                    const char    *env[]
+);
+
 /* 
    stop the application that buddy was watching.
  */
