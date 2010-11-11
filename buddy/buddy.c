@@ -19,15 +19,10 @@
 #define FATAL "buddy: fatal: "
 
 static const char *event_path = NULL;
-static       char *lbuf = NULL;
-
-
-struct eventfd {
-  int fd;
-  enum { SOCKET, NOT_SOCKET, DUNNO } fdt;
-};
-
-struct eventfd eventfd = { -1, DUNNO };
+static int logp[2]            = {-1,-1};
+static int sigp[2]            = {-1,-1};
+static int eventfd            = -1;
+static char * lbuf  = NULL;
 
 int DEBUG = 0;
 
@@ -38,46 +33,20 @@ static char  *prog;
 static char **envp;
 static int  pid = 0;
 
-static int parentfd = -1;                         
-static int logp[2]  = {-1,-1};
-static int sigp[2] =  {-1,-1};
-
 int child = 0, term = 0;
-
-static ssize_t event_write (struct eventfd *fd, const void * data, size_t len )
-{
-  ssize_t ret;
-
-  switch (fd->fdt) {
-  case SOCKET:
-    return send(fd->fd, data, len, 0);
-  case NOT_SOCKET:
-    return write(fd->fd, data, len);
-  case DUNNO:
-  default:
-    ret = send(fd->fd, data, len, 0);
-    if (ret == -1 && errno == ENOTSOCK) {
-      fd->fdt = NOT_SOCKET;
-      return event_write(fd,data,len);
-    }
-    fd->fdt = SOCKET;
-    return ret;
-  }
-}
 
 static void sysdie(int e, const char *a,const char *b, const char *c)
 {
-  fprintf(stderr, "%s%s%s%s\n",a,b,c,strerror(errno));
+  printf("%d",getpid());
+  fprintf(stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
   exit(e);
 }
 
-
-static void idle (void);
 static void handler(int sig)  
 { 
   switch (sig) {
-  case  SIGCHLD: child = 1 ; break;
-  case  SIGTERM: term  = 1 ; break;
+  case SIGCHLD: child = 1 ; break;
+  case SIGTERM: term  = 1 ; break;
   default: warn("unknown signal", sig);
   }
   sig = write(sigp[1]," ",1);
@@ -85,14 +54,26 @@ static void handler(int sig)
 
 static void note_exit(int status) 
 {
+  if (lbuf) { close(logp[1]); }
   if (srvc.pdb) {
-    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_STOP);
+    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_EXITED);
+    if (term) {
+      upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_STOP);
+    }
   }
 }
 
 
-static void start_child(void) 
+static void start_app(void) 
 {
+
+  if (lbuf) {
+    if (pipe(logp) == -1) 
+      sysdie(111,FATAL, "failed to create log pipe for ",prog);
+    nonblock(logp[0]); nonblock(logp[1]);
+    coe(logp[0]); coe(logp[1]);
+  }
+
   if ((pid = fork()) == -1) 
     sysdie(111,FATAL, "failed to create pipe for ",prog);
   
@@ -102,60 +83,29 @@ static void start_child(void)
     upk_unblock_signal(SIGCHLD);
 
     if (lbuf) {
-      if (dup2(logp[1],1) == -1)
-        sysdie(111,FATAL, "failed to set log for ",prog);
-      
+      close(1);
+      if (-1 == dup(logp[1])) {
+        sysdie(111,FATAL"failed to dup stdout for ","",prog);
+      }
       close(logp[1]);
-      close(logp[0]);
     }
     execle(prog, prog, NULL, envp);
 
-    sysdie(111,FATAL"failed to exec ",prog, ": ");
+    sysdie(111,FATAL"failed to exec (",prog,")");
   }
 
   if (srvc.pdb) {
     upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_START);
+    upk_db_service_pid(&srvc,pid);
   }
 
-  if (lbuf)
-    close(logp[1]);
-  
-  if (eventfd.fd != -1) {   event_write(&eventfd, &pid, 4);  }
-}
-
-int main(int ac, char **av, char **ep) 
-{
-  int i;
-  envp = ep;
-  prog = av[options_parse(ac,av,envp)];
-
-  if (parentfd) {
-    coe(parentfd);
-    nonblock(parentfd);
-  }
-
-  upk_catch_signal(SIGCHLD, handler);
-  upk_catch_signal(SIGTERM, handler);
-  upk_block_signal(SIGCHLD);
-  
   if (lbuf) {
-    if (pipe(logp) == -1) 
-       sysdie(111,FATAL, "failed to create log pipe for ",prog);
-
-    nonblock(logp[0]); nonblock(logp[1]);
-    coe(logp[0]); coe(logp[1]);
+    close(logp[1]);
   }
 
-  if (pipe(sigp) == -1)
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
-
-  coe(sigp[0]); coe(sigp[1]);
-  nonblock(sigp[0]);
-
-  start_child();
-  idle();
 }
-static void idle (void)
+
+  static void idle (void)
 {
 
   char sig;
@@ -195,24 +145,26 @@ static void idle (void)
     while(read(sigp[0],&sig,1) > 0) 
       ;
 
-    upk_block_signal(SIGCHLD);    
-
+    upk_block_signal(SIGCHLD);
+    upk_block_signal(SIGTERM);
     wpid = waitpid(-1,&status,WNOHANG);
     
     if (wpid == pid) {
       note_exit(status);
-      start_child();
+      if (term) break;
+      start_app();
       sleep(1);
     } 
 
-    upk_unblock_signal(SIGCHLD);    
+    upk_unblock_signal(SIGCHLD);
+    upk_unblock_signal(SIGTERM);    
     if (term) {
       if (term == 1) {
         kill(pid,SIGTERM);
         kill(pid,SIGCONT);
       }
       if (term == 2) kill(pid,SIGKILL);
-      if (term == 3) break;
+      if (term == 3) term--;
       term++;
     }
   }
@@ -220,12 +172,39 @@ static void idle (void)
   _exit (0);
 }
 
+
+
+int main(int ac, char **av, char **ep) 
+{
+  int i;
+  envp = ep;
+  prog = av[options_parse(ac,av,envp)];
+
+  fprintf(stderr,"buddy 4 %s",prog);
+  upk_catch_signal(SIGCHLD, handler);
+  upk_catch_signal(SIGTERM, handler);
+  upk_block_signal(SIGCHLD);
+
+  if (pipe(sigp) == -1)
+    sysdie(111,FATAL, "failed to create pipe for ",prog);
+
+  coe(sigp[0]); nonblock(sigp[0]);
+  coe(sigp[1]); nonblock(sigp[1]);
+  
+  start_app();
+  if (write(3,";",1) != 1) {
+    close(3);
+  }
+  idle();
+}
+
+
 void usage(void)
 {
   const char usage[] = 
     "buddy: usage: buddy [--db /path/to/db -s service -p package] [-f] command\n";
-  write(2,usage,sizeof(usage));
-  exit(111);
+  
+  exit(111 + write(2,usage,sizeof(usage)));
 }
 
 
@@ -245,15 +224,20 @@ int options_parse(int argc, char *argv[], char *envp[])
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "d:s:p:l",
+    c = getopt_long (argc, argv, "fd:s:p:l",
                      long_options, &option_index);
 
     switch (c) {
+    case 'f':
+      eventfd = 3;
+      break;
     case 'l':
       doing_log = 1;
+      break;
     case 'd':
       if (upk_db_init(optarg, &srvc.pdb)) {
         sysdie(111,FATAL"opening database (", optarg,") failed: ");
+        printf("hey");
       }
       break;
     case 's':
@@ -261,9 +245,6 @@ int options_parse(int argc, char *argv[], char *envp[])
       break;
     case 'p':
       srvc.package = strdup(optarg);
-      break;
-    case 'f':
-      eventfd.fd = 3;
       break;
     default:
       break;
