@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS procruns;
+DROP TABLE IF EXISTS listeners;
 
 
 
@@ -9,7 +10,8 @@ CREATE TABLE procruns (
     id            INTEGER PRIMARY KEY,
     cmdline       VARCHAR,
     user          VARCHAR,
-    pid           INTEGER
+    pid           INTEGER,
+    bpid          INTEGER
 );
 
 CREATE TABLE services (
@@ -26,8 +28,9 @@ CREATE TABLE services (
 CREATE TABLE events (
     id         INTEGER PRIMARY KEY,
     etime      DATETIME,
-    event      VARCHAR,
+    event      VARCHAR(64),
     service_id INT,
+    pid        INT,
     FOREIGN KEY (service_id)
         REFERENCES service(id)
 );
@@ -39,17 +42,26 @@ CREATE TABLE listeners (
     pid       INTEGER
 );
 
+CREATE TRIGGER add_pid AFTER INSERT on events
+BEGIN
+        UPDATE events SET pid = get_pid() WHERE id = new.id;
+END;
+
+CREATE TRIGGER buddy_pid AFTER UPDATE OF pid on procruns
+BEGIN
+        UPDATE procruns SET bpid = get_pid() WHERE id = new.id;
+END;
+
 CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
 WHEN   new.state_desired = 'stop'
        BEGIN
               INSERT INTO events
               (etime,event,service_id)
               SELECT     datetime('now'),
-                         'kill' + procruns.pid + signal_send(procruns.pid,15),
+                         'kill' + procruns.pid + signal_send(procruns.bpid,15),
                          new.id
               FROM  procruns 
               WHERE new.procrun_id    = procruns.id
               and   procruns.pid     is not null
               and   procruns.pid     != 0;
-
 END;
