@@ -10,8 +10,8 @@ dir	:= common
 include		$(dir)/Rules.mk
 dir	:= controller
 include		$(dir)/Rules.mk
-#dir	:= uptop
-#include		$(dir)/Rules.mk
+dir	:= uptop
+include		$(dir)/Rules.mk
 
 DEPS_LEFTOVERS=*/*.dSYM
 

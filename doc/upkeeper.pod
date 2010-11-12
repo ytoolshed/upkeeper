@@ -1,0 +1,59 @@
+=head2 Upkeeper Architecture
+
+Upkeeper launches Unix daemon processes, keeps them up,
+and displays their real-time status in a terminal-based interface.
+
+Every process controlled by upkeeper 
+gets a 'buddy' process assigned which watches over it 
+and restarts it if necessary. Upkeeper also features a single buddy 
+controller daemon which bootstraps the system and monitors its state.
+
+All state is stored in a SQLite database, which also serves as 
+communication mechanism between the buddy controller, the buddies,
+and the real-time UI.
+
+Upkeeper also maintains a collection of historical process data and 
+displays useful stats on which processes where restarted, how often and when.
+
+=head3 Buddy Controller
+
+At system boot time, the Buddy Controller rummages through the 'services'
+table of the SQLite database to figure out which processes are defined
+and what their desired and actual state is. Both desired and actual 
+state of each process are stored in the table.
+
+    CREATE TABLE services (
+        id            INTEGER PRIMARY KEY,
+        package       VARCHAR,
+        service       VARCHAR,
+        procrun_id    INT,
+        state_desired VARCHAR,
+        state_actual  VARCHAR,
+        FOREIGN KEY (procrun_id)
+            REFERENCES procrun(id)
+    );
+
+At startup, if the buddy controller notices a process that is down
+but should be up, it will bring it up by launching a buddy whose job
+it then is to start the process and restart it should it ever 
+fall down. 
+
+=head3 Buddy
+
+As soon as 
+the buddy has launched the process, it marks it 'started' in the 
+database table. If it detects that the process has fallen down, it 
+marks its actual state as 'stopped', and then tries to bring it back
+up immediately. As soon as it's up, it marks the process' actual state
+as 'started' in the database. Configuration values defined how often 
+the buddy tries to restart the process, how long to pause between
+restarts and when to give up.
+
+=head3 Buddy Controller Restart
+
+If the buddy controller crashes for whatever reason, it can simply restart,
+go through the database tables and verify that all services that have
+a desired state of 'started' also have an actual state of 'started'.
+Secondly, it verifies that every service marked as 'started' actually has
+a running Buddy process. If a buddy process is missing (in the rare event
+of a buddy crash), it restarts it.

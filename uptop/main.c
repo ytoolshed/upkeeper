@@ -27,7 +27,8 @@ int main(
     char  *file = "../store/store.sqlite";
     int    rc;
     int    ch;
-    struct timeval timeout = { 0, 100 };
+    struct timeval timeout_saved = { 0, 100000 }; /* 100 ms */
+    struct timeval timeout;
     /*
       const struct timespec request = { 0, 1000000 };
       struct timespec remain;
@@ -57,10 +58,11 @@ int main(
     nodelay( stdscr, TRUE );
 
     while(1) {
-	/* use select for sleeping 100ms */
-        sleep(1);
-        /* select( 0, NULL, NULL, NULL, &timeout ); */
-        /* clock_nanosleep( 0, 0, &request, &remain ); */
+          /* On Ubuntu, select has the nasty habit of resetting timeout,
+           * so we need to make sure we're re-using the original value.
+           */
+        timeout = timeout_saved;
+        select( 0, NULL, NULL, NULL, &timeout );
 
 	ch = getch();
 	if( ch != ERR ) {
@@ -190,7 +192,7 @@ void uptop_services_print(
     attroff( A_BOLD );
     printw( "USR1 me at pid %d\n", getpid() );
     printw( "----------------------------------------\n" );
-    upk_db_status_checker( pdb, uptop_print_callback );
+    upk_db_status_visitor( pdb, uptop_print_callback );
     printw( "----------------------------------------\n" );
 
     getmaxyx( stdscr, y, x );

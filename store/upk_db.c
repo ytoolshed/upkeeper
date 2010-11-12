@@ -255,7 +255,7 @@ _upk_db_event_add(
     }
 
     if( DEBUG ) {
-        printf("Inserting %s %s %d\n", date_string, event, service_id);
+        printf("upk_db_event_add %s %s %d\n", date_string, event, service_id);
     }
 
     sql = sqlite3_mprintf(
@@ -345,9 +345,18 @@ const char *upk_db_service_run(
   int service_id;
   char *sql;
 
+  if( DEBUG ) {
+      printf("++upk_db_service_run %s/%s %s\n",
+              srvc->package, srvc->service, cmdline);
+  }
+
   service_id = upk_db_service_find_or_create( srvc );
 
   _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
+
+  if( DEBUG ) {
+      printf("++Insert into procruns: %s %d\n", cmdline, pid);
+  }
 
   sql = sqlite3_mprintf(
                     "INSERT INTO procruns (cmdline,pid) "
@@ -384,6 +393,11 @@ const char *upk_db_service_cmdline(
   char       *sql;
   int         service_id;
   const char *id;
+
+  if( DEBUG ) {
+      printf("upk_db_service_cmdline %s/%s %s\n",
+              srvc->package, srvc->service, cmdline);
+  }
 
   sql = sqlite3_mprintf( "SELECT cmdline from services, procruns "
           "WHERE package = %Q "
@@ -502,10 +516,10 @@ const char * upk_db_service_actual_status(
 
 
 /* 
- * Test callback for the status checker, which just prints out all 
+ * Test callback for the status visitor, which just prints out all 
  * entries it is called with.
  */
-void _upk_db_status_checker_testcallback( 
+void _upk_db_status_visitor_testcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
@@ -515,11 +529,11 @@ void _upk_db_status_checker_testcallback(
 }
 
 /* 
- * Launcher callback for the status checker. 
+ * Launcher callback for the status visitor. 
  * Starts up processes with actual=stop and desired=start.
  * Shuts down processes with actual=start and desired=stop.
  */
-void upk_db_status_checker_launchcallback( 
+void upk_db_status_visitor_launchcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
     const char    *status_actual
@@ -537,10 +551,10 @@ void upk_db_status_checker_launchcallback(
 }
 
 /* 
- * Status checker iterates through all configured pkg/services in the DB and
+ * Status visitor iterates through all configured pkg/services in the DB and
  * calls the provided callback functions for every entry it finds.
  */
-void upk_db_status_checker( 
+void upk_db_status_visitor( 
     sqlite3 *pdb, 
     void (*callback)()
 ) {

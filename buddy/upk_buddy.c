@@ -8,6 +8,8 @@
 #include "upk_buddy.h"
 #define BUDDYPATH "../buddy"
 
+extern int DEBUG;
+
 /* 
  * Launches the application process in argv[] with a 'buddy'
  * which updates the upkeeper database when the application has been started

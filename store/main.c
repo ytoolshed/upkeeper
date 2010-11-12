@@ -80,7 +80,7 @@ int main(
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
     s.service = "service-9"; s.package = "package-1";
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL);
-    upk_db_status_checker( s.pdb, upk_db_status_checker_launchcallback );
+    upk_db_status_visitor( s.pdb, upk_db_status_visitor_launchcallback );
 
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 
