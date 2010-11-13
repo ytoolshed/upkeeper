@@ -28,6 +28,11 @@ int upk_buddy_start_1(
   char  c;
   const char *dbpath = "./store.sqlite";
 
+  if( DEBUG ) {
+      printf("upk_buddy_start '%s' '%s' [%s] async=%d\n",
+              srvc->service, srvc->package, command, async);
+  }
+
   if (!async && pipe(p) == -1) return -1;
   coe(p[0]); coe(p[1]);
   bpid = fork();

@@ -346,7 +346,7 @@ const char *upk_db_service_run(
   char *sql;
 
   if( DEBUG ) {
-      printf("++upk_db_service_run %s/%s %s\n",
+      printf("upk_db_service_run %s/%s %s\n",
               srvc->package, srvc->service, cmdline);
   }
 
@@ -355,7 +355,7 @@ const char *upk_db_service_run(
   _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
 
   if( DEBUG ) {
-      printf("++Insert into procruns: %s %d\n", cmdline, pid);
+      printf("Insert into procruns: %s %d\n", cmdline, pid);
   }
 
   sql = sqlite3_mprintf(

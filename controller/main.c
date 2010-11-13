@@ -8,6 +8,7 @@
 int DEBUG = 0;
 
 static int OPT_BOOTSTRAP        = 0;
+static int OPT_VERBOSE          = 0;
 static int OPT_SIGNAL_LISTENERS = 0;
 static int OPT_STATUS_FIXER     = 1;
 
@@ -24,6 +25,12 @@ int main(
     if (optind < argc) {
       file = argv[optind];
     }
+
+    if(OPT_VERBOSE) {
+	printf("verbose output enabled\n");
+	DEBUG = 1;
+    }
+
     rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
@@ -98,6 +105,7 @@ int options_parse(
     int c;
     int option_index;
     static struct option long_options[] = {
+        { "verbose", 0, &OPT_VERBOSE, 1 },
         { "bootstrap", 0, &OPT_BOOTSTRAP, 1 },
         { "signal-listeners", 0, &OPT_SIGNAL_LISTENERS, 1 },
         { "status-fixer", 0, &OPT_STATUS_FIXER, 1 },
