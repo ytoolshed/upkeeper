@@ -1,4 +1,5 @@
-
+cd ../demo
+ln -f ../buddy/buddy .
 cd ../store
 rm -f store.sqlite
 ./schema-setup.sh
