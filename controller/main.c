@@ -9,7 +9,7 @@ int DEBUG = 0;
 
 static int OPT_BOOTSTRAP        = 0;
 static int OPT_SIGNAL_LISTENERS = 0;
-static int OPT_STATUS_FIXER     = 0;
+static int OPT_STATUS_FIXER     = 1;
 
 int main( 
     int   argc, 
@@ -18,24 +18,17 @@ int main(
     sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
-
+    int      opt;
+    
     options_parse( argc, argv );
-
+    if (optind < argc) {
+      file = argv[optind];
+    }
     rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
-    }
-
-    if( OPT_STATUS_FIXER ) {
-        upk_controller_status_fixer( pdb );
-    }
-
-    if( OPT_SIGNAL_LISTENERS ) {
-	/* Just signal all registered listeners and exit */
-        upk_db_listener_send_all_signals( pdb );
-	goto SHUTDOWN;
     }
 
     if( OPT_BOOTSTRAP ) {
@@ -47,6 +40,17 @@ int main(
 
 	upk_controller_bootstrap( pdb );
     }
+
+    if( OPT_STATUS_FIXER ) {
+      upk_controller_status_fixer( pdb, file);
+    }
+
+    if( OPT_SIGNAL_LISTENERS ) {
+	/* Just signal all registered listeners and exit */
+        upk_db_listener_send_all_signals( pdb );
+	goto SHUTDOWN;
+    }
+
 
     /* Notify all listeners */
     upk_db_listener_send_all_signals( pdb );
@@ -81,7 +85,7 @@ void upk_db_reset_launchcallback(
 void upk_controller_bootstrap( 
     sqlite3 *pdb
 ) {
-    upk_db_status_visitor( pdb, upk_db_reset_launchcallback );
+  upk_db_status_visitor( pdb, upk_db_reset_launchcallback, NULL );
 }
 
 /* 
@@ -113,4 +117,5 @@ int options_parse(
             break;
         }
     }
+    return option_index;
 }

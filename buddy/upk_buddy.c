@@ -20,11 +20,14 @@ int upk_buddy_start_1(
   upk_srvc_t    srvc,                    
   const char    *command,
   const char    *env[],
-  int async
+  int async,
+  const char    *db
 ) {
   int   bpid;
   int   p[2]; 
   char  c;
+  const char *dbpath = "./store.sqlite";
+
   if (!async && pipe(p) == -1) return -1;
   coe(p[0]); coe(p[1]);
   bpid = fork();
@@ -40,12 +43,12 @@ int upk_buddy_start_1(
     }
     execle(BUDDYPATH, 
            BUDDYPATH, 
-           command, 
-           "........................................",
            "-s", srvc->service,
            "-p", srvc->package,
-           "-d", "./store.sqlite",
+           "-d", db ? db : dbpath,
            "-f",
+           "........................................",
+           command, 
            NULL,
            env);
     exit(112);
@@ -61,19 +64,20 @@ int upk_buddy_start_1(
 int upk_buddy_start(
   upk_srvc_t    srvc,                    
   const char    *command,
-  const char    *env[]
+  const char    *env[],
+  const char    *db
 
 ) {
-  return upk_buddy_start_1(srvc,command,env,0);
+  return upk_buddy_start_1(srvc,command,env,0,db);
 }
 
 int upk_buddy_start_async(
   upk_srvc_t    srvc,                    
   const char    *command,
-  const char    *env[]
-
+  const char    *env[],
+  const char    *db
 ) {
-  return upk_buddy_start_1(srvc,command,env,1);
+  return upk_buddy_start_1(srvc,command,env,1,db);
 }
 /* 
  * Stops a previously launched buddied application process and updates

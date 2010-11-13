@@ -70,19 +70,24 @@ int upk_db_service_find( upk_srvc_t );
 
 void upk_db_status_visitor( 
     sqlite3 *pdb, 
-    void (*callback)()
+    void (*callback)(),
+    void  *context
 );
 
 void _upk_db_status_visitor_testcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
-    const char    *status_actual
+    const char    *status_actual,
+    void          *IGNORED
+
+
 );
 
 void upk_db_status_visitor_launchcallback( 
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
-    const char    *status_actual
+    const char    *status_actual,
+    const char    *dbpath
 );
 
 int upk_test_is(

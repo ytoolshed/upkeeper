@@ -12,7 +12,7 @@
 #include "upk_db.h"
 
 #include "schema.c"
-
+#define MAX_SERVICES 1024
 const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
 
 
@@ -522,7 +522,8 @@ const char * upk_db_service_actual_status(
 void _upk_db_status_visitor_testcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
-    const char    *status_actual
+    const char    *status_actual,
+    void *igno
 ) {
     printf("Callback: %s-%s %s-%s\n",
             srvc->package, srvc->service, status_desired, status_actual);
@@ -536,7 +537,8 @@ void _upk_db_status_visitor_testcallback(
 void upk_db_status_visitor_launchcallback( 
     upk_srvc_t srvc,                                    
     const char    *status_desired,
-    const char    *status_actual
+    const char    *status_actual,
+    const char    *dbpath
 ) {
     if( status_desired == NULL ||
         status_actual  == NULL ) {
@@ -554,14 +556,25 @@ void upk_db_status_visitor_launchcallback(
  * Status visitor iterates through all configured pkg/services in the DB and
  * calls the provided callback functions for every entry it finds.
  */
+
+/* XXX  threadsafety? */
+struct {
+  struct upk_srvc s;
+  char *a;
+  char *b;
+} cb[MAX_SERVICES];
+
 void upk_db_status_visitor( 
     sqlite3 *pdb, 
-    void (*callback)()
+    void (*callback)(),
+    void *context
+
 ) {
     const char         *sql;
     sqlite3_stmt *stmt;
     int           rc, ncols;
-    struct upk_srvc s = { pdb };
+    int count = 0;
+    
     sql = "SELECT package, service, state_desired, state_actual "
           "FROM services "
 	  "ORDER by package, service "
