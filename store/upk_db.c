@@ -586,17 +586,25 @@ void upk_db_status_visitor(
     rc = sqlite3_step( stmt );
 
     while( rc == SQLITE_ROW ) {
-      s.package = (char *)sqlite3_column_text( stmt, 0 );
-      s.service = (char *)sqlite3_column_text( stmt, 1 ),
-
-        (*callback)( &s,
-                sqlite3_column_text( stmt, 2 ),
-                sqlite3_column_text( stmt, 3 )
-                );
-        rc = sqlite3_step( stmt );
+      cb[count].s.package = strdup(sqlite3_column_text( stmt, 0 ));
+      cb[count].s.service = strdup(sqlite3_column_text( stmt, 1 ));
+      cb[count].a         = strdup(sqlite3_column_text( stmt, 2 ));
+      cb[count].b         = strdup(sqlite3_column_text( stmt, 3 ));
+      cb[count].s.pdb     = pdb;
+      count++;
+      rc = sqlite3_step( stmt );
     }
 
     sqlite3_finalize( stmt );
+
+    while (count--) {
+      (*callback)( &cb[count].s,
+                   cb[count].a,cb[count].b, context);
+
+        free(cb[count].a);  free(cb[count].b);
+        free(cb[count].s.service);
+        free(cb[count].s.package);
+    }
 }
 
 /* 
