@@ -23,7 +23,8 @@ static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
 static int eventfd            = -1;
 static char * lbuf  = NULL;
-
+static int quiet = 0;
+static struct rptqueue proctitle;
 int DEBUG = 0;
 
 
@@ -37,8 +38,9 @@ int child = 0, term = 0;
 
 static void sysdie(int e, const char *a,const char *b, const char *c)
 {
-  printf("%d",getpid());
-  fprintf(stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
+  if (!quiet || pid == 0) {
+    fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
+  }
   exit(e);
 }
 
@@ -54,7 +56,7 @@ static void handler(int sig)
 
 static void note_exit(int status) 
 {
-  if (lbuf) { close(logp[1]); }
+  if (lbuf) { close(logp[0]); }
   if (srvc.pdb) {
     upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_EXITED);
     if (term) {
@@ -91,7 +93,7 @@ static void start_app(void)
     }
     execle(prog, prog, NULL, envp);
 
-    sysdie(111,FATAL"failed to exec (",prog,")");
+    sysdie(111,FATAL"exec (",prog,") error");
   }
 
   if (srvc.pdb) {
@@ -101,6 +103,14 @@ static void start_app(void)
 
   if (lbuf) {
     close(logp[1]);
+
+    proctitle.display = lbuf;
+    proctitle.dlen    = lbuf ? strlen(lbuf) : 0;
+    proctitle.dpos    = lbuf;
+    proctitle.ifd     = logp[0];
+    proctitle.ofd     = quiet ? -1 : 1;
+    proctitle.buf[1]  = 0;
+    rpt_init(&proctitle);
   }
 
 }
@@ -111,16 +121,9 @@ static void start_app(void)
   char sig;
   int status, i, ret, wpid;
   int limit = lbuf ? 2 : 1;
-  struct rptqueue proctitle = { lbuf,
-                                lbuf ? strlen(lbuf) : 0,
-                                lbuf,
-                                logp[0],
-                                1,
-                                { -1, '\0' } };
-  if (lbuf)
-    rpt_init(&proctitle);
 
   upk_unblock_signal(SIGCHLD);
+ 
   for (;;) {
     struct timeval period;
     int retval;
@@ -180,7 +183,6 @@ int main(int ac, char **av, char **ep)
   envp = ep;
   prog = av[options_parse(ac,av,envp)];
 
-  fprintf(stderr,"buddy 4 %s",prog);
   upk_catch_signal(SIGCHLD, handler);
   upk_catch_signal(SIGTERM, handler);
   upk_block_signal(SIGCHLD);
@@ -192,12 +194,18 @@ int main(int ac, char **av, char **ep)
   coe(sigp[1]); nonblock(sigp[1]);
   
   start_app();
-  if (write(3,";",1) != 1) {
-    close(3);
+  if (eventfd > 0 && write(eventfd,";",1) != 1) {
+    close(eventfd);
   }
   idle();
 }
 
+static int is_logbuf(const char *b) {
+  do {
+    if (*b != '.') return 0;
+  } while (*++b);
+  return 1;
+}
 
 void usage(void)
 {
@@ -219,12 +227,13 @@ int options_parse(int argc, char *argv[], char *envp[])
     { "package",     1, 0, 'p' },
     { "service",     1, 0, 's' },
     { "db",          1, 0, 'd' },
+    { "quiet",	     1, 0, 'q' },
     { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "fd:s:p:l",
+    c = getopt_long (argc, argv, "fql::d:s:p:",
                      long_options, &option_index);
 
     switch (c) {
@@ -232,7 +241,7 @@ int options_parse(int argc, char *argv[], char *envp[])
       eventfd = 3;
       break;
     case 'l':
-      doing_log = 1;
+      doing_log = optind;
       break;
     case 'd':
       if (upk_db_init(optarg, &srvc.pdb)) {
@@ -246,17 +255,17 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 'p':
       srvc.package = strdup(optarg);
       break;
+    case 'q':
+      quiet = 1;
+      break;
     default:
       break;
     }
     if (c == -1) { break; }
   }
 
-  if (doing_log && (argc - optind == 1)) {
-    for (i = doing_log; i+1 < argc; i++) {
-      argv[i] = argv[i+1];
-    }
-    argv[argc-1] = logbuf;
+  if (doing_log) {
+    argv[doing_log] = logbuf;
     execve(argv[0],argv,envp);
     sysdie(111,FATAL,"unable to restart self ",argv[0]);
   }
@@ -264,8 +273,9 @@ int options_parse(int argc, char *argv[], char *envp[])
   if (srvc.pdb && (!srvc.service || !srvc.package)) {  usage();  }
 
   if (optind == argc) { usage(); }
-
-  if (argc > optind + 1) { lbuf = argv[argc-1]; }
-
+  
+  if (is_logbuf(argv[optind])) {
+    lbuf = argv[optind++];
+  }
   return optind;
 }
