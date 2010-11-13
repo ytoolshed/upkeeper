@@ -4,7 +4,7 @@ Mike:
 
 * Buddy controller needs to run single-threaded, upon receiving a
   signal, increase a counter if another signal handler is already 
-  running.
+  running. 
 
 * Don't auto-create pkg/srvc with find_or_create on _get requests
 
@@ -15,3 +15,26 @@ Mike:
 * -O2 out
 
 * Command line join: Mind quotes/escapes
+
+
+Greg:
+
+* Buddy needs to be able to log errors somewhere besides standard out.
+
+* Expose the listener triggers as SQL functions and add triggers which 
+  notify listeners on updates.
+
+
+
+##########################
+# ?
+##########################
+* better unit tests (check target in top makefile)
+* extract unit test helper functions out in separate lib
+* use 2 different sqlite databases for control and stats
+* autoconf: use Makefile.am noinst_LIBRARIES
+* autoconf: used searched sqlite3 lib
+* autoconf: Mac CFLAGS: GCC_UNDEF_FLAG=-undefined dynamic_lookup
+* autoconf: install target
+* autoconf: targets for upkeeper and upkeeper_dev packages
+* autoconf: prefix handling
