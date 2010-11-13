@@ -23,7 +23,7 @@ static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
 static int eventfd            = -1;
 static char * lbuf  = NULL;
-static int quiet = 0;
+static int quiet = 1;
 static struct rptqueue proctitle;
 int DEBUG = 0;
 
@@ -38,8 +38,11 @@ int child = 0, term = 0;
 
 static void sysdie(int e, const char *a,const char *b, const char *c)
 {
-  if (!quiet || pid == 0) {
+  if (quiet < 2 || pid == 0) {
     fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
+  }
+  if (quiet) {
+    /* XXX: should write errors into db or to domain socket? */
   }
   exit(e);
 }
@@ -233,7 +236,7 @@ int options_parse(int argc, char *argv[], char *envp[])
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "fql::d:s:p:",
+    c = getopt_long (argc, argv, "vfql::d:s:p:",
                      long_options, &option_index);
 
     switch (c) {
@@ -246,7 +249,6 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 'd':
       if (upk_db_init(optarg, &srvc.pdb)) {
         sysdie(111,FATAL"opening database (", optarg,") failed: ");
-        printf("hey");
       }
       break;
     case 's':
@@ -256,7 +258,10 @@ int options_parse(int argc, char *argv[], char *envp[])
       srvc.package = strdup(optarg);
       break;
     case 'q':
-      quiet = 1;
+      quiet++;
+      break;
+    case 'v':
+      quiet--;
       break;
     default:
       break;
