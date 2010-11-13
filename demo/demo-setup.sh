@@ -14,3 +14,8 @@ do
   # ./upk --set-desired-state package-$i service-$i stop
   # sleep 1
 done
+
+echo <<EOF
+You'll now need to start a buddy-controller. 
+./upkeeper-init is a way to do so.
+EOF
