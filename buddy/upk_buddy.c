@@ -6,7 +6,7 @@
 
 #include "store/upk_db.h"
 #include "upk_buddy.h"
-#define BUDDYPATH "../buddy"
+#define BUDDYPATH "./buddy"
 
 extern int DEBUG;
 
