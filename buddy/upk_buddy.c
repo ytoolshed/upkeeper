@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <sqlite3.h>
+#include <errno.h>
+#include <string.h>
 
 #include "store/upk_db.h"
 #include "upk_buddy.h"
@@ -56,6 +58,12 @@ int upk_buddy_start_1(
            command, 
            NULL,
            env);
+
+    if( DEBUG ) {
+        printf("execle %s [%s] failed (%s)\n",
+                BUDDYPATH, command, strerror( errno ) );
+    }
+
     exit(112);
   }
   close(p[1]);
