@@ -214,6 +214,7 @@ void clock_update (
 
     move(y-1, 0);
     printw( "Time now  : %s\n", time_as_string() );
+    refresh();
 }
 
 /* 
