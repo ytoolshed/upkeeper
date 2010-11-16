@@ -24,13 +24,14 @@ static int sigp[2]            = {-1,-1};
 static int eventfd            = -1;
 static char * lbuf  = NULL;
 static int quiet = 1;
+static int done  = 0;
 static struct rptqueue proctitle;
 int DEBUG = 0;
 
 
 struct upk_srvc srvc = { NULL, NULL, NULL };
 
-static char  *prog;
+static char  **prog;
 static char **envp;
 static int  pid = 0;
 
@@ -51,7 +52,7 @@ static void handler(int sig)
 { 
   switch (sig) {
   case SIGCHLD: child = 1 ; break;
-  case SIGTERM: term  = 1 ; break;
+  case SIGTERM: term  = 1 ; done = 1 ; break;
   default: warn("unknown signal", sig);
   }
   sig = write(sigp[1]," ",1);
@@ -74,13 +75,13 @@ static void start_app(void)
 
   if (lbuf) {
     if (pipe(logp) == -1) 
-      sysdie(111,FATAL, "failed to create log pipe for ",prog);
+      sysdie(111,FATAL, "failed to create log pipe for ",*prog);
     nonblock(logp[0]); nonblock(logp[1]);
     coe(logp[0]); coe(logp[1]);
   }
 
   if ((pid = fork()) == -1) 
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",*prog);
   
   if (pid == 0) {
     upk_uncatch_signal(SIGCHLD);
@@ -90,13 +91,16 @@ static void start_app(void)
     if (lbuf) {
       close(1);
       if (-1 == dup(logp[1])) {
-        sysdie(111,FATAL"failed to dup stdout for ","",prog);
+        sysdie(111,FATAL"failed to dup stdout for ","",*prog);
       }
       close(logp[1]);
     }
-    execle(prog, prog, NULL, envp);
 
-    sysdie(111,FATAL"exec (",prog,") error");
+    execvp(*(prog+2), prog+2);
+    if (errno == ENOENT) {
+      execvp(*prog, prog);
+    }
+    sysdie(111,FATAL"exec (",*prog,") error");
   }
 
   if (srvc.pdb) {
@@ -157,7 +161,7 @@ static void start_app(void)
     
     if (wpid == pid) {
       note_exit(status);
-      if (term) break;
+      if (done) break;
       start_app();
       sleep(1);
     } 
@@ -183,15 +187,24 @@ static void start_app(void)
 int main(int ac, char **av, char **ep) 
 {
   int i;
-  envp = ep;
-  prog = av[options_parse(ac,av,envp)];
+  int optind = options_parse(ac,av,envp);
+  prog = malloc(ac-optind + 3 * sizeof(char *));
+
+  if (!prog)
+    sysdie(111,FATAL, "failed to malloc command line ",*prog);
+
+  prog[0] = "/bin/sh";
+  prog[1] = "-c";
+  for (i = 2; optind < ac; optind++) {
+    prog[i++] = av[optind];
+  }
 
   upk_catch_signal(SIGCHLD, handler);
   upk_catch_signal(SIGTERM, handler);
   upk_block_signal(SIGCHLD);
 
   if (pipe(sigp) == -1)
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",*prog);
 
   coe(sigp[0]); nonblock(sigp[0]);
   coe(sigp[1]); nonblock(sigp[1]);
@@ -230,13 +243,14 @@ int options_parse(int argc, char *argv[], char *envp[])
     { "package",     1, 0, 'p' },
     { "service",     1, 0, 's' },
     { "db",          1, 0, 'd' },
+    { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
     { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "vfql::d:s:p:",
+    c = getopt_long (argc, argv, "ovfql::d:s:p:",
                      long_options, &option_index);
 
     switch (c) {
@@ -254,6 +268,9 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 's':
       srvc.service = strdup(optarg);
       break;
+    case 'o':
+      done = 1;
+      break;
     case 'p':
       srvc.package = strdup(optarg);
       break;
@@ -262,6 +279,7 @@ int options_parse(int argc, char *argv[], char *envp[])
       break;
     case 'v':
       quiet--;
+      DEBUG = 1;
       break;
     default:
       break;
@@ -278,7 +296,9 @@ int options_parse(int argc, char *argv[], char *envp[])
   if (srvc.pdb && (!srvc.service || !srvc.package)) {  usage();  }
 
   if (optind == argc) { usage(); }
-  
+  if (argv[optind][0] == '-' && argv[optind][1] == '-'  && argv[optind][2] == 0) {
+    optind++;
+  }
   if (is_logbuf(argv[optind])) {
     lbuf = argv[optind++];
   }
