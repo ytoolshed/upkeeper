@@ -10,7 +10,7 @@ int DEBUG = 0;
 static int OPT_BOOTSTRAP        = 0;
 static int OPT_VERBOSE          = 0;
 static int OPT_SIGNAL_LISTENERS = 0;
-static int OPT_STATUS_FIXER     = 0;
+static int OPT_STATUS_FIXER     = 1;
 
 int main( 
     int   argc, 
@@ -19,8 +19,12 @@ int main(
     sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
-
+    int      opt;
+    
     options_parse( argc, argv );
+    if (optind < argc) {
+      file = argv[optind];
+    }
 
     if(OPT_VERBOSE) {
 	printf("verbose output enabled\n");
@@ -34,16 +38,6 @@ int main(
 	exit(-1);
     }
 
-    if( OPT_STATUS_FIXER ) {
-        upk_controller_status_fixer( pdb );
-    }
-
-    if( OPT_SIGNAL_LISTENERS ) {
-	/* Just signal all registered listeners and exit */
-        upk_db_listener_send_all_signals( pdb );
-	goto SHUTDOWN;
-    }
-
     if( OPT_BOOTSTRAP ) {
         /* In bootstrap mode, reset all process entries in the DB to 
          * "down" to start with a clean slate.
@@ -53,6 +47,17 @@ int main(
 
 	upk_controller_bootstrap( pdb );
     }
+
+    if( OPT_STATUS_FIXER ) {
+      upk_controller_status_fixer( pdb, file);
+    }
+
+    if( OPT_SIGNAL_LISTENERS ) {
+	/* Just signal all registered listeners and exit */
+        upk_db_listener_send_all_signals( pdb );
+	goto SHUTDOWN;
+    }
+
 
     /* Notify all listeners */
     upk_db_listener_send_all_signals( pdb );
@@ -87,7 +92,7 @@ void upk_db_reset_launchcallback(
 void upk_controller_bootstrap( 
     sqlite3 *pdb
 ) {
-    upk_db_status_visitor( pdb, upk_db_reset_launchcallback );
+  upk_db_status_visitor( pdb, upk_db_reset_launchcallback, NULL );
 }
 
 /* 
@@ -120,4 +125,5 @@ int options_parse(
             break;
         }
     }
+    return option_index;
 }

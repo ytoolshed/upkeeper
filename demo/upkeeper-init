@@ -1,0 +1,19 @@
+#!/bin/sh
+#
+# Possible equivalent of svscanboot.
+#
+
+# XXX: this goes away once we have an installation path
+#
+DIR=`dirname $(which $0)`
+if [ "x$DIR" = "x`echo $DIR|sed -e s,^/,,`" ];
+then
+        DIR=$(pwd)/`dirname $(which $0)`
+fi
+PATH=$PATH:$DIR/../buddy:$DIR/../controller/
+cd $DIR
+###
+### leaving only
+### 
+buddy-controller --bootstrap
+exec buddy -v ................................................ $(which buddy-controller)

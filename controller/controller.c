@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include "../store/upk_db.h"
+#include "buddy/upk_buddy.h"
 #include <unistd.h>
 #include "controller.h"
 
@@ -15,7 +16,8 @@ extern int DEBUG;
 void upk_controller_status_fixer_callback( 
     upk_srvc_t  srvc,                                    
     char    *status_desired,
-    char    *status_actual
+    char    *status_actual,
+    const char *dbpath
 ) {
     const char *cmdline;
     char       *cmdline_alloc;
@@ -40,13 +42,13 @@ void upk_controller_status_fixer_callback(
 
     if( strcmp( status_desired, upk_states[ UPK_STATUS_VALUE_START ] ) == 0 ) {
 	/* service needs to be started */
-        if( DEBUG ) {
-	    printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
-                                             cmdline_alloc );
+        if( 1 ) {
+	    printf("** STARTING %s/%s/%s/%s\n", srvc->package, srvc->service,
+                   cmdline_alloc, dbpath );
         }
-        upk_buddy_start_async( srvc, cmdline_alloc, NULL );
+        upk_buddy_start( srvc, cmdline_alloc, NULL, dbpath );
     } else {
-        if( DEBUG ) {
+        if( 1 ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
                                              cmdline_alloc );
         }
@@ -61,8 +63,9 @@ void upk_controller_status_fixer_callback(
  * Bring all services inline with the desired status
  */
 void upk_controller_status_fixer( 
-    sqlite3 *pdb
+                                 sqlite3 *pdb,
+                                 const char *db
 ) {
-    upk_db_status_visitor( pdb, upk_controller_status_fixer_callback );
+  upk_db_status_visitor( pdb, upk_controller_status_fixer_callback, (void *)db);
 }
 

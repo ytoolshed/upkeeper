@@ -10,13 +10,16 @@
 int upk_buddy_start(
                     upk_srvc_t    srvc,
                     const char    *command,
-                    const char    *env[]
+                    const char    *env[],
+                    const char    *db
+
 );
 
 int upk_buddy_start_async(
                     upk_srvc_t    srvc,
                     const char    *command,
-                    const char    *env[]
+                    const char    *env[],
+                    const char    *db
 );
 
 /* 
