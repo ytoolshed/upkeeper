@@ -75,13 +75,13 @@ static void start_app(void)
 
   if (lbuf) {
     if (pipe(logp) == -1) 
-      sysdie(111,FATAL, "failed to create log pipe for ",prog);
+      sysdie(111,FATAL, "failed to create log pipe for ",*prog);
     nonblock(logp[0]); nonblock(logp[1]);
     coe(logp[0]); coe(logp[1]);
   }
 
   if ((pid = fork()) == -1) 
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",*prog);
   
   if (pid == 0) {
     upk_uncatch_signal(SIGCHLD);
@@ -91,7 +91,7 @@ static void start_app(void)
     if (lbuf) {
       close(1);
       if (-1 == dup(logp[1])) {
-        sysdie(111,FATAL"failed to dup stdout for ","",prog);
+        sysdie(111,FATAL"failed to dup stdout for ","",*prog);
       }
       close(logp[1]);
     }
@@ -191,7 +191,7 @@ int main(int ac, char **av, char **ep)
   prog = malloc(ac-optind + 3 * sizeof(char *));
 
   if (!prog)
-    sysdie(111,FATAL, "failed to malloc command line ",prog);
+    sysdie(111,FATAL, "failed to malloc command line ",*prog);
 
   prog[0] = "/bin/sh";
   prog[1] = "-c";
@@ -204,7 +204,7 @@ int main(int ac, char **av, char **ep)
   upk_block_signal(SIGCHLD);
 
   if (pipe(sigp) == -1)
-    sysdie(111,FATAL, "failed to create pipe for ",prog);
+    sysdie(111,FATAL, "failed to create pipe for ",*prog);
 
   coe(sigp[0]); nonblock(sigp[0]);
   coe(sigp[1]); nonblock(sigp[1]);
@@ -279,6 +279,7 @@ int options_parse(int argc, char *argv[], char *envp[])
       break;
     case 'v':
       quiet--;
+      DEBUG = 1;
       break;
     default:
       break;
