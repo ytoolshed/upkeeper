@@ -43,11 +43,31 @@ fall down.
 As soon as 
 the buddy has launched the process, it marks it 'started' in the 
 database table. If it detects that the process has fallen down, it 
-marks its actual state as 'stopped', and then tries to bring it back
-up immediately. As soon as it's up, it marks the process' actual state
-as 'started' in the database. Configuration values defined how often 
+records that fact in the historical events table, and then tries to bring 
+it back up immediately. Configuration values defined how often 
 the buddy tries to restart the process, how long to pause between
 restarts and when to give up.
+
+When the buddy sets the process status to 'started', a SQLite trigger
+notifies a list of subscribers, stored in the listeners table:
+
+    CREATE TABLE listeners (
+        id        INTEGER PRIMARY KEY,
+        component VARCHAR,
+        signal    INTEGER,
+        pid       INTEGER
+    );
+
+So far, the only subscriber to this table is the terminal UI C<uptop>
+which wakes up when receiving the Unix signal and refreshes its display.
+This mechanism allows for a real-time display even with multiple instances
+of C<uptop> running on the same box.
+
+To shut down a buddy with its controlled application process, the 
+administrator simply calls a command which sets the application's status
+to C<stop>. An SQLite trigger on the C<services> table notices this and
+sends a TERM signal to the buddy, which first brings down the application
+and then shuts down itself.
 
 =head3 Buddy Controller Restart
 
