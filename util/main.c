@@ -8,26 +8,34 @@
 
 int DEBUG = 0;
 
+/*
+ *
+ */
+void usage(
+    char *prog,
+    char *message
+) {
+    printf( "%s\n", message );
+    printf( "usage: %s sqlite.db\n", prog );
+    exit( 1 );
+}
+
+/*
+ *
+ */
 int main( 
     int   argc, 
     char *argv[] 
 ) {
-    char            *file = "store.sqlite";
+    char            *file;
     int              rc;
-    int              i;
-    const char      *cp;
-    sqlite3         *pdb;
 
-    rc = upk_db_init( file, &pdb );
-    
-    if( rc < 0 ) {
-        printf( "init rc=%d\n", rc );
+    if( argc != 2 ) {
+	usage(argv[0], "Not enough arguments");
 	exit( 1 );
     }
 
-    upk_db_exec_single( pdb, ".dump" );
+    file = argv[1];
 
-    sqlite3_close( pdb );
-
-    return(0);
+    return( 0 );
 }
