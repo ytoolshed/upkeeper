@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <signal.h>
+#include <errno.h>
 
 #include "upk_db.h"
 
@@ -103,17 +104,22 @@ void signal_send(
 
     if( rc != 0 ) {
 
-        message = sqlite3_mprintf(
-	    "kill(%d, %d) failed: %s", 
-	    pid, signal_no, strerror( errno ) );
+	if( errno == ESRCH ) {
+            /* Process already gone, ignore error. */
+	} else {
 
-	if( DEBUG ) {
-	    printf( "%s\n", message );
-	}
+            message = sqlite3_mprintf(
+	        "kill(%d, %d) failed: %s", 
+	        pid, signal_no, strerror( errno ) );
 
-	sqlite3_result_error( ctx, message, strlen( message ) ); 
-	sqlite3_free( message );
-	return;
+	    if( DEBUG ) {
+	        printf( "%s\n", message );
+	    }
+    
+	    sqlite3_result_error( ctx, message, strlen( message ) ); 
+	    sqlite3_free( message );
+	    return;
+        }
     }
 
     sqlite3_result_int( ctx, 0 );
