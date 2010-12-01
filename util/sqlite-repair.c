@@ -48,14 +48,14 @@ int main(
 
     if( (pipe = popen( command, "r" )) == NULL ) {
 	printf( "Opening pipe to %s failed: %s\n",
-		command, sterror( errno ) );
+		command, strerror( errno ) );
 	goto cleanup;
     }
 
     file_dump   = sqlite3_mprintf( "%s.dump", file );
 
     if( (fpdump = fopen( file_dump, "w" )) == NULL ) {
-	printf( "Opening %s failed: %s\n", file_dump, sterror(errno) );
+	printf( "Opening %s failed: %s\n", file_dump, strerror(errno) );
 	rc = -2;
 	goto cleanup;
     }
