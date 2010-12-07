@@ -33,6 +33,7 @@ clean:
 		rm -rf $(DEPS_LEFTOVERS)
 
 check:		$(CHECK)
+	prove -e 'cat' $(CHECK)
 t-files:	
 	echo $(CHECK)
 
