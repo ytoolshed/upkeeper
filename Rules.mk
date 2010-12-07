@@ -15,7 +15,7 @@ include		$(dir)/Rules.mk
 
 DEPS_LEFTOVERS=*/*.dSYM
 
-CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB) $(TGT_DEPS)
+CLEAN	:= $(CLEAN) $(TGT_BIN) $(TGT_LIB) $(TGT_DEPS) $(CHECK)
 
 
 # The variables TGT_*, CHECK, CLEAN and CMD_INST* may be added to by the Makefile
