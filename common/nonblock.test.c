@@ -9,7 +9,7 @@
 int main (void) {
   int pfd[2];
   int fl;
-  printf("1..1\n");
+  printf("1..2\n");
   if (pipe(pfd) == -1) {
     perror("pipe");
   }
