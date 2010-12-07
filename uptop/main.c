@@ -12,6 +12,9 @@
 #define COMPONENT "uptop"
 
 int        DEBUG = 0;
+int        DB_CHECK_INTERVAL = 10;
+int        DB_CHECK_LAST     = 0;
+
 sqlite3   *PDB;
 static int OPT_VERSION = 0;
 
@@ -29,6 +32,7 @@ int main(
     int    ch;
     struct timeval timeout_saved = { 0, 100000 }; /* 100 ms */
     struct timeval timeout;
+    time_t now;
     /*
       const struct timespec request = { 0, 1000000 };
       struct timespec remain;
@@ -63,6 +67,15 @@ int main(
            */
         timeout = timeout_saved;
         select( 0, NULL, NULL, NULL, &timeout );
+
+	now = time( NULL );
+
+	if( DB_CHECK_LAST == 0 ) {
+	    upk_db_changed( PDB );
+	    DB_CHECK_LAST = now;
+	} else if ( DB_CHECK_LAST + DB_CHECK_INTERVAL < now ) {
+	    assert( ! upk_db_changed( PDB ) );
+	}
 
 	ch = getch();
 	if( ch != ERR ) {
@@ -199,6 +212,11 @@ void uptop_services_print(
 
     move(y-2, 0);
     printw( "Updated at: %s\n", time_as_string() );
+
+    move(y-3, 0);
+    printw( "DB created at: %s\n", upk_db_created( pdb ) );
+    move(y-4, 0);
+    printw( "DB last checked at: %d\n", DB_CHECK_LAST ); 
 
     refresh(); /* Update Curses */
 }

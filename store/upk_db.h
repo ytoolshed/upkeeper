@@ -159,3 +159,11 @@ int upk_db_service_pid(
                                    upk_srvc_t svc,
                                    int         pid
 );
+
+char *upk_db_created( 
+    sqlite3 *pdb
+);
+
+int upk_db_changed( 
+    sqlite3 *pdb
+);
