@@ -28,6 +28,7 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
+#ifdef UNDER_CONSTRUCTION
     char *file        = NULL;
     char *file_backup = NULL;
     char *file_dump   = NULL;
@@ -88,4 +89,5 @@ cleanup:
     if( fpdump ) fclose( fpdump );
 
     return( rc );
+#endif /* UNDER_CONSTRUCTION */
 }
