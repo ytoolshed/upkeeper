@@ -557,7 +557,6 @@ void upk_db_status_visitor_launchcallback(
  * calls the provided callback functions for every entry it finds.
  */
 
-/* XXX  threadsafety? */
 struct {
   struct upk_srvc s;
   char *a;
@@ -586,10 +585,15 @@ void upk_db_status_visitor(
     rc = sqlite3_step( stmt );
 
     while( rc == SQLITE_ROW ) {
-      cb[count].s.package = strdup(sqlite3_column_text( stmt, 0 ));
-      cb[count].s.service = strdup(sqlite3_column_text( stmt, 1 ));
-      cb[count].a         = strdup(sqlite3_column_text( stmt, 2 ));
-      cb[count].b         = strdup(sqlite3_column_text( stmt, 3 ));
+      const unsigned char *     res = "";
+      if ((res = sqlite3_column_text( stmt, 0 )) != NULL) res = strdup(res);
+      cb[count].s.package = (char *)res;
+      if ((res = sqlite3_column_text( stmt, 1 )) != NULL) res = strdup(res);
+      cb[count].s.service = (char *)res;
+      if ((res = sqlite3_column_text( stmt, 2 )) != NULL) res = strdup(res);
+      cb[count].a         = (char *)res;
+      if ((res = sqlite3_column_text( stmt, 3 )) != NULL) res = strdup(res);
+      cb[count].b         = (char *)res;
       cb[count].s.pdb     = pdb;
       count++;
       rc = sqlite3_step( stmt );
@@ -601,9 +605,10 @@ void upk_db_status_visitor(
       (*callback)( &cb[count].s,
                    cb[count].a,cb[count].b, context);
 
-        free(cb[count].a);  free(cb[count].b);
-        free(cb[count].s.service);
-        free(cb[count].s.package);
+      if (cb[count].a)       free(cb[count].a);  
+      if (cb[count].b)       free(cb[count].b);  
+      if (cb[count].s.package) free(cb[count].s.package);  
+      if (cb[count].s.service) free(cb[count].s.service);  
     }
 }
 
