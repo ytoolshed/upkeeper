@@ -9,13 +9,20 @@
 #include <sys/types.h>
 #include <signal.h>
 #include <errno.h>
+#include <assert.h>
+#include <sys/stat.h>
 
 #include "upk_db.h"
 
 #include "schema.c"
+
 #define MAX_SERVICES 1024
+
 const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
 
+char       *upk_db_create_time = NULL;
+int         upk_db_ino         = 0;
+char       *upk_db_file        = NULL;
 
 extern int DEBUG;
 
@@ -42,6 +49,8 @@ upk_db_init(
     sqlite3 **ppdb 
 ) {
     int      rc;
+    char    *sql;
+    char    *result;
 
       /* Check if database has been set up at all */
     rc = open( file, O_RDONLY );
@@ -66,7 +75,58 @@ upk_db_init(
 	return(rc);
     }
 
+    upk_db_file = (char *) file;
+    upk_db_changed( *ppdb ); /* Start watching DB */
+
     return(0);
+}
+
+/* Read out when the DB was created (i.e. the schema was set up) */
+char *upk_db_created( 
+    sqlite3 *pdb
+) {
+    char *sql;
+    char *result;
+
+    sql = sqlite3_mprintf( 
+	    "SELECT value from namevalue WHERE name = 'created' ");
+
+    result = upk_db_exec_single( pdb, sql );
+
+    sqlite3_free( sql );
+
+    return( result );
+}
+
+/* Check if DB has changed under our watch */
+int upk_db_changed( 
+    sqlite3 *pdb
+) {
+    char        *db_create_time;
+    struct stat  statbuf;
+
+    assert( stat( upk_db_file, &statbuf ) == 0 );
+
+    if( upk_db_ino) {
+	assert( upk_db_ino == statbuf.st_ino );
+    }
+
+    upk_db_ino = statbuf.st_ino;
+
+    db_create_time = upk_db_created( pdb );
+
+    assert( db_create_time != NULL );
+
+    if( ! upk_db_create_time ||
+	  strcmp( db_create_time, upk_db_create_time ) == 0 ) {
+	if( upk_db_create_time != NULL ) {
+	    free( upk_db_create_time );
+	}
+	upk_db_create_time = strdup( db_create_time );
+	return( 0 );
+    }
+
+    return( 1 );
 }
 
 /* 

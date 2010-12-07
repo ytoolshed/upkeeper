@@ -2,9 +2,13 @@ DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS procruns;
 DROP TABLE IF EXISTS listeners;
+DROP TABLE IF EXISTS namevalue;
 
-
-
+CREATE TABLE namevalue (
+    id            INTEGER PRIMARY KEY,
+    name          VARCHAR,
+    value         VARCHAR
+);
 
 CREATE TABLE procruns (
     id            INTEGER PRIMARY KEY,
@@ -65,3 +69,5 @@ WHEN   new.state_desired = 'stop'
               and   procruns.pid     is not null
               and   procruns.pid     != 0;
 END;
+
+INSERT INTO namevalue (name, value) VALUES ('created', datetime('now'));
