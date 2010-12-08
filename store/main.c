@@ -18,7 +18,7 @@ int main(
     const char    *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
 
-    printf("1..23\n");
+    printf("1..24\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
@@ -85,6 +85,9 @@ int main(
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 
     upk_db_listener_send_all_signals( s.pdb );
+
+    upk_test_is( upk_db_changed( s.pdb ), 0, "db change check" );
+
     sqlite3_close( s.pdb );
 
     return(0);
