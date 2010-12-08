@@ -7,9 +7,6 @@ $(BIN)		:= $(d)/sqlite-repair
 
 LL_$(d) := store/store.a deps/sqlite/sqlite3.a
 
-$(d)/sqlite-repair: $(d)/sqlite-repair.c store/store.a deps/sqlite/sqlite3.a
-	$(COMPLINK)
-
 # CHECK	+= $(d)/sqlite-repair.tap
 
 CLEAN		:= $(CLEAN) store.sqlite
