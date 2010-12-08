@@ -64,7 +64,7 @@ int upk_buddy_start_1(
                 BUDDYPATH, command, strerror( errno ) );
     }
 
-    exit(112);
+    _exit(112);
   }
   close(p[1]);
   if (!async && read(p[0],&c, 1) != 1){
