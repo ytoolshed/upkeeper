@@ -24,12 +24,12 @@ int main(
     const char    *command = "../do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
 
-    printf("1..5\n");
+    printf("1..6\n");
 
     rc = upk_db_init( file, &s.pdb );
 
     if(rc < 0) {
-	printf("db_init failed. nnExiting.\n");
+	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
 

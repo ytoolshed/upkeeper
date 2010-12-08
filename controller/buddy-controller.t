@@ -1,3 +1,3 @@
 #!/bin/sh
-echo "1..1\n";
-echo "ok 1\n";
+echo "1..1";
+echo "ok 1";
