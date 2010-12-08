@@ -1,6 +1,4 @@
-#!/bin/sh -xe
+#!/bin/sh 
 cd `dirname $0`
-mkdir bt || echo ok
-(cd bt && cat ../../store/schema.sql | sqlite3 store.sqlite) 
+(mkdir -p bt || echo ok)
 (cd bt && ../buddytest)
-(cd bt && ../../store/sqlite-dump)
