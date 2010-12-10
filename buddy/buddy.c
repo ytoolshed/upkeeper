@@ -10,26 +10,30 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/wait.h>
-
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
 #include "store/upk_db.h"
 #include "common/rptqueue.h"
 #include "common/sigblock.h"
 #include "common/nonblock.h"
 
 #define FATAL "buddy: fatal: "
+#define ERROR "buddy: error: "
 
-static const char *event_path = NULL;
 static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
 static int eventfd            = -1;
 static char * lbuf  = NULL;
 static int quiet = 1;
 static int done  = 0;
+static int parentfd           = -1;
 static struct rptqueue proctitle;
+static struct sockaddr_un controller;
+
 int DEBUG = 0;
 
-
-struct upk_srvc srvc = { NULL, NULL, NULL };
+int buddy_pid;
 
 static char  **prog;
 static char **envp;
@@ -48,6 +52,13 @@ static void sysdie(int e, const char *a,const char *b, const char *c)
   exit(e);
 }
 
+static void syswarn(const char *a,const char *b, const char *c)
+{
+  if (quiet < 2 || pid == 0) {
+    fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
+  }
+}
+
 static void handler(int sig)  
 { 
   switch (sig) {
@@ -58,31 +69,44 @@ static void handler(int sig)
   sig = write(sigp[1]," ",1);
 }
 
+static void send_message(const char *msg, int size) 
+{
+  if (sendto(eventfd,msg,size,0,(struct sockaddr *)&controller,
+             SUN_LEN(&controller)) == -1
+      && !quiet) {
+    syswarn(ERROR,"write to controller failed","");
+  }
+}
+
 static void note_exit(int status) 
 {
+  char msg[sizeof(int)*2+1] = "d";
+  
+  memcpy(msg+1,&buddy_pid,sizeof(int));
+  memcpy(msg+sizeof(int)+1,&status,sizeof(int));
+  send_message(msg,sizeof(int)*2 + 1);
   if (lbuf) { close(logp[0]); }
-  if (srvc.pdb) {
-    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_EXITED);
-    if (term) {
-      upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_STOP);
-    }
-  }
+
 }
 
 
 static void start_app(void) 
 {
-
+  char msg[sizeof(int)*2+1] = "u";
   if (lbuf) {
-    if (pipe(logp) == -1) 
-      sysdie(111,FATAL, "failed to create log pipe for ",*prog);
+    if (pipe(logp) == -1) {
+      syswarn(ERROR, "failed to create log pipe for ",*prog);
+      return;
+    }
     nonblock(logp[0]); nonblock(logp[1]);
     coe(logp[0]); coe(logp[1]);
   }
 
-  if ((pid = fork()) == -1) 
-    sysdie(111,FATAL, "failed to create pipe for ",*prog);
-  
+  if ((pid = fork()) == -1) {
+    syswarn(ERROR, "failed to create pipe for ",*prog);
+    return;
+  }
+
   if (pid == 0) {
     upk_uncatch_signal(SIGCHLD);
     upk_uncatch_signal(SIGTERM);
@@ -103,11 +127,6 @@ static void start_app(void)
     sysdie(111,FATAL"exec (",*prog,") error");
   }
 
-  if (srvc.pdb) {
-    upk_db_service_actual_status(&srvc, UPK_STATUS_VALUE_START);
-    upk_db_service_pid(&srvc,pid);
-  }
-
   if (lbuf) {
     close(logp[1]);
 
@@ -119,7 +138,9 @@ static void start_app(void)
     proctitle.buf[1]  = 0;
     rpt_init(&proctitle);
   }
-
+  memcpy(msg+1,&buddy_pid,sizeof(int));
+  memcpy(msg+sizeof(int)+1,&pid,sizeof(int));
+  send_message(msg,sizeof(int)*2+1);
 }
 
   static void idle (void)
@@ -178,8 +199,7 @@ static void start_app(void)
       term++;
     }
   }
-  fflush(stdout);
-  _exit (0);
+  exit (0);
 }
 
 
@@ -208,11 +228,9 @@ int main(int ac, char **av, char **ep)
 
   coe(sigp[0]); nonblock(sigp[0]);
   coe(sigp[1]); nonblock(sigp[1]);
-  
+
+  buddy_pid = getpid();
   start_app();
-  if (eventfd > 0 && write(eventfd,";",1) != 1) {
-    close(eventfd);
-  }
   idle();
 }
 
@@ -226,7 +244,7 @@ static int is_logbuf(const char *b) {
 void usage(void)
 {
   const char usage[] = 
-    "buddy: usage: buddy [--db /path/to/db -s service -p package] [-f] command\n";
+    "buddy: usage: buddy [--sock /path/to/socket] [-f] command\n";
   
   exit(111 + write(2,usage,sizeof(usage)));
 }
@@ -240,9 +258,7 @@ int options_parse(int argc, char *argv[], char *envp[])
   char *logbuf =  ".......................................";
   static struct option long_options[] = {
     { "fd",          2, 0, 'f' },
-    { "package",     1, 0, 'p' },
-    { "service",     1, 0, 's' },
-    { "db",          1, 0, 'd' },
+    { "socket",      1, 0, 's' },
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
     { 0, 0, 0, 0 }
@@ -255,24 +271,13 @@ int options_parse(int argc, char *argv[], char *envp[])
 
     switch (c) {
     case 'f':
-      eventfd = 3;
+      parentfd = 3;
       break;
     case 'l':
       doing_log = optind;
       break;
-    case 'd':
-      if (upk_db_init(optarg, &srvc.pdb)) {
-        sysdie(111,FATAL"opening database (", optarg,") failed: ");
-      }
-      break;
-    case 's':
-      srvc.service = strdup(optarg);
-      break;
     case 'o':
       done = 1;
-      break;
-    case 'p':
-      srvc.package = strdup(optarg);
       break;
     case 'q':
       quiet++;
@@ -280,6 +285,14 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 'v':
       quiet--;
       DEBUG = 1;
+      break;
+    case 's':
+      eventfd = socket(AF_UNIX, SOCK_DGRAM, 0);
+      nonblock(eventfd); coe(eventfd);
+      if (eventfd == 1) 
+        sysdie(111,FATAL,"socket failed","");
+      controller.sun_family = AF_UNIX;
+      strcpy(controller.sun_path,optarg);
       break;
     default:
       break;
@@ -292,8 +305,6 @@ int options_parse(int argc, char *argv[], char *envp[])
     execve(argv[0],argv,envp);
     sysdie(111,FATAL,"unable to restart self ",argv[0]);
   }
-
-  if (srvc.pdb && (!srvc.service || !srvc.package)) {  usage();  }
 
   if (optind == argc) { usage(); }
   if (argv[optind][0] == '-' && argv[optind][1] == '-'  && argv[optind][2] == 0) {

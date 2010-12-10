@@ -23,36 +23,28 @@ int upk_buddy_start_1(
   const char    *command,
   const char    *env[],
   int async,
-  const char    *db
+  const char    *socket
 ) {
   int   bpid;
-  int   p[2]; 
   char  c;
-  const char *dbpath = "./store.sqlite";
+  const char *default_socket = "./controller";
 
   if( DEBUG ) {
       printf("upk_buddy_start '%s' '%s' [%s] async=%d\n",
               srvc->service, srvc->package, command, async);
   }
 
-  if (!async && pipe(p) == -1) return -1;
-  coe(p[0]); coe(p[1]);
   bpid = fork();
   
   if (bpid == -1) { 
-    close(p[0]); close(p[1]);
     return -1;
   }
 
   if (bpid == 0) {
-    if (!async && !dup2(p[1],3)) {
-        exit(111);
-    }
     execle(BUDDYPATH, 
            BUDDYPATH, 
-           "-s", srvc->service,
-           "-p", srvc->package,
-           "-d", db ? db : dbpath,
+           "-s",
+           socket ? socket : default_socket,
            "-f",
            "........................................",
            command, 
@@ -66,11 +58,8 @@ int upk_buddy_start_1(
 
     _exit(112);
   }
-  close(p[1]);
-  if (!async && read(p[0],&c, 1) != 1){
-    return -1;
-  }
-  close(p[0]);
+  
+  upk_db_service_buddy_pid(srvc, bpid);
   return bpid;
 }
 
@@ -78,20 +67,12 @@ int upk_buddy_start(
   upk_srvc_t    srvc,                    
   const char    *command,
   const char    *env[],
-  const char    *db
+  const char    *socket
 
 ) {
-  return upk_buddy_start_1(srvc,command,env,0,db);
+  return upk_buddy_start_1(srvc,command,env,0,socket);
 }
 
-int upk_buddy_start_async(
-  upk_srvc_t    srvc,                    
-  const char    *command,
-  const char    *env[],
-  const char    *db
-) {
-  return upk_buddy_start_1(srvc,command,env,1,db);
-}
 /* 
  * Stops a previously launched buddied application process and updates
  * the upkeeper runtable information.
