@@ -18,7 +18,7 @@ int main(
     const char    *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
 
-    printf("1..24\n");
+    printf("1..26\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
@@ -36,6 +36,17 @@ int main(
         /* getter */
     upk_test_is( upk_db_service_pid( &s, 0 ),
                  123, "get 123 back as pid" );
+
+        /* setter */
+    upk_db_service_buddy_pid( &s, 244 );
+        /* getter */
+    upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
+                 244, "get 244 back as pid" );
+
+    upk_db_set_pid_for_buddy(s.pdb, 111, 244);
+
+    upk_test_is( upk_db_service_pid( &s, 0 ),
+                 111, "get 111 back as pid" );
 
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");

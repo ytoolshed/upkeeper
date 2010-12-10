@@ -90,22 +90,6 @@ void upk_db_status_visitor_launchcallback(
     const char    *dbpath
 );
 
-int upk_test_is(
-    int is,
-    int should,
-    const char *msg
-);
-
-int upk_test_eq(
-    const char *is,
-    const char *should
-);
-int upk_test_isnt(
-    int is,
-    int shouldnt ,
-    const char *msg
-);
-
 const char *upk_db_service_run( 
     upk_srvc_t    srvc,                                         
     const char    *cmdline,
@@ -159,6 +143,11 @@ int upk_db_service_pid(
                                    upk_srvc_t svc,
                                    int         pid
 );
+int upk_db_service_buddy_pid( 
+                                   upk_srvc_t svc,
+                                   int         pid
+);
+int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid);
 
 char *upk_db_created( 
     sqlite3 *pdb

@@ -14,7 +14,6 @@
 
 #include "upk_db.h"
 
-#include "schema.c"
 
 #define MAX_SERVICES 1024
 
@@ -518,35 +517,40 @@ const char *upk_db_service_cmdline(
  * Get/Set the pid of a service.
  * Requires the procruns entry to exist.
  */
-int upk_db_service_pid( 
+static int upk_db_get_pid( 
                        upk_srvc_t srvc,
-                       int         pid
+                       char       *fieldname
 ) {
-  char       *result;
-  char       *sql;
-  int         service_id;
-  const char *id;
-  sqlite3    *pdb = srvc->pdb;
-  sql = sqlite3_mprintf( "SELECT pid from services, procruns "
+  char       *result, *sql;
+  int         pid;
+
+  sql = sqlite3_mprintf( "SELECT %s from services, procruns "
           "WHERE package = %Q "
           "AND service = %Q "
           "AND services.procrun_id = procruns.id ",
+          fieldname,                
           srvc->package, srvc->service );
 
   result =  upk_db_exec_single( srvc->pdb, sql );
   sqlite3_free( sql );
 
-  if( pid == 0 ) {
-      /* 'get' calls end here */
-      if( result == NULL ) {
-          pid = 0;
-      } else {
-          pid = atoi( result );
-      }
-      return ( pid );
+  /* 'get' calls end here */
+  if( result == NULL ) {
+    pid = 0;
+  } else {
+    pid = atoi( result );
   }
+  return ( pid );
+}
 
-  /* 'set' call */
+
+static int upk_db_set_pid(
+                       upk_srvc_t srvc,
+                       char *fieldname,
+                       int pid ) {
+  char       *sql, *id;
+  sqlite3    *pdb = srvc->pdb;
+
   /* Update an existing entry only! */
   sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
           "WHERE services.procrun_id = procruns.id "
@@ -557,17 +561,52 @@ int upk_db_service_pid(
   sqlite3_free( sql );
  
   if( pid < 0 ) {
-      sql = sqlite3_mprintf("UPDATE procruns SET pid=NULL "
-                            "WHERE id = %d ", atoi( id ));
+      sql = sqlite3_mprintf("UPDATE procruns SET %s=NULL "
+                            "WHERE id = %d ", fieldname, atoi( id ));
   } else {
-      sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
-                            "WHERE id = %d ", pid, atoi( id ));
+      sql = sqlite3_mprintf("UPDATE procruns SET %s=%d "
+                            "WHERE id = %d ", fieldname, pid, atoi( id ));
   }
 
   upk_db_exec_single( pdb, sql );
   sqlite3_free( sql );
 
   return( pid );
+}
+
+int upk_db_service_pid(upk_srvc_t srvc, int pid) {
+  if (pid) { 
+    return upk_db_set_pid(srvc,"pid",pid);
+  }  
+  return upk_db_get_pid(srvc,"pid");
+  
+}
+
+int upk_db_service_buddy_pid(upk_srvc_t srvc, int pid) {
+  if (pid) { 
+    return upk_db_set_pid(srvc,"bpid",pid);
+  }  
+  return upk_db_get_pid(srvc,"bpid");
+  
+}
+
+int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid) {
+  char *sql;
+  int  rc;
+  char *zErr;
+  sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
+                        "WHERE bpid = %d ", pid, bpid);
+
+  rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+
+  sqlite3_free( sql );
+
+  if(rc != SQLITE_OK) {
+    fprintf(stderr,"Listener insert failed: %s\n", zErr);
+    return( UPK_ERROR_INTERNAL );
+  }
+
+
 }
 
 /* 
