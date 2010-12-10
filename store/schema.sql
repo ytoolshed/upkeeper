@@ -23,11 +23,13 @@ CREATE TABLE services (
     package       VARCHAR,
     service       VARCHAR,
     procrun_id    INT,
-    state_desired VARCHAR,
-    state_actual  VARCHAR,
+    state_desired VARCHAR default 'stop',
+    state_actual  VARCHAR default 'stop',
     FOREIGN KEY (procrun_id)
         REFERENCES procrun(id)
 );
+CREATE UNIQUE index buddy on procruns (bpid);
+CREATE UNIQUE index service on services (package,service);
 
 CREATE TABLE events (
     id         INTEGER PRIMARY KEY,
@@ -39,6 +41,14 @@ CREATE TABLE events (
         REFERENCES service(id)
 );
 
+CREATE TABLE exits (
+    id         INTEGER PRIMARY KEY,
+    procrun_id INT,
+    status     INT,
+    FOREIGN KEY (procrun_id)
+        REFERENCES procrun(id)
+);
+
 CREATE TABLE listeners (
     id        INTEGER PRIMARY KEY,
     component VARCHAR,
@@ -46,15 +56,6 @@ CREATE TABLE listeners (
     pid       INTEGER
 );
 
-CREATE TRIGGER add_pid AFTER INSERT on events
-BEGIN
-        UPDATE events SET pid = get_pid() WHERE id = new.id;
-END;
-
-CREATE TRIGGER buddy_pid AFTER UPDATE OF pid on procruns
-BEGIN
-        UPDATE procruns SET bpid = get_pid() WHERE id = new.id;
-END;
 
 CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
 WHEN   new.state_desired = 'stop'
@@ -62,12 +63,12 @@ WHEN   new.state_desired = 'stop'
               INSERT INTO events
               (etime,event,service_id)
               SELECT     datetime('now'),
-                         'kill' + procruns.pid + signal_send(procruns.bpid,15),
+                         'kill' + procruns.bpid + signal_send(procruns.bpid,15),
                          new.id
               FROM  procruns 
               WHERE new.procrun_id    = procruns.id
-              and   procruns.pid     is not null
-              and   procruns.pid     != 0;
+              and   procruns.bpid     is not null
+              and   procruns.bpid     != 0;
 END;
 
 INSERT INTO namevalue (name, value) VALUES ('created', datetime('now'));

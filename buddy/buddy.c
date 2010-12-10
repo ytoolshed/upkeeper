@@ -13,7 +13,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <sys/un.h>
-#include "store/upk_db.h"
 #include "common/rptqueue.h"
 #include "common/sigblock.h"
 #include "common/nonblock.h"
@@ -25,9 +24,8 @@ static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
 static int eventfd            = -1;
 static char * lbuf  = NULL;
-static int quiet = 1;
+static int quiet = 0;
 static int done  = 0;
-static int parentfd           = -1;
 static struct rptqueue proctitle;
 static struct sockaddr_un controller;
 
@@ -46,9 +44,6 @@ static void sysdie(int e, const char *a,const char *b, const char *c)
   if (quiet < 2 || pid == 0) {
     fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
   }
-  if (quiet) {
-    /* XXX: should write errors into db or to domain socket? */
-  }
   exit(e);
 }
 
@@ -63,7 +58,7 @@ static void handler(int sig)
 { 
   switch (sig) {
   case SIGCHLD: child = 1 ; break;
-  case SIGTERM: term  = 1 ; done = 1 ; break;
+  case SIGTERM: term = 1 ; done = 1; break;
   default: warn("unknown signal", sig);
   }
   sig = write(sigp[1]," ",1);
@@ -72,8 +67,7 @@ static void handler(int sig)
 static void send_message(const char *msg, int size) 
 {
   if (sendto(eventfd,msg,size,0,(struct sockaddr *)&controller,
-             SUN_LEN(&controller)) == -1
-      && !quiet) {
+             SUN_LEN(&controller)) == -1) {
     syswarn(ERROR,"write to controller failed","");
   }
 }
@@ -158,7 +152,7 @@ static void start_app(void)
     int maxfd = sigp[0];
     fd_set rfds;
 
-    /* Watch stdin (fd 0) to see when it has input. */
+    /* for output from monitored process */
     FD_ZERO(&rfds);
     FD_SET(sigp[0], &rfds);
     if (logp[0] != -1) {
@@ -257,7 +251,6 @@ int options_parse(int argc, char *argv[], char *envp[])
   int doing_log = 0;
   char *logbuf =  ".......................................";
   static struct option long_options[] = {
-    { "fd",          2, 0, 'f' },
     { "socket",      1, 0, 's' },
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
@@ -270,9 +263,6 @@ int options_parse(int argc, char *argv[], char *envp[])
                      long_options, &option_index);
 
     switch (c) {
-    case 'f':
-      parentfd = 3;
-      break;
     case 'l':
       doing_log = optind;
       break;
@@ -289,7 +279,7 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 's':
       eventfd = socket(AF_UNIX, SOCK_DGRAM, 0);
       nonblock(eventfd); coe(eventfd);
-      if (eventfd == 1) 
+      if (eventfd == -1) 
         sysdie(111,FATAL,"socket failed","");
       controller.sun_family = AF_UNIX;
       strcpy(controller.sun_path,optarg);

@@ -4,6 +4,14 @@
 #include "../store/upk_db.h"
 #include <unistd.h>
 #include "controller.h"
+#include "common/coe.h"
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <sys/stat.h>
+
+#define FATAL "buddy-controller: fatal: "
 
 int DEBUG = 0;
 
@@ -11,6 +19,49 @@ static int OPT_BOOTSTRAP        = 0;
 static int OPT_VERBOSE          = 0;
 static int OPT_SIGNAL_LISTENERS = 0;
 static int OPT_STATUS_FIXER     = 1;
+static int OPT_SOCKET_LISTENER  = 1;
+
+#define LISTEN_PATH "./controller"
+static void sysdie(int e, const char *a,const char *b, const char *c)
+{
+  if (write(2, a, strlen(a))
+      && write(2, b, strlen(a))
+      && write(2, c, strlen(a))
+      && write(2, ": ", 2)
+      && write(2, strerror(errno),strlen(strerror(errno)))
+      && write(2, "\n", 1)) ;
+  exit(e);
+}
+
+int setup_socket (char *path) {
+  struct sockaddr_un sa;
+  struct stat st;
+  int s;
+  int yes;
+
+  s = socket(AF_UNIX, SOCK_DGRAM, 0);
+
+  if (s == -1) 
+    sysdie(111,FATAL,"socket failed","");
+
+  if (stat(path,&st) != -1 && (S_IFSOCK & st.st_mode)) {
+    unlink(path);
+  }    
+  sa.sun_family = AF_UNIX;
+  strcpy(sa.sun_path,path);
+
+  if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &yes,
+                sizeof(int)) == -1) {
+    sysdie(111,FATAL,"socket failed","");
+    exit(1);
+  }
+  if (bind(s, (struct sockaddr *) &sa, sizeof(struct sockaddr_un))) {
+    sysdie(111,FATAL,"binding to socket","");
+    exit(1);
+  }
+  coe(s);
+  return s;
+}
 
 int main( 
     int   argc, 
@@ -20,7 +71,7 @@ int main(
     char    *file = "../store/store.sqlite";
     int      rc;
     int      opt;
-    
+    int      sock;
     options_parse( argc, argv );
     if (optind < argc) {
       file = argv[optind];
@@ -37,6 +88,7 @@ int main(
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
+    
 
     if( OPT_BOOTSTRAP ) {
         /* In bootstrap mode, reset all process entries in the DB to 
@@ -48,23 +100,40 @@ int main(
 	upk_controller_bootstrap( pdb );
     }
 
+    if ( OPT_SOCKET_LISTENER ) {
+      sock = setup_socket(LISTEN_PATH);
+    }
+
     if( OPT_STATUS_FIXER ) {
-      upk_controller_status_fixer( pdb, file);
+      upk_controller_status_fixer( pdb, LISTEN_PATH);
     }
 
-    if( OPT_SIGNAL_LISTENERS ) {
-	/* Just signal all registered listeners and exit */
-        upk_db_listener_send_all_signals( pdb );
-	goto SHUTDOWN;
+    if ( OPT_SOCKET_LISTENER ) {
+          char msg[1+2*sizeof(int)];
+
+      while (read(sock,msg,sizeof(int)*2 + 1)) {
+        int bpid,arg;
+        memcpy(&bpid,msg+1,sizeof(int));
+        memcpy(&arg, msg+1+sizeof(int),sizeof(int));
+        if ( DEBUG ) {
+          printf("%c buddy:%d pidorstatus:%d\n",msg[0],bpid,arg);
+        }
+        switch (msg[0]) {
+        case 'u':
+          upk_db_set_pid_for_buddy(pdb,arg,bpid);
+          break;
+        case 'd':
+          upk_db_note_exit(pdb,arg,bpid);
+          break;
+        default:
+          break;
+        }
+      }
+      
     }
-
-
-    /* Notify all listeners */
-    upk_db_listener_send_all_signals( pdb );
-
 SHUTDOWN:
     upk_db_close( pdb );
-
+    unlink(LISTEN_PATH);
     return(0);
 }
 
@@ -108,6 +177,7 @@ int options_parse(
         { "verbose", 0, &OPT_VERBOSE, 1 },
         { "bootstrap", 0, &OPT_BOOTSTRAP, 1 },
         { "signal-listeners", 0, &OPT_SIGNAL_LISTENERS, 1 },
+        { "listen-socket", 1, &OPT_SOCKET_LISTENER, 's' },
         { "status-fixer", 0, &OPT_STATUS_FIXER, 1 },
 	{ 0, 0, 0, 0 }
     };
@@ -120,7 +190,9 @@ int options_parse(
 
         c = getopt_long (argc, argv, "",
                          long_options, &option_index);
-
+        if( c == 's') {
+          
+        }
         if( c == -1 ) {
             break;
         }

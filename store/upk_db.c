@@ -58,6 +58,8 @@ upk_db_init(
 	printf("Can't read DB file '%s'.\n", file);
 	return(rc);
     }
+    
+    close(rc);
 
     rc = sqlite3_open( file, ppdb );
 
@@ -396,49 +398,6 @@ _upk_db_service_status(
 }
 
 /* 
- * Register an attempted run. -1 for failed.
- */
-const char *upk_db_service_run( 
-     upk_srvc_t    srvc,                          
-     const char    *cmdline,
-     int   pid,
-     int  bpid
-) {
-  const char *status;
-  const char *id;
-  sqlite3 *pdb = srvc->pdb;
-  int service_id;
-  char *sql;
-
-  if( DEBUG ) {
-      printf("upk_db_service_run %s/%s %s\n",
-              srvc->package, srvc->service, cmdline);
-  }
-
-  service_id = upk_db_service_find_or_create( srvc );
-
-  _upk_db_service_status( srvc, UPK_STATUS_VALUE_START, UPK_STATUS_ACTUAL);
-
-  if( DEBUG ) {
-      printf("Insert into procruns: %s %d\n", cmdline, pid);
-  }
-
-  sql = sqlite3_mprintf(
-                    "INSERT INTO procruns (cmdline,pid) "
-                    "values (%Q, %d)",
-                    cmdline, pid);
-
-  status = upk_db_exec_single( pdb, sql );
-  id     = upk_db_exec_single( pdb, "SELECT last_insert_rowid();" );  
-
-  sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
-                        "WHERE id = %d ", id,service_id);
-  status = upk_db_exec_single( pdb, sql );
-  
-  return status;
-}
-
-/* 
  * Get/Set the command line of a service.
  * Creates the procruns entry if it doesn't exist yet.
  */
@@ -594,20 +553,45 @@ int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid) {
   char *sql;
   int  rc;
   char *zErr;
-  sql = sqlite3_mprintf("UPDATE procruns SET pid=%d "
-                        "WHERE bpid = %d ", pid, bpid);
-
+  
+  sql = sqlite3_mprintf("BEGIN; UPDATE procruns SET pid=%d "
+                        "WHERE bpid = %d ;"
+                        "UPDATE services SET state_actual='start' WHERE procrun_id in "
+                        "(SELECT id from procruns where bpid=%d); END;",
+                        pid,bpid,bpid);
   rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
-
   sqlite3_free( sql );
-
   if(rc != SQLITE_OK) {
-    fprintf(stderr,"Listener insert failed: %s\n", zErr);
+    fprintf(stderr,"set pid for buddy failed: %s\n", zErr);
     return( UPK_ERROR_INTERNAL );
   }
-
-
+  return pid;
 }
+
+int upk_db_note_exit(sqlite3 *pdb, int status, int bpid) {
+  char *sql;
+  int  rc;
+  char *zErr;
+  
+  sql = sqlite3_mprintf("BEGIN;" 
+                        "UPDATE procruns SET pid=NULL WHERE bpid = %d ;"
+                        "UPDATE services SET state_actual='exited' WHERE procrun_id in "
+                        "(SELECT id from procruns where bpid=%d);"
+                        "INSERT INTO exits (status,procrun_id)"
+                        "SELECT %d, id from procruns where bpid=%d;"
+                        "END;",
+                        bpid,bpid,status,bpid);
+
+  rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+  sqlite3_free( sql );
+  if(rc != SQLITE_OK) {
+    fprintf(stderr,"set pid for buddy failed: %s\n", zErr);
+    return( UPK_ERROR_INTERNAL );
+  }
+  return 0;
+}
+
+
 
 /* 
  * Get/Set the a actual status of a service.

@@ -41,12 +41,11 @@ int upk_buddy_start_1(
   }
 
   if (bpid == 0) {
+    upk_db_close(srvc->pdb);
     execle(BUDDYPATH, 
            BUDDYPATH, 
            "-s",
            socket ? socket : default_socket,
-           "-f",
-           "........................................",
            command, 
            NULL,
            env);

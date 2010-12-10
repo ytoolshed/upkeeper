@@ -17,7 +17,7 @@ void upk_controller_status_fixer_callback(
     upk_srvc_t  srvc,                                    
     char    *status_desired,
     char    *status_actual,
-    const char *dbpath
+    const char *controller
 ) {
     const char *cmdline;
     char       *cmdline_alloc;
@@ -44,9 +44,9 @@ void upk_controller_status_fixer_callback(
 	/* service needs to be started */
         if( 1 ) {
 	    printf("** STARTING %s/%s/%s/%s\n", srvc->package, srvc->service,
-                   cmdline_alloc, dbpath );
+                   cmdline_alloc, controller );
         }
-        upk_buddy_start( srvc, cmdline_alloc, NULL, dbpath );
+        upk_buddy_start( srvc, cmdline_alloc, NULL, controller );
     } else {
         if( 1 ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
@@ -68,4 +68,7 @@ void upk_controller_status_fixer(
 ) {
   upk_db_status_visitor( pdb, upk_controller_status_fixer_callback, (void *)db);
 }
+
+
+
 

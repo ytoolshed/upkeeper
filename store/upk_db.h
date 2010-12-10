@@ -90,13 +90,6 @@ void upk_db_status_visitor_launchcallback(
     const char    *dbpath
 );
 
-const char *upk_db_service_run( 
-    upk_srvc_t    srvc,                                         
-    const char    *cmdline,
-    int   pid,
-    int  bpid
-);
-
 int 
 upk_db_listener_add(
     sqlite3    *pdb, 
@@ -148,6 +141,12 @@ int upk_db_service_buddy_pid(
                                    int         pid
 );
 int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid);
+
+int upk_db_note_exit( 
+                     sqlite3    *pdb,
+                     int        status,
+                     int        bpid
+);
 
 char *upk_db_created( 
     sqlite3 *pdb
