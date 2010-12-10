@@ -5,8 +5,6 @@
 #include <time.h>
 #include <string.h>
 
-#include "upk_db.h"
-
 extern int DEBUG;
 
 int TESTS = 0;
