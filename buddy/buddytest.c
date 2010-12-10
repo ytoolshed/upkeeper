@@ -6,7 +6,7 @@
 #include <string.h>
 #include "store/upk_db.h"
 #include "upk_buddy.h"
-
+#include <errno.h>
 int DEBUG = 0;
 
 int main( 
@@ -34,16 +34,16 @@ int main(
     }
 
     cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_STOP );
-    upk_test_eq( cp, "stop" );
+    upk_test_eq( cp, "stop", "service set to stop" );
     cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_START );
-    upk_test_eq( cp, "start" );
+    upk_test_eq( cp, "start", "service set to start" );
     upk_db_service_cmdline(&s, command);
     cp = upk_db_service_desired_status(  &s, UPK_STATUS_VALUE_START );
-    upk_test_eq( cp, "start" );
+    upk_test_eq( cp, "start", "desired status set to start" );
     pid = upk_buddy_start( &s, command, NULL, NULL);
     upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
     if( pid < 0 ) {
-	printf( "upk_buddy_start failed (%d)\n", pid );
+      printf( "upk_buddy_start failed (%d), %s\n", pid, strerror(errno) );
 	exit( -1 );
     }
 
@@ -56,4 +56,5 @@ int main(
     wait( &stat_loc );
     
     sqlite3_close( s.pdb );
+    return 0;
 }
