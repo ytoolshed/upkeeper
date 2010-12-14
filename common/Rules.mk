@@ -11,7 +11,7 @@ $(LIB)	:= $(d)/common.a
 
 CF_$(d) += -I$(d)
 
-CHECK	+= $(d)/nonblock.tap $(d)/sigblock.tap $(d)/coe.tap
+CHECK	+= $(d)/nonblock.tap $(d)/sigblock.tap $(d)/coe.tap $(d)/rptqueue.tap
 $(BIN)	:= $(d)/nonblock.t $(d)/sigblock.t $(d)/coe.t $(d)/rptqueue.t
 
 TESTLIB_$(d) := $($(LIB))
