@@ -1,6 +1,7 @@
 #include "rptqueue.h"
 #include "test.h"
 #include <unistd.h>
+#include <stdio.h>
 
 static char display[24] = ".......................";
 int main (void) 
@@ -19,7 +20,7 @@ int main (void)
   }
   rpt.ifd = pipeto[0];
   rpt.ofd = pipefrom[1];
-
+  printf("1..5\n");
   rpt_init(&rpt);
   upk_test_is(rpt.dlen, 23, "right length for display");
   rpt_write_status(&rpt,"abcdefghijklmnop");
