@@ -12,7 +12,7 @@ $(LIB)	:= $(d)/common.a
 CF_$(d) += -I$(d)
 
 CHECK	+= $(d)/nonblock.tap $(d)/sigblock.tap $(d)/coe.tap
-$(BIN)	:= $(d)/nonblock.t $(d)/sigblock.t $(d)/coe.t
+$(BIN)	:= $(d)/nonblock.t $(d)/sigblock.t $(d)/coe.t $(d)/rptqueue.t
 
 TESTLIB_$(d) := $($(LIB))
 
@@ -26,6 +26,9 @@ $(d)/sigblock.t: $(d)/sigblock.test.c $(TESTLIB_common)
 	$(COMPLINK) $(TESTLIB_common)
 
 $(d)/coe.t: $(d)/coe.test.c $(TESTLIB_common)
+	$(COMPLINK) $(TESTLIB_common)
+
+$(d)/rptqueue.t: $(d)/rptqueue.test.c $(TESTLIB_common)
 	$(COMPLINK) $(TESTLIB_common)
 
 # Standard things
