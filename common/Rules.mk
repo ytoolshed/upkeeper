@@ -4,7 +4,8 @@ $(OBJS)	:= $(d)/coe.o\
 $(d)/rptqueue.o\
 $(d)/sigblock.o\
 $(d)/test.o\
-$(d)/nonblock.o
+$(d)/nonblock.o\
+$(d)/err.o
 
 $(DEPS)	:= $(OBJS_$(d):.o=.d)
 $(LIB)	:= $(d)/common.a 
