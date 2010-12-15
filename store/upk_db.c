@@ -680,10 +680,10 @@ const char * upk_db_service_actual_status(
  * entries it is called with.
  */
 void _upk_db_status_visitor_testcallback( 
+    void *ignored,                                          
     upk_srvc_t srvc,                                    
     const char    *status_desired,
-    const char    *status_actual,
-    void *igno
+    const char    *status_actual
 ) {
     printf("Callback: %s-%s %s-%s\n",
             srvc->package, srvc->service, status_desired, status_actual);
