@@ -721,6 +721,7 @@ struct {
   struct upk_srvc s;
   char *a;
   char *b;
+  int bpid;
 } cb[MAX_SERVICES];
 
 void upk_db_status_visitor( 
