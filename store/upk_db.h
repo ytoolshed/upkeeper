@@ -5,6 +5,7 @@
 #define UPK_ERROR_PACKAGE_UNKNOWN -2
 #define UPK_ERROR_INTERNAL        -3
 #define UPK_DB_ERROR              -4
+#define UPK_ERROR_BUDDY_UNKNOWN   -5
 
 /* Prototypes */
 
@@ -138,6 +139,8 @@ int upk_db_service_buddy_pid(
                                    upk_srvc_t svc,
                                    int         pid
 );
+int upk_db_buddy_down(sqlite3 *pdb, int bpid);
+
 int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid);
 
 int upk_db_note_exit( 

@@ -1,4 +1,4 @@
-#define __UPK_DB_C
+#include <libgen.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <sqlite3.h>
@@ -52,9 +52,12 @@ upk_db_init(
     int      rc;
     char    *sql;
     char    *result;
-
+    char    *dir = strdup(file);
+    
       /* Check if database has been set up at all */
     rc = open( file, O_RDONLY );
+
+    chdir(dirname(dir));
 
     if(rc < 0) {
 	printf("Can't read DB file '%s'.\n", file);
@@ -90,7 +93,7 @@ char *upk_db_created(
 ) {
     char *sql;
     char *result;
-
+    
     sql = sqlite3_mprintf( 
 	    "SELECT value from namevalue WHERE name = 'created' ");
 
@@ -592,21 +595,42 @@ int upk_db_service_buddy_pid(upk_srvc_t srvc, int pid) {
   
 }
 
-int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid) {
+int upk_db_buddy_down(sqlite3 *pdb, int bpid) {
   char *sql;
   int  rc;
   char *zErr;
+  sql = sqlite3_mprintf("BEGIN; UPDATE procruns SET pid=NULL, bpid=NULL "
+                        "WHERE bpid = %d ; COMMIT;",bpid);
   
-  sql = sqlite3_mprintf("BEGIN; UPDATE procruns SET pid=%d "
-                        "WHERE bpid = %d ;"
-                        "UPDATE services SET state_actual='start' WHERE procrun_id in "
-                        "(SELECT id from procruns where bpid=%d); END;",
-                        pid,bpid,bpid);
   rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
   sqlite3_free( sql );
   if(rc != SQLITE_OK) {
     fprintf(stderr,"set pid for buddy failed: %s\n", zErr);
     return( UPK_ERROR_INTERNAL );
+  }
+
+  return UPK_OK;
+}
+
+int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid) {
+  char *sql;
+  int  rc;
+  char *zErr;
+  
+  sql = sqlite3_mprintf("BEGIN;"
+                        "UPDATE procruns SET pid=0  WHERE bpid = %d ;"
+                        "UPDATE procruns SET pid=%d WHERE bpid = %d ;"
+                        "UPDATE services SET state_actual='start' WHERE procrun_id in "
+                        "(SELECT id from procruns where bpid=%d); COMMIT;",
+                        bpid, pid, bpid, bpid);
+  rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
+  sqlite3_free( sql );
+  if(rc != SQLITE_OK) {
+    fprintf(stderr,"set pid for buddy failed: %d\n", rc);
+    return( UPK_ERROR_INTERNAL );
+  }
+  if (!sqlite3_changes(pdb)) {
+    return UPK_ERROR_BUDDY_UNKNOWN;
   }
   return pid;
 }
@@ -617,19 +641,23 @@ int upk_db_note_exit(sqlite3 *pdb, int status, int bpid) {
   char *zErr;
   
   sql = sqlite3_mprintf("BEGIN;" 
+                        "UPDATE procruns SET pid=0 WHERE bpid = %d ;"
                         "UPDATE procruns SET pid=NULL WHERE bpid = %d ;"
                         "UPDATE services SET state_actual='exited' WHERE procrun_id in "
                         "(SELECT id from procruns where bpid=%d);"
                         "INSERT INTO exits (status,procrun_id)"
                         "SELECT %d, id from procruns where bpid=%d;"
-                        "END;",
-                        bpid,bpid,status,bpid);
+                        "COMMIT;",
+                        bpid,bpid,bpid,status,bpid);
 
   rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
   sqlite3_free( sql );
   if(rc != SQLITE_OK) {
     fprintf(stderr,"set pid for buddy failed: %s\n", zErr);
     return( UPK_ERROR_INTERNAL );
+  }
+  if (!sqlite3_changes(pdb)) {
+    return UPK_ERROR_BUDDY_UNKNOWN;
   }
   return 0;
 }
@@ -667,10 +695,10 @@ void _upk_db_status_visitor_testcallback(
  * Shuts down processes with actual=start and desired=stop.
  */
 void upk_db_status_visitor_launchcallback( 
+    void *ignored,                                          
     upk_srvc_t srvc,                                    
     const char    *status_desired,
-    const char    *status_actual,
-    const char    *dbpath
+    const char    *status_actual
 ) {
     if( status_desired == NULL ||
         status_actual  == NULL ) {
@@ -726,6 +754,9 @@ void upk_db_status_visitor(
       cb[count].a         = (char *)res;
       if ((res = sqlite3_column_text( stmt, 3 )) != NULL) res = strdup(res);
       cb[count].b         = (char *)res;
+      if ((res = sqlite3_column_text( stmt, 4 )) != NULL) {
+        cb[count].bpid      = atoi(res);
+      }
       cb[count].s.pdb     = pdb;
       count++;
       rc = sqlite3_step( stmt );
@@ -734,8 +765,11 @@ void upk_db_status_visitor(
     sqlite3_finalize( stmt );
 
     while (count--) {
-      (*callback)( &cb[count].s,
-                   cb[count].a,cb[count].b, context);
+      (*callback)( context, 
+                   &cb[count].s,
+                   cb[count].a,
+                   cb[count].b, 
+                   cb[count].bpid);
 
       if (cb[count].a)       free(cb[count].a);  
       if (cb[count].b)       free(cb[count].b);  
