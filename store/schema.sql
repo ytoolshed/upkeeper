@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS events;
+DROP TABLE IF EXISTS exits;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS procruns;
 DROP TABLE IF EXISTS listeners;
@@ -57,18 +58,23 @@ CREATE TABLE listeners (
 );
 
 
-CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
-WHEN   new.state_desired = 'stop'
-       BEGIN
-              INSERT INTO events
-              (etime,event,service_id)
-              SELECT     datetime('now'),
-                         'kill' + procruns.bpid + signal_send(procruns.bpid,15),
-                         new.id
-              FROM  procruns 
-              WHERE new.procrun_id    = procruns.id
-              and   procruns.bpid     is not null
-              and   procruns.bpid     != 0;
-END;
+CREATE TRIGGER signal_controller UPDATE OF state_desired ON services
+BEGIN
+         SELECT notify_controller() ;
+END ;
+
+-- CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
+-- WHEN   new.state_desired = 'stop'
+--        BEGIN
+--               INSERT INTO events
+--               (etime,event,service_id)
+--               SELECT     datetime('now'),
+--                          'kill' + procruns.bpid + signal_send(procruns.bpid,15),
+--                          new.id
+--               FROM  procruns 
+--               WHERE new.procrun_id    = procruns.id
+--               and   procruns.bpid     is not null
+--               and   procruns.bpid     != 0;
+-- END;
 
 INSERT INTO namevalue (name, value) VALUES ('created', datetime('now'));

@@ -75,19 +75,17 @@ void upk_db_status_visitor(
 );
 
 void _upk_db_status_visitor_testcallback( 
+    void *context,                                         
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
-    const char    *status_actual,
-    void          *IGNORED
-
-
+    const char    *status_actual
 );
 
 void upk_db_status_visitor_launchcallback( 
+    void *context,                                         
     upk_srvc_t    srvc,                                         
     const char    *status_desired,
-    const char    *status_actual,
-    const char    *dbpath
+    const char    *status_actual
 );
 
 int 
