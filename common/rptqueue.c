@@ -7,7 +7,6 @@ void rpt_init(struct rptqueue *rpt)
 {
   rpt->buf[0] = -1;
   rpt->buf[1] = 0;
-  rpt->dpos = rpt->display;
 
   if (rpt->ofd != -1)
     nonblock(rpt->ofd);
@@ -15,7 +14,7 @@ void rpt_init(struct rptqueue *rpt)
   nonblock(rpt->ifd);
 
   if (!rpt->dlen) {
-    rpt->dlen = strlen(rpt->display);
+    rpt->dlen = rpt->display ? strlen(rpt->display) : 0;
   }
 }
 
