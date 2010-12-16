@@ -173,9 +173,12 @@ static void idle (void)
       struct efd *fd = eventfd;
       do {
         if (fd->fd == -1) { 
-          fd->fd = accept(eventsock,NULL,0); 
-          nonblock(fd->fd); 
-          FD_SET(fd->fd,&rfds);
+          if (fd->fd = accept(eventsock,NULL,0) == -1) {
+            syswarn3("accept on selected socket failed","");
+          } else {
+            nonblock(fd->fd); 
+            FD_SET(fd->fd,&rfds);
+          }
           break; 
         }
         fd++;
