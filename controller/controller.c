@@ -68,7 +68,6 @@ void upk_controller_status_fixer_callback(
       if (bpid) {
         if ((buddyfd = upk_buddy_connect(bpid)) == -1) {
           if (errno == ENOENT || errno == ECONNREFUSED) {
-            printf("*** STALE buddy pid in db : %d\n",bpid);
             upk_db_buddy_down(s->pdb, bpid);
             upk_db_service_actual_status(srvc,UPK_STATE_STOP);
             status_actual = "stop";

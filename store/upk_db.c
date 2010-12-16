@@ -50,10 +50,6 @@ upk_db_init(
       /* Check if database has been set up at all */
     rc = open( file, O_RDONLY );
 
-    if (chdir(dirname(dir))) {
-      return UPK_ERROR_INTERNAL;
-    }
-
     if(rc < 0) {
 	printf("Can't read DB file '%s'.\n", file);
 	return(rc);

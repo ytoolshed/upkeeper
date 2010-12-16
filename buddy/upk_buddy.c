@@ -42,9 +42,10 @@ int upk_buddy_start_1(
     upk_db_close(srvc->pdb);
     execlp(BUDDYPATH, 
            BUDDYPATH, 
+           "-q","-l",
            command, 
-           NULL,
-           env);
+           NULL);
+
 
     if( DEBUG ) {
         printf("execle %s [%s] failed (%s)\n",

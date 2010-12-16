@@ -89,7 +89,7 @@ int main(
     rc = upk_db_init( file, &pdb );
 
     if(rc < 0) {
-	printf("db_init failed. Exiting.\n");
+        sysdie3(111, FATAL, "failed to initialize database ","");
 	exit(-1);
     }
 
@@ -101,7 +101,7 @@ int main(
     }
 
     if (pipe(sigp) == -1)
-      sysdie3(111,FATAL, "failed to create pipe for ","");
+      sysdie3(111,FATAL, "failed to create pipe for signals ","");
 
     coe(sigp[0]); nonblock(sigp[0]);
     coe(sigp[1]); nonblock(sigp[1]);
@@ -110,6 +110,8 @@ int main(
     upk_catch_signal(SIGHUP,  handler);
     upk_controller_status_fixer( pdb, fds);
 
+    upk_db_listener_remove_dead( pdb ); 
+    upk_db_listener_add( pdb, "controller", getpid(), SIGHUP );
 
     for (;;) {
       struct timeval period;
@@ -138,13 +140,11 @@ int main(
       for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
         if ( !sfd->srvc.service ) continue;
         if ( sfd->fd == -1 ) {
-          if ( DEBUG ) {
-            fprintf(stderr, "connecting for %s/%s/%d\n",sfd->srvc.service,sfd->srvc.package,sfd->bpid);
-          }
           sfd->fd = upk_buddy_connect(sfd->bpid);
           if (sfd->fd == -1) continue;
           nonblock(sfd->fd);
           if (write(sfd->fd,"s",1) != 1) {
+            syswarn3("writing status request to buddy for ",sfd->srvc.service," failed: ");
             close(sfd->fd); sfd->fd == -1;
           }
           continue;
@@ -155,16 +155,12 @@ int main(
                                                     sfd->fd,
                                                     mbuf)) {
               need_notify = 1;
-              if ( DEBUG ) {
-                fprintf(stderr, "need notify\n");
-              }
             }
           }
         }
       }
       if (need_notify) {
         need_notify = 0;
-        printf("doing notify\n");
         upk_db_listener_send_all_signals( pdb );
       }
       if (term) {
