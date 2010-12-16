@@ -28,7 +28,7 @@ int main(
     const char    *command = "../do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
     char msg[128];
-    printf("1..20\n");
+    printf("1..22\n");
 
     rc = upk_db_init( file, &s.pdb );
 
@@ -73,15 +73,19 @@ int main(
     s.service="talker";
     upk_db_service_cmdline(&s, "../talker");
     pid = upk_buddy_start( &s, "../talker", NULL);
+
+    upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
+
     while ((sock = upk_buddy_connect(pid)) == -1) {
       sleep(1);
     }
+
     upk_test_is(write(sock,"s",1),1,"wrote 1 for status");
 
     memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
     upk_test_is(*((int *)(msg+1)),pid,"from forked pid");
-    upk_buddy_stop( pid );
+    upk_test_is(upk_buddy_stop( pid ), 0, "stopping buddy returned 0");
 
     memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
