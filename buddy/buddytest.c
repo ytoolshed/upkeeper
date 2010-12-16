@@ -26,8 +26,8 @@ int main(
     const char    *cp;
     const char    *command = "../do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
-    char msg[9];
-    printf("1..17\n");
+    char msg[128];
+    printf("1..19\n");
 
     rc = upk_db_init( file, &s.pdb );
 
@@ -47,36 +47,49 @@ int main(
     upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
     if( pid < 0 ) {
       printf( "upk_buddy_start failed (%d), %s\n", pid, strerror(errno) );
-	exit( -1 );
+      exit( -1 );
     }
     while ((sock = upk_buddy_connect(pid)) == -1) {
       sleep(1);
     }
-    write(sock,"s",1);
-    read(sock,msg,13);
+    upk_test_is(write(sock,"s",1),1,"Wrote status request");
+    upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
     upk_test_is(msg[0],'u',"got an up message");
     upk_test_is(*((int *)(msg+1)),pid,"with forked pid");
-    upk_test_is (upk_buddy_stop( &s ),0, "stopping the buddy returned 0");
+
+    upk_test_is (upk_buddy_stop( pid ),0, "stopping the buddy returned 0");
+
+    memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
     upk_test_is(msg[0],'d',"got a down message");
+
+
+    memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
     upk_test_is(msg[0],'e',"got an exit message");
+
     close(sock);
     s.service="talker";
     upk_db_service_cmdline(&s, "../talker");
     pid = upk_buddy_start( &s, "../talker", NULL);
-
     while ((sock = upk_buddy_connect(pid)) == -1) {
       sleep(1);
     }
     write(sock,"s",1);
+
+    memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
-    upk_test_is(msg[0],'u',"got an up message");
-    upk_test_is(*((int *)(msg+1)),pid,"with forked pid");
-    upk_buddy_stop( &s );
+    upk_test_is(*((int *)(msg+1)),pid,"from forked pid");
+    upk_buddy_stop( pid );
+
+    memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
-    upk_test_is(msg[0],'d',"got a down message");
+    upk_test_is(*((int *)(msg+1)),pid,"from forked pid");
+
+    memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
+    upk_test_is(*((int *)(msg+1)),pid,"from forked pid");
+ 
     wait( &stat_loc );
     
     sqlite3_close( s.pdb );
