@@ -1,5 +1,6 @@
 #!/bin/sh 
-cd `dirname $0`
+DIR=`dirname $(which $0)`
+DIR=$( (cd $DIR ; pwd -P) )
+PATH=$PATH:$DIR
 (mkdir -p bt || echo ok)
-(ln -sf ../buddy bt/)
-cd bt && rm -f store.sqlite && sqlite3 store.sqlite < ../../store/schema.sql && exec ../buddytest
+cd $DIR/bt && rm -f store.sqlite && sqlite3 store.sqlite < ../../store/schema.sql && exec ../buddytest

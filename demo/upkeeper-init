@@ -2,17 +2,10 @@
 #
 # Possible equivalent of svscanboot.
 #
-
-# XXX: this goes away once we have an installation path
-#
 DIR=`dirname $(which $0)`
-if [ "x$DIR" = "x`echo $DIR|sed -e s,^/,,`" ];
-then
-        DIR=$(pwd)/`dirname $(which $0)`
-fi
-PATH=$PATH:$DIR/../buddy:$DIR/../controller/
-cd $DIR
+DIR=$(dirname $( (cd $DIR ; pwd -P) ))
+PATH=$PATH:$DIR/buddy:$DIR/controller
 ###
 ### leaving only
 ### 
-exec buddy -l $(which buddy-controller) --verbose
+exec buddy -- $(which buddy-controller) --verbose

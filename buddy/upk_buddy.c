@@ -10,7 +10,7 @@
 #include <sys/un.h>
 #include "store/upk_db.h"
 #include "upk_buddy.h"
-#define BUDDYPATH "./buddy"
+#define BUDDYPATH "buddy"
 
 extern int DEBUG;
 
@@ -40,7 +40,7 @@ int upk_buddy_start_1(
 
   if (bpid == 0) {
     upk_db_close(srvc->pdb);
-    execle(BUDDYPATH, 
+    execlp(BUDDYPATH, 
            BUDDYPATH, 
            command, 
            NULL,
