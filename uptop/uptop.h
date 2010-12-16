@@ -1,5 +1,6 @@
 
 void uptop_print_callback( 
+    void *ignored,                      
     upk_srvc_t  srvc,                                    
     const char *status_desired,
     const char *status_actual
