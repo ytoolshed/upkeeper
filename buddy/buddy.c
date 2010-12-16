@@ -16,43 +16,31 @@
 #include "common/rptqueue.h"
 #include "common/sigblock.h"
 #include "common/nonblock.h"
+#include "common/err.h"
 
 #define FATAL "buddy: fatal: "
 #define ERROR "buddy: error: "
-
 static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
-static int eventfd            = -1;
+static int eventsock          = -1;
+static int eventfd[2]         = {-1,-1};
 static char * lbuf  = NULL;
 static int quiet = 0;
 static int done  = 0;
+static int last_status = -1;
 static struct rptqueue proctitle;
-static struct sockaddr_un controller;
 
 int DEBUG = 0;
 
 int buddy_pid;
+
+char buddy_sock[108];
 
 static char  **prog;
 static char **envp;
 static int  pid = 0;
 
 int child = 0, term = 0;
-
-static void sysdie(int e, const char *a,const char *b, const char *c)
-{
-  if (quiet < 2 || pid == 0) {
-    fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
-  }
-  exit(e);
-}
-
-static void syswarn(const char *a,const char *b, const char *c)
-{
-  if (quiet < 2 || pid == 0) {
-    fprintf(pid == 0 ? stdout : stderr, "%s%s%s: %s\n",a,b,c,strerror(errno));
-  }
-}
 
 static void handler(int sig)  
 { 
@@ -64,23 +52,26 @@ static void handler(int sig)
   sig = write(sigp[1]," ",1);
 }
 
-static void send_message(const char *msg, int size) 
+static void send_message(int fd, const char *msg, int size) 
 {
-  if (sendto(eventfd,msg,size,0,(struct sockaddr *)&controller,
-             SUN_LEN(&controller)) == -1) {
-    syswarn(ERROR,"write to controller failed","");
-  }
+  
+  int *efd = eventfd; int *end = eventfd + sizeof(eventfd) / sizeof(eventfd[0]);
+  if (fd != -1) { efd = &fd; end = &fd; }
+  do {
+    if (*efd != -1 && send(*efd, msg, size, 0) == -1) {
+      syswarn3(ERROR,"write to controller failed","");
+    }
+  } while(++efd < end);
 }
 
-static void note_exit(int status) 
+static void send_status(int fd, char m) 
 {
-  char msg[sizeof(int)*2+1] = "d";
-  
+  char msg[sizeof(int)*3+1];
+  msg[0] = m;
   memcpy(msg+1,&buddy_pid,sizeof(int));
-  memcpy(msg+sizeof(int)+1,&status,sizeof(int));
-  send_message(msg,sizeof(int)*2 + 1);
-  if (lbuf) { close(logp[0]); }
-
+  memcpy(msg+sizeof(int)+1,&pid,sizeof(int));
+  memcpy(msg+sizeof(int)*2+1,&last_status,sizeof(int));
+  send_message(fd, msg,sizeof(int)*3 + 1);
 }
 
 
@@ -89,7 +80,7 @@ static void start_app(void)
   char msg[sizeof(int)*2+1] = "u";
   if (lbuf) {
     if (pipe(logp) == -1) {
-      syswarn(ERROR, "failed to create log pipe for ",*prog);
+      syswarn3(ERROR, "failed to create log pipe for ",*prog);
       return;
     }
     nonblock(logp[0]); nonblock(logp[1]);
@@ -97,7 +88,7 @@ static void start_app(void)
   }
 
   if ((pid = fork()) == -1) {
-    syswarn(ERROR, "failed to create pipe for ",*prog);
+    syswarn3(ERROR, "failed to create pipe for ",*prog);
     return;
   }
 
@@ -109,7 +100,7 @@ static void start_app(void)
     if (lbuf) {
       close(1);
       if (-1 == dup(logp[1])) {
-        sysdie(111,FATAL"failed to dup stdout for ","",*prog);
+        sysdie3(111,FATAL"failed to dup stdout for ","",*prog);
       }
       close(logp[1]);
     }
@@ -118,7 +109,7 @@ static void start_app(void)
     if (errno == ENOENT) {
       execvp(*prog, prog);
     }
-    sysdie(111,FATAL"exec (",*prog,") error");
+    sysdie3(111,FATAL"exec (",*prog,") error");
   }
 
   if (lbuf) {
@@ -132,15 +123,13 @@ static void start_app(void)
     proctitle.buf[1]  = 0;
     rpt_init(&proctitle);
   }
-  memcpy(msg+1,&buddy_pid,sizeof(int));
-  memcpy(msg+sizeof(int)+1,&pid,sizeof(int));
-  send_message(msg,sizeof(int)*2+1);
+  send_status(-1,'u');
 }
 
-  static void idle (void)
+static void idle (void)
 {
 
-  char sig;
+  char sig, ev[2] = { 0 };
   int status, i, ret, wpid;
   int limit = lbuf ? 2 : 1;
 
@@ -152,30 +141,85 @@ static void start_app(void)
     int maxfd = sigp[0];
     fd_set rfds;
 
-    /* for output from monitored process */
+
     FD_ZERO(&rfds);
     FD_SET(sigp[0], &rfds);
-    if (logp[0] != -1) {
-      if (logp[0] > maxfd) { maxfd = logp[0]; }
-      FD_SET(logp[0], &rfds);
+    FD_SET(eventsock, &rfds);
+    if (eventsock > maxfd)   { maxfd = eventsock; }
+    for (i = 0; i < sizeof(eventfd)/sizeof(int);  i++) {
+      if (eventfd[i] > 0)  { 
+        FD_SET(eventfd[i], &rfds);
+        if (eventfd[i] > maxfd) { maxfd = eventfd[i]; }
+      }
     }
+
+    /* for output from monitored process */
+    if (logp[0] != -1) {
+      FD_SET(logp[0], &rfds);
+      if (logp[0] > maxfd) { maxfd = logp[0]; }
+    }
+
     period.tv_sec  = 60;
     period.tv_usec = 0;
     select(maxfd+1, &rfds, NULL, NULL, &period);
 
+    while(read(sigp[0],&sig,1) > 0) 
+      ;
+
     /* output */
     if (logp[0] != -1 && FD_ISSET(logp[0], &rfds)) 
       ret = rpt_status_update(&proctitle);
-      
-    while(read(sigp[0],&sig,1) > 0) 
-      ;
+
+    if (FD_ISSET(eventsock, &rfds)) {
+      int *fd = eventfd;
+      do {
+        if (*fd == -1) { 
+          *fd = accept(eventsock,NULL,0); 
+          nonblock(*fd); 
+          break; 
+        }
+        fd++;
+      } while(fd < eventfd + sizeof(eventfd)/sizeof(eventfd[0]));
+    }
+
+    for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]); i++) {
+      int res;
+      if (eventfd[i] == -1) { continue; }
+
+      switch(read(eventfd[i],&ev,1)) {
+      case -1:
+        if (errno == EINTR || errno == EAGAIN) 
+          break;
+      case  0:
+        close(eventfd[i]);
+        eventfd[i] = -1;
+        break;
+      default:
+        switch(ev[0]) {
+        case 's':
+          send_status(eventfd[i], pid == -1 ? 'd' : 'u');
+          break;
+        case 't':
+          term = 1;
+          done = 1;
+          unlink(buddy_sock);
+          break;
+        default:
+          syswarn3(ERROR, "unknown command:",ev);
+        }
+        break;
+      }
+    }
 
     upk_block_signal(SIGCHLD);
     upk_block_signal(SIGTERM);
     wpid = waitpid(-1,&status,WNOHANG);
     
     if (wpid == pid) {
-      note_exit(status);
+      last_status = status;
+      pid = -1;
+      send_status(-1,'d');
+      if (lbuf) { close(logp[0]); }
       if (done) break;
       start_app();
       sleep(1);
@@ -184,6 +228,7 @@ static void start_app(void)
     upk_unblock_signal(SIGCHLD);
     upk_unblock_signal(SIGTERM);    
     if (term) {
+      unlink(buddy_sock);
       if (term == 1) {
         kill(pid,SIGTERM);
         kill(pid,SIGCONT);
@@ -193,6 +238,7 @@ static void start_app(void)
       term++;
     }
   }
+  send_status(-1,'e');
   exit (0);
 }
 
@@ -203,9 +249,10 @@ int main(int ac, char **av, char **ep)
   int i;
   int optind = options_parse(ac,av,envp);
   prog = malloc(ac-optind + 3 * sizeof(char *));
+  static struct sockaddr_un eventaddr;
 
   if (!prog)
-    sysdie(111,FATAL, "failed to malloc command line ",*prog);
+    sysdie3(111,FATAL, "failed to malloc command line ",*prog);
 
   prog[0] = "/bin/sh";
   prog[1] = "-c";
@@ -216,14 +263,31 @@ int main(int ac, char **av, char **ep)
   upk_catch_signal(SIGCHLD, handler);
   upk_catch_signal(SIGTERM, handler);
   upk_block_signal(SIGCHLD);
+  buddy_pid = getpid();
 
   if (pipe(sigp) == -1)
-    sysdie(111,FATAL, "failed to create pipe for ",*prog);
+    sysdie3(111,FATAL, "failed to create pipe for ",*prog);
 
   coe(sigp[0]); nonblock(sigp[0]);
   coe(sigp[1]); nonblock(sigp[1]);
 
-  buddy_pid = getpid();
+  eventsock = socket(AF_UNIX, SOCK_STREAM, 0);
+  if (eventsock == -1) 
+    sysdie3(111,FATAL,"socket failed","");
+  eventaddr.sun_family = AF_UNIX;
+
+  sprintf(buddy_sock,"./.buddy.%d",buddy_pid);
+  strcpy(eventaddr.sun_path,buddy_sock);
+  unlink(eventaddr.sun_path);
+  
+  if (bind(eventsock,(struct sockaddr *)&eventaddr, SUN_LEN(&eventaddr))==-1)
+    sysdie3(111,FATAL,"binding to socket - ",eventaddr.sun_path);
+  
+  if (listen(eventsock,2) == -1)
+    sysdie3(111,FATAL,"listening on socket - ",eventaddr.sun_path);
+
+  nonblock(eventsock);
+
   start_app();
   idle();
 }
@@ -238,7 +302,7 @@ static int is_logbuf(const char *b) {
 void usage(void)
 {
   const char usage[] = 
-    "buddy: usage: buddy [--sock /path/to/socket] [-f] command\n";
+    "buddy: usage: buddy [-o] command\n";
   
   exit(111 + write(2,usage,sizeof(usage)));
 }
@@ -251,15 +315,15 @@ int options_parse(int argc, char *argv[], char *envp[])
   int doing_log = 0;
   char *logbuf =  ".......................................";
   static struct option long_options[] = {
-    { "socket",      1, 0, 's' },
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
+    { "log",	     1, 0, 'l' },
     { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "ovfql::d:s:p:",
+    c = getopt_long (argc, argv, "oql",
                      long_options, &option_index);
 
     switch (c) {
@@ -276,14 +340,6 @@ int options_parse(int argc, char *argv[], char *envp[])
       quiet--;
       DEBUG = 1;
       break;
-    case 's':
-      eventfd = socket(AF_UNIX, SOCK_DGRAM, 0);
-      nonblock(eventfd); coe(eventfd);
-      if (eventfd == -1) 
-        sysdie(111,FATAL,"socket failed","");
-      controller.sun_family = AF_UNIX;
-      strcpy(controller.sun_path,optarg);
-      break;
     default:
       break;
     }
@@ -291,9 +347,9 @@ int options_parse(int argc, char *argv[], char *envp[])
   }
 
   if (doing_log) {
-    argv[doing_log] = logbuf;
+    argv[doing_log-1] = logbuf;
     execve(argv[0],argv,envp);
-    sysdie(111,FATAL,"unable to restart self ",argv[0]);
+    sysdie3(111,FATAL,"unable to restart self ",argv[0]);
   }
 
   if (optind == argc) { usage(); }

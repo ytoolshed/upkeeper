@@ -5,7 +5,8 @@
 #include <sqlite3.h>
 #include <errno.h>
 #include <string.h>
-
+#include <sys/socket.h>
+#include <sys/un.h>
 #include "store/upk_db.h"
 #include "upk_buddy.h"
 #define BUDDYPATH "./buddy"
@@ -21,17 +22,14 @@ extern int DEBUG;
 int upk_buddy_start_1(
   upk_srvc_t    srvc,                    
   const char    *command,
-  const char    *env[],
-  int async,
-  const char    *socket
+  const char    *env[]
 ) {
   int   bpid;
   char  c;
-  const char *default_socket = "./controller";
 
   if( DEBUG ) {
-      printf("upk_buddy_start '%s' '%s' [%s] async=%d\n",
-              srvc->service, srvc->package, command, async);
+      printf("upk_buddy_start '%s' '%s' [%s]\n",
+              srvc->service, srvc->package, command);
   }
 
   bpid = fork();
@@ -44,8 +42,6 @@ int upk_buddy_start_1(
     upk_db_close(srvc->pdb);
     execle(BUDDYPATH, 
            BUDDYPATH, 
-           "-s",
-           socket ? socket : default_socket,
            command, 
            NULL,
            env);
@@ -65,27 +61,71 @@ int upk_buddy_start_1(
 int upk_buddy_start(
   upk_srvc_t    srvc,                    
   const char    *command,
-  const char    *env[],
-  const char    *socket
+  const char    *env[]
 
 ) {
-  return upk_buddy_start_1(srvc,command,env,0,socket);
+  return upk_buddy_start_1(srvc,command,env);
 }
 
 /* 
  * Stops a previously launched buddied application process and updates
  * the upkeeper runtable information.
  */
-  int
+int
 upk_buddy_stop( upk_srvc_t srvc )
 {
-  if (upk_db_service_desired_status(
-                               srvc,
-                               UPK_STATUS_VALUE_STOP)) { 
-    return 0;
+  if (upk_service_buddy_send_message(srvc, BUDDY_EXIT) == -1) {
+    if (errno != EINVAL) 
+      return 0;
+
+    return 1;
   }
-  
-  return 1;
+  return 0;
 }
 
+
+char buddymsg[] = "st";
+
+int upk_service_buddy_send_message (upk_srvc_t srvc, upk_buddy_message m) 
+{
+  int bpid = upk_db_service_buddy_pid(srvc, 0);
+  if (bpid < 0) {
+    errno = EINVAL;    
+    return -1;
+  }
+  return upk_buddy_send_message(bpid,m);
+}
+
+int upk_buddy_connect (int bpid)
+{
+  int s    = socket(AF_UNIX, SOCK_STREAM, 0);
+  struct sockaddr_un baddr;
+  
+  baddr.sun_family = AF_UNIX;
+  sprintf(baddr.sun_path,"./.buddy.%d",bpid);
+
+  if (s == -1) {
+    return -1;
+  }
+
+  if (connect(s,(struct sockaddr *)&baddr, SUN_LEN(&baddr)) == -1) {
+    close(s);
+    return -1;
+  }
+  
+  return s;
+}
+
+int upk_buddy_send_message(int bpid, upk_buddy_message m) 
+{
+  int s = upk_buddy_connect(bpid);
+  char msg = buddymsg[m];
+
+  if (send(s, &msg, 1, 0) == -1) {
+    close(s);
+    return -1;
+  }
+  close(s);
+  return 0;
+}
 
