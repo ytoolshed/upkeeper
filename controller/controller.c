@@ -21,27 +21,30 @@ struct status_fixer_state {
   int    service_count;
 };
 
-struct srvc_fd *find_service(struct srvc_fd *sfd, upk_srvc_t svc, int svcount) {
-  struct srvc_fd *limit = sfd + svcount;
+struct srvc_fd *find_service(struct srvc_fd *sfd, upk_srvc_t srvc, int srvcount) {
+  struct srvc_fd *limit = sfd + srvcount;
   do {
-    if (!strcmp(svc->service,sfd->svc.service) &&
-        !strcmp(svc->package,sfd->svc.package)) {
+    if (sfd->srvc.service && 
+        sfd->srvc.package &&
+        !strcmp(srvc->service,sfd->srvc.service) &&
+        !strcmp(srvc->package,sfd->srvc.package)) {
       return sfd;
     } 
   } while (++sfd < limit);
   return NULL;
 }
 
-struct srvc_fd *make_service(struct srvc_fd *sfd, upk_srvc_t svc, int svcount) {
-  struct srvc_fd *limit = sfd + svcount;
+struct srvc_fd *make_service(struct srvc_fd *sfd, upk_srvc_t srvc, int srvcount) {
+  struct srvc_fd *limit = sfd + srvcount;
   do {
-    if (sfd->svc.service == NULL) {
+    if (sfd->srvc.service == NULL) {
       break;
     }
   } while (++sfd < limit);
   if (sfd == limit) return NULL;
-  sfd->svc.service = strdup(svc->service);
-  sfd->svc.package = strdup(svc->package);
+  sfd->srvc.service = strdup(srvc->service);
+  sfd->srvc.package = strdup(srvc->package);
+  sfd->srvc.pdb     = srvc->pdb;
   return sfd;
 }
 
@@ -58,18 +61,29 @@ void upk_controller_status_fixer_callback(
     const char *cmdline;
     char       *cmdline_alloc;
     struct     srvc_fd *sfd = find_service(s->sfd, srvc, s->service_count);
+    int        buddyfd;
 
-    if (sfd == NULL) {
+    if (sfd == NULL) { /* we didn't start it! */
       int bpid = upk_db_service_buddy_pid(srvc, 0);
-      if (upk_service_buddy_connect(srvc) == -1) {
-        if (errno == ENOENT) {
-          printf("*** STALE buddy pid in db : %d\n",bpid);
-          upk_db_buddy_down(s->pdb, bpid);
-          upk_db_service_actual_status(srvc,UPK_STATE_STOP);
-          status_actual = "stop";
+      if (bpid) {
+        if ((buddyfd = upk_buddy_connect(bpid)) == -1) {
+          if (errno == ENOENT) {
+            printf("*** STALE buddy pid in db : %d\n",bpid);
+            upk_db_buddy_down(s->pdb, bpid);
+            upk_db_service_actual_status(srvc,UPK_STATE_STOP);
+            status_actual = "stop";
+          } 
+        } else {
+          printf("*** LIVE buddy pid in db : %d\n",bpid);
+          sfd = make_service(s->sfd, srvc, s->service_count);
+          sfd->bpid = bpid;
+          sfd->fd   = buddyfd;
+          if (write(sfd->fd,"s",1) != 1) {
+            /* XXX*/
+          }
+          upk_db_service_actual_status(srvc,UPK_STATE_START);
+          status_actual = "start";
         }
-      } else {
-        sfd = make_service(s->sfd, srvc, s->service_count);
       }
     }
 
@@ -92,19 +106,33 @@ void upk_controller_status_fixer_callback(
     cmdline_alloc = strdup( cmdline );
 
     if( strcmp( status_desired, upk_states[ UPK_STATE_START ] ) == 0 ) {
-      
+        if (sfd && sfd->fd == -1) {
+            sfd->fd = upk_buddy_connect(sfd->bpid);
+            if (sfd->fd == -1) {
+                printf("*** WAITING for buddy %s/%s/%d\n", 
+                       srvc->package,srvc->service, errno);
+                return;
+            }
+            printf("*** FOUND buddy %s/%s/%d\n", 
+                   srvc->package,srvc->service, sfd->bpid);
+        
+            if (write(sfd->fd,"s",1) != 1) {
+                /* XXX*/
+            }
+            return;
+            
+
+        } 
+        
 	/* service needs to be started */
+        sfd = make_service(s->sfd, srvc, s->service_count);
         if( 1 ) {
-	    printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
+          printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
                    cmdline_alloc );
         }
-        if (upk_db_service_buddy_pid(srvc,0)) {
-          if (!upk_service_buddy_send_message(srvc, BUDDY_STATUS)) {
-            printf("skipping START as buddy exists\n");
-            return;
-          }
-        }
-        upk_buddy_start( srvc, cmdline_alloc, NULL );
+        sfd->bpid = upk_buddy_start( srvc, cmdline_alloc, NULL );
+        upk_db_service_buddy_pid(srvc, sfd->bpid);
+        sfd->fd   = -1;
     } else {
         if( 1 ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
@@ -112,7 +140,7 @@ void upk_controller_status_fixer_callback(
         }
         upk_service_buddy_stop( srvc );
     }
-
+    
     free( cmdline_alloc );
     return;
 }

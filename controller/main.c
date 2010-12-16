@@ -1,67 +1,66 @@
+#include <errno.h>
+#include <getopt.h>
+#include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
-#include "../store/upk_db.h"
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/un.h>
 #include <unistd.h>
+#include "../store/upk_db.h"
 #include "controller.h"
 #include "common/coe.h"
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <sys/un.h>
-#include <sys/stat.h>
+#include "common/err.h"
+#include "common/nonblock.h"
+#include "common/sigblock.h"
+#include "buddy/upk_buddy.h"
 
-#define FATAL "buddy-controller: fatal: "
+int DEBUG = 1;
 
-int DEBUG = 0;
-
-static int OPT_BOOTSTRAP        = 0;
 static int OPT_VERBOSE          = 0;
-static int OPT_SIGNAL_LISTENERS = 0;
-static int OPT_STATUS_FIXER     = 1;
-static int OPT_SOCKET_LISTENER  = 1;
+static int term = 0;
+static int sigp[2]            = {-1,-1};
+/* 
+ * Parse command line options and set static global variables accordingly
+ */
+int options_parse(
+    int   argc,
+    char *argv[]
+) {
+    int c;
+    int option_index;
+    static struct option long_options[] = {
+        { "verbose", 0, &OPT_VERBOSE, 1 },
+	{ 0, 0, 0, 0 }
+    };
+
+    if( DEBUG ) {
+        printf( "Parsing command line options\n" );
+    }
+
+    while (1) {
+
+        c = getopt_long (argc, argv, "",
+                         long_options, &option_index);
+        if( c == -1 ) {
+            break;
+        }
+    }
+    return option_index;
+}
 
 #define LISTEN_PATH "./controller"
-static void sysdie(int e, const char *a,const char *b, const char *c)
-{
-  if (write(2, a, strlen(a))
-      && write(2, b, strlen(a))
-      && write(2, c, strlen(a))
-      && write(2, ": ", 2)
-      && write(2, strerror(errno),strlen(strerror(errno)))
-      && write(2, "\n", 1)) ;
-  exit(e);
+
+
+static void term_handler(int sig)  
+{ 
+  switch (sig) {
+  case SIGTERM: term = 1; break;
+  default: break;
+  }
+  sig = write(sigp[1]," ",1);
 }
 
-int setup_socket (char *path) {
-  struct sockaddr_un sa;
-  struct stat st;
-  int s;
-  int yes;
-
-  s = socket(AF_UNIX, SOCK_DGRAM, 0);
-
-  if (s == -1) 
-    sysdie(111,FATAL,"socket failed","");
-
-  if (stat(path,&st) != -1 && (S_IFSOCK & st.st_mode)) {
-    unlink(path);
-  }    
-  sa.sun_family = AF_UNIX;
-  strcpy(sa.sun_path,path);
-
-  if (setsockopt(s, SOL_SOCKET, SO_REUSEADDR, &yes,
-                sizeof(int)) == -1) {
-    sysdie(111,FATAL,"socket failed","");
-    exit(1);
-  }
-  if (bind(s, (struct sockaddr *) &sa, sizeof(struct sockaddr_un))) {
-    sysdie(111,FATAL,"binding to socket","");
-    exit(1);
-  }
-  coe(s);
-  return s;
-}
 
 int main( 
     int   argc, 
@@ -70,8 +69,11 @@ int main(
     sqlite3 *pdb;
     char    *file = "../store/store.sqlite";
     int      rc;
-    int      opt;
     int      sock;
+    struct srvc_fd fds[MAX_SERVICES] = {  };
+    struct srvc_fd *sfd = fds;
+
+
     options_parse( argc, argv );
     if (optind < argc) {
       file = argv[optind];
@@ -88,50 +90,78 @@ int main(
 	printf("db_init failed. Exiting.\n");
 	exit(-1);
     }
+
+    for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
+      sfd->fd = -1;
+      sfd->srvc.service = NULL;
+      sfd->srvc.package = NULL;
+      sfd->bpid         = -1;
+    }
+
+    if (pipe(sigp) == -1)
+      sysdie3(111,FATAL, "failed to create pipe for ","");
+
+    coe(sigp[0]); nonblock(sigp[0]);
+    coe(sigp[1]); nonblock(sigp[1]);
     
+    upk_catch_signal(SIGTERM, term_handler);
+    upk_controller_status_fixer( pdb, fds);
 
-    if( OPT_BOOTSTRAP ) {
-        /* In bootstrap mode, reset all process entries in the DB to 
-         * "down" to start with a clean slate.
-         */
-	if( DEBUG )
-	    printf("Bootstrap mode.\n");
 
-	upk_controller_bootstrap( pdb );
-    }
+    for (;;) {
+      struct timeval period;
+      int maxfd = sigp[0];
+      fd_set rfds;
+      char sig;
+      int need_notify;
+      char mbuf[128];
+      FD_ZERO(&rfds);
+      FD_SET(sigp[0], &rfds);
+      for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
+        if ( !sfd->srvc.service ) continue;
+        if ( sfd->fd == -1)       continue ;
+        FD_SET(sfd->fd, &rfds); 
+        if (sfd->fd > maxfd) maxfd = sfd->fd;
+      }
+      period.tv_sec  = 5;
+      period.tv_usec = 0;
 
-    if ( OPT_SOCKET_LISTENER ) {
-      sock = setup_socket(LISTEN_PATH);
-    }
+      select(maxfd+1, &rfds, NULL, NULL, &period);
 
-    if( OPT_STATUS_FIXER ) {
-      upk_controller_status_fixer( pdb, LISTEN_PATH);
-    }
+      while(read(sigp[0],&sig,1) > 0) 
+        ;
 
-    if ( OPT_SOCKET_LISTENER ) {
-          char msg[1+2*sizeof(int)];
-
-      while (read(sock,msg,sizeof(int)*2 + 1)) {
-        int bpid,arg;
-        memcpy(&bpid,msg+1,sizeof(int));
-        memcpy(&arg, msg+1+sizeof(int),sizeof(int));
-        if ( DEBUG ) {
-          printf("%c buddy:%d pidorstatus:%d\n",msg[0],bpid,arg);
-        }
-        switch (msg[0]) {
-        case 'u':
-          upk_db_set_pid_for_buddy(pdb,arg,bpid);
-          break;
-        case 'd':
-          upk_db_note_exit(pdb,arg,bpid);
-          break;
-        default:
-          break;
+      for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
+        if ( !sfd->srvc.service ) continue;
+        if ( sfd->fd == -1) {
+          sfd->fd = upk_buddy_connect(sfd->bpid);
+          if (sfd->fd == -1)               continue;
+          nonblock(sfd->fd);
+          if (write(sfd->fd,"s",1) != 1) {
+            close(sfd->fd); sfd->fd == -1;
+          }
+          continue;
+        } 
+        if ( FD_ISSET(sfd->fd,&rfds) ) {
+          while (read(sfd->fd,mbuf,sizeof(int)*3 + 1) > 0) {
+            if (!upk_controller_handle_buddy_status(sfd->srvc.pdb,
+                                                    sfd->fd,
+                                                    mbuf)) {
+              need_notify = 1;
+            }
+          }
         }
       }
-      
+      if (need_notify) {
+        need_notify = 0;
+        printf("doing notify\n");
+        upk_db_listener_send_all_signals( pdb );
+      }
+      if (term) {
+        break;
+      }
     }
-SHUTDOWN:
+    
     upk_db_close( pdb );
     unlink(LISTEN_PATH);
     return(0);
@@ -151,7 +181,7 @@ void upk_db_reset_launchcallback(
       printf( "Resetting status of service %s-%s.\n", 
 	      srvc->package, srvc->service );
    
-    upk_db_service_actual_status( srvc, UPK_STATUS_VALUE_STOP );
+    upk_db_service_actual_status( srvc, UPK_STATE_STOP );
   }
 }
 
@@ -164,38 +194,3 @@ void upk_controller_bootstrap(
   upk_db_status_visitor( pdb, upk_db_reset_launchcallback, NULL );
 }
 
-/* 
- * Parse command line options and set static global variables accordingly
- */
-int options_parse(
-    int   argc,
-    char *argv[]
-) {
-    int c;
-    int option_index;
-    static struct option long_options[] = {
-        { "verbose", 0, &OPT_VERBOSE, 1 },
-        { "bootstrap", 0, &OPT_BOOTSTRAP, 1 },
-        { "signal-listeners", 0, &OPT_SIGNAL_LISTENERS, 1 },
-        { "listen-socket", 1, &OPT_SOCKET_LISTENER, 's' },
-        { "status-fixer", 0, &OPT_STATUS_FIXER, 1 },
-	{ 0, 0, 0, 0 }
-    };
-
-    if( DEBUG ) {
-        printf( "Parsing command line options\n" );
-    }
-
-    while (1) {
-
-        c = getopt_long (argc, argv, "",
-                         long_options, &option_index);
-        if( c == 's') {
-          
-        }
-        if( c == -1 ) {
-            break;
-        }
-    }
-    return option_index;
-}
