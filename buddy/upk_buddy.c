@@ -127,7 +127,9 @@ int upk_buddy_connect (int bpid)
   sprintf(baddr.sun_path,"./.buddy.%d",bpid);
 
   if (connect(s,(struct sockaddr *)&baddr, SUN_LEN(&baddr)) == -1) {
+    int erno = errno;
     close(s);
+    errno = erno;
     return -1;
   }
   
@@ -139,7 +141,7 @@ int upk_buddy_send_message(int bpid, upk_buddy_message m)
   int s = upk_buddy_connect(bpid);
   char msg = buddymsg[m];
 
-  if (send(s, &msg, 1, 0) == -1) {
+  if (send(s, &msg, 1, 0) < 0) {
     close(s);
     return -1;
   }
