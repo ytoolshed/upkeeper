@@ -1,12 +1,12 @@
 include 	begin.mk
 
-$(OBJS)	:= $(d)/upk_buddy.o $(d)/buddy.o
+$(OBJS)	:= $(d)/upk_buddy.o 
 $(DEPS)	:= $(OBJS_$(d):.o=.d)
 $(BIN)	:= $(d)/buddytest $(d)/buddy
 $(LIB)	:= $(d)/buddy.a 
 
 CF_$(d) += -I$(d)
-LL_$(d) := $(d)/buddy.a common/common.a store/store.a deps/sqlite/sqlite3.a
+LL_$(d) := $(d)/buddy.a store/store.a common/common.a deps/sqlite/sqlite3.a
 
 CHECK	+= $(d)/buddytest.tap
 CLEAN   += $(d)/bt/buddy $(d)/bt/store.sqlite
