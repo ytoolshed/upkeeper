@@ -4,6 +4,7 @@
 #include <sqlite3.h>
 #include <fcntl.h>
 #include <time.h>
+#include <unistd.h>
 #include <string.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -25,10 +26,6 @@ char       *upk_db_file        = NULL;
 
 extern int DEBUG;
 
-static int upk_db_event_add( 
-                            upk_srvc_t srvc,
-                            const char *event
-);
 
 const char *_upk_db_service_status( 
     upk_srvc_t    srvc,                                   
@@ -48,14 +45,14 @@ upk_db_init(
     sqlite3 **ppdb 
 ) {
     int      rc;
-    char    *sql;
-    char    *result;
     char    *dir = strdup(file);
     
       /* Check if database has been set up at all */
     rc = open( file, O_RDONLY );
 
-    chdir(dirname(dir));
+    if (chdir(dirname(dir))) {
+      return UPK_ERROR_INTERNAL;
+    }
 
     if(rc < 0) {
 	printf("Can't read DB file '%s'.\n", file);
@@ -744,7 +741,7 @@ void upk_db_status_visitor(
     rc = sqlite3_step( stmt );
 
     while( rc == SQLITE_ROW ) {
-      const unsigned char *     res = "";
+      const char *     res = "";
       if ((res = sqlite3_column_text( stmt, 0 )) != NULL) res = strdup(res);
       cb[count].s.package = (char *)res;
       if ((res = sqlite3_column_text( stmt, 1 )) != NULL) res = strdup(res);

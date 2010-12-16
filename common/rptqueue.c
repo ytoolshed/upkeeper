@@ -1,4 +1,5 @@
 #include <string.h>
+#include <unistd.h>
 #include "rptqueue.h"
 #include "nonblock.h"
 
@@ -20,14 +21,13 @@ void rpt_init(struct rptqueue *rpt)
 
 int rpt_status_update(struct rptqueue *rpt)
 {
-  int red;
   if (rpt->ifd == -1) return 1;
 
   while (read(rpt->ifd,rpt->buf,1) > 0) {
     rpt_write_status(rpt,rpt->buf);
 
     if (rpt->ofd != -1) 
-      write(rpt->ofd,&rpt->buf,1);
+      if (write(rpt->ofd,&rpt->buf,1));
   }
 
   return 1;
@@ -36,6 +36,7 @@ int rpt_status_update(struct rptqueue *rpt)
 int rpt_write_status (struct rptqueue *rpt, const char *msg)
 {
   int i = 3;
+  int ret = 0;
   while (*msg) {
     i = 3;
     while (i++ < rpt->dlen) 
@@ -43,5 +44,7 @@ int rpt_write_status (struct rptqueue *rpt, const char *msg)
   
     rpt->display[rpt->dlen-1] = *msg;
     msg++;
+    ret++;
   }
+  return ret;
 }

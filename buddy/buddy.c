@@ -17,6 +17,7 @@
 #include "common/sigblock.h"
 #include "common/nonblock.h"
 #include "common/err.h"
+#include "common/coe.h"
 
 #define FATAL "buddy: fatal: "
 #define ERROR "buddy: error: "
@@ -47,7 +48,7 @@ static void handler(int sig)
   switch (sig) {
   case SIGCHLD: child = 1 ; break;
   case SIGTERM: term = 1 ; done = 1; break;
-  default: warn("unknown signal", sig);
+  default: fprintf(stderr,"%s unknown signal %d\n",ERROR, sig);
   }
   sig = write(sigp[1]," ",1);
 }
@@ -77,7 +78,6 @@ static void send_status(int fd, char m)
 
 static void start_app(void) 
 {
-  char msg[sizeof(int)*2+1] = "u";
   if (lbuf) {
     if (pipe(logp) == -1) {
       syswarn3(ERROR, "failed to create log pipe for ",*prog);
@@ -132,13 +132,11 @@ static void idle (void)
 
   char sig, ev[2] = { 0 };
   int status, i, ret, wpid;
-  int limit = lbuf ? 2 : 1;
 
   upk_unblock_signal(SIGCHLD);
  
   for (;;) {
     struct timeval period;
-    int retval;
     int maxfd = sigp[0];
     fd_set rfds;
 
@@ -184,7 +182,6 @@ static void idle (void)
     }
 
     for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]); i++) {
-      int res;
       if (eventfd[i] == -1)            { continue; }
       if (!FD_ISSET(eventfd[i],&rfds)) { continue; }
       switch(read(eventfd[i],&ev[0],1)) {
@@ -247,57 +244,6 @@ static void idle (void)
 }
 
 
-
-int main(int ac, char **av, char **ep) 
-{
-  int i;
-  int optind = options_parse(ac,av,envp);
-  prog = malloc(ac-optind + 3 * sizeof(char *));
-  static struct sockaddr_un eventaddr;
-
-  if (!prog)
-    sysdie3(111,FATAL, "failed to malloc command line ",*prog);
-
-  prog[0] = "/bin/sh";
-  prog[1] = "-c";
-  for (i = 2; optind < ac; optind++) {
-    prog[i++] = av[optind];
-  }
-
-  upk_catch_signal(SIGCHLD, handler);
-  upk_catch_signal(SIGTERM, handler);
-  upk_catch_signal(SIGPIPE, handler);
-  upk_block_signal(SIGCHLD);
-
-  buddy_pid = getpid();
-
-  if (pipe(sigp) == -1)
-    sysdie3(111,FATAL, "failed to create pipe for ",*prog);
-
-  coe(sigp[0]); nonblock(sigp[0]);
-  coe(sigp[1]); nonblock(sigp[1]);
-
-  eventsock = socket(AF_UNIX, SOCK_STREAM, 0);
-  if (eventsock == -1) 
-    sysdie3(111,FATAL,"socket failed","");
-  eventaddr.sun_family = AF_UNIX;
-
-  sprintf(buddy_sock,"./.buddy.%d",buddy_pid);
-  strcpy(eventaddr.sun_path,buddy_sock);
-  unlink(eventaddr.sun_path);
-  
-  if (bind(eventsock,(struct sockaddr *)&eventaddr, SUN_LEN(&eventaddr))==-1)
-    sysdie3(111,FATAL,"binding to socket - ",eventaddr.sun_path);
-  
-  if (listen(eventsock,2) == -1)
-    sysdie3(111,FATAL,"listening on socket - ",eventaddr.sun_path);
-
-  nonblock(eventsock);
-
-  start_app();
-  idle();
-}
-
 static int is_logbuf(const char *b) {
   do {
     if (*b != '.') return 0;
@@ -314,9 +260,10 @@ void usage(void)
 }
 
 
+
 int options_parse(int argc, char *argv[], char *envp[])
 {
-  int i,c;
+  int c;
   int option_index;
   int doing_log = 0;
   char *logbuf =  ".......................................";
@@ -367,3 +314,56 @@ int options_parse(int argc, char *argv[], char *envp[])
   }
   return optind;
 }
+
+
+int main(int ac, char **av, char **ep) 
+{
+  int i;
+  int optind = options_parse(ac,av,envp);
+  prog = malloc(ac-optind + 3 * sizeof(char *));
+  static struct sockaddr_un eventaddr;
+
+  if (!prog)
+    sysdie3(111,FATAL, "failed to malloc command line ",*prog);
+
+  prog[0] = "/bin/sh";
+  prog[1] = "-c";
+  for (i = 2; optind < ac; optind++) {
+    prog[i++] = av[optind];
+  }
+
+  upk_catch_signal(SIGCHLD, handler);
+  upk_catch_signal(SIGTERM, handler);
+  upk_catch_signal(SIGPIPE, handler);
+  upk_block_signal(SIGCHLD);
+
+  buddy_pid = getpid();
+
+  if (pipe(sigp) == -1)
+    sysdie3(111,FATAL, "failed to create pipe for ",*prog);
+
+  coe(sigp[0]); nonblock(sigp[0]);
+  coe(sigp[1]); nonblock(sigp[1]);
+
+  eventsock = socket(AF_UNIX, SOCK_STREAM, 0);
+  if (eventsock == -1) 
+    sysdie3(111,FATAL,"socket failed","");
+  eventaddr.sun_family = AF_UNIX;
+
+  sprintf(buddy_sock,"./.buddy.%d",buddy_pid);
+  strcpy(eventaddr.sun_path,buddy_sock);
+  unlink(eventaddr.sun_path);
+  
+  if (bind(eventsock,(struct sockaddr *)&eventaddr, SUN_LEN(&eventaddr))==-1)
+    sysdie3(111,FATAL,"binding to socket - ",eventaddr.sun_path);
+  
+  if (listen(eventsock,2) == -1)
+    sysdie3(111,FATAL,"listening on socket - ",eventaddr.sun_path);
+
+  nonblock(eventsock);
+
+  start_app();
+  idle();
+  return 0;
+}
+

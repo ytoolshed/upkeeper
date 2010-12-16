@@ -1,3 +1,7 @@
+#ifndef UPK_DB_H
+#define UPK_DB_H
+
+
 /* Upkeeper constants */
 #define MAX_SERVICES 1024
 
@@ -21,13 +25,12 @@ int upk_db_close(
 );
 
 typedef enum { 
-  UPK_STATUS_VALUE_UNKNOWN = 0,    
-  UPK_STATUS_VALUE_START   = 1,
-  UPK_STATUS_VALUE_STOP    = 2,
-  UPK_STATUS_VALUE_EXITED  = 3,
-  UPK_STATUS_VALUE_INVALID = 4,
-  UPK_STATUS_VALUE_MAX     = 5
-
+  UPK_STATE_UNKNOWN = 0,    
+  UPK_STATE_START   = 1,
+  UPK_STATE_STOP    = 2,
+  UPK_STATE_EXITED  = 3,
+  UPK_STATE_INVALID = 4,
+  UPK_STATE_MAX     = 5
 } upk_state;
 
 typedef enum {
@@ -159,3 +162,6 @@ char *upk_db_created(
 int upk_db_changed( 
     sqlite3 *pdb
 );
+
+
+#endif

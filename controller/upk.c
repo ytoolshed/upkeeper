@@ -5,7 +5,8 @@
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
-#include "../store/upk_db.h"
+#include "store/upk_db.h"
+#include "controller/controller.h"
 
 int DEBUG           = 0;
 int OPT_ALL_UP,
@@ -14,132 +15,12 @@ int OPT_ALL_UP,
     OPT_INIT,
     OPT_DEFINE,
     OPT_UNDEFINE,
-    OPT_STATUS_FIXER,
     OPT_SET_DESIRED_STATE,
     OPT_SET_ACTUAL_STATE,
     OPT_SET_PID,
     OPT_VERBOSE,
     OPT_NONE
     = 0;
-
-int main( 
-    int   argc, 
-    char *argv[] 
-) {
-    char    *file = "../store/store.sqlite";
-    int      rc;
-    int      i;
-    struct upk_srvc srvc;
-    char   **cmdline;
-    char     cmdline_buf[1024];
-    int      nof_options;
-    int      pid;
-
-    nof_options = options_parse( argc, argv );
-
-    if( nof_options == 0 || OPT_HELP ) {
-	help();
-	exit( 0 );
-    }
-
-    if(OPT_VERBOSE) {
-	DEBUG = 1;
-    }
-
-    rc = upk_db_init( file, &srvc.pdb );
-
-    if(rc < 0) {
-	printf("upk_db_init failed. Exiting.\n");
-	exit(-1);
-    }
- 
-    if( OPT_INIT ) {
-
-        upk_db_clear( srvc.pdb );
-
-        for( i=0; i<=5; i++ ) {
-            srvc.service = sqlite3_mprintf("service-%d", i);
-            srvc.package = sqlite3_mprintf("package-%d", i);
-            upk_db_service_actual_status( &srvc, UPK_STATUS_VALUE_STOP);
-            upk_db_service_desired_status( &srvc, UPK_STATUS_VALUE_START);
-            sqlite3_free( srvc.service );
-            sqlite3_free( srvc.package );
-        }
-    }
-
-    if( OPT_ALL_UP || OPT_ALL_DOWN ) {
-
-      upk_state state = UPK_STATUS_VALUE_START;
-      if( OPT_ALL_DOWN ) 
-        state = UPK_STATUS_VALUE_STOP;
-
-        for( i=0; i<=5; i++ ) {
-          srvc.service = sqlite3_mprintf("service-%d", i);
-          srvc.package = sqlite3_mprintf("package-%d", i);
-
-          upk_db_service_actual_status( &srvc, state);
-
-            sqlite3_free( srvc.service );
-            sqlite3_free( srvc.package );
-        }
-    }
-
-    if( OPT_STATUS_FIXER ) {
-        upk_controller_status_fixer( srvc.pdb );
-    }
-
-    if( OPT_DEFINE ) {
-        if( argc < 5 ) {
-            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
-            exit(1);
-        }
-        srvc.package = argv[2];
-        srvc.service = argv[3];
-        cmdline = &argv[4];
-        cmdline_join( argc - 4, cmdline, cmdline_buf, sizeof( cmdline_buf ) );
-
-        if( DEBUG ) {
-            printf( "Adding cmdline: '%s'\n", cmdline_buf );
-        }
-        upk_db_service_cmdline( &srvc, cmdline_buf );
-    }
-
-    if( OPT_SET_PID ) {
-        if( argc < 5 ) {
-            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
-            exit(1);
-        }
-        srvc.package = argv[2];
-        srvc.service = argv[3];
-        int pid = atoi( argv[4] );
-	if( pid == 0 ) {
-	    pid = -1;
-	}
-        upk_db_service_pid( &srvc, pid );
-    }
-
-    if( OPT_SET_ACTUAL_STATE || OPT_SET_DESIRED_STATE ) {
-        if( argc < 5 ) {
-            printf("usage: %s --define pkg srvc state\n", argv[0]);
-            exit(1);
-        }
-        srvc.package = argv[2];
-        srvc.service = argv[3];
-	if( OPT_SET_ACTUAL_STATE ) {
-          upk_db_service_actual_status( &srvc, strcmp(argv[4],"stop") ? 
-              UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
-	} else {
-          upk_db_service_desired_status( &srvc, strcmp(argv[4],"stop") ? 
-              UPK_STATUS_VALUE_START : UPK_STATUS_VALUE_STOP );
-	}
-    }
-
-    upk_db_listener_send_all_signals( srvc.pdb );
-
-    sqlite3_close( srvc.pdb );
-
-    return(0);
-}
 
 /* 
  * Command line join
@@ -204,7 +85,6 @@ int options_parse(
         { "init",        0, &OPT_INIT, 1 },
         { "define",      0, &OPT_DEFINE, 1 },
         { "undefine",    0, &OPT_UNDEFINE, 1 },
-        { "status-fixer",0, &OPT_STATUS_FIXER, 1 },
         { "hup",         0, NULL, 1 },
         { "set-desired-state", 
                          0, &OPT_SET_DESIRED_STATE, 1 },
@@ -236,7 +116,7 @@ int options_parse(
 /*
  * Print Help
  */
-int help( ) {
+void help( ) {
     printf("usage: upk [options]\n\n");
 
     printf(" --help:     Print this help page\n");
@@ -249,4 +129,121 @@ int help( ) {
     printf(" --set-pid pkg srvc pid: Set pid of a service process\n");
     printf(" --verbose: Print debug messages\n");
     printf(" --status-fixer\n");
+
 }
+
+int main( 
+    int   argc, 
+    char *argv[] 
+) {
+    char    *file = "../store/store.sqlite";
+    int      rc;
+    int      i;
+    struct upk_srvc srvc;
+    char   **cmdline;
+    char     cmdline_buf[1024];
+    int      nof_options;
+
+    nof_options = options_parse( argc, argv );
+
+    if( nof_options == 0 || OPT_HELP ) {
+	help();
+	exit( 0 );
+    }
+
+    if(OPT_VERBOSE) {
+	DEBUG = 1;
+    }
+
+    rc = upk_db_init( file, &srvc.pdb );
+
+    if(rc < 0) {
+	printf("upk_db_init failed. Exiting.\n");
+	exit(-1);
+    }
+ 
+    if( OPT_INIT ) {
+
+        upk_db_clear( srvc.pdb );
+
+        for( i=0; i<=5; i++ ) {
+            srvc.service = sqlite3_mprintf("service-%d", i);
+            srvc.package = sqlite3_mprintf("package-%d", i);
+            upk_db_service_actual_status ( &srvc, UPK_STATE_STOP);
+            upk_db_service_desired_status( &srvc, UPK_STATE_START);
+            sqlite3_free( srvc.service );
+            sqlite3_free( srvc.package );
+        }
+    }
+
+    if( OPT_ALL_UP || OPT_ALL_DOWN ) {
+
+      upk_state state = UPK_STATE_START;
+      if( OPT_ALL_DOWN ) 
+        state = UPK_STATE_STOP;
+
+        for( i=0; i<=5; i++ ) {
+          srvc.service = sqlite3_mprintf("service-%d", i);
+          srvc.package = sqlite3_mprintf("package-%d", i);
+
+          upk_db_service_actual_status( &srvc, state);
+
+            sqlite3_free( srvc.service );
+            sqlite3_free( srvc.package );
+        }
+    }
+
+    if( OPT_DEFINE ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
+            exit(1);
+        }
+        srvc.package = argv[2];
+        srvc.service = argv[3];
+        cmdline = &argv[4];
+        cmdline_join( argc - 4, cmdline, cmdline_buf, sizeof( cmdline_buf ) );
+
+        if( DEBUG ) {
+            printf( "Adding cmdline: '%s'\n", cmdline_buf );
+        }
+        upk_db_service_cmdline( &srvc, cmdline_buf );
+    }
+
+    if( OPT_SET_PID ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc cmdline\n", argv[0]);
+            exit(1);
+        }
+        srvc.package = argv[2];
+        srvc.service = argv[3];
+        int pid = atoi( argv[4] );
+	if( pid == 0 ) {
+	    pid = -1;
+	}
+        upk_db_service_pid( &srvc, pid );
+    }
+
+    if( OPT_SET_ACTUAL_STATE || OPT_SET_DESIRED_STATE ) {
+        if( argc < 5 ) {
+            printf("usage: %s --define pkg srvc state\n", argv[0]);
+            exit(1);
+        }
+        srvc.package = argv[2];
+        srvc.service = argv[3];
+	if( OPT_SET_ACTUAL_STATE ) {
+          upk_db_service_actual_status( &srvc, strcmp(argv[4],"stop") ? 
+              UPK_STATE_START : UPK_STATE_STOP );
+	} else {
+          upk_db_service_desired_status( &srvc, strcmp(argv[4],"stop") ? 
+              UPK_STATE_START : UPK_STATE_STOP );
+	}
+    }
+
+    upk_db_listener_send_all_signals( srvc.pdb );
+
+    sqlite3_close( srvc.pdb );
+
+    return(0);
+}
+
+
