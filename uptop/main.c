@@ -120,6 +120,7 @@ void uptop_signal_handler(
  * Status iterator callback to reset all states to 'stop'.
  */
 void uptop_print_callback( 
+    void       *ignored,
     upk_srvc_t  srvc,                                    
     const char *status_desired,
     const char *status_actual
