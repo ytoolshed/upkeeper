@@ -106,6 +106,10 @@ static void start_app(void)
       if (-1 == dup(logp[1])) {
         sysdie3(111,FATAL"failed to dup stdout for ","",*prog);
       }
+      close(2);
+      if (-1 == dup(1)) {
+        sysdie3(111,FATAL"failed to dup stdout for ","",*prog);
+      }
       close(logp[1]);
     }
 
@@ -268,12 +272,13 @@ void usage(void)
 
 
 
+static const char *logbuf =  
+  "................................................................................";
 int options_parse(int argc, char *argv[], char *envp[])
 {
   int c;
   int option_index;
   int doing_log = 0;
-  char *logbuf =  ".......................................";
   static struct option long_options[] = {
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
@@ -302,24 +307,31 @@ int options_parse(int argc, char *argv[], char *envp[])
     if (c == -1) { break; }
   }
 
-  if (doing_log) {
-    argv[doing_log-1] = logbuf;
-    execve(argv[0],argv,envp);
-    sysdie3(111,FATAL,"unable to restart self ",argv[0]);
-  }
 
   if (optind == argc) { usage(); }
   if (is_logbuf(argv[optind])) {
     lbuf = argv[optind++];
   }
+  if (optind == argc) { usage(); }
   if (argv[optind][0] == '-' && argv[optind][1] == '-'  && argv[optind][2] == 0) {
     optind++;
   }
+  if (optind == argc) { usage(); }
+  if (doing_log) {
+    char *buf = alloca(strlen(argv[optind]+5+sizeof("buddy")));
+    sprintf(buf,"buddy(%s)",argv[optind]);
+    argv[doing_log-1] = (char *)logbuf;
+    argv[0] = buf;
+    execvp("buddy",argv);
+    sysdie3(111,FATAL,"unable to restart self ",argv[0]);
+  }
+
+
   return optind;
 }
 
 
-int main(int ac, char **av, char **ep) 
+int main(int ac, char **av)
 {
   int i;
   int optind = options_parse(ac,av,envp);
