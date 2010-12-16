@@ -6,7 +6,7 @@ $(BIN)	:= $(d)/buddy-controller $(d)/upk
 $(LIB)  := $(d)/controller.a
 
 CF_$(d) += -I$(d) -Istore
-LL_$(d) := store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlite3.a common/common.a
+LL_$(d) := common/common.a store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlite3.a 
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
