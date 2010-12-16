@@ -26,7 +26,6 @@ int upk_buddy_start_1(
   const char    *env[]
 ) {
   int   bpid;
-  char  c;
 
   if( DEBUG ) {
       printf("upk_buddy_start '%s' '%s' [%s]\n",
@@ -79,6 +78,18 @@ upk_buddy_stop( int pid )
   return 0;
 }
 
+
+int
+upk_service_buddy_stop( upk_srvc_t srvc )
+{
+  int bpid = upk_db_service_buddy_pid(srvc, 0);
+  if (bpid < 0) {
+    errno = EINVAL;    
+    return -1;
+  }
+  return upk_buddy_stop(bpid);
+
+}
 
 char buddymsg[] = "st";
 
