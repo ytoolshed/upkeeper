@@ -147,13 +147,11 @@ int upk_db_service_buddy_pid(
 );
 int upk_db_buddy_down(sqlite3 *pdb, int bpid);
 
-int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid);
+int upk_db_update_buddy_events(sqlite3 *pdb, 
+                               int *bpid,
+                               int *pid, 
+                               int *status);
 
-int upk_db_note_exit( 
-                     sqlite3    *pdb,
-                     int        status,
-                     int        bpid
-);
 
 char *upk_db_created( 
     sqlite3 *pdb

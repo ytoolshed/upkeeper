@@ -607,54 +607,83 @@ int upk_db_buddy_down(sqlite3 *pdb, int bpid) {
   return UPK_OK;
 }
 
-int upk_db_set_pid_for_buddy(sqlite3 *pdb, int pid, int bpid) {
-  char *sql;
+int upk_db_update_buddy_events(sqlite3 *pdb, 
+                               int *bpid,
+                               int *pid, 
+                               int *status) {
+
+  char up_sql[] =
+    "UPDATE procruns SET pid=?002 WHERE bpid = ?001 ;"
+    "UPDATE services SET state_actual='start' WHERE procrun_id in "
+    "(SELECT id from procruns where bpid=?001);";
+  char down_sql[] =
+    "UPDATE procruns SET pid=NULL WHERE bpid = ? ;"
+    "UPDATE services SET state_actual='exited' WHERE procrun_id in "
+    "(SELECT id from procruns where bpid=?001);"
+    "INSERT INTO exits (status,procrun_id)"
+    "SELECT ?002, id from procruns where bpid=?001;";
+
   int  rc;
   char *zErr;
+  const char *zCerr;
+  sqlite3_stmt *up_stmt, *down_stmt, *stmt;
+
+  if (SQLITE_OK != sqlite3_prepare( pdb, up_sql, sizeof(up_sql), 
+                                    &up_stmt, &zCerr )) {
+    printf("Starting transaction failed: %s\n", zCerr);
+    return(UPK_DB_ERROR);
+  }
   
-  sql = sqlite3_mprintf("BEGIN;"
-                        "UPDATE procruns SET pid=0  WHERE bpid = %d ;"
-                        "UPDATE procruns SET pid=%d WHERE bpid = %d ;"
-                        "UPDATE services SET state_actual='start' WHERE procrun_id in "
-                        "(SELECT id from procruns where bpid=%d); COMMIT;",
-                        bpid, pid, bpid, bpid);
-  rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
-  sqlite3_free( sql );
+  if (SQLITE_OK != sqlite3_prepare( pdb, up_sql, sizeof(down_sql), 
+                                    &down_stmt, &zCerr )) {
+    printf("Starting transaction failed: %s\n", zCerr);
+    return(UPK_DB_ERROR);
+  }
+
+  rc = sqlite3_exec( pdb, "BEGIN;", NULL, NULL, &zErr );
   if(rc != SQLITE_OK) {
-    fprintf(stderr,"set pid for buddy failed: %d\n", rc);
-    return( UPK_ERROR_INTERNAL );
+    printf("Starting transaction failed: %s\n", zErr);
+    return(UPK_DB_ERROR);
   }
-  if (!sqlite3_changes(pdb)) {
-    return UPK_ERROR_BUDDY_UNKNOWN;
+  do {
+    stmt = *pid ? up_stmt : down_stmt;
+
+
+    sqlite3_bind_int(stmt, 1, *bpid);
+    sqlite3_bind_int(stmt, 2, *pid ? *pid : *status);
+
+    rc = sqlite3_step( stmt );
+
+    if ( rc != SQLITE_DONE ) {
+      printf("updating pids (%d,%d) failed: %d\n",*pid,*bpid,rc);
+      sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
+      return 1;
+    }
+
+    sqlite3_reset( stmt );
+    sqlite3_clear_bindings( stmt );
+    pid++; status++;
+  } while(*(++bpid));
+
+  sqlite3_finalize( stmt );
+  rc = sqlite3_exec( pdb, "COMMIT;", NULL, NULL, &zErr );
+  
+  if(rc != SQLITE_OK) {
+    printf("Ending transaction failed: %s\n", zErr);
+    return(UPK_DB_ERROR);
   }
-  return pid;
+  
+
+  return UPK_OK;
 }
 
 int upk_db_note_exit(sqlite3 *pdb, int status, int bpid) {
-  char *sql;
-  int  rc;
-  char *zErr;
-  
-  sql = sqlite3_mprintf("BEGIN;" 
-                        "UPDATE procruns SET pid=0 WHERE bpid = %d ;"
-                        "UPDATE procruns SET pid=NULL WHERE bpid = %d ;"
-                        "UPDATE services SET state_actual='exited' WHERE procrun_id in "
-                        "(SELECT id from procruns where bpid=%d);"
-                        "INSERT INTO exits (status,procrun_id)"
-                        "SELECT %d, id from procruns where bpid=%d;"
-                        "COMMIT;",
-                        bpid,bpid,bpid,status,bpid);
-
-  rc = sqlite3_exec( pdb, sql, NULL, NULL, &zErr );
-  sqlite3_free( sql );
-  if(rc != SQLITE_OK) {
-    fprintf(stderr,"set pid for buddy failed: %s\n", zErr);
-    return( UPK_ERROR_INTERNAL );
-  }
-  if (!sqlite3_changes(pdb)) {
-    return UPK_ERROR_BUDDY_UNKNOWN;
-  }
-  return 0;
+  int bpids[2] = {0};
+  int pids[2]  = {0};
+  int stati[2] = {0};
+  stati[0] = status;
+  bpids[0] = bpid;
+  return upk_db_update_buddy_events(pdb,bpids,pids,stati);
 }
 
 

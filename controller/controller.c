@@ -63,18 +63,18 @@ void upk_controller_status_fixer_callback(
     struct     srvc_fd *sfd = find_service(s->sfd, srvc, s->service_count);
     int        buddyfd;
 
-    if (sfd == NULL) { /* we didn't start it! */
+    if (sfd == NULL) { /* we have no fd for this service */
       int bpid = upk_db_service_buddy_pid(srvc, 0);
       if (bpid) {
         if ((buddyfd = upk_buddy_connect(bpid)) == -1) {
-          if (errno == ENOENT) {
+          if (errno == ENOENT || errno == ECONNREFUSED) {
             printf("*** STALE buddy pid in db : %d\n",bpid);
             upk_db_buddy_down(s->pdb, bpid);
             upk_db_service_actual_status(srvc,UPK_STATE_STOP);
             status_actual = "stop";
           } 
         } else {
-          printf("*** LIVE buddy pid in db : %d\n",bpid);
+          printf("*** FOUND buddy pid in db : %d\n",bpid);
           sfd = make_service(s->sfd, srvc, s->service_count);
           sfd->bpid = bpid;
           sfd->fd   = buddyfd;
@@ -157,7 +157,20 @@ void upk_controller_status_fixer(
 }
 
 
+static int bpids[51];
+static int  pids[51];
+static int stats[51];
+static int  idx = 0;
 
+int upk_controller_flush_events(
+                                sqlite3 *pdb
+                                )
+{
+  idx = 0;
+  return upk_db_update_buddy_events(pdb, bpids,pids,stats);
+ 
+}
+                                
 int upk_controller_handle_buddy_status(
                                         sqlite3 *pdb,
                                         int  sock,
@@ -165,24 +178,26 @@ int upk_controller_handle_buddy_status(
                                         )
 {
   int bpid,pid,status;
+  int ret;
   memcpy(&bpid,   msg+1,sizeof(int));
   memcpy(&pid,    msg+1+sizeof(int),sizeof(int));
   memcpy(&status, msg+1+(sizeof(int)*2),sizeof(int));
-   switch (msg[0]) {
+  switch (msg[0]) {
   case 'u': /* message from buddy */
-    if (upk_db_set_pid_for_buddy(pdb,pid,bpid) == UPK_ERROR_BUDDY_UNKNOWN) {
-      if (-1 == write(sock,"t",1)) {
-        syswarn3(ERROR,"failed to write term to buddy process", "");
-      }
-      return 1;
+    bpids[idx] = bpid;
+    pids[idx] =   pid;
+    idx++;
+    if (idx == 50) {
+      return upk_controller_flush_events(pdb);
     }
     break;
   case 'd': /* message from buddy */
-    if (upk_db_note_exit(pdb,status,bpid) == UPK_ERROR_BUDDY_UNKNOWN) {
-      if (-1 == write(sock,"t",1)) {
-        syswarn3(ERROR,"failed to write term to buddy process", "");
-      }
-      return 1;
+    bpids[idx] = bpid;
+     pids[idx] = 0;
+    stats[idx] = status;
+    idx++;
+    if (idx == 50) {
+      return upk_controller_flush_events(pdb);
     }
     break;
   case 'e': /* message from buddy */
@@ -192,5 +207,5 @@ int upk_controller_handle_buddy_status(
     break;
   }
 
-   return 0;
+   return 1;
 }

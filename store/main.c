@@ -19,7 +19,7 @@ int main(
     const char    *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
 
-    printf("1..30\n");
+    printf("1..29\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
@@ -44,18 +44,25 @@ int main(
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
                  244, "get 244 back as pid" );
 
-    upk_db_set_pid_for_buddy(s.pdb, 111, 244);
-
+    {
+      int pids[2] = { 123, 0 };
+      int bpids[2] = { 244, 0 };
+      int status[2] = { -1, 0 };
+      upk_db_update_buddy_events(s.pdb, bpids,pids,status);
+    }
     upk_test_is( upk_db_service_pid( &s, 0 ),
-                 111, "get 111 back as pid" );
+                 123, "still get 111 back as pid" );
 
-    upk_test_is(upk_db_set_pid_for_buddy(s.pdb, 111, 254),
-                UPK_ERROR_BUDDY_UNKNOWN, 
-                "setpid for unknown buddy");
+    {
+      int pids[2] = { 123, 0 };
+      int bpids[2] = { 254, 0 };
+      int status[2] = { -1, 0 };
+      upk_db_update_buddy_events(s.pdb, bpids,pids,status);
+      
 
-    upk_test_is(upk_db_note_exit(s.pdb, 111, 254),
-                UPK_ERROR_BUDDY_UNKNOWN, 
-                "exit for unknown buddy");
+    }
+    upk_test_is( upk_db_service_pid( &s, 0 ),
+                 123, "still get 123 back as pid" );
 
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
                  244, "get 244 back as pid" );

@@ -15,10 +15,11 @@
 #include "common/sigblock.h"
 #include "buddy/upk_buddy.h"
 
-int DEBUG = 1;
+int DEBUG = 0;
 
 static int OPT_VERBOSE          = 0;
 static int term = 0;
+static int hup  = 0;
 static int sigp[2]            = {-1,-1};
 /* 
  * Parse command line options and set static global variables accordingly
@@ -52,10 +53,11 @@ int options_parse(
 #define LISTEN_PATH "./controller"
 
 
-static void term_handler(int sig)  
+static void handler(int sig)  
 { 
   switch (sig) {
   case SIGTERM: term = 1; break;
+  case SIGHUP:  hup  = 1; break;
   default: break;
   }
   sig = write(sigp[1]," ",1);
@@ -104,7 +106,8 @@ int main(
     coe(sigp[0]); nonblock(sigp[0]);
     coe(sigp[1]); nonblock(sigp[1]);
     
-    upk_catch_signal(SIGTERM, term_handler);
+    upk_catch_signal(SIGTERM, handler);
+    upk_catch_signal(SIGHUP,  handler);
     upk_controller_status_fixer( pdb, fds);
 
 
@@ -126,16 +129,20 @@ int main(
       period.tv_sec  = 5;
       period.tv_usec = 0;
 
-      select(maxfd+1, &rfds, NULL, NULL, &period);
+      if (select(maxfd+1, &rfds, NULL, NULL, &period) == -1) 
+        FD_ZERO(&rfds);
 
       while(read(sigp[0],&sig,1) > 0) 
         ;
 
       for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
         if ( !sfd->srvc.service ) continue;
-        if ( sfd->fd == -1) {
+        if ( sfd->fd == -1 ) {
+          if ( DEBUG ) {
+            fprintf(stderr, "connecting for %s/%s/%d\n",sfd->srvc.service,sfd->srvc.package,sfd->bpid);
+          }
           sfd->fd = upk_buddy_connect(sfd->bpid);
-          if (sfd->fd == -1)               continue;
+          if (sfd->fd == -1) continue;
           nonblock(sfd->fd);
           if (write(sfd->fd,"s",1) != 1) {
             close(sfd->fd); sfd->fd == -1;
@@ -148,6 +155,9 @@ int main(
                                                     sfd->fd,
                                                     mbuf)) {
               need_notify = 1;
+              if ( DEBUG ) {
+                fprintf(stderr, "need notify\n");
+              }
             }
           }
         }
@@ -159,6 +169,10 @@ int main(
       }
       if (term) {
         break;
+      }
+      if (hup) {
+        hup = 0;
+        upk_controller_status_fixer( pdb, fds);
       }
     }
     
