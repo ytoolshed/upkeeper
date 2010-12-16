@@ -58,10 +58,10 @@ CREATE TABLE listeners (
 );
 
 
-CREATE TRIGGER signal_controller UPDATE OF state_desired ON services
-BEGIN
-         SELECT notify_controller() ;
-END ;
+-- CREATE TRIGGER signal_controller UPDATE OF state_desired ON services
+-- BEGIN
+--          SELECT notify_controller() ;
+-- END ;
 
 -- CREATE TRIGGER signal_buddy UPDATE OF state_desired ON services
 -- WHEN   new.state_desired = 'stop'

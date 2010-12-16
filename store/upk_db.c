@@ -194,42 +194,42 @@ void get_pid(
   sqlite3_result_int( ctx, getpid() );
 }
 
-void notify_controller(
-    sqlite3_context *ctx, 
-    int              nargs, 
-    sqlite3_value  **values
-) {
-  char msg[1+3*sizeof(int)] = "c";
-  struct sockaddr_un ct;
-  int s;
-  char *message;
-  ct.sun_family = AF_UNIX;
-  strcpy(ct.sun_path,"./controller");
+/* void notify_controller( */
+/*     sqlite3_context *ctx,  */
+/*     int              nargs,  */
+/*     sqlite3_value  **values */
+/* ) { */
+/*   char msg[1+3*sizeof(int)] = "c"; */
+/*   struct sockaddr_un ct; */
+/*   int s; */
+/*   char *message; */
+/*   ct.sun_family = AF_UNIX; */
+/*   strcpy(ct.sun_path,"./controller"); */
 
-  s    = socket(AF_UNIX, SOCK_DGRAM, 0);
-  if (s == -1 ) {
-    message = sqlite3_mprintf(
-                              "socket() failed: %s", 
-                              strerror( errno ) );
-    sqlite3_result_error( ctx, message, strlen( message ) ); 
-    sqlite3_free(message);
-    return;
-  }
-  nonblock(s);
-  if (sendto(s,msg,sizeof(msg),0,
-             (struct sockaddr *)&ct, SUN_LEN(&ct)) == -1) {
-    close(s);
-    if (errno != ECONNREFUSED && errno != ENOENT) {
-      message = sqlite3_mprintf(
-                                "sendto() controller failed: %s", 
-                                strerror( errno ) );
-      sqlite3_result_error( ctx, message, strlen( message ) ); 
-      sqlite3_free(message);
-      return;
-    }
-  }
-  sqlite3_result_int( ctx, 0 );
-}
+/*   s    = socket(AF_UNIX, SOCK_DGRAM, 0); */
+/*   if (s == -1 ) { */
+/*     message = sqlite3_mprintf( */
+/*                               "socket() failed: %s",  */
+/*                               strerror( errno ) ); */
+/*     sqlite3_result_error( ctx, message, strlen( message ) );  */
+/*     sqlite3_free(message); */
+/*     return; */
+/*   } */
+/*   nonblock(s); */
+/*   if (sendto(s,msg,sizeof(msg),0, */
+/*              (struct sockaddr *)&ct, SUN_LEN(&ct)) == -1) { */
+/*     close(s); */
+/*     if (errno != ECONNREFUSED && errno != ENOENT) { */
+/*       message = sqlite3_mprintf( */
+/*                                 "sendto() controller failed: %s",  */
+/*                                 strerror( errno ) ); */
+/*       sqlite3_result_error( ctx, message, strlen( message ) );  */
+/*       sqlite3_free(message); */
+/*       return; */
+/*     } */
+/*   } */
+/*   sqlite3_result_int( ctx, 0 ); */
+/* } */
 
 static int db_init_functions_define( sqlite3 *pdb ) {
     int      rc;
@@ -244,10 +244,10 @@ static int db_init_functions_define( sqlite3 *pdb ) {
                                   0,
 			     SQLITE_UTF8, NULL,
 			     get_pid, NULL, NULL );
-    rc = sqlite3_create_function( pdb, "notify_controller", 
-                                  0,
-                                  SQLITE_UTF8, NULL,
-                                  notify_controller, NULL, NULL );
+    /* rc = sqlite3_create_function( pdb, "notify_controller",  */
+    /*                               0, */
+    /*                               SQLITE_UTF8, NULL, */
+    /*                               notify_controller, NULL, NULL ); */
     if( rc != 0 ) {
 	return( rc );
     }
