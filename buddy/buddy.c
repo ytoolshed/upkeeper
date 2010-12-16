@@ -96,6 +96,7 @@ static void start_app(void)
     upk_uncatch_signal(SIGCHLD);
     upk_uncatch_signal(SIGTERM);
     upk_unblock_signal(SIGCHLD);
+    upk_unblock_signal(SIGPIPE);
 
     if (lbuf) {
       close(1);
@@ -184,13 +185,16 @@ static void idle (void)
 
     for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]); i++) {
       int res;
-      if (eventfd[i] == -1) { continue; }
-
-      switch(read(eventfd[i],&ev,1)) {
+      if (eventfd[i] == -1)            { continue; }
+      if (!FD_ISSET(eventfd[i],&rfds)) { continue; }
+      switch(read(eventfd[i],&ev[0],1)) {
       case -1:
         if (errno == EINTR || errno == EAGAIN) 
           break;
-      case  0:
+        /* fallthrough */
+      case 0:
+
+        /* fallthrough */
         close(eventfd[i]);
         eventfd[i] = -1;
         break;
@@ -262,7 +266,9 @@ int main(int ac, char **av, char **ep)
 
   upk_catch_signal(SIGCHLD, handler);
   upk_catch_signal(SIGTERM, handler);
+  upk_catch_signal(SIGPIPE, handler);
   upk_block_signal(SIGCHLD);
+
   buddy_pid = getpid();
 
   if (pipe(sigp) == -1)
