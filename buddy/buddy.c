@@ -24,7 +24,7 @@
 static int logp[2]            = {-1,-1};
 static int sigp[2]            = {-1,-1};
 static int eventsock          = -1;
-static int eventfd[2]         = {-1,-1};
+static struct efd { int fd; int status; } eventfd[2] = { {-1,0}, {-1,0} };
 static char * lbuf  = NULL;
 static int quiet = 0;
 static int done  = 0;
@@ -56,11 +56,14 @@ static void handler(int sig)
 static void send_message(int fd, const char *msg, int size) 
 {
   
-  int *efd = eventfd; int *end = eventfd + sizeof(eventfd) / sizeof(eventfd[0]);
-  if (fd != -1) { efd = &fd; end = &fd; }
+  struct efd fds;
+  struct efd *efd = eventfd;
+  struct efd *end = eventfd + sizeof(eventfd) / sizeof(eventfd[0]);
+  if (fd != -1) {  efd = &fds; end = &fds; fds.fd = fd; fds.status = 1; }
   do {
-    if (*efd != -1 && send(*efd, msg, size, 0) == -1) {
+    if (efd->status && send(efd->fd, msg, size, 0) == -1) {
       syswarn3(ERROR,"write to controller failed","");
+      efd->status = 0; 
     }
   } while(++efd < end);
 }
@@ -110,18 +113,15 @@ static void start_app(void)
     if (errno == ENOENT) {
       execvp(*prog, prog);
     }
-    sysdie3(111,FATAL"exec (",*prog,") error");
+    sysdie3(111,FATAL"exec (",*(prog+2),") error");
   }
 
   if (lbuf) {
     close(logp[1]);
 
     proctitle.display = lbuf;
-    proctitle.dlen    = lbuf ? strlen(lbuf) : 0;
-    proctitle.dpos    = lbuf;
     proctitle.ifd     = logp[0];
     proctitle.ofd     = quiet ? -1 : 1;
-    proctitle.buf[1]  = 0;
     rpt_init(&proctitle);
   }
   send_status(-1,'u');
@@ -146,9 +146,9 @@ static void idle (void)
     FD_SET(eventsock, &rfds);
     if (eventsock > maxfd)   { maxfd = eventsock; }
     for (i = 0; i < sizeof(eventfd)/sizeof(int);  i++) {
-      if (eventfd[i] > 0)  { 
-        FD_SET(eventfd[i], &rfds);
-        if (eventfd[i] > maxfd) { maxfd = eventfd[i]; }
+      if (eventfd[i].fd > 0)  { 
+        FD_SET(eventfd[i].fd, &rfds);
+        if (eventfd[i].fd > maxfd) { maxfd = eventfd[i].fd; }
       }
     }
 
@@ -170,11 +170,12 @@ static void idle (void)
       ret = rpt_status_update(&proctitle);
 
     if (FD_ISSET(eventsock, &rfds)) {
-      int *fd = eventfd;
+      struct efd *fd = eventfd;
       do {
-        if (*fd == -1) { 
-          *fd = accept(eventsock,NULL,0); 
-          nonblock(*fd); 
+        if (fd->fd == -1) { 
+          fd->fd = accept(eventsock,NULL,0); 
+          nonblock(fd->fd); 
+          FD_SET(fd->fd,&rfds);
           break; 
         }
         fd++;
@@ -182,9 +183,9 @@ static void idle (void)
     }
 
     for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]); i++) {
-      if (eventfd[i] == -1)            { continue; }
-      if (!FD_ISSET(eventfd[i],&rfds)) { continue; }
-      switch(read(eventfd[i],&ev[0],1)) {
+      if (eventfd[i].fd == -1)            { continue; }
+      if (!FD_ISSET(eventfd[i].fd,&rfds)) { continue; }
+      switch(read(eventfd[i].fd,&ev[0],1)) {
       case -1:
         if (errno == EINTR || errno == EAGAIN) 
           break;
@@ -192,13 +193,15 @@ static void idle (void)
       case 0:
 
         /* fallthrough */
-        close(eventfd[i]);
-        eventfd[i] = -1;
+        close(eventfd[i].fd);
+        eventfd[i].fd = -1;
+        eventfd[i].status = 0;
         break;
       default:
         switch(ev[0]) {
         case 's':
-          send_status(eventfd[i], pid == -1 ? 'd' : 'u');
+          send_status(eventfd[i].fd, pid == -1 ? 'd' : 'u');
+          eventfd[i].status = 1;
           break;
         case 't':
           term = 1;
@@ -289,10 +292,6 @@ int options_parse(int argc, char *argv[], char *envp[])
     case 'q':
       quiet++;
       break;
-    case 'v':
-      quiet--;
-      DEBUG = 1;
-      break;
     default:
       break;
     }
@@ -306,11 +305,11 @@ int options_parse(int argc, char *argv[], char *envp[])
   }
 
   if (optind == argc) { usage(); }
-  if (argv[optind][0] == '-' && argv[optind][1] == '-'  && argv[optind][2] == 0) {
-    optind++;
-  }
   if (is_logbuf(argv[optind])) {
     lbuf = argv[optind++];
+  }
+  if (argv[optind][0] == '-' && argv[optind][1] == '-'  && argv[optind][2] == 0) {
+    optind++;
   }
   return optind;
 }
@@ -360,7 +359,7 @@ int main(int ac, char **av, char **ep)
   if (listen(eventsock,2) == -1)
     sysdie3(111,FATAL,"listening on socket - ",eventaddr.sun_path);
 
-  nonblock(eventsock);
+  nonblock(eventsock); coe(eventsock);
 
   start_app();
   idle();
