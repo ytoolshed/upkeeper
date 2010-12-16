@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <sqlite3.h>
@@ -53,8 +54,6 @@ int upk_buddy_start_1(
 
     _exit(112);
   }
-  
-  upk_db_service_buddy_pid(srvc, bpid);
   return bpid;
 }
 
@@ -72,12 +71,9 @@ int upk_buddy_start(
  * the upkeeper runtable information.
  */
 int
-upk_buddy_stop( upk_srvc_t srvc )
+upk_buddy_stop( int pid )
 {
-  if (upk_service_buddy_send_message(srvc, BUDDY_EXIT) == -1) {
-    if (errno != EINVAL) 
-      return 0;
-
+  if (upk_buddy_send_message(pid, BUDDY_EXIT) == -1) {
     return 1;
   }
   return 0;
@@ -96,17 +92,28 @@ int upk_service_buddy_send_message (upk_srvc_t srvc, upk_buddy_message m)
   return upk_buddy_send_message(bpid,m);
 }
 
+int upk_service_buddy_connect (upk_srvc_t srvc)
+{
+  int bpid = upk_db_service_buddy_pid(srvc, 0);
+  if (bpid < 0) {
+    errno = EINVAL;    
+    return -1;
+  }
+  return upk_buddy_connect(bpid);
+
+
+}
+
 int upk_buddy_connect (int bpid)
 {
   int s    = socket(AF_UNIX, SOCK_STREAM, 0);
   struct sockaddr_un baddr;
-  
-  baddr.sun_family = AF_UNIX;
-  sprintf(baddr.sun_path,"./.buddy.%d",bpid);
 
   if (s == -1) {
     return -1;
   }
+  baddr.sun_family = AF_UNIX;
+  sprintf(baddr.sun_path,"./.buddy.%d",bpid);
 
   if (connect(s,(struct sockaddr *)&baddr, SUN_LEN(&baddr)) == -1) {
     close(s);
