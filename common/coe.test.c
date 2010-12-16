@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <unistd.h>
-#include "coe.h"
 #include <errno.h>
-
+#include <sys/types.h>
+#include <sys/wait.h>
+#include "coe.h"
+#include "nonblock.h"
+#include "test.h"
 int main(int ac, char **argv) {
   char *args[3] = { "dooo", "lalala", 0 };
   int pfd[2];

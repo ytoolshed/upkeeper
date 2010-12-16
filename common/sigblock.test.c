@@ -1,6 +1,9 @@
+#include <sys/types.h>
+#include <unistd.h>
 #include <signal.h>
 #include <stdio.h>
 #include "sigblock.h"
+#include "test.h"
 /* This guy should be fun.
  * set up some signal handlers, send some signals to ourselves!
  */

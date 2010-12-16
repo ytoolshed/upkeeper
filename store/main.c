@@ -5,6 +5,7 @@
 #include <time.h>
 #include <string.h>
 #include "upk_db.h"
+#include "common/test.h"
 
 int DEBUG = 0;
 
@@ -29,7 +30,7 @@ int main(
     upk_db_service_cmdline( &s, "cmdline" );
         /* getter */
     upk_test_eq( upk_db_service_cmdline( &s, NULL ),
-                 "cmdline" );
+                 "cmdline", "roundtrip of upk_db_service_cmdline" );
 
         /* setter */
     upk_db_service_pid( &s, 123 );
@@ -79,34 +80,34 @@ int main(
       
       s.service = sqlite3_mprintf("service-%d", i);
       s.package = sqlite3_mprintf("package-%d", i);
-      cp = upk_db_service_actual_status( &s ,  UPK_STATUS_VALUE_STOP);
-      upk_test_eq( cp, "stop" );
-      cp = upk_db_service_desired_status( &s , UPK_STATUS_VALUE_START);
-      upk_test_eq( cp, "start" );
+      cp = upk_db_service_actual_status( &s ,  UPK_STATE_STOP);
+      upk_test_eq( cp, "stop", "setting stop returns stop" );
+      cp = upk_db_service_desired_status( &s , UPK_STATE_START);
+      upk_test_eq( cp, "start", "setting start returns start" );
       sqlite3_free( s.service );
       sqlite3_free( s.package );
     }
     
     s.service = "service-10";
     s.package = "package-10";
-    upk_db_service_actual_status( &s , UPK_STATUS_VALUE_STOP);
+    upk_db_service_actual_status( &s , UPK_STATE_STOP);
 
     s.service = "service-1"; s.package = "package-1";
-    cp = upk_db_service_desired_status( &s, 0 );    upk_test_eq( cp, "start" );
+    cp = upk_db_service_desired_status( &s, 0 );    upk_test_eq( cp, "start", "setting start for desired roundtrip" );
     s.service = "service-2"; s.package = "package-2";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop", "setting stop for actual roundtrip" );
     s.service = "service-5"; s.package = "package-5";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop", "got stop from earlier" );
     s.service = "service-2"; s.package = "package-1";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "package-1 service-2 still NULL" );
     s.service = "service-2"; s.package = "package-0";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "package-0 service-2 still NULL" );
     s.service = "service-9"; s.package = "package-1";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "p-1, service-9 still null" );
     s.service = "service-10"; s.package = "package-10";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop" );
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop", "10,10 is stop" );
     s.service = "service-9"; s.package = "package-1";
-    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL);
+    cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "9,1 is null");
     upk_db_status_visitor( s.pdb, upk_db_status_visitor_launchcallback, file );
 
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */

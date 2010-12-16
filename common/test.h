@@ -10,7 +10,8 @@ int upk_test_is(
 
 int upk_test_eq(
     const char *is,
-    const char *should
+    const char *should,
+    const char *msg
 );
 int upk_test_isnt(
     int is,

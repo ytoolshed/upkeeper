@@ -1,29 +1,80 @@
-
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/un.h>
+#include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <getopt.h>
-#include "../store/upk_db.h"
-#include "buddy/upk_buddy.h"
 #include <unistd.h>
+#include <errno.h>
 #include "controller.h"
-
+#include "common/coe.h"
+#include "common/err.h"
+#include "store/upk_db.h"
+#include "buddy/upk_buddy.h"
 extern int DEBUG;
+
+struct status_fixer_state {
+  sqlite3 *pdb;
+  struct srvc_fd *sfd;
+  int    service_count;
+};
+
+struct srvc_fd *find_service(struct srvc_fd *sfd, upk_srvc_t svc, int svcount) {
+  struct srvc_fd *limit = sfd + svcount;
+  do {
+    if (!strcmp(svc->service,sfd->svc.service) &&
+        !strcmp(svc->package,sfd->svc.package)) {
+      return sfd;
+    } 
+  } while (++sfd < limit);
+  return NULL;
+}
+
+struct srvc_fd *make_service(struct srvc_fd *sfd, upk_srvc_t svc, int svcount) {
+  struct srvc_fd *limit = sfd + svcount;
+  do {
+    if (sfd->svc.service == NULL) {
+      break;
+    }
+  } while (++sfd < limit);
+  if (sfd == limit) return NULL;
+  sfd->svc.service = strdup(svc->service);
+  sfd->svc.package = strdup(svc->package);
+  return sfd;
+}
 
 /* 
  * Bring a service inline with the desired status
  */
 void upk_controller_status_fixer_callback( 
+    void *context,                                          
     upk_srvc_t  srvc,                                    
     char    *status_desired,
-    char    *status_actual,
-    const char *controller
+    char    *status_actual
 ) {
+    struct status_fixer_state *s = context;
     const char *cmdline;
     char       *cmdline_alloc;
+    struct     srvc_fd *sfd = find_service(s->sfd, srvc, s->service_count);
+
+    if (sfd == NULL) {
+      int bpid = upk_db_service_buddy_pid(srvc, 0);
+      if (upk_service_buddy_connect(srvc) == -1) {
+        if (errno == ENOENT) {
+          printf("*** STALE buddy pid in db : %d\n",bpid);
+          upk_db_buddy_down(s->pdb, bpid);
+          upk_db_service_actual_status(srvc,UPK_STATE_STOP);
+          status_actual = "stop";
+        }
+      } else {
+        sfd = make_service(s->sfd, srvc, s->service_count);
+      }
+    }
 
     if( strcmp( status_desired, status_actual ) == 0 ) {
-	return; /* We're good */
+      return ;
     }
 
     cmdline = upk_db_service_cmdline( srvc, NULL );
@@ -40,19 +91,26 @@ void upk_controller_status_fixer_callback(
          next sql call, allocate memory */
     cmdline_alloc = strdup( cmdline );
 
-    if( strcmp( status_desired, upk_states[ UPK_STATUS_VALUE_START ] ) == 0 ) {
+    if( strcmp( status_desired, upk_states[ UPK_STATE_START ] ) == 0 ) {
+      
 	/* service needs to be started */
         if( 1 ) {
-	    printf("** STARTING %s/%s/%s/%s\n", srvc->package, srvc->service,
-                   cmdline_alloc, controller );
+	    printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
+                   cmdline_alloc );
         }
-        upk_buddy_start( srvc, cmdline_alloc, NULL, controller );
+        if (upk_db_service_buddy_pid(srvc,0)) {
+          if (!upk_service_buddy_send_message(srvc, BUDDY_STATUS)) {
+            printf("skipping START as buddy exists\n");
+            return;
+          }
+        }
+        upk_buddy_start( srvc, cmdline_alloc, NULL );
     } else {
         if( 1 ) {
 	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
                                              cmdline_alloc );
         }
-        upk_buddy_stop( srvc );
+        upk_service_buddy_stop( srvc );
     }
 
     free( cmdline_alloc );
@@ -64,11 +122,47 @@ void upk_controller_status_fixer_callback(
  */
 void upk_controller_status_fixer( 
                                  sqlite3 *pdb,
-                                 const char *db
+                                 struct srvc_fd     *fd
 ) {
-  upk_db_status_visitor( pdb, upk_controller_status_fixer_callback, (void *)db);
+  struct status_fixer_state s = { pdb, fd, MAX_SERVICES };
+  upk_db_status_visitor( pdb, upk_controller_status_fixer_callback, (void *)&s);
 }
 
 
 
+int upk_controller_handle_buddy_status(
+                                        sqlite3 *pdb,
+                                        int  sock,
+                                        char *msg
+                                        )
+{
+  int bpid,pid,status;
+  memcpy(&bpid,   msg+1,sizeof(int));
+  memcpy(&pid,    msg+1+sizeof(int),sizeof(int));
+  memcpy(&status, msg+1+(sizeof(int)*2),sizeof(int));
+   switch (msg[0]) {
+  case 'u': /* message from buddy */
+    if (upk_db_set_pid_for_buddy(pdb,pid,bpid) == UPK_ERROR_BUDDY_UNKNOWN) {
+      if (-1 == write(sock,"t",1)) {
+        syswarn3(ERROR,"failed to write term to buddy process", "");
+      }
+      return 1;
+    }
+    break;
+  case 'd': /* message from buddy */
+    if (upk_db_note_exit(pdb,status,bpid) == UPK_ERROR_BUDDY_UNKNOWN) {
+      if (-1 == write(sock,"t",1)) {
+        syswarn3(ERROR,"failed to write term to buddy process", "");
+      }
+      return 1;
+    }
+    break;
+  case 'e': /* message from buddy */
+    upk_db_buddy_down(pdb, bpid);
+    break;
+  default:
+    break;
+  }
 
+   return 0;
+}

@@ -34,7 +34,7 @@ int upk_test_isnt(
       printf("ok %d %s\n", ++TESTS,msg);
     } else {
       printf("not ok %d %s\n", ++TESTS,msg);
-        printf(" shouldnt be '%d' but is\n", shouldnt, is);
+        printf(" shouldnt be '%d' but is\n", shouldnt);
     }
 
     return( 0 );
@@ -42,25 +42,26 @@ int upk_test_isnt(
 
 int upk_test_eq(
     const char *is,
-    const char *should
+    const char *should,
+    const char *msg
 ) {
 
     if(is == should) {
-        printf("ok %d\n", ++TESTS);
+      printf("ok %d %s\n", ++TESTS, msg);
         return( 1 );
     }
 
     if( is == NULL || should == NULL) {
-        printf("not ok %d\n", ++TESTS);
+      printf("not ok %d %s\n", ++TESTS, msg);
         return( 0 );
     }
 
     if( strcmp( is, should ) == 0 ) {
-        printf("ok %d\n", ++TESTS);
+      printf("ok %d %s\n", ++TESTS, msg);
         return( 1 );
     }
 
-    printf("not ok %d\n", ++TESTS);
+    printf("not ok %d %s\n", ++TESTS, msg);
     printf(" should be '%s' but is '%s'\n", should, is);
     return( 0 );
 }

@@ -20,17 +20,17 @@ int main (void)
   }
   rpt.ifd = pipeto[0];
   rpt.ofd = pipefrom[1];
-  printf("1..5\n");
+  printf("1..7\n");
   rpt_init(&rpt);
   upk_test_is(rpt.dlen, 23, "right length for display");
   rpt_write_status(&rpt,"abcdefghijklmnop");
-  upk_test_eq(display,".......abcdefghijklmnop");
-  write(pipeto[1],"a",1);
+  upk_test_eq(display,".......abcdefghijklmnop", "status reflected in diplay buffer");
+  upk_test_is(write(pipeto[1],"a",1),1,"wrote 1");
   rpt_status_update(&rpt);
-  upk_test_eq(display,"......abcdefghijklmnopa");
-  read(pipefrom[0],buf,1);
+  upk_test_eq(display,"......abcdefghijklmnopa", "status reflected after 1 character");
+  upk_test_is(read(pipefrom[0],buf,1),1,"read 1");
   upk_test_is(buf[0],'a',"passthrough works");
   rpt_write_status(&rpt,"abcdefghijklmnop");
-  upk_test_eq(display,"...nopaabcdefghijklmnop");
+  upk_test_eq(display,"...nopaabcdefghijklmnop", "finally, 3 spots reserved");
   return 0;
 }

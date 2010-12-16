@@ -1,14 +1,18 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <sqlite3.h>
+#include <unistd.h>
 #include <fcntl.h>
 #include <time.h>
 #include <string.h>
-#include "store/upk_db.h"
-#include "upk_buddy.h"
 #include <errno.h>
 #include <sys/socket.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/un.h>
+#include "store/upk_db.h"
+#include "common/test.h"
+#include "upk_buddy.h"
+
 int DEBUG = 0;
 
 int main( 
@@ -17,17 +21,14 @@ int main(
 ) {
     char    *file = "./store.sqlite";
     int      rc;
-    int      i;
     int      pid;
     int      stat_loc;
     int      sock;
-    char    *event;
-    char    *status;
     const char    *cp;
     const char    *command = "../do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
     char msg[128];
-    printf("1..19\n");
+    printf("1..20\n");
 
     rc = upk_db_init( file, &s.pdb );
 
@@ -36,12 +37,12 @@ int main(
 	exit(-1);
     }
 
-    cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_STOP );
+    cp = upk_db_service_actual_status(  &s, UPK_STATE_STOP );
     upk_test_eq( cp, "stop", "service set to stop" );
-    cp = upk_db_service_actual_status(  &s, UPK_STATUS_VALUE_START );
+    cp = upk_db_service_actual_status(  &s, UPK_STATE_START );
     upk_test_eq( cp, "start", "service set to start" );
     upk_db_service_cmdline(&s, command);
-    cp = upk_db_service_desired_status(  &s, UPK_STATUS_VALUE_START );
+    cp = upk_db_service_desired_status(  &s, UPK_STATE_START );
     upk_test_eq( cp, "start", "desired status set to start" );
     pid = upk_buddy_start( &s, command, NULL);
     upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
@@ -75,7 +76,7 @@ int main(
     while ((sock = upk_buddy_connect(pid)) == -1) {
       sleep(1);
     }
-    write(sock,"s",1);
+    upk_test_is(write(sock,"s",1),1,"wrote 1 for status");
 
     memset(msg,0,sizeof(msg));
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
