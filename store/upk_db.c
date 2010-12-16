@@ -17,8 +17,6 @@
 #include "upk_db.h"
 #include "common/nonblock.h"
 
-#define MAX_SERVICES 1024
-
 const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
 
 char       *upk_db_create_time = NULL;

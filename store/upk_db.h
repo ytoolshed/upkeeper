@@ -1,4 +1,7 @@
 /* Upkeeper constants */
+#define MAX_SERVICES 1024
+
+
 
 #define UPK_OK                     0
 #define UPK_ERROR_SERVICE_UNKNOWN -1
