@@ -133,13 +133,14 @@ static void idle (void)
   char sig, ev[2] = { 0 };
   int status, i, ret, wpid;
 
-  upk_unblock_signal(SIGCHLD);
  
   for (;;) {
     struct timeval period;
     int maxfd = sigp[0];
     fd_set rfds;
 
+    upk_unblock_signal(SIGTERM);    
+    upk_unblock_signal(SIGCHLD);
 
     FD_ZERO(&rfds);
     FD_SET(sigp[0], &rfds);
@@ -160,7 +161,11 @@ static void idle (void)
 
     period.tv_sec  = 60;
     period.tv_usec = 0;
-    select(maxfd+1, &rfds, NULL, NULL, &period);
+    if (-1 == select(maxfd+1, &rfds, NULL, NULL, &period))
+	FD_ZERO(&rfds);
+    
+    upk_block_signal(SIGTERM);
+    upk_block_signal(SIGCHLD);
 
     while(read(sigp[0],&sig,1) > 0) 
       ;
@@ -173,8 +178,8 @@ static void idle (void)
       struct efd *fd = eventfd;
       do {
         if (fd->fd == -1) { 
-          if (fd->fd = accept(eventsock,NULL,0) == -1) {
-            syswarn3("accept on selected socket failed","");
+          if ((fd->fd = accept(eventsock,NULL,0)) == -1) {
+            syswarn3(ERROR,"accept on selected socket failed","");
           } else {
             nonblock(fd->fd); 
             FD_SET(fd->fd,&rfds);
@@ -218,8 +223,6 @@ static void idle (void)
       }
     }
 
-    upk_block_signal(SIGCHLD);
-    upk_block_signal(SIGTERM);
     wpid = waitpid(-1,&status,WNOHANG);
     
     if (wpid == pid) {
@@ -232,8 +235,6 @@ static void idle (void)
       sleep(1);
     } 
 
-    upk_unblock_signal(SIGCHLD);
-    upk_unblock_signal(SIGTERM);    
     if (term) {
       unlink(buddy_sock);
       if (term == 1) {
