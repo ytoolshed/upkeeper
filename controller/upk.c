@@ -186,7 +186,7 @@ int main(
           srvc.service = sqlite3_mprintf("service-%d", i);
           srvc.package = sqlite3_mprintf("package-%d", i);
 
-          upk_db_service_actual_status( &srvc, state);
+          upk_db_service_desired_status( &srvc, state);
 
             sqlite3_free( srvc.service );
             sqlite3_free( srvc.package );
