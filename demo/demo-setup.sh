@@ -1,5 +1,5 @@
 cd ../demo
-ln -f ../buddy/buddy .
+ln -sf ../buddy/buddy .
 cd ../store
 rm -f store.sqlite
 ./schema-setup.sh
