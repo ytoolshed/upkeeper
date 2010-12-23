@@ -27,6 +27,7 @@ int main(
     const char    *cp;
     const char    *command = "../do-sleep";
     struct upk_srvc s = {NULL, "package-1", "service-1" };
+    int limit = 5;
     char msg[128];
     printf("1..22\n");
 
@@ -50,9 +51,16 @@ int main(
       printf( "upk_buddy_start failed (%d), %s\n", pid, strerror(errno) );
       exit( -1 );
     }
+
     while ((sock = upk_buddy_connect(pid)) == -1) {
+      limit--;
       sleep(1);
+      if (limit==0) {
+        upk_test_is(0,1,"can't find buddy for talker");
+        break;
+      }
     }
+
     upk_test_is(write(sock,"s",1),1,"Wrote status request");
     upk_test_is(read(sock,msg,1+sizeof(int)*3),1+sizeof(int)*3,"read expected amount");
     upk_test_is(msg[0],'u',"got an up message");
@@ -76,8 +84,14 @@ int main(
 
     upk_test_isnt(pid,-1, "upk_buddy_start returned positive id");
 
+    limit = 5;
     while ((sock = upk_buddy_connect(pid)) == -1) {
+      limit--;
       sleep(1);
+      if (limit==0) {
+        upk_test_is(0,1,"can't find buddy for talker");
+        break;
+      }
     }
 
     upk_test_is(write(sock,"s",1),1,"wrote 1 for status");
