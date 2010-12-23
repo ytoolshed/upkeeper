@@ -148,7 +148,7 @@ static void idle (void)
     FD_SET(sigp[0], &rfds);
     FD_SET(eventsock, &rfds);
     if (eventsock > maxfd)   { maxfd = eventsock; }
-    for (i = 0; i < sizeof(eventfd)/sizeof(int);  i++) {
+    for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]);  i++) {
       if (eventfd[i].fd > 0)  { 
         FD_SET(eventfd[i].fd, &rfds);
         if (eventfd[i].fd > maxfd) { maxfd = eventfd[i].fd; }
