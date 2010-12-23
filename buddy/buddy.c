@@ -1,17 +1,15 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <stdlib.h>
-#include <stdio.h>
 #include <string.h>
-#include <sqlite3.h>
 #include <getopt.h>
 #include <errno.h>
 #include <signal.h>
+#include <alloca.h>
 #include <stdio.h>
-#include <unistd.h>
 #include <sys/wait.h>
-#include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/select.h>
 #include <sys/un.h>
 #include "common/rptqueue.h"
 #include "common/sigblock.h"
@@ -150,7 +148,7 @@ static void idle (void)
     FD_SET(sigp[0], &rfds);
     FD_SET(eventsock, &rfds);
     if (eventsock > maxfd)   { maxfd = eventsock; }
-    for (i = 0; i < sizeof(eventfd)/sizeof(int);  i++) {
+    for (i = 0; i < sizeof(eventfd)/sizeof(eventfd[0]);  i++) {
       if (eventfd[i].fd > 0)  { 
         FD_SET(eventfd[i].fd, &rfds);
         if (eventfd[i].fd > maxfd) { maxfd = eventfd[i].fd; }
