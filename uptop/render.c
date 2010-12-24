@@ -19,7 +19,7 @@ struct table_row {
 
 struct table_item *table_item_new( void );
 
-int table_item_free(
+void table_item_free(
     struct table_item *item
 );
 
@@ -42,14 +42,26 @@ struct table_item *table_item_new( void ) {
 /*
  * Free a table item
  */
-int table_item_free(
+void table_item_free(
     struct table_item *item
 ) {
-    free( item->content );
-    free( item->format );
+    if( item == NULL )
+        return;
+
+    if( item->content != NULL )
+        free( item->content );
+
+    if( item->format != NULL )
+        free( item->format );
+
     free( item );
+
+    return;
 }
 
 main() {
-    printf("hello\n");
+    struct table_item *item;
+
+    item = table_item_new();
+    table_item_free( item );
 }
