@@ -316,7 +316,7 @@ int options_parse(int argc, char *argv[], char *envp[])
   }
   if (optind == argc) { usage(); }
   if (doing_log) {
-    char *buf = alloca(strlen(argv[optind]+5+sizeof("buddy")));
+    char *buf = alloca(strlen(argv[optind])+5+sizeof("buddy"));
     sprintf(buf,"buddy(%s)",argv[optind]);
     argv[doing_log-1] = (char *)logbuf;
     argv[0] = buf;
