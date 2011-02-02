@@ -25,6 +25,7 @@ static int eventsock          = -1;
 static struct efd { int fd; int status; } eventfd[2] = { {-1,0}, {-1,0} };
 static char * lbuf  = NULL;
 static int quiet = 0;
+static int verbose = 0;
 static int done  = 0;
 static int last_status = -1;
 static struct rptqueue proctitle;
@@ -86,6 +87,10 @@ static void start_app(void)
     }
     nonblock(logp[0]); nonblock(logp[1]);
     coe(logp[0]); coe(logp[1]);
+  }
+
+  if(verbose) {
+      fprintf(stderr, "Buddy forking process.\n");
   }
 
   if ((pid = fork()) == -1) {
@@ -263,7 +268,11 @@ static int is_logbuf(const char *b) {
 void usage(void)
 {
   const char usage[] = 
-    "buddy: usage: buddy [-o] command\n";
+    "buddy: usage: buddy -[oqlv] application\n"
+    "-o: (once) Start application only once, don't restart if it goes down\n"
+    "-q: (quiet) No output to proc title or stdout\n"
+    "-l: (log) Buddy restarts itself with longer argv buffer (for proctitle)\n"
+    "-v: (verbose) Debug mode\n";
   
   exit(111 + write(2,usage,sizeof(usage)));
 }
@@ -281,6 +290,7 @@ int options_parse(int argc, char *argv[], char *envp[])
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
     { "log",	     1, 0, 'l' },
+    { "verbose",     1, 0, 'v' },
     { 0, 0, 0, 0 }
   };
 
