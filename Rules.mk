@@ -33,7 +33,7 @@ clean:
 		rm -rf $(DEPS_LEFTOVERS)
 
 check:		$(CHECK)
-	prove -e 'cat' $(CHECK)
+	prove $(CHECK)
 t-files:	
 	echo $(CHECK)
 
@@ -44,7 +44,7 @@ install:
 .SECONDARY:	$(CLEAN)
 
 .t.tap:
-	exec $< > $@
+	(echo '#!/bin/cat'; exec $<) > $@
 
 echo-%: 
 	echo $* $($*)
