@@ -1,30 +1,27 @@
-Mike:
+Greg:
+* .buddy.10594 files
+* actual state not set in DB by controller (Greg adds timeout to bulk update)
+* process limits
+* controller -help usage
+* logging writeup
 
+Mike:
+* specify rpm/dpkg bindings
+* specify yinst bindings
+* 'prove' might not be on the system
+
+* configuration loader to setup data base (json/xml)
 * two DBs for control and stats
 
-* Buddy controller needs to run single-threaded, upon receiving a
-  signal, increase a counter if another signal handler is already 
-  running. 
-
 * Don't auto-create pkg/srvc with find_or_create on _get requests
-
 * Channel printf() error messages into a logging system
-
 * Add assert() statements in upk_db_exec_single().
-
 * -O2 out
-
 * Command line join: Mind quotes/escapes
 
-
-Greg:
-
 * Buddy needs to be able to log errors somewhere besides standard out.
-
 * Expose the listener triggers as SQL functions and add triggers which 
   notify listeners on updates.
-
-
 
 ##########################
 # ?
