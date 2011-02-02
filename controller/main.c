@@ -18,8 +18,10 @@
 int DEBUG = 0;
 
 static int OPT_VERBOSE          = 0;
-static int term = 0;
-static int hup  = 0;
+
+static int term  = 0;
+static int hup   = 0;
+static int needs_flush = 0;
 static int sigp[2]            = {-1,-1};
 /* 
  * Parse command line options and set static global variables accordingly
@@ -128,12 +130,20 @@ int main(
         FD_SET(sfd->fd, &rfds); 
         if (sfd->fd > maxfd) maxfd = sfd->fd;
       }
-      period.tv_sec  = 5;
+      period.tv_sec  = 1;
       period.tv_usec = 0;
 
-      if (select(maxfd+1, &rfds, NULL, NULL, &period) == -1) 
+      switch(select(maxfd+1, &rfds, NULL, NULL, &period)) {
+      case -1:
         FD_ZERO(&rfds);
-
+	break;
+      case 0:
+	needs_flush = 1;
+	break;
+      default:
+	break;
+      }
+      
       while(read(sigp[0],&sig,1) > 0) 
         ;
 
@@ -170,6 +180,11 @@ int main(
         hup = 0;
         upk_controller_status_fixer( pdb, fds);
       }
+      if (needs_flush) {
+	upk_controller_flush_events( pdb);
+	needs_flush = 0;
+      }
+      
     }
     
     upk_db_close( pdb );
