@@ -287,16 +287,17 @@ int options_parse(int argc, char *argv[], char *envp[])
   int option_index;
   int doing_log = 0;
   static struct option long_options[] = {
-    { "once",        1, 0, 'o' },
-    { "quiet",	     1, 0, 'q' },
-    { "log",	     1, 0, 'l' },
-    { "verbose",     1, 0, 'v' },
+    { "once",        no_argument, 0, 'o' },
+    { "quiet",	     no_argument, 0, 'q' },
+    { "log",	     optional_argument, 0, 'l' },
+    { "verbose",     no_argument, 0, 'v' },
+    { "help",        no_argument, 0, 'v' },
     { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "oql",
+    c = getopt_long (argc, argv, "oqlv",
                      long_options, &option_index);
 
     switch (c) {
@@ -308,6 +309,8 @@ int options_parse(int argc, char *argv[], char *envp[])
       break;
     case 'q':
       quiet++;
+    case 'v':
+      verbose = 1;
       break;
     default:
       break;

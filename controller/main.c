@@ -23,6 +23,18 @@ static int term  = 0;
 static int hup   = 0;
 static int needs_flush = 0;
 static int sigp[2]            = {-1,-1};
+
+void usage(void)
+{
+  const char usage[] = 
+    "usage: buddy-controller -[v]\n"
+    "-h: (help) Display this help page\n"
+    "-v: (verbose) Debug mode\n"
+    ;
+  
+  exit(111 + write(2,usage,sizeof(usage)));
+}
+
 /* 
  * Parse command line options and set static global variables accordingly
  */
@@ -33,7 +45,8 @@ int options_parse(
     int c;
     int option_index;
     static struct option long_options[] = {
-        { "verbose", 0, &OPT_VERBOSE, 1 },
+        { "verbose", no_argument, 0, 'v' },
+        { "help",    no_argument, 0, 'h' },
 	{ 0, 0, 0, 0 }
     };
 
@@ -43,9 +56,13 @@ int options_parse(
 
     while (1) {
 
-        c = getopt_long (argc, argv, "",
+        c = getopt_long (argc, argv, "vh",
                          long_options, &option_index);
-        if( c == -1 ) {
+	if( c == 'h' ) {
+	    usage();
+	} else if( c == 'v' ) {
+	    OPT_VERBOSE = 1;
+	} else if( c == -1 ) {
             break;
         }
     }
