@@ -271,16 +271,12 @@ void usage(void)
     "buddy: usage: buddy -[oqlv] application\n"
     "-o: (once) Start application only once, don't restart if it goes down\n"
     "-q: (quiet) No output to proc title or stdout\n"
-    "-l: (log) Buddy restarts itself with longer argv buffer (for proctitle)\n"
     "-v: (verbose) Debug mode\n";
   
   exit(111 + write(2,usage,sizeof(usage)));
 }
 
 
-
-static const char *logbuf =  
-  "................................................................................";
 int options_parse(int argc, char *argv[], char *envp[])
 {
   int c;
@@ -289,20 +285,16 @@ int options_parse(int argc, char *argv[], char *envp[])
   static struct option long_options[] = {
     { "once",        1, 0, 'o' },
     { "quiet",	     1, 0, 'q' },
-    { "log",	     1, 0, 'l' },
     { "verbose",     1, 0, 'v' },
     { 0, 0, 0, 0 }
   };
 
   if (argc < 2) { usage(); }
   while (1) {
-    c = getopt_long (argc, argv, "oql",
+    c = getopt_long (argc, argv, "+oq",
                      long_options, &option_index);
 
     switch (c) {
-    case 'l':
-      doing_log = optind;
-      break;
     case 'o':
       done = 1;
       break;
@@ -325,16 +317,6 @@ int options_parse(int argc, char *argv[], char *envp[])
     optind++;
   }
   if (optind == argc) { usage(); }
-  if (doing_log) {
-    char *buf = alloca(strlen(argv[optind])+5+sizeof("buddy"));
-    sprintf(buf,"buddy(%s)",argv[optind]);
-    argv[doing_log-1] = (char *)logbuf;
-    argv[0] = buf;
-    execvp("buddy",argv);
-    sysdie3(111,FATAL,"unable to restart self ",argv[0]);
-  }
-
-
   return optind;
 }
 
