@@ -165,9 +165,16 @@ int upk_controller_flush_events(
                                 sqlite3 *pdb
                                 )
 {
-  idx = 0;
-  return upk_db_update_buddy_events(pdb, bpids,pids,stats);
- 
+  int retval = 0;
+  if (idx != 0) {
+    idx = 0;
+    retval = upk_db_update_buddy_events(pdb, bpids,pids,stats);
+    bpids[0] = 0;
+    pids[0]  = 0;
+    stats[0] = 0;
+  }
+  return retval;
+
 }
                                 
 int upk_controller_handle_buddy_status(
@@ -183,6 +190,9 @@ int upk_controller_handle_buddy_status(
   memcpy(&status, msg+1+(sizeof(int)*2),sizeof(int));
   switch (msg[0]) {
   case 'u': /* message from buddy */
+    if ( DEBUG ) {
+      printf("BUDDY UP MESSAGE bpid: %d, pid: %d\n", bpid, pid);
+    }
     bpids[idx] = bpid;
     pids[idx] =   pid;
     idx++;
@@ -191,6 +201,9 @@ int upk_controller_handle_buddy_status(
     }
     break;
   case 'd': /* message from buddy */
+    if ( DEBUG ) {
+      printf("BUDDY DOWN MESSAGE bpid: %d, pid: %d\n", bpid, pid);
+    }
     bpids[idx] = bpid;
      pids[idx] = 0;
     stats[idx] = status;
@@ -200,6 +213,9 @@ int upk_controller_handle_buddy_status(
     }
     break;
   case 'e': /* message from buddy */
+    if ( DEBUG ) {
+      printf("BUDDY EXITED MESSAGE bpid: %d, pid: %d\n", bpid, pid);
+    }
     upk_db_buddy_down(pdb, bpid);
     break;
   default:

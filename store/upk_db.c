@@ -603,73 +603,161 @@ int upk_db_buddy_down(sqlite3 *pdb, int bpid) {
   return UPK_OK;
 }
 
+
+static int upk_do_buddy_down_event(sqlite3 *pdb, sqlite3_stmt **down_stmt, int bpid, int status) {
+    int rc,i;
+    char *zErr;
+    const char *zCerr;
+
+    if (SQLITE_OK != sqlite3_bind_int(down_stmt[0], 1, bpid)) {
+      printf("Failed to bind integer parameter 1: %s\n","hmm");
+      return 1;
+    }
+
+    if (SQLITE_OK != sqlite3_bind_int(down_stmt[1], 1, bpid)) {
+      printf("Failed to bind integer parameter 1: %s\n","hmm");
+      return 1;
+    }
+    
+    if (SQLITE_OK != sqlite3_bind_int(down_stmt[2], 1, bpid)) {
+      printf("Failed to bind integer parameter 2: %s\n","hmm");
+      return 1;
+    }
+
+    if (SQLITE_OK != sqlite3_bind_int(down_stmt[2], 2, status)) {
+      printf("Failed to bind integer parameter 2: %s\n","hmm");
+      return 1;
+    }
+
+    for (i = 0; i < 3; i++) {
+      rc = sqlite3_step( down_stmt[i] );
+
+      if ( rc != SQLITE_DONE ) {
+        printf("updating pids (%d,%d) failed: %d\n",status,bpid,rc);
+        sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
+        return 1;
+      }
+      sqlite3_reset( down_stmt[i] );
+      sqlite3_clear_bindings( down_stmt[i] );
+    }
+    return 0;
+}
+
+static int upk_do_buddy_up_event(sqlite3 *pdb, sqlite3_stmt **up_stmt, int bpid, int pid) {
+
+    int rc,i;
+    char *zErr;
+    const char *zCerr;
+
+    if (SQLITE_OK != sqlite3_bind_int(up_stmt[0], 1, bpid)) {
+      printf("Failed to bind integer parameter 1: %s\n","hmm");
+      return 1;
+    }
+
+    if (SQLITE_OK != sqlite3_bind_int(up_stmt[1], 1, bpid)) {
+      printf("Failed to bind integer parameter 1: %s\n","hmm");
+      return 1;
+    }
+    
+    if (SQLITE_OK != sqlite3_bind_int(up_stmt[1], 2, pid)) {
+      printf("Failed to bind integer parameter 2: %s\n","hmm");
+      return 1;
+    }
+
+    rc = sqlite3_step( up_stmt[0] );
+
+    if ( rc != SQLITE_DONE ) {
+      printf("updating pids (%d,%d) failed: %d\n",pid,bpid,rc);
+      sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
+      return 1;
+    }
+    rc = sqlite3_step( up_stmt[1] );
+
+    if ( rc != SQLITE_DONE ) {
+      printf("updating pids (%d,%d) failed: %d\n",pid,bpid,rc);
+      sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
+      return 1;
+    }
+
+    for (i = 0; i < 2; i++) {
+      rc = sqlite3_step( up_stmt[i] );
+
+      if ( rc != SQLITE_DONE ) {
+        printf("updating pids (%d,%d) failed: %d\n",pid,bpid,rc);
+        sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
+        return 1;
+      }
+      sqlite3_reset( up_stmt[i] );
+      sqlite3_clear_bindings( up_stmt[i] );
+    }
+
+    return 0;
+}
+
 int upk_db_update_buddy_events(sqlite3 *pdb, 
                                int *bpid,
                                int *pid, 
                                int *status) {
 
-  char up_sql[] =
-    "UPDATE procruns SET pid=?002 WHERE bpid = ?001 ;"
-    "UPDATE services SET state_actual='start' WHERE procrun_id in "
-    "(SELECT id from procruns where bpid=?001);";
-  char down_sql[] =
-    "UPDATE procruns SET pid=NULL WHERE bpid = ? ;"
-    "UPDATE services SET state_actual='exited' WHERE procrun_id in "
-    "(SELECT id from procruns where bpid=?001);"
-    "INSERT INTO exits (status,procrun_id)"
-    "SELECT ?002, id from procruns where bpid=?001;";
+  char *up_sql[3] =
+    { "UPDATE services SET state_actual='start' WHERE procrun_id in "
+      "(SELECT id from procruns where bpid = ?1); ",
+      "UPDATE procruns SET pid= ?2 WHERE bpid = ?1 ;"
+    };
+  char *down_sql[4] =
+    { "UPDATE procruns SET pid=NULL WHERE bpid = ? ;",
+      "UPDATE services SET state_actual='exited' WHERE procrun_id in "
+      "(SELECT id from procruns where bpid=?001);",
+      "INSERT INTO exits (status,procrun_id)"
+      "SELECT ?002, id from procruns where bpid=?001;"
+    };
 
   int  rc;
   char *zErr;
   const char *zCerr;
-  sqlite3_stmt *up_stmt, *down_stmt, *stmt;
-
-  if (SQLITE_OK != sqlite3_prepare( pdb, up_sql, sizeof(up_sql), 
-                                    &up_stmt, &zCerr )) {
-    printf("Starting transaction failed: %s\n", zCerr);
-    return(UPK_DB_ERROR);
+  sqlite3_stmt *up_stmt[3], *down_stmt[4], *stmt;
+  int i;
+  for (i = 0; i < 2; i++) {
+    if (SQLITE_OK != sqlite3_prepare( pdb, up_sql[i], strlen(up_sql[i]), 
+                                      &up_stmt[i], &zCerr )) {
+      printf("Preparing up statement %d failed: %s\n", i, zCerr);
+      return(UPK_DB_ERROR);
+    }
+  }  
+  for (i = 0; i < 3; i++) {
+    if (SQLITE_OK != sqlite3_prepare( pdb, down_sql[i], strlen(down_sql[i]), 
+                                      &down_stmt[i], &zCerr )) {
+      printf("Preparing down statement %d failed: %s\n", i, zCerr);
+      return(UPK_DB_ERROR);
+    }
   }
-  
-  if (SQLITE_OK != sqlite3_prepare( pdb, up_sql, sizeof(down_sql), 
-                                    &down_stmt, &zCerr )) {
-    printf("Starting transaction failed: %s\n", zCerr);
-    return(UPK_DB_ERROR);
-  }
-
   rc = sqlite3_exec( pdb, "BEGIN;", NULL, NULL, &zErr );
   if(rc != SQLITE_OK) {
     printf("Starting transaction failed: %s\n", zErr);
     return(UPK_DB_ERROR);
   }
   do {
-    stmt = *pid ? up_stmt : down_stmt;
-
-
-    sqlite3_bind_int(stmt, 1, *bpid);
-    sqlite3_bind_int(stmt, 2, *pid ? *pid : *status);
-
-    rc = sqlite3_step( stmt );
-
-    if ( rc != SQLITE_DONE ) {
-      printf("updating pids (%d,%d) failed: %d\n",*pid,*bpid,rc);
-      sqlite3_exec( pdb, "ROLLBACK;", NULL, NULL, &zErr );
-      return 1;
+    if (*pid) { /* when there's a pid we're doing an up */ 
+      upk_do_buddy_up_event(pdb, up_stmt, *bpid, *pid);
+    } else {
+      upk_do_buddy_down_event(pdb,down_stmt, *bpid, *status);
     }
-
-    sqlite3_reset( stmt );
-    sqlite3_clear_bindings( stmt );
     pid++; status++;
   } while(*(++bpid));
 
-  sqlite3_finalize( stmt );
+  for (i = 0; i < 2; i++) {
+    sqlite3_finalize( up_stmt[i] );
+  }
+  for (i = 0; i < 3; i++) {
+    sqlite3_finalize( down_stmt[i] );
+  }
   rc = sqlite3_exec( pdb, "COMMIT;", NULL, NULL, &zErr );
   
   if(rc != SQLITE_OK) {
     printf("Ending transaction failed: %s\n", zErr);
     return(UPK_DB_ERROR);
   }
-  
-
+  upk_db_listener_send_all_signals(pdb);
   return UPK_OK;
 }
 
@@ -932,7 +1020,7 @@ void _upk_db_listener_signal_callback(
     int         signal
 ) {
     if( DEBUG ) {
-        printf( "Sending signal to component %s: kill %d %d\n",
+         printf( "Sending signal to component %s: kill %d %d\n",
             component, pid, signal );
     }
     
