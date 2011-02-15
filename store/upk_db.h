@@ -18,10 +18,15 @@
 
 #include <sqlite3.h>
 
-int upk_db_init( const char *file, sqlite3 **ppdb );
+typedef struct upk_db {
+    sqlite3 *pdb;
+    sqlite3 *pdb_misc;
+};
+
+int upk_db_init( const char *file, upk_db *pupk_db );
 
 int upk_db_close(
-    sqlite3 *pdb 
+    upk_db *pupk_db
 );
 
 typedef enum { 
@@ -41,7 +46,7 @@ typedef enum {
 extern const char *upk_states[];
 
 typedef struct upk_srvc {
-  sqlite3 *pdb;
+  upk_db  *pupk_db    
   char    *package;
   char    *service;
 } *upk_srvc_t;

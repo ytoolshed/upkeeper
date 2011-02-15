@@ -22,7 +22,6 @@ const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
 
 char       *upk_db_create_time = NULL;
 int         upk_db_ino         = 0;
-char       *upk_db_file        = NULL;
 
 extern int DEBUG;
 
@@ -41,11 +40,39 @@ static int db_init_functions_define( sqlite3 *pdb );
  */
 int 
 upk_db_init(
+    upk_db *pupk_db
+) {
+    int rc;
+
+    if( (rc = upk_db_open( upk_db_file_main(), &pupk_db.pdb )) != 0 ) {
+        return( rc );
+    }
+
+    if( (rc = upk_db_open( upk_db_file_misc(), &pupk_db.pdb_misc )) != 0 ) {
+        return( rc );
+    }
+
+    rc = db_init_functions_define( pupk_db.pdb );
+
+    if(rc != 0) {
+	printf("Defining db extensions failed: %d\n", rc );
+	return(rc);
+    }
+
+    upk_db_changed( pupk_db.pdb ); /* Start watching DB */
+
+    return(0);
+}
+
+/* 
+ * Open sqlite DB connection
+ */
+int 
+upk_db_open(
     const char     *file, 
-    sqlite3 **ppdb 
+    sqlite3       **pdb
 ) {
     int      rc;
-    char    *dir = strdup(file);
     
       /* Check if database has been set up at all */
     rc = open( file, O_RDONLY );
@@ -65,17 +92,8 @@ upk_db_init(
     }
 
     sqlite3_busy_timeout( *ppdb, 20000 );
-    rc = db_init_functions_define( *ppdb );
 
-    if(rc != 0) {
-	printf("Defining db extensions failed: %d\n", rc );
-	return(rc);
-    }
-
-    upk_db_file = (char *) file;
-    upk_db_changed( *ppdb ); /* Start watching DB */
-
-    return(0);
+    return( 0 );
 }
 
 /* Read out when the DB was created (i.e. the schema was set up) */
@@ -130,10 +148,20 @@ int upk_db_changed(
  * Close the DB connection.
  */
 int 
-upk_db_close(
-    sqlite3 *pdb 
+upk_db_exit(
+    upk_db *pupk_db
 ) {
-    return sqlite3_close( pdb );
+    int rc;
+
+    if( (rc = sqlite3_close( pupk_db->pdb )) != 0 ) {
+        return( rc );
+    }
+
+    if( (rc = sqlite3_close( pupk_db->pdb_misc )) != 0 ) {
+        return( rc );
+    }
+
+    return( 0 );
 }
 
 /* Send a Unix signal to a process. Usage:
@@ -190,43 +218,6 @@ void get_pid(
   sqlite3_result_int( ctx, getpid() );
 }
 
-/* void notify_controller( */
-/*     sqlite3_context *ctx,  */
-/*     int              nargs,  */
-/*     sqlite3_value  **values */
-/* ) { */
-/*   char msg[1+3*sizeof(int)] = "c"; */
-/*   struct sockaddr_un ct; */
-/*   int s; */
-/*   char *message; */
-/*   ct.sun_family = AF_UNIX; */
-/*   strcpy(ct.sun_path,"./controller"); */
-
-/*   s    = socket(AF_UNIX, SOCK_DGRAM, 0); */
-/*   if (s == -1 ) { */
-/*     message = sqlite3_mprintf( */
-/*                               "socket() failed: %s",  */
-/*                               strerror( errno ) ); */
-/*     sqlite3_result_error( ctx, message, strlen( message ) );  */
-/*     sqlite3_free(message); */
-/*     return; */
-/*   } */
-/*   nonblock(s); */
-/*   if (sendto(s,msg,sizeof(msg),0, */
-/*              (struct sockaddr *)&ct, SUN_LEN(&ct)) == -1) { */
-/*     close(s); */
-/*     if (errno != ECONNREFUSED && errno != ENOENT) { */
-/*       message = sqlite3_mprintf( */
-/*                                 "sendto() controller failed: %s",  */
-/*                                 strerror( errno ) ); */
-/*       sqlite3_result_error( ctx, message, strlen( message ) );  */
-/*       sqlite3_free(message); */
-/*       return; */
-/*     } */
-/*   } */
-/*   sqlite3_result_int( ctx, 0 ); */
-/* } */
-
 static int db_init_functions_define( sqlite3 *pdb ) {
     int      rc;
 
@@ -240,10 +231,6 @@ static int db_init_functions_define( sqlite3 *pdb ) {
                                   0,
 			     SQLITE_UTF8, NULL,
 			     get_pid, NULL, NULL );
-    /* rc = sqlite3_create_function( pdb, "notify_controller",  */
-    /*                               0, */
-    /*                               SQLITE_UTF8, NULL, */
-    /*                               notify_controller, NULL, NULL ); */
     if( rc != 0 ) {
 	return( rc );
     }
