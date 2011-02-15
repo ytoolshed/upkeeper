@@ -162,6 +162,9 @@ int upk_db_changed(
 );
 
 char *upk_db_file_main( void );
-char *upk_db_file_listener( void );
+char *upk_db_file_misc( void );
+
+void upk_db_file_main_set( char *filename );
+void upk_db_file_misc_set( char *filename );
 
 #endif
