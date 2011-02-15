@@ -11,12 +11,38 @@ extern int DEBUG;
 
 static char EXEC_SINGLE_BUF[255];
 
+static char *DB_PATH_MAIN = NULL;
+static char *DB_PATH_MISC = NULL;
+
+#define DB_PATH_MAIN_DEFAULT "../store/upkeeper-main.sqlite"
+#define DB_PATH_MISC_DEFAULT "../store/upkeeper-misc.sqlite"
+
 char *upk_db_file_main( void ) {
-    return( "../store/upkeeper.sqlite" );
+    if( DB_PATH_MAIN == NULL ) {
+        DB_PATH_MAIN = strdup( DB_PATH_MAIN_DEFAULT );
+    }
+    return DB_PATH_MAIN;
 }
 
-char *upk_db_file_listener( void ) {
-    return( "../store/upkeeper-listener.sqlite" );
+char *upk_db_file_misc( void ) {
+    if( DB_PATH_MISC == NULL ) {
+        DB_PATH_MISC = strdup( DB_PATH_MISC_DEFAULT );
+    }
+    return DB_PATH_MISC;
+}
+
+void upk_db_file_main_set( char *dbpath ) {
+    if( DB_PATH_MAIN != NULL ) {
+        free( DB_PATH_MAIN );
+    }
+    DB_PATH_MAIN = strdup( dbpath );
+}
+
+void upk_db_file_misc_set( char *dbpath ) {
+    if( DB_PATH_MISC != NULL ) {
+        free( DB_PATH_MISC );
+    }
+    DB_PATH_MISC = strdup( dbpath );
 }
 
 char *upk_db_exec_single( 

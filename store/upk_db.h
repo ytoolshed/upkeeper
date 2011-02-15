@@ -46,23 +46,23 @@ typedef enum {
 extern const char *upk_states[];
 
 typedef struct upk_srvc {
-  upk_db  *pupk_db    
-  char    *package;
-  char    *service;
+  struct upk_db upk_db    
+  char         *package;
+  char         *service;
 } *upk_srvc_t;
 
 
 const char *
- upk_db_service_actual_status( 
-                              upk_srvc_t srvc,
-                              upk_state  state
-                               );
+upk_db_service_actual_status( 
+    upk_srvc_t srvc,
+    upk_state  state
+);
 
 /* getter/setter. */
 const char *
 upk_db_service_desired_status( 
-                              upk_srvc_t srvc,
-                              upk_state  state
+    upk_srvc_t srvc,
+    upk_state  state
 );
 
 /* hmm */

@@ -393,7 +393,7 @@ _upk_db_service_status(
                 "UPDATE services SET %s=%Q WHERE id = %d;",
 	        state_field, status, service_id);
 
-        rc = sqlite3_exec( srvc->pdb, sql, NULL, NULL, &zErr );
+        rc = sqlite3_exec( srvc->upk_db.pdb, sql, NULL, NULL, &zErr );
         if( rc != SQLITE_OK ) {
 	    printf( "Updating service state failed: %s\n", zErr );
 	    return( NULL );
@@ -415,7 +415,7 @@ _upk_db_service_status(
       "select %s from services where id = %d;",
       state_field, service_id);
 
-    status = upk_db_exec_single( srvc->pdb, sql );
+    status = upk_db_exec_single( srvc->upk_db.pdb, sql );
     sqlite3_free( sql );
 
     return( status );
@@ -453,7 +453,7 @@ const char *upk_db_service_cmdline(
           "AND services.procrun_id = procruns.id ",
                          srvc->package, srvc->service );
 
-  result =  upk_db_exec_single( srvc->pdb, sql );
+  result =  upk_db_exec_single( srvc->upk_db.pdb, sql );
   sqlite3_free( sql );
 
   if( cmdline == NULL ) {
@@ -469,13 +469,14 @@ const char *upk_db_service_cmdline(
                     "INSERT INTO procruns (cmdline) "
                     "values (%Q)",
                     cmdline );
-      upk_db_exec_single( srvc->pdb, sql );
+      upk_db_exec_single( srvc->upk_db.pdb, sql );
       sqlite3_free( sql );
-      id = upk_db_exec_single( srvc->pdb, "SELECT last_insert_rowid();" );  
+      id = upk_db_exec_single( srvc->upk_db.pdb, 
+                               "SELECT last_insert_rowid();" );  
 
       sql = sqlite3_mprintf("UPDATE services SET procrun_id=%s "
                             "WHERE id = %d ", id, service_id );
-      upk_db_exec_single( srvc->pdb, sql );
+      upk_db_exec_single( srvc->upk_db.pdb, sql );
       sqlite3_free( sql );
   } else {
       /* Update an existing entry */
@@ -484,12 +485,12 @@ const char *upk_db_service_cmdline(
               "AND package = %Q "
               "AND service = %Q",
                              srvc->package, srvc->service );
-      id = upk_db_exec_single( srvc->pdb, sql );
+      id = upk_db_exec_single( srvc->upk_db.pdb, sql );
       sqlite3_free( sql );
 
       sql = sqlite3_mprintf("UPDATE procruns SET cmdline=%Q "
                             "WHERE id = %d ", cmdline, atoi( id ));
-      upk_db_exec_single( srvc->pdb, sql );
+      upk_db_exec_single( srvc->upk_db.pdb, sql );
       sqlite3_free( sql );
   }
 
@@ -514,7 +515,7 @@ static int upk_db_get_pid(
           fieldname,                
           srvc->package, srvc->service );
 
-  result =  upk_db_exec_single( srvc->pdb, sql );
+  result =  upk_db_exec_single( srvc->upk_db.pdb, sql );
   sqlite3_free( sql );
 
   /* 'get' calls end here */
@@ -532,7 +533,7 @@ static int upk_db_set_pid(
                        char *fieldname,
                        int pid ) {
   char       *sql, *id;
-  sqlite3    *pdb = srvc->pdb;
+  sqlite3    *pdb = srvc->upk_db.pdb;
 
   /* Update an existing entry only! */
   sql = sqlite3_mprintf( "SELECT procrun_id from services, procruns "
@@ -591,7 +592,12 @@ int upk_db_buddy_down(sqlite3 *pdb, int bpid) {
 }
 
 
-static int upk_do_buddy_down_event(sqlite3 *pdb, sqlite3_stmt **down_stmt, int bpid, int status) {
+static int upk_do_buddy_down_event(
+    sqlite3       *pdb, 
+    sqlite3_stmt **down_stmt, 
+    int            bpid, 
+    int            status
+) {
     int rc,i;
     char *zErr;
     const char *zCerr;
@@ -630,7 +636,13 @@ static int upk_do_buddy_down_event(sqlite3 *pdb, sqlite3_stmt **down_stmt, int b
     return 0;
 }
 
-static int upk_do_buddy_up_event(sqlite3 *pdb, sqlite3_stmt **up_stmt, int bpid, int pid) {
+static int 
+upk_do_buddy_up_event(
+    sqlite3       *pdb, 
+    sqlite3_stmt **up_stmt, 
+    int            bpid, 
+    int            pid
+) {
 
     int rc,i;
     char *zErr;
@@ -681,10 +693,12 @@ static int upk_do_buddy_up_event(sqlite3 *pdb, sqlite3_stmt **up_stmt, int bpid,
     return 0;
 }
 
-int upk_db_update_buddy_events(sqlite3 *pdb, 
-                               int *bpid,
-                               int *pid, 
-                               int *status) {
+int upk_db_update_buddy_events(
+    sqlite3 *pdb, 
+    int     *bpid,
+    int     *pid, 
+    int     *status
+) {
 
   char *up_sql[3] =
     { "UPDATE services SET state_actual='start' WHERE procrun_id in "
@@ -748,7 +762,14 @@ int upk_db_update_buddy_events(sqlite3 *pdb,
   return UPK_OK;
 }
 
-int upk_db_note_exit(sqlite3 *pdb, int status, int bpid) {
+/*
+ *
+ */
+int upk_db_note_exit(
+    sqlite3 *pdb, 
+    int      status, 
+    int      bpid
+) {
   int bpids[2] = {0};
   int pids[2]  = {0};
   int stati[2] = {0};
@@ -756,8 +777,6 @@ int upk_db_note_exit(sqlite3 *pdb, int status, int bpid) {
   bpids[0] = bpid;
   return upk_db_update_buddy_events(pdb,bpids,pids,stati);
 }
-
-
 
 /* 
  * Get/Set the a actual status of a service.
@@ -768,7 +787,6 @@ const char * upk_db_service_actual_status(
 ) {
   return( _upk_db_service_status( srvc, state, UPK_STATUS_ACTUAL ) );
 }
-
 
 /* 
  * Test callback for the status visitor, which just prints out all 

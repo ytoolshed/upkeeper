@@ -1,3 +1,3 @@
 
-rm -f upkeeper.sqlite upkeeper-listener.sqlite
+rm -f upkeeper-*.sqlite
 ./schema-setup.sh

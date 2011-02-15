@@ -1,3 +1,3 @@
 
-sqlite3 upkeeper.sqlite <schema.sql
-sqlite3 upkeeper-listener.sqlite <schema-listener.sql
+sqlite3 upkeeper-main.sqlite <schema-main.sql
+sqlite3 upkeeper-misc.sqlite <schema-misc.sql

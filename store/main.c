@@ -13,18 +13,18 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = "upkeeper.sqlite";
-    int      rc;
-    int      i;
-    const char    *cp;
+    int             rc;
+    int             i;
+    const char     *cp;
     struct upk_srvc s = {NULL, "package", "service-1" };
+    struct upk_db   upk_db;
 
     printf("1..29\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
 
-    rc = upk_db_init( file, &s.pdb );
+    rc = upk_db_init( &s.upk_db );
     
         /* setter */
     upk_db_service_cmdline( &s, "cmdline" );
@@ -48,7 +48,7 @@ int main(
       int pids[2] = { 123, 0 };
       int bpids[2] = { 244, 0 };
       int status[2] = { -1, 0 };
-      upk_db_update_buddy_events(s.pdb, bpids,pids,status);
+      upk_db_update_buddy_events(s.upk_db.pdb, bpids,pids,status);
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
                  123, "still get 111 back as pid" );
@@ -57,8 +57,7 @@ int main(
       int pids[2] = { 123, 0 };
       int bpids[2] = { 254, 0 };
       int status[2] = { -1, 0 };
-      upk_db_update_buddy_events(s.pdb, bpids,pids,status);
-      
+      upk_db_update_buddy_events(s.upk_db.pdb, bpids,pids,status);
 
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
@@ -67,7 +66,7 @@ int main(
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
                  244, "get 244 back as pid" );
 
-    upk_test_is(upk_db_note_exit(s.pdb, 111, 244),
+    upk_test_is(upk_db_note_exit(s.upk_db.pdb, 111, 244),
                 0,
                 "exit for known buddy");
 
@@ -115,15 +114,16 @@ int main(
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, "stop", "10,10 is stop" );
     s.service = "service-9"; s.package = "package-1";
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "9,1 is null");
-    upk_db_status_visitor( s.pdb, upk_db_status_visitor_launchcallback, file );
+    upk_db_status_visitor( s.upk_db.pdb, 
+            upk_db_status_visitor_launchcallback, file );
 
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 
-    upk_db_listener_send_all_signals( s.pdb );
+    upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
 
-    upk_test_is( upk_db_changed( s.pdb ), 0, "db change check" );
+    upk_test_is( upk_db_changed( s.upk_db.pdb ), 0, "db change check" );
 
-    sqlite3_close( s.pdb );
+    sqlite3_close( s.upk_db.pdb );
 
     return(0);
 }
