@@ -40,26 +40,26 @@ static int db_init_functions_define( sqlite3 *pdb );
  */
 int 
 upk_db_init(
-    upk_db *pupk_db
+    struct upk_db *pupk_db
 ) {
     int rc;
 
-    if( (rc = upk_db_open( upk_db_file_main(), &pupk_db.pdb )) != 0 ) {
+    if( (rc = upk_db_open( upk_db_file_main(), &pupk_db->pdb )) != 0 ) {
         return( rc );
     }
 
-    if( (rc = upk_db_open( upk_db_file_misc(), &pupk_db.pdb_misc )) != 0 ) {
+    if( (rc = upk_db_open( upk_db_file_misc(), &pupk_db->pdb_misc )) != 0 ) {
         return( rc );
     }
 
-    rc = db_init_functions_define( pupk_db.pdb );
+    rc = db_init_functions_define( pupk_db->pdb );
 
     if(rc != 0) {
 	printf("Defining db extensions failed: %d\n", rc );
 	return(rc);
     }
 
-    upk_db_changed( pupk_db.pdb ); /* Start watching DB */
+    upk_db_changed( pupk_db->pdb ); /* Start watching DB */
 
     return(0);
 }

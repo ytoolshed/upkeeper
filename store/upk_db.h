@@ -21,12 +21,12 @@
 typedef struct upk_db {
     sqlite3 *pdb;
     sqlite3 *pdb_misc;
-};
+} upk_db_t;
 
-int upk_db_init( const char *file, upk_db *pupk_db );
+int upk_db_init( struct upk_db *pupk_db );
 
 int upk_db_close(
-    upk_db *pupk_db
+    struct upk_db *pupk_db
 );
 
 typedef enum { 
@@ -46,7 +46,7 @@ typedef enum {
 extern const char *upk_states[];
 
 typedef struct upk_srvc {
-  struct upk_db upk_db    
+  struct upk_db upk_db;
   char         *package;
   char         *service;
 } *upk_srvc_t;
