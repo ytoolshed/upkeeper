@@ -2,7 +2,6 @@ DROP TABLE IF EXISTS events;
 DROP TABLE IF EXISTS exits;
 DROP TABLE IF EXISTS services;
 DROP TABLE IF EXISTS procruns;
-DROP TABLE IF EXISTS listeners;
 DROP TABLE IF EXISTS namevalue;
 
 CREATE TABLE namevalue (
@@ -48,13 +47,6 @@ CREATE TABLE exits (
     status     INT,
     FOREIGN KEY (procrun_id)
         REFERENCES procrun(id)
-);
-
-CREATE TABLE listeners (
-    id        INTEGER PRIMARY KEY,
-    component VARCHAR,
-    signal    INTEGER,
-    pid       INTEGER
 );
 
 

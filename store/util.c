@@ -11,6 +11,14 @@ extern int DEBUG;
 
 static char EXEC_SINGLE_BUF[255];
 
+char *upk_db_file_main( void ) {
+    return( "../store/upkeeper.sqlite" );
+}
+
+char *upk_db_file_listener( void ) {
+    return( "../store/upkeeper-listener.sqlite" );
+}
+
 char *upk_db_exec_single( 
     sqlite3  *pdb, 
     const char     *sql

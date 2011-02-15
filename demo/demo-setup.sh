@@ -1,7 +1,7 @@
 cd ../demo
 ln -sf ../buddy/buddy .
 cd ../store
-rm -f store.sqlite
+rm -f upkeeper*.sqlite
 ./schema-setup.sh
 
 cd ../controller

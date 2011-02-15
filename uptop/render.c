@@ -6,6 +6,7 @@
 #include <time.h>
 #include <assert.h>
 #include <string.h>
+#include <sqlite3.h>
 
 struct table_item {
     char *content;
@@ -27,6 +28,10 @@ void table_item_format_set(
 void table_item_format_set(
     struct table_item *item,
     char *format
+);
+
+char *table_item_mrender(
+    struct table_item *item
 );
 
 void table_item_free(
@@ -112,6 +117,11 @@ void table_item_free(
     free( item );
 
     return;
+}
+
+char *table_item_mrender(
+    struct table_item *item
+) {
 }
 
 main() {

@@ -88,7 +88,7 @@ int main(
     char *argv[] 
 ) {
     sqlite3 *pdb;
-    char    *file = "../store/store.sqlite";
+    char    *file = upk_db_file_main();
     int      rc;
     int      sock;
     struct srvc_fd fds[MAX_SERVICES] = {  };

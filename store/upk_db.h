@@ -161,5 +161,7 @@ int upk_db_changed(
     sqlite3 *pdb
 );
 
+char *upk_db_file_main( void );
+char *upk_db_file_listener( void );
 
 #endif

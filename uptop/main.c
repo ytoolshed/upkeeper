@@ -28,7 +28,7 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char  *file = "../store/store.sqlite";
+    char  *file = upk_db_file_main();
     int    rc;
     int    ch;
     struct timeval timeout_saved = { 0, 100000 }; /* 100 ms */

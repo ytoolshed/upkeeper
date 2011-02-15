@@ -18,7 +18,7 @@ $(d)/store.a: $($(OBJS))
 
 CHECK	+= $(d)/store-test.tap
 
-CLEAN		:= $(CLEAN) store.sqlite 
+CLEAN		:= $(CLEAN) upkeeper.sqlite 
 
 $(d)/store-test.tap: $(d)/store-test
 

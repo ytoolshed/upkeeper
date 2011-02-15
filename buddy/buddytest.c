@@ -19,7 +19,7 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = "./store.sqlite";
+    char    *file = upk_db_file_main();
     int      rc;
     int      pid;
     int      stat_loc;

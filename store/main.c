@@ -13,7 +13,7 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = "store.sqlite";
+    char    *file = "upkeeper.sqlite";
     int      rc;
     int      i;
     const char    *cp;

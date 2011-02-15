@@ -9,7 +9,7 @@ CF_$(d) += -I$(d)
 LL_$(d) := $(d)/buddy.a store/store.a common/common.a deps/sqlite/sqlite3.a
 
 CHECK	+= $(d)/buddytest.tap
-CLEAN   += $(d)/bt/buddy $(d)/bt/store.sqlite
+CLEAN   += $(d)/bt/buddy $(d)/bt/upkeeper.sqlite
 
 $(d)/buddy.a:   $($(OBJS))
 	$(ARCH)
