@@ -171,7 +171,8 @@ int main(
           nonblock(sfd->fd);
           if (write(sfd->fd,"s",1) != 1) {
             syswarn3("writing status request to buddy for ",sfd->srvc.service," failed: ");
-            close(sfd->fd); sfd->fd == -1;
+            close(sfd->fd); 
+            sfd->fd = -1;
           }
           continue;
         } 
