@@ -129,8 +129,8 @@ int main(
     upk_catch_signal(SIGHUP,  handler);
     upk_controller_status_fixer( s.upk_db.pdb, fds);
 
-    upk_db_listener_remove_dead( &s.upk_db.pdb_misc ); 
-    upk_db_listener_add( &s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
+    upk_db_listener_remove_dead( s.upk_db.pdb_misc ); 
+    upk_db_listener_add( s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
 
     for (;;) {
       struct timeval period;
@@ -188,7 +188,7 @@ int main(
       }
       if (need_notify) {
         need_notify = 0;
-        upk_db_listener_send_all_signals( &s.upk_db.pdb_misc );
+        upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
       }
       if (term) {
         break;
@@ -198,7 +198,7 @@ int main(
         upk_controller_status_fixer( s.upk_db.pdb, fds);
       }
       if (needs_flush) {
-	upk_controller_flush_events( &s.upk_db.pdb );
+	upk_controller_flush_events( s.upk_db.pdb );
 	needs_flush = 0;
       }
       
