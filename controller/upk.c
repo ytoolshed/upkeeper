@@ -155,7 +155,7 @@ int main(
 	DEBUG = 1;
     }
 
-    rc = upk_db_init( file, &srvc.pdb );
+    rc = upk_db_init( &srvc.upk_db );
 
     if(rc < 0) {
 	printf("upk_db_init failed. Exiting.\n");
@@ -164,7 +164,7 @@ int main(
  
     if( OPT_INIT ) {
 
-        upk_db_clear( srvc.pdb );
+        upk_db_clear( &srvc.upk_db );
 
         for( i=0; i<=5; i++ ) {
             srvc.service = sqlite3_mprintf("service-%d", i);
@@ -239,11 +239,9 @@ int main(
 	}
     }
 
-    upk_db_listener_send_all_signals( srvc.pdb );
+    upk_db_listener_send_all_signals( &srvc.upk_db.pdb );
 
-    sqlite3_close( srvc.pdb );
+    upk_db_exit( &srvc.upk_db );
 
     return(0);
 }
-
-

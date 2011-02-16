@@ -26,12 +26,15 @@ int main(
     int      sock;
     const char    *cp;
     const char    *command = "../do-sleep";
-    struct upk_srvc s = {NULL, "package-1", "service-1" };
+    struct upk_srvc s;
     int limit = 5;
     char msg[128];
     printf("1..22\n");
 
-    rc = upk_db_init( file, &s.pdb );
+    s.package = "package-1";
+    s.service = "service-1";
+
+    rc = upk_db_init( &s.upk_db );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
@@ -111,6 +114,6 @@ int main(
  
     wait( &stat_loc );
     
-    sqlite3_close( s.pdb );
+    upk_db_exit( &s.upk_db );
     return 0;
 }

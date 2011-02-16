@@ -16,8 +16,10 @@ int main(
     int             rc;
     int             i;
     const char     *cp;
-    struct upk_srvc s = {NULL, "package", "service-1" };
-    struct upk_db   upk_db;
+    struct upk_srvc s;
+
+    s.package = "package";
+    s.service = "service-1";
 
     printf("1..29\n");
 
@@ -115,7 +117,7 @@ int main(
     s.service = "service-9"; s.package = "package-1";
     cp = upk_db_service_actual_status( &s, 0 );    upk_test_eq( cp, NULL, "9,1 is null");
     upk_db_status_visitor( s.upk_db.pdb, 
-            upk_db_status_visitor_launchcallback, file );
+            upk_db_status_visitor_launchcallback, NULL );
 
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 

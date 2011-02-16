@@ -44,7 +44,8 @@ struct srvc_fd *make_service(struct srvc_fd *sfd, upk_srvc_t srvc, int srvcount)
   if (sfd == limit) return NULL;
   sfd->srvc.service = strdup(srvc->service);
   sfd->srvc.package = strdup(srvc->package);
-  sfd->srvc.pdb     = srvc->pdb;
+  sfd->srvc.upk_db.pdb      = srvc->upk_db.pdb;
+  sfd->srvc.upk_db.pdb_misc = srvc->upk_db.pdb_misc;
   return sfd;
 }
 

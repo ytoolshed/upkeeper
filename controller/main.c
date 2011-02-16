@@ -87,7 +87,7 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    sqlite3 *pdb;
+    struct upk_srvc s;
     char    *file = upk_db_file_main();
     int      rc;
     int      sock;
@@ -105,7 +105,7 @@ int main(
 	DEBUG = 1;
     }
 
-    rc = upk_db_init( file, &pdb );
+    rc = upk_db_init( &s.upk_db );
 
     if(rc < 0) {
         sysdie3(111, FATAL, "failed to initialize database ","");
@@ -127,10 +127,10 @@ int main(
     
     upk_catch_signal(SIGTERM, handler);
     upk_catch_signal(SIGHUP,  handler);
-    upk_controller_status_fixer( pdb, fds);
+    upk_controller_status_fixer( s.upk_db.pdb, fds);
 
-    upk_db_listener_remove_dead( pdb ); 
-    upk_db_listener_add( pdb, "controller", getpid(), SIGHUP );
+    upk_db_listener_remove_dead( &s.upk_db.pdb_misc ); 
+    upk_db_listener_add( &s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
 
     for (;;) {
       struct timeval period;
@@ -178,7 +178,7 @@ int main(
         } 
         if ( FD_ISSET(sfd->fd,&rfds) ) {
           while (read(sfd->fd,mbuf,sizeof(int)*3 + 1) > 0) {
-            if (!upk_controller_handle_buddy_status(sfd->srvc.pdb,
+            if (!upk_controller_handle_buddy_status(sfd->srvc.upk_db.pdb,
                                                     sfd->fd,
                                                     mbuf)) {
               need_notify = 1;
@@ -188,23 +188,24 @@ int main(
       }
       if (need_notify) {
         need_notify = 0;
-        upk_db_listener_send_all_signals( pdb );
+        upk_db_listener_send_all_signals( &s.upk_db.pdb_misc );
       }
       if (term) {
         break;
       }
       if (hup) {
         hup = 0;
-        upk_controller_status_fixer( pdb, fds);
+        upk_controller_status_fixer( s.upk_db.pdb, fds);
       }
       if (needs_flush) {
-	upk_controller_flush_events( pdb);
+	upk_controller_flush_events( &s.upk_db.pdb );
 	needs_flush = 0;
       }
       
     }
     
-    upk_db_close( pdb );
+    upk_db_exit( &s.upk_db );
+
     unlink(LISTEN_PATH);
     return(0);
 }

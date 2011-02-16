@@ -25,7 +25,7 @@ typedef struct upk_db {
 
 int upk_db_init( struct upk_db *pupk_db );
 
-int upk_db_close(
+int upk_db_exit(
     struct upk_db *pupk_db
 );
 
@@ -134,7 +134,7 @@ void upk_db_listener_remove_dead(
 );
 
 void upk_db_clear(
-    sqlite3    *pdb
+    struct upk_db *upk_db
 );
 
 const char *upk_db_service_cmdline( 

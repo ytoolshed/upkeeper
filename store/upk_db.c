@@ -70,7 +70,7 @@ upk_db_init(
 int 
 upk_db_open(
     const char     *file, 
-    sqlite3       **pdb
+    sqlite3       **ppdb
 ) {
     int      rc;
     
@@ -120,7 +120,7 @@ int upk_db_changed(
     char        *db_create_time;
     struct stat  statbuf;
 
-    assert( stat( upk_db_file, &statbuf ) == 0 );
+    assert( stat( upk_db_file_main(), &statbuf ) == 0 );
 
     if( upk_db_ino) {
 	assert( upk_db_ino == statbuf.st_ino );
@@ -149,7 +149,7 @@ int upk_db_changed(
  */
 int 
 upk_db_exit(
-    upk_db *pupk_db
+    struct upk_db *pupk_db
 ) {
     int rc;
 
@@ -308,7 +308,8 @@ int _upk_db_service_find(
 int upk_db_service_find( 
    upk_srvc_t srvc
 ) {
-    return( _upk_db_service_find( srvc->pdb, srvc->package, srvc->service, 0 ) );
+    return( _upk_db_service_find( srvc->upk_db.pdb, 
+                                  srvc->package, srvc->service, 0 ) );
 }
 
 /* 
@@ -318,7 +319,8 @@ int upk_db_service_find(
 int upk_db_service_find_or_create( 
    upk_srvc_t srvc
 ) {
-    return( _upk_db_service_find( srvc->pdb, srvc->package, srvc->service, 1 ) );
+    return( _upk_db_service_find( srvc->upk_db.pdb, 
+                                  srvc->package, srvc->service, 1 ) );
 }
 
 /* 
@@ -354,7 +356,7 @@ _upk_db_event_add(
                   "values (%Q, %Q%Q, %d)",
                   date_string, event, extra, service_id);
 
-    rc = sqlite3_exec( srvc->pdb, sql, NULL, NULL, &zErr );
+    rc = sqlite3_exec( srvc->upk_db.pdb, sql, NULL, NULL, &zErr );
     sqlite3_free( date_string );
 
     if(rc != SQLITE_OK) {
@@ -871,7 +873,7 @@ void upk_db_status_visitor(
       if ((res = sqlite3_column_text( stmt, 4 )) != NULL) {
         cb[count].bpid      = atoi(res);
       }
-      cb[count].s.pdb     = pdb;
+      cb[count].s.upk_db.pdb = pdb;
       count++;
       rc = sqlite3_step( stmt );
     }
@@ -1055,10 +1057,11 @@ void upk_db_listener_remove_dead(
  * Wipe all DB tables
  */
 void upk_db_clear(
-    sqlite3    *pdb
+    struct upk_db *upk_db
 ) {
-    upk_db_exec_single( pdb, "DELETE FROM procruns;" );
-    upk_db_exec_single( pdb, "DELETE FROM services;" );
-    upk_db_exec_single( pdb, "DELETE FROM listeners;" );
-    upk_db_exec_single( pdb, "DELETE FROM events;" );
+    upk_db_exec_single( upk_db->pdb, "DELETE FROM procruns;" );
+    upk_db_exec_single( upk_db->pdb, "DELETE FROM services;" );
+    upk_db_exec_single( upk_db->pdb, "DELETE FROM events;" );
+
+    upk_db_exec_single( upk_db->pdb_misc, "DELETE FROM listeners;" );
 }
