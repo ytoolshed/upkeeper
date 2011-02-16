@@ -212,7 +212,7 @@ void uptop_services_print(
 
     clear();
     attron( A_BOLD );
-    printw( "upkeeper 1.0 dashboard %d\n\n", time( NULL ) );
+    printw( "upkeeper 1.0 dashboard \n\n" );
     attroff( A_BOLD );
     printw( "USR1 me at pid %d\n", getpid() );
     printw( "----------------------------------------\n" );
