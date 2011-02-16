@@ -19,7 +19,6 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = upk_db_file_main();
     int      rc;
     int      pid;
     int      stat_loc;
@@ -33,6 +32,9 @@ int main(
 
     s.package = "package-1";
     s.service = "service-1";
+
+    upk_db_file_main_set( "upkeeper-main.sqlite" );
+    upk_db_file_misc_set( "upkeeper-misc.sqlite" );
 
     rc = upk_db_init( &s.upk_db );
 
