@@ -152,7 +152,7 @@ int upk_db_service_buddy_pid(
 );
 int upk_db_buddy_down(sqlite3 *pdb, int bpid);
 
-int upk_db_update_buddy_events(sqlite3 *pdb, 
+int upk_db_update_buddy_events(struct upk_db *upk_db,
                                int *bpid,
                                int *pid, 
                                int *status);
@@ -171,5 +171,11 @@ char *upk_db_file_misc( void );
 
 void upk_db_file_main_set( char *filename );
 void upk_db_file_misc_set( char *filename );
+
+int upk_db_note_exit(
+    struct upk_db *upk_db,
+    int      status, 
+    int      bpid
+);
 
 #endif

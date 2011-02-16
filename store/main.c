@@ -50,7 +50,7 @@ int main(
       int pids[2] = { 123, 0 };
       int bpids[2] = { 244, 0 };
       int status[2] = { -1, 0 };
-      upk_db_update_buddy_events(s.upk_db.pdb, bpids,pids,status);
+      upk_db_update_buddy_events(&s.upk_db, bpids,pids,status);
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
                  123, "still get 111 back as pid" );
@@ -59,7 +59,7 @@ int main(
       int pids[2] = { 123, 0 };
       int bpids[2] = { 254, 0 };
       int status[2] = { -1, 0 };
-      upk_db_update_buddy_events(s.upk_db.pdb, bpids,pids,status);
+      upk_db_update_buddy_events(&s.upk_db, bpids,pids,status);
 
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
@@ -68,7 +68,7 @@ int main(
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
                  244, "get 244 back as pid" );
 
-    upk_test_is(upk_db_note_exit(s.upk_db.pdb, 111, 244),
+    upk_test_is(upk_db_note_exit(&s.upk_db, 111, 244),
                 0,
                 "exit for known buddy");
 

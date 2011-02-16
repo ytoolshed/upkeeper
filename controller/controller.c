@@ -163,13 +163,12 @@ static int stats[51];
 static int  idx = 0;
 
 int upk_controller_flush_events(
-                                sqlite3 *pdb
-                                )
-{
+    struct upk_db *upk_db
+) {
   int retval = 0;
   if (idx != 0) {
     idx = 0;
-    retval = upk_db_update_buddy_events(pdb, bpids,pids,stats);
+    retval = upk_db_update_buddy_events(upk_db, bpids,pids,stats);
     bpids[0] = 0;
     pids[0]  = 0;
     stats[0] = 0;
@@ -179,11 +178,10 @@ int upk_controller_flush_events(
 }
                                 
 int upk_controller_handle_buddy_status(
-                                        sqlite3 *pdb,
-                                        int  sock,
-                                        char *msg
-                                        )
-{
+    struct upk_db *upk_db,
+    int  sock,
+    char *msg
+) {
   int bpid,pid,status;
   int ret;
   memcpy(&bpid,   msg+1,sizeof(int));
@@ -198,7 +196,7 @@ int upk_controller_handle_buddy_status(
     pids[idx] =   pid;
     idx++;
     if (idx == 50) {
-      return upk_controller_flush_events(pdb);
+      return upk_controller_flush_events( upk_db );
     }
     break;
   case 'd': /* message from buddy */
@@ -210,14 +208,14 @@ int upk_controller_handle_buddy_status(
     stats[idx] = status;
     idx++;
     if (idx == 50) {
-      return upk_controller_flush_events(pdb);
+      return upk_controller_flush_events( upk_db );
     }
     break;
   case 'e': /* message from buddy */
     if ( DEBUG ) {
       printf("BUDDY EXITED MESSAGE bpid: %d, pid: %d\n", bpid, pid);
     }
-    upk_db_buddy_down(pdb, bpid);
+    upk_db_buddy_down(upk_db->pdb, bpid);
     break;
   default:
     break;

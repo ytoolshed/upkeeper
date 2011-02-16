@@ -57,7 +57,8 @@ int main(
 
     (void) signal( SIGUSR1, uptop_signal_handler );
 
-    uptop_services_print( UPK_DB.pdb_misc );
+      /* this refers to data in the main database */
+    uptop_services_print( UPK_DB.pdb );
 
     nodelay( stdscr, TRUE );
 
@@ -204,7 +205,7 @@ void uptop_services_print(
 
     clear();
     attron( A_BOLD );
-    printw( "upkeeper 1.0 dashboard\n\n" );
+    printw( "upkeeper 1.0 dashboard %d\n\n", time( NULL ) );
     attroff( A_BOLD );
     printw( "USR1 me at pid %d\n", getpid() );
     printw( "----------------------------------------\n" );

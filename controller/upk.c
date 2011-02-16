@@ -239,7 +239,7 @@ int main(
 	}
     }
 
-    upk_db_listener_send_all_signals( srvc.upk_db.pdb );
+    upk_db_listener_send_all_signals( srvc.upk_db.pdb_misc );
 
     upk_db_exit( &srvc.upk_db );
 

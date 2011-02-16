@@ -18,6 +18,11 @@ void upk_controller_bootstrap   ( sqlite3 *pdb );
 void upk_controller_status_fixer( sqlite3 *pdb, struct srvc_fd *fd );
 int  upk_controller_socket_init  ( char    *path);
   
+int upk_controller_handle_buddy_status(
+    struct upk_db *upk_db,
+    int  sock,
+    char *msg
+);
 
 #define FATAL "buddy-controller: fatal: "
 #define ERROR "buddy-controller: error: "

@@ -696,7 +696,7 @@ upk_do_buddy_up_event(
 }
 
 int upk_db_update_buddy_events(
-    sqlite3 *pdb, 
+    struct upk_db *upk_db,
     int     *bpid,
     int     *pid, 
     int     *status
@@ -721,29 +721,31 @@ int upk_db_update_buddy_events(
   sqlite3_stmt *up_stmt[3], *down_stmt[4], *stmt;
   int i;
   for (i = 0; i < 2; i++) {
-    if (SQLITE_OK != sqlite3_prepare( pdb, up_sql[i], strlen(up_sql[i]), 
+    if (SQLITE_OK != sqlite3_prepare( upk_db->pdb, 
+                                      up_sql[i], strlen(up_sql[i]), 
                                       &up_stmt[i], &zCerr )) {
       printf("Preparing up statement %d failed: %s\n", i, zCerr);
       return(UPK_DB_ERROR);
     }
   }  
   for (i = 0; i < 3; i++) {
-    if (SQLITE_OK != sqlite3_prepare( pdb, down_sql[i], strlen(down_sql[i]), 
+    if (SQLITE_OK != sqlite3_prepare( upk_db->pdb, 
+                                      down_sql[i], strlen(down_sql[i]), 
                                       &down_stmt[i], &zCerr )) {
       printf("Preparing down statement %d failed: %s\n", i, zCerr);
       return(UPK_DB_ERROR);
     }
   }
-  rc = sqlite3_exec( pdb, "BEGIN;", NULL, NULL, &zErr );
+  rc = sqlite3_exec( upk_db->pdb, "BEGIN;", NULL, NULL, &zErr );
   if(rc != SQLITE_OK) {
     printf("Starting transaction failed: %s\n", zErr);
     return(UPK_DB_ERROR);
   }
   do {
     if (*pid) { /* when there's a pid we're doing an up */ 
-      upk_do_buddy_up_event(pdb, up_stmt, *bpid, *pid);
+      upk_do_buddy_up_event(upk_db->pdb, up_stmt, *bpid, *pid);
     } else {
-      upk_do_buddy_down_event(pdb,down_stmt, *bpid, *status);
+      upk_do_buddy_down_event(upk_db->pdb,down_stmt, *bpid, *status);
     }
     pid++; status++;
   } while(*(++bpid));
@@ -754,13 +756,13 @@ int upk_db_update_buddy_events(
   for (i = 0; i < 3; i++) {
     sqlite3_finalize( down_stmt[i] );
   }
-  rc = sqlite3_exec( pdb, "COMMIT;", NULL, NULL, &zErr );
+  rc = sqlite3_exec( upk_db->pdb, "COMMIT;", NULL, NULL, &zErr );
   
   if(rc != SQLITE_OK) {
     printf("Ending transaction failed: %s\n", zErr);
     return(UPK_DB_ERROR);
   }
-  upk_db_listener_send_all_signals(pdb);
+  upk_db_listener_send_all_signals(upk_db->pdb_misc);
   return UPK_OK;
 }
 
@@ -768,7 +770,7 @@ int upk_db_update_buddy_events(
  *
  */
 int upk_db_note_exit(
-    sqlite3 *pdb, 
+    struct upk_db *upk_db,
     int      status, 
     int      bpid
 ) {
@@ -777,7 +779,7 @@ int upk_db_note_exit(
   int stati[2] = {0};
   stati[0] = status;
   bpids[0] = bpid;
-  return upk_db_update_buddy_events(pdb,bpids,pids,stati);
+  return upk_db_update_buddy_events(upk_db,bpids,pids,stati);
 }
 
 /* 

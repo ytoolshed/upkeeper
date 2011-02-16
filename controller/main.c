@@ -178,7 +178,7 @@ int main(
         } 
         if ( FD_ISSET(sfd->fd,&rfds) ) {
           while (read(sfd->fd,mbuf,sizeof(int)*3 + 1) > 0) {
-            if (!upk_controller_handle_buddy_status(sfd->srvc.upk_db.pdb,
+            if (!upk_controller_handle_buddy_status(&sfd->srvc.upk_db,
                                                     sfd->fd,
                                                     mbuf)) {
               need_notify = 1;
