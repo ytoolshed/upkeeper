@@ -16,7 +16,7 @@ int        DEBUG = 0;
 int        DB_CHECK_INTERVAL = 10;
 int        DB_CHECK_LAST     = 0;
 
-sqlite3   *PDB;
+struct upk_db UPK_DB;
 static int OPT_VERSION = 0;
 
 void uptop_signal_handler( int sig );
@@ -28,7 +28,6 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char  *file = upk_db_file_main();
     int    rc;
     int    ch;
     struct timeval timeout_saved = { 0, 100000 }; /* 100 ms */
@@ -43,7 +42,7 @@ int main(
 
     initscr(); /* Curses init */
 
-    rc = upk_db_init( file, &PDB );
+    rc = upk_db_init( &UPK_DB );
 
     if(rc < 0) {
 	printf("db_init failed. Exiting.\n");
@@ -53,12 +52,12 @@ int main(
     /* Register with the upkeeper listener service */
 
       /* remove previous leftovers */
-    upk_db_listener_remove_dead( PDB ); 
-    upk_db_listener_add( PDB, COMPONENT, getpid(), SIGUSR1 );
+    upk_db_listener_remove_dead( UPK_DB.pdb_misc ); 
+    upk_db_listener_add( UPK_DB.pdb_misc, COMPONENT, getpid(), SIGUSR1 );
 
     (void) signal( SIGUSR1, uptop_signal_handler );
 
-    uptop_services_print( PDB );
+    uptop_services_print( UPK_DB.pdb_misc );
 
     nodelay( stdscr, TRUE );
 
@@ -72,10 +71,10 @@ int main(
 	now = time( NULL );
 
 	if( DB_CHECK_LAST == 0 ) {
-	    upk_db_changed( PDB );
+	    upk_db_changed( UPK_DB.pdb );
             DB_CHECK_LAST = now;
 	} else if ( DB_CHECK_LAST + DB_CHECK_INTERVAL < now ) {
-	    assert( ! upk_db_changed( PDB ) );
+	    assert( ! upk_db_changed( UPK_DB.pdb ) );
             DB_CHECK_LAST = now;
 	}
 
@@ -89,7 +88,7 @@ int main(
 	cursor_corner();
     }
 
-    upk_db_close( PDB );
+    upk_db_exit( &UPK_DB );
 
     endwin(); /* Curses exit */
 
@@ -106,11 +105,11 @@ void uptop_signal_handler(
         case SIGUSR1:
             initscr();
             refresh();
-            uptop_services_print( PDB );
+            uptop_services_print( UPK_DB.pdb );
             break;
         case SIGTERM:
             endwin(); /* Curses exit */
-            upk_db_close( PDB );
+            upk_db_exit( &UPK_DB );
             exit( 0 );
             break;
     }
@@ -231,16 +230,6 @@ void clock_update (
 
     move(y-1, 0);
     printw( "Time now  : %s\n", time_as_string() );
-
-    /*
-      move(y-3, 0);
-      char *s = strdup( upk_db_created( PDB ) );
-      printw( "DB created at: %s (as of %s)\n", s, time_as_string() );
-      free( s );
-      move(y-4, 0);
-      printw( "DB last checked at: %d\n", DB_CHECK_LAST ); 
-     */
-
     refresh();
 }
 

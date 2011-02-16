@@ -39,7 +39,7 @@ int upk_buddy_start_1(
   }
 
   if (bpid == 0) {
-    upk_db_close( &( srvc->upk_db ) );
+    upk_db_exit( &srvc->upk_db );
     execlp(BUDDYPATH, 
            BUDDYPATH, 
            "-q",
