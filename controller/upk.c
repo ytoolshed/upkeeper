@@ -136,7 +136,6 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    char    *file = "../store/store.sqlite";
     int      rc;
     int      i;
     struct upk_srvc srvc;

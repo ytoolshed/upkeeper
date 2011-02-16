@@ -178,4 +178,10 @@ int upk_db_note_exit(
     int      bpid
 );
 
+int 
+upk_db_open(
+    const char     *file, 
+    sqlite3       **ppdb
+);
+
 #endif

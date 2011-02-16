@@ -19,6 +19,11 @@ int        DB_CHECK_LAST     = 0;
 struct upk_db UPK_DB;
 static int OPT_VERSION = 0;
 
+int options_parse(
+    int   argc,
+    char *argv[]
+);
+
 void uptop_signal_handler( int sig );
 const char *time_as_string();
 void clock_update ();
@@ -193,6 +198,8 @@ int options_parse(
             break;
         }
     }
+
+    return( 0 );
 }
 
 /* 

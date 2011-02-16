@@ -183,7 +183,6 @@ int upk_controller_handle_buddy_status(
     char *msg
 ) {
   int bpid,pid,status;
-  int ret;
   memcpy(&bpid,   msg+1,sizeof(int));
   memcpy(&pid,    msg+1+sizeof(int),sizeof(int));
   memcpy(&status, msg+1+(sizeof(int)*2),sizeof(int));

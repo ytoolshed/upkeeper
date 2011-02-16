@@ -90,4 +90,5 @@ cleanup:
 
     return( rc );
 #endif /* UNDER_CONSTRUCTION */
+    return( 0 );
 }

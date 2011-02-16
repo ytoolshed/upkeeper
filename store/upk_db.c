@@ -602,7 +602,6 @@ static int upk_do_buddy_down_event(
 ) {
     int rc,i;
     char *zErr;
-    const char *zCerr;
 
     if (SQLITE_OK != sqlite3_bind_int(down_stmt[0], 1, bpid)) {
       printf("Failed to bind integer parameter 1: %s\n","hmm");
@@ -648,7 +647,6 @@ upk_do_buddy_up_event(
 
     int rc,i;
     char *zErr;
-    const char *zCerr;
 
     if (SQLITE_OK != sqlite3_bind_int(up_stmt[0], 1, bpid)) {
       printf("Failed to bind integer parameter 1: %s\n","hmm");
@@ -718,7 +716,7 @@ int upk_db_update_buddy_events(
   int  rc;
   char *zErr;
   const char *zCerr;
-  sqlite3_stmt *up_stmt[3], *down_stmt[4], *stmt;
+  sqlite3_stmt *up_stmt[3], *down_stmt[4];
   int i;
   for (i = 0; i < 2; i++) {
     if (SQLITE_OK != sqlite3_prepare( upk_db->pdb, 

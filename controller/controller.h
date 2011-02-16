@@ -17,6 +17,10 @@ void upk_db_reset_launchcallback(
 void upk_controller_bootstrap   ( sqlite3 *pdb );
 void upk_controller_status_fixer( sqlite3 *pdb, struct srvc_fd *fd );
 int  upk_controller_socket_init  ( char    *path);
+
+int upk_controller_flush_events(
+    struct upk_db *upk_db
+);
   
 int upk_controller_handle_buddy_status(
     struct upk_db *upk_db,

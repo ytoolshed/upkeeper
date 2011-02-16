@@ -90,7 +90,6 @@ int main(
     struct upk_srvc s;
     char    *file = upk_db_file_main();
     int      rc;
-    int      sock;
     struct srvc_fd fds[MAX_SERVICES] = {  };
     struct srvc_fd *sfd = fds;
 
@@ -198,7 +197,7 @@ int main(
         upk_controller_status_fixer( s.upk_db.pdb, fds);
       }
       if (needs_flush) {
-	upk_controller_flush_events( s.upk_db.pdb );
+	upk_controller_flush_events( &s.upk_db );
 	needs_flush = 0;
       }
       

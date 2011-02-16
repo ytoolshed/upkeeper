@@ -281,7 +281,6 @@ int options_parse(int argc, char *argv[], char *envp[])
 {
   int c;
   int option_index;
-  int doing_log = 0;
   static struct option long_options[] = {
     { "once",        no_argument, 0, 'o' },
     { "quiet",	     no_argument, 0, 'q' },
