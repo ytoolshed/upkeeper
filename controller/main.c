@@ -69,9 +69,6 @@ int options_parse(
     return option_index;
 }
 
-#define LISTEN_PATH "./controller"
-
-
 static void handler(int sig)  
 { 
   switch (sig) {
@@ -81,7 +78,6 @@ static void handler(int sig)
   }
   sig = write(sigp[1]," ",1);
 }
-
 
 int main( 
     int   argc, 
@@ -206,7 +202,6 @@ int main(
     
     upk_db_exit( &s.upk_db );
 
-    unlink(LISTEN_PATH);
     return(0);
 }
 
