@@ -34,4 +34,22 @@ upk_api_service_actual_status_get(
     char           *service
 );
 
+int 
+upk_api_service_set(
+    struct upk_api *pupk_api,
+    char           *package,
+    char           *service,
+    char           *cmd,
+    char           *cmd_params[]
+);
+
+int 
+upk_api_service_visitor(
+    struct upk_api *pupk_api,
+    char           *package,
+    char           *service,
+    void           (*callback)(),
+    void            *context
+);
+
 #endif

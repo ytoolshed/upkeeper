@@ -64,6 +64,9 @@ upk_api_service_desired_status_get(
     return( rc );
 }
 
+/* 
+ * 
+ */
 int 
 upk_api_service_actual_status_get(
     struct upk_api *pupk_api,
@@ -74,3 +77,51 @@ upk_api_service_actual_status_get(
 
     return( rc );
 }
+
+/* 
+ * 
+ */
+int 
+upk_api_service_actual_status_set(
+    struct upk_api *pupk_api,
+    char           *package,
+    char           *service,
+    upk_status_t    upk_status
+) {
+    int rc = 0;
+
+    return( rc );
+}
+
+/* 
+ * 
+ */
+int 
+upk_api_service_set(
+    struct upk_api *pupk_api,
+    char           *package,
+    char           *service,
+    char           *cmd,
+    char           *cmd_params[]
+) {
+    int rc = 0;
+
+    return( rc );
+}
+
+/* 
+ * 
+ */
+int 
+upk_api_service_visitor(
+    struct upk_api *pupk_api,
+    char           *package,
+    char           *service,
+    void           (*callback)(),
+    void            *context
+) {
+    int rc = 0;
+
+    return( rc );
+}
+
