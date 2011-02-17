@@ -122,6 +122,7 @@ int main(
     
     upk_catch_signal(SIGTERM, handler);
     upk_catch_signal(SIGHUP,  handler);
+    upk_catch_signal(SIGCHLD, SIG_IGN);
     upk_controller_status_fixer( s.upk_db.pdb, fds);
 
     upk_db_listener_remove_dead( s.upk_db.pdb_misc ); 
