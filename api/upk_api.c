@@ -48,6 +48,7 @@ upk_api_init(
 
 /* 
  * Set the desired status of a service, which will notify the controller
+ * 
  */
 int
 upk_api_service_desired_status_set(
