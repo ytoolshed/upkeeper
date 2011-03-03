@@ -13,6 +13,43 @@
 #include "common/err.h"
 #include "store/upk_db.h"
 #include "buddy/upk_buddy.h"
+
+/*
+
+
+so, the controller starts up and it monitors two things -- a directory
+and the database.
+
+
+to monitor a directory, every 30 seconds, it iterates the contents of the directory
+look for files of the form .buddy/%d. it attempts to connect to each of the domain sockets.
+
+if it finds a file like this which is not a domain socket, it complains.
+if it finds a domain socket it cannot connect to, it complains and removes the socket.
+
+having connected to the socket, it sends the 's' command (status). 
+
+if it receives a message from a buddy that it can't account for, it responds with a 't' command (terminate).
+
+
+now, to start things up, the controller spins off a buddy, and adds the buddy's pid to the procruns table.
+
+
+there's several messages that the controller can receive from a 
+
+if a message is received from an unknown buddy (aka one without a procruns entry), 
+the controller responds with a 'terminate' command.
+
+'up' - the buddy has brought up the application it's monitoring. the actual state is marked as 'up'.
+
+'down' - the application is down. the actual state is marked as 'down'.
+
+
+at some point the controller should watch out for unresponsive buddies.
+
+
+*/
+
 extern int DEBUG;
 
 struct status_fixer_state {
