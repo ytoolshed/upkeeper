@@ -18,10 +18,8 @@
 int DEBUG = 0;
 
 static int OPT_VERBOSE          = 0;
-
 static int term  = 0;
 static int hup   = 0;
-static int needs_flush = 0;
 static int sigp[2]            = {-1,-1};
 
 void usage(void)
@@ -129,24 +127,29 @@ int main(
     upk_db_listener_add( s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
 
     for (;;) {
-      struct timeval period;
-      int maxfd = sigp[0];
-      fd_set rfds;
-      char sig;
-      int need_notify;
       char mbuf[128];
+      char sig;
+
+      struct timeval period;
+
+      int need_notify  = 0;
+      int need_flush   = 0;
+      int maxfd = sigp[0];
+
+      fd_set rfds;
+
       FD_ZERO(&rfds);
       FD_SET(sigp[0], &rfds);
-      for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
+      for (sfd = fds; sfd < fds + MAX_SERVICES; sfd++) {
         if ( !sfd->srvc.service ) continue;
-        if ( sfd->fd == -1)       continue ;
+        if ( sfd->fd == -1 )      continue;
+        if ( sfd->fd > maxfd ) maxfd = sfd->fd;
         FD_SET(sfd->fd, &rfds); 
-        if (sfd->fd > maxfd) maxfd = sfd->fd;
       }
       period.tv_sec  = 1;
       period.tv_usec = 0;
 
-      switch(select(maxfd+1, &rfds, NULL, NULL, &period)) {
+      switch( select(maxfd+1, &rfds, NULL, NULL, &period) ) {
       case -1:
         FD_ZERO(&rfds);
 	break;
