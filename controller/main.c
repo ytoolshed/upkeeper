@@ -132,8 +132,8 @@ int main(
 
       struct timeval period;
 
-      int need_notify  = 0;
-      int need_flush   = 0;
+      int needs_notify  = 0;
+      int needs_flush   = 0;
       int maxfd = sigp[0];
 
       fd_set rfds;
@@ -181,13 +181,13 @@ int main(
             if (!upk_controller_handle_buddy_status(&sfd->srvc.upk_db,
                                                     sfd->fd,
                                                     mbuf)) {
-              need_notify = 1;
+              needs_notify = 1;
             }
           }
         }
       }
-      if (need_notify) {
-        need_notify = 0;
+      if (needs_notify) {
+        needs_notify = 0;
         upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
       }
       if (term) {
