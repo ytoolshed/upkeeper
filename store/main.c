@@ -21,13 +21,19 @@ int main(
     s.package = "package";
     s.service = "service-1";
 
-    printf("1..29\n");
+    printf("1..35\n");
 
     /* test */
     upk_test_is( 1, 1, "one is one" );
 
     rc = upk_db_init( &s.upk_db );
+
     
+    if(rc < 0) {
+	printf("upk_db_init failed. Exiting.\n");
+	exit(-1);
+    }
+ 
         /* setter */
     upk_db_service_cmdline( &s, "cmdline" );
         /* getter */
@@ -46,6 +52,9 @@ int main(
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
                  244, "get 244 back as pid" );
 
+    cp = upk_db_service_actual_status( &s, 0 );    
+    upk_test_eq( cp, "stop", "beginning state is \"stop\"" );
+
     {
       int pids[2] = { 123, 0 };
       int bpids[2] = { 244, 0 };
@@ -53,31 +62,49 @@ int main(
       upk_db_update_buddy_events(&s.upk_db, bpids,pids,status);
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
-                 123, "still get 111 back as pid" );
+                 123, "get 123 back as pid" );
+
+    cp = upk_db_service_actual_status( &s, 0 );    
+    upk_test_eq( cp, "start", "actual status start after up event");
 
     {
-      int pids[2] = { 123, 0 };
-      int bpids[2] = { 254, 0 };
-      int status[2] = { -1, 0 };
-      upk_db_update_buddy_events(&s.upk_db, bpids,pids,status);
+      int pids[2] = { 0, 0 };
+      int bpids[2] = { 244, 0 };
+      int status[2] = { 0, 0 };
+      upk_db_update_buddy_events(&s.upk_db, bpids, pids, status);
 
     }
     upk_test_is( upk_db_service_pid( &s, 0 ),
-                 123, "still get 123 back as pid" );
+                 0, "get 0 back as pid after down event " );
 
     upk_test_is( upk_db_service_buddy_pid( &s, 0 ),
-                 244, "get 244 back as pid" );
+                 244, "get 244 back as buddy pid" );
 
-    upk_test_is(upk_db_note_exit(&s.upk_db, 111, 244),
+    cp = upk_db_service_actual_status( &s, 0 );    
+    upk_test_eq( cp, "stop", "actual status stop" );
+
+
+
+    {
+      int pids[2] = { 123, 0 };
+      int bpids[2] = { 244, 0 };
+      int status[2] = { -1, 0 };
+      upk_db_update_buddy_events(&s.upk_db, bpids,pids,status);
+    }
+    upk_test_is( upk_db_service_pid( &s, 0 ),
+                 123, "get 123 back as pid" );
+
+
+    cp = upk_db_service_actual_status( &s, 0 );    
+    upk_test_eq( cp, "start", "upk_db_note_exit seen in status" );
+
+    upk_test_is(upk_db_note_exit(&s.upk_db, 123, 244),
                 0,
                 "exit for known buddy");
 
+    cp = upk_db_service_actual_status( &s, 0 );    
+    upk_test_eq( cp, "stop", "upk_db_note_exit seen in status" );
 
-    if(rc < 0) {
-	printf("upk_db_init failed. Exiting.\n");
-	exit(-1);
-    }
- 
     for( i=0; i<=2; i++ ) {
       s.service = sqlite3_mprintf("service-%d", i);
 
