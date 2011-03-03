@@ -706,11 +706,11 @@ int upk_db_update_buddy_events(
       "UPDATE procruns SET pid= ?2 WHERE bpid = ?1 ;"
     };
   char *down_sql[4] =
-    { "UPDATE procruns SET pid=NULL WHERE bpid = ? ;",
-      "UPDATE services SET state_actual='exited' WHERE procrun_id in "
-      "(SELECT id from procruns where bpid=?001);",
+    { "UPDATE procruns SET pid=NULL WHERE bpid = ?1 ;",
+      "UPDATE services SET state_actual='stop' WHERE procrun_id in "
+      "(SELECT id from procruns where bpid = ?1 );",
       "INSERT INTO exits (status,procrun_id)"
-      "SELECT ?002, id from procruns where bpid=?001;"
+      "SELECT ?002, id from procruns where bpid=?1;"
     };
 
   int  rc;
