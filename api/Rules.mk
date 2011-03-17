@@ -6,7 +6,7 @@ $(BIN)	:= $(d)/upk $(d)/upktest
 $(LIB)  := $(d)/upkapi.a
 
 CF_$(d) += -I$(d) -Istore
-LL_$(d) := common/common.a store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlite3.a 
+LL_$(d) := api/upkapi.a common/common.a store/store.a controller/controller.a buddy/buddy.a deps/sqlite/sqlite3.a
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
@@ -18,10 +18,10 @@ $(d)/upkapi.a: $($(OBJS))
 $(d)/upkapi.tap: $(d)/upktest
 
 $(d)/upktest: $(d)/test.c $(LL_$(d))
-	$(COMPLINK) $(LL_upkapi)
+	$(COMPLINK) $(LL_api)
 
 $(d)/upk: $(d)/upk.c $(LL_$(d))
-	$(COMPLINK) $(LL_upkapi)
+	$(COMPLINK) $(LL_api)
 
 # Standard things
 include 	end.mk

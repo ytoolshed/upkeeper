@@ -17,6 +17,7 @@
 
 #include "upk_db.h"
 #include "common/nonblock.h"
+#include "api/upk_api.h"
 
 const char *upk_states[] = { "unknown", "start", "stop", "exited", "invalid" };
 
@@ -1064,4 +1065,53 @@ void upk_db_clear(
     upk_db_exec_single( upk_db->pdb, "DELETE FROM events;" );
 
     upk_db_exec_single( upk_db->pdb_misc, "DELETE FROM listeners;" );
+}
+
+#define XSQLITE_COL2INT( x ) ( (x) == NULL ? -1 : atoi( x ) )
+
+/* 
+ * Visitor for external API 
+ */
+void upk_db_service_visitor( 
+    sqlite3 *pdb, 
+    void    (*callback)(),
+    void    *context
+
+) {
+    const char             *sql;
+    sqlite3_stmt           *stmt;
+    int                     rc, ncols;
+    struct upk_api_service  service_data;
+    
+    /* We might have services that don't have procruns defs yet, so
+       use an outer join to get all of them regardless.
+     */
+    sql = "SELECT package, service, cmdline, " 
+          "       state_desired, state_actual, pid "
+	  "FROM services "
+	  "  LEFT OUTER JOIN procruns "
+	  "  ON services.procrun_id = procruns.id "
+	  "ORDER by package, service "
+	  ";";
+
+    sqlite3_prepare( pdb, sql, strlen(sql), &stmt, NULL );
+
+    ncols = sqlite3_column_count( stmt );
+    rc = sqlite3_step( stmt );
+
+    while( rc == SQLITE_ROW ) {
+	service_data.package       = sqlite3_column_text( stmt, 0 );
+	service_data.service       = sqlite3_column_text( stmt, 1 );
+	service_data.cmdline       = sqlite3_column_text( stmt, 2 );
+	service_data.state_desired = sqlite3_column_text( stmt, 3 );
+	service_data.state_actual  = sqlite3_column_text( stmt, 4 );
+	service_data.pid           = XSQLITE_COL2INT(
+		                       sqlite3_column_text( stmt, 5 )
+		                     );
+
+        (*callback)( &service_data, context );
+        rc = sqlite3_step( stmt );
+    }
+
+    sqlite3_finalize( stmt );
 }
