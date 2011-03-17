@@ -14,6 +14,8 @@
 #include "controller/controller.h"
 #include <assert.h>
 
+#define STRING_OR_NULL( x ) ( (x) ? ( x ) : "[unset]" )
+
 void help( );
 
 int DEBUG           = 0;
@@ -87,9 +89,13 @@ void service_list_callback(
    void  *context
 ) {
     printf( "%s/%s %s %s %s %d\n", 
-	    data->package, data->service, data->cmdline, 
-	    data->state_actual, data->state_desired,
-	    data->pid );
+	    STRING_OR_NULL( data->package ), 
+            STRING_OR_NULL( data->service ), 
+	    STRING_OR_NULL( data->cmdline ), 
+            STRING_OR_NULL( data->state_actual ), 
+	    STRING_OR_NULL( data->state_desired ),
+            data->pid
+	  );
 }
 
 int main(
