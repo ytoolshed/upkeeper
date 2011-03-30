@@ -84,9 +84,6 @@ int main(
     struct upk_srvc s;
     char    *file = upk_db_file_main();
     int      rc;
-    struct srvc_fd fds[MAX_SERVICES] = {  };
-    struct srvc_fd *sfd = fds;
-
 
     options_parse( argc, argv );
     if (optind < argc) {
@@ -103,13 +100,6 @@ int main(
     if(rc < 0) {
         sysdie3(111, FATAL, "failed to initialize database ","");
 	exit(-1);
-    }
-
-    for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) {
-      sfd->fd = -1;
-      sfd->srvc.service = NULL;
-      sfd->srvc.package = NULL;
-      sfd->bpid         = -1;
     }
 
     if (pipe(sigp) == -1)
