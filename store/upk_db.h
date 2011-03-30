@@ -150,7 +150,7 @@ int upk_db_service_buddy_pid(
                                    upk_srvc_t svc,
                                    int         pid
 );
-int upk_db_buddy_down(sqlite3 *pdb, int bpid);
+int upk_db_buddy_down(struct upk_db *upk_db, int bpid);
 
 int upk_db_update_buddy_events(struct upk_db *upk_db,
                                int *bpid,

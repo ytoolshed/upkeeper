@@ -576,10 +576,11 @@ int upk_db_service_buddy_pid(upk_srvc_t srvc, int pid) {
   
 }
 
-int upk_db_buddy_down(sqlite3 *pdb, int bpid) {
+int upk_db_buddy_down(struct upk_db *db, int bpid) {
   char *sql;
   int  rc;
   char *zErr;
+  sqlite3 *pdb = db->pdb;
   sql = sqlite3_mprintf("BEGIN; UPDATE procruns SET pid=NULL, bpid=NULL "
                         "WHERE bpid = %d ; COMMIT;",bpid);
   
