@@ -4,8 +4,11 @@
 #include "store/upk_db.h"
 
 struct srvc_fd { 
+  /* file descriptor open to buddy, or -1 if no file descriptor yet */
   int fd;
+  /* buddy pid, or -1 if this entry is unused */
   int bpid;
+  /* the service that this buddy runs on */
   struct upk_srvc srvc;
 };
 

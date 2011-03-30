@@ -10,14 +10,15 @@ LL_$(d) := common/common.a store/store.a controller/controller.a buddy/buddy.a d
 
 CLEAN	+= $(OBJS_$(d)) $(DEPS_$(d))
 
-CHECK	+= $(d)/buddy-controller.tap
+CHECK	+= $(d)/controller-test.tap
 
 $(d)/controller.a: $($(OBJS))
 	$(ARCH)
 
-$(d)/buddy-controller.tap: $(d)/buddy-controller
-
 $(d)/buddy-controller: $(d)/main.c $(LL_$(d))
+	$(COMPLINK) $(LL_controller)
+
+$(d)/controller-test.t: $(d)/controller-test.c $(LL_$(d))
 	$(COMPLINK) $(LL_controller)
 
 $(d)/upk: $(d)/upk.c $(LL_$(d)) $(d)/buddy

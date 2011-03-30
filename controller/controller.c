@@ -52,6 +52,7 @@ at some point the controller should watch out for unresponsive buddies.
 
 extern int DEBUG;
 
+
 struct status_fixer_state {
   sqlite3 *pdb;
   struct srvc_fd *sfd;
