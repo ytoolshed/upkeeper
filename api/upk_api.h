@@ -10,20 +10,29 @@ typedef struct upk_api {
     struct upk_db upk_db;
 } upk_api_t;
 
+typedef struct upk_api_service {
+    const char *package;
+    const char *service;
+    const char *cmdline;
+    const char *state_desired;
+    const char *state_actual;
+    int         pid;
+} upk_api_service_t;
+
 int 
 upk_api_init(
     struct upk_api *pupk_api
 );
 
 const char *
-upk_api_service_desired_status_get(
+upk_api_service_desired_state_get(
     struct upk_api *pupk_api,
     char           *package,
     char           *service
 );
 
 int 
-upk_api_service_actual_status_set(
+upk_api_service_actual_state_set(
     struct upk_api *pupk_api,
     char           *package,
     char           *service,
@@ -31,7 +40,7 @@ upk_api_service_actual_status_set(
 );
 
 const char *
-upk_api_service_actual_status_get(
+upk_api_service_actual_state_get(
     struct upk_api *pupk_api,
     char           *package,
     char           *service

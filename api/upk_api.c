@@ -77,7 +77,7 @@ upk_api_service_desired_status_set(
 }
 
 /* 
- * 
+ * Retrieve the current setting of the desired state of a service
  */
 const char *
 upk_api_service_desired_status_get(
@@ -98,7 +98,7 @@ upk_api_service_desired_status_get(
 }
 
 /* 
- * 
+ * Retrieve the current setting of the actual state of a service
  */
 const char *
 upk_api_service_actual_status_get(
@@ -118,7 +118,7 @@ upk_api_service_actual_status_get(
 }
 
 /* 
- * 
+ * Define the command line executed by a package/service.
  */
 int 
 upk_api_service_set(
@@ -143,7 +143,11 @@ upk_api_service_set(
 }
 
 /* 
- * 
+ * Iterate over all defined services, and on each entry found,
+ * call the specified callback like
+ *     *callback( upk_api_service_t data, context )
+ * where the data struct contains the fields 'package', 'service',
+ * 'cmdline' and more.
  */
 int 
 upk_api_service_visitor(
@@ -153,7 +157,7 @@ upk_api_service_visitor(
 ) {
     int rc = 0;
 
-    upk_db_status_visitor( pupk_api->upk_db.pdb, callback, context );
+    upk_db_service_visitor( pupk_api->upk_db.pdb, callback, context );
 
     return( rc );
 }

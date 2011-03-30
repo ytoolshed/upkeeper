@@ -184,4 +184,10 @@ upk_db_open(
     sqlite3       **ppdb
 );
 
+void upk_db_api_service_visitor( 
+    sqlite3 *pdb, 
+    void    (*callback)(),
+    void    *context
+);
+
 #endif
