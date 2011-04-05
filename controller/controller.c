@@ -1,4 +1,6 @@
 #include <sys/socket.h>
+#include <sys/select.h>
+#include <sys/time.h>
 #include <sys/types.h>
 #include <sys/un.h>
 #include <sys/stat.h>
@@ -7,6 +9,7 @@
 #include <stdlib.h>
 #include <getopt.h>
 #include <unistd.h>
+#include <dirent.h>
 #include <errno.h>
 #include "controller.h"
 #include "common/coe.h"
@@ -95,6 +98,14 @@ upkctl_t upk_controller_init(struct upk_db *db)
   return ctl;
 }
 
+void upk_controller_free(upkctl_t ctl) {
+  int i;
+  for (i = 0; i < MAX_SERVICES; i++) {
+    if (ctl->sfd[i].srvc.service != NULL) { free(ctl->sfd[i].srvc.service); }
+    if (ctl->sfd[i].srvc.package != NULL) { free(ctl->sfd[i].srvc.package); }
+  }
+  free(ctl);
+}
 struct srvc_fd *upkctl_find_service(upkctl_t state, upk_srvc_t srvc) {
   struct srvc_fd *limit = state->sfd + state->service_count;
   struct srvc_fd *sfd = state->sfd;
@@ -127,10 +138,7 @@ struct srvc_fd *upkctl_make_service(upkctl_t state, upk_srvc_t srvc) {
 }
 
 
-int upkctl_flush_events(
-                        upkctl_t ctl
-                        ) {
-
+int upkctl_flush_events(upkctl_t ctl) {
   int retval = 0;
   if (ctl->eq.idx != 0) {
     ctl->eq.idx = 0;
@@ -194,110 +202,90 @@ int upkctl_handle_buddy_status(
 }
 
 
+void upkctl_stop_service(upkctl_t state, upk_srvc_t srvc) {
+
+}
+
+void upkctl_start_service(upkctl_t state, upk_srvc_t srvc) {
+
+}
+
+
 /* 
  * Bring a service inline with the desired status
  */
-void upk_controller_status_fixer_callback(
+void upkctl_status_fixer_callback(
                                           void * context,
                                           upk_srvc_t  srvc,     
                                           char    *status_desired,
                                           char    *status_actual
                                           ) {
     upkctl_t ctl = context;
-    const char *cmdline;
-    char       *cmdline_alloc;
-    struct     srvc_fd *sfd = upkctl_find_service(ctl, srvc);
-    int        buddyfd;
-
-    if (sfd == NULL) { /* we have no fd for this service */
-      int bpid = upk_db_service_buddy_pid(srvc, 0);
-      if (bpid) {
-        if ((buddyfd = upk_buddy_connect(bpid)) == -1) {
-          if (errno == ENOENT || errno == ECONNREFUSED) {
-            upk_db_buddy_down(ctl->db, bpid);
-            upk_db_service_actual_status(srvc,UPK_STATE_STOP);
-            status_actual = "stop";
-          } 
-        } else {
-          printf("*** FOUND buddy pid in db : %d\n",bpid);
-          sfd = upkctl_make_service(ctl, srvc);
-          sfd->bpid = bpid;
-          sfd->fd   = buddyfd;
-          if (write(sfd->fd,"s",1) != 1) {
-            /* XXX*/
-          }
-          upk_db_service_actual_status(srvc,UPK_STATE_START);
-          status_actual = "start";
-        }
-      }
-    }
-
-    if( strcmp( status_desired, status_actual ) == 0 ) {
-      return ;
-    }
-
-    cmdline = upk_db_service_cmdline( srvc, NULL );
-
-    if( cmdline == NULL ) {
-        if( DEBUG ) {
-	    printf("** ERROR no cmdline for %s/%s\n", 
-                   srvc->package, srvc->service );
-        }
-        return;
-    }
-
-      /* We got a static buffer which is going to be overridden with the
-         next sql call, allocate memory */
-    cmdline_alloc = strdup( cmdline );
-
-    if( strcmp( status_desired, upk_states[ UPK_STATE_START ] ) == 0 ) {
-        if (sfd && sfd->fd == -1) {
-            sfd->fd = upk_buddy_connect(sfd->bpid);
-            if (sfd->fd == -1) {
-                printf("*** WAITING for buddy %s/%s/%d\n", 
-                       srvc->package,srvc->service, errno);
-                return;
-            }
-            printf("*** FOUND buddy %s/%s/%d\n", 
-                   srvc->package,srvc->service, sfd->bpid);
-        
-            if (write(sfd->fd,"s",1) != 1) {
-                /* XXX*/
-            }
-            return;
-            
-
-        } 
-        
-	/* service needs to be started */
-        sfd = upkctl_make_service(ctl, srvc);
-        if( 1 ) {
-          printf("** STARTING %s/%s/%s\n", srvc->package, srvc->service,
-                   cmdline_alloc );
-        }
-        sfd->bpid = upk_buddy_start( srvc, cmdline_alloc, NULL );
-        upk_db_service_buddy_pid(srvc, sfd->bpid);
-        sfd->fd   = -1;
+    if (strcmp(status_desired, upk_states[UPK_STATE_STOP])) {
+      upkctl_stop_service(ctl, srvc);
     } else {
-        if( 1 ) {
-	    printf("** STOPPING %s/%s/%s\n", srvc->package, srvc->service,
-                                             cmdline_alloc );
-        }
-        upk_service_buddy_stop( srvc );
+      upkctl_start_service(ctl, srvc);
     }
-    
-    free( cmdline_alloc );
     return;
 }
+
 
 /* 
  * Bring all services inline with the desired status
  */
-/* void upk_controller_status_fixer(  */
-/*                                  sqlite3 *pdb, */
-/*                                  struct srvc_fd     *fd */
-/* ) { */
-/*   struct status_fixer_state s = { pdb, fd, MAX_SERVICES }; */
-/*   upk_db_status_visitor( pdb, upk_controller_status_fixer_callback, (void *)&s); */
-/* } */
+void upkctl_status_fixer(upkctl_t ctl) 
+{
+  upk_db_status_visitor(ctl->db->pdb, upkctl_status_fixer_callback, (void *)ctl);
+}
 
+void
+upkctl_build_fdset(upkctl_t state, fd_set *rfds, int *maxfd) {
+  struct srvc_fd *sfd;
+  for (sfd = state->sfd; sfd < state->sfd + MAX_SERVICES; sfd++) {
+    if ( !sfd->srvc.service ) continue;
+    if ( sfd->fd == -1 )      continue;
+    if ( sfd->fd > *maxfd ) *maxfd = sfd->fd;
+    FD_SET(sfd->fd, rfds); 
+  }
+}
+
+/* 
+to monitor a directory, every 30 seconds, it iterates the contents of the directory
+look for files of the form .buddy/%d. it attempts to connect to each of the domain sockets.
+
+if it finds a file like this which is not a domain socket, it complains.
+if it finds a domain socket it cannot connect to, it complains and removes the socket.
+
+having connected to the socket, it sends the 's' command (status). 
+*/
+
+int 
+upkctl_scan_directory(upkctl_t state) {
+  DIR *dir;
+  struct dirent *de;
+  dir = opendir(".");
+  if (!dir) {
+    return -1;
+  }
+  while (de = readdir(dir)) {
+    if (de->d_name[0] == '.' &&
+        de->d_name[1] == 'b' &&
+        de->d_name[2] == 'u' &&
+        de->d_name[3] == 'd' &&
+        de->d_name[4] == 'd' &&
+        de->d_name[5] == 'y') {
+      /* found a buddy -- make sure it's a domain socket */
+      struct stat buf;
+      if (stat(de->d_name,&buf) == -1) {
+        continue; /*xxx*/
+      }
+      if (! S_ISSOCK(buf.st_mode)) {
+        continue; /*xxx*/
+      }
+      /*     sfd->fd = upk_buddy_connect(sfd->bpid); */
+
+    }
+
+
+  }
+}

@@ -5,21 +5,34 @@
 
 typedef struct upk_controller_state *upkctl_t;
 
+
+/* create a controller object, given a database
+ */
 upkctl_t upk_controller_init(struct upk_db *db);
 
-void upk_db_reset_launchcallback( 
-    upk_srvc_t  srvc,                                    
-    char    *status_desired,
-    char    *status_actual
-);
-/*void upk_controller_status_fixer( sqlite3 *pdb, struct srvc_fd *fd );*/
+/* free resources attached to a controller */
+void     upk_controller_free(upkctl_t);
 
-int upkctl_flush_events(upkctl_t state);
-int upk_controller_handle_buddy_status(
-                                       upkctl_t state,
-                                       int  sock,
-                                       char *msg
-                                       );
+/* flush queued events to the database */
+int      upkctl_flush_events(upkctl_t state);
+
+/* bring all services into desired state in db */
+void     upkctl_status_fixer( upkctl_t ctl );
+
+
+/* handle a message from a buddy on a socket */
+int       upkctl_handle_buddy_status(
+                               upkctl_t state,
+                               int  sock,
+                               char *msg
+                               );
+/* populate an fd_set and maxfd for passing to 
+ * select, based on current state of controller */
+void
+upkctl_build_fdset(upkctl_t state, fd_set *rfds, int *maxfd);
+
+int 
+upkctl_scan_directory(upkctl_t state);
 
 #define FATAL "buddy-controller: fatal: "
 #define ERROR "buddy-controller: error: "

@@ -111,9 +111,7 @@ int main(
     upk_catch_signal(SIGTERM, handler);
     upk_catch_signal(SIGHUP,  handler);
     upk_catch_signal(SIGCHLD, SIG_IGN);
-    /*upk_controller_status_fixer( s.upk_db.pdb, fds);*/
 
-    /*upk_db_listener_remove_dead( s.upk_db.pdb_misc ); */
     upk_db_listener_add( s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
 
     for (;;) {
@@ -130,13 +128,8 @@ int main(
 
       FD_ZERO(&rfds);
       FD_SET(sigp[0], &rfds);
-      /* need to push down into controller.c
-         for (sfd = fds; sfd < fds + MAX_SERVICES; sfd++) {
-        if ( !sfd->srvc.service ) continue;
-        if ( sfd->fd == -1 )      continue;
-        if ( sfd->fd > maxfd ) maxfd = sfd->fd;
-        FD_SET(sfd->fd, &rfds); 
-        }*/
+      upkctl_build_fdset(ctl, rfds, &maxfd);
+
       period.tv_sec  = 1;
       period.tv_usec = 0;
 
@@ -153,30 +146,6 @@ int main(
       
       while(read(sigp[0],&sig,1) > 0) 
         ;
-
-      /* for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) { */
-      /*   if ( !sfd->srvc.service ) continue; */
-      /*   if ( sfd->fd == -1 ) { */
-      /*     sfd->fd = upk_buddy_connect(sfd->bpid); */
-      /*     if (sfd->fd == -1) continue; */
-      /*     nonblock(sfd->fd); */
-      /*     if (write(sfd->fd,"s",1) != 1) { */
-      /*       syswarn3("writing status request to buddy for ",sfd->srvc.service," failed: "); */
-      /*       close(sfd->fd);  */
-      /*       sfd->fd = -1; */
-      /*     } */
-      /*     continue; */
-      /*   }  */
-      /*   if ( FD_ISSET(sfd->fd,&rfds) ) { */
-      /*     while (read(sfd->fd,mbuf,sizeof(int)*3 + 1) > 0) { */
-      /*       if (!upk_controller_handle_buddy_status(&sfd->srvc.upk_db, */
-      /*                                               sfd->fd, */
-      /*                                               mbuf)) { */
-      /*         needs_notify = 1; */
-      /*       } */
-      /*     } */
-      /*   } */
-      /* } */
       if (needs_notify) {
         needs_notify = 0;
         upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
@@ -189,7 +158,7 @@ int main(
         /*upk_controller_status_fixer( s.upk_db.pdb, fds);*/
       }
       if (needs_flush) {
-	/*upk_controller_flush_events( &s.upk_db );*/
+	upkctl_flush_events( &s.upk_db );*/
 	needs_flush = 0;
       }
       
@@ -227,3 +196,27 @@ void upk_controller_bootstrap(
   upk_db_status_visitor( pdb, upk_db_reset_launchcallback, NULL );
 }
 
+
+      /* for (sfd = fds ; sfd < fds + MAX_SERVICES; sfd++) { */
+      /*   if ( !sfd->srvc.service ) continue; */
+      /*   if ( sfd->fd == -1 ) { */
+      /*     sfd->fd = upk_buddy_connect(sfd->bpid); */
+      /*     if (sfd->fd == -1) continue; */
+      /*     nonblock(sfd->fd); */
+      /*     if (write(sfd->fd,"s",1) != 1) { */
+      /*       syswarn3("writing status request to buddy for ",sfd->srvc.service," failed: "); */
+      /*       close(sfd->fd);  */
+      /*       sfd->fd = -1; */
+      /*     } */
+      /*     continue; */
+      /*   }  */
+      /*   if ( FD_ISSET(sfd->fd,&rfds) ) { */
+      /*     while (read(sfd->fd,mbuf,sizeof(int)*3 + 1) > 0) { */
+      /*       if (!upk_controller_handle_buddy_status(&sfd->srvc.upk_db, */
+      /*                                               sfd->fd, */
+      /*                                               mbuf)) { */
+      /*         needs_notify = 1; */
+      /*       } */
+      /*     } */
+      /*   } */
+      /* } */
