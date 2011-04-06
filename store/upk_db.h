@@ -119,15 +119,8 @@ void upk_db_listener_visitor(
     void (*callback)()
 );
 
-void upk_db_listener_send_all_signals( sqlite3 *pdb );
+void upk_db_listener_send_all_signals( struct upk_db *db );
 
-void 
-_upk_db_dead_listener_remove_callback(
-    sqlite3    *pdb,
-    const char *component,
-    int         pid,
-    int         signal
-);
 
 void upk_db_listener_remove_dead(
     sqlite3    *pdb
@@ -166,22 +159,16 @@ int upk_db_changed(
     sqlite3 *pdb
 );
 
-char *upk_db_file_main( void );
-char *upk_db_file_misc( void );
+const char *upk_db_file_main( void );
+const char *upk_db_file_misc( void );
 
-void upk_db_file_main_set( char *filename );
-void upk_db_file_misc_set( char *filename );
+void upk_db_file_main_set( const char *filename );
+void upk_db_file_misc_set( const char *filename );
 
 int upk_db_note_exit(
     struct upk_db *upk_db,
     int      status, 
     int      bpid
-);
-
-int 
-upk_db_open(
-    const char     *file, 
-    sqlite3       **ppdb
 );
 
 void upk_db_api_service_visitor( 

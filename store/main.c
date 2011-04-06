@@ -148,7 +148,7 @@ int main(
 
     /* upk_db_exec_single( pdb, "SELECT signal_send( 456456, 1 )" ); */
 
-    upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
+    upk_db_listener_send_all_signals( &s.upk_db );
 
     upk_test_is( upk_db_changed( s.upk_db.pdb ), 0, "db change check" );
 

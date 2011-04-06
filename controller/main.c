@@ -81,8 +81,9 @@ int main(
     int   argc, 
     char *argv[] 
 ) {
-    struct upk_srvc s;
-    char    *file = upk_db_file_main();
+    struct upk_db db;
+    const char    *file = upk_db_file_main();
+    upkctl_t ctl;
     int      rc;
 
     options_parse( argc, argv );
@@ -95,12 +96,14 @@ int main(
 	DEBUG = 1;
     }
 
-    rc = upk_db_init( &s.upk_db );
+    rc = upk_db_init( &db );
 
     if(rc < 0) {
         sysdie3(111, FATAL, "failed to initialize database ","");
 	exit(-1);
     }
+    
+    ctl = upk_controller_init( &db );
 
     if (pipe(sigp) == -1)
       sysdie3(111,FATAL, "failed to create pipe for signals ","");
@@ -112,7 +115,7 @@ int main(
     upk_catch_signal(SIGHUP,  handler);
     upk_catch_signal(SIGCHLD, SIG_IGN);
 
-    upk_db_listener_add( s.upk_db.pdb_misc, "controller", getpid(), SIGHUP );
+    upk_db_listener_add( db.pdb_misc, "controller", getpid(), SIGHUP );
 
     for (;;) {
       char mbuf[128];
@@ -128,7 +131,7 @@ int main(
 
       FD_ZERO(&rfds);
       FD_SET(sigp[0], &rfds);
-      upkctl_build_fdset(ctl, rfds, &maxfd);
+      upkctl_build_fdset(ctl, &rfds, &maxfd);
 
       period.tv_sec  = 1;
       period.tv_usec = 0;
@@ -148,7 +151,7 @@ int main(
         ;
       if (needs_notify) {
         needs_notify = 0;
-        upk_db_listener_send_all_signals( s.upk_db.pdb_misc );
+        upk_db_listener_send_all_signals( &db );
       }
       if (term) {
         break;
@@ -158,13 +161,13 @@ int main(
         /*upk_controller_status_fixer( s.upk_db.pdb, fds);*/
       }
       if (needs_flush) {
-	upkctl_flush_events( &s.upk_db );*/
+	upkctl_flush_events( ctl );
 	needs_flush = 0;
       }
       
     }
     
-    upk_db_exit( &s.upk_db );
+    upk_controller_free(ctl);
 
     return(0);
 }

@@ -35,6 +35,40 @@ const char *_upk_db_service_status(
 
 static int db_init_functions_define( sqlite3 *pdb );
 
+
+/* 
+ * Open sqlite DB connection
+ */
+static int 
+upk_db_open(
+    const char     *file, 
+    sqlite3       **ppdb
+) {
+    int      rc;
+    
+      /* Check if database has been set up at all */
+    rc = open( file, O_RDONLY );
+
+    if(rc < 0) {
+	printf("Can't read DB file '%s'.\n", file);
+	return(rc);
+    }
+    
+    close(rc);
+
+    rc = sqlite3_open( file, ppdb );
+
+    if(rc != 0) {
+	printf("sqlite3_open '%s' failed: %d\n", file, rc);
+	return(rc);
+    }
+
+    sqlite3_busy_timeout( *ppdb, 20000 );
+
+    return( 0 );
+}
+
+
 /* 
  * Initialize the DB connection, create the DB file if it doesn't 
  * exist yet.
@@ -64,39 +98,6 @@ upk_db_init(
 
     return(0);
 }
-
-/* 
- * Open sqlite DB connection
- */
-int 
-upk_db_open(
-    const char     *file, 
-    sqlite3       **ppdb
-) {
-    int      rc;
-    
-      /* Check if database has been set up at all */
-    rc = open( file, O_RDONLY );
-
-    if(rc < 0) {
-	printf("Can't read DB file '%s'.\n", file);
-	return(rc);
-    }
-    
-    close(rc);
-
-    rc = sqlite3_open( file, ppdb );
-
-    if(rc != 0) {
-	printf("sqlite3_open '%s' failed: %d\n", file, rc);
-	return(rc);
-    }
-
-    sqlite3_busy_timeout( *ppdb, 20000 );
-
-    return( 0 );
-}
-
 /* Read out when the DB was created (i.e. the schema was set up) */
 char *upk_db_created( 
     sqlite3 *pdb
@@ -762,7 +763,7 @@ int upk_db_update_buddy_events(
     printf("Ending transaction failed: %s\n", zErr);
     return(UPK_DB_ERROR);
   }
-  upk_db_listener_send_all_signals(upk_db->pdb_misc);
+  upk_db_listener_send_all_signals(upk_db);
   return UPK_OK;
 }
 
@@ -954,8 +955,8 @@ upk_db_listener_remove(
 /* 
  * Visitor callback to remove a dead listener.
  */
-void 
-_upk_db_dead_listener_remove_callback(
+static void 
+upk_db_dead_listener_remove_callback(
     sqlite3    *pdb,
     const char *component,
     int         pid,
@@ -1040,10 +1041,9 @@ void _upk_db_listener_signal_callback(
 /* 
  * Deliver all signals
  */
-void upk_db_listener_send_all_signals(
-    sqlite3    *pdb
-) {
-    upk_db_listener_visitor( pdb, _upk_db_listener_signal_callback );
+void upk_db_listener_send_all_signals(struct upk_db *db)
+{
+    upk_db_listener_visitor( db->pdb, _upk_db_listener_signal_callback );
 }
 
 /* 
@@ -1052,7 +1052,7 @@ void upk_db_listener_send_all_signals(
 void upk_db_listener_remove_dead(
     sqlite3    *pdb
 ) {
-    upk_db_listener_visitor( pdb, _upk_db_dead_listener_remove_callback );
+    upk_db_listener_visitor( pdb, upk_db_dead_listener_remove_callback );
 }
 
 /* 
