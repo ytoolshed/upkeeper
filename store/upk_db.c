@@ -794,43 +794,6 @@ const char * upk_db_service_actual_status(
 }
 
 /* 
- * Test callback for the status visitor, which just prints out all 
- * entries it is called with.
- */
-void _upk_db_status_visitor_testcallback( 
-    void *ignored,                                          
-    upk_srvc_t srvc,                                    
-    const char    *status_desired,
-    const char    *status_actual
-) {
-    printf("Callback: %s-%s %s-%s\n",
-            srvc->package, srvc->service, status_desired, status_actual);
-}
-
-/* 
- * Launcher callback for the status visitor. 
- * Starts up processes with actual=stop and desired=start.
- * Shuts down processes with actual=start and desired=stop.
- */
-void upk_db_status_visitor_launchcallback( 
-    void *ignored,                                          
-    upk_srvc_t srvc,                                    
-    const char    *status_desired,
-    const char    *status_actual
-) {
-    if( status_desired == NULL ||
-        status_actual  == NULL ) {
-          /* Service not initialized, do nothing */
-        return;
-    }
-    if ( DEBUG) {
-    printf("Checker: Status of %s-%s is %s, but needs to be %s\n",
-           srvc->package, srvc->service, status_actual, status_desired);
-    printf("Launching %s-%s\n", srvc->package, srvc->service);
-    }
-}
-
-/* 
  * Status visitor iterates through all configured pkg/services in the DB and
  * calls the provided callback functions for every entry it finds.
  */

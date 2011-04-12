@@ -14,21 +14,6 @@
 #define UPK_DB_ERROR              -4
 #define UPK_ERROR_BUDDY_UNKNOWN   -5
 
-/* Prototypes */
-
-#include <sqlite3.h>
-
-typedef struct upk_db {
-    sqlite3 *pdb;
-    sqlite3 *pdb_misc;
-} upk_db_t;
-
-int upk_db_init( struct upk_db *pupk_db );
-
-int upk_db_exit(
-    struct upk_db *pupk_db
-);
-
 typedef enum { 
   UPK_STATE_UNKNOWN = 0,    
   UPK_STATE_START   = 1,
@@ -44,6 +29,15 @@ typedef enum {
 } upk_status_t;
 
 extern const char *upk_states[];
+/* Prototypes */
+
+#include <sqlite3.h>
+
+typedef struct upk_db {
+    sqlite3 *pdb;
+    sqlite3 *pdb_misc;
+} upk_db_t;
+
 
 typedef struct upk_srvc {
   struct upk_db upk_db;
@@ -52,15 +46,17 @@ typedef struct upk_srvc {
 } *upk_srvc_t;
 
 
-const char *
-upk_db_service_actual_status( 
+int upk_db_init( struct upk_db *pupk_db );
+
+int upk_db_exit( struct upk_db *pupk_db );
+
+const char *upk_db_service_actual_status( 
     upk_srvc_t srvc,
     upk_state  state
 );
 
 /* getter/setter. */
-const char *
-upk_db_service_desired_status( 
+const char *upk_db_service_desired_status( 
     upk_srvc_t srvc,
     upk_state  state
 );
@@ -68,36 +64,23 @@ upk_db_service_desired_status(
 /* hmm */
 char *upk_db_time_now_mstring( void );
 
-/* 
- * Speak to memory allocation ? */
+/* speak to memory allocation ? */
 char *upk_db_exec_single( 
     sqlite3  *pdb, 
     const char     *sql
 );
 
-
-
 int upk_db_service_find_or_create( upk_srvc_t );
 int upk_db_service_find( upk_srvc_t );
+typedef void (*upk_db_visitor_t)(void *context,
+				 upk_srvc_t srvc,                                    
+				 const char    *status_desired,
+				 const char    *status_actual);
 
 void upk_db_status_visitor( 
     sqlite3 *pdb, 
-    void (*callback)(),
+    upk_db_visitor_t callback,
     void  *context
-);
-
-void _upk_db_status_visitor_testcallback( 
-    void *context,                                         
-    upk_srvc_t    srvc,                                         
-    const char    *status_desired,
-    const char    *status_actual
-);
-
-void upk_db_status_visitor_launchcallback( 
-    void *context,                                         
-    upk_srvc_t    srvc,                                         
-    const char    *status_desired,
-    const char    *status_actual
 );
 
 int 
@@ -114,21 +97,18 @@ upk_db_listener_remove(
     const char *component
 );
 
+typedef void (*upk_db_listener_t)(const char *component,
+				  int pid,
+				  int signal);
 void upk_db_listener_visitor( 
     sqlite3 *pdb, 
-    void (*callback)()
+    upk_db_listener_t callback;
 );
 
 void upk_db_listener_send_all_signals( struct upk_db *db );
+void upk_db_listener_remove_dead(sqlite3    *pdb);
 
-
-void upk_db_listener_remove_dead(
-    sqlite3    *pdb
-);
-
-void upk_db_clear(
-    struct upk_db *upk_db
-);
+void upk_db_clear(struct upk_db *upk_db);
 
 const char *upk_db_service_cmdline( 
                                    upk_srvc_t svc,

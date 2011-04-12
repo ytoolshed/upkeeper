@@ -217,8 +217,8 @@ void upkctl_start_service(upkctl_t state, upk_srvc_t srvc) {
 void upkctl_status_fixer_callback(
                                           void * context,
                                           upk_srvc_t  srvc,     
-                                          char    *status_desired,
-                                          char    *status_actual
+                                          const char    *status_desired,
+                                          const char    *status_actual
                                           ) {
     upkctl_t ctl = context;
     if (strcmp(status_desired, upk_states[UPK_STATE_STOP])) {
@@ -285,7 +285,18 @@ upkctl_scan_directory(upkctl_t state) {
       /*     sfd->fd = upk_buddy_connect(sfd->bpid); */
 
     }
-
-
   }
+}
+
+
+static void upkctl_service_callback(void *context,
+				   upk_srvc_t srvc,
+				   const char *ignored,
+				   const char *ignored_also)
+{
+  /* build some tables */
+}
+int upkctl_sync_services(upkctl_t state) 
+{
+  upk_db_status_visitor(state->db,upkctl_service_callback, state);
 }
