@@ -3,7 +3,6 @@
 
 #include "protocol.h"
 
-#define V0_MAX_PACKET_SIZE 65536;                          /* 64k should be enough for anyone */
 
 /**********************************************************************************************************************
  * |----|----|----|
@@ -190,8 +189,8 @@ typedef v0_publication_t v0_cancelation_t;
  * function prototypes for serializing, deserializing, creating, and
  * otherwise manipulating packets.
  **********************************************************************************************************************/
-upk_packet_t           *v0_deserialize_packet(char *buf);
-char                   *v0_serialize_packet(upk_packet_t * pkt);
+void                   *v0_deserialize_payload(char *buf);
+char                   *v0_serialize_payload(upk_packet_t * pkt);
 
 /**********************************************************************************************************************
  * convenience functions for requests, when its easier than building the structs yourself

@@ -10,6 +10,7 @@
  * to maintain anything as a subset; just the wrapper function must support old and new styles.
  * this allows for controlled deprecation, while still providing protocol and API compatibility.
  **********************************************************************************************************************/
+#define UPK_MAX_PACKET_SIZE 65536                          /* 64k should be enough for anyone */
 
 #define UPK_MIN_SUPPORTED_PROTO 0
 #define UPK_MAX_SUPPORTED_PROTO 0
@@ -24,14 +25,14 @@
  * actually be
  **********************************************************************************************************************/
 typedef enum {
-    PKT_REQUEST,
+    PKT_REQUEST = 1,
     PKT_REPLY,
     PKT_PUBMSG,
     PKT_V0_PROTO_LIMIT,
 } upk_pkttype_t;
 
 typedef enum {
-    REQ_PREAMBLE,
+    REQ_PREAMBLE = 1,
     REQ_SEQ_START,
     REQ_SEQ_END,
     REQ_ACTION,
@@ -45,7 +46,7 @@ typedef enum {
 } upk_req_msgtype_t;
 
 typedef enum {
-    REPL_PREAMBLE,
+    REPL_PREAMBLE = 1,
     REPL_SEQ_START,
     REPL_SEQ_END,
     REPL_RESULT,
@@ -57,7 +58,7 @@ typedef enum {
 } upk_reply_msgtype_t;
 
 typedef enum {
-    PUB_PUBLICATION,
+    PUB_PUBLICATION = 1,
     PUB_CANCELATION,
     PUB_V0_PROTO_LIMIT,
 } upk_pub_msgtype_t;
