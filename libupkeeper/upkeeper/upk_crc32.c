@@ -3,7 +3,7 @@
 /**********************************************************************************************************************
  * I'll leave this outside the #ifdef GENERATE_CRCTABLE bit, just inc ase its useful somehow... 
  **********************************************************************************************************************/
-static void
+void
 upk_create_crc32_table(uint32_t crc_table[256])
 {
     uint32_t                crc = 0, i = 0, j = 0;
