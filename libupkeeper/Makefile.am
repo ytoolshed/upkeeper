@@ -2,7 +2,7 @@ UPK_LIBRARY_VERSION = 1:0:0
 ACLOCAL_AMFLAGS     = -I libltdl
 lib_LTLIBRARIES     = libupkeeper.la
 libupkeeper_la_SOURCES = upkeeper/upk_protocol.c upkeeper/upk_v0_protocol.c upkeeper/upk_client.c upkeeper/controller.c \
-						 upkeeper/upk_protocol_serializer.c
+						 upkeeper/upk_protocol_serializer.c upkeeper/upk_v0_protocol_serializer.c
 libupkeeper_la_includedir=$(includedir)/upk-1.0/
 libupkeeper_la_include_HEADERS = upkeeper/protocol.h upkeeper/v0_protocol.h upkeeper/types.h upkeeper/std_include.h \
 								 upkeeper/error.h upkeeper/crc32.h

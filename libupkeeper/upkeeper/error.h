@@ -9,7 +9,7 @@
 
 typedef enum {
 	UPK_ERR_UNKNOWN=1,
-	UPK_ERR_UNSUPP,
+	UPK_ERR_UNSUP,
 	UPK_ERR_INVALID_PKT,
 } upk_error_t;
 
