@@ -20,8 +20,9 @@
 #define UPK_DATA_LEN __upk_data_len
 #define UPK_BUF __upk_buf
 #define UPK_BUF_PTR __upk_buf_ptr
-#define UPK_UINT32_BUFFER __upk_enum_buf
-#define UPK_UINT8_BUFFER __upk_bool_buf
+#define UPK_UINT8_BUFFER __upk_uint8_buf
+#define UPK_UINT16_BUFFER __upk_uint16_buf
+#define UPK_UINT32_BUFFER __upk_uint32_buf
 #define UPK_STRING_LENGTH __upk_string_len
 
 /* XXX you will want to redefine these depending on the type of data you're dealing with */
@@ -32,20 +33,43 @@
     TYPE * UPK_DATA = NULL; \
     char * UPK_BUF_PTR = UPK_BUF; \
     uint32_t UPK_UINT32_BUFFER; \
-    uint8_t UPK_UINT8_BUFFER; \
+    uint16_t UPK_UINT16_BUFFER; \
+    uint8_t UPK_UINT8_BUFFER
 
 #define UPK_INIT_DESERIALIZE_MSG(TYPE) \
     UPK_INIT_DESERIALIZE(TYPE); \
     UPK_DATA = calloc(1,sizeof(*UPK_DATA)); \
     UPK_FETCH_ENUM(UPK_MSG_IDENTIFIER_TYPEDEF, UPK_MSG_IDENTIFIER)
 
-#define UPK_FETCH_UINT32(TYPE,MEMB) \
+#define UPK_FETCH_UINT32_T(TYPE,MEMB) \
     memcpy(&UPK_UINT32_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT32_BUFFER)); \
-    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER); \
-    UPK_DATA->MEMB = (TYPE) UPK_UINT32_BUFFER
+    UPK_DATA->MEMB = (TYPE) ntohl( UPK_UINT32_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+
+#define UPK_FETCH_UINT32(MEMB) \
+    UPK_FETCH_UINT32_T(uint32_t, MEMB)
+
+#define UPK_FETCH_UINT16_T(TYPE,MEMB) \
+    memcpy(&UPK_UINT16_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) ntohs( UPK_UINT16_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+
+#define UPK_FETCH_UINT16(MEMB) \
+    UPK_FETCH_UINT16_T(uint16_t, MEMB)
+
+#define UPK_FETCH_UINT8_T(TYPE,MEMB) \
+    memcpy(&UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) UPK_UINT8_BUFFER; \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER) 
+
+#define UPK_FETCH_UINT8(MEMB) \
+    UPK_FETCH_UINT8_T(uint8_t, MEMB)
+
+#define UPK_FETCH_BOOL(MEMB) \
+    UPK_FETCH_UINT8_T(bool, MEMB)
 
 #define UPK_FETCH_ENUM(TYPE,MEMB) \
-    UPK_FETCH_UINT32(TYPE, MEMB)
+    UPK_FETCH_UINT32_T(TYPE, MEMB)
 
 #define UPK_FETCH_STRING(MEMB, LEN) \
     UPK_DATA->MEMB = calloc(1, UPK_DATA->LEN + 1);  /* null terminate */ \
@@ -60,26 +84,18 @@
 #define UPK_FETCH_DATA(MEMB,LEN) \
     UPK_FETCH_DATA_TO_BUF(UPK_DATA->MEMB, LEN)
 
-#define UPK_FETCH_SCALAR(MEMB) \
-    memcpy(&UPK_DATA->MEMB, UPK_BUF_PTR, sizeof(UPK_DATA->MEMB)); \
-    UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
-
 #define UPK_FETCH_ARRAY(MEMB) \
     memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, sizeof(UPK_DATA->MEMB)); \
     UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
-
-#define UPK_FETCH_BOOL(MEMB) \
-    memcpy(&UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \
-    UPK_DATA->MEMB = (bool) UPK_UINT8_BUFFER; \
-    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
 
 #define UPK_INIT_SERIALIZE(TYPE) \
     TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \
     upk_pkt_buf_t * UPK_BUF; \
     upk_pkt_buf_t * UPK_BUF_PTR; \
     uint32_t UPK_UINT32_BUFFER; \
-    size_t UPK_STRING_LENGTH; \
-    uint8_t UPK_UINT8_BUFFER
+    uint16_t UPK_UINT16_BUFFER; \
+    uint8_t UPK_UINT8_BUFFER; \
+    size_t UPK_STRING_LENGTH
 
 #define UPK_INIT_SERIALIZE_BUF(TYPE, LEN) \
     UPK_INIT_SERIALIZE(TYPE); \
@@ -91,9 +107,22 @@
     UPK_PUT_ENUM(UPK_MSG_IDENTIFIER)
 
 #define UPK_PUT_UINT32(MEMB) \
-    UPK_UINT32_BUFFER = (uint32_t) UPK_DATA->MEMB; \
+    UPK_UINT32_BUFFER = htonl( (uint32_t) UPK_DATA->MEMB ); \
     memcpy(UPK_BUF_PTR, &UPK_UINT32_BUFFER, sizeof(UPK_UINT32_BUFFER)); \
     UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+
+#define UPK_PUT_UINT16(MEMB) \
+    UPK_UINT16_BUFFER = htons( (uint16_t) UPK_DATA->MEMB ); \
+    memcpy(UPK_BUF_PTR, &UPK_UINT16_BUFFER, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+
+#define UPK_PUT_UINT8(MEMB) \
+    UPK_UINT8_BUFFER = (uint8_t) UPK_DATA->MEMB; \
+    memcpy(UPK_BUF_PTR, &UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
+
+#define UPK_PUT_BOOL(MEMB) \
+    UPK_PUT_UINT8(MEMB)
 
 #define UPK_PUT_ENUM(MEMB) \
     UPK_PUT_UINT32(MEMB)
@@ -110,18 +139,9 @@
 #define UPK_PUT_DATA(MEMB, LEN) \
     UPK_PUT_DATA_FROM_BUF(UPK_DATA->MEMB, LEN)
 
-#define UPK_PUT_SCALAR(MEMB) \
-    memcpy(UPK_BUF_PTR, &UPK_DATA->MEMB, sizeof(UPK_DATA->MEMB)); \
-    UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
-
 #define UPK_PUT_ARRAY(MEMB) \
     memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, sizeof(UPK_DATA->MEMB)); \
     UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
-
-#define UPK_PUT_BOOL(MEMB) \
-    UPK_UINT8_BUFFER = (uint8_t) UPK_DATA->MEMB; \
-    memcpy(UPK_BUF_PTR, &UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \
-    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
 
 
 #include "std_include.h"
