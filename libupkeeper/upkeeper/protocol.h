@@ -1,6 +1,7 @@
 #ifndef _UPK_PROTOCOL_H
 #define _UPK_PROTOCOL_H
 
+#include "types.h"
 
 /* ********************************************************************************************************************
  * enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever
@@ -32,9 +33,11 @@
 #define UPK_INIT_DESERIALIZE(TYPE) \
     TYPE * UPK_DATA = NULL; \
     char * UPK_BUF_PTR = UPK_BUF; \
-    uint32_t UPK_UINT32_BUFFER; \
-    uint16_t UPK_UINT16_BUFFER; \
-    uint8_t UPK_UINT8_BUFFER
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0 
+
+#define UPK_MEMB_TO_LEN(MEMB) MEMB ## _len
 
 #define UPK_INIT_DESERIALIZE_MSG(TYPE) \
     UPK_INIT_DESERIALIZE(TYPE); \
@@ -71,31 +74,31 @@
 #define UPK_FETCH_ENUM(TYPE,MEMB) \
     UPK_FETCH_UINT32_T(TYPE, MEMB)
 
-#define UPK_FETCH_STRING(MEMB, LEN) \
-    UPK_DATA->MEMB = calloc(1, UPK_DATA->LEN + 1);  /* null terminate */ \
-    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, UPK_DATA->LEN); \
-    UPK_BUF_PTR += UPK_DATA->LEN
+#define UPK_FETCH_STRING(MEMB) \
+    UPK_DATA->MEMB = calloc(1, UPK_DATA->UPK_MEMB_TO_LEN(MEMB) + 1);  /* null terminate */ \
+    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, UPK_DATA->UPK_MEMB_TO_LEN(MEMB)); \
+    UPK_BUF_PTR += UPK_DATA->UPK_MEMB_TO_LEN(MEMB)
 
 #define UPK_FETCH_DATA_TO_BUF(BUF, LEN) \
     BUF = calloc(1, UPK_DATA->LEN); \
     memcpy(BUF, UPK_BUF_PTR, UPK_DATA->LEN); \
     UPK_BUF_PTR += UPK_DATA->LEN
 
-#define UPK_FETCH_DATA(MEMB,LEN) \
-    UPK_FETCH_DATA_TO_BUF(UPK_DATA->MEMB, LEN)
+#define UPK_FETCH_DATA(MEMB) \
+    UPK_FETCH_DATA_TO_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))
 
-#define UPK_FETCH_ARRAY(MEMB) \
-    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, sizeof(UPK_DATA->MEMB)); \
-    UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
+#define UPK_FETCH_ARRAY(MEMB, LEN) \
+    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, LEN); \
+    UPK_BUF_PTR += LEN
 
 #define UPK_INIT_SERIALIZE(TYPE) \
     TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \
-    upk_pkt_buf_t * UPK_BUF; \
-    upk_pkt_buf_t * UPK_BUF_PTR; \
-    uint32_t UPK_UINT32_BUFFER; \
-    uint16_t UPK_UINT16_BUFFER; \
-    uint8_t UPK_UINT8_BUFFER; \
-    size_t UPK_STRING_LENGTH
+    upk_pkt_buf_t * UPK_BUF = NULL; \
+    upk_pkt_buf_t * UPK_BUF_PTR = NULL; \
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0; \
+    size_t UPK_STRING_LENGTH = 0
 
 #define UPK_INIT_SERIALIZE_BUF(TYPE, LEN) \
     UPK_INIT_SERIALIZE(TYPE); \
@@ -136,12 +139,12 @@
     memcpy(UPK_BUF_PTR, BUF, UPK_DATA->LEN); \
     UPK_BUF_PTR += UPK_DATA->LEN
 
-#define UPK_PUT_DATA(MEMB, LEN) \
-    UPK_PUT_DATA_FROM_BUF(UPK_DATA->MEMB, LEN)
+#define UPK_PUT_DATA(MEMB) \
+    UPK_PUT_DATA_FROM_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))
 
-#define UPK_PUT_ARRAY(MEMB) \
-    memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, sizeof(UPK_DATA->MEMB)); \
-    UPK_BUF_PTR += sizeof(UPK_DATA->MEMB)
+#define UPK_PUT_ARRAY(MEMB, LEN) \
+    memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, LEN); \
+    UPK_BUF_PTR += LEN
 
 
 #include "std_include.h"
@@ -199,6 +202,7 @@ typedef enum {
  * ****************************************************************************************************************** */
 typedef struct {
     uint32_t                version_id;
+    uint32_t                seq_num;
     upk_pkttype_t           pkttype;                       /* will be forced into a uint32_t; even on 64bit */
     uint32_t                payload_len;                   /* not size_t, because this would force the arch of the
                                                             * client to match the server */
@@ -253,16 +257,16 @@ typedef struct {
 } upk_status_req_t;
 
 typedef struct {
-    UPK_V0_SUBSCRIBE_REQ_T_FIELDS;
-} upk_subscribe_req_t;
+    UPK_V0_SUBSCR_REQ_T_FIELDS;
+} upk_subscr_req_t;
 
 typedef struct {
-    UPK_V0_UNSUBSCRIBE_REQ_T_FIELDS;
-} upk_unsubscribe_req_t;
+    UPK_V0_UNSUBS_REQ_T_FIELDS;
+} upk_unsubs_req_t;
 
 typedef struct {
-    UPK_V0_DISCONNECT_REQ_T_FIELDS;
-} upk_disconnect_req_t;
+    UPK_V0_DISCON_REQ_T_FIELDS;
+} upk_discon_req_t;
 
 typedef struct {
     UPK_V0_REPL_SEQ_START_T_FIELDS;
@@ -280,24 +284,18 @@ typedef struct {
     UPK_V0_LISTING_REPL_T_FIELDS;
 } upk_listing_repl_t;
 
-typedef struct {
+/* Moved definition to types.h */
+/* typedef struct {
     UPK_V0_SVCINFO_T_FIELDS;
-} upk_svcinfo_t;
+} upk_svcinfo_t; */
 
-/* *******************************************************************************************************************
- * FIXME: this one should be defined in vN_protocol_struct.h; but cannot because v0_svcinfo_t isn't declared at the
- * time this header gets read
- * ****************************************************************************************************************** */
+/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition
+   while still referencing the correct, version-agnostic, structure therein */
+#define v0_svcinfo_t upk_svcinfo_t
 typedef struct {
-    upk_repl_msgtype_t      msgtype;
-    uint32_t                svcinfo_len;
-    upk_svcinfo_t           svcinfo;
-    uint32_t                svc_id_len;
-    char                   *svc_id;
+    UPK_V0_SVCINFO_REPL_T_FIELDS;
 } upk_svcinfo_repl_t;
-
-/* FIXME: broken; see above */
-/* typedef struct { UPK_V0_SVCINFO_REPL_T_FIELDS; } upk_svcinfo_repl_t; */
+#undef v0_svcinfo_t
 
 typedef struct {
     UPK_V0_ACK_REPL_T_FIELDS;
@@ -309,11 +307,18 @@ typedef struct {
 
 typedef struct {
     UPK_V0_PUBLICATION_T_FIELDS;
-} upk_publication_t;
+} upk_pub_pubmsg_t;
 
 typedef struct {
     UPK_V0_CANCELATION_T_FIELDS;
-} upk_cancelation_t;
+} upk_cancel_pubmsg_t;
+
+typedef struct {
+    uint32_t version_id;
+    uint32_t seq_num;
+    int sockfd;
+} upk_protocol_handle_t;
+
 
 
 /* *******************************************************************************************************************
@@ -329,16 +334,16 @@ extern upk_packet_t    *upk_create_pkt(void *payload, uint32_t payload_len, upk_
  * ****************************************************************************************************************** */
 extern upk_packet_t    *upk_create_req_preamble(char *client_name);
 
-extern upk_packet_t    *upk_create_req_seq_start(upk_req_msgtype_t seq_type, uint32_t count);
-extern upk_packet_t    *upk_create_req_seq_end(bool commit);
+extern upk_packet_t    *upk_create_req_seq_start(upk_protocol_handle_t *handle, upk_req_msgtype_t seq_type, uint32_t count);
+extern upk_packet_t    *upk_create_req_seq_end(upk_protocol_handle_t *handle, bool commit);
 
-extern upk_packet_t    *upk_create_action_req(char *svc_id, char *action);
-extern upk_packet_t    *upk_create_signal_req(char *svc_id, uint8_t signal, bool signal_sid, bool signal_pgrp);
-extern upk_packet_t    *upk_create_list_req(void);
-extern upk_packet_t    *upk_create_status_req(char *svc_id);
-extern upk_packet_t    *upk_create_subscr_req(char *svc_id, bool all_svcs);
-extern upk_packet_t    *upk_create_unsubs_req(char *svc_id, bool all_svcs);
-extern upk_packet_t    *upk_create_discon_req(void);
+extern upk_packet_t    *upk_create_action_req(upk_protocol_handle_t *handle, char *svc_id, char *action);
+extern upk_packet_t    *upk_create_signal_req(upk_protocol_handle_t *handle, char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp);
+extern upk_packet_t    *upk_create_list_req(upk_protocol_handle_t *handle);
+extern upk_packet_t    *upk_create_status_req(upk_protocol_handle_t *handle, char *svc_id);
+extern upk_packet_t    *upk_create_subscr_req(upk_protocol_handle_t *handle, char *svc_id, bool all_svcs);
+extern upk_packet_t    *upk_create_unsubs_req(upk_protocol_handle_t *handle, char *svc_id, bool all_svcs);
+extern upk_packet_t    *upk_create_discon_req(upk_protocol_handle_t *handle);
 
 
 /* *******************************************************************************************************************
@@ -346,20 +351,31 @@ extern upk_packet_t    *upk_create_discon_req(void);
  * ****************************************************************************************************************** */
 extern upk_packet_t    *upk_create_repl_preamble(uint32_t best_version);
 
-extern upk_packet_t    *upk_create_repl_seq_start(upk_repl_msgtype_t seq_type, uint32_t count);
-extern upk_packet_t    *upk_create_repl_seq_end(bool commit);
+extern upk_packet_t    *upk_create_repl_seq_start(upk_protocol_handle_t *handle, upk_repl_msgtype_t seq_type, uint32_t count);
+extern upk_packet_t    *upk_create_repl_seq_end(upk_protocol_handle_t *handle, bool commit);
 
-extern upk_packet_t    *upk_create_result_repl(char *msg, bool successful);
-extern upk_packet_t    *upk_create_listing_repl(char *svc_id);
-extern upk_packet_t    *upk_create_svcinfo_repl(char *svc_id, upk_svcinfo_t * svcinfo);
-extern upk_packet_t    *upk_create_ack_repl(void);
-extern upk_packet_t    *upk_create_error_repl(char *svc_id, char *errmsg, upk_errlevel_t errlvl);
+extern upk_packet_t    *upk_create_result_repl(upk_protocol_handle_t *handle, char *msg, bool successful);
+extern upk_packet_t    *upk_create_listing_repl(upk_protocol_handle_t *handle, char *svc_id);
+extern upk_packet_t    *upk_create_svcinfo_repl(upk_protocol_handle_t *handle, char *svc_id, upk_svcinfo_t * svcinfo);
+extern upk_packet_t    *upk_create_ack_repl(upk_protocol_handle_t *handle);
+
+/* FIXME: should probably use upk_error_t enum instead of char *errmsg */
+extern upk_packet_t    *upk_create_error_repl(upk_protocol_handle_t *handle, char *svc_id, char *errmsg, upk_errlevel_t errlvl);
 
 
 /* *******************************************************************************************************************
  * convenience functions for pubmsg's, because, why not...
  * ****************************************************************************************************************** */
-extern upk_packet_t    *upk_create_pub_pubmsg(void);
-extern upk_packet_t    *upk_create_pub_cancel(void);
+extern upk_packet_t    *upk_create_pub_pubmsg(upk_protocol_handle_t *handle);
+extern upk_packet_t    *upk_create_cancel_pubmsg(upk_protocol_handle_t *handle);
 
+
+/* *******************************************************************************************************************
+ * housekeeping
+ * ****************************************************************************************************************** */
+extern void upk_pkt_free(upk_packet_t *pkt);
+
+/* *******************************************************************************************************************
+ * packet encapsulation 
+ * ****************************************************************************************************************** */
 #endif

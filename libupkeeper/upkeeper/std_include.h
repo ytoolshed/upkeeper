@@ -3,8 +3,6 @@
 
 #define _GNU_SOURCE
 
-#include "upkeeper_config.h"
-
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdint.h>

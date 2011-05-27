@@ -37,7 +37,7 @@
  * ****************************************************************************************************************** */
 #define UPK_V0_SIGNAL_REQ_T_FIELDS \
     upk_req_msgtype_t       msgtype; \
-    upk_signal_name_t       signal; \
+    upk_signal_t       signal; \
     bool                    signal_sid; \
     bool                    signal_pgrp; \
     uint32_t                svc_id_len; \
@@ -64,7 +64,7 @@
 /* *******************************************************************************************************************
  * |----|-|----|<svc_id...>|
  * ****************************************************************************************************************** */
-#define UPK_V0_SUBSCRIBE_REQ_T_FIELDS \
+#define UPK_V0_SUBSCR_REQ_T_FIELDS \
     upk_req_msgtype_t       msgtype; \
     bool                    all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
                                                           /* one shot; svc_id will be ignored, and should have len 0 */ \
@@ -78,7 +78,7 @@
 /* *******************************************************************************************************************
  * |----|-|----|<svc_id ...>|
  * ****************************************************************************************************************** */
-#define UPK_V0_UNSUBSCRIBE_REQ_T_FIELDS \
+#define UPK_V0_UNSUBS_REQ_T_FIELDS \
     upk_req_msgtype_t       msgtype; \
     bool                    all_svcs; \
     uint32_t                svc_id_len; \
@@ -87,7 +87,7 @@
 /* *******************************************************************************************************************
  * |----|
  * ****************************************************************************************************************** */
-#define UPK_V0_DISCONNECT_REQ_T_FIELDS \
+#define UPK_V0_DISCON_REQ_T_FIELDS \
     upk_req_msgtype_t       msgtype
 
 /* *******************************************************************************************************************
@@ -132,10 +132,10 @@
     uint32_t                last_action_time; \
     uint32_t                last_action_status; \
     uint32_t                last_action_name_len; \
-    char                   *last_action_name; \
+    char                    last_action_name[UPK_MAX_STRING_LEN]; \
     uint32_t                last_signal_time; \
     uint32_t                last_signal_status; \
-    upk_signal_name_t       last_signal_name; \
+    upk_signal_t       last_signal_name; \
     uint32_t                buddy_pid; \
     uint32_t                proc_pid; \
     upk_state_t             current_state; \

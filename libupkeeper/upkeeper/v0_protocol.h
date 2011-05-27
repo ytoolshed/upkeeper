@@ -33,16 +33,16 @@ typedef struct {
 } v0_status_req_t;
 
 typedef struct {
-    UPK_V0_SUBSCRIBE_REQ_T_FIELDS;
-} v0_subscribe_req_t;
+    UPK_V0_SUBSCR_REQ_T_FIELDS;
+} v0_subscr_req_t;
 
 typedef struct {
-    UPK_V0_UNSUBSCRIBE_REQ_T_FIELDS;
-} v0_unsubscribe_req_t;
+    UPK_V0_UNSUBS_REQ_T_FIELDS;
+} v0_unsubs_req_t;
 
 typedef struct {
-    UPK_V0_DISCONNECT_REQ_T_FIELDS;
-} v0_disconnect_req_t;
+    UPK_V0_DISCON_REQ_T_FIELDS;
+} v0_discon_req_t;
 
 typedef struct {
     UPK_V0_REPL_SEQ_START_T_FIELDS;
@@ -78,11 +78,11 @@ typedef struct {
 
 typedef struct {
     UPK_V0_PUBLICATION_T_FIELDS;
-} v0_publication_t;
+} v0_pub_pubmsg_t;
 
 typedef struct {
     UPK_V0_CANCELATION_T_FIELDS;
-} v0_cancelation_t;
+} v0_cancel_pubmsg_t;
 
 
 /* *******************************************************************************************************************
@@ -98,7 +98,7 @@ extern upk_packet_t    *v0_create_req_seq_start(upk_req_msgtype_t msg_seq_type, 
 extern upk_packet_t    *v0_create_req_seq_end(bool commit);
 
 extern upk_packet_t    *v0_create_action_req(char *svc_id, char *action);
-extern upk_packet_t    *v0_create_signal_req(char *svc_id, uint8_t signal, bool signal_sid, bool signal_pgrp);
+extern upk_packet_t    *v0_create_signal_req(char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp);
 extern upk_packet_t    *v0_create_list_req(void);
 extern upk_packet_t    *v0_create_status_req(char *svc_id);
 extern upk_packet_t    *v0_create_subscr_req(char *svc_id, bool all_svcs);
@@ -123,6 +123,11 @@ extern upk_packet_t    *v0_create_error_repl(char *svc_id, char *errmsg, upk_err
  * convenience functions for pubmsg's, because, why not...
  * ****************************************************************************************************************** */
 extern upk_packet_t    *v0_create_pub_pubmsg(void);
-extern upk_packet_t    *v0_create_pub_cancel(void);
+extern upk_packet_t    *v0_create_cancel_pubmsg(void);
+
+/* *******************************************************************************************************************
+ * housekeeping
+ * ****************************************************************************************************************** */
+/* extern void upk_free_payload(upk_packet_t * pkt); */
 
 #endif

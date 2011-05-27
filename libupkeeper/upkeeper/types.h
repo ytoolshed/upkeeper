@@ -2,18 +2,45 @@
 #define _UPK_TYPES_H
 
 #include "std_include.h"
+#include "v0_protocol_structs.h"
+
+typedef struct {
+        UPK_V0_SVCINFO_T_FIELDS;
+} upk_svcinfo_t;
 
 #define UPK_MAX_STRING_LEN 2048
 
 typedef enum {
-    UPK_STATE_RUNNING=1,
-    UPK_STATE_STARTING, 
-    UPK_STATE_DOWN,
+    UPK_STATE_UNDEFINED,
+    UPK_STATE_RUNNING,
+    UPK_STATE_STARTING,
+    UPK_STATE_STOPPING,
+    UPK_STATE_NOT_RUNNING,
+    UPK_STATE_SHUTDOWN,
 } upk_state_t;
 
 typedef enum {
     UPK_ERRLVL_ERROR,
 } upk_errlevel_t;
+
+/* ************************************* */
+/* These two items must be kept in sync: */
+/* ************************************* */
+typedef enum {
+    UPK_ERR_UNKNOWN = 0,
+    UPK_ERR_UNSUP,
+    UPK_ERR_INVALID_PKT,
+} upk_error_t;
+
+#define __UPK_ERRORS_ARRAY \
+    const unsigned char     __upk_errors[][128] = { \
+        "unknown", \
+        "unsupported", \
+        "invalid packet" \
+    }
+
+/* ************************************* */
+/* ************************************* */
 
 typedef enum {
     UPK_SIG_HUP = 1,
@@ -47,6 +74,14 @@ typedef enum {
     UPK_SIG_IO = 29,
     UPK_SIG_PWR = 30,
     UPK_SIG_SYS = 31,
-} upk_signal_name_t;
+} upk_signal_t;
+
+
+typedef struct _upk_svclist upk_svclist_t;
+struct _upk_svclist {
+    unsigned char           svc[UPK_MAX_STRING_LEN];
+    upk_svclist_t          *next;
+};
+
 
 #endif

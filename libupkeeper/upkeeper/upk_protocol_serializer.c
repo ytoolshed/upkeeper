@@ -23,7 +23,7 @@ upk_pub_msgtype_t       upk_pub_proto_limit[] = {
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
-static void            *
+static inline void            *
 upk_deserialize_payload(upk_pkt_buf_t * payload_buf, upk_pkttype_t pkttype, uint32_t version_id)
 {
     switch (version_id) {
@@ -36,7 +36,7 @@ upk_deserialize_payload(upk_pkt_buf_t * payload_buf, upk_pkttype_t pkttype, uint
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
-static upk_pkt_buf_t   *
+static inline upk_pkt_buf_t   *
 upk_serialize_payload(upk_packet_t * pkt)
 {
     switch (pkt->version_id) {
@@ -55,11 +55,14 @@ upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF)
     upk_pkt_buf_t          *payload_buf = NULL;
 
     UPK_ERR_INIT;
-    UPK_INIT_DESERIALIZE_MSG(upk_packet_t);
+    UPK_INIT_DESERIALIZE(upk_packet_t);
+    UPK_DATA = calloc(1, sizeof(*UPK_DATA));
 
     UPK_FETCH_UINT32(version_id);
     UPK_FUNC_ASSERT(UPK_DATA->version_id >= UPK_MIN_SUPPORTED_PROTO
                     && UPK_DATA->version_id <= UPK_MAX_SUPPORTED_PROTO, UPK_ERR_UNSUP);
+
+    UPK_FETCH_UINT32(seq_num);
 
     UPK_FETCH_ENUM(upk_pkttype_t, pkttype);
     UPK_FUNC_ASSERT(UPK_DATA->pkttype < upk_pkt_proto_limit[UPK_DATA->version_id], UPK_ERR_INVALID_PKT);
@@ -67,7 +70,7 @@ upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF)
     UPK_FETCH_UINT32(payload_len);
     UPK_FUNC_ASSERT(UPK_DATA->payload_len <= UPK_MAX_PACKET_SIZE, UPK_ERR_INVALID_PKT);
 
-    UPK_FETCH_DATA(payload, payload_len);
+    UPK_FETCH_DATA(payload);
     payload_buf = UPK_DATA->payload;
 
     UPK_FETCH_UINT32(crc32);
@@ -91,7 +94,7 @@ upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF)
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 upk_pkt_buf_t          *
-v0_serialize_packet(upk_packet_t * UPK_DATA_PTR)
+upk_serialize_packet(upk_packet_t * UPK_DATA_PTR)
 {
     upk_pkt_buf_t          *payload_buf;
 
@@ -101,9 +104,11 @@ v0_serialize_packet(upk_packet_t * UPK_DATA_PTR)
     UPK_DATA->crc32 = upk_crc32(payload_buf, UPK_DATA->payload_len);
 
     UPK_PUT_UINT32(version_id);
+    UPK_PUT_UINT32(seq_num);
     UPK_PUT_ENUM(pkttype);
     UPK_PUT_UINT32(payload_len);
     UPK_PUT_DATA_FROM_BUF(payload_buf, payload_len);
+    free(payload_buf);
     UPK_PUT_UINT32(crc32);
 
     return UPK_BUF;
