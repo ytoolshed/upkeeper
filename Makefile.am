@@ -1,2 +1,4 @@
-SUBDIRS = libupkeeper buddy controller #doc
-ACLOCAL_AMFLAGS = -I libltdl
+SUBDIRS = libupkeeper 
+ACLOCAL_AMFLAGS    = -I m4
+
+include buddy/Makefile.am.inc
