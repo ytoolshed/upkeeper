@@ -128,6 +128,6 @@ extern upk_packet_t    *v0_create_cancel_pubmsg(void);
 /* *******************************************************************************************************************
  * housekeeping
  * ****************************************************************************************************************** */
-/* extern void upk_free_payload(upk_packet_t * pkt); */
+extern void v0_free_payload(upk_packet_t * pkt);
 
 #endif

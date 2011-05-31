@@ -8,6 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <sys/wait.h>
+#include <arpa/inet.h>
 
 #include "types.h"
 #include "compat.h"

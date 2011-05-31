@@ -4,10 +4,6 @@
 #include "std_include.h"
 #include "v0_protocol_structs.h"
 
-typedef struct {
-        UPK_V0_SVCINFO_T_FIELDS;
-} upk_svcinfo_t;
-
 #define UPK_MAX_STRING_LEN 2048
 
 typedef enum {
@@ -82,6 +78,11 @@ struct _upk_svclist {
     unsigned char           svc[UPK_MAX_STRING_LEN];
     upk_svclist_t          *next;
 };
+
+typedef struct {
+        UPK_V0_SVCINFO_T_FIELDS;
+} upk_svcinfo_t;
+
 
 
 #endif

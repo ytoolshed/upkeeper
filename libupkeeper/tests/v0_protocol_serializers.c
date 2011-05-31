@@ -8,7 +8,7 @@
     upk_packet_t *pkt = NULL; \
     NAME_TO_TYPE(NAME) t = { 0 }; \
     pkt = NAME_TO_FUNC(NAME)(__VA_ARGS__); \
-    char * buf = upk_serialize_packet(pkt); \
+    unsigned char * buf = upk_serialize_packet(pkt); \
     upk_pkt_free(pkt); \
     pkt = upk_deserialize_packet(buf); \
     t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
@@ -17,7 +17,7 @@
     upk_packet_t *pkt = NULL; \
     NAME_TO_TYPE(NAME) t = { 0 }; \
     pkt = NAME_TO_FUNC(NAME)(); \
-    char * buf = upk_serialize_packet(pkt); \
+    unsigned char * buf = upk_serialize_packet(pkt); \
     upk_pkt_free(pkt); \
     pkt = upk_deserialize_packet(buf); \
     t = *((NAME_TO_TYPE(NAME) *) pkt->payload)

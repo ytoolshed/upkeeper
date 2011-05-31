@@ -86,7 +86,11 @@ upk_pkt_free(upk_packet_t * pkt)
 upk_packet_t           *
 upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_req_msgtype_t seq_type, uint32_t count)
 {
-    return v0_create_req_seq_start(seq_type, count);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_req_seq_start(seq_type, count);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -94,7 +98,11 @@ upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_req_msgtype_t seq_t
 upk_packet_t           *
 upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit)
 {
-    return v0_create_req_seq_end(commit);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_req_seq_end(commit);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -102,7 +110,11 @@ upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit)
 upk_packet_t           *
 upk_create_action_req(upk_protocol_handle_t * handle, char *svc_id, char *action)
 {
-    return v0_create_action_req(svc_id, action);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_action_req(svc_id, action);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -111,7 +123,11 @@ upk_packet_t           *
 upk_create_signal_req(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal, bool signal_sid,
                       bool signal_pgrp)
 {
-    return v0_create_signal_req(svc_id, signal, signal_sid, signal_pgrp);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_signal_req(svc_id, signal, signal_sid, signal_pgrp);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -119,7 +135,11 @@ upk_create_signal_req(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t
 upk_packet_t           *
 upk_create_list_req(upk_protocol_handle_t * handle)
 {
-    return v0_create_list_req();
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_list_req();
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -127,7 +147,11 @@ upk_create_list_req(upk_protocol_handle_t * handle)
 upk_packet_t           *
 upk_create_status_req(upk_protocol_handle_t * handle, char *svc_id)
 {
-    return v0_create_status_req(svc_id);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_status_req(svc_id);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -135,7 +159,11 @@ upk_create_status_req(upk_protocol_handle_t * handle, char *svc_id)
 upk_packet_t           *
 upk_create_subscr_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)
 {
-    return v0_create_subscr_req(svc_id, all_svcs);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_subscr_req(svc_id, all_svcs);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -143,7 +171,11 @@ upk_create_subscr_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svc
 upk_packet_t           *
 upk_create_unsubs_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)
 {
-    return v0_create_unsubs_req(svc_id, all_svcs);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_unsubs_req(svc_id, all_svcs);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -151,7 +183,11 @@ upk_create_unsubs_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svc
 upk_packet_t           *
 upk_create_discon_req(upk_protocol_handle_t * handle)
 {
-    return v0_create_discon_req();
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_discon_req();
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -159,7 +195,11 @@ upk_create_discon_req(upk_protocol_handle_t * handle)
 upk_packet_t           *
 upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_repl_msgtype_t seq_type, uint32_t count)
 {
-    return v0_create_repl_seq_start(seq_type, count);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_repl_seq_start(seq_type, count);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -167,7 +207,11 @@ upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_repl_msgtype_t seq
 upk_packet_t           *
 upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit)
 {
-    return v0_create_repl_seq_end(commit);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_repl_seq_end(commit);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -175,7 +219,11 @@ upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit)
 upk_packet_t           *
 upk_create_result_repl(upk_protocol_handle_t * handle, char *msg, bool successful)
 {
-    return v0_create_result_repl(msg, successful);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_result_repl(msg, successful);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -183,7 +231,11 @@ upk_create_result_repl(upk_protocol_handle_t * handle, char *msg, bool successfu
 upk_packet_t           *
 upk_create_listing_repl(upk_protocol_handle_t * handle, char *svc_id)
 {
-    return v0_create_listing_repl(svc_id);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_listing_repl(svc_id);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -191,7 +243,11 @@ upk_create_listing_repl(upk_protocol_handle_t * handle, char *svc_id)
 upk_packet_t           *
 upk_create_svcinfo_repl(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo)
 {
-    return v0_create_svcinfo_repl(svc_id, svcinfo);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_svcinfo_repl(svc_id, (v0_svcinfo_t *) svcinfo);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -199,7 +255,11 @@ upk_create_svcinfo_repl(upk_protocol_handle_t * handle, char *svc_id, upk_svcinf
 upk_packet_t           *
 upk_create_ack_repl(upk_protocol_handle_t * handle)
 {
-    return v0_create_ack_repl();
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_ack_repl();
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -207,7 +267,11 @@ upk_create_ack_repl(upk_protocol_handle_t * handle)
 upk_packet_t           *
 upk_create_error_repl(upk_protocol_handle_t * handle, char *svc_id, char *errmsg, upk_errlevel_t errlvl)
 {
-    return v0_create_error_repl(svc_id, errmsg, errlvl);
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_error_repl(svc_id, errmsg, errlvl);
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -215,7 +279,11 @@ upk_create_error_repl(upk_protocol_handle_t * handle, char *svc_id, char *errmsg
 upk_packet_t           *
 upk_create_pub_pubmsg(upk_protocol_handle_t * handle)
 {
-    return v0_create_pub_pubmsg();
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_pub_pubmsg();
+    }
+    return NULL;
 }
 
 /* *******************************************************************************************************************
@@ -223,5 +291,9 @@ upk_create_pub_pubmsg(upk_protocol_handle_t * handle)
 upk_packet_t           *
 upk_create_cancel_pubmsg(upk_protocol_handle_t * handle)
 {
-    return v0_create_cancel_pubmsg();
+    switch (handle->version_id) { 
+        case 0:
+            return v0_create_cancel_pubmsg();
+    }
+    return NULL;
 }

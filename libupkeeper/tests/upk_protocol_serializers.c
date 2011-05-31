@@ -9,7 +9,7 @@
     NAME_TO_TYPE(NAME) t = { 0 }; \
     upk_protocol_handle_t handle = { 0 }; \
     pkt = NAME_TO_FUNC(NAME)(&handle,__VA_ARGS__); \
-    char * buf = upk_serialize_packet(pkt); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
     upk_pkt_free(pkt); \
     pkt = upk_deserialize_packet(buf); \
     t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
@@ -19,7 +19,7 @@
     NAME_TO_TYPE(NAME) t = { 0 }; \
     upk_protocol_handle_t handle = { 0 }; \
     pkt = NAME_TO_FUNC(NAME)(&handle); \
-    char * buf = upk_serialize_packet(pkt); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
     upk_pkt_free(pkt); \
     pkt = upk_deserialize_packet(buf); \
     t = *((NAME_TO_TYPE(NAME) *) pkt->payload)

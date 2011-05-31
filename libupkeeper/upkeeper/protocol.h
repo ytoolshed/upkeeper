@@ -32,7 +32,7 @@
 
 #define UPK_INIT_DESERIALIZE(TYPE) \
     TYPE * UPK_DATA = NULL; \
-    char * UPK_BUF_PTR = UPK_BUF; \
+    unsigned char * UPK_BUF_PTR = UPK_BUF; \
     uint32_t UPK_UINT32_BUFFER = 0; \
     uint16_t UPK_UINT16_BUFFER = 0; \
     uint8_t UPK_UINT8_BUFFER = 0 

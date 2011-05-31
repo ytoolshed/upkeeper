@@ -53,13 +53,14 @@ upk_packet_t           *
 upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF)
 {
     upk_pkt_buf_t          *payload_buf = NULL;
+    uint32_t min_supported_proto = UPK_MIN_SUPPORTED_PROTO; 
 
     UPK_ERR_INIT;
     UPK_INIT_DESERIALIZE(upk_packet_t);
     UPK_DATA = calloc(1, sizeof(*UPK_DATA));
 
     UPK_FETCH_UINT32(version_id);
-    UPK_FUNC_ASSERT(UPK_DATA->version_id >= UPK_MIN_SUPPORTED_PROTO
+    UPK_FUNC_ASSERT(UPK_DATA->version_id >= min_supported_proto 
                     && UPK_DATA->version_id <= UPK_MAX_SUPPORTED_PROTO, UPK_ERR_UNSUP);
 
     UPK_FETCH_UINT32(seq_num);
