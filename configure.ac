@@ -1,74 +1,63 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-#
 
-AC_PREREQ(2.59)
-AC_INIT([upkeeper],[0.01])
-#AC_CONFIG_SRCDIR([buddy/upk_buddy.h])
-AC_CONFIG_SRCDIR([libupkeeper/upkeeper/include/upkeeper_config.h.in])
-AC_CONFIG_HEADERS([libupkeeper/upkeeper/include/upkeeper_config.h])
+AC_PREREQ([2.63])
+AC_INIT([upkeeper], [1.0], [ytoolshed@yahoo-inc.com])
 
-AC_CONFIG_MACRO_DIR([libltdl])
+AC_GNU_SOURCE
+LT_INIT
 
-AC_SUBST([LIBTOOL_DEPS])
+AM_INIT_AUTOMAKE([-W -Wall -Werror foreign])
+
+AC_CONFIG_SRCDIR([upkeeper_config.h.in])
+AC_CONFIG_HEADERS([upkeeper_config.h])
 
 
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
-AC_CONFIG_FILES([
-    Makefile
-    libupkeeper/Makefile
-])
+ACLOCAL_AMFLAGS = -I m4
+AC_CONFIG_MACRO_DIR([m4])
 
 # Checks for programs.
-AC_PROG_CC
-AC_PROG_RANLIB
 AC_PROG_LIBTOOL
+AC_PROG_CXX
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
 
+PKG_CHECK_MODULES([CHECK], [check >= 0.9.4])
 
 # Checks for libraries.
-AC_CHECK_LIB([sqlite3], [sqlite3_open])
-AC_CHECK_LIB([ncurses], [initscr])
 
 # Checks for header files.
-AC_CHECK_HEADERS([fcntl.h stdlib.h string.h unistd.h])
-AC_CHECK_HEADERS([sys/file.h sys/type.h])
+AC_FUNC_ALLOCA
+AC_CHECK_HEADERS([fcntl.h stdint.h stdlib.h string.h sys/socket.h sys/time.h unistd.h])
+
 # Checks for typedefs, structures, and compiler characteristics.
-AC_TYPE_PID_T
-AC_TYPE_OFF_T
+AC_HEADER_STDBOOL
 AC_TYPE_SIZE_T
-#AC_TYPE_UINT64_T
+AC_TYPE_UINT16_T
+AC_TYPE_UINT32_T
+AC_TYPE_UINT8_T
 
 # Checks for library functions.
-AC_CHECK_FUNCS([strerror fchdir gettimeofday mkdir mkfifo select])
-
-
-AC_CHECK_HEADERS([sys/time.h])
-AC_CHECK_HEADERS([curses.h])
-
-# Check functions
+AX_FUNC_POLL
 AC_FUNC_FORK
-AC_FUNC_GETGROUPS
 AC_FUNC_MALLOC
 AC_FUNC_STRNLEN
+AC_CHECK_FUNCS([dup2 memset select socket strdup strerror])
 
-AC_DEFUN([AX_HAVE_POLL], [dnl
-  AC_MSG_CHECKING([for poll(2)])
-  AC_CACHE_VAL([ax_cv_have_poll], [dnl
-    AC_LINK_IFELSE([dnl
-      AC_LANG_PROGRAM(
-        [#include <poll.h>],
-        [int rc; rc = poll((struct pollfd *)(0), 0, 0);])],
-      [ax_cv_have_poll=yes],
-      [ax_cv_have_poll=no])])
-  AS_IF([test "${ax_cv_have_poll}" = "yes"],
-    [AC_MSG_RESULT([yes])
-$1],[AC_MSG_RESULT([no])
-$2])
-])dnl
+# TODO: we should have an AC_SUBST for this
+AX_FUNC_POLL
 
+AC_CONFIG_FILES([Makefile
+                 libupkeeper/Makefile
+                 libupkeeper/tests/Makefile
+                 store/Makefile])
 
-AX_HAVE_POLL([AC_DEFINE([HAVE_POLL],[],[System includes poll(2)])],[])
+# Why have we included a project we don't support in our source tree?
+# AC_CONFIG_SUBDIRS([deps/sqlite
+#                   deps/sqlite-3.7.3
+#                   ])
 
 AC_OUTPUT
-
-
