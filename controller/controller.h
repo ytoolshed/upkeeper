@@ -1,40 +1,26 @@
-#ifndef CONTROLLER_H
-#define CONTROLLER_H
+#ifndef _UPK_CONTROLLER_H
+#define _UPK_CONTROLLER_H
 
-#include "store/upk_db.h"
+#include <upkeeper.h>
 
-typedef struct upk_controller_state *upkctl_t;
+#define UPK_CTRL_MAX_CLIENTS 10240
 
+typedef struct _client_fdlist client_fdlist_t;
+struct _client_fdlist {
+    int32_t                 fd;
+    client_fdlist_t        *next;
+};
 
-/* create a controller object, given a database
- */
-upkctl_t upk_controller_init(struct upk_db *db);
-
-/* free resources attached to a controller */
-void     upk_controller_free(upkctl_t);
-
-/* flush queued events to the database */
-int      upkctl_flush_events(upkctl_t state);
-
-/* bring all services into desired state in db */
-void     upkctl_status_fixer( upkctl_t ctl );
+typedef enum {
+    UPK_CLIENT_DISCONNECT = 1,
+} upk_clientstatus_t;
 
 
-/* handle a message from a buddy on a socket */
-int       upkctl_handle_buddy_status(
-                               upkctl_t state,
-                               int  sock,
-                               char *msg
-                               );
-/* populate an fd_set and maxfd for passing to 
- * select, based on current state of controller */
-void
-upkctl_build_fdset(upkctl_t state, fd_set *rfds, int *maxfd);
+extern int              socket_setup(const char *sock_path);
+extern upk_clientstatus_t handle_client(int32_t client_fd);
+extern void             handle_signals(void);
+extern void             handle_buddies(void);
+int32_t ctrl_sock_setup(upk_controller_config_t * config);
 
-int 
-upkctl_scan_directory(upkctl_t state);
-
-#define FATAL "buddy-controller: fatal: "
-#define ERROR "buddy-controller: error: "
 
 #endif

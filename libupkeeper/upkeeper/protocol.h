@@ -146,6 +146,24 @@
     memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, LEN); \
     UPK_BUF_PTR += LEN
 
+#ifdef __NEVERDEFINED_NEED_FOR_AUTOSCAN_TO_SEE_FUNCS_USED_IN_ABOVE_MACROS
+static inline void 
+__never_compiled(void)
+{
+    void *foo, *bar;
+    int32_t baz = 1;
+    foo=calloc(1,sizeof(int32_t));
+    bar=calloc(1,sizeof(int32_t));
+    memcpy(foo,bar,sizeof(int32_t));
+    baz=strnlen("foobar", 64);
+    baz = htonl(baz);
+    baz = ntohl(baz);
+    baz = (int32_t) htons((int16_t) baz);
+    baz = (int32_t) ntohs((int16_t) baz);
+}
+#endif
+
+
 
 #include "std_include.h"
 #include "v0_protocol_structs.h"

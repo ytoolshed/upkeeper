@@ -1,4 +1,4 @@
-SUBDIRS = libupkeeper 
+SUBDIRS = libupkeeper controller
 ACLOCAL_AMFLAGS    = -I m4
 
-include buddy/Makefile.am.inc
+#include buddy/Makefile.am.inc

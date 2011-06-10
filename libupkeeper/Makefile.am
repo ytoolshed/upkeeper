@@ -15,6 +15,7 @@ libupkeeper_la_LIBADD = libupkeeper_util.la libupkeeper_proto.la
 libupkeeper_la_includedir=$(includedir)
 nobase_libupkeeper_la_include_HEADERS = upkeeper/protocol.h upkeeper/v0_protocol.h upkeeper/types.h upkeeper/std_include.h \
 								 upkeeper/error.h upkeeper/crc32.h
+libupkeeper_la_include_HEADERS = upkeeper.h
 
 libupkeeper_la_libincludedir = $(libdir)/upkeeper-1.0/include/
 nodist_libupkeeper_la_libinclude_HEADERS = $(top_builddir)/upkeeper_config.h

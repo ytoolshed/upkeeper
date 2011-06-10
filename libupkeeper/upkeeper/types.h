@@ -26,13 +26,15 @@ typedef enum {
     UPK_ERR_UNKNOWN = 0,
     UPK_ERR_UNSUP,
     UPK_ERR_INVALID_PKT,
+    UPK_SOCKET_FAILURE,
 } upk_error_t;
 
 #define __UPK_ERRORS_ARRAY \
     const unsigned char     __upk_errors[][128] = { \
         "unknown", \
         "unsupported", \
-        "invalid packet" \
+        "invalid packet", \
+        "socket failure", \
     }
 
 /* ************************************* */
@@ -80,9 +82,186 @@ struct _upk_svclist {
 };
 
 typedef struct {
-        UPK_V0_SVCINFO_T_FIELDS;
+    UPK_V0_SVCINFO_T_FIELDS;
 } upk_svcinfo_t;
 
+
+
+#define UPKLIST_METANODE(TYPE, NAME) \
+    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
+
+
+#define UPKLIST_INIT(TYPE, NAME) \
+    UPKLIST_METANODE(TYPE, NAME) = NULL; \
+    NAME = calloc(1, sizeof(*NAME))
+
+
+#define _UPKLIST_NEWNODE(NAME) \
+    NAME->tempp = calloc(1,sizeof(*(NAME->tempp)))
+
+
+#define UPKLIST_APPEND_THIS(NAME) \
+    _UPKLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->nextp; \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp && NAME->count == 0 ) { NAME->head = NAME->tempp; } \
+    if(NAME->thisp) { NAME->thisp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp;
+
+
+#define UPKLIST_APPEND(NAME) \
+    NAME->thisp = NAME->tail; \
+    NAME->prevp = (NAME->prevp) ? NAME->prevp : NAME->head; \
+    UPKLIST_APPEND_THIS(NAME); \
+    NAME->prevp = NULL
+
+
+#define UPKLIST_PREPEND_THIS(NAME) \
+    _UPKLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->thisp; \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp ) { NAME->head = NAME->tempp; } else { NAME->prevp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp
+
+
+#define UPKLIST_PREPEND(NAME) \
+    NAME->prevp = NULL; \
+    NAME->thisp = NAME->head; \
+    UPKLIST_PREPEND_THIS(NAME)
+
+#define _UPKLIST_NEXTNODE(NAME) ( (NAME->thisp) ? NAME->thisp->next : NULL )
+
+#define _UPKLIST_FOREACH_CONTINUE(NAME) \
+    NAME->tempp = NULL, NAME->prevp = NAME->thisp, NAME->thisp = NAME->nextp, NAME->nextp = _UPKLIST_NEXTNODE(NAME)
+
+
+#define _UPKLIST_FOREACH_INIT(NAME) \
+    NAME->tempp = NULL, NAME->prevp = NULL, NAME->thisp = NAME->head, NAME->nextp = _UPKLIST_NEXTNODE(NAME)
+
+
+#define UPKLIST_FOREACH(NAME) \
+    for( _UPKLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKLIST_FOREACH_CONTINUE(NAME) )
+
+
+#define UPKLIST_SWAP(NAME, A, APREV, B, BPREV) \
+    NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
+    APREV->next = B; \
+    BPREV->next = A; \
+    NAME->tempp->next = A->next; \
+    A->next = B->next; \
+    B->next = NAME->tempp->next; \
+    free(NAME->tempp); NAME->tempp = NULL
+
+
+#define UPKLIST_UNLINK(NAME) \
+    if(NAME->thisp) { \
+        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } \
+        free(NAME->thisp); NAME->thisp = NULL; \
+        --NAME->count; \
+    }
+
+
+#define UPKLIST_FREE(NAME) \
+    UPKLIST_FOREACH(NAME) { \
+        UPKLIST_UNLINK(NAME); \
+    }\
+    if(NAME) { free(NAME); }
+
+
+/* *********************************** 
+   *********************************** */
+
+#define UPKDLIST_METANODE(TYPE, NAME) \
+    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME; 
+
+
+#define _UPKDLIST_NEWNODE(NAME) \
+    NAME->tempp = calloc(1,sizeof(*(NAME->tempp)))
+
+
+#define UPKDLIST_INIT(TYPE, NAME) \
+    UPKDLIST_METANODE(TYPE, NAME) = NULL; \
+    NAME = calloc(1, sizeof(*NAME)); \
+    _UPKDLIST_NEWNODE(NAME); \
+    NAME->tempp->prev = NULL; /* generate a compiler error if the type specified doesn't contain a prev pointer */ \
+    free(NAME->tempp->prev)
+
+
+#define UPKDLIST_APPEND_THIS(NAME) \
+    _UPKDLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->nextp; \
+    if(NAME->thisp) { NAME->thisp->next = NAME->tempp; NAME->tempp->prev = NAME->thisp; } \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp && NAME->count == 0 ) { NAME->head = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp;
+
+
+#define UPKDLIST_APPEND(NAME) \
+    NAME->thisp = NAME->tail; \
+    NAME->prevp = (NAME->thisp->prev) ? NAME->thisp->prev : NAME->head; \
+    UPKDLIST_APPEND_THIS(NAME)
+
+
+#define UPKDLIST_PREPEND_THIS(NAME) \
+    _UPKDLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->thisp; \
+    if(NAME->thisp) {  NAME->tempp->prev = NAME->thisp->prev; NAME->thisp->prev = NAME->tempp; } \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp ) { NAME->head = NAME->tempp; } else { NAME->prevp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp
+
+
+#define UPKDLIST_PREPEND(NAME) \
+    NAME->prevp = NULL; \
+    NAME->thisp = NAME->head; \
+    UPKDLIST_PREPEND_THIS(NAME)
+
+#define _UPKDLIST_NEXTNODE(NAME) ( (NAME->thisp) ? NAME->thisp->next : NULL )
+#define _UPKDLIST_NEXTNODE(NAME) ( (NAME->thisp) ? NAME->thisp->prev : NULL )
+
+#define _UPKDLIST_FOREACH_CONTINUE(NAME) \
+    NAME->tempp = NULL, NAME->prevp = NAME->thisp, NAME->thisp = NAME->nextp, NAME->nextp = _UPKDLIST_NEXTNODE(NAME), NAME->prevp = _UPKDLIST_PREVNODE(NAME)
+
+#define _UPKDLIST_FOREACH_INIT(NAME) \
+    NAME->tempp = NULL, NAME->prevp = NULL, NAME->thisp = NAME->head, NAME->nextp = _UPKDLIST_NEXTNODE(NAME)
+
+
+#define UPKDLIST_FOREACH(NAME) \
+    for( _UPKDLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKDLIST_FOREACH_CONTINUE(NAME) )
+
+
+#define UPKDLIST_SWAP(NAME, A, B) \
+    NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
+    A->prev->next = B; \
+    B->prev->next = A; \
+    NAME->tempp->next = A->next; \
+    NAME->tempp->prev = A->prev; \
+    A->next = B->next; \
+    A->prev = B->prev; \
+    B->next = NAME->tempp->next; \
+    B->prev = NAME->tempp->prev; \
+    free(NAME->tempp); NAME->tempp = NULL
+
+
+#define UPKDLIST_UNLINK(NAME) \
+    if(NAME->thisp) { \
+        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } else { NAME->nextp->prev = NAME->prevp; }  \
+        free(NAME->thisp); NAME->thisp = NULL; \
+        --NAME->count; \
+    }
+
+
+#define UPKDLIST_FREE(NAME) \
+    UPKDLIST_FOREACH(NAME) { \
+        UPKDLIST_UNLINK(NAME); \
+    }\
+    if(NAME) { free(NAME); }
 
 
 #endif

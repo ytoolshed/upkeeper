@@ -15,6 +15,9 @@
    */
 #undef HAVE_ALLOCA_H
 
+/* Define to 1 if you have the <arpa/inet.h> header file. */
+#undef HAVE_ARPA_INET_H
+
 /* Define to 1 if you have the <dlfcn.h> header file. */
 #undef HAVE_DLFCN_H
 
@@ -30,15 +33,30 @@
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
+/* Define to 1 if you have the `json' library (-ljson). */
+#undef HAVE_LIBJSON
+
+/* Define to 1 if you have the `ncurses' library (-lncurses). */
+#undef HAVE_LIBNCURSES
+
+/* Define to 1 if you have the `sqlite3' library (-lsqlite3). */
+#undef HAVE_LIBSQLITE3
+
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
    to 0 otherwise. */
 #undef HAVE_MALLOC
+
+/* Define to 1 if you have the `memchr' function. */
+#undef HAVE_MEMCHR
 
 /* Define to 1 if you have the <memory.h> header file. */
 #undef HAVE_MEMORY_H
 
 /* Define to 1 if you have the `memset' function. */
 #undef HAVE_MEMSET
+
+/* Define to 1 if you have the <OS.h> header file. */
+#undef HAVE_OS_H
 
 /* Define to 1 if you have the `select' function. */
 #undef HAVE_SELECT
@@ -174,6 +192,12 @@
    <pthread.h>, or <semaphore.h> is not used. If the typedef were allowed, the
    #define below would cause a syntax error. */
 #undef _UINT8_T
+
+/* Define to `__inline__' or `__inline' if that's what the C compiler
+   calls it, or to nothing if 'inline' is not supported under any name.  */
+#ifndef __cplusplus
+#undef inline
+#endif
 
 /* Define to rpl_malloc if the replacement function should be used. */
 #undef malloc
