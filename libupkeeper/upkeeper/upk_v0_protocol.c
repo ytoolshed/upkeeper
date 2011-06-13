@@ -7,7 +7,9 @@
     size_t UPK_STRING_LENGTH = 0; \
     UPK_DATA = calloc(1, sizeof(*UPK_DATA)); \
     UPK_DATA->msgtype = MSGTYPE; \
-    UPK_DATA_LEN += 4 \
+    UPK_DATA_LEN += 4; \
+    UPK_DATA_LEN = UPK_DATA_LEN + 0; \
+    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0
 
 #define UPK_HELPER_UINT32_EXPLICIT(DEST,SRC) \
     DEST = SRC; \
@@ -67,13 +69,13 @@ void v0_free_payload(upk_packet_t *pkt);
 
 typedef void            (*free_data_t) (void *);
 
-free_data_t             free_pkt_dispatch[] = {
+static free_data_t             free_pkt_dispatch[] = {
     [PKT_REQUEST] = v0_free_req_payload,
     [PKT_REPLY] = v0_free_repl_payload,
     [PKT_PUBMSG] = NULL,
 };
 
-free_data_t             free_req_dispatch[] = {
+static free_data_t             free_req_dispatch[] = {
     [REQ_SEQ_START] = NULL,
     [REQ_SEQ_END] = NULL,
     [REQ_ACTION] = v0_free_action_req,
@@ -85,7 +87,7 @@ free_data_t             free_req_dispatch[] = {
     [REQ_DISCONNECT] = NULL,
 };
 
-free_data_t             free_repl_dispatch[] = {
+static free_data_t             free_repl_dispatch[] = {
     [REPL_SEQ_START] = NULL,
     [REPL_SEQ_END] = NULL,
     [REPL_RESULT] = v0_free_result_repl,

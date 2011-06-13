@@ -171,11 +171,10 @@ typedef struct {
     if(NAME) { free(NAME); }
 
 
-/* *********************************** 
-   *********************************** */
+/* *********************************** *********************************** */
 
 #define UPKDLIST_METANODE(TYPE, NAME) \
-    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME; 
+    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
 
 
 #define _UPKDLIST_NEWNODE(NAME) \
@@ -185,9 +184,6 @@ typedef struct {
 #define UPKDLIST_INIT(TYPE, NAME) \
     UPKDLIST_METANODE(TYPE, NAME) = NULL; \
     NAME = calloc(1, sizeof(*NAME)); \
-    _UPKDLIST_NEWNODE(NAME); \
-    NAME->tempp->prev = NULL; /* generate a compiler error if the type specified doesn't contain a prev pointer */ \
-    free(NAME->tempp->prev)
 
 
 #define UPKDLIST_APPEND_THIS(NAME) \
@@ -202,7 +198,7 @@ typedef struct {
 
 #define UPKDLIST_APPEND(NAME) \
     NAME->thisp = NAME->tail; \
-    NAME->prevp = (NAME->thisp->prev) ? NAME->thisp->prev : NAME->head; \
+    NAME->prevp = (NAME->thisp) ? NAME->thisp->prev : NAME->head; \
     UPKDLIST_APPEND_THIS(NAME)
 
 
@@ -222,10 +218,11 @@ typedef struct {
     UPKDLIST_PREPEND_THIS(NAME)
 
 #define _UPKDLIST_NEXTNODE(NAME) ( (NAME->thisp) ? NAME->thisp->next : NULL )
-#define _UPKDLIST_NEXTNODE(NAME) ( (NAME->thisp) ? NAME->thisp->prev : NULL )
+#define _UPKDLIST_PREVNODE(NAME) ( (NAME->thisp) ? NAME->thisp->prev : NULL )
 
 #define _UPKDLIST_FOREACH_CONTINUE(NAME) \
-    NAME->tempp = NULL, NAME->prevp = NAME->thisp, NAME->thisp = NAME->nextp, NAME->nextp = _UPKDLIST_NEXTNODE(NAME), NAME->prevp = _UPKDLIST_PREVNODE(NAME)
+    NAME->tempp = NULL, NAME->prevp = NAME->thisp, NAME->thisp = NAME->nextp, \
+    NAME->nextp = _UPKDLIST_NEXTNODE(NAME), NAME->prevp = _UPKDLIST_PREVNODE(NAME)
 
 #define _UPKDLIST_FOREACH_INIT(NAME) \
     NAME->tempp = NULL, NAME->prevp = NULL, NAME->thisp = NAME->head, NAME->nextp = _UPKDLIST_NEXTNODE(NAME)
@@ -233,6 +230,16 @@ typedef struct {
 
 #define UPKDLIST_FOREACH(NAME) \
     for( _UPKDLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKDLIST_FOREACH_CONTINUE(NAME) )
+
+#define _UPKDLIST_FOREACH_R_CONTINUE(NAME) \
+    NAME->tempp = NULL, NAME->nextp = NAME->thisp, NAME->thisp = NAME->prevp, \
+    NAME->prevp = _UPKDLIST_PREVNODE(NAME), NAME->nextp = _UPKDLIST_NEXTNODE(NAME)
+
+#define _UPKDLIST_FOREACH_R_INIT(NAME) \
+    NAME->tempp = NULL, NAME->nextp = NULL, NAME->thisp = NAME->tail, NAME->prevp = _UPKDLIST_PREVNODE(NAME)
+
+#define UPKDLIST_FOREACH_REVERSE(NAME) \
+    for( _UPKDLIST_FOREACH_R_INIT(NAME); NAME->thisp != NULL; _UPKDLIST_FOREACH_R_CONTINUE(NAME) )
 
 
 #define UPKDLIST_SWAP(NAME, A, B) \

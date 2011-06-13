@@ -80,13 +80,13 @@ static inline upk_pkt_buf_t   *serial_pub_cancel(void *UPK_DATA_PTR, size_t UPK_
  * dispatch tables for static inline function selection; avoids both the wasted time (assuming compiler optimization doesn't
  * do this for you), and, more importantly, confusing code consiting of massive switch/case sections.
  * ****************************************************************************************************************** */
-deserialize_payload_t   deserial_pkt_dispatch[] = {
+static deserialize_payload_t   deserial_pkt_dispatch[] = {
     [PKT_REQUEST] = deserialize_req_payload,
     [PKT_REPLY] = deserialize_repl_payload,
     [PKT_PUBMSG] = deserialize_pub_payload,
 };
 
-deserialize_payload_t   deserial_req_dispatch[] = {
+static deserialize_payload_t   deserial_req_dispatch[] = {
     [REQ_SEQ_START] = deserial_req_seq_start,
     [REQ_SEQ_END] = deserial_req_seq_end,
     [REQ_ACTION] = deserial_req_action,
@@ -98,7 +98,7 @@ deserialize_payload_t   deserial_req_dispatch[] = {
     [REQ_DISCONNECT] = deserial_req_disconnect,
 };
 
-deserialize_payload_t   deserial_repl_dispatch[] = {
+static deserialize_payload_t   deserial_repl_dispatch[] = {
     [REPL_SEQ_START] = deserial_repl_seq_start,
     [REPL_SEQ_END] = deserial_repl_seq_end,
     [REPL_RESULT] = deserial_repl_result,
@@ -108,18 +108,18 @@ deserialize_payload_t   deserial_repl_dispatch[] = {
     [REPL_ERROR] = deserial_repl_err,
 };
 
-deserialize_payload_t   deserial_pub_dispatch[] = {
+static deserialize_payload_t   deserial_pub_dispatch[] = {
     [PUB_PUBLICATION] = deserial_pub_pub,
     [PUB_CANCELATION] = deserial_pub_cancel,
 };
 
-serialize_payload_t     serial_pkt_dispatch[] = {
+static serialize_payload_t     serial_pkt_dispatch[] = {
     [PKT_REQUEST] = serialize_req_payload,
     [PKT_REPLY] = serialize_repl_payload,
     [PKT_PUBMSG] = serialize_pub_payload,
 };
 
-serialize_payload_t     serial_req_dispatch[] = {
+static serialize_payload_t     serial_req_dispatch[] = {
     [REQ_SEQ_START] = serial_req_seq_start,
     [REQ_SEQ_END] = serial_req_seq_end,
     [REQ_ACTION] = serial_req_action,
@@ -131,7 +131,7 @@ serialize_payload_t     serial_req_dispatch[] = {
     [REQ_DISCONNECT] = serial_req_disconnect,
 };
 
-serialize_payload_t     serial_repl_dispatch[] = {
+static serialize_payload_t     serial_repl_dispatch[] = {
     [REPL_SEQ_START] = serial_repl_seq_start,
     [REPL_SEQ_END] = serial_repl_seq_end,
     [REPL_RESULT] = serial_repl_result,
@@ -141,7 +141,7 @@ serialize_payload_t     serial_repl_dispatch[] = {
     [REPL_ERROR] = serial_repl_err,
 };
 
-serialize_payload_t     serial_pub_dispatch[] = {
+static serialize_payload_t     serial_pub_dispatch[] = {
     [PUB_PUBLICATION] = serial_pub_pub,
     [PUB_CANCELATION] = serial_pub_cancel,
 };

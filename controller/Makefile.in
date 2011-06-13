@@ -34,9 +34,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = controller$(EXEEXT)
+bin_PROGRAMS = controller$(EXEEXT) buddy$(EXEEXT)
 subdir = controller
-DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in TODO
+DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
@@ -51,10 +51,16 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+am_buddy_OBJECTS = buddy.$(OBJEXT) buddy_main.$(OBJEXT)
+buddy_OBJECTS = $(am_buddy_OBJECTS)
+buddy_DEPENDENCIES =
 am_controller_OBJECTS = controller.$(OBJEXT) ctrl_protocol.$(OBJEXT) \
-	ctrl_buddy.$(OBJEXT) eventloop.$(OBJEXT)
+	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT)
 controller_OBJECTS = $(am_controller_OBJECTS)
 controller_LDADD = $(LDADD)
+controller_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
+	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
+	$(controller_LDFLAGS) $(LDFLAGS) -o $@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -68,8 +74,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(controller_SOURCES)
-DIST_SOURCES = $(controller_SOURCES)
+SOURCES = $(buddy_SOURCES) $(controller_SOURCES)
+DIST_SOURCES = $(buddy_SOURCES) $(controller_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -108,7 +114,7 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
-LIBS = @LIBS@
+LIBS = 
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
@@ -188,9 +194,12 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
-LDADD = $(top_builddir)/libupkeeper/libupkeeper.la
-controller_SOURCES = controller.c controller.h ctrl_protocol.c ctrl_buddy.c eventloop.c 
+LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
+buddy_LDADD = 
+buddy_SOURCES = buddy.c buddy_main.c
+controller_SOURCES = controller.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
 controller_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
+controller_LDFLAGS = -ljson -lsqlite3
 all: all-am
 
 .SUFFIXES:
@@ -268,9 +277,12 @@ clean-binPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+buddy$(EXEEXT): $(buddy_OBJECTS) $(buddy_DEPENDENCIES) 
+	@rm -f buddy$(EXEEXT)
+	$(LINK) $(buddy_OBJECTS) $(buddy_LDADD) $(LIBS)
 controller$(EXEEXT): $(controller_OBJECTS) $(controller_DEPENDENCIES) 
 	@rm -f controller$(EXEEXT)
-	$(LINK) $(controller_OBJECTS) $(controller_LDADD) $(LIBS)
+	$(controller_LINK) $(controller_OBJECTS) $(controller_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -278,10 +290,12 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy_main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/controller.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_buddy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_eventloop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_protocol.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/eventloop.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

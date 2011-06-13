@@ -35,10 +35,12 @@ build_triplet = @build@
 host_triplet = @host@
 check_PROGRAMS = v0_protocol_helpers$(EXEEXT) \
 	v0_protocol_serializers$(EXEEXT) upk_protocol_helpers$(EXEEXT) \
-	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT)
+	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT) \
+	dlinked_lists$(EXEEXT)
 TESTS = v0_protocol_helpers$(EXEEXT) v0_protocol_serializers$(EXEEXT) \
 	upk_protocol_helpers$(EXEEXT) \
-	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT)
+	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT) \
+	dlinked_lists$(EXEEXT)
 subdir = libupkeeper/tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -53,6 +55,11 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = $(top_builddir)/upkeeper_config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
+dlinked_lists_SOURCES = dlinked_lists.c
+dlinked_lists_OBJECTS = dlinked_lists.$(OBJEXT)
+dlinked_lists_LDADD = $(LDADD)
+dlinked_lists_DEPENDENCIES =  \
+	$(top_builddir)/libupkeeper/libupkeeper.la
 linked_lists_SOURCES = linked_lists.c
 linked_lists_OBJECTS = linked_lists.$(OBJEXT)
 linked_lists_LDADD = $(LDADD)
@@ -83,10 +90,10 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = linked_lists.c upk_protocol_helpers.c \
+SOURCES = dlinked_lists.c linked_lists.c upk_protocol_helpers.c \
 	upk_protocol_serializers.c v0_protocol_helpers.c \
 	v0_protocol_serializers.c
-DIST_SOURCES = linked_lists.c upk_protocol_helpers.c \
+DIST_SOURCES = dlinked_lists.c linked_lists.c upk_protocol_helpers.c \
 	upk_protocol_serializers.c v0_protocol_helpers.c \
 	v0_protocol_serializers.c
 ETAGS = etags
@@ -271,6 +278,9 @@ clean-checkPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
+dlinked_lists$(EXEEXT): $(dlinked_lists_OBJECTS) $(dlinked_lists_DEPENDENCIES) 
+	@rm -f dlinked_lists$(EXEEXT)
+	$(LINK) $(dlinked_lists_OBJECTS) $(dlinked_lists_LDADD) $(LIBS)
 linked_lists$(EXEEXT): $(linked_lists_OBJECTS) $(linked_lists_DEPENDENCIES) 
 	@rm -f linked_lists$(EXEEXT)
 	$(LINK) $(linked_lists_OBJECTS) $(linked_lists_LDADD) $(LIBS)
@@ -293,6 +303,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dlinked_lists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/linked_lists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_protocol_helpers.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_protocol_serializers.Po@am__quote@

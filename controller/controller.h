@@ -21,6 +21,7 @@ extern upk_clientstatus_t handle_client(int32_t client_fd);
 extern void             handle_signals(void);
 extern void             handle_buddies(void);
 int32_t ctrl_sock_setup(upk_controller_config_t * config);
+void event_loop(int32_t listen_sock);
 
 
 #endif

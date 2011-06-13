@@ -14,7 +14,7 @@
     do { if(! (A)) { snprintf(UPK_ERRMSG, UPK_MAX_STRING_LEN, __VA_ARGS__); __upk_error_type = B; goto __upk_err; } } while(0)
 
 #define IF_UPK_ERROR __upk_err: \
-    if(*UPK_ERRMSG && __upk_error_type) upk_report_error_msg(__upk_error_type, UPK_ERRMSG); \
+    if(*UPK_ERRMSG && __upk_error_type) upk_report_error_msg(__upk_error_type, (unsigned char *) UPK_ERRMSG); \
     else if(__upk_error_type) upk_report_error(__upk_error_type); \
     if(__upk_error_type)
 

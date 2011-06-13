@@ -21,7 +21,7 @@ main(int argc, char **argv, char **envp)
     };
     int32_t                 sock_fd;
 
-    close(stdin);                                          /* close(stdout); close(stderr); */
+    fclose(stdin);                                          /* close(stdout); close(stderr); */
     chdir("/");
 
     sock_fd = ctrl_sock_setup(&stub);
