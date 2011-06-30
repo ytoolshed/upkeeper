@@ -1,0 +1,92 @@
+\section{\_\-upk\_\-svc\_\-desc Struct Reference}
+\label{struct__upk__svc__desc}\index{_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+service configuration.  
+
+
+{\tt \#include $<$upk\_\-config.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+char \bf{Package} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char \bf{Name} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char \bf{Provides} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+\bf{upk\_\-uuid\_\-t} \bf{UUID}
+\item 
+char \bf{Short\-Description} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char $\ast$ \bf{Long\-Description}
+\item 
+\bf{upk\_\-svclist\_\-t} $\ast$ \bf{Prerequisites}
+\item 
+int32\_\-t \bf{Start\-Priority}
+\item 
+int32\_\-t \bf{Buddy\-Shutdown\-Timeout}
+\item 
+int32\_\-t \bf{Kill\-Timeout}
+\item 
+int32\_\-t \bf{User\-Max\-Restarts}
+\item 
+int32\_\-t \bf{User\-Restart\-Window}
+\item 
+int32\_\-t \bf{User\-Rate\-Limit}
+\item 
+bool \bf{Randomize\-Rate\-Limit}
+\item 
+uid\_\-t \bf{Set\-UID}
+\item 
+gid\_\-t \bf{Set\-GID}
+\item 
+size\_\-t \bf{Ringbuffer\-Size}
+\item 
+int32\_\-t \bf{Reconnect\-Retries}
+\item 
+char \bf{Exec\-Start} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char $\ast$ \bf{Start\-Script}
+\item 
+char $\ast$ \bf{Stop\-Script}
+\item 
+char $\ast$ \bf{Reload\-Script}
+\item 
+\bf{upk\_\-cust\_\-actscr\_\-list\_\-t} $\ast$ \bf{custom\_\-action\_\-scripts}
+\item 
+char $\ast$ \bf{Pipe\-Stdout\-Script}
+\item 
+char $\ast$ \bf{Pipe\-Stderr\-Script}
+\item 
+char \bf{Redirect\-Stdout} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char \bf{Redirect\-Stderr} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+\bf{upk\_\-state\_\-t} \bf{Initial\-State}
+\item 
+bool \bf{Unconfigure\-On\-File\-Removal}
+\item 
+bool \bf{Prefer\-Buddy\-State\-For\-Stopped}
+\item 
+bool \bf{Prefer\-Buddy\-State\-For\-Running}
+\item 
+\bf{upk\_\-svc\_\-desc\_\-t} $\ast$ \bf{next}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+service configuration. 
+
+
+
+\subsection{Field Documentation}
+\index{_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}!Package@{Package}}
+\index{Package@{Package}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Package}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svc__desc_5e1563eff5960c2c5228bfe8325ea583}
+
+
+an optional prefix to be preppended to the service name 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+upkeeper/\bf{upk\_\-config.h}\end{CompactItemize}

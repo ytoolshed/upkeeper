@@ -1,0 +1,198 @@
+\section{upkeeper/v0\_\-protocol.h File Reference}
+\label{v0__protocol_8h}\index{upkeeper/v0_protocol.h@{upkeeper/v0\_\-protocol.h}}
+{\tt \#include \char`\"{}protocol.h\char`\"{}}\par
+{\tt \#include \char`\"{}v0\_\-protocol\_\-structs.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{v0\_\-req\_\-seq\_\-start\_\-t}
+\item 
+struct \bf{v0\_\-req\_\-seq\_\-end\_\-t}
+\item 
+struct \bf{v0\_\-action\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-signal\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-list\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-status\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-subscr\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-unsubs\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-discon\_\-req\_\-t}
+\item 
+struct \bf{v0\_\-repl\_\-seq\_\-start\_\-t}
+\item 
+struct \bf{v0\_\-repl\_\-seq\_\-end\_\-t}
+\item 
+struct \bf{v0\_\-result\_\-repl\_\-t}
+\item 
+struct \bf{v0\_\-listing\_\-repl\_\-t}
+\item 
+struct \bf{v0\_\-svcinfo\_\-t}
+\item 
+struct \bf{v0\_\-svcinfo\_\-repl\_\-t}
+\item 
+struct \bf{v0\_\-ack\_\-repl\_\-t}
+\item 
+struct \bf{v0\_\-error\_\-repl\_\-t}
+\item 
+struct \bf{v0\_\-pub\_\-pubmsg\_\-t}
+\item 
+struct \bf{v0\_\-cancel\_\-pubmsg\_\-t}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{v0\_\-serialize\_\-payload} (\bf{upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+void $\ast$ \bf{v0\_\-deserialize\_\-payload} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF, \bf{upk\_\-pkttype\_\-t} pkttype)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-req\_\-seq\_\-start} (\bf{upk\_\-req\_\-msgtype\_\-t} msg\_\-seq\_\-type, uint32\_\-t msg\_\-seq\_\-count)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-req\_\-seq\_\-end} (bool commit)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-action\_\-req} (char $\ast$svc\_\-id, char $\ast$action)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-signal\_\-req} (char $\ast$svc\_\-id, \bf{upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-list\_\-req} (void)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-status\_\-req} (char $\ast$svc\_\-id)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-subscr\_\-req} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-unsubs\_\-req} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-discon\_\-req} (void)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-repl\_\-seq\_\-start} (\bf{upk\_\-repl\_\-msgtype\_\-t} msg\_\-seq\_\-type, uint32\_\-t msg\_\-seq\_\-count)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-repl\_\-seq\_\-end} (bool commit)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-result\_\-repl} (char $\ast$msg, bool successful)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-listing\_\-repl} (char $\ast$svc\_\-id)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-svcinfo\_\-repl} (char $\ast$svc\_\-id, \bf{v0\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-ack\_\-repl} (void)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-error\_\-repl} (char $\ast$svc\_\-id, char $\ast$errmsg, \bf{upk\_\-errlevel\_\-t} errlvl)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-pub\_\-pubmsg} (void)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{v0\_\-create\_\-cancel\_\-pubmsg} (void)
+\item 
+void \bf{v0\_\-free\_\-payload} (\bf{upk\_\-packet\_\-t} $\ast$pkt)
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_ack_repl@{v0\_\-create\_\-ack\_\-repl}}
+\index{v0_create_ack_repl@{v0\_\-create\_\-ack\_\-repl}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-ack\_\-repl (void)}\label{v0__protocol_8h_5ea3fb24528535a2a08943f7dcce85bc}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_action_req@{v0\_\-create\_\-action\_\-req}}
+\index{v0_create_action_req@{v0\_\-create\_\-action\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-action\_\-req (char $\ast$ {\em svc\_\-id}, char $\ast$ {\em action})}\label{v0__protocol_8h_ac4eef1f8bc3804cd3e76d40d4b84ae6}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_cancel_pubmsg@{v0\_\-create\_\-cancel\_\-pubmsg}}
+\index{v0_create_cancel_pubmsg@{v0\_\-create\_\-cancel\_\-pubmsg}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-cancel\_\-pubmsg (void)}\label{v0__protocol_8h_0391f0ee6032ec320ebd72df6e478c80}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_discon_req@{v0\_\-create\_\-discon\_\-req}}
+\index{v0_create_discon_req@{v0\_\-create\_\-discon\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-discon\_\-req (void)}\label{v0__protocol_8h_efedf91e09f5bd289f03e0e2b16e86c4}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_error_repl@{v0\_\-create\_\-error\_\-repl}}
+\index{v0_create_error_repl@{v0\_\-create\_\-error\_\-repl}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-error\_\-repl (char $\ast$ {\em svc\_\-id}, char $\ast$ {\em errmsg}, \bf{upk\_\-errlevel\_\-t} {\em errlvl})}\label{v0__protocol_8h_bc289c4e5e9eb01715542c91c35836d6}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_list_req@{v0\_\-create\_\-list\_\-req}}
+\index{v0_create_list_req@{v0\_\-create\_\-list\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-list\_\-req (void)}\label{v0__protocol_8h_9427abae5833248bfece6ae47d19b394}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_listing_repl@{v0\_\-create\_\-listing\_\-repl}}
+\index{v0_create_listing_repl@{v0\_\-create\_\-listing\_\-repl}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-listing\_\-repl (char $\ast$ {\em svc\_\-id})}\label{v0__protocol_8h_77843ba9d6a8dc9e321de8644f7cd49f}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_pub_pubmsg@{v0\_\-create\_\-pub\_\-pubmsg}}
+\index{v0_create_pub_pubmsg@{v0\_\-create\_\-pub\_\-pubmsg}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-pub\_\-pubmsg (void)}\label{v0__protocol_8h_53b3055db63936252148aee0295ca1ff}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_repl_seq_end@{v0\_\-create\_\-repl\_\-seq\_\-end}}
+\index{v0_create_repl_seq_end@{v0\_\-create\_\-repl\_\-seq\_\-end}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-seq\_\-end (bool {\em commit})}\label{v0__protocol_8h_f64a0b660d677dcb7736147b0b746e4d}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_repl_seq_start@{v0\_\-create\_\-repl\_\-seq\_\-start}}
+\index{v0_create_repl_seq_start@{v0\_\-create\_\-repl\_\-seq\_\-start}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-seq\_\-start (\bf{upk\_\-repl\_\-msgtype\_\-t} {\em msg\_\-seq\_\-type}, uint32\_\-t {\em msg\_\-seq\_\-count})}\label{v0__protocol_8h_ff9c0d9b5b3c8f4b29f967fdc8754795}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_req_seq_end@{v0\_\-create\_\-req\_\-seq\_\-end}}
+\index{v0_create_req_seq_end@{v0\_\-create\_\-req\_\-seq\_\-end}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-seq\_\-end (bool {\em commit})}\label{v0__protocol_8h_02ca7e99b5c3ff4a352da07601bb883f}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_req_seq_start@{v0\_\-create\_\-req\_\-seq\_\-start}}
+\index{v0_create_req_seq_start@{v0\_\-create\_\-req\_\-seq\_\-start}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-seq\_\-start (\bf{upk\_\-req\_\-msgtype\_\-t} {\em msg\_\-seq\_\-type}, uint32\_\-t {\em msg\_\-seq\_\-count})}\label{v0__protocol_8h_f30c23d2f5d9b4b7d4a170f77724eadc}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_result_repl@{v0\_\-create\_\-result\_\-repl}}
+\index{v0_create_result_repl@{v0\_\-create\_\-result\_\-repl}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-result\_\-repl (char $\ast$ {\em msg}, bool {\em successful})}\label{v0__protocol_8h_16f936a0c493225b72d8149dc313a044}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_signal_req@{v0\_\-create\_\-signal\_\-req}}
+\index{v0_create_signal_req@{v0\_\-create\_\-signal\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-signal\_\-req (char $\ast$ {\em svc\_\-id}, \bf{upk\_\-signal\_\-t} {\em signal}, bool {\em signal\_\-sid}, bool {\em signal\_\-pgrp})}\label{v0__protocol_8h_c5bb1cf9dad3cb144aa1fb82902e395d}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_status_req@{v0\_\-create\_\-status\_\-req}}
+\index{v0_create_status_req@{v0\_\-create\_\-status\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-status\_\-req (char $\ast$ {\em svc\_\-id})}\label{v0__protocol_8h_fb90a268c80d49caad50661fcc0a8b19}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_subscr_req@{v0\_\-create\_\-subscr\_\-req}}
+\index{v0_create_subscr_req@{v0\_\-create\_\-subscr\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-subscr\_\-req (char $\ast$ {\em svc\_\-id}, bool {\em all\_\-svcs})}\label{v0__protocol_8h_2d6b87ee88312037bf3536cec062dc49}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_svcinfo_repl@{v0\_\-create\_\-svcinfo\_\-repl}}
+\index{v0_create_svcinfo_repl@{v0\_\-create\_\-svcinfo\_\-repl}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-svcinfo\_\-repl (char $\ast$ {\em svc\_\-id}, \bf{v0\_\-svcinfo\_\-t} $\ast$ {\em svcinfo})}\label{v0__protocol_8h_d4956923b4b41cca2848a17fd69d2162}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_create_unsubs_req@{v0\_\-create\_\-unsubs\_\-req}}
+\index{v0_create_unsubs_req@{v0\_\-create\_\-unsubs\_\-req}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-unsubs\_\-req (char $\ast$ {\em svc\_\-id}, bool {\em all\_\-svcs})}\label{v0__protocol_8h_93b066130e901bf83a3b298121f62f11}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_deserialize_payload@{v0\_\-deserialize\_\-payload}}
+\index{v0_deserialize_payload@{v0\_\-deserialize\_\-payload}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ v0\_\-deserialize\_\-payload (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF}, \bf{upk\_\-pkttype\_\-t} {\em pkttype})}\label{v0__protocol_8h_ba48f37f01d102213ba61927c0a67aee}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_free_payload@{v0\_\-free\_\-payload}}
+\index{v0_free_payload@{v0\_\-free\_\-payload}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void v0\_\-free\_\-payload (\bf{upk\_\-packet\_\-t} $\ast$ {\em pkt})}\label{v0__protocol_8h_8110bf43440ce570b9df71ecc40d6a7a}
+
+
+\index{v0_protocol.h@{v0\_\-protocol.h}!v0_serialize_payload@{v0\_\-serialize\_\-payload}}
+\index{v0_serialize_payload@{v0\_\-serialize\_\-payload}!v0_protocol.h@{v0\_\-protocol.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-pkt\_\-buf\_\-t}$\ast$ v0\_\-serialize\_\-payload (\bf{upk\_\-packet\_\-t} $\ast$ {\em pkt})}\label{v0__protocol_8h_f1921fb8d7d6d080507c2190131d1f38}
+
+

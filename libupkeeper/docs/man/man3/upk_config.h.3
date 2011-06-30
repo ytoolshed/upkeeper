@@ -1,0 +1,68 @@
+.TH "upkeeper/upk_config.h" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upkeeper/upk_config.h \- configuration implementation for controller and services. 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_std_include.h'\fP
+.br
+\fC#include 'upk_uuid.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_svc_desc\fP"
+.br
+.RI "\fIservice configuration. \fP"
+.ti -1c
+.RI "struct \fB_upk_controller_config\fP"
+.br
+.RI "\fIcontroller configuration. \fP"
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fB_upk_svc_desc\fP \fBupk_svc_desc_t\fP"
+.br
+.RI "\fIservice configuration. \fP"
+.ti -1c
+.RI "typedef \fB_upk_controller_config\fP \fBupk_controller_config_t\fP"
+.br
+.RI "\fIcontroller configuration. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_load_config\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char \fBupk_ctrl_configuration_file\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "const char \fBupk_default_configuration_vec\fP []"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+configuration implementation for controller and services. 
+
+Structures and prototypes handling and defining service and controller's configuration. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.

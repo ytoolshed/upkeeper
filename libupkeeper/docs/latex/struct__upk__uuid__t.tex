@@ -1,0 +1,67 @@
+\section{\_\-upk\_\-uuid\_\-t Struct Reference}
+\label{struct__upk__uuid__t}\index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+structure for holding 16 byte UUID.  
+
+
+{\tt \#include $<$uuid.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+uint32\_\-t \bf{time\_\-low}
+\item 
+uint16\_\-t \bf{time\_\-mid}
+\item 
+uint16\_\-t \bf{time\_\-high\_\-and\_\-version}
+\item 
+uint8\_\-t \bf{clk\_\-seq\_\-high}
+\item 
+uint8\_\-t \bf{clk\_\-seq\_\-low}
+\item 
+uint8\_\-t \bf{node} [6]
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+structure for holding 16 byte UUID. 
+
+Despite only using v4 uuids, field labels chosen to reflect convention but All bits save those for version and id are random; and do not contain the information the label might imply 
+
+
+
+\subsection{Field Documentation}
+\index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!clk_seq_high@{clk\_\-seq\_\-high}}
+\index{clk_seq_high@{clk\_\-seq\_\-high}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t \bf{\_\-upk\_\-uuid\_\-t::clk\_\-seq\_\-high}}\label{struct__upk__uuid__t_5fbc54e247c77acc0382c9794c5b4171}
+
+
+clock sequence high bits \index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!clk_seq_low@{clk\_\-seq\_\-low}}
+\index{clk_seq_low@{clk\_\-seq\_\-low}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t \bf{\_\-upk\_\-uuid\_\-t::clk\_\-seq\_\-low}}\label{struct__upk__uuid__t_141319db51e51e80eff081acffc2fb29}
+
+
+clock sequence low bits \index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!node@{node}}
+\index{node@{node}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t \bf{\_\-upk\_\-uuid\_\-t::node}[6]}\label{struct__upk__uuid__t_ed0ce322aa069a1230c754bc88bacdb5}
+
+
+unique, usually random number \index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!time_high_and_version@{time\_\-high\_\-and\_\-version}}
+\index{time_high_and_version@{time\_\-high\_\-and\_\-version}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint16\_\-t \bf{\_\-upk\_\-uuid\_\-t::time\_\-high\_\-and\_\-version}}\label{struct__upk__uuid__t_d17a2e1fc22fc0eca3c4bc82ba90a087}
+
+
+high-resolution bits, and the version id of the uuid \index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!time_low@{time\_\-low}}
+\index{time_low@{time\_\-low}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t \bf{\_\-upk\_\-uuid\_\-t::time\_\-low}}\label{struct__upk__uuid__t_0ed9ad91aa20916db0713f1a4709171a}
+
+
+low resolution bits, usually seconds since epoch \index{_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}!time_mid@{time\_\-mid}}
+\index{time_mid@{time\_\-mid}!_upk_uuid_t@{\_\-upk\_\-uuid\_\-t}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uint16\_\-t \bf{\_\-upk\_\-uuid\_\-t::time\_\-mid}}\label{struct__upk__uuid__t_a88ec5e5125d4edfe6a811c94a5f2264}
+
+
+mid resolution bits 
+
+The documentation for this struct was generated from the following file:\begin{CompactItemize}
+\item 
+upkeeper/\bf{uuid.h}\end{CompactItemize}

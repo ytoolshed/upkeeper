@@ -1,0 +1,103 @@
+.TH "upkeeper/upk_json.h" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upkeeper/upk_json.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <json/json.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include 'upk_include.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_json_type_handlers\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fB_upk_json_type_handlers\fP \fBupk_json_type_handlers_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_json_default_null_handler\fP (char *key)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_bool_handler\fP (char *key, bool val)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_double_handler\fP (char *key, double val)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_int_handler\fP (char *key, int val)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_string_handler\fP (char *key, char *val)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_array_handler\fP (char *key, void *jobj)"
+.br
+.ti -1c
+.RI "void \fBupk_json_default_object_handler\fP (char *key, void *jobj)"
+.br
+.ti -1c
+.RI "void \fBupk_json_parse_node\fP (struct json_object *jobj)"
+.br
+.ti -1c
+.RI "bool \fBupk_json_parse_string\fP (const char *string)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_json_type_handlers_t\fP \fBupk_json_type_callbacks\fP"
+.br
+.ti -1c
+.RI "\fBupk_json_type_handlers_t\fP \fBupk_json_type_callbacks\fP"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_upk_json_type_handlers\fP  \fBupk_json_type_handlers_t\fP"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "void upk_json_default_array_handler (char * key, void * jobj)"
+.PP
+.SS "void upk_json_default_bool_handler (char * key, bool val)"
+.PP
+.SS "void upk_json_default_double_handler (char * key, double val)"
+.PP
+.SS "void upk_json_default_int_handler (char * key, int val)"
+.PP
+.SS "void upk_json_default_null_handler (char * key)"
+.PP
+.SS "void upk_json_default_object_handler (char * key, void * jobj)"
+.PP
+.SS "void upk_json_default_string_handler (char * key, char * val)"
+.PP
+.SS "void upk_json_parse_node (struct json_object * jobj)"
+.PP
+.SS "bool upk_json_parse_string (const char * string)"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "\fBupk_json_type_handlers_t\fP \fBupk_json_type_callbacks\fP"
+.PP
+.SS "\fBupk_json_type_handlers_t\fP \fBupk_json_type_callbacks\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.

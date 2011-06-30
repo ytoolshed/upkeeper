@@ -1,0 +1,126 @@
+.TH "upkeeper/upk_error.c" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upkeeper/upk_error.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_error.h'\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fB_upk_default_error_rpt\fP (\fBupk_error_t\fP err)"
+.br
+.ti -1c
+.RI "static void \fB_upk_default_error_rpt_msg\fP (\fBupk_error_t\fP err, unsigned const char *msg)"
+.br
+.ti -1c
+.RI "static void \fB_upk_default_diag_output\fP (\fBupk_diaglvl_t\fP diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)"
+.br
+.ti -1c
+.RI "static int32_t \fB_upk_diagnostic\fP (\fBupk_diaglvl_t\fP diaglvl, const char *loc, const char *fmt, va_list ap)"
+.br
+.ti -1c
+.RI "const unsigned char * \fBupk_strerror\fP (\fBupk_error_t\fP err)"
+.br
+.ti -1c
+.RI "void \fBupk_report_error\fP (\fBupk_error_t\fP err)"
+.br
+.ti -1c
+.RI "void \fBupk_report_error_msg\fP (\fBupk_error_t\fP err, unsigned const char *msg)"
+.br
+.ti -1c
+.RI "\fBerr_rpt_callback_t\fP \fBupk_reg_error_callback\fP (\fBerr_rpt_callback_t\fP func)"
+.br
+.ti -1c
+.RI "\fBerr_rpt_msg_callback_t\fP \fBupk_reg_err_msg_callback\fP (\fBerr_rpt_msg_callback_t\fP func)"
+.br
+.ti -1c
+.RI "\fBdiag_output_callback_t\fP \fBupk_reg_diag_callback\fP (\fBdiag_output_callback_t\fP func)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_fatal\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_alert\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_crit\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_error\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_warn\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_notice\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_info\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_verbose\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_debug0\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_debug1\fP (const char *loc, const char *fmt,...)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int32_t \fBupk_diag_verbosity\fP"
+.br
+.ti -1c
+.RI "\fB__UPK_ERRORS_DESC_ARRAY\fP"
+.br
+.ti -1c
+.RI "\fB__UPK_DIAG_LABELS\fP"
+.br
+.ti -1c
+.RI "\fBerr_rpt_callback_t\fP \fB__upk_error_rpt_callback\fP = _upk_default_error_rpt"
+.br
+.ti -1c
+.RI "\fBerr_rpt_msg_callback_t\fP \fB__upk_error_rpt_msg_callback\fP = _upk_default_error_rpt_msg"
+.br
+.ti -1c
+.RI "\fBdiag_output_callback_t\fP \fB__upk_diag_output_callback\fP = _upk_default_diag_output"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static void _upk_default_diag_output (\fBupk_diaglvl_t\fP diaglvl, const char * label, const char * loc, const char * fmt, va_list ap)\fC [static]\fP"
+.PP
+.SS "static void _upk_default_error_rpt (\fBupk_error_t\fP err)\fC [static]\fP"
+.PP
+.SS "static void _upk_default_error_rpt_msg (\fBupk_error_t\fP err, unsigned const char * msg)\fC [static]\fP"
+.PP
+.SS "static int32_t _upk_diagnostic (\fBupk_diaglvl_t\fP diaglvl, const char * loc, const char * fmt, va_list ap)\fC [static]\fP"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "\fB__UPK_DIAG_LABELS\fP"
+.PP
+.SS "\fBdiag_output_callback_t\fP \fB__upk_diag_output_callback\fP = _upk_default_diag_output"
+.PP
+.SS "\fBerr_rpt_callback_t\fP \fB__upk_error_rpt_callback\fP = _upk_default_error_rpt"
+.PP
+.SS "\fBerr_rpt_msg_callback_t\fP \fB__upk_error_rpt_msg_callback\fP = _upk_default_error_rpt_msg"
+.PP
+.SS "\fB__UPK_ERRORS_DESC_ARRAY\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.

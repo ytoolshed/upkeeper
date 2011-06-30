@@ -1,0 +1,139 @@
+.TH "upkeeper/upk_protocol.c" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upkeeper/upk_protocol.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_protocol.h'\fP
+.br
+\fC#include 'upk_v0_protocol.h'\fP
+.br
+\fC#include <assert.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pkt\fP (void *payload, uint32_t payload_len, \fBupk_pkttype_t\fP pkttype, uint32_t proto_ver)"
+.br
+.ti -1c
+.RI "static uint32_t \fBreq_preamble_len\fP (\fBupk_req_preamble_t\fP *preamble)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_preamble\fP (char *client_name)"
+.br
+.ti -1c
+.RI "static void \fBupk_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void \fBupk_pkt_free\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_req_msgtype_t\fP seq_type, uint32_t count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_action_req\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_signal_req\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_list_req\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_status_req\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_subscr_req\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_unsubs_req\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_discon_req\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_repl_msgtype_t\fP seq_type, uint32_t count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_result_repl\fP (\fBupk_protocol_handle_t\fP *handle, char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_listing_repl\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_svcinfo_repl\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_ack_repl\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_error_repl\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *errmsg, \fBupk_errlevel_t\fP errlvl)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pub_pubmsg\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_cancel_pubmsg\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static uint32_t req_preamble_len (\fBupk_req_preamble_t\fP * preamble)\fC [inline, static]\fP"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_ack_repl (\fBupk_protocol_handle_t\fP * handle)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_action_req (\fBupk_protocol_handle_t\fP * handle, char * svc_id, char * action)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_cancel_pubmsg (\fBupk_protocol_handle_t\fP * handle)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_discon_req (\fBupk_protocol_handle_t\fP * handle)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_error_repl (\fBupk_protocol_handle_t\fP * handle, char * svc_id, char * errmsg, \fBupk_errlevel_t\fP errlvl)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_list_req (\fBupk_protocol_handle_t\fP * handle)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_listing_repl (\fBupk_protocol_handle_t\fP * handle, char * svc_id)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_pkt (void * payload, uint32_t payload_len, \fBupk_pkttype_t\fP pkttype, uint32_t proto_ver)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_pub_pubmsg (\fBupk_protocol_handle_t\fP * handle)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_end (\fBupk_protocol_handle_t\fP * handle, bool commit)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_start (\fBupk_protocol_handle_t\fP * handle, \fBupk_repl_msgtype_t\fP seq_type, uint32_t count)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_req_preamble (char * client_name)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_end (\fBupk_protocol_handle_t\fP * handle, bool commit)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_start (\fBupk_protocol_handle_t\fP * handle, \fBupk_req_msgtype_t\fP seq_type, uint32_t count)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_result_repl (\fBupk_protocol_handle_t\fP * handle, char * msg, bool successful)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_signal_req (\fBupk_protocol_handle_t\fP * handle, char * svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_status_req (\fBupk_protocol_handle_t\fP * handle, char * svc_id)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_subscr_req (\fBupk_protocol_handle_t\fP * handle, char * svc_id, bool all_svcs)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_svcinfo_repl (\fBupk_protocol_handle_t\fP * handle, char * svc_id, \fBupk_svcinfo_t\fP * svcinfo)"
+.PP
+.SS "\fBupk_packet_t\fP* upk_create_unsubs_req (\fBupk_protocol_handle_t\fP * handle, char * svc_id, bool all_svcs)"
+.PP
+.SS "static void upk_free_payload (\fBupk_packet_t\fP * pkt)\fC [inline, static]\fP"
+.PP
+.SS "void upk_pkt_free (\fBupk_packet_t\fP * pkt)"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.

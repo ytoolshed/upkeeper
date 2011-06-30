@@ -1,0 +1,596 @@
+\section{upkeeper/upk\_\-types.h File Reference}
+\label{upk__types_8h}\index{upkeeper/upk_types.h@{upkeeper/upk\_\-types.h}}
+types common throughout libupkeeper. 
+
+{\tt \#include \char`\"{}upk\_\-std\_\-include.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-v0\_\-protocol\_\-structs.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-uuid.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{\_\-upk\_\-svclist}
+\begin{CompactList}\small\item\em linked list of service identifiers. \item\end{CompactList}\item 
+struct \bf{\_\-upk\_\-cust\_\-actscr\_\-list}
+\begin{CompactList}\small\item\em linked list of custom action scripts. \item\end{CompactList}\item 
+struct \bf{\_\-upk\_\-svcinfo}
+\begin{CompactList}\small\item\em see definition in $\ast$protocol\_\-fields.h. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{UPK\_\-MAX\_\-STRING\_\-LEN}~2048
+\begin{CompactList}\small\item\em longest allowable string (other than paths). \item\end{CompactList}\item 
+\#define \bf{UPK\_\-MAX\_\-PATH\_\-LEN}~8192
+\begin{CompactList}\small\item\em longest allowable path. \item\end{CompactList}\item 
+\#define \bf{UPKLIST\_\-METANODE}(TYPE, NAME)~struct \{ TYPE $\ast$ head; TYPE $\ast$ tail; TYPE $\ast$ prevp; TYPE $\ast$ nextp; TYPE $\ast$ tempp; TYPE $\ast$ thisp; uint32\_\-t count; \} $\ast$ NAME
+\begin{CompactList}\small\item\em definition of metanode for a given type. \item\end{CompactList}\item 
+\#define \bf{UPKLIST\_\-INIT}(TYPE, NAME)
+\item 
+\#define \bf{\_\-UPKLIST\_\-NEWNODE}(NAME)~NAME $\rightarrow$ tempp = calloc(1,sizeof($\ast$(NAME $\rightarrow$ tempp)))
+\item 
+\#define \bf{UPKLIST\_\-APPEND\_\-THIS}(NAME)
+\item 
+\#define \bf{UPKLIST\_\-APPEND}(NAME)
+\item 
+\#define \bf{UPKLIST\_\-PREPEND\_\-THIS}(NAME)
+\item 
+\#define \bf{UPKLIST\_\-PREPEND}(NAME)
+\item 
+\#define \bf{\_\-UPKLIST\_\-NEXTNODE}(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ next : NULL )
+\item 
+\#define \bf{\_\-UPKLIST\_\-FOREACH\_\-CONTINUE}(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NAME $\rightarrow$ thisp, NAME $\rightarrow$ thisp = NAME $\rightarrow$ nextp, NAME $\rightarrow$ nextp = \_\-UPKLIST\_\-NEXTNODE(NAME)
+\item 
+\#define \bf{\_\-UPKLIST\_\-FOREACH\_\-INIT}(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ head, NAME $\rightarrow$ nextp = \_\-UPKLIST\_\-NEXTNODE(NAME)
+\item 
+\#define \bf{UPKLIST\_\-FOREACH}(NAME)~for( \_\-UPKLIST\_\-FOREACH\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKLIST\_\-FOREACH\_\-CONTINUE(NAME) )
+\item 
+\#define \bf{UPKLIST\_\-SWAP}(NAME, A, APREV, B, BPREV)
+\item 
+\#define \bf{UPKLIST\_\-UNLINK}(NAME)
+\item 
+\#define \bf{UPKLIST\_\-FREE}(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-METANODE}(TYPE, NAME)~struct \{ TYPE $\ast$ head; TYPE $\ast$ tail; TYPE $\ast$ prevp; TYPE $\ast$ nextp; TYPE $\ast$ tempp; TYPE $\ast$ thisp; uint32\_\-t count; \} $\ast$ NAME
+\item 
+\#define \bf{\_\-UPKDLIST\_\-NEWNODE}(NAME)~NAME $\rightarrow$ tempp = calloc(1,sizeof($\ast$(NAME $\rightarrow$ tempp)))
+\item 
+\#define \bf{UPKDLIST\_\-INIT}(TYPE, NAME)
+\item 
+\#define \bf{UPKDLIST\_\-APPEND\_\-THIS}(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-APPEND}(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-PREPEND\_\-THIS}(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-PREPEND}(NAME)
+\item 
+\#define \bf{\_\-UPKDLIST\_\-NEXTNODE}(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ next : NULL )
+\item 
+\#define \bf{\_\-UPKDLIST\_\-PREVNODE}(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ prev : NULL )
+\item 
+\#define \bf{\_\-UPKDLIST\_\-FOREACH\_\-CONTINUE}(NAME)
+\item 
+\#define \bf{\_\-UPKDLIST\_\-FOREACH\_\-INIT}(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ head, NAME $\rightarrow$ nextp = \_\-UPKDLIST\_\-NEXTNODE(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-FOREACH}(NAME)~for( \_\-UPKDLIST\_\-FOREACH\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKDLIST\_\-FOREACH\_\-CONTINUE(NAME) )
+\item 
+\#define \bf{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE}(NAME)
+\item 
+\#define \bf{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT}(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ nextp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ tail, NAME $\rightarrow$ prevp = \_\-UPKDLIST\_\-PREVNODE(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-FOREACH\_\-REVERSE}(NAME)~for( \_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE(NAME) )
+\item 
+\#define \bf{UPKDLIST\_\-SWAP}(NAME, A, B)
+\item 
+\#define \bf{UPKDLIST\_\-UNLINK}(NAME)
+\item 
+\#define \bf{UPKDLIST\_\-FREE}(NAME)
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{\_\-upk\_\-svclist} \bf{upk\_\-svclist\_\-t}
+\begin{CompactList}\small\item\em linked list of service identifiers. \item\end{CompactList}\item 
+typedef \bf{\_\-upk\_\-cust\_\-actscr\_\-list} \bf{upk\_\-cust\_\-actscr\_\-list\_\-t}
+\begin{CompactList}\small\item\em linked list of custom action scripts. \item\end{CompactList}\item 
+typedef \bf{\_\-upk\_\-svcinfo} \bf{upk\_\-svcinfo\_\-t}
+\begin{CompactList}\small\item\em see definition in $\ast$protocol\_\-fields.h. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Enumerations}
+\begin{CompactItemize}
+\item 
+enum \bf{upk\_\-state\_\-t} \{ \bf{UPK\_\-STATE\_\-UNDEFINED}, 
+\bf{UPK\_\-STATE\_\-RUNNING}, 
+\bf{UPK\_\-STATE\_\-STOPPED}, 
+\bf{UPK\_\-STATE\_\-SHUTDOWN}
+ \}
+\begin{CompactList}\small\item\em run states to report to clients. \item\end{CompactList}\item 
+enum \bf{upk\_\-signal\_\-t} \{ \par
+\bf{UPK\_\-SIG\_\-HUP} =  1, 
+\bf{UPK\_\-SIG\_\-INT} =  2, 
+\bf{UPK\_\-SIG\_\-QUIT} =  3, 
+\bf{UPK\_\-SIG\_\-ILL} =  4, 
+\par
+\bf{UPK\_\-SIG\_\-TRAP} =  5, 
+\bf{UPK\_\-SIG\_\-ABRT} =  6, 
+\bf{UPK\_\-SIG\_\-BUS} =  7, 
+\bf{UPK\_\-SIG\_\-FPE} =  8, 
+\par
+\bf{UPK\_\-SIG\_\-KILL} =  9, 
+\bf{UPK\_\-SIG\_\-USR1} =  10, 
+\bf{UPK\_\-SIG\_\-SEGV} =  11, 
+\bf{UPK\_\-SIG\_\-USR2} =  12, 
+\par
+\bf{UPK\_\-SIG\_\-PIPE} =  13, 
+\bf{UPK\_\-SIG\_\-ALRM} =  14, 
+\bf{UPK\_\-SIG\_\-TERM} =  15, 
+\bf{UPK\_\-SIG\_\-STKFLT} =  16, 
+\par
+\bf{UPK\_\-SIG\_\-CHLD} =  17, 
+\bf{UPK\_\-SIG\_\-CONT} =  18, 
+\bf{UPK\_\-SIG\_\-STOP} =  19, 
+\bf{UPK\_\-SIG\_\-TSTP} =  20, 
+\par
+\bf{UPK\_\-SIG\_\-TTIN} =  21, 
+\bf{UPK\_\-SIG\_\-TTOU} =  22, 
+\bf{UPK\_\-SIG\_\-URG} =  23, 
+\bf{UPK\_\-SIG\_\-XCPU} =  24, 
+\par
+\bf{UPK\_\-SIG\_\-XFSZ} =  25, 
+\bf{UPK\_\-SIG\_\-VTALRM} =  26, 
+\bf{UPK\_\-SIG\_\-PROF} =  27, 
+\bf{UPK\_\-SIG\_\-WINCH} =  28, 
+\par
+\bf{UPK\_\-SIG\_\-IO} =  29, 
+\bf{UPK\_\-SIG\_\-PWR} =  30, 
+\bf{UPK\_\-SIG\_\-SYS} =  31
+ \}
+\begin{CompactList}\small\item\em signal names. \item\end{CompactList}\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+types common throughout libupkeeper. 
+
+Types used commonly, and (ideally) not more suitably defined elsewhere. 
+
+\subsection{Define Documentation}
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_FOREACH_CONTINUE@{\_\-UPKDLIST\_\-FOREACH\_\-CONTINUE}}
+\index{_UPKDLIST_FOREACH_CONTINUE@{\_\-UPKDLIST\_\-FOREACH\_\-CONTINUE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-FOREACH\_\-CONTINUE(NAME)}\label{upk__types_8h_daf2e319adc6274ae7b417f921e3071e}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->tempp = NULL, NAME->prevp = NAME->thisp, NAME->thisp = NAME->nextp, \
+    NAME->nextp = _UPKDLIST_NEXTNODE(NAME), NAME->prevp = _UPKDLIST_PREVNODE(NAME)
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_FOREACH_INIT@{\_\-UPKDLIST\_\-FOREACH\_\-INIT}}
+\index{_UPKDLIST_FOREACH_INIT@{\_\-UPKDLIST\_\-FOREACH\_\-INIT}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-FOREACH\_\-INIT(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ head, NAME $\rightarrow$ nextp = \_\-UPKDLIST\_\-NEXTNODE(NAME)}\label{upk__types_8h_dd36c65c2b24ab4cbdef10c6bc7b90a9}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_FOREACH_R_CONTINUE@{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE}}
+\index{_UPKDLIST_FOREACH_R_CONTINUE@{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE(NAME)}\label{upk__types_8h_aef8a485f4525e073065b188cbaa4d0a}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->tempp = NULL, NAME->nextp = NAME->thisp, NAME->thisp = NAME->prevp, \
+    NAME->prevp = _UPKDLIST_PREVNODE(NAME), NAME->nextp = _UPKDLIST_NEXTNODE(NAME)
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_FOREACH_R_INIT@{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT}}
+\index{_UPKDLIST_FOREACH_R_INIT@{\_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ nextp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ tail, NAME $\rightarrow$ prevp = \_\-UPKDLIST\_\-PREVNODE(NAME)}\label{upk__types_8h_ee7ca079ee6868502ca3b67ecf18bbc6}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_NEWNODE@{\_\-UPKDLIST\_\-NEWNODE}}
+\index{_UPKDLIST_NEWNODE@{\_\-UPKDLIST\_\-NEWNODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-NEWNODE(NAME)~NAME $\rightarrow$ tempp = calloc(1,sizeof($\ast$(NAME $\rightarrow$ tempp)))}\label{upk__types_8h_27c1c927ede45facc819e7bdbbe55e3c}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_NEXTNODE@{\_\-UPKDLIST\_\-NEXTNODE}}
+\index{_UPKDLIST_NEXTNODE@{\_\-UPKDLIST\_\-NEXTNODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-NEXTNODE(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ next : NULL )}\label{upk__types_8h_c4e4ff319160dc31b0265bf29bffd7d9}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKDLIST_PREVNODE@{\_\-UPKDLIST\_\-PREVNODE}}
+\index{_UPKDLIST_PREVNODE@{\_\-UPKDLIST\_\-PREVNODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKDLIST\_\-PREVNODE(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ prev : NULL )}\label{upk__types_8h_6faa8c9dfbcfb3cc590bc08a94d56905}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKLIST_FOREACH_CONTINUE@{\_\-UPKLIST\_\-FOREACH\_\-CONTINUE}}
+\index{_UPKLIST_FOREACH_CONTINUE@{\_\-UPKLIST\_\-FOREACH\_\-CONTINUE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKLIST\_\-FOREACH\_\-CONTINUE(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NAME $\rightarrow$ thisp, NAME $\rightarrow$ thisp = NAME $\rightarrow$ nextp, NAME $\rightarrow$ nextp = \_\-UPKLIST\_\-NEXTNODE(NAME)}\label{upk__types_8h_a8365f1efe174c7aaba855bb59e4fb68}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKLIST_FOREACH_INIT@{\_\-UPKLIST\_\-FOREACH\_\-INIT}}
+\index{_UPKLIST_FOREACH_INIT@{\_\-UPKLIST\_\-FOREACH\_\-INIT}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKLIST\_\-FOREACH\_\-INIT(NAME)~NAME $\rightarrow$ tempp = NULL, NAME $\rightarrow$ prevp = NULL, NAME $\rightarrow$ thisp = NAME $\rightarrow$ head, NAME $\rightarrow$ nextp = \_\-UPKLIST\_\-NEXTNODE(NAME)}\label{upk__types_8h_55a2e5c53e5ec4e13321054cfc12afeb}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKLIST_NEWNODE@{\_\-UPKLIST\_\-NEWNODE}}
+\index{_UPKLIST_NEWNODE@{\_\-UPKLIST\_\-NEWNODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKLIST\_\-NEWNODE(NAME)~NAME $\rightarrow$ tempp = calloc(1,sizeof($\ast$(NAME $\rightarrow$ tempp)))}\label{upk__types_8h_403af69cc191bdd6099dc217371d6295}
+
+
+\index{upk_types.h@{upk\_\-types.h}!_UPKLIST_NEXTNODE@{\_\-UPKLIST\_\-NEXTNODE}}
+\index{_UPKLIST_NEXTNODE@{\_\-UPKLIST\_\-NEXTNODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPKLIST\_\-NEXTNODE(NAME)~( (NAME $\rightarrow$ thisp) ? NAME $\rightarrow$ thisp $\rightarrow$ next : NULL )}\label{upk__types_8h_b1aa34eb626000a1d03104baf1ca9f51}
+
+
+\index{upk_types.h@{upk\_\-types.h}!UPK_MAX_PATH_LEN@{UPK\_\-MAX\_\-PATH\_\-LEN}}
+\index{UPK_MAX_PATH_LEN@{UPK\_\-MAX\_\-PATH\_\-LEN}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MAX\_\-PATH\_\-LEN~8192}\label{upk__types_8h_863b8cd9ca2b9f6e3cd25da0f16958b9}
+
+
+longest allowable path. 
+
+\index{upk_types.h@{upk\_\-types.h}!UPK_MAX_STRING_LEN@{UPK\_\-MAX\_\-STRING\_\-LEN}}
+\index{UPK_MAX_STRING_LEN@{UPK\_\-MAX\_\-STRING\_\-LEN}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MAX\_\-STRING\_\-LEN~2048}\label{upk__types_8h_a2d52d874e5048aefdd746d8e496c6ef}
+
+
+longest allowable string (other than paths). 
+
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_APPEND@{UPKDLIST\_\-APPEND}}
+\index{UPKDLIST_APPEND@{UPKDLIST\_\-APPEND}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-APPEND(NAME)}\label{upk__types_8h_463789903b5dc453c225be400f6736f9}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->thisp = NAME->tail; \
+    NAME->prevp = (NAME->thisp) ? NAME->thisp->prev : NAME->head; \
+    UPKDLIST_APPEND_THIS(NAME)
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_APPEND_THIS@{UPKDLIST\_\-APPEND\_\-THIS}}
+\index{UPKDLIST_APPEND_THIS@{UPKDLIST\_\-APPEND\_\-THIS}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-APPEND\_\-THIS(NAME)}\label{upk__types_8h_b955e4a93d33d4a333b628531043bb0d}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}_UPKDLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->nextp; \
+    if(NAME->thisp) { NAME->thisp->next = NAME->tempp; NAME->tempp->prev = NAME->thisp; } \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp && NAME->count == 0 ) { NAME->head = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp;
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_FOREACH@{UPKDLIST\_\-FOREACH}}
+\index{UPKDLIST_FOREACH@{UPKDLIST\_\-FOREACH}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-FOREACH(NAME)~for( \_\-UPKDLIST\_\-FOREACH\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKDLIST\_\-FOREACH\_\-CONTINUE(NAME) )}\label{upk__types_8h_fca752d33e735d8db5585462eb74f5d9}
+
+
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_FOREACH_REVERSE@{UPKDLIST\_\-FOREACH\_\-REVERSE}}
+\index{UPKDLIST_FOREACH_REVERSE@{UPKDLIST\_\-FOREACH\_\-REVERSE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-FOREACH\_\-REVERSE(NAME)~for( \_\-UPKDLIST\_\-FOREACH\_\-R\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKDLIST\_\-FOREACH\_\-R\_\-CONTINUE(NAME) )}\label{upk__types_8h_c64ef3ba5fab775f033008d8d6f6fb57}
+
+
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_FREE@{UPKDLIST\_\-FREE}}
+\index{UPKDLIST_FREE@{UPKDLIST\_\-FREE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-FREE(NAME)}\label{upk__types_8h_8a8cb0fd6c6396c9ca9d9880e2ba5c8c}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}UPKDLIST_FOREACH(NAME) { \
+        UPKDLIST_UNLINK(NAME); \
+    }\
+    if(NAME) { free(NAME); }
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_INIT@{UPKDLIST\_\-INIT}}
+\index{UPKDLIST_INIT@{UPKDLIST\_\-INIT}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-INIT(TYPE, NAME)}\label{upk__types_8h_dc1df1019357338d3c36b66addec3d72}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}UPKDLIST_METANODE(TYPE, NAME) = NULL; \
+    NAME = calloc(1, sizeof(*NAME)); \
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_METANODE@{UPKDLIST\_\-METANODE}}
+\index{UPKDLIST_METANODE@{UPKDLIST\_\-METANODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-METANODE(TYPE, NAME)~struct \{ TYPE $\ast$ head; TYPE $\ast$ tail; TYPE $\ast$ prevp; TYPE $\ast$ nextp; TYPE $\ast$ tempp; TYPE $\ast$ thisp; uint32\_\-t count; \} $\ast$ NAME}\label{upk__types_8h_5acafb1e72aaf5e06082680e83fbdf05}
+
+
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_PREPEND@{UPKDLIST\_\-PREPEND}}
+\index{UPKDLIST_PREPEND@{UPKDLIST\_\-PREPEND}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-PREPEND(NAME)}\label{upk__types_8h_40c3b1f75f52a52d76501ed7ba271a9f}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->prevp = NULL; \
+    NAME->thisp = NAME->head; \
+    UPKDLIST_PREPEND_THIS(NAME)
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_PREPEND_THIS@{UPKDLIST\_\-PREPEND\_\-THIS}}
+\index{UPKDLIST_PREPEND_THIS@{UPKDLIST\_\-PREPEND\_\-THIS}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-PREPEND\_\-THIS(NAME)}\label{upk__types_8h_d0481ef0b0348049ab50d3e50df9c485}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}_UPKDLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->thisp; \
+    if(NAME->thisp) {  NAME->tempp->prev = NAME->thisp->prev; NAME->thisp->prev = NAME->tempp; } \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp ) { NAME->head = NAME->tempp; } else { NAME->prevp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_SWAP@{UPKDLIST\_\-SWAP}}
+\index{UPKDLIST_SWAP@{UPKDLIST\_\-SWAP}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-SWAP(NAME, A, B)}\label{upk__types_8h_7c05871988031a3761120c008bb42f7a}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
+    A->prev->next = B; \
+    B->prev->next = A; \
+    NAME->tempp->next = A->next; \
+    NAME->tempp->prev = A->prev; \
+    A->next = B->next; \
+    A->prev = B->prev; \
+    B->next = NAME->tempp->next; \
+    B->prev = NAME->tempp->prev; \
+    free(NAME->tempp); NAME->tempp = NULL
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKDLIST_UNLINK@{UPKDLIST\_\-UNLINK}}
+\index{UPKDLIST_UNLINK@{UPKDLIST\_\-UNLINK}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKDLIST\_\-UNLINK(NAME)}\label{upk__types_8h_f1280b94752c332d43af54eef347ec72}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}if(NAME->thisp) { \
+        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } else { NAME->nextp->prev = NAME->prevp; }  \
+        free(NAME->thisp); NAME->thisp = NULL; \
+        --NAME->count; \
+    }
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_APPEND@{UPKLIST\_\-APPEND}}
+\index{UPKLIST_APPEND@{UPKLIST\_\-APPEND}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-APPEND(NAME)}\label{upk__types_8h_8daa52c7e5e997fbac81a3a9134c1f65}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->thisp = NAME->tail; \
+    NAME->prevp = (NAME->prevp) ? NAME->prevp : NAME->head; \
+    UPKLIST_APPEND_THIS(NAME); \
+    NAME->prevp = NULL
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_APPEND_THIS@{UPKLIST\_\-APPEND\_\-THIS}}
+\index{UPKLIST_APPEND_THIS@{UPKLIST\_\-APPEND\_\-THIS}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-APPEND\_\-THIS(NAME)}\label{upk__types_8h_798181a0a8f34add0ec7968622af2e09}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}_UPKLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->nextp; \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp && NAME->count == 0 ) { NAME->head = NAME->tempp; } \
+    if(NAME->thisp) { NAME->thisp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp;
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_FOREACH@{UPKLIST\_\-FOREACH}}
+\index{UPKLIST_FOREACH@{UPKLIST\_\-FOREACH}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-FOREACH(NAME)~for( \_\-UPKLIST\_\-FOREACH\_\-INIT(NAME); NAME $\rightarrow$ thisp != NULL; \_\-UPKLIST\_\-FOREACH\_\-CONTINUE(NAME) )}\label{upk__types_8h_19b36ec99d5a386fb1eeaf611e1941e1}
+
+
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_FREE@{UPKLIST\_\-FREE}}
+\index{UPKLIST_FREE@{UPKLIST\_\-FREE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-FREE(NAME)}\label{upk__types_8h_fbaa1eee85005a1cebbb5beee55aeb72}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}UPKLIST_FOREACH(NAME) { \
+        UPKLIST_UNLINK(NAME); \
+    }\
+    if(NAME) { free(NAME); }
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_INIT@{UPKLIST\_\-INIT}}
+\index{UPKLIST_INIT@{UPKLIST\_\-INIT}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-INIT(TYPE, NAME)}\label{upk__types_8h_28314f47b30c11b5ae788af02a6004ec}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}UPKLIST_METANODE(TYPE, NAME) = NULL; \
+    NAME = calloc(1, sizeof(*NAME))
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST_METANODE@{UPKLIST\_\-METANODE}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-METANODE(TYPE, NAME)~struct \{ TYPE $\ast$ head; TYPE $\ast$ tail; TYPE $\ast$ prevp; TYPE $\ast$ nextp; TYPE $\ast$ tempp; TYPE $\ast$ thisp; uint32\_\-t count; \} $\ast$ NAME}\label{upk__types_8h_251dbd3977fbfeb5f3932263b62ba2ba}
+
+
+definition of metanode for a given type. 
+
+this macro contains a pionter; so if you want to use it to create a typedef, it would look something like:
+
+\doxyref{UPKLIST\_\-METANODE(my\_\-listtype\_\-t, listtype\_\-metanode\_\-p)}{p.}{upk__types_8h_251dbd3977fbfeb5f3932263b62ba2ba}, listtype\_\-metanode\_\-t;
+
+or similar. \index{upk_types.h@{upk\_\-types.h}!UPKLIST_PREPEND@{UPKLIST\_\-PREPEND}}
+\index{UPKLIST_PREPEND@{UPKLIST\_\-PREPEND}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-PREPEND(NAME)}\label{upk__types_8h_0c67bb1106cb5f89d879763677578eae}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->prevp = NULL; \
+    NAME->thisp = NAME->head; \
+    UPKLIST_PREPEND_THIS(NAME)
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_PREPEND_THIS@{UPKLIST\_\-PREPEND\_\-THIS}}
+\index{UPKLIST_PREPEND_THIS@{UPKLIST\_\-PREPEND\_\-THIS}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-PREPEND\_\-THIS(NAME)}\label{upk__types_8h_d64a16d0dddc4d1712454a52da1a42b6}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}_UPKLIST_NEWNODE(NAME); \
+    NAME->tempp->next = NAME->thisp; \
+    if(! NAME->nextp ) { NAME->tail = NAME->tempp; } \
+    if(! NAME->prevp ) { NAME->head = NAME->tempp; } else { NAME->prevp->next = NAME->tempp; } \
+    ++NAME->count; \
+    NAME->thisp = NAME->tempp
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_SWAP@{UPKLIST\_\-SWAP}}
+\index{UPKLIST_SWAP@{UPKLIST\_\-SWAP}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-SWAP(NAME, A, APREV, B, BPREV)}\label{upk__types_8h_2ea4c2099d4931068b49bd96513c579e}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
+    APREV->next = B; \
+    BPREV->next = A; \
+    NAME->tempp->next = A->next; \
+    A->next = B->next; \
+    B->next = NAME->tempp->next; \
+    free(NAME->tempp); NAME->tempp = NULL
+\end{verbatim}\end{Code}
+\index{upk_types.h@{upk\_\-types.h}!UPKLIST_UNLINK@{UPKLIST\_\-UNLINK}}
+\index{UPKLIST_UNLINK@{UPKLIST\_\-UNLINK}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPKLIST\_\-UNLINK(NAME)}\label{upk__types_8h_5d93b1c891a70dee619dffb6e4978970}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}if(NAME->thisp) { \
+        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } \
+        free(NAME->thisp); NAME->thisp = NULL; \
+        --NAME->count; \
+    }
+\end{verbatim}\end{Code}
+
+
+\subsection{Typedef Documentation}
+\index{upk_types.h@{upk\_\-types.h}!upk_cust_actscr_list_t@{upk\_\-cust\_\-actscr\_\-list\_\-t}}
+\index{upk_cust_actscr_list_t@{upk\_\-cust\_\-actscr\_\-list\_\-t}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{\_\-upk\_\-cust\_\-actscr\_\-list} \bf{upk\_\-cust\_\-actscr\_\-list\_\-t}}\label{upk__types_8h_7ac5cb202c6c8b08ae16f1119c7b2d8e}
+
+
+linked list of custom action scripts. 
+
+\index{upk_types.h@{upk\_\-types.h}!upk_svcinfo_t@{upk\_\-svcinfo\_\-t}}
+\index{upk_svcinfo_t@{upk\_\-svcinfo\_\-t}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{\_\-upk\_\-svcinfo}  \bf{upk\_\-svcinfo\_\-t}}\label{upk__types_8h_29154a0abe1a01b737627a8a9830f732}
+
+
+see definition in $\ast$protocol\_\-fields.h. 
+
+\index{upk_types.h@{upk\_\-types.h}!upk_svclist_t@{upk\_\-svclist\_\-t}}
+\index{upk_svclist_t@{upk\_\-svclist\_\-t}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{\_\-upk\_\-svclist} \bf{upk\_\-svclist\_\-t}}\label{upk__types_8h_6128339e81e4aa9a8ba5b599c0551e36}
+
+
+linked list of service identifiers. 
+
+
+
+\subsection{Enumeration Type Documentation}
+\index{upk_types.h@{upk\_\-types.h}!upk_signal_t@{upk\_\-signal\_\-t}}
+\index{upk_signal_t@{upk\_\-signal\_\-t}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum \bf{upk\_\-signal\_\-t}}\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12}
+
+
+signal names. 
+
+List of signal names, so that the platform's signal numbering is no longer significant for data storage, or communication with controller \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK_SIG_HUP@{UPK\_\-SIG\_\-HUP}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_HUP@{UPK\_\-SIG\_\-HUP}}\item[{\em 
+UPK\_\-SIG\_\-HUP\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12d7fe97192b20883a2bf8f90474dc8181}
+}]hup \index{UPK_SIG_INT@{UPK\_\-SIG\_\-INT}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_INT@{UPK\_\-SIG\_\-INT}}\item[{\em 
+UPK\_\-SIG\_\-INT\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12f285514961b30b0d8f2127376f33b5f0}
+}]int \index{UPK_SIG_QUIT@{UPK\_\-SIG\_\-QUIT}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_QUIT@{UPK\_\-SIG\_\-QUIT}}\item[{\em 
+UPK\_\-SIG\_\-QUIT\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12b731d6496572312ec6602208e4e2bdc0}
+}]quit \index{UPK_SIG_ILL@{UPK\_\-SIG\_\-ILL}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_ILL@{UPK\_\-SIG\_\-ILL}}\item[{\em 
+UPK\_\-SIG\_\-ILL\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b126eff3e2a660b972f74f6abdc686eab9a}
+}]ill \index{UPK_SIG_TRAP@{UPK\_\-SIG\_\-TRAP}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_TRAP@{UPK\_\-SIG\_\-TRAP}}\item[{\em 
+UPK\_\-SIG\_\-TRAP\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1245bf757c833f4ad2c9003f03cdde383b}
+}]trap \index{UPK_SIG_ABRT@{UPK\_\-SIG\_\-ABRT}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_ABRT@{UPK\_\-SIG\_\-ABRT}}\item[{\em 
+UPK\_\-SIG\_\-ABRT\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b126cf813056e1dae6bb63101352f17b92c}
+}]abrt \index{UPK_SIG_BUS@{UPK\_\-SIG\_\-BUS}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_BUS@{UPK\_\-SIG\_\-BUS}}\item[{\em 
+UPK\_\-SIG\_\-BUS\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1229c0c2b50981a949dbeda712352626d2}
+}]bus \index{UPK_SIG_FPE@{UPK\_\-SIG\_\-FPE}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_FPE@{UPK\_\-SIG\_\-FPE}}\item[{\em 
+UPK\_\-SIG\_\-FPE\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1206872f1bcb086f71a18cbecbe567d6c3}
+}]fpe \index{UPK_SIG_KILL@{UPK\_\-SIG\_\-KILL}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_KILL@{UPK\_\-SIG\_\-KILL}}\item[{\em 
+UPK\_\-SIG\_\-KILL\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b127bf3b77cc083e66980d6ef82d2944c03}
+}]kill \index{UPK_SIG_USR1@{UPK\_\-SIG\_\-USR1}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_USR1@{UPK\_\-SIG\_\-USR1}}\item[{\em 
+UPK\_\-SIG\_\-USR1\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1265f4909f6eb59297fcb9db4eea5c6314}
+}]usr1 \index{UPK_SIG_SEGV@{UPK\_\-SIG\_\-SEGV}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_SEGV@{UPK\_\-SIG\_\-SEGV}}\item[{\em 
+UPK\_\-SIG\_\-SEGV\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b121d388fbe51b852e4207702e066667c57}
+}]segv \index{UPK_SIG_USR2@{UPK\_\-SIG\_\-USR2}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_USR2@{UPK\_\-SIG\_\-USR2}}\item[{\em 
+UPK\_\-SIG\_\-USR2\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1279037e2454a19fb8bb55ec6105f363a1}
+}]usr2 \index{UPK_SIG_PIPE@{UPK\_\-SIG\_\-PIPE}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_PIPE@{UPK\_\-SIG\_\-PIPE}}\item[{\em 
+UPK\_\-SIG\_\-PIPE\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1282ea7df85e8b3167fc84b61827f83290}
+}]pipe \index{UPK_SIG_ALRM@{UPK\_\-SIG\_\-ALRM}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_ALRM@{UPK\_\-SIG\_\-ALRM}}\item[{\em 
+UPK\_\-SIG\_\-ALRM\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b122f3706f75d1e8ba8eda2ad51826265dd}
+}]alrm \index{UPK_SIG_TERM@{UPK\_\-SIG\_\-TERM}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_TERM@{UPK\_\-SIG\_\-TERM}}\item[{\em 
+UPK\_\-SIG\_\-TERM\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12e58e1a20d5744c2b43694714c8bce7af}
+}]term \index{UPK_SIG_STKFLT@{UPK\_\-SIG\_\-STKFLT}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_STKFLT@{UPK\_\-SIG\_\-STKFLT}}\item[{\em 
+UPK\_\-SIG\_\-STKFLT\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b124cf5a86105e90fa98a4c16763cf6e5f1}
+}]stkflt \index{UPK_SIG_CHLD@{UPK\_\-SIG\_\-CHLD}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_CHLD@{UPK\_\-SIG\_\-CHLD}}\item[{\em 
+UPK\_\-SIG\_\-CHLD\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1261135952f80db3337b25f6de4cd53db7}
+}]chld \index{UPK_SIG_CONT@{UPK\_\-SIG\_\-CONT}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_CONT@{UPK\_\-SIG\_\-CONT}}\item[{\em 
+UPK\_\-SIG\_\-CONT\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b125e981ab145832d455309b2f19b363a89}
+}]cont \index{UPK_SIG_STOP@{UPK\_\-SIG\_\-STOP}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_STOP@{UPK\_\-SIG\_\-STOP}}\item[{\em 
+UPK\_\-SIG\_\-STOP\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12502a3eb0d62e3719df5329cd3d57a944}
+}]stop \index{UPK_SIG_TSTP@{UPK\_\-SIG\_\-TSTP}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_TSTP@{UPK\_\-SIG\_\-TSTP}}\item[{\em 
+UPK\_\-SIG\_\-TSTP\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1229c630078ca45d47f0b34f023c304b62}
+}]tstp \index{UPK_SIG_TTIN@{UPK\_\-SIG\_\-TTIN}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_TTIN@{UPK\_\-SIG\_\-TTIN}}\item[{\em 
+UPK\_\-SIG\_\-TTIN\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12c294949020a50dd8ff6d0dc10f492139}
+}]ttin \index{UPK_SIG_TTOU@{UPK\_\-SIG\_\-TTOU}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_TTOU@{UPK\_\-SIG\_\-TTOU}}\item[{\em 
+UPK\_\-SIG\_\-TTOU\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12f53428874f3625fc985914b7c4528d2f}
+}]ttou \index{UPK_SIG_URG@{UPK\_\-SIG\_\-URG}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_URG@{UPK\_\-SIG\_\-URG}}\item[{\em 
+UPK\_\-SIG\_\-URG\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12b9f08f11ac31cabd5119f58be215f793}
+}]urg \index{UPK_SIG_XCPU@{UPK\_\-SIG\_\-XCPU}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_XCPU@{UPK\_\-SIG\_\-XCPU}}\item[{\em 
+UPK\_\-SIG\_\-XCPU\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12a48ebf56836696cb57be847acdb33cf6}
+}]xcpu \index{UPK_SIG_XFSZ@{UPK\_\-SIG\_\-XFSZ}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_XFSZ@{UPK\_\-SIG\_\-XFSZ}}\item[{\em 
+UPK\_\-SIG\_\-XFSZ\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12b6ed6eb6c1ef2e0432c21fb5910a982f}
+}]xfsz \index{UPK_SIG_VTALRM@{UPK\_\-SIG\_\-VTALRM}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_VTALRM@{UPK\_\-SIG\_\-VTALRM}}\item[{\em 
+UPK\_\-SIG\_\-VTALRM\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b123b719cc05b03696c8db96815a49f880d}
+}]vtalrm \index{UPK_SIG_PROF@{UPK\_\-SIG\_\-PROF}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_PROF@{UPK\_\-SIG\_\-PROF}}\item[{\em 
+UPK\_\-SIG\_\-PROF\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b125b593c504a16b2aebc52a2fbcb450275}
+}]prof \index{UPK_SIG_WINCH@{UPK\_\-SIG\_\-WINCH}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_WINCH@{UPK\_\-SIG\_\-WINCH}}\item[{\em 
+UPK\_\-SIG\_\-WINCH\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12094688415d3e80b7e7c6066a0f34c9e8}
+}]winch \index{UPK_SIG_IO@{UPK\_\-SIG\_\-IO}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_IO@{UPK\_\-SIG\_\-IO}}\item[{\em 
+UPK\_\-SIG\_\-IO\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12ea4166cf26bf8cce172d4d807e5edff7}
+}]io \index{UPK_SIG_PWR@{UPK\_\-SIG\_\-PWR}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_PWR@{UPK\_\-SIG\_\-PWR}}\item[{\em 
+UPK\_\-SIG\_\-PWR\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b12dac0657c82892ee96a4c08b32fea7fb2}
+}]pwr \index{UPK_SIG_SYS@{UPK\_\-SIG\_\-SYS}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_SIG_SYS@{UPK\_\-SIG\_\-SYS}}\item[{\em 
+UPK\_\-SIG\_\-SYS\label{upk__types_8h_38ab6e8dbcbb74880d189479e6a95b1206059905b0d25ab900b967244e3425ac}
+}]sys \end{description}
+\end{Desc}
+
+\index{upk_types.h@{upk\_\-types.h}!upk_state_t@{upk\_\-state\_\-t}}
+\index{upk_state_t@{upk\_\-state\_\-t}!upk_types.h@{upk\_\-types.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}enum \bf{upk\_\-state\_\-t}}\label{upk__types_8h_7e51c3312a7be4d149e2323b9052efb8}
+
+
+run states to report to clients. 
+
+The current state of a monitored service \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK_STATE_UNDEFINED@{UPK\_\-STATE\_\-UNDEFINED}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_STATE_UNDEFINED@{UPK\_\-STATE\_\-UNDEFINED}}\item[{\em 
+UPK\_\-STATE\_\-UNDEFINED\label{upk__types_8h_7e51c3312a7be4d149e2323b9052efb80e28e2989400f8184cdefec12452c83d}
+}]unknown/undefined; probably an error \index{UPK_STATE_RUNNING@{UPK\_\-STATE\_\-RUNNING}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_STATE_RUNNING@{UPK\_\-STATE\_\-RUNNING}}\item[{\em 
+UPK\_\-STATE\_\-RUNNING\label{upk__types_8h_7e51c3312a7be4d149e2323b9052efb8f17b1634aa88f82bf86905592c9d7dd8}
+}]the service is running \index{UPK_STATE_STOPPED@{UPK\_\-STATE\_\-STOPPED}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_STATE_STOPPED@{UPK\_\-STATE\_\-STOPPED}}\item[{\em 
+UPK\_\-STATE\_\-STOPPED\label{upk__types_8h_7e51c3312a7be4d149e2323b9052efb81d13928ae101360b535e41efbc106e33}
+}]the service is stopped \index{UPK_STATE_SHUTDOWN@{UPK\_\-STATE\_\-SHUTDOWN}!upk_types.h@{upk\_\-types.h}}\index{upk_types.h@{upk\_\-types.h}!UPK_STATE_SHUTDOWN@{UPK\_\-STATE\_\-SHUTDOWN}}\item[{\em 
+UPK\_\-STATE\_\-SHUTDOWN\label{upk__types_8h_7e51c3312a7be4d149e2323b9052efb80013ccab9d2e1bf4d15e1ca5bef19524}
+}]the service is stopped, and its buddy is not running \end{description}
+\end{Desc}
+

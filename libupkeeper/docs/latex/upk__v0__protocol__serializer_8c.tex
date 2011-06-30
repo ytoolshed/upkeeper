@@ -1,0 +1,580 @@
+\section{upkeeper/upk\_\-v0\_\-protocol\_\-serializer.c File Reference}
+\label{upk__v0__protocol__serializer_8c}\index{upkeeper/upk_v0_protocol_serializer.c@{upkeeper/upk\_\-v0\_\-protocol\_\-serializer.c}}
+{\tt \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-error.h\char`\"{}}\par
+{\tt \#include $<$assert.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER}~msgtype
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-req\_\-msgtype\_\-t}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-repl\_\-msgtype\_\-t}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-pub\_\-msgtype\_\-t}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-req\_\-msgtype\_\-t}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-repl\_\-msgtype\_\-t}
+\item 
+\#define \bf{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~\bf{upk\_\-pub\_\-msgtype\_\-t}
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef void $\ast$($\ast$) \bf{deserialize\_\-payload\_\-t} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$)
+\item 
+typedef \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$($\ast$) \bf{serialize\_\-payload\_\-t} (void $\ast$, size\_\-t)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serialize\_\-req\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serialize\_\-repl\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serialize\_\-pub\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static void $\ast$ \bf{deserialize\_\-req\_\-payload} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserialize\_\-repl\_\-payload} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserialize\_\-pub\_\-payload} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-seq\_\-start} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-seq\_\-end} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-action} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-signal} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-list} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-status} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-subscribe} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-unsub} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-req\_\-disconnect} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-seq\_\-start} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-seq\_\-end} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-result} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-listing} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static \bf{v0\_\-svcinfo\_\-t} $\ast$ \bf{deserial\_\-svcinfo\_\-data} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-svcinfo} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-ack} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-repl\_\-err} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-pub\_\-pub} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ \bf{deserial\_\-pub\_\-cancel} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-action} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-signal} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-list} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-status} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-subscribe} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-unsub} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-req\_\-disconnect} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-result} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-listing} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-svcinfo\_\-data} (\bf{v0\_\-svcinfo\_\-t} $\ast$data, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-svcinfo} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-ack} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-repl\_\-err} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-pub\_\-pub} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{serial\_\-pub\_\-cancel} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+void $\ast$ \bf{v0\_\-deserialize\_\-payload} (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF, \bf{upk\_\-pkttype\_\-t} pkttype)
+\item 
+\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ \bf{v0\_\-serialize\_\-payload} (\bf{upk\_\-packet\_\-t} $\ast$pkt)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\bf{upk\_\-pkttype\_\-t} \bf{upk\_\-pkt\_\-proto\_\-limit} [$\,$]
+\item 
+\bf{upk\_\-req\_\-msgtype\_\-t} \bf{upk\_\-req\_\-proto\_\-limit} [$\,$]
+\item 
+\bf{upk\_\-repl\_\-msgtype\_\-t} \bf{upk\_\-repl\_\-proto\_\-limit} [$\,$]
+\item 
+\bf{upk\_\-pub\_\-msgtype\_\-t} \bf{upk\_\-pub\_\-proto\_\-limit} [$\,$]
+\item 
+static \bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-pkt\_\-dispatch} [$\,$]
+\item 
+static \bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-req\_\-dispatch} [$\,$]
+\item 
+static \bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-repl\_\-dispatch} [$\,$]
+\item 
+static \bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-pub\_\-dispatch} [$\,$]
+\item 
+static \bf{serialize\_\-payload\_\-t} \bf{serial\_\-pkt\_\-dispatch} [$\,$]
+\item 
+static \bf{serialize\_\-payload\_\-t} \bf{serial\_\-req\_\-dispatch} [$\,$]
+\item 
+static \bf{serialize\_\-payload\_\-t} \bf{serial\_\-repl\_\-dispatch} [$\,$]
+\item 
+static \bf{serialize\_\-payload\_\-t} \bf{serial\_\-pub\_\-dispatch} [$\,$]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}}
+\index{UPK_MSG_IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER~msgtype}\label{upk__v0__protocol__serializer_8c_89bf08a3eb477b5eb78f0d0976cd05a5}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-pub\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-repl\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-req\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-pub\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-repl\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK_MSG_IDENTIFIER_TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~\bf{upk\_\-req\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_96517f1ffa023c3ba39a466272312bfc}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize_payload_t@{deserialize\_\-payload\_\-t}}
+\index{deserialize_payload_t@{deserialize\_\-payload\_\-t}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void$\ast$($\ast$) \bf{deserialize\_\-payload\_\-t}(\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$)}\label{upk__v0__protocol__serializer_8c_386c7ce0d96a36eba52f607785954fb2}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize_payload_t@{serialize\_\-payload\_\-t}}
+\index{serialize_payload_t@{serialize\_\-payload\_\-t}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef \bf{upk\_\-pkt\_\-buf\_\-t}$\ast$($\ast$) \bf{serialize\_\-payload\_\-t}(void $\ast$, size\_\-t)}\label{upk__v0__protocol__serializer_8c_a73942ed7d71071303cad84250b5d150}
+
+
+
+
+\subsection{Function Documentation}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_pub_cancel@{deserial\_\-pub\_\-cancel}}
+\index{deserial_pub_cancel@{deserial\_\-pub\_\-cancel}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-pub\_\-cancel (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_92a47c4b0a79e3b54efe7d74921647a8}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_pub_pub@{deserial\_\-pub\_\-pub}}
+\index{deserial_pub_pub@{deserial\_\-pub\_\-pub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-pub\_\-pub (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_8bf38ab4f3120283c1d430388b0e094b}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_ack@{deserial\_\-repl\_\-ack}}
+\index{deserial_repl_ack@{deserial\_\-repl\_\-ack}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-ack (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_338e1dd96e529a395c08ddefe1a06570}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_err@{deserial\_\-repl\_\-err}}
+\index{deserial_repl_err@{deserial\_\-repl\_\-err}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-err (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_4ac2ecbdb16284517abf410979f679c1}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_listing@{deserial\_\-repl\_\-listing}}
+\index{deserial_repl_listing@{deserial\_\-repl\_\-listing}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-listing (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_2ece2185a06e9adb1586e6be2a363699}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_result@{deserial\_\-repl\_\-result}}
+\index{deserial_repl_result@{deserial\_\-repl\_\-result}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-result (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_32e31fcf0aa793f95ca03b257f90fbdc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_seq_end@{deserial\_\-repl\_\-seq\_\-end}}
+\index{deserial_repl_seq_end@{deserial\_\-repl\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-seq\_\-end (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_2bed75f58500c5f8b98263b27684fe2b}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_seq_start@{deserial\_\-repl\_\-seq\_\-start}}
+\index{deserial_repl_seq_start@{deserial\_\-repl\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-seq\_\-start (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_e2882870969e8e360c79d633ef41fd95}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_svcinfo@{deserial\_\-repl\_\-svcinfo}}
+\index{deserial_repl_svcinfo@{deserial\_\-repl\_\-svcinfo}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-svcinfo (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_f42bbd9cf9788e8ca3c5a9dd0a2e560b}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_action@{deserial\_\-req\_\-action}}
+\index{deserial_req_action@{deserial\_\-req\_\-action}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-action (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_4029a91da73fd884fe31aebf3c1356c2}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_disconnect@{deserial\_\-req\_\-disconnect}}
+\index{deserial_req_disconnect@{deserial\_\-req\_\-disconnect}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-disconnect (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_57abbf7a2bec8ca24f7a18dee9792dda}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_list@{deserial\_\-req\_\-list}}
+\index{deserial_req_list@{deserial\_\-req\_\-list}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-list (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_ffa544904298b25c9233dcb69bb3ec82}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_seq_end@{deserial\_\-req\_\-seq\_\-end}}
+\index{deserial_req_seq_end@{deserial\_\-req\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-seq\_\-end (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_27f42a3a862a0d1f492c13ca90a0a783}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_seq_start@{deserial\_\-req\_\-seq\_\-start}}
+\index{deserial_req_seq_start@{deserial\_\-req\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-seq\_\-start (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_78f9694e4dc2e4b8c655faeb8a157a80}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_signal@{deserial\_\-req\_\-signal}}
+\index{deserial_req_signal@{deserial\_\-req\_\-signal}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-signal (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_9b349e0c356976785e124066695ad25c}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_status@{deserial\_\-req\_\-status}}
+\index{deserial_req_status@{deserial\_\-req\_\-status}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-status (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_f59fc9846a50c001fc91e5e97b977e09}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_subscribe@{deserial\_\-req\_\-subscribe}}
+\index{deserial_req_subscribe@{deserial\_\-req\_\-subscribe}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-subscribe (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_0760b4b71ced5178c0e743e4d3bb8020}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_unsub@{deserial\_\-req\_\-unsub}}
+\index{deserial_req_unsub@{deserial\_\-req\_\-unsub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-unsub (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_47868a867451807842747c6f8f06d50d}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_svcinfo_data@{deserial\_\-svcinfo\_\-data}}
+\index{deserial_svcinfo_data@{deserial\_\-svcinfo\_\-data}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{v0\_\-svcinfo\_\-t} $\ast$ deserial\_\-svcinfo\_\-data (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [inline, static]}}\label{upk__v0__protocol__serializer_8c_3899710df11c1e58cb329f05a9bb5867}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize_pub_payload@{deserialize\_\-pub\_\-payload}}
+\index{deserialize_pub_payload@{deserialize\_\-pub\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-pub\_\-payload (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_8beceb1747023ba10008ae4ad58c350c}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize_repl_payload@{deserialize\_\-repl\_\-payload}}
+\index{deserialize_repl_payload@{deserialize\_\-repl\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-repl\_\-payload (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_4fc68bd038ada3828a19db6c5bead82d}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize_req_payload@{deserialize\_\-req\_\-payload}}
+\index{deserialize_req_payload@{deserialize\_\-req\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-req\_\-payload (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_609269c3a74ece7c8972bf26548b4162}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_pub_cancel@{serial\_\-pub\_\-cancel}}
+\index{serial_pub_cancel@{serial\_\-pub\_\-cancel}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-cancel (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_9710588eb9b972114adaa12c0d104f8e}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_pub_pub@{serial\_\-pub\_\-pub}}
+\index{serial_pub_pub@{serial\_\-pub\_\-pub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-pub (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_0b8bf889b85b9a1c809d002b65a2bdaf}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_ack@{serial\_\-repl\_\-ack}}
+\index{serial_repl_ack@{serial\_\-repl\_\-ack}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-ack (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_dc297725c534c0d90065221b8736e159}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_err@{serial\_\-repl\_\-err}}
+\index{serial_repl_err@{serial\_\-repl\_\-err}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-err (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_959725a10aa2ada5d4161098e7f90fbc}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_listing@{serial\_\-repl\_\-listing}}
+\index{serial_repl_listing@{serial\_\-repl\_\-listing}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-listing (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_84dba705abb0681a9ee98e4dba842b9e}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_result@{serial\_\-repl\_\-result}}
+\index{serial_repl_result@{serial\_\-repl\_\-result}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-result (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_7930240d0ea17e922bba2a0cc81bf391}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_seq_end@{serial\_\-repl\_\-seq\_\-end}}
+\index{serial_repl_seq_end@{serial\_\-repl\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-end (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_80bd6b17f9a1013d295c6ab61e2b26b0}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_seq_start@{serial\_\-repl\_\-seq\_\-start}}
+\index{serial_repl_seq_start@{serial\_\-repl\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-start (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_17a3e2c84cea41d705d73f1c1f08cdab}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_svcinfo@{serial\_\-repl\_\-svcinfo}}
+\index{serial_repl_svcinfo@{serial\_\-repl\_\-svcinfo}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-svcinfo (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_03ac22b2ab7e2cb6047c3b5a5ec30b13}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_action@{serial\_\-req\_\-action}}
+\index{serial_req_action@{serial\_\-req\_\-action}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-action (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_cc7845090f295fcc6031e399955aafa0}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_disconnect@{serial\_\-req\_\-disconnect}}
+\index{serial_req_disconnect@{serial\_\-req\_\-disconnect}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-disconnect (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_9a2101bc043ac434b7775512d725ce03}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_list@{serial\_\-req\_\-list}}
+\index{serial_req_list@{serial\_\-req\_\-list}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-list (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_286518f23202a1d81daa449e6b024147}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_seq_end@{serial\_\-req\_\-seq\_\-end}}
+\index{serial_req_seq_end@{serial\_\-req\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-end (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_8f19f1e349476a12674fa3c192be10a4}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_seq_start@{serial\_\-req\_\-seq\_\-start}}
+\index{serial_req_seq_start@{serial\_\-req\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-start (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_1230ca0c0808b6a21a375276824469b2}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_signal@{serial\_\-req\_\-signal}}
+\index{serial_req_signal@{serial\_\-req\_\-signal}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-signal (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_830ebd908fe945f11e1183ab00e11705}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_status@{serial\_\-req\_\-status}}
+\index{serial_req_status@{serial\_\-req\_\-status}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-status (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_886271fb0f074213a85ae1ec018c1565}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_subscribe@{serial\_\-req\_\-subscribe}}
+\index{serial_req_subscribe@{serial\_\-req\_\-subscribe}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-subscribe (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_c878ee31627f39667a6a6d298e9c15f5}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_unsub@{serial\_\-req\_\-unsub}}
+\index{serial_req_unsub@{serial\_\-req\_\-unsub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-unsub (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_e504f851d96ae5bb888ee6b11420c429}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_svcinfo_data@{serial\_\-svcinfo\_\-data}}
+\index{serial_svcinfo_data@{serial\_\-svcinfo\_\-data}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-svcinfo\_\-data (\bf{v0\_\-svcinfo\_\-t} $\ast$ {\em data}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [inline, static]}}\label{upk__v0__protocol__serializer_8c_1482c72ce14e215e0a780589afdbad65}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize_pub_payload@{serialize\_\-pub\_\-payload}}
+\index{serialize_pub_payload@{serialize\_\-pub\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-pub\_\-payload (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_18b3d3d55379e96aeea1fe69cfd02145}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize_repl_payload@{serialize\_\-repl\_\-payload}}
+\index{serialize_repl_payload@{serialize\_\-repl\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-repl\_\-payload (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_56a3d856ad070db498ec14a87490f1e6}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize_req_payload@{serialize\_\-req\_\-payload}}
+\index{serialize_req_payload@{serialize\_\-req\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static \bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-req\_\-payload (void $\ast$ {\em UPK\_\-DATA\_\-PTR}, size\_\-t {\em UPK\_\-DATA\_\-LEN})\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_749b3d75bf9184f2a4e7fe2fcf460a0a}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!v0_deserialize_payload@{v0\_\-deserialize\_\-payload}}
+\index{v0_deserialize_payload@{v0\_\-deserialize\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ v0\_\-deserialize\_\-payload (\bf{upk\_\-pkt\_\-buf\_\-t} $\ast$ {\em UPK\_\-BUF}, \bf{upk\_\-pkttype\_\-t} {\em pkttype})}\label{upk__v0__protocol__serializer_8c_ba48f37f01d102213ba61927c0a67aee}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!v0_serialize_payload@{v0\_\-serialize\_\-payload}}
+\index{v0_serialize_payload@{v0\_\-serialize\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-pkt\_\-buf\_\-t}$\ast$ v0\_\-serialize\_\-payload (\bf{upk\_\-packet\_\-t} $\ast$ {\em pkt})}\label{upk__v0__protocol__serializer_8c_f1921fb8d7d6d080507c2190131d1f38}
+
+
+
+
+\subsection{Variable Documentation}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_pkt_dispatch@{deserial\_\-pkt\_\-dispatch}}
+\index{deserial_pkt_dispatch@{deserial\_\-pkt\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-pkt\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_1e112be76d7c7e587e9be565c2a96c20}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [PKT_REQUEST] = deserialize_req_payload,
+    [PKT_REPLY] = deserialize_repl_payload,
+    [PKT_PUBMSG] = deserialize_pub_payload,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_pub_dispatch@{deserial\_\-pub\_\-dispatch}}
+\index{deserial_pub_dispatch@{deserial\_\-pub\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-pub\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_f7d67b30b363f5c6e6cafcb93fc70098}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [PUB_PUBLICATION] = deserial_pub_pub,
+    [PUB_CANCELATION] = deserial_pub_cancel,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_repl_dispatch@{deserial\_\-repl\_\-dispatch}}
+\index{deserial_repl_dispatch@{deserial\_\-repl\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-repl\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_89003ae668a43676eec307e8935b1e7d}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [REPL_SEQ_START] = deserial_repl_seq_start,
+    [REPL_SEQ_END] = deserial_repl_seq_end,
+    [REPL_RESULT] = deserial_repl_result,
+    [REPL_LISTING] = deserial_repl_listing,
+    [REPL_SVCINFO] = deserial_repl_svcinfo,
+    [REPL_ACK] = deserial_repl_ack,
+    [REPL_ERROR] = deserial_repl_err,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial_req_dispatch@{deserial\_\-req\_\-dispatch}}
+\index{deserial_req_dispatch@{deserial\_\-req\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{deserialize\_\-payload\_\-t} \bf{deserial\_\-req\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_6799c8eca227a8f0f1c2ac133b1a6d8f}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [REQ_SEQ_START] = deserial_req_seq_start,
+    [REQ_SEQ_END] = deserial_req_seq_end,
+    [REQ_ACTION] = deserial_req_action,
+    [REQ_SIGNAL] = deserial_req_signal,
+    [REQ_LIST] = deserial_req_list,
+    [REQ_STATUS] = deserial_req_status,
+    [REQ_SUBSCRIBE] = deserial_req_subscribe,
+    [REQ_UNSUBSCRIBE] = deserial_req_unsub,
+    [REQ_DISCONNECT] = deserial_req_disconnect,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_pkt_dispatch@{serial\_\-pkt\_\-dispatch}}
+\index{serial_pkt_dispatch@{serial\_\-pkt\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{serialize\_\-payload\_\-t} \bf{serial\_\-pkt\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_b62893658685016d54e6832e16c87ec0}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [PKT_REQUEST] = serialize_req_payload,
+    [PKT_REPLY] = serialize_repl_payload,
+    [PKT_PUBMSG] = serialize_pub_payload,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_pub_dispatch@{serial\_\-pub\_\-dispatch}}
+\index{serial_pub_dispatch@{serial\_\-pub\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{serialize\_\-payload\_\-t} \bf{serial\_\-pub\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_e3ac3b629079d700669a605a446fe25c}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [PUB_PUBLICATION] = serial_pub_pub,
+    [PUB_CANCELATION] = serial_pub_cancel,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_repl_dispatch@{serial\_\-repl\_\-dispatch}}
+\index{serial_repl_dispatch@{serial\_\-repl\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{serialize\_\-payload\_\-t} \bf{serial\_\-repl\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_2e39c2f2d3890ea1b784eb20d4d5b0e2}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [REPL_SEQ_START] = serial_repl_seq_start,
+    [REPL_SEQ_END] = serial_repl_seq_end,
+    [REPL_RESULT] = serial_repl_result,
+    [REPL_LISTING] = serial_repl_listing,
+    [REPL_SVCINFO] = serial_repl_svcinfo,
+    [REPL_ACK] = serial_repl_ack,
+    [REPL_ERROR] = serial_repl_err,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial_req_dispatch@{serial\_\-req\_\-dispatch}}
+\index{serial_req_dispatch@{serial\_\-req\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{serialize\_\-payload\_\-t} \bf{serial\_\-req\_\-dispatch}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{upk__v0__protocol__serializer_8c_da0ec6015acbedfcde2f4c48a75afc42}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+    [REQ_SEQ_START] = serial_req_seq_start,
+    [REQ_SEQ_END] = serial_req_seq_end,
+    [REQ_ACTION] = serial_req_action,
+    [REQ_SIGNAL] = serial_req_signal,
+    [REQ_LIST] = serial_req_list,
+    [REQ_STATUS] = serial_req_status,
+    [REQ_SUBSCRIBE] = serial_req_subscribe,
+    [REQ_UNSUBSCRIBE] = serial_req_unsub,
+    [REQ_DISCONNECT] = serial_req_disconnect,
+}
+\end{verbatim}\end{Code}
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk_pkt_proto_limit@{upk\_\-pkt\_\-proto\_\-limit}}
+\index{upk_pkt_proto_limit@{upk\_\-pkt\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-pkttype\_\-t} \bf{upk\_\-pkt\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_351a1cb15d76b11d983b300cf72b3518}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk_pub_proto_limit@{upk\_\-pub\_\-proto\_\-limit}}
+\index{upk_pub_proto_limit@{upk\_\-pub\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-pub\_\-msgtype\_\-t} \bf{upk\_\-pub\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_bb6fc76157fb3f0102884bf80124ca77}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk_repl_proto_limit@{upk\_\-repl\_\-proto\_\-limit}}
+\index{upk_repl_proto_limit@{upk\_\-repl\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-repl\_\-msgtype\_\-t} \bf{upk\_\-repl\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_655127a6d5b9bf5d6b444229805ec58b}
+
+
+\index{upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk_req_proto_limit@{upk\_\-req\_\-proto\_\-limit}}
+\index{upk_req_proto_limit@{upk\_\-req\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-req\_\-msgtype\_\-t} \bf{upk\_\-req\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_54a6ee6325eaa6c6221b317a76a9df9e}
+
+

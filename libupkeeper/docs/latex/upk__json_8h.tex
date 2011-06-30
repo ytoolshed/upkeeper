@@ -1,0 +1,112 @@
+\section{upkeeper/upk\_\-json.h File Reference}
+\label{upk__json_8h}\index{upkeeper/upk_json.h@{upkeeper/upk\_\-json.h}}
+{\tt \#include $<$json/json.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{\_\-upk\_\-json\_\-type\_\-handlers}
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{\_\-upk\_\-json\_\-type\_\-handlers} \bf{upk\_\-json\_\-type\_\-handlers\_\-t}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{upk\_\-json\_\-default\_\-null\_\-handler} (char $\ast$key)
+\item 
+void \bf{upk\_\-json\_\-default\_\-bool\_\-handler} (char $\ast$key, bool val)
+\item 
+void \bf{upk\_\-json\_\-default\_\-double\_\-handler} (char $\ast$key, double val)
+\item 
+void \bf{upk\_\-json\_\-default\_\-int\_\-handler} (char $\ast$key, int val)
+\item 
+void \bf{upk\_\-json\_\-default\_\-string\_\-handler} (char $\ast$key, char $\ast$val)
+\item 
+void \bf{upk\_\-json\_\-default\_\-array\_\-handler} (char $\ast$key, void $\ast$jobj)
+\item 
+void \bf{upk\_\-json\_\-default\_\-object\_\-handler} (char $\ast$key, void $\ast$jobj)
+\item 
+void \bf{upk\_\-json\_\-parse\_\-node} (struct json\_\-object $\ast$jobj)
+\item 
+bool \bf{upk\_\-json\_\-parse\_\-string} (const char $\ast$string)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+\bf{upk\_\-json\_\-type\_\-handlers\_\-t} \bf{upk\_\-json\_\-type\_\-callbacks}
+\item 
+\bf{upk\_\-json\_\-type\_\-handlers\_\-t} \bf{upk\_\-json\_\-type\_\-callbacks}
+\end{CompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{upk_json.h@{upk\_\-json.h}!upk_json_type_handlers_t@{upk\_\-json\_\-type\_\-handlers\_\-t}}
+\index{upk_json_type_handlers_t@{upk\_\-json\_\-type\_\-handlers\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{\_\-upk\_\-json\_\-type\_\-handlers}  \bf{upk\_\-json\_\-type\_\-handlers\_\-t}}\label{upk__json_8h_be6b08d3db63ce06a38056b740516f79}
+
+
+
+
+\subsection{Function Documentation}
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_array_handler@{upk\_\-json\_\-default\_\-array\_\-handler}}
+\index{upk_json_default_array_handler@{upk\_\-json\_\-default\_\-array\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-array\_\-handler (char $\ast$ {\em key}, void $\ast$ {\em jobj})}\label{upk__json_8h_658ac1bb4821a27d03ac1b4c37330b56}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_bool_handler@{upk\_\-json\_\-default\_\-bool\_\-handler}}
+\index{upk_json_default_bool_handler@{upk\_\-json\_\-default\_\-bool\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-bool\_\-handler (char $\ast$ {\em key}, bool {\em val})}\label{upk__json_8h_b9121acf8274bd3603fa6cadfcba7ae7}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_double_handler@{upk\_\-json\_\-default\_\-double\_\-handler}}
+\index{upk_json_default_double_handler@{upk\_\-json\_\-default\_\-double\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-double\_\-handler (char $\ast$ {\em key}, double {\em val})}\label{upk__json_8h_41a87d081c76d71b7289d03625c23307}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_int_handler@{upk\_\-json\_\-default\_\-int\_\-handler}}
+\index{upk_json_default_int_handler@{upk\_\-json\_\-default\_\-int\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-int\_\-handler (char $\ast$ {\em key}, int {\em val})}\label{upk__json_8h_500daba1da46f418fe14f6a130eb75c2}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_null_handler@{upk\_\-json\_\-default\_\-null\_\-handler}}
+\index{upk_json_default_null_handler@{upk\_\-json\_\-default\_\-null\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-null\_\-handler (char $\ast$ {\em key})}\label{upk__json_8h_4741524ec90cd6d2766c0652792ea539}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_object_handler@{upk\_\-json\_\-default\_\-object\_\-handler}}
+\index{upk_json_default_object_handler@{upk\_\-json\_\-default\_\-object\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-object\_\-handler (char $\ast$ {\em key}, void $\ast$ {\em jobj})}\label{upk__json_8h_dd4bd5382fbf172f01057fea659a01be}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_default_string_handler@{upk\_\-json\_\-default\_\-string\_\-handler}}
+\index{upk_json_default_string_handler@{upk\_\-json\_\-default\_\-string\_\-handler}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-default\_\-string\_\-handler (char $\ast$ {\em key}, char $\ast$ {\em val})}\label{upk__json_8h_315349bdbe11040e8b4c36cc3c7f3e4b}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_parse_node@{upk\_\-json\_\-parse\_\-node}}
+\index{upk_json_parse_node@{upk\_\-json\_\-parse\_\-node}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-parse\_\-node (struct json\_\-object $\ast$ {\em jobj})}\label{upk__json_8h_164bc60904555c43e05dbd5e0d532aad}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_parse_string@{upk\_\-json\_\-parse\_\-string}}
+\index{upk_json_parse_string@{upk\_\-json\_\-parse\_\-string}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool upk\_\-json\_\-parse\_\-string (const char $\ast$ {\em string})}\label{upk__json_8h_6d35780a11761486067390ec08c810a7}
+
+
+
+
+\subsection{Variable Documentation}
+\index{upk_json.h@{upk\_\-json.h}!upk_json_type_callbacks@{upk\_\-json\_\-type\_\-callbacks}}
+\index{upk_json_type_callbacks@{upk\_\-json\_\-type\_\-callbacks}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-json\_\-type\_\-handlers\_\-t} \bf{upk\_\-json\_\-type\_\-callbacks}}\label{upk__json_8h_13031608a5ee069cf88bdb5206a8de6f}
+
+
+\index{upk_json.h@{upk\_\-json.h}!upk_json_type_callbacks@{upk\_\-json\_\-type\_\-callbacks}}
+\index{upk_json_type_callbacks@{upk\_\-json\_\-type\_\-callbacks}!upk_json.h@{upk\_\-json.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-json\_\-type\_\-handlers\_\-t} \bf{upk\_\-json\_\-type\_\-callbacks}}\label{upk__json_8h_13031608a5ee069cf88bdb5206a8de6f}
+
+

@@ -1,0 +1,42 @@
+\section{upkeeper/upk\_\-config.h File Reference}
+\label{upk__config_8h}\index{upkeeper/upk_config.h@{upkeeper/upk\_\-config.h}}
+configuration implementation for controller and services. 
+
+{\tt \#include \char`\"{}upk\_\-std\_\-include.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-uuid.h\char`\"{}}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{\_\-upk\_\-svc\_\-desc}
+\begin{CompactList}\small\item\em service configuration. \item\end{CompactList}\item 
+struct \bf{\_\-upk\_\-controller\_\-config}
+\begin{CompactList}\small\item\em controller configuration. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{\_\-upk\_\-svc\_\-desc} \bf{upk\_\-svc\_\-desc\_\-t}
+\begin{CompactList}\small\item\em service configuration. \item\end{CompactList}\item 
+typedef \bf{\_\-upk\_\-controller\_\-config} \bf{upk\_\-controller\_\-config\_\-t}
+\begin{CompactList}\small\item\em controller configuration. \item\end{CompactList}\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{upk\_\-load\_\-config} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+const char \bf{upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+const char \bf{upk\_\-default\_\-configuration\_\-vec} [$\,$]
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-default\_\-configuration}
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-runtime\_\-configuration}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+configuration implementation for controller and services. 
+
+Structures and prototypes handling and defining service and controller's configuration. 

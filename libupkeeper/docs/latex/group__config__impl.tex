@@ -1,0 +1,429 @@
+\section{Config\_\-impl}
+\label{group__config__impl}\index{Config_impl@{Config\_\-impl}}
+\subsection*{Modules}
+\begin{CompactItemize}
+\item 
+\bf{Services}
+\item 
+\bf{Controller}
+\item 
+\bf{Functions}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{\_\-stringify}(A)~\#A
+\item 
+\#define \bf{stringify}(A)~\_\-stringify(A)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+static void \bf{upk\_\-ctrlconf\_\-string\_\-handler} (char $\ast$key, char $\ast$string)
+\item 
+static void \bf{upk\_\-svcconf\_\-bool\_\-handler} (char $\ast$key, \_\-Bool val)
+\item 
+static void \bf{upk\_\-svcconf\_\-string\_\-handler} (char $\ast$key, char $\ast$string)
+\item 
+static void \bf{upk\_\-ctrl\_\-service\_\-pop\_\-handler} (char $\ast$key, void $\ast$obj)
+\item 
+static void \bf{upk\_\-service\_\-parse\_\-handlers} (void)
+\item 
+static void \bf{upk\_\-ctrlconf\_\-object\_\-handler} (char $\ast$key, void $\ast$jobj)
+\item 
+static void \bf{upk\_\-ctrl\_\-config\_\-parse\_\-handlers} (void $\ast$buf)
+\item 
+static char $\ast$ \bf{upk\_\-config\_\-loadfile} (const char $\ast$filename)
+\item 
+static void \bf{upk\_\-ctrl\_\-config\_\-pack} (\bf{upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+static void \bf{upk\_\-svcconf\_\-bool\_\-handler} (char $\ast$key, bool val)
+\item 
+static void \bf{upk\_\-svcconf\_\-int\_\-handler} (char $\ast$key, int val)
+\item 
+static void \bf{upk\_\-svcconf\_\-double\_\-handler} (char $\ast$key, double val)
+\item 
+void \bf{upk\_\-load\_\-config} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static void $\ast$ \bf{\_\-upk\_\-ctrl\_\-service\_\-pop\_\-handler\_\-data\_\-buf}
+\item 
+const char \bf{upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN] = stringify(CONF\_\-SYSCONFDIR) \char`\"{}/upkeeper.conf\char`\"{}
+\item 
+const char \bf{upk\_\-default\_\-configuration\_\-vec} [$\,$]
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-default\_\-configuration}
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-runtime\_\-configuration}
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Name} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Provides} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+\bf{upk\_\-uuid\_\-t} \bf{\_\-upk\_\-svc\_\-desc::UUID}
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Short\-Description} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Long\-Description}
+\item 
+\bf{upk\_\-svclist\_\-t} $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Prerequisites}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Start\-Priority}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Buddy\-Shutdown\-Timeout}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Kill\-Timeout}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Max\-Restarts}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Restart\-Window}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Rate\-Limit}
+\item 
+bool \bf{\_\-upk\_\-svc\_\-desc::Randomize\-Rate\-Limit}
+\item 
+uid\_\-t \bf{\_\-upk\_\-svc\_\-desc::Set\-UID}
+\item 
+gid\_\-t \bf{\_\-upk\_\-svc\_\-desc::Set\-GID}
+\item 
+size\_\-t \bf{\_\-upk\_\-svc\_\-desc::Ringbuffer\-Size}
+\item 
+int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Reconnect\-Retries}
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Exec\-Start} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Start\-Script}
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Stop\-Script}
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Reload\-Script}
+\item 
+\bf{upk\_\-cust\_\-actscr\_\-list\_\-t} $\ast$ \bf{\_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts}
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Pipe\-Stdout\-Script}
+\item 
+char $\ast$ \bf{\_\-upk\_\-svc\_\-desc::Pipe\-Stderr\-Script}
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Redirect\-Stdout} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char \bf{\_\-upk\_\-svc\_\-desc::Redirect\-Stderr} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+\bf{upk\_\-state\_\-t} \bf{\_\-upk\_\-svc\_\-desc::Initial\-State}
+\item 
+bool \bf{\_\-upk\_\-svc\_\-desc::Unconfigure\-On\-File\-Removal}
+\item 
+bool \bf{\_\-upk\_\-svc\_\-desc::Prefer\-Buddy\-State\-For\-Stopped}
+\item 
+bool \bf{\_\-upk\_\-svc\_\-desc::Prefer\-Buddy\-State\-For\-Running}
+\item 
+\bf{upk\_\-svc\_\-desc\_\-t} $\ast$ \bf{\_\-upk\_\-svc\_\-desc::next}
+\item 
+char \bf{\_\-upk\_\-controller\_\-config::Svc\-Config\-Path} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char \bf{\_\-upk\_\-controller\_\-config::Svc\-Run\-Path} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char \bf{\_\-upk\_\-controller\_\-config::controller\_\-socket} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+char \bf{\_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+\bf{upk\_\-svc\_\-desc\_\-t} \bf{\_\-upk\_\-controller\_\-config::Service\-Defaults}
+\item 
+\bf{upk\_\-svc\_\-desc\_\-t} $\ast$ \bf{\_\-upk\_\-controller\_\-config::svclist}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{config_impl@{config\_\-impl}!_stringify@{\_\-stringify}}
+\index{_stringify@{\_\-stringify}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-stringify(A)~\#A}\label{group__config__impl_g5fa590302383b2ba3c30e27642d6dad8}
+
+
+\index{config_impl@{config\_\-impl}!stringify@{stringify}}
+\index{stringify@{stringify}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define stringify(A)~\_\-stringify(A)}\label{group__config__impl_g268baf76cba325e7caeed79959905239}
+
+
+
+
+\subsection{Function Documentation}
+\index{config_impl@{config\_\-impl}!upk_config_loadfile@{upk\_\-config\_\-loadfile}}
+\index{upk_config_loadfile@{upk\_\-config\_\-loadfile}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char $\ast$ upk\_\-config\_\-loadfile (const char $\ast$ {\em filename})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_gf991490ef830173b054fc41d4dcf88a0}
+
+
+\index{config_impl@{config\_\-impl}!upk_ctrl_config_pack@{upk\_\-ctrl\_\-config\_\-pack}}
+\index{upk_ctrl_config_pack@{upk\_\-ctrl\_\-config\_\-pack}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrl\_\-config\_\-pack (\bf{upk\_\-controller\_\-config\_\-t} $\ast$ {\em cfg}, const char $\ast$ {\em json\_\-string})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_gc716b520d5f5276f4030b6192b4560d1}
+
+
+\index{config_impl@{config\_\-impl}!upk_ctrl_config_parse_handlers@{upk\_\-ctrl\_\-config\_\-parse\_\-handlers}}
+\index{upk_ctrl_config_parse_handlers@{upk\_\-ctrl\_\-config\_\-parse\_\-handlers}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrl\_\-config\_\-parse\_\-handlers (void $\ast$ {\em buf})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_gc09af397c6a8f7a52acc38af95b6d033}
+
+
+\index{config_impl@{config\_\-impl}!upk_ctrl_service_pop_handler@{upk\_\-ctrl\_\-service\_\-pop\_\-handler}}
+\index{upk_ctrl_service_pop_handler@{upk\_\-ctrl\_\-service\_\-pop\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrl\_\-service\_\-pop\_\-handler (char $\ast$ {\em key}, void $\ast$ {\em obj})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_ge36a41473bf0cc8572ea65a781cae748}
+
+
+\index{config_impl@{config\_\-impl}!upk_ctrlconf_object_handler@{upk\_\-ctrlconf\_\-object\_\-handler}}
+\index{upk_ctrlconf_object_handler@{upk\_\-ctrlconf\_\-object\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrlconf\_\-object\_\-handler (char $\ast$ {\em key}, void $\ast$ {\em jobj})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g0e82c963faf54391fe9262bdfd9bf460}
+
+
+\index{config_impl@{config\_\-impl}!upk_ctrlconf_string_handler@{upk\_\-ctrlconf\_\-string\_\-handler}}
+\index{upk_ctrlconf_string_handler@{upk\_\-ctrlconf\_\-string\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrlconf\_\-string\_\-handler (char $\ast$ {\em key}, char $\ast$ {\em string})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g1f420eecbc68a9b1c5d473825fdf588b}
+
+
+\index{config_impl@{config\_\-impl}!upk_load_config@{upk\_\-load\_\-config}}
+\index{upk_load_config@{upk\_\-load\_\-config}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-load\_\-config (void)}\label{group__config__impl_gcb11c3f64ed3828f1bdf713b493bef1b}
+
+
+\index{config_impl@{config\_\-impl}!upk_service_parse_handlers@{upk\_\-service\_\-parse\_\-handlers}}
+\index{upk_service_parse_handlers@{upk\_\-service\_\-parse\_\-handlers}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-service\_\-parse\_\-handlers (void)\hspace{0.3cm}{\tt  [inline, static]}}\label{group__config__impl_gd96f10121725b33017214cdc14ccc888}
+
+
+\index{config_impl@{config\_\-impl}!upk_svcconf_bool_handler@{upk\_\-svcconf\_\-bool\_\-handler}}
+\index{upk_svcconf_bool_handler@{upk\_\-svcconf\_\-bool\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-bool\_\-handler (char $\ast$ {\em key}, bool {\em val})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g34f3b1b4e0827034292ed924b94fdd2d}
+
+
+\index{config_impl@{config\_\-impl}!upk_svcconf_bool_handler@{upk\_\-svcconf\_\-bool\_\-handler}}
+\index{upk_svcconf_bool_handler@{upk\_\-svcconf\_\-bool\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-bool\_\-handler (char $\ast$ {\em key}, \_\-Bool {\em val})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g21d6dcc228303f6ba336356b21644117}
+
+
+\index{config_impl@{config\_\-impl}!upk_svcconf_double_handler@{upk\_\-svcconf\_\-double\_\-handler}}
+\index{upk_svcconf_double_handler@{upk\_\-svcconf\_\-double\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-double\_\-handler (char $\ast$ {\em key}, double {\em val})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g6561aaef39fc161501d565064d2217c8}
+
+
+\index{config_impl@{config\_\-impl}!upk_svcconf_int_handler@{upk\_\-svcconf\_\-int\_\-handler}}
+\index{upk_svcconf_int_handler@{upk\_\-svcconf\_\-int\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-int\_\-handler (char $\ast$ {\em key}, int {\em val})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g6859faee2c94a353681a76bebe555a02}
+
+
+\index{config_impl@{config\_\-impl}!upk_svcconf_string_handler@{upk\_\-svcconf\_\-string\_\-handler}}
+\index{upk_svcconf_string_handler@{upk\_\-svcconf\_\-string\_\-handler}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-string\_\-handler (char $\ast$ {\em key}, char $\ast$ {\em string})\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_g61528e6ab0111f65d858667b56783ac3}
+
+
+
+
+\subsection{Variable Documentation}
+\index{config_impl@{config\_\-impl}!_upk_ctrl_service_pop_handler_data_buf@{\_\-upk\_\-ctrl\_\-service\_\-pop\_\-handler\_\-data\_\-buf}}
+\index{_upk_ctrl_service_pop_handler_data_buf@{\_\-upk\_\-ctrl\_\-service\_\-pop\_\-handler\_\-data\_\-buf}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{\_\-upk\_\-ctrl\_\-service\_\-pop\_\-handler\_\-data\_\-buf}\hspace{0.3cm}{\tt  [static]}}\label{group__config__impl_gd1494166999fdd09cf928433dfd6ddd0}
+
+
+\index{config_impl@{config\_\-impl}!BuddyShutdownTimeout@{BuddyShutdownTimeout}}
+\index{BuddyShutdownTimeout@{BuddyShutdownTimeout}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Buddy\-Shutdown\-Timeout}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gb50c0ad5c5cf9a7cfcdfea9de4c7f365}
+
+
+when a service is stopped; how many seconds to wait before shutting the buddy down to conserve resources. a value $<$ 0 means to leave the buddy running indefinately \index{config_impl@{config\_\-impl}!controller_buddy_sock@{controller\_\-buddy\_\-sock}}
+\index{controller_buddy_sock@{controller\_\-buddy\_\-sock}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g04dfd26670a146bdbffb167cfdc02bb5}
+
+
+path to buddy socket; used internally \index{config_impl@{config\_\-impl}!controller_socket@{controller\_\-socket}}
+\index{controller_socket@{controller\_\-socket}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-controller\_\-config::controller\_\-socket}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gb079f9048afcf82cd17a78e655812289}
+
+
+path to the controller socket, used internally \index{config_impl@{config\_\-impl}!custom_action_scripts@{custom\_\-action\_\-scripts}}
+\index{custom_action_scripts@{custom\_\-action\_\-scripts}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-cust\_\-actscr\_\-list\_\-t}$\ast$ \bf{\_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g68e78fc4786c9119d3443447ef3e0c23}
+
+
+linked list of custom actions \index{config_impl@{config\_\-impl}!ExecStart@{ExecStart}}
+\index{ExecStart@{ExecStart}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Exec\-Start}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g374c9f651069bd10382991eac40d1ddd}
+
+
+executable to exec for start. see \char`\"{}Start\-Script\char`\"{} \index{config_impl@{config\_\-impl}!InitialState@{InitialState}}
+\index{InitialState@{InitialState}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-state\_\-t} \bf{\_\-upk\_\-svc\_\-desc::Initial\-State}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g972b247d009f552fb2777d71294d4df5}
+
+
+state the service should be set to initially; this is used only when a service is first configured \index{config_impl@{config\_\-impl}!KillTimeout@{KillTimeout}}
+\index{KillTimeout@{KillTimeout}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Kill\-Timeout}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_ga7a67d13b8ede2f259c3e4bb987c5c3a}
+
+
+how long to wait for a service to stop before issuing TERM and, if necessary, KILL signals to bring it down. A negative value means to wait indefiniately for a stopped process to terminate \index{config_impl@{config\_\-impl}!LongDescription@{LongDescription}}
+\index{LongDescription@{LongDescription}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Long\-Description}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g6a136a4ee6b41048119f8e3785260fef}
+
+
+a brief description of the service an arbitrary length description of the service \index{config_impl@{config\_\-impl}!Name@{Name}}
+\index{Name@{Name}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Name}[UPK\_\-MAX\_\-STRING\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g077f1c6e434fb12180adc090679680e6}
+
+
+service name. if pkg is used, the concatination of $<$pkg$>$::$<$name$>$ must be unique; otherwise this name must be unique \index{config_impl@{config\_\-impl}!next@{next}}
+\index{next@{next}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-svc\_\-desc\_\-t}$\ast$ \bf{\_\-upk\_\-svc\_\-desc::next}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gb7b260816622a389b792b182d5104d02}
+
+
+for use in lists \index{config_impl@{config\_\-impl}!PipeStderrScript@{PipeStderrScript}}
+\index{PipeStderrScript@{PipeStderrScript}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Pipe\-Stderr\-Script}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gaa84441ba54d622077a08dfa39b209c4}
+
+
+optional script to pipe stderr to. for instance: 'exec logger -p local0.warn' \index{config_impl@{config\_\-impl}!PipeStdoutScript@{PipeStdoutScript}}
+\index{PipeStdoutScript@{PipeStdoutScript}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Pipe\-Stdout\-Script}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g9f7047b28ae7d790af32211b684e22d3}
+
+
+optional script to pipe stdout to. for instance: 'exec logger -p local0.notice' \index{config_impl@{config\_\-impl}!PreferBuddyStateForRunning@{PreferBuddyStateForRunning}}
+\index{PreferBuddyStateForRunning@{PreferBuddyStateForRunning}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool \bf{\_\-upk\_\-svc\_\-desc::Prefer\-Buddy\-State\-For\-Running}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g556b0e1d1f94e966986e92da0d78ad2c}
+
+
+if the controller starts/restarts, and buddy has a service state set to \char`\"{}running\char`\"{}, but controller's data-store believes the service should be stopped, prefer buddy's world view, and update the data-store to reflect the running state (the default is to trust the data-store, which would cause the service to be stopped \index{config_impl@{config\_\-impl}!PreferBuddyStateForStopped@{PreferBuddyStateForStopped}}
+\index{PreferBuddyStateForStopped@{PreferBuddyStateForStopped}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool \bf{\_\-upk\_\-svc\_\-desc::Prefer\-Buddy\-State\-For\-Stopped}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g58dab9c2f5d291328e6ce09f88b78e5b}
+
+
+if the controller starts/restartindent: Standard input:189: Error:Stmt nesting error. s, and buddy has a service state set to \char`\"{}stopped\char`\"{}, but controller's data-store believes the service should be running, prefer buddy's world view, and update the data-store to reflect the stopped state (the default is to trust the data-store; which would cause the service to be started \index{config_impl@{config\_\-impl}!Prerequisites@{Prerequisites}}
+\index{Prerequisites@{Prerequisites}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-svclist\_\-t}$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Prerequisites}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g73ea860ea568d7e9564fb9b104f7d5a2}
+
+
+A list of prerequisite services that must be started prior to this service; either by name, pkg-prefix, or by what they provide \index{config_impl@{config\_\-impl}!Provides@{Provides}}
+\index{Provides@{Provides}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Provides}[UPK\_\-MAX\_\-STRING\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g9bf2479c332ccb6af41f55b37a16dc54}
+
+
+a string describing the function of this service. this can be used in prerequisite constraints upon other services. i.e. a prerequisite might be \char`\"{}entropy-service\char`\"{}, and any service providing \char`\"{}entropy-service\char`\"{} would then satisfy that prerequisite [vaguely remeniscent of the debian \char`\"{}alternatives\char`\"{} system] \index{config_impl@{config\_\-impl}!RandomizeRateLimit@{RandomizeRateLimit}}
+\index{RandomizeRateLimit@{RandomizeRateLimit}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool \bf{\_\-upk\_\-svc\_\-desc::Randomize\-Rate\-Limit}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g672805f98a7805b68f6812bc19b7f059}
+
+
+a flag to enable/disable adding a randomized \char`\"{}jitter\char`\"{} to the user\_\-ratelimit \index{config_impl@{config\_\-impl}!ReconnectRetries@{ReconnectRetries}}
+\index{ReconnectRetries@{ReconnectRetries}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Reconnect\-Retries}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gdb5b849cb271f65abadbf911885c7131}
+
+
+number of times to retry connections to the controler when emergent actions occur in the buddy; (-1 for indefinate) \index{config_impl@{config\_\-impl}!RedirectStderr@{RedirectStderr}}
+\index{RedirectStderr@{RedirectStderr}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Redirect\-Stderr}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gb00914e4cb9ee41490a9bce4aab069f2}
+
+
+optional place to direct stderr. Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints to stderr itself \index{config_impl@{config\_\-impl}!RedirectStdout@{RedirectStdout}}
+\index{RedirectStdout@{RedirectStdout}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Redirect\-Stdout}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g8b6cd724a13fe0639456472d6f3a9f4b}
+
+
+optional place to direct stdout. Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints to stdout itself \index{config_impl@{config\_\-impl}!ReloadScript@{ReloadScript}}
+\index{ReloadScript@{ReloadScript}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Reload\-Script}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g505ee4877271be6749c1b9145b67b120}
+
+
+replace the default reload script of 'exec kill -HUP \$1'; argv[1] == pid of monitored process \index{config_impl@{config\_\-impl}!RingbufferSize@{RingbufferSize}}
+\index{RingbufferSize@{RingbufferSize}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}size\_\-t \bf{\_\-upk\_\-svc\_\-desc::Ringbuffer\-Size}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g50cd26c6cb63d96d54c717170f58bb4e}
+
+
+size of the ringbuffer to maintain in the buddy \index{config_impl@{config\_\-impl}!ServiceDefaults@{ServiceDefaults}}
+\index{ServiceDefaults@{ServiceDefaults}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-svc\_\-desc\_\-t} \bf{\_\-upk\_\-controller\_\-config::Service\-Defaults}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g3e8794925f2793f5740c3ba7b399149b}
+
+
+default service configuration parameters; used whenever an individual service omits something \index{config_impl@{config\_\-impl}!SetGID@{SetGID}}
+\index{SetGID@{SetGID}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}gid\_\-t \bf{\_\-upk\_\-svc\_\-desc::Set\-GID}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_ge57bbbdf5f0dbb070e71bdb332931f46}
+
+
+if controller and/or buddy is run euid root; which gid to run the service as \index{config_impl@{config\_\-impl}!SetUID@{SetUID}}
+\index{SetUID@{SetUID}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}uid\_\-t \bf{\_\-upk\_\-svc\_\-desc::Set\-UID}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g8da474c10d5ed176d0b9d99fff945e57}
+
+
+if controller and/or buddy is run euid root; which uid to run the service as \index{config_impl@{config\_\-impl}!ShortDescription@{ShortDescription}}
+\index{ShortDescription@{ShortDescription}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-svc\_\-desc::Short\-Description}[UPK\_\-MAX\_\-STRING\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gf888e9b6f99b52b41ac3f946f14e4dca}
+
+
+\index{config_impl@{config\_\-impl}!StartPriority@{StartPriority}}
+\index{StartPriority@{StartPriority}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::Start\-Priority}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g35d1ef7bff6ac5405edf34ea697fdc91}
+
+
+similar to prerequisites, provide a fixed numeric start priority to indicate service startup order \index{config_impl@{config\_\-impl}!StartScript@{StartScript}}
+\index{StartScript@{StartScript}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Start\-Script}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g1dcab37c6c89587c91fd7b3d87e0f3c4}
+
+
+script to run to start the monitored process; repaces the default of exec $<$Exec\-Start$>$ \index{config_impl@{config\_\-impl}!StopScript@{StopScript}}
+\index{StopScript@{StopScript}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{\_\-upk\_\-svc\_\-desc::Stop\-Script}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_ge3b51c15e5de4234289443dd3de00398}
+
+
+replace the default stop script of 'exec kill \$1'; argv[1] == pid of monitored process \index{config_impl@{config\_\-impl}!SvcConfigPath@{SvcConfigPath}}
+\index{SvcConfigPath@{SvcConfigPath}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-controller\_\-config::Svc\-Config\-Path}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g286418d5e7c00cedaa1ec701fd0c40ff}
+
+
+path to service configuration files \index{config_impl@{config\_\-impl}!svclist@{svclist}}
+\index{svclist@{svclist}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-svc\_\-desc\_\-t}$\ast$ \bf{\_\-upk\_\-controller\_\-config::svclist}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g9199da20ade1ea1e50ff15dc40c6a658}
+
+
+head-pointer to list of service descriptions \index{config_impl@{config\_\-impl}!SvcRunPath@{SvcRunPath}}
+\index{SvcRunPath@{SvcRunPath}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{\_\-upk\_\-controller\_\-config::Svc\-Run\-Path}[UPK\_\-MAX\_\-PATH\_\-LEN]\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_gc543ab5795684739283f1aa2600f97db}
+
+
+path where buddy's will be created and run, usually \$\{statedir\}/buddies \index{config_impl@{config\_\-impl}!UnconfigureOnFileRemoval@{UnconfigureOnFileRemoval}}
+\index{UnconfigureOnFileRemoval@{UnconfigureOnFileRemoval}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}bool \bf{\_\-upk\_\-svc\_\-desc::Unconfigure\-On\-File\-Removal}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g139b114940fe3a2e070e463bc3d4f838}
+
+
+May be used by a package to instruct the controler to remove a configured service if the file defining that service ever disappears. possibly useful in packaging to cleanup the controller on package removal. The default behavior is to ignore file removal, and require explicit manual removal of configured services \index{config_impl@{config\_\-impl}!upk_ctrl_configuration_file@{upk\_\-ctrl\_\-configuration\_\-file}}
+\index{upk_ctrl_configuration_file@{upk\_\-ctrl\_\-configuration\_\-file}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char \bf{upk\_\-ctrl\_\-configuration\_\-file}[UPK\_\-MAX\_\-PATH\_\-LEN] = stringify(CONF\_\-SYSCONFDIR) \char`\"{}/upkeeper.conf\char`\"{}}\label{group__config__impl_g8d40b48c45f9a4e84616919266172937}
+
+
+\index{config_impl@{config\_\-impl}!upk_default_configuration@{upk\_\-default\_\-configuration}}
+\index{upk_default_configuration@{upk\_\-default\_\-configuration}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-default\_\-configuration}}\label{group__config__impl_g8faa02a740ec77a812eb1cb76cf2b832}
+
+
+\index{config_impl@{config\_\-impl}!upk_default_configuration_vec@{upk\_\-default\_\-configuration\_\-vec}}
+\index{upk_default_configuration_vec@{upk\_\-default\_\-configuration\_\-vec}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char \bf{upk\_\-default\_\-configuration\_\-vec}[$\,$]}\label{group__config__impl_g3ae0f79ba6093e24e304d95610ee1720}
+
+
+\index{config_impl@{config\_\-impl}!upk_runtime_configuration@{upk\_\-runtime\_\-configuration}}
+\index{upk_runtime_configuration@{upk\_\-runtime\_\-configuration}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-runtime\_\-configuration}}\label{group__config__impl_g831f16c368ca733e3ece871898c240ea}
+
+
+\index{config_impl@{config\_\-impl}!UserMaxRestarts@{UserMaxRestarts}}
+\index{UserMaxRestarts@{UserMaxRestarts}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Max\-Restarts}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g52b5b232f880174af3a0c203dc569bab}
+
+
+user-defined max number of restarts within restart window \index{config_impl@{config\_\-impl}!UserRateLimit@{UserRateLimit}}
+\index{UserRateLimit@{UserRateLimit}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Rate\-Limit}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g920fa04e780648251f67f3d4d4fd8cb4}
+
+
+duration, in seconds, to wait between respawn attempts \index{config_impl@{config\_\-impl}!UserRestartWindow@{UserRestartWindow}}
+\index{UserRestartWindow@{UserRestartWindow}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \bf{\_\-upk\_\-svc\_\-desc::User\-Restart\-Window}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_ga82d1a848da5e7c492b31300b03c972c}
+
+
+user-defined restart window, in seconds \index{config_impl@{config\_\-impl}!UUID@{UUID}}
+\index{UUID@{UUID}!config_impl@{config\_\-impl}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-uuid\_\-t} \bf{\_\-upk\_\-svc\_\-desc::UUID}\hspace{0.3cm}{\tt  [inherited]}}\label{group__config__impl_g0deb067d8c7917e39e76de8c301b9805}
+
+
+a uuid for a service; dynamically generated at service creation in most cases 

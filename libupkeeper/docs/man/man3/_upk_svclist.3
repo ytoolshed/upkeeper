@@ -1,0 +1,46 @@
+.TH "_upk_svclist" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_svclist \- linked list of service identifiers.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upk_types.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBsvc\fP [UPK_MAX_STRING_LEN]"
+.br
+.RI "\fIservice-id (concatination of [<pkg>::]<name>) \fP"
+.ti -1c
+.RI "\fBupk_uuid_t\fP \fBuuid\fP"
+.br
+.ti -1c
+.RI "\fBupk_svclist_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+linked list of service identifiers. 
+.PP
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_svclist_t\fP* \fB_upk_svclist::next\fP"
+.PP
+next, for use in lists 
+.SS "char \fB_upk_svclist::svc\fP[UPK_MAX_STRING_LEN]"
+.PP
+service-id (concatination of [<pkg>::]<name>) 
+.PP
+.SS "\fBupk_uuid_t\fP \fB_upk_svclist::uuid\fP"
+.PP
+not sure I need this here; but just in case for now 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.

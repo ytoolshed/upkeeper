@@ -1,0 +1,60 @@
+\section{upkeeper/upk\_\-config.c File Reference}
+\label{upk__config_8c}\index{upkeeper/upk_config.c@{upkeeper/upk\_\-config.c}}
+configuration defaults, and implementation 
+
+{\tt \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-json.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{\_\-stringify}(A)~\#A
+\item 
+\#define \bf{stringify}(A)~\_\-stringify(A)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+static void \bf{upk\_\-ctrlconf\_\-string\_\-handler} (char $\ast$key, char $\ast$string)
+\item 
+static void \bf{upk\_\-svcconf\_\-bool\_\-handler} (char $\ast$key, \_\-Bool val)
+\item 
+static void \bf{upk\_\-svcconf\_\-string\_\-handler} (char $\ast$key, char $\ast$string)
+\item 
+static void \bf{upk\_\-ctrl\_\-service\_\-pop\_\-handler} (char $\ast$key, void $\ast$obj)
+\item 
+static void \bf{upk\_\-service\_\-parse\_\-handlers} (void)
+\item 
+static void \bf{upk\_\-ctrlconf\_\-object\_\-handler} (char $\ast$key, void $\ast$jobj)
+\item 
+static void \bf{upk\_\-ctrl\_\-config\_\-parse\_\-handlers} (void $\ast$buf)
+\item 
+static char $\ast$ \bf{upk\_\-config\_\-loadfile} (const char $\ast$filename)
+\item 
+static void \bf{upk\_\-ctrl\_\-config\_\-pack} (\bf{upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+static void \bf{upk\_\-svcconf\_\-bool\_\-handler} (char $\ast$key, bool val)
+\item 
+static void \bf{upk\_\-svcconf\_\-int\_\-handler} (char $\ast$key, int val)
+\item 
+static void \bf{upk\_\-svcconf\_\-double\_\-handler} (char $\ast$key, double val)
+\item 
+void \bf{upk\_\-load\_\-config} (void)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static void $\ast$ \bf{\_\-upk\_\-ctrl\_\-service\_\-pop\_\-handler\_\-data\_\-buf}
+\item 
+const char \bf{upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN] = stringify(CONF\_\-SYSCONFDIR) \char`\"{}/upkeeper.conf\char`\"{}
+\item 
+const char \bf{upk\_\-default\_\-configuration\_\-vec} [$\,$]
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-default\_\-configuration}
+\item 
+\bf{upk\_\-controller\_\-config\_\-t} \bf{upk\_\-runtime\_\-configuration}
+\end{CompactItemize}
+
+
+\subsection{Detailed Description}
+configuration defaults, and implementation 
+

@@ -1,0 +1,172 @@
+\section{upkeeper/upk\_\-protocol.c File Reference}
+\label{upk__protocol_8c}\index{upkeeper/upk_protocol.c@{upkeeper/upk\_\-protocol.c}}
+{\tt \#include \char`\"{}upk\_\-protocol.h\char`\"{}}\par
+{\tt \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+{\tt \#include $<$assert.h$>$}\par
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-pkt} (void $\ast$payload, uint32\_\-t payload\_\-len, \bf{upk\_\-pkttype\_\-t} pkttype, uint32\_\-t proto\_\-ver)
+\item 
+static uint32\_\-t \bf{req\_\-preamble\_\-len} (\bf{upk\_\-req\_\-preamble\_\-t} $\ast$preamble)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-req\_\-preamble} (char $\ast$client\_\-name)
+\item 
+static void \bf{upk\_\-free\_\-payload} (\bf{upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+void \bf{upk\_\-pkt\_\-free} (\bf{upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-req\_\-seq\_\-start} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, \bf{upk\_\-req\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-req\_\-seq\_\-end} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-action\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, char $\ast$action)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-signal\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, \bf{upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-list\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-status\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-subscr\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-unsubs\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-discon\_\-req} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-repl\_\-seq\_\-start} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, \bf{upk\_\-repl\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-repl\_\-seq\_\-end} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-result\_\-repl} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$msg, bool successful)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-listing\_\-repl} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-svcinfo\_\-repl} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, \bf{upk\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-ack\_\-repl} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-error\_\-repl} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, char $\ast$errmsg, \bf{upk\_\-errlevel\_\-t} errlvl)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-pub\_\-pubmsg} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+\bf{upk\_\-packet\_\-t} $\ast$ \bf{upk\_\-create\_\-cancel\_\-pubmsg} (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{upk_protocol.c@{upk\_\-protocol.c}!req_preamble_len@{req\_\-preamble\_\-len}}
+\index{req_preamble_len@{req\_\-preamble\_\-len}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static uint32\_\-t req\_\-preamble\_\-len (\bf{upk\_\-req\_\-preamble\_\-t} $\ast$ {\em preamble})\hspace{0.3cm}{\tt  [inline, static]}}\label{upk__protocol_8c_7995d3feaaa6cdb3e845d3258125b434}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_ack_repl@{upk\_\-create\_\-ack\_\-repl}}
+\index{upk_create_ack_repl@{upk\_\-create\_\-ack\_\-repl}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-ack\_\-repl (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle})}\label{upk__protocol_8c_28db76696f85ab5f0a0b612d27e05af0}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_action_req@{upk\_\-create\_\-action\_\-req}}
+\index{upk_create_action_req@{upk\_\-create\_\-action\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-action\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, char $\ast$ {\em action})}\label{upk__protocol_8c_f2852201ca8082631976a7da2c126693}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_cancel_pubmsg@{upk\_\-create\_\-cancel\_\-pubmsg}}
+\index{upk_create_cancel_pubmsg@{upk\_\-create\_\-cancel\_\-pubmsg}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-cancel\_\-pubmsg (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle})}\label{upk__protocol_8c_5d3c48c62b1665f8466e792a5dd74322}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_discon_req@{upk\_\-create\_\-discon\_\-req}}
+\index{upk_create_discon_req@{upk\_\-create\_\-discon\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-discon\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle})}\label{upk__protocol_8c_15a9d0b950e1438fedb39de0a7b5aae0}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_error_repl@{upk\_\-create\_\-error\_\-repl}}
+\index{upk_create_error_repl@{upk\_\-create\_\-error\_\-repl}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-error\_\-repl (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, char $\ast$ {\em errmsg}, \bf{upk\_\-errlevel\_\-t} {\em errlvl})}\label{upk__protocol_8c_316d245e00eafa76702c0d1755f88af5}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_list_req@{upk\_\-create\_\-list\_\-req}}
+\index{upk_create_list_req@{upk\_\-create\_\-list\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-list\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle})}\label{upk__protocol_8c_d439b076c36b38f725b74976d928c9ee}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_listing_repl@{upk\_\-create\_\-listing\_\-repl}}
+\index{upk_create_listing_repl@{upk\_\-create\_\-listing\_\-repl}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-listing\_\-repl (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id})}\label{upk__protocol_8c_7ba4f6b215627f25c4ce7eb3996dd237}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_pkt@{upk\_\-create\_\-pkt}}
+\index{upk_create_pkt@{upk\_\-create\_\-pkt}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-pkt (void $\ast$ {\em payload}, uint32\_\-t {\em payload\_\-len}, \bf{upk\_\-pkttype\_\-t} {\em pkttype}, uint32\_\-t {\em proto\_\-ver})}\label{upk__protocol_8c_98c6822c9c5cb5320c0060a7729185f3}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_pub_pubmsg@{upk\_\-create\_\-pub\_\-pubmsg}}
+\index{upk_create_pub_pubmsg@{upk\_\-create\_\-pub\_\-pubmsg}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-pub\_\-pubmsg (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle})}\label{upk__protocol_8c_d4486d98424092f777722f21f5560e7b}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_repl_seq_end@{upk\_\-create\_\-repl\_\-seq\_\-end}}
+\index{upk_create_repl_seq_end@{upk\_\-create\_\-repl\_\-seq\_\-end}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-seq\_\-end (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, bool {\em commit})}\label{upk__protocol_8c_8e06458ef32c52bfb49eac904d9ae5a1}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_repl_seq_start@{upk\_\-create\_\-repl\_\-seq\_\-start}}
+\index{upk_create_repl_seq_start@{upk\_\-create\_\-repl\_\-seq\_\-start}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-seq\_\-start (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, \bf{upk\_\-repl\_\-msgtype\_\-t} {\em seq\_\-type}, uint32\_\-t {\em count})}\label{upk__protocol_8c_21fac5680421128f1796873a3466a84e}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_req_preamble@{upk\_\-create\_\-req\_\-preamble}}
+\index{upk_create_req_preamble@{upk\_\-create\_\-req\_\-preamble}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-preamble (char $\ast$ {\em client\_\-name})}\label{upk__protocol_8c_75ba890aab16d7c392525a8e8f58106f}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_req_seq_end@{upk\_\-create\_\-req\_\-seq\_\-end}}
+\index{upk_create_req_seq_end@{upk\_\-create\_\-req\_\-seq\_\-end}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-seq\_\-end (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, bool {\em commit})}\label{upk__protocol_8c_e7c0b4a0bc364a3004d289ce55e0f7de}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_req_seq_start@{upk\_\-create\_\-req\_\-seq\_\-start}}
+\index{upk_create_req_seq_start@{upk\_\-create\_\-req\_\-seq\_\-start}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-seq\_\-start (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, \bf{upk\_\-req\_\-msgtype\_\-t} {\em seq\_\-type}, uint32\_\-t {\em count})}\label{upk__protocol_8c_f228b43d5d037baa808474f5973c5619}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_result_repl@{upk\_\-create\_\-result\_\-repl}}
+\index{upk_create_result_repl@{upk\_\-create\_\-result\_\-repl}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-result\_\-repl (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em msg}, bool {\em successful})}\label{upk__protocol_8c_11c44ac308e71b3ae5bfd72a22d2c4d9}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_signal_req@{upk\_\-create\_\-signal\_\-req}}
+\index{upk_create_signal_req@{upk\_\-create\_\-signal\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-signal\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, \bf{upk\_\-signal\_\-t} {\em signal}, bool {\em signal\_\-sid}, bool {\em signal\_\-pgrp})}\label{upk__protocol_8c_f9d45497bdfe3d2cc2bbfe87aa73ed9b}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_status_req@{upk\_\-create\_\-status\_\-req}}
+\index{upk_create_status_req@{upk\_\-create\_\-status\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-status\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id})}\label{upk__protocol_8c_0305b86362b17dd95f3276a22c3f4006}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_subscr_req@{upk\_\-create\_\-subscr\_\-req}}
+\index{upk_create_subscr_req@{upk\_\-create\_\-subscr\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-subscr\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, bool {\em all\_\-svcs})}\label{upk__protocol_8c_b734a0e369fe4f0724a93cc3a760834c}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_svcinfo_repl@{upk\_\-create\_\-svcinfo\_\-repl}}
+\index{upk_create_svcinfo_repl@{upk\_\-create\_\-svcinfo\_\-repl}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-svcinfo\_\-repl (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, \bf{upk\_\-svcinfo\_\-t} $\ast$ {\em svcinfo})}\label{upk__protocol_8c_f092695b8fff613c946c946dfaf86daa}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_create_unsubs_req@{upk\_\-create\_\-unsubs\_\-req}}
+\index{upk_create_unsubs_req@{upk\_\-create\_\-unsubs\_\-req}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-unsubs\_\-req (\bf{upk\_\-protocol\_\-handle\_\-t} $\ast$ {\em handle}, char $\ast$ {\em svc\_\-id}, bool {\em all\_\-svcs})}\label{upk__protocol_8c_0c255e6d0d8a54400fe7ec1b8c502894}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_free_payload@{upk\_\-free\_\-payload}}
+\index{upk_free_payload@{upk\_\-free\_\-payload}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-free\_\-payload (\bf{upk\_\-packet\_\-t} $\ast$ {\em pkt})\hspace{0.3cm}{\tt  [inline, static]}}\label{upk__protocol_8c_c8819cda4a50db95eb596cc18809397d}
+
+
+\index{upk_protocol.c@{upk\_\-protocol.c}!upk_pkt_free@{upk\_\-pkt\_\-free}}
+\index{upk_pkt_free@{upk\_\-pkt\_\-free}!upk_protocol.c@{upk\_\-protocol.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-pkt\_\-free (\bf{upk\_\-packet\_\-t} $\ast$ {\em pkt})}\label{upk__protocol_8c_905b4edd769e5d1e358efa0dc4653a86}
+
+

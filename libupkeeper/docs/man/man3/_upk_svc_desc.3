@@ -1,0 +1,125 @@
+.TH "_upk_svc_desc" 3 "30 Jun 2011" "Version 1" "libupkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_svc_desc \- service configuration.  
+
+.PP
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upk_config.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBPackage\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "char \fBName\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "char \fBProvides\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "\fBupk_uuid_t\fP \fBUUID\fP"
+.br
+.ti -1c
+.RI "char \fBShortDescription\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "char * \fBLongDescription\fP"
+.br
+.ti -1c
+.RI "\fBupk_svclist_t\fP * \fBPrerequisites\fP"
+.br
+.ti -1c
+.RI "int32_t \fBStartPriority\fP"
+.br
+.ti -1c
+.RI "int32_t \fBBuddyShutdownTimeout\fP"
+.br
+.ti -1c
+.RI "int32_t \fBKillTimeout\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserMaxRestarts\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserRestartWindow\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserRateLimit\fP"
+.br
+.ti -1c
+.RI "bool \fBRandomizeRateLimit\fP"
+.br
+.ti -1c
+.RI "uid_t \fBSetUID\fP"
+.br
+.ti -1c
+.RI "gid_t \fBSetGID\fP"
+.br
+.ti -1c
+.RI "size_t \fBRingbufferSize\fP"
+.br
+.ti -1c
+.RI "int32_t \fBReconnectRetries\fP"
+.br
+.ti -1c
+.RI "char \fBExecStart\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char * \fBStartScript\fP"
+.br
+.ti -1c
+.RI "char * \fBStopScript\fP"
+.br
+.ti -1c
+.RI "char * \fBReloadScript\fP"
+.br
+.ti -1c
+.RI "\fBupk_cust_actscr_list_t\fP * \fBcustom_action_scripts\fP"
+.br
+.ti -1c
+.RI "char * \fBPipeStdoutScript\fP"
+.br
+.ti -1c
+.RI "char * \fBPipeStderrScript\fP"
+.br
+.ti -1c
+.RI "char \fBRedirectStdout\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char \fBRedirectStderr\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBInitialState\fP"
+.br
+.ti -1c
+.RI "bool \fBUnconfigureOnFileRemoval\fP"
+.br
+.ti -1c
+.RI "bool \fBPreferBuddyStateForStopped\fP"
+.br
+.ti -1c
+.RI "bool \fBPreferBuddyStateForRunning\fP"
+.br
+.ti -1c
+.RI "\fBupk_svc_desc_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+service configuration. 
+.PP
+.SH "Field Documentation"
+.PP 
+.SS "char \fB_upk_svc_desc::Package\fP[UPK_MAX_STRING_LEN]"
+.PP
+an optional prefix to be preppended to the service name 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for libupkeeper from the source code.
