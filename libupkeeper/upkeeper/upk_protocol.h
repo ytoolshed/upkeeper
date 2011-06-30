@@ -1,7 +1,8 @@
 #ifndef _UPK_PROTOCOL_H
 #define _UPK_PROTOCOL_H
 
-#include "types.h"
+#include "upk_error.h"
+#include "upk_types.h"
 
 /* ********************************************************************************************************************
  * enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever
@@ -173,8 +174,8 @@ __never_compiled(void)
 
 
 
-#include "std_include.h"
-#include "v0_protocol_structs.h"
+#include "upk_std_include.h"
+#include "upk_v0_protocol_structs.h"
 
 typedef unsigned char   upk_pkt_buf_t;
 

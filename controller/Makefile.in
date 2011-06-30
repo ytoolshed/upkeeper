@@ -51,11 +51,16 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_buddy_OBJECTS = buddy.$(OBJEXT) buddy_main.$(OBJEXT)
+am_buddy_OBJECTS = buddy-buddy.$(OBJEXT) buddy-buddy_main.$(OBJEXT) \
+	buddy-upk_error.$(OBJEXT)
 buddy_OBJECTS = $(am_buddy_OBJECTS)
 buddy_DEPENDENCIES =
-am_controller_OBJECTS = controller.$(OBJEXT) ctrl_protocol.$(OBJEXT) \
-	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT)
+buddy_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
+	--mode=link $(CCLD) $(buddy_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
+	$(LDFLAGS) -o $@
+am_controller_OBJECTS = controller.$(OBJEXT) controller_main.$(OBJEXT) \
+	ctrl_protocol.$(OBJEXT) ctrl_buddy.$(OBJEXT) \
+	ctrl_eventloop.$(OBJEXT)
 controller_OBJECTS = $(am_controller_OBJECTS)
 controller_LDADD = $(LDADD)
 controller_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -159,6 +164,8 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+conf_localstatedir = @conf_localstatedir@
+conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -196,8 +203,9 @@ top_srcdir = @top_srcdir@
 AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
 LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
 buddy_LDADD = 
-buddy_SOURCES = buddy.c buddy_main.c
-controller_SOURCES = controller.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
+buddy_CFLAGS = -DUPK_STATIC_ERR_DECL
+buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h
+controller_SOURCES = controller.c controller_main.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
 controller_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
 controller_LDFLAGS = -ljson -lsqlite3
 all: all-am
@@ -279,7 +287,7 @@ clean-binPROGRAMS:
 	rm -f $$list
 buddy$(EXEEXT): $(buddy_OBJECTS) $(buddy_DEPENDENCIES) 
 	@rm -f buddy$(EXEEXT)
-	$(LINK) $(buddy_OBJECTS) $(buddy_LDADD) $(LIBS)
+	$(buddy_LINK) $(buddy_OBJECTS) $(buddy_LDADD) $(LIBS)
 controller$(EXEEXT): $(controller_OBJECTS) $(controller_DEPENDENCIES) 
 	@rm -f controller$(EXEEXT)
 	$(controller_LINK) $(controller_OBJECTS) $(controller_LDADD) $(LIBS)
@@ -290,9 +298,11 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy_main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy-buddy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy-buddy_main.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/buddy-upk_error.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/controller.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/controller_main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_buddy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_eventloop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_protocol.Po@am__quote@
@@ -317,6 +327,48 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
+
+buddy-buddy.o: buddy.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-buddy.o -MD -MP -MF $(DEPDIR)/buddy-buddy.Tpo -c -o buddy-buddy.o `test -f 'buddy.c' || echo '$(srcdir)/'`buddy.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-buddy.Tpo $(DEPDIR)/buddy-buddy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='buddy.c' object='buddy-buddy.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-buddy.o `test -f 'buddy.c' || echo '$(srcdir)/'`buddy.c
+
+buddy-buddy.obj: buddy.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-buddy.obj -MD -MP -MF $(DEPDIR)/buddy-buddy.Tpo -c -o buddy-buddy.obj `if test -f 'buddy.c'; then $(CYGPATH_W) 'buddy.c'; else $(CYGPATH_W) '$(srcdir)/buddy.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-buddy.Tpo $(DEPDIR)/buddy-buddy.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='buddy.c' object='buddy-buddy.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-buddy.obj `if test -f 'buddy.c'; then $(CYGPATH_W) 'buddy.c'; else $(CYGPATH_W) '$(srcdir)/buddy.c'; fi`
+
+buddy-buddy_main.o: buddy_main.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-buddy_main.o -MD -MP -MF $(DEPDIR)/buddy-buddy_main.Tpo -c -o buddy-buddy_main.o `test -f 'buddy_main.c' || echo '$(srcdir)/'`buddy_main.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-buddy_main.Tpo $(DEPDIR)/buddy-buddy_main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='buddy_main.c' object='buddy-buddy_main.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-buddy_main.o `test -f 'buddy_main.c' || echo '$(srcdir)/'`buddy_main.c
+
+buddy-buddy_main.obj: buddy_main.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-buddy_main.obj -MD -MP -MF $(DEPDIR)/buddy-buddy_main.Tpo -c -o buddy-buddy_main.obj `if test -f 'buddy_main.c'; then $(CYGPATH_W) 'buddy_main.c'; else $(CYGPATH_W) '$(srcdir)/buddy_main.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-buddy_main.Tpo $(DEPDIR)/buddy-buddy_main.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='buddy_main.c' object='buddy-buddy_main.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-buddy_main.obj `if test -f 'buddy_main.c'; then $(CYGPATH_W) 'buddy_main.c'; else $(CYGPATH_W) '$(srcdir)/buddy_main.c'; fi`
+
+buddy-upk_error.o: $(top_builddir)/libupkeeper/upkeeper/upk_error.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-upk_error.o -MD -MP -MF $(DEPDIR)/buddy-upk_error.Tpo -c -o buddy-upk_error.o `test -f '$(top_builddir)/libupkeeper/upkeeper/upk_error.c' || echo '$(srcdir)/'`$(top_builddir)/libupkeeper/upkeeper/upk_error.c
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-upk_error.Tpo $(DEPDIR)/buddy-upk_error.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_builddir)/libupkeeper/upkeeper/upk_error.c' object='buddy-upk_error.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-upk_error.o `test -f '$(top_builddir)/libupkeeper/upkeeper/upk_error.c' || echo '$(srcdir)/'`$(top_builddir)/libupkeeper/upkeeper/upk_error.c
+
+buddy-upk_error.obj: $(top_builddir)/libupkeeper/upkeeper/upk_error.c
+@am__fastdepCC_TRUE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -MT buddy-upk_error.obj -MD -MP -MF $(DEPDIR)/buddy-upk_error.Tpo -c -o buddy-upk_error.obj `if test -f '$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; then $(CYGPATH_W) '$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; fi`
+@am__fastdepCC_TRUE@	$(am__mv) $(DEPDIR)/buddy-upk_error.Tpo $(DEPDIR)/buddy-upk_error.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$(top_builddir)/libupkeeper/upkeeper/upk_error.c' object='buddy-upk_error.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(buddy_CFLAGS) $(CFLAGS) -c -o buddy-upk_error.obj `if test -f '$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; then $(CYGPATH_W) '$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; else $(CYGPATH_W) '$(srcdir)/$(top_builddir)/libupkeeper/upkeeper/upk_error.c'; fi`
 
 mostlyclean-libtool:
 	-rm -f *.lo

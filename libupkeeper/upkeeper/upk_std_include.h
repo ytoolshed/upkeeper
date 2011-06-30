@@ -1,7 +1,7 @@
 #ifndef _UPK_STD_INCLUDE_H
 #define _UPK_STD_INCLUDE_H
 
-#define _GNU_SOURCE
+#include "upk_compat.h"
 
 #include <stdlib.h>
 #include <stdbool.h>
@@ -18,8 +18,7 @@
 #include <sys/file.h>
 #include <assert.h>
 #include <fcntl.h>
-
-#include "types.h"
-#include "compat.h"
+#include <errno.h>
+#include <ctype.h>
 
 #endif

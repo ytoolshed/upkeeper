@@ -1,4 +1,4 @@
-#include "std_include.h"
+#include "upk_crc32.h"
 
 /* *******************************************************************************************************************
  * I'll leave this outside the #ifdef GENERATE_CRCTABLE bit, just inc ase its useful somehow...

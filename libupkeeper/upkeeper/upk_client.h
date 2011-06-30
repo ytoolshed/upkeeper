@@ -1,7 +1,7 @@
 #ifndef _UPK_CLIENT_H
 #define _UPK_CLIENT_H
 
-#include "types.h"
+#include "upk_types.h"
 
 char * upkeeper_getsvc_id(char * pkg, char * svc_name);
 

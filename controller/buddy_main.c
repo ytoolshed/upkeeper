@@ -9,8 +9,16 @@ static void
 buddy_usage(char *progname)
 {
     char                    usage_txt[][128] = {
-        "  -r NUM, --ringbuffer_size=NUM",
+        "  -R NUM, --ringbuffer_size=NUM",
         "     specify the size of the fixed-allocation ringbuffer in the buddy",
+        "  -r NUM, --retries=NUM",
+        "     for cases where the buddy tries to phone home to update status, such as when the buddy",
+        "     itself is terminated via signal, specify the number of times to try to contact the",
+        "     controller to provide report the contents of its ringbuffer.",
+        "  -u UID, --setuid",
+        "     setuid",
+        "  -g GID, --setgid",
+        "     setgid",
         "  -q, --quite",
         "     Decrease verbosity",
         "  -v, --verbose",
@@ -21,9 +29,10 @@ buddy_usage(char *progname)
     };
     size_t                  n = 0;
 
-    printf
-        ("Usage: %s [ -r NUM | --ringbuffer_size=NUM ] [-q | --quite] [-v | --verbose] [-V | --version] service-name\n",
-         progname);
+    printf("Usage: %s [ -R NUM | --ringbuffer_size=NUM ] [ -r NUM | --retries=NUM ] \n\
+           [ -u | --setuid UID ] [-g | --setgid ] \n\
+           [ -q | --quite] [-v | --verbose] [ -V | --version ] \n\
+           service-name\n\n", progname);
     for(n = 0; n < sizeof(usage_txt) / 128; n++) {
         printf("%s\n", usage_txt[n]);
     }
@@ -31,79 +40,108 @@ buddy_usage(char *progname)
 }
 
 
+/* ********************************************************************************************************************
+ * ******************************************************************************************************************* */
+static inline           bool
+numeric_string(const char *string, long *num)
+{
+    char                   *p = NULL;
+    uint8_t                 base = 10;
+
+    if(strncmp(string, "0", 1) == 0)
+        base = 8;
+    if(strncmp(string, "0x", 2) == 0)
+        base = 16;
+
+    errno = 0;
+    *num = strtoul(string, &p, base);
+    if(p == string)
+        return false;
+
+    if((errno == ERANGE && (ringbuffer_size == LONG_MAX || ringbuffer_size == LONG_MIN)) || (ringbuffer_size <= 0))
+        return false;
+
+    return true;
+}
+
 
 /* ********************************************************************************************************************
  * ******************************************************************************************************************* */
 static int
 opt_parse(int argc, char **argv, char **envp)
 {
-    int                     c = 0, base = 0, option_index = 0;
-    size_t len = 0;
+    int                     c = 0, option_index = 0;
+    char                    cbuf[3] = "-";
+    const char             *p, pbuf[1] = "";
+    long                    num = 0;
+    size_t                  len = 0;
     bool                    valid = true;
-    char                   *buf = NULL;
     struct option           long_options[] = {
         {"quiet", 0, 0, 'q'},
         {"verbose", 0, 0, 'v'},
         {"version", 0, 0, 'V'},
         {"help", 0, 0, 'h'},
-        {"ringbuffer_size", 1, 0, 'r'},
+        {"ringbuffer_size", 1, 0, 'R'},
+        {"retries", 1, 0, 'r'},
         {"setuid", 1, 0, 'u'},
         {"setgid", 1, 0, 'g'},
+        {"buddy_path", 1, 0, 0},
+        {"buddy_uuid", 1, 0, 0},
         {0, 0, 0, 0}
     };
 
-    while((c = getopt_long(argc, argv, "qhvr:u:g:", long_options, &option_index)) > 0) {
+    while((c = getopt_long(argc, argv, "qhvR:r:u:g:", long_options, &option_index)) > 0) {
+        *(cbuf + 1) = (option_index) ? '-' : c;
+        p = (option_index) ? long_options[option_index].name : pbuf;
+
         switch (c) {
-        /* case 0:
+        case 0:
             if(strncmp("buddy_path", long_options[option_index].name, strlen("buddy_path")) == 0) {
-                strncpy(buddy_path, optarg, sizeof(buddy_path));
+                strncpy(buddy_root_path, optarg, sizeof(buddy_root_path) - 1);
                 break;
             }
-            printf("%s: Unknown options: %s\n", argv[0], long_options[option_index].name);
-            valid=false;
-            break; */
+            else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
+                strncpy(buddy_uuid, optarg, sizeof(buddy_uuid) - 1);
+                break;
+            }
+
+            valid = false;
+            break;
         case 'q':
-            verbose--;
+            upk_diag_verbosity--;
             break;
         case 'v':
-            verbose++;
+            upk_diag_verbosity++;
+            break;
+        case 'R':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s%s' requires a numeric argument\n", argv[0], cbuf, p);
+            else
+                ringbuffer_size = num;
             break;
         case 'r':
-            if(strncmp(optarg, "0", 1) == 0)
-                base = 8;
-            if(strncmp(optarg, "0x", 2) == 0)
-                base = 16;
-
-            errno = 0;
-            ringbuffer_size = strtol(optarg, &buf, base);
-            if(buf == optarg) {
-                printf("%s: `r' requires a numeric argument\n", argv[0]);
-                valid = false;
-            } else if((errno == ERANGE && (ringbuffer_size == LONG_MAX || ringbuffer_size == LONG_MIN))
-                      || (ringbuffer_size <= 0)) {
-                printf("%s: `r': invalid value: %d\n", argv[0], (int) ringbuffer_size);
-                valid = false;
-            }
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s%s' requires a numeric argument\n", argv[0], cbuf, p);
+            else
+                reconnect_retries = num;
             break;
         case 'u':
-            /* FIXME: refactor */
-            if(strncmp(optarg, "0", 1) == 0)
-                base = 8;
-            if(strncmp(optarg, "0x", 2) == 0)
-                base = 16;
-
-            errno = 0;
-            buddy_uid = strtol(optarg, &buf, base);
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s%s' requires a numeric argument\n", argv[0], cbuf, p);
+            else
+                buddy_setuid = num;
+            break;
         case 'g':
-            if(strncmp(optarg, "0", 1) == 0)
-                base = 8;
-            if(strncmp(optarg, "0x", 2) == 0)
-                base = 16;
-
-            errno = 0;
-            buddy_gid = strtol(optarg, &buf, base);
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                buddy_setgid = num;
+            break;
+        case ':':
+            printf("%s: option `%s' requires an argument\n", argv[0], argv[optind - 1]);
+            valid = false;
+            break;
         default:
-            printf("%s: unknown option: %c\n", argv[0], c);
             valid = false;
             break;
         }
@@ -121,11 +159,45 @@ opt_parse(int argc, char **argv, char **envp)
         strncpy(buddy_service_name, argv[optind], len);
     }
 
+    if(strnlen(buddy_uuid, 37) != 36)
+        valid = false;
+
     if(!valid)
         buddy_usage(argv[0]);
 
     return valid;
 }
+
+/* ********************************************************************************************************************
+ * ******************************************************************************************************************* */
+static void
+buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)
+{
+    static bool show_label, show_loc;
+    show_label = show_loc = false;
+
+    if(diaglvl < UPK_DIAGLVL_ERROR || diaglvl > UPK_DIAGLVL_INFO)
+        show_loc = true;
+
+    if(upk_diag_verbosity > UPK_DIAGLVL_INFO)
+        show_loc = show_label = true;
+
+    switch (diaglvl) {
+        case UPK_DIAGLVL_FATAL:
+        case UPK_DIAGLVL_ALERT:
+        case UPK_DIAGLVL_CRIT:
+        case UPK_DIAGLVL_ERROR:
+            show_label = true;
+        default:
+            if(strlen(loc) > 0 && show_loc) 
+                fprintf(stderr, "%s: ", loc);
+            if(strlen(label) > 0 && show_label)
+                fprintf(stderr, "%s: ", label);
+            vfprintf(stderr, fmt, ap);
+            break;
+    }
+}
+
 
 /* ********************************************************************************************************************
  * ******************************************************************************************************************* */
@@ -135,9 +207,11 @@ main(int argc, char **argv, char **envp)
     int                     retval = 0;
 
     ringbuffer_size = 32;
+    upk_diag_verbosity = 5;
 
     if((retval = (int) opt_parse(argc, argv, envp))) {
-        buddy_init();
+        proc_envp = envp;
+        buddy_init(buddy_diag_handler);
         retval = buddy_event_loop();
         buddy_cleanup();
     }

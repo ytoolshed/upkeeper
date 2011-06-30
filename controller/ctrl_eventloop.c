@@ -98,7 +98,7 @@ event_loop(int32_t listen_sock)
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 int32_t
-ctrl_sock_setup(upk_controller_config_t * config)
+ctrl_sock_setup()
 {
     struct sockaddr_un      sa = { 0 };
     int32_t                 sock_fd = -1;
@@ -108,8 +108,8 @@ ctrl_sock_setup(upk_controller_config_t * config)
     UPK_ERR_INIT;
 
 
-    (void) unlink((const char *) config->controller_socket);
-    strncpy(sa.sun_path, (const char *) config->controller_socket, sizeof(sa.sun_path) - 1);
+    (void) unlink((const char *) upk_ctrl_config->controller_socket);
+    strncpy(sa.sun_path, (const char *) upk_ctrl_config->controller_socket, sizeof(sa.sun_path) - 1);
     sa.sun_family = AF_UNIX;
 
     sock_fd = socket(PF_UNIX, SOCK_STREAM, 0);
@@ -119,9 +119,9 @@ ctrl_sock_setup(upk_controller_config_t * config)
     /* setsockopt(sock_fd, SOL_SOCKET, SO_PASSCRED, &sockopts, sizeof(sockopts)); */
 
     UPK_FUNC_ASSERT_MSG(bind(sock_fd, (struct sockaddr *) &sa, sizeof(sa)) == 0, UPK_SOCKET_FAILURE,
-                        "could not bind: %s: %s", config->controller_socket, strerror(errno));
+                        "could not bind: %s: %s", upk_ctrl_config->controller_socket, strerror(errno));
     UPK_FUNC_ASSERT_MSG(listen(sock_fd, SOMAXCONN) == 0, UPK_SOCKET_FAILURE, "could not listen: %s: %s",
-                        config->controller_socket, strerror(errno));
+                        upk_ctrl_config->controller_socket, strerror(errno));
 
     IF_UPK_ERROR {
         sock_fd = -1;

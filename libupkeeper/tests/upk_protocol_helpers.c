@@ -1,5 +1,5 @@
 #include <check.h>
-#include <upkeeper/protocol.h>
+#include <upkeeper/upk_protocol.h>
 
 #define NAME_TO_FUNC(A) upk_create_ ## A
 #define NAME_TO_TYPE(A) upk_ ## A ## _t

@@ -2,7 +2,7 @@ AUTOMAKE_OPTIONS = color-tests
 AM_CPPFLAGS = @CHECK_CFLAGS@ -I$(top_builddir)/libupkeeper
 LDADD = @CHECK_LIBS@ $(top_builddir)/libupkeeper/libupkeeper.la
 
-check_PROGRAMS = v0_protocol_helpers v0_protocol_serializers upk_protocol_helpers upk_protocol_serializers linked_lists dlinked_lists
+check_PROGRAMS = v0_protocol_helpers v0_protocol_serializers upk_protocol_helpers upk_protocol_serializers linked_lists dlinked_lists uuid
 
 v0_protocol_helpers_DEPENDENCIES = v0_protocol_generic_value_checks.inc.c
 v0_protocol_serializers_DEPENDENCIES = v0_protocol_generic_value_checks.inc.c
@@ -14,7 +14,8 @@ TESTS = v0_protocol_helpers \
 		upk_protocol_helpers \
 		upk_protocol_serializers \
 		linked_lists \
-		dlinked_lists 
+		dlinked_lists \
+		uuid
 
 valgrind: $(TESTS)
 	for n in $(TESTS); do \

@@ -1,95 +1,119 @@
 #ifndef _UPK_TYPES_H
 #define _UPK_TYPES_H
+/**
+  @file
+  @brief types common throughout libupkeeper.
 
-#include "std_include.h"
-#include "v0_protocol_structs.h"
+ Types used commonly, and (ideally) not more suitably defined elsewhere. 
+ */
 
-#define UPK_MAX_STRING_LEN 2048
+#include "upk_std_include.h"
+#include "upk_v0_protocol_structs.h"
+#include "upk_uuid.h"
 
+#define UPK_MAX_STRING_LEN 2048                            /*!< @brief longest allowable string (other than paths). */
+#define UPK_MAX_PATH_LEN 8192                              /*!< @brief longest allowable path. */
+
+/**
+  @brief run states to report to clients.
+
+  The current state of a monitored service 
+ */
 typedef enum {
-    UPK_STATE_UNDEFINED,
-    UPK_STATE_RUNNING,
-    UPK_STATE_STARTING,
-    UPK_STATE_STOPPING,
-    UPK_STATE_NOT_RUNNING,
-    UPK_STATE_SHUTDOWN,
+    UPK_STATE_UNDEFINED,                                   /*!< unknown/undefined; probably an error */
+    UPK_STATE_RUNNING,                                     /*!< the service is running */
+    UPK_STATE_STOPPED,                                     /*!< the service is stopped */
+    UPK_STATE_SHUTDOWN,                                    /*!< the service is stopped, and its buddy is not running */
 } upk_state_t;
 
+/** 
+  @brief signal names.
+
+  List of signal names, so that the platform's signal numbering is no longer significant for data storage, or
+  communication with controller 
+ */
 typedef enum {
-    UPK_ERRLVL_ERROR,
-} upk_errlevel_t;
-
-/* ************************************* */
-/* These two items must be kept in sync: */
-/* ************************************* */
-typedef enum {
-    UPK_ERR_UNKNOWN = 0,
-    UPK_ERR_UNSUP,
-    UPK_ERR_INVALID_PKT,
-    UPK_SOCKET_FAILURE,
-} upk_error_t;
-
-#define __UPK_ERRORS_ARRAY \
-    const unsigned char     __upk_errors[][128] = { \
-        "unknown", \
-        "unsupported", \
-        "invalid packet", \
-        "socket failure", \
-    }
-
-/* ************************************* */
-/* ************************************* */
-
-typedef enum {
-    UPK_SIG_HUP = 1,
-    UPK_SIG_INT = 2,
-    UPK_SIG_QUIT = 3,
-    UPK_SIG_ILL = 4,
-    UPK_SIG_TRAP = 5,
-    UPK_SIG_ABRT = 6,
-    UPK_SIG_BUS = 7,
-    UPK_SIG_FPE = 8,
-    UPK_SIG_KILL = 9,
-    UPK_SIG_USR1 = 10,
-    UPK_SIG_SEGV = 11,
-    UPK_SIG_USR2 = 12,
-    UPK_SIG_PIPE = 13,
-    UPK_SIG_ALRM = 14,
-    UPK_SIG_TERM = 15,
-    UPK_SIG_STKFLT = 16,
-    UPK_SIG_CHLD = 17,
-    UPK_SIG_CONT = 18,
-    UPK_SIG_STOP = 19,
-    UPK_SIG_TSTP = 20,
-    UPK_SIG_TTIN = 21,
-    UPK_SIG_TTOU = 22,
-    UPK_SIG_URG = 23,
-    UPK_SIG_XCPU = 24,
-    UPK_SIG_XFSZ = 25,
-    UPK_SIG_VTALRM = 26,
-    UPK_SIG_PROF = 27,
-    UPK_SIG_WINCH = 28,
-    UPK_SIG_IO = 29,
-    UPK_SIG_PWR = 30,
-    UPK_SIG_SYS = 31,
+    UPK_SIG_HUP = 1,                                       /*!< hup */
+    UPK_SIG_INT = 2,                                       /*!< int */
+    UPK_SIG_QUIT = 3,                                      /*!< quit */
+    UPK_SIG_ILL = 4,                                       /*!< ill */
+    UPK_SIG_TRAP = 5,                                      /*!< trap */
+    UPK_SIG_ABRT = 6,                                      /*!< abrt */
+    UPK_SIG_BUS = 7,                                       /*!< bus */
+    UPK_SIG_FPE = 8,                                       /*!< fpe */
+    UPK_SIG_KILL = 9,                                      /*!< kill */
+    UPK_SIG_USR1 = 10,                                     /*!< usr1 */
+    UPK_SIG_SEGV = 11,                                     /*!< segv */
+    UPK_SIG_USR2 = 12,                                     /*!< usr2 */
+    UPK_SIG_PIPE = 13,                                     /*!< pipe */
+    UPK_SIG_ALRM = 14,                                     /*!< alrm */
+    UPK_SIG_TERM = 15,                                     /*!< term */
+    UPK_SIG_STKFLT = 16,                                   /*!< stkflt */
+    UPK_SIG_CHLD = 17,                                     /*!< chld */
+    UPK_SIG_CONT = 18,                                     /*!< cont */
+    UPK_SIG_STOP = 19,                                     /*!< stop */
+    UPK_SIG_TSTP = 20,                                     /*!< tstp */
+    UPK_SIG_TTIN = 21,                                     /*!< ttin */
+    UPK_SIG_TTOU = 22,                                     /*!< ttou */
+    UPK_SIG_URG = 23,                                      /*!< urg */
+    UPK_SIG_XCPU = 24,                                     /*!< xcpu */
+    UPK_SIG_XFSZ = 25,                                     /*!< xfsz */
+    UPK_SIG_VTALRM = 26,                                   /*!< vtalrm */
+    UPK_SIG_PROF = 27,                                     /*!< prof */
+    UPK_SIG_WINCH = 28,                                    /*!< winch */
+    UPK_SIG_IO = 29,                                       /*!< io */
+    UPK_SIG_PWR = 30,                                      /*!< pwr */
+    UPK_SIG_SYS = 31,                                      /*!< sys */
 } upk_signal_t;
 
-
+/**
+  @brief linked list of service identifiers.
+  */
 typedef struct _upk_svclist upk_svclist_t;
+/**
+  @brief linked list of service identifiers.
+  */
 struct _upk_svclist {
-    unsigned char           svc[UPK_MAX_STRING_LEN];
-    upk_svclist_t          *next;
+    char                    svc[UPK_MAX_STRING_LEN];       /*!< @brief service-id (concatination of [<pkg>::]<name>) */
+    upk_uuid_t              uuid;                          /*!< not sure I need this here; but just in case for now */
+    upk_svclist_t          *next;                          /*!< next, for use in lists */
 };
 
-typedef struct {
+/**
+  @brief linked list of custom action scripts.
+  */
+typedef struct _upk_cust_actscr_list upk_cust_actscr_list_t;
+/**
+  @brief linked list of custom action scripts.
+  */
+struct _upk_cust_actscr_list {
+    char                    name[UPK_MAX_STRING_LEN];      /*!< name of custom action */
+    char                   *script;                        /*!< script to run for action */
+    upk_cust_actscr_list_t *next;                          /*!< next, for use in lists */
+};
+
+
+/**
+  @brief see definition in *protocol_fields.h.
+  */
+typedef struct _upk_svcinfo {
     UPK_V0_SVCINFO_T_FIELDS;
 } upk_svcinfo_t;
 
 
+/**
+  @brief definition of metanode for a given type.
+
+  this macro contains a pionter; so if you want to use it to create a typedef, it would look something like:
+
+  UPKLIST_METANODE(my_listtype_t, listtype_metanode_p), listtype_metanode_t;
+
+  or similar.
+  */
+
 
 #define UPKLIST_METANODE(TYPE, NAME) \
     struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
-
 
 #define UPKLIST_INIT(TYPE, NAME) \
     UPKLIST_METANODE(TYPE, NAME) = NULL; \
@@ -169,9 +193,6 @@ typedef struct {
         UPKLIST_UNLINK(NAME); \
     }\
     if(NAME) { free(NAME); }
-
-
-/* *********************************** *********************************** */
 
 #define UPKDLIST_METANODE(TYPE, NAME) \
     struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME

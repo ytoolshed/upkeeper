@@ -1,5 +1,5 @@
-#include "protocol.h"
-#include "v0_protocol.h"
+#include "upk_protocol.h"
+#include "upk_v0_protocol.h"
 #include <assert.h>
 
 /* *******************************************************************************************************************
@@ -41,6 +41,7 @@ upk_create_req_preamble(char *client_name)
 {
     upk_req_preamble_t     *preamble = NULL;
 
+    /* FIXME: use upk_error.h */
     assert(preamble = calloc(1, sizeof(*preamble)));
 
     preamble->msgtype = REQ_PREAMBLE;

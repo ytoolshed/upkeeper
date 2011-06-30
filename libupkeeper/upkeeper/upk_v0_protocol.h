@@ -1,8 +1,8 @@
 #ifndef _UPK_V0_PROTOCOL_H
 #define _UPK_V0_PROTOCOL_H
 
-#include "protocol.h"
-#include "v0_protocol_structs.h"
+#include "upk_protocol.h"
+#include "upk_v0_protocol_structs.h"
 
 
 /* *******************************************************************************************************************

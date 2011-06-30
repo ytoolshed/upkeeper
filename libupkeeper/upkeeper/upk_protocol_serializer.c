@@ -1,7 +1,7 @@
-#include "protocol.h"
-#include "v0_protocol.h"
-#include "error.h"
-#include "crc32.h"
+#include "upk_protocol.h"
+#include "upk_v0_protocol.h"
+#include "upk_error.h"
+#include "upk_crc32.h"
 
 /* *******************************************************************************************************************
  * XXX: Update these arrays when you add additional protocol versions

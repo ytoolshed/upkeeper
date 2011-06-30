@@ -1,4 +1,4 @@
-#include "v0_protocol.h"
+#include "upk_v0_protocol.h"
 #define PROTOCOL_VERSION 0
 
 #define UPK_INIT_HELPER(TYPE, MSGTYPE) \
@@ -54,17 +54,17 @@
 
 #define UPK_END_HELPER(PKT_TYPE) return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)
 
-static inline void v0_free_error_repl(void *UPK_DATA_PTR);
-static inline void v0_free_svcinfo_repl(void *UPK_DATA_PTR);
-static inline void v0_free_listing_repl(void *UPK_DATA_PTR);
-static inline void v0_free_result_repl(void *UPK_DATA_PTR);
-static inline void v0_free_unsubs_req(void *UPK_DATA_PTR);
-static inline void v0_free_subscr_req(void *UPK_DATA_PTR);
-static inline void v0_free_status_req(void *UPK_DATA_PTR);
-static inline void v0_free_signal_req(void *UPK_DATA_PTR);
-static inline void v0_free_action_req(void *UPK_DATA_PTR);
-static inline void v0_free_repl_payload(void *UPK_DATA_PTR);
-static inline void v0_free_req_payload(void *UPK_DATA_PTR);
+static void v0_free_error_repl(void *UPK_DATA_PTR);
+static void v0_free_svcinfo_repl(void *UPK_DATA_PTR);
+static void v0_free_listing_repl(void *UPK_DATA_PTR);
+static void v0_free_result_repl(void *UPK_DATA_PTR);
+static void v0_free_unsubs_req(void *UPK_DATA_PTR);
+static void v0_free_subscr_req(void *UPK_DATA_PTR);
+static void v0_free_status_req(void *UPK_DATA_PTR);
+static void v0_free_signal_req(void *UPK_DATA_PTR);
+static void v0_free_action_req(void *UPK_DATA_PTR);
+static void v0_free_repl_payload(void *UPK_DATA_PTR);
+static void v0_free_req_payload(void *UPK_DATA_PTR);
 void v0_free_payload(upk_packet_t *pkt);
 
 typedef void            (*free_data_t) (void *);
@@ -97,7 +97,7 @@ static free_data_t             free_repl_dispatch[] = {
     [REPL_ERROR] = v0_free_error_repl,
 };
 
-static inline void
+static void
 v0_free_req_payload(void *UPK_DATA_PTR)
 {
     v0_req_seq_start_t *UPK_DATA = (v0_req_seq_start_t *) UPK_DATA_PTR;
@@ -106,7 +106,7 @@ v0_free_req_payload(void *UPK_DATA_PTR)
         free_func(UPK_DATA_PTR);
 }
 
-static inline void
+static void
 v0_free_repl_payload(void *UPK_DATA_PTR)
 {
     v0_repl_seq_start_t *UPK_DATA = (v0_repl_seq_start_t *) UPK_DATA_PTR;
@@ -168,7 +168,7 @@ v0_create_action_req(char *svc_id, char *action)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_action_req(void *UPK_DATA_PTR)
 {
     v0_action_req_t        *UPK_DATA = (v0_action_req_t *) UPK_DATA_PTR;
@@ -199,7 +199,7 @@ v0_create_signal_req(char *svc_id, upk_signal_t signal, bool signal_sid, bool si
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_signal_req(void *UPK_DATA_PTR)
 {
     v0_signal_req_t        *UPK_DATA = (v0_signal_req_t *) UPK_DATA_PTR;
@@ -234,7 +234,7 @@ v0_create_status_req(char *svc_id)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_status_req(void *UPK_DATA_PTR)
 {
     v0_status_req_t        *UPK_DATA = (v0_status_req_t *) UPK_DATA_PTR;
@@ -261,7 +261,7 @@ v0_create_subscr_req(char *svc_id, bool all_svcs)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_subscr_req(void *UPK_DATA_PTR)
 {
     v0_subscr_req_t     *UPK_DATA = (v0_subscr_req_t *) UPK_DATA_PTR;
@@ -288,7 +288,7 @@ v0_create_unsubs_req(char *svc_id, bool all_svcs)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_unsubs_req(void *UPK_DATA_PTR)
 {
     v0_unsubs_req_t   *UPK_DATA = (v0_unsubs_req_t *) UPK_DATA_PTR;
@@ -348,7 +348,7 @@ v0_create_result_repl(char *msg, bool successful)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_result_repl(void *UPK_DATA_PTR)
 {
     v0_result_repl_t       *UPK_DATA = (v0_result_repl_t *) UPK_DATA_PTR;
@@ -373,7 +373,7 @@ v0_create_listing_repl(char *svc_id)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_listing_repl(void *UPK_DATA_PTR)
 {
     v0_listing_repl_t      *UPK_DATA = (v0_listing_repl_t *) UPK_DATA_PTR;
@@ -384,7 +384,7 @@ v0_free_listing_repl(void *UPK_DATA_PTR)
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
-static inline           uint32_t
+static uint32_t
 get_svcinfo_len(v0_svcinfo_t s)
 {
     uint32_t                l = sizeof(s);
@@ -419,7 +419,7 @@ v0_create_svcinfo_repl(char *svc_id, v0_svcinfo_t * svcinfo)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_svcinfo_repl(void *UPK_DATA_PTR)
 {
     v0_svcinfo_repl_t      *UPK_DATA = (v0_svcinfo_repl_t *) UPK_DATA_PTR;
@@ -458,7 +458,7 @@ v0_create_error_repl(char *svc_id, char *msg, upk_errlevel_t errlevel)
 /* *******************************************************************************************************************
  * free
  * ****************************************************************************************************************** */
-static inline void
+static void
 v0_free_error_repl(void *UPK_DATA_PTR)
 {
     v0_error_repl_t        *UPK_DATA = (v0_error_repl_t *) UPK_DATA_PTR;
