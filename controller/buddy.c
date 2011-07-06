@@ -495,7 +495,10 @@ buddy_exec_action(void)
         assert((pathp = calloc(1, strlen(buddy_path_buf) + 1)));
         strcpy(pathp, buddy_path_buf);
 
-        upk_notice("executing %s %d\n", pathp, proc_pid);
+        if(proc_pid)
+            upk_notice("executing %s %d\n", pathp, proc_pid);
+        else
+            upk_notice("executing %s\n", pathp, proc_pid);
         buddy_setreguid();
 
         upk_debug0("redirecting output\n");
@@ -508,7 +511,11 @@ buddy_exec_action(void)
         setsid();
         setpgid(0, 0);
 
-        execle(pathp, pathp, proc_pid, (char *) NULL, proc_envp);
+        if(proc_pid) 
+            execle(pathp, pathp, proc_pid, (char *) NULL, proc_envp);
+        else
+            execle(pathp, pathp, (char *) NULL, proc_envp);
+
         upk_error("exec failed for %s %d; This should never happen!", pathp, proc_pid);
         _exit(errno);
     }

@@ -1,35 +1,59 @@
 #ifndef _UPK_JSON_H
 #define _UPK_JSON_H
 
+#include "upk_include.h"
 #include <json/json.h>
 #include <stdio.h>
-#include "upk_include.h"
 
-typedef struct _upk_json_type_handlers {
-    void *data;
-    void (*upk_json_null)(char *key);
-    void (*upk_json_bool)(char *key, bool val);
-    void (*upk_json_double)(char *key, double val);
-    void (*upk_json_int)(char *key, int val);
-    void (*upk_json_string)(char *key, char *val);
-    void (*upk_json_array)(char *key, void *jobj);
-    void (*upk_json_object)(char *key, void *jobj);
-    void (*upk_json_pop_obj)(char *key, void *jobj);
-    void (*upk_json_pop_array)(char *key, void *jobj);
-} upk_json_type_handlers_t;
 
-extern upk_json_type_handlers_t upk_json_type_callbacks;
+typedef struct _upk_json_type {
+    uint8_t                 type;
+    union {
+        bool                    bl;
+        double                  dbl;
+        int                     i;
+        char                   *str;
+        struct json_object     *obj;
+    } val;
+} upk_json_val_t;
+
+typedef struct _upk_json_stack_node upk_json_stack_node_t;
+typedef                 UPKLIST_METANODE(upk_json_stack_node_t, upk_json_stack_meta_p), upk_json_stack_meta_t;
+typedef void            (*upk_json_handler_t) (upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v);
+
+
+typedef struct _upk_json_stack_handlers {
+    upk_json_handler_t      json_null;
+    upk_json_handler_t      json_bool;
+    upk_json_handler_t      json_double;
+    upk_json_handler_t      json_int;
+    upk_json_handler_t      json_string;
+    upk_json_handler_t      json_array;
+    upk_json_handler_t      json_object;
+    upk_json_handler_t      after_json_obj_pop;
+    upk_json_handler_t      after_json_array_pop;
+} upk_json_handlers_t;
+
+
+struct _upk_json_stack_node {
+    void                   *data;
+    upk_json_handlers_t     handlers;
+    upk_json_stack_node_t  *next;
+};
+
+typedef struct _upk_json_data_output_options {
+    char                   *pad;
+    char                   *indent;
+    char                   *sep;
+} upk_json_data_output_opts_t;
+
 
 /* upkeeper/upk_json.c */
-extern void upk_json_default_null_handler(char *key);
-extern void upk_json_default_bool_handler(char *key, bool val);
-extern void upk_json_default_double_handler(char *key, double val);
-extern void upk_json_default_int_handler(char *key, int val);
-extern void upk_json_default_string_handler(char *key, char *val);
-extern void upk_json_default_array_handler(char *key, void *jobj);
-extern void upk_json_default_object_handler(char *key, void *jobj);
-extern upk_json_type_handlers_t upk_json_type_callbacks;
-extern void upk_json_parse_node(struct json_object *jobj);
-extern bool upk_json_parse_string(const char *string);
+extern void             upk_json_stack_pop(upk_json_stack_meta_t * meta);
+extern void             upk_json_stack_push(upk_json_stack_meta_t * meta, upk_json_stack_node_t * node);
+extern void             upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj);
+extern struct json_object * upk_json_parse_string(const char *string);
+extern char            *upk_json_obj_to_string(struct json_object *obj, upk_json_data_output_opts_t opts);
+extern void             upk_json_obj_to_stream(struct json_object *obj, FILE *stream, upk_json_data_output_opts_t opts);
 
 #endif

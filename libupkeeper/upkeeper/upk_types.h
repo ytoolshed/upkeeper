@@ -1,5 +1,6 @@
 #ifndef _UPK_TYPES_H
 #define _UPK_TYPES_H
+
 /**
   @file
   @brief types common throughout libupkeeper.
@@ -70,11 +71,12 @@ typedef enum {
   @brief linked list of service identifiers.
   */
 typedef struct _upk_svclist upk_svclist_t;
+
 /**
   @brief linked list of service identifiers.
   */
 struct _upk_svclist {
-    char                    svc[UPK_MAX_STRING_LEN];       /*!< @brief service-id (concatination of [<pkg>::]<name>) */
+    char                    svc_id[UPK_MAX_STRING_LEN];    /*!< @brief service-id (concatination of [<pkg>::]<name>) */
     upk_uuid_t              uuid;                          /*!< not sure I need this here; but just in case for now */
     upk_svclist_t          *next;                          /*!< next, for use in lists */
 };
@@ -83,6 +85,7 @@ struct _upk_svclist {
   @brief linked list of custom action scripts.
   */
 typedef struct _upk_cust_actscr_list upk_cust_actscr_list_t;
+
 /**
   @brief linked list of custom action scripts.
   */
@@ -180,19 +183,23 @@ typedef struct _upk_svcinfo {
 
 
 #define UPKLIST_UNLINK(NAME) \
-    if(NAME->thisp) { \
-        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
-        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } \
-        free(NAME->thisp); NAME->thisp = NULL; \
-        --NAME->count; \
-    }
+    do { \
+        if(NAME->thisp) { \
+            if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+            if(! NAME->nextp ) { NAME->tail = NAME->prevp; } \
+            free(NAME->thisp); NAME->thisp = NULL; \
+            --NAME->count; \
+        } \
+    } while(0)
 
 
 #define UPKLIST_FREE(NAME) \
-    UPKLIST_FOREACH(NAME) { \
-        UPKLIST_UNLINK(NAME); \
-    }\
-    if(NAME) { free(NAME); }
+    do { \
+        UPKLIST_FOREACH(NAME) { \
+            UPKLIST_UNLINK(NAME); \
+        }\
+        if(NAME) { free(NAME); } \
+    } while(0)
 
 #define UPKDLIST_METANODE(TYPE, NAME) \
     struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
@@ -277,19 +284,26 @@ typedef struct _upk_svcinfo {
 
 
 #define UPKDLIST_UNLINK(NAME) \
-    if(NAME->thisp) { \
-        if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
-        if(! NAME->nextp ) { NAME->tail = NAME->prevp; } else { NAME->nextp->prev = NAME->prevp; }  \
-        free(NAME->thisp); NAME->thisp = NULL; \
-        --NAME->count; \
-    }
-
+    do{ \
+        if(NAME->thisp) { \
+            if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
+            if(! NAME->nextp ) { NAME->tail = NAME->prevp; } else { NAME->nextp->prev = NAME->prevp; }  \
+            free(NAME->thisp); NAME->thisp = NULL; \
+            --NAME->count; \
+        } \
+    } while(0) 
 
 #define UPKDLIST_FREE(NAME) \
-    UPKDLIST_FOREACH(NAME) { \
-        UPKDLIST_UNLINK(NAME); \
-    }\
-    if(NAME) { free(NAME); }
+    do { \
+        UPKDLIST_FOREACH(NAME) { \
+            UPKDLIST_UNLINK(NAME); \
+        }\
+        if(NAME) { free(NAME); } \
+    } while(0)
+
+
+typedef UPKLIST_METANODE(upk_svclist_t, _upk_svclisthead_p), upk_svclisthead_t;
+typedef UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_listhead_p), upk_cust_actscr_listhead_t;
 
 
 #endif

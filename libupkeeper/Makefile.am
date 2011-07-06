@@ -6,8 +6,9 @@ CPPFLAGS = -DCONF_SYSCONFDIR=@conf_sysconfdir@ -DCONF_LOCALSTATEDIR=@conf_locals
 lib_LTLIBRARIES     = libupkeeper.la
 noinst_LTLIBRARIES = libupkeeper_proto.la libupkeeper_util.la libupkeeper_error.la
 
-bin_PROGRAMS = t
+bin_PROGRAMS = t json
 t_LDADD = libupkeeper.la
+json_LDADD = libupkeeper.la
 
 libupkeeper_util_la_SOURCES = upkeeper/upk_crc32.c upkeeper/uuid.c upkeeper/upk_json.c upkeeper/upk_config.c
 libupkeeper_error_la_SOURCES = upkeeper/upk_error.c
@@ -19,7 +20,7 @@ libupkeeper_la_LIBADD = libupkeeper_util.la libupkeeper_proto.la libupkeeper_err
                                                  
 libupkeeper_la_includedir=$(includedir)
 nobase_libupkeeper_la_include_HEADERS = upkeeper/upk_protocol.h upkeeper/upk_v0_protocol.h upkeeper/upk_types.h upkeeper/upk_std_include.h \
-								 upkeeper/upk_error.h upkeeper/upk_crc32.h upkeeper/upk_uuid.h upkeeper/upk_json.h
+								 upkeeper/upk_error.h upkeeper/upk_crc32.h upkeeper/upk_uuid.h upkeeper/upk_json.h upkeeper/upk_config.h
 libupkeeper_la_include_HEADERS = upkeeper.h
 
 libupkeeper_la_libincludedir = $(libdir)/upkeeper-1.0/include/

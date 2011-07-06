@@ -14,6 +14,7 @@
 #include "upk_protocol.h"
 #include "upk_v0_protocol.h"
 #include "upk_v0_protocol_structs.h"
+#include "upk_network.h"
 #include "upk_client.h"
 
 #endif

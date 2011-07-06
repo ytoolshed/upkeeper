@@ -203,6 +203,7 @@ typedef enum {
     REQ_SUBSCRIBE,
     REQ_UNSUBSCRIBE,
     REQ_DISCONNECT,
+    REQ_UNCONFIGURE,
     REQ_V0_PROTO_LIMIT,
 } upk_req_msgtype_t;
 

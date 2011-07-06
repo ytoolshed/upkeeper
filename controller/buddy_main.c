@@ -159,8 +159,8 @@ opt_parse(int argc, char **argv, char **envp)
         strncpy(buddy_service_name, argv[optind], len);
     }
 
-    if(strnlen(buddy_uuid, 37) != 36)
-        valid = false;
+    /* if(strnlen(buddy_uuid, 37) != 36)
+        valid = false; */
 
     if(!valid)
         buddy_usage(argv[0]);

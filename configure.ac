@@ -66,6 +66,7 @@ AC_CONFIG_FILES([Makefile
                  libupkeeper/Makefile
                  libupkeeper/tests/Makefile
 				 controller/Makefile
+				 clients/Makefile
                  store/Makefile])
 
 # Why have we included a project we don't support in our source tree?

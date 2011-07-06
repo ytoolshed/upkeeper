@@ -13,7 +13,8 @@
   @{
   */
 
-#include "upk_std_include.h"
+#include "upk_types.h"
+#include "upk_include.h"
 #include "upk_uuid.h"
 
 /**
@@ -37,6 +38,7 @@ struct _upk_svc_desc {
                                                               <pkg>::<name> must be unique; otherwise this name must be 
                                                               unique */
 
+    /* FIXME: this should be a list */
     char                    Provides[UPK_MAX_STRING_LEN];  /*!< a string describing the function of this service. this 
                                                               can be used in prerequisite constraints upon other
                                                               services. i.e. a prerequisite might be "entropy-service", 
@@ -51,7 +53,7 @@ struct _upk_svc_desc {
 
     char                   *LongDescription;               /*!< an arbitrary length description of the service */
 
-    upk_svclist_t          *Prerequisites;                 /*!< A list of prerequisite services that must be started
+    upk_svclisthead_t      *Prerequisites;                 /*!< A list of prerequisite services that must be started
                                                               prior to this service; either by name, pkg-prefix, or by
                                                               what they provide */
 
@@ -66,6 +68,10 @@ struct _upk_svc_desc {
                                                               TERM and, if necessary, KILL signals to bring it down. A
                                                               negative value means to wait indefiniately for a stopped
                                                               process to terminate */
+
+    int32_t                 MaxConsecutiveFailures;        /*!< Maximum number of times a process may fail in-a-row
+                                                              before its state is changed to down; a negative value
+                                                              indicates to restart forever (and is the default) */
 
     int32_t                 UserMaxRestarts;               /*!< user-defined max number of restarts within restart
                                                               window */
@@ -90,18 +96,22 @@ struct _upk_svc_desc {
                                                               when emergent actions occur in the buddy; (-1 for
                                                               indefinate) */
 
-    char                    ExecStart[UPK_MAX_PATH_LEN];   /*!< executable to exec for start. see "StartScript" */
+    char                    ExecStart[UPK_MAX_PATH_LEN];   /*!< command to exec for start. Default: 'kill', see "StartScript" */
 
-    char                   *StartScript;                   /*!< script to run to start the monitored process; repaces
-                                                              the default of exec <ExecStart> */
+    char                   *StartScript;                   /*!< script to run to start the monitored process; replaces
+                                                              the default of 'exec %(ExecStart)' */
 
-    char                   *StopScript;                    /*!< replace the default stop script of 'exec kill $1';
+    char                    ExecStop[UPK_MAX_PATH_LEN];    /*!< executable to exec for stop. see "StopScript" */
+
+    char                   *StopScript;                    /*!< replace the default stop script of 'exec %(EXEC_STOP) $1';
                                                               argv[1] == pid of monitored process */
+
+    char                    ExecReload[UPK_MAX_PATH_LEN];    /*!< command to exec for reload. Default: 'kill -HUP', see "ReloadScript" */
 
     char                   *ReloadScript;                  /*!< replace the default reload script of 'exec kill -HUP
                                                               $1'; argv[1] == pid of monitored process */
 
-    upk_cust_actscr_list_t *custom_action_scripts;         /*!< linked list of custom actions */
+    upk_cust_actscr_listhead_t *custom_action_scripts;     /*!< linked list of custom actions */
 
     char                   *PipeStdoutScript;              /*!< optional script to pipe stdout to. for instance: 'exec 
                                                               logger -p local0.notice' */
@@ -181,12 +191,15 @@ typedef struct _upk_controller_config {
   @{
   */
 
-  /* upkeeper/upk_config.c */
-extern const char       upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
-extern const char       upk_default_configuration_vec[];
+/* upkeeper/upk_config.c */
+
+/* upk_config.c */
+extern const char upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
+extern const char upk_default_configuration_vec[];
 extern upk_controller_config_t upk_default_configuration;
 extern upk_controller_config_t upk_runtime_configuration;
-extern void             upk_load_config(void);
+extern void upk_ctrl_load_config(void);
+extern char *upk_json_serialize_svc_config(upk_svc_desc_t *svc);
 
 /** 
   @}

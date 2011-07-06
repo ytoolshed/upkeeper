@@ -15371,7 +15371,7 @@ conf_sysconfdir=$sysconfdir
 # TODO: we should have an AC_SUBST for this
 # AX_FUNC_POLL
 
-ac_config_files="$ac_config_files Makefile libupkeeper/Makefile libupkeeper/tests/Makefile controller/Makefile store/Makefile"
+ac_config_files="$ac_config_files Makefile libupkeeper/Makefile libupkeeper/tests/Makefile controller/Makefile clients/Makefile store/Makefile"
 
 
 # Why have we included a project we don't support in our source tree?
@@ -16268,6 +16268,7 @@ do
     "libupkeeper/Makefile") CONFIG_FILES="$CONFIG_FILES libupkeeper/Makefile" ;;
     "libupkeeper/tests/Makefile") CONFIG_FILES="$CONFIG_FILES libupkeeper/tests/Makefile" ;;
     "controller/Makefile") CONFIG_FILES="$CONFIG_FILES controller/Makefile" ;;
+    "clients/Makefile") CONFIG_FILES="$CONFIG_FILES clients/Makefile" ;;
     "store/Makefile") CONFIG_FILES="$CONFIG_FILES store/Makefile" ;;
 
   *) { { $as_echo "$as_me:$LINENO: error: invalid argument: $ac_config_target" >&5

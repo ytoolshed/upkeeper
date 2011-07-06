@@ -1,128 +1,293 @@
 #include "upk_json.h"
+#include <stdarg.h>
 
-void                    upk_json_default_null_handler(char *key);
-void                    upk_json_default_bool_handler(char *key, _Bool val);
-void                    upk_json_default_double_handler(char *key, double val);
-void                    upk_json_default_int_handler(char *key, int val);
-void                    upk_json_default_string_handler(char *key, char *val);
-void                    upk_json_default_array_handler(char *key, void *jobj);
-void                    upk_json_default_object_handler(char *key, void *jobj);
-static inline void      upk_json_value(char *key, struct json_object *jobj);
-static inline void      upk_json_parse_array(char *key, struct json_object *jarray);
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_null_handler(char *key)
-{
-    printf("\"%s\":", key);
-    printf("Null\n");
-}
+typedef enum {
+    data_type_stream,
+    data_type_string,
+} upk_json_output_type_t;
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_bool_handler(char *key, bool val)
-{
-    printf("\"%s\":", key);
-    printf("%s\n", (val) ? "true" : "false");
-}
+typedef union _upk_stream_string {
+    FILE                   *file;
+    struct {
+        char                   *p;
+        size_t                  len;
+    } str;
+} upk_stream_string_t;
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_double_handler(char *key, double val)
-{
-    printf("\"%s\":", key);
-    printf("%lf\n", val);
-}
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_int_handler(char *key, int val)
-{
-    printf("\"%s\":", key);
-    printf("%d\n", val);
-}
+typedef struct _upk_json_output_data {
+    upk_json_output_type_t  type;
+    upk_stream_string_t     d;
+    upk_json_data_output_opts_t opts;
+} upk_json_output_data_t;
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_string_handler(char *key, char *val)
-{
-    printf("\"%s\":", key);
-    printf("%s\n", val);
-}
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_array_handler(char *key, void *jobj)
-{
-    return;
-}
+static inline void      upk_json_print_indent(upk_json_stack_meta_t * meta, upk_json_output_data_t * data);
+static void             upk_json_output_null_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                     upk_json_val_t v);
+static void             upk_json_output_bool_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                     upk_json_val_t v);
+static void             upk_json_output_double_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                       upk_json_val_t v);
+static void             upk_json_output_int_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                    upk_json_val_t v);
+static void             upk_json_output_string_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                       upk_json_val_t v);
+static void             upk_json_output_array_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                      upk_json_val_t v);
+static void             upk_json_output_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                       upk_json_val_t v);
+static void             upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                                   upk_json_val_t v);
+static void             upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data,
+                                                                     char *key, upk_json_val_t v);
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-void
-upk_json_default_object_handler(char *key, void *jobj)
-{
-    return;
-}
+static inline void      upk_json_value(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj);
+static inline void      upk_json_parse_array(upk_json_stack_meta_t * meta, char *key, struct json_object *jarray);
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
-upk_json_type_handlers_t upk_json_type_callbacks = {
-    .data = NULL,
-    .upk_json_null = upk_json_default_null_handler,
-    .upk_json_bool = upk_json_default_bool_handler,
-    .upk_json_double = upk_json_default_double_handler,
-    .upk_json_int = upk_json_default_int_handler,
-    .upk_json_string = upk_json_default_string_handler,
-    .upk_json_array = upk_json_default_array_handler,
-    .upk_json_object = upk_json_default_object_handler,
-    .upk_json_pop_obj = NULL,
-    .upk_json_pop_array = NULL,
-};
 
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 static inline void
-upk_json_value(char *key, struct json_object *jobj)
+upk_json_append_string(upk_json_output_data_t * data, char *string)
+{
+    if(!data->d.str.p && data->d.str.len == 0) {
+        data->d.str.len++;
+        data->d.str.p = calloc(1, 1);
+    }
+    data->d.str.len = data->d.str.len + strnlen(string, UPK_MAX_STRING_LEN);
+    data->d.str.p = realloc(data->d.str.p, data->d.str.len);
+    strcat(data->d.str.p, string);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static inline void
+upk_output_json_string(upk_json_output_data_t * data, char *fmt, ...)
+{
+    va_list                 ap;
+    char buf[UPK_MAX_STRING_LEN] = "";
+
+    switch (data->type) {
+        case data_type_stream:
+            va_start(ap, fmt);
+            vfprintf(data->d.file, fmt, ap);
+            va_end(ap);
+            break;
+        case data_type_string:
+            va_start(ap, fmt);
+            vsnprintf(buf, UPK_MAX_STRING_LEN - 1, fmt, ap);
+            va_end(ap);
+            upk_json_append_string(data, buf);
+            break;
+    }
+}
+
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static inline void
+upk_json_print_indent(upk_json_stack_meta_t * meta, upk_json_output_data_t * data)
+{
+    uint32_t                n = 0;
+
+    for(n = 1; n < meta->count; n++)
+        upk_output_json_string(data, data->opts.indent); 
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_null_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key)
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.pad);
+
+    upk_output_json_string(data, "Null,%s", d->opts.sep);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_bool_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key)
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.pad);
+
+    upk_output_json_string(data, "%s,%s", (v.val.bl) ? "true" : "false", d->opts.sep);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_double_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key)
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.pad);
+
+    upk_output_json_string(data, "%lf,%s", v.val.dbl, d->opts.sep);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key)
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.pad);
+
+    upk_output_json_string(data, "%d,%s", v.val.i, d->opts.sep);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key)
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.pad);
+
+    upk_output_json_string(data, "\"%s\",%s", (v.val.str) ? v.val.str : "", d->opts.sep);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_array_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key && strnlen(key, UPK_MAX_STRING_LEN) > 0) {
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.sep);
+        upk_json_print_indent(meta, data);
+    }
+
+    upk_output_json_string(data, "[%s", d->opts.sep);
+    upk_json_stack_push(meta, meta->head);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    if(key && strnlen(key, UPK_MAX_STRING_LEN) > 0) {
+        upk_output_json_string(data, "\"%s\"%s:%s", key, d->opts.pad, d->opts.sep);
+        upk_json_print_indent(meta, data);
+    }
+
+    upk_output_json_string(data, "{%s", d->opts.sep);
+    upk_json_stack_push(meta, meta->head);
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    upk_output_json_string(data, "}%s", d->opts.sep);
+}
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_json_output_data_t * d = data;
+    upk_json_print_indent(meta, data);
+    upk_output_json_string(data, "]%s", d->opts.sep);
+}
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+void
+upk_json_stack_pop(upk_json_stack_meta_t * meta)
+{
+    UPKLIST_FOREACH(meta) {
+        UPKLIST_UNLINK(meta);
+        break;
+    }
+}
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+void
+upk_json_stack_push(upk_json_stack_meta_t * meta, upk_json_stack_node_t * node)
+{
+    UPKLIST_PREPEND(meta);
+    memcpy(meta->thisp, node, sizeof(*meta->thisp) - sizeof(meta->thisp->next));
+}
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static inline void
+upk_json_value(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj)
 {
     enum json_type          type = 0;
+    upk_json_val_t          v = { 0 };
 
     type = (jobj) ? json_object_get_type(jobj) : json_type_null;
+    v.type = (uint8_t) type;
 
     switch (type) {
     case json_type_null:
-        if(upk_json_type_callbacks.upk_json_null)
-            upk_json_type_callbacks.upk_json_null(key);
+        if(meta->head->handlers.json_null)
+            meta->head->handlers.json_null(meta, meta->head->data, key, v);
         break;
     case json_type_boolean:
-        if(upk_json_type_callbacks.upk_json_bool)
-            upk_json_type_callbacks.upk_json_bool(key, json_object_get_boolean(jobj));
+        if(meta->head->handlers.json_bool) {
+            v.val.bl = json_object_get_boolean(jobj);
+            meta->head->handlers.json_bool(meta, meta->head->data, key, v);
+        }
         break;
     case json_type_double:
-        if(upk_json_type_callbacks.upk_json_double)
-            upk_json_type_callbacks.upk_json_double(key, json_object_get_double(jobj));
+        if(meta->head->handlers.json_double) {
+            v.val.dbl = json_object_get_double(jobj);
+            meta->head->handlers.json_double(meta, meta->head->data, key, v);
+        }
         break;
     case json_type_int:
-        if(upk_json_type_callbacks.upk_json_int)
-            upk_json_type_callbacks.upk_json_int(key, json_object_get_int(jobj));
+        if(meta->head->handlers.json_int) {
+            v.val.i = json_object_get_int(jobj);
+            meta->head->handlers.json_int(meta, meta->head->data, key, v);
+        }
         break;
     case json_type_string:
-        if(upk_json_type_callbacks.upk_json_string)
-            upk_json_type_callbacks.upk_json_string(key, json_object_get_string(jobj));
+        if(meta->head->handlers.json_string) {
+            v.val.str = json_object_get_string(jobj);
+            meta->head->handlers.json_string(meta, meta->head->data, key, v);
+        }
         break;
     case json_type_object:
-        if(upk_json_type_callbacks.upk_json_object)
-            upk_json_type_callbacks.upk_json_object(key, jobj);
+        if(meta->head->handlers.json_object) {
+            v.val.obj = jobj;
+            meta->head->handlers.json_object(meta, meta->head->data, key, v);
+        }
         break;
     case json_type_array:
-        if(upk_json_type_callbacks.upk_json_array)
-            upk_json_type_callbacks.upk_json_array(key, jobj);
+        if(meta->head->handlers.json_array) {
+            v.val.obj = jobj;
+            meta->head->handlers.json_array(meta, meta->head->data, key, v);
+        }
         break;
     }
 }
@@ -139,32 +304,40 @@ typedef struct upk_json_obj_iter {
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 void
-upk_json_parse_node(struct json_object *jobj)
+upk_json_parse_obj(upk_json_stack_meta_t * meta, struct json_object *jobj)
 {
     enum json_type          type = 0;
     upk_json_obj_iter_t     it;
     struct json_object     *jptr;
+    upk_json_val_t          v = { 0 };
 
     json_object_object_foreachC(jobj, it) {
         type = (it.val) ? json_object_get_type(it.val) : json_type_null;
+        v.type = (uint8_t) type;
 
         switch (type) {
         case json_type_object:
             jptr = json_object_object_get(jobj, it.key);
-            upk_json_value(it.key, jptr);
-            upk_json_parse_node(jptr);
-            if(upk_json_type_callbacks.upk_json_pop_obj)
-                upk_json_type_callbacks.upk_json_pop_obj(it.key, jptr);
+            upk_json_value(meta, it.key, jptr);
+            upk_json_parse_obj(meta, jptr);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_obj_pop) {
+                v.val.obj = jptr;
+                meta->head->handlers.after_json_obj_pop(meta, meta->head->data, it.key, v);
+            }
             break;
         case json_type_array:
             jptr = json_object_object_get(jobj, it.key);
-            upk_json_value(it.key, jptr);
-            upk_json_parse_array(it.key, jptr);
-            if(upk_json_type_callbacks.upk_json_pop_obj)
-                upk_json_type_callbacks.upk_json_pop_array(it.key, jptr);
+            upk_json_value(meta, it.key, jptr);
+            upk_json_parse_array(meta, it.key, jptr);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_array_pop) {
+                v.val.obj = jptr;
+                meta->head->handlers.after_json_array_pop(meta, meta->head->data, it.key, v);
+            }
             break;
         default:
-            upk_json_value(it.key, it.val);
+            upk_json_value(meta, it.key, it.val);
             break;
         }
         if(!it.entry->next)
@@ -175,43 +348,84 @@ upk_json_parse_node(struct json_object *jobj)
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 static inline void
-upk_json_parse_array(char *key, struct json_object *jarray)
+upk_json_parse_array(upk_json_stack_meta_t * meta, char *key, struct json_object *jarray)
 {
     int                     array_len, i;
     enum json_type          type = 0;
     struct json_object     *jvalue = NULL;
-    char                    label[UPK_MAX_STRING_LEN] = "";
+    upk_json_val_t          v = { 0 };
 
     array_len = json_object_array_length(jarray);
 
     for(i = 0; i < array_len; ++i) {
         jvalue = json_object_array_get_idx(jarray, i);
         type = json_object_get_type(jvalue);
-        snprintf(label, UPK_MAX_STRING_LEN - 1, "%s[%d]", key, i);
+        v.type = type;
+
         switch (type) {
         case json_type_object:
-            upk_json_value(label, jvalue);
-            upk_json_parse_node(jvalue);
-            if(upk_json_type_callbacks.upk_json_pop_obj)
-                upk_json_type_callbacks.upk_json_pop_obj(key, jvalue);
+            upk_json_value(meta, NULL, jvalue);
+            upk_json_parse_obj(meta, jvalue);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_obj_pop) {
+                v.val.obj = jvalue;
+                meta->head->handlers.after_json_obj_pop(meta, meta->head->data, key, v);
+            }
             break;
         case json_type_array:
-            upk_json_value(label, jvalue);
-            upk_json_parse_array(label, jvalue);
-            if(upk_json_type_callbacks.upk_json_pop_array)
-                upk_json_type_callbacks.upk_json_pop_array(key, jvalue);
+            upk_json_value(meta, NULL, jvalue);
+            upk_json_parse_array(meta, NULL, jvalue);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_array_pop) {
+                v.val.obj = jvalue;
+                meta->head->handlers.after_json_array_pop(meta, meta->head->data, key, v);
+            }
             break;
         default:
-            upk_json_value(label, jvalue);
+            upk_json_value(meta, NULL, jvalue);
             break;
         }
     }
 }
 
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+void
+upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *obj)
+{
+    upk_json_val_t v = { 0 };
+    enum json_type          type = 0;
+
+    type = (obj) ? json_object_get_type(obj) : json_type_null;
+    v.type = type;
+
+    upk_json_value(meta, key, obj);
+    switch(type) {
+        case json_type_object:
+            upk_json_parse_obj(meta, obj);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_obj_pop) {
+                v.val.obj = obj;
+                meta->head->handlers.after_json_obj_pop(meta, meta->head->data, key, v);
+            }
+            break;
+        case json_type_array:
+            upk_json_parse_array(meta, key, obj);
+            upk_json_stack_pop(meta);
+            if(meta->head->handlers.after_json_array_pop) {
+                v.val.obj = obj;
+                meta->head->handlers.after_json_array_pop(meta, meta->head->data, key, v);
+            }
+            break;
+        default:
+            break;
+    }
+}
 
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
-bool
+
+struct json_object *
 upk_json_parse_string(const char *string)
 {
     struct json_tokener    *tok;
@@ -219,7 +433,6 @@ upk_json_parse_string(const char *string)
     const char             *cp = string;
     char                    near[32] = "", *p = NULL;
     uint32_t                nline = 1, ncol = 0;
-
     UPK_ERR_INIT;
 
     tok = json_tokener_new();
@@ -242,14 +455,74 @@ upk_json_parse_string(const char *string)
                         "%s: near: ``%s''; line: %d; column: %d; byte offset %d\n", json_tokener_errors[tok->err], near,
                         nline, ncol - 1, tok->char_offset);
 
-    upk_json_parse_node(jobj);
-    json_object_put(jobj);
-
     IF_UPK_ERROR {
+        if(jobj)
+            json_object_put(jobj);
         jobj = NULL;
     }
-
     json_tokener_free(tok);
 
-    return (jobj) ? true : false;
+    return jobj;
 }
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+static void
+upk_json_obj_serializer(struct json_object *obj, upk_json_output_data_t *data)
+{
+    upk_json_stack_node_t   initial_node = {
+        .data = data,
+        .handlers.json_null = upk_json_output_null_handler,
+        .handlers.json_bool = upk_json_output_bool_handler,
+        .handlers.json_double = upk_json_output_double_handler,
+        .handlers.json_int = upk_json_output_int_handler,
+        .handlers.json_string = upk_json_output_string_handler,
+        .handlers.json_array = upk_json_output_array_handler,
+        .handlers.json_object = upk_json_output_object_handler,
+        .handlers.after_json_obj_pop = upk_json_output_after_json_obj_pop_handler,
+        .handlers.after_json_array_pop = upk_json_output_after_json_array_pop_handler,
+    };
+    upk_json_stack_meta_t  *meta = NULL;
+    meta = calloc(1, sizeof(*meta));
+
+    upk_json_stack_push(meta, &initial_node);
+    upk_json_parse_node(meta, NULL, obj);
+    
+
+    UPKLIST_FREE(meta);
+}
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+char                   *
+upk_json_obj_to_string(struct json_object *obj, upk_json_data_output_opts_t opts)
+{
+    char                   *p;
+    upk_json_output_data_t  data = {
+        .type = data_type_string,
+        .d.str = {0},
+        .opts = opts,
+    };
+
+    upk_json_obj_serializer(obj, &data);
+    p = data.d.str.p;
+
+    return p;
+}
+
+
+/* *******************************************************************************************************************
+   ******************************************************************************************************************* */
+void
+upk_json_obj_to_stream(struct json_object *obj, FILE *stream, upk_json_data_output_opts_t opts)
+{
+    upk_json_output_data_t  data = {
+        .type = data_type_stream,
+        .d.file = stream,
+        .opts = opts,
+    };
+
+    upk_json_obj_serializer(obj, &data);
+}
+
