@@ -138,6 +138,7 @@ buddy_path(const char *suffixfmt, ...)
 
     memset(buddy_path_buf, 0, sizeof(buddy_path_buf));
     snprintf(buddy_path_buf, sizeof(buddy_path_buf) - 1, "%s/%s", buddy_path_prefix, buddy_string_buf);
+
     return buddy_path_buf;
 }
 
@@ -509,17 +510,20 @@ buddy_exec_action(void)
     static sigset_t         sigset, oldset;
     struct sigaction        sigact;
     static struct stat      buf;
+    static char path_buf[BUDDY_MAX_PATH_LEN];
 
     sigfillset(&sigset);
     sigprocmask(SIG_BLOCK, &sigset, &oldset);
+    memset(path_buf, 0, sizeof(path_buf));
+    strncpy(path_buf, buddy_path_buf, sizeof(path_buf) - 1);
 
-    stat(buddy_path_buf, &buf);
+    stat(path_buf, &buf);
     if(! S_ISREG(buf.st_mode)) {
-        upk_alert("cannot exec: %s: %s\n", buddy_path_buf, strerror(EPERM));
+        upk_alert("cannot exec: %s: %s\n", path_buf, strerror(EPERM));
         return 0;
     }
     if( (buf.st_mode & S_IXUSR) != S_IXUSR ) {
-        upk_alert("cannot exec: %s: %s\n", buddy_path_buf, strerror(EACCES));
+        upk_alert("cannot exec: %s: %s\n", path_buf, strerror(EACCES));
         return 0;
     }
 
@@ -536,15 +540,18 @@ buddy_exec_action(void)
 
 
         /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting ulimits */
-        //assert((pathp = calloc(1, strlen(buddy_path_buf) + 1)));
-        //strcpy(pathp, buddy_path_buf);
+        //assert((pathp = calloc(1, strlen(path_buf) + 1)));
+        //strcpy(pathp, path_buf);
 
         buddy_setreguid();
 
         /* TODO: Add support for ulimit contraints on managed processes */
 
-        sigemptyset(&sigset);
-        sigprocmask(SIG_SETMASK, &sigset, NULL);
+
+        if(proc_pid)
+            upk_notice("executing %s %d\n", path_buf, proc_pid);
+        else
+            upk_notice("executing %s\n", path_buf);
 
         upk_debug0("redirecting output\n");
         buddy_setup_fds();
@@ -560,19 +567,19 @@ buddy_exec_action(void)
            in a way that cannot be abandoned by the monitored process; can then use the cgroup context to set process
            limits) */
 
+        memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
+        snprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, "%d", proc_pid);
+        sigemptyset(&sigset);
+        sigprocmask(SIG_SETMASK, &sigset, NULL);
         errno=0;
         if(proc_pid) {
-            upk_notice("executing %s %d\n", buddy_path_buf, proc_pid);
-            memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
-            snprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, "%d", proc_pid);
-            execle(buddy_path_buf, buddy_path_buf, buddy_string_buf, (char *) NULL, proc_envp);
+            execle(path_buf, path_buf, buddy_string_buf, (char *) NULL, proc_envp);
         }
         else {
-            upk_notice("executing %s\n", buddy_path_buf);
-            execle(buddy_path_buf, buddy_path_buf, (char *) NULL, proc_envp);
+            execle(path_buf, path_buf, (char *) NULL, proc_envp);
         }
 
-        upk_error("exec failed for %s %d; This should never happen!: %s\n", buddy_path_buf, proc_pid, strerror(errno));
+        //fprintf(oldstderr, "exec failed for %s %d; This should never happen!: %s\n", path_buf, proc_pid, strerror(errno));
         _exit(errno);
     }
     sigprocmask(SIG_SETMASK, &oldset, NULL);
@@ -626,7 +633,7 @@ buddy_stop_proc(void)
     static uint8_t          n = 0;
 
     nanotimeout.tv_sec = 0;
-    nanotimeout.tv_nsec = 500000;                               // 100000000L; /* 1/10th a second; */
+    nanotimeout.tv_nsec = 5000000;                               // 100000000L; /* 1/10th a second; */
 
     if(proc_pid != 0) {
         buddy_path("actions/stop");
