@@ -6,8 +6,8 @@
 #define BUDDY_RETRY_TIMEOUT_SEC 1
 #define BUDDY_RETRY_TIMEOUT_NSEC 0
 
-#define BUDDY_SELECT_TIMEOUT_SEC 0
-#define BUDDY_SELECT_TIMEOUT_USEC 20000
+#define BUDDY_SELECT_TIMEOUT_SEC 1
+#define BUDDY_SELECT_TIMEOUT_USEC 0                        // 0000
 
 #define RESPAWN_WINDOW 5                                   /* seconds */
 #define MAX_RESPAWN_COUNT 10                               /* max number of times a process may restart within the
@@ -38,7 +38,6 @@ static bool             force_ratelimit = false;
 
 static size_t           ringbuffer_pending = 0;
 static bool             chld_terminated = false;
-static int              proc_waitstatus = 0;
 static pid_t            proc_pid = 0;
 static buddy_cmnd_t     last_command = UPK_CTRL_NONE;
 static buddy_cmnd_t     this_command = UPK_CTRL_NONE;
@@ -59,7 +58,6 @@ static int              sockopts = 0;
 static int              highest_fd = 0;
 static struct timeval   timeout = {.tv_sec = BUDDY_SELECT_TIMEOUT_SEC,.tv_usec = BUDDY_SELECT_TIMEOUT_USEC };
 static struct timespec  nanotimeout = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec = BUDDY_RETRY_TIMEOUT_NSEC };
-static fd_set           ctrlfdset;
 static size_t           ncount = 0;
 
 static buddy_runstate_t desired_state = BUDDY_STOPPED;
@@ -84,8 +82,8 @@ static inline void      buddy_cust_action(uint32_t act_num);
 static inline void      buddy_handle_command(void);
 static inline void      buddy_setreguid(void);
 static inline void      buddy_setup_fds(void);
-static inline int32_t   read_ctrl(void *buf);
-static inline int32_t   write_ctrl(void *buf);
+static inline int32_t   read_ctrl(buddy_cmnd_t *buf);
+static inline int32_t   write_ctrl(buddy_info_t * buf);
 
 static pid_t            buddy_exec_action(void);
 static bool             buddy_start_proc(void);
@@ -99,29 +97,26 @@ static void
 sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
 {
     static pid_t            pid;
+    static int              proc_waitstatus = 0;
 
     pid = 0;
 
-    upk_debug1("Signal %d received\n", signal);
     switch (signal) {
     case SIGCHLD:
         while((pid = waitpid(-1, &proc_waitstatus, WNOHANG)) > 0) {
             if(pid == proc_pid) {
-                upk_debug0("SIGCHLD for monitored process received, recording\n");
+                upk_debug1("SIGCHLD for monitored process received, recording\n");
                 chld_terminated = true;
                 proc_pid = 0;
-            } else {
-                /* FIXME: have array indexed by action to store pids, and lookup name of action; should only do this if 
-                 * verbosity is high enough to need to output */
-                upk_debug0("some action script completed (pid: %d), recording\n", pid);
             }
             buddy_record_state();
             info_ringbuffer->siginfo = *siginfo;
+            info_ringbuffer->wait_pid = pid;
+            info_ringbuffer->wait_status = proc_waitstatus;
             info_ringbuffer = info_ringbuffer->next;
         }
         break;
     default:
-        upk_debug0("signal %d intercepted, setting shutdown flag\n", signal);
         buddy_shutdown = signal;
         break;
     }
@@ -135,13 +130,14 @@ buddy_path(const char *suffixfmt, ...)
 {
     static va_list          ap;
 
-    memset(buddy_string_buf, 0, sizeof(BUDDY_MAX_STRING_LEN));
+    memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
 
     va_start(ap, suffixfmt);
-    vsnprintf(buddy_string_buf, BUDDY_MAX_STRING_LEN - 1, suffixfmt, ap);
+    vsnprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, suffixfmt, ap);
     va_end(ap);
 
-    snprintf(buddy_path_buf, sizeof(buddy_path_buf), "%s/%s", buddy_path_prefix, buddy_string_buf);
+    memset(buddy_path_buf, 0, sizeof(buddy_path_buf));
+    snprintf(buddy_path_buf, sizeof(buddy_path_buf) - 1, "%s/%s", buddy_path_prefix, buddy_string_buf);
     return buddy_path_buf;
 }
 
@@ -165,7 +161,7 @@ buddy_init_paths(void)
         strlen("actions/reload")) > BUDDY_MAX_PATH_LEN)
         upk_fatal("compined path length of buddy root and service name is too long, cannot continue");
 
-    snprintf(buddy_path_prefix, sizeof(buddy_path_prefix), "%s/%s", buddy_root_path, buddy_service_name);
+    snprintf(buddy_path_prefix, sizeof(buddy_path_prefix) - 1, "%s/%s", buddy_root_path, buddy_service_name);
 }
 
 /* ********************************************************************************************************************
@@ -218,7 +214,7 @@ buddy_init(diag_output_callback_t logger)
     atexit(buddy_cleanup);
 #endif
 
-    /* FIXME: use capabilities CAP_SETUID/CAP_SETGID tests on platforms that provide it */
+    /* TODO: use capabilities CAP_SETUID/CAP_SETGID tests on platforms that provide it */
     if(buddy_setgid != getgid() || buddy_setuid != getuid())
         if(geteuid() != 0)
             upk_warn("Cannot setuid/setgid, because buddy is not running as root\n");
@@ -261,10 +257,39 @@ buddy_handle_flags(void)
             force_ratelimit = false;
 
         upk_notice("Child terminated, restarting..\n");
-        if(buddy_start_proc())
+        if(buddy_start_proc()) {
             chld_terminated = false;
+        }
     }
     return false;
+}
+
+/* ********************************************************************************************************************
+   ******************************************************************************************************************* */
+void
+commit_buddycide(int32_t signum)
+{
+    static sigset_t         sigset, oldset;
+    struct sigaction        sigact;
+
+    sigfillset(&sigset);
+    sigprocmask(SIG_BLOCK, &sigset, &oldset);
+
+    sigemptyset(&sigact.sa_mask);
+    sigact.sa_flags = 0;
+    sigact.sa_handler = SIG_DFL;
+
+    sigaction(SIGCHLD, &sigact, NULL);
+    sigaction(SIGTERM, &sigact, NULL);
+    sigaction(SIGINT, &sigact, NULL);
+    sigaction(SIGPIPE, &sigact, NULL);
+
+    buddy_cleanup();
+
+    sigemptyset(&sigset);
+    sigprocmask(SIG_SETMASK, &sigset, NULL);
+    upk_debug1("Exiting on signal %d\n", signum);
+    kill(getpid(), signum);
 }
 
 /* ********************************************************************************************************************
@@ -292,7 +317,7 @@ buddy_event_loop(void)
                 read_ctrl(&this_command);
                 if(this_command) {
                     buddy_handle_command();
-                    upk_debug0("replying to controler by flushing ringbuffer\n");
+                    upk_debug1("replying to controler by flushing ringbuffer\n");
                     buddy_flush_ringbuffer();
                 }
             }
@@ -301,8 +326,10 @@ buddy_event_loop(void)
         if(buddy_handle_flags())
             break;
     }
+    if(buddy_shutdown && buddy_shutdown != SIGHUP) 
+        commit_buddycide(buddy_shutdown);
 
-    return buddy_shutdown;
+    return 0;
 }
 
 /* ********************************************************************************************************************
@@ -350,11 +377,13 @@ buddy_phone_home(void)
 static inline void
 buddy_record_state(void)
 {
-    ringbuffer_pending = (ringbuffer_pending >= ringbuffer_size) ? ringbuffer_size : ringbuffer_pending + 1;
+    upk_debug1("Recording state\n");
 
+    buddy_zero_info();
+    ringbuffer_pending = (ringbuffer_pending >= ringbuffer_size) ? ringbuffer_size : ringbuffer_pending + 1;
     info_ringbuffer->service_pid = proc_pid;
     info_ringbuffer->command = last_command;
-    info_ringbuffer->wait_status = proc_waitstatus;
+    info_ringbuffer->desired_state = desired_state;
     info_ringbuffer->timestamp = time(NULL);
     info_ringbuffer->populated = true;
 }
@@ -365,8 +394,11 @@ buddy_record_state(void)
 static inline void
 buddy_zero_info(void)
 {
-    ringbuffer_pending = (ringbuffer_pending <= 1) ? 0 : ringbuffer_pending - 1;
-    memset(info_ringbuffer, 0, sizeof(*info_ringbuffer) - sizeof(info_ringbuffer->next));
+    upk_debug1("Clearing ringbuffer slot\n");
+    if(info_ringbuffer->populated)
+        ringbuffer_pending = (ringbuffer_pending <= 1) ? 0 : ringbuffer_pending - 1;
+    memset(info_ringbuffer, 0,
+           sizeof(*info_ringbuffer) - sizeof(info_ringbuffer->next) - sizeof(info_ringbuffer->slot_n));
 }
 
 
@@ -380,9 +412,11 @@ buddy_init_ringbuffer(void)
 
     assert((first_node = calloc(1, sizeof(*first_node))));
     info_ringbuffer = first_node;
+    info_ringbuffer->slot_n = 0;
 
     for(n = 1; n < ringbuffer_size; n++) {
         assert((info_ringbuffer->next = calloc(1, sizeof(*info_ringbuffer->next))));
+        info_ringbuffer->slot_n = n;
         info_ringbuffer = info_ringbuffer->next;
     }
     info_ringbuffer->next = first_node;
@@ -416,7 +450,7 @@ buddy_accept(void)
 
     /* XXX: Is this the correct behavior? drop anybody we have connected in lieu of a new caller? -- JB */
     if(buddy_ctrlfd > 0) {
-        upk_debug0("Dropping existing connection\n");
+        upk_debug1("Dropping existing connection\n");
         close(buddy_ctrlfd);
     }
 
@@ -425,7 +459,7 @@ buddy_accept(void)
     if(buddy_ctrlfd > 0 && (sockopts = fcntl(buddy_ctrlfd, F_GETFL))) {
         fcntl(buddy_ctrlfd, F_SETFL, sockopts | O_NONBLOCK);
         fcntl(buddy_ctrlfd, F_SETFD, FD_CLOEXEC);
-        upk_verbose("accepted new controller connection\n");
+        upk_debug1("accepted new controller connection\n");
     } else {
         upk_debug1("accept failed\n");
         close(buddy_ctrlfd);
@@ -440,7 +474,8 @@ static inline           bool
 buddy_disconnect(size_t count)
 {
     if(count < 1 && !(errno == EAGAIN || errno == EWOULDBLOCK || errno == EINTR)) {
-        upk_verbose("Disconnecting controller\n");
+        upk_debug1("Disconnecting controller: %s\n", strerror(errno));
+        shutdown(buddy_ctrlfd, SHUT_RDWR);
         close(buddy_ctrlfd);
         buddy_ctrlfd = -1;
         return true;
@@ -473,10 +508,21 @@ buddy_exec_action(void)
     static pid_t            pid = 0;
     static sigset_t         sigset, oldset;
     struct sigaction        sigact;
-    static char            *pathp = NULL;
+    static struct stat      buf;
 
     sigfillset(&sigset);
     sigprocmask(SIG_BLOCK, &sigset, &oldset);
+
+    stat(buddy_path_buf, &buf);
+    if(! S_ISREG(buf.st_mode)) {
+        upk_alert("cannot exec: %s: %s\n", buddy_path_buf, strerror(EPERM));
+        return 0;
+    }
+    if( (buf.st_mode & S_IXUSR) != S_IXUSR ) {
+        upk_alert("cannot exec: %s: %s\n", buddy_path_buf, strerror(EACCES));
+        return 0;
+    }
+
 
     if((pid = fork()) == 0) {
         sigemptyset(&sigact.sa_mask);
@@ -488,18 +534,17 @@ buddy_exec_action(void)
         sigaction(SIGINT, &sigact, NULL);
         sigaction(SIGPIPE, &sigact, NULL);
 
-        sigemptyset(&sigset);
-        sigprocmask(SIG_SETMASK, &sigset, NULL);
 
         /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting ulimits */
-        assert((pathp = calloc(1, strlen(buddy_path_buf) + 1)));
-        strcpy(pathp, buddy_path_buf);
+        //assert((pathp = calloc(1, strlen(buddy_path_buf) + 1)));
+        //strcpy(pathp, buddy_path_buf);
 
-        if(proc_pid)
-            upk_notice("executing %s %d\n", pathp, proc_pid);
-        else
-            upk_notice("executing %s\n", pathp, proc_pid);
         buddy_setreguid();
+
+        /* TODO: Add support for ulimit contraints on managed processes */
+
+        sigemptyset(&sigset);
+        sigprocmask(SIG_SETMASK, &sigset, NULL);
 
         upk_debug0("redirecting output\n");
         buddy_setup_fds();
@@ -511,12 +556,23 @@ buddy_exec_action(void)
         setsid();
         setpgid(0, 0);
 
-        if(proc_pid) 
-            execle(pathp, pathp, proc_pid, (char *) NULL, proc_envp);
-        else
-            execle(pathp, pathp, (char *) NULL, proc_envp);
+        /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid above, but
+           in a way that cannot be abandoned by the monitored process; can then use the cgroup context to set process
+           limits) */
 
-        upk_error("exec failed for %s %d; This should never happen!", pathp, proc_pid);
+        errno=0;
+        if(proc_pid) {
+            upk_notice("executing %s %d\n", buddy_path_buf, proc_pid);
+            memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
+            snprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, "%d", proc_pid);
+            execle(buddy_path_buf, buddy_path_buf, buddy_string_buf, (char *) NULL, proc_envp);
+        }
+        else {
+            upk_notice("executing %s\n", buddy_path_buf);
+            execle(buddy_path_buf, buddy_path_buf, (char *) NULL, proc_envp);
+        }
+
+        upk_error("exec failed for %s %d; This should never happen!: %s\n", buddy_path_buf, proc_pid, strerror(errno));
         _exit(errno);
     }
     sigprocmask(SIG_SETMASK, &oldset, NULL);
@@ -553,6 +609,8 @@ buddy_start_proc(void)
         proc_pid = buddy_exec_action();
         respawn_timestamp = time(NULL);
         upk_debug0("started child with pid: %d\n", proc_pid);
+        buddy_record_state();
+        info_ringbuffer = info_ringbuffer->next;
 
         sigprocmask(SIG_SETMASK, &oldset, NULL);
 
@@ -567,8 +625,8 @@ buddy_stop_proc(void)
 {
     static uint8_t          n = 0;
 
-    nanotimeout.tv_sec = 1;
-    nanotimeout.tv_nsec = 0;                               // 100000000L; /* 1/10th a second; */
+    nanotimeout.tv_sec = 0;
+    nanotimeout.tv_nsec = 500000;                               // 100000000L; /* 1/10th a second; */
 
     if(proc_pid != 0) {
         buddy_path("actions/stop");
@@ -583,15 +641,15 @@ buddy_stop_proc(void)
             nanosleep(&nanotimeout, NULL);
 
         /* send signal a TERM directly, in the hopes this will do the trick */
-        if(proc_pid)
-            kill(proc_pid, SIGTERM);
+        //if(proc_pid)
+        //    kill(proc_pid, SIGTERM);
 
         /* FIXME: again, should be configurable - JB */
-        while(proc_pid && n++ < 20)
-            nanosleep(&nanotimeout, NULL);
+        //while(proc_pid && n++ < 20)
+        //    nanosleep(&nanotimeout, NULL);
 
-        if(proc_pid)
-            kill(proc_pid, SIGKILL);
+        //if(proc_pid)
+        //    kill(proc_pid, SIGKILL);
     }
     return;
 }
@@ -629,11 +687,10 @@ buddy_handle_command(void)
         upk_verbose("command `shutdown' received\n");
         desired_state = BUDDY_STOPPED;
         last_command = this_command;
-        buddy_record_state();
-        buddy_shutdown = SIGTERM;
+        buddy_shutdown = SIGHUP;
         return;
     case UPK_CTRL_STATUS_REQ:
-        upk_verbose("command `status' received\n");
+        upk_debug1("command `status' received\n");
         last_command = this_command;
         return;
     case UPK_CTRL_ACTION_START:
@@ -641,28 +698,24 @@ buddy_handle_command(void)
         desired_state = BUDDY_RUNNING;
         last_command = this_command;
         buddy_start_proc();
-        buddy_record_state();
         return;
     case UPK_CTRL_ACTION_STOP:
         upk_verbose("command `stop' received\n");
         desired_state = BUDDY_STOPPED;
         last_command = this_command;
         buddy_stop_proc();
-        buddy_record_state();
         return;
     case UPK_CTRL_ACTION_RELOAD:
         upk_verbose("command `reload' received\n");
         last_command = this_command;
         buddy_reload_proc();
-        buddy_record_state();
         return;
     case UPK_CTRL_ACTION_RUNONCE:
         upk_verbose("command `runonce' received\n");
         desired_state = BUDDY_RANONCE;
         last_command = this_command;
         buddy_start_proc();
-        buddy_shutdown = SIGTERM;
-        buddy_record_state();
+        buddy_shutdown = SIGHUP;
         return;
     default:
         break;
@@ -671,13 +724,11 @@ buddy_handle_command(void)
         upk_verbose("command to invoke action %2d' received\n", (uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
         last_command = this_command;
         buddy_cust_action((uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
-        buddy_record_state();
         return;
     } else if(this_command >= UPK_CTRL_SIGNAL_01 && this_command <= UPK_CTRL_SIGNAL_32) {
         upk_verbose("command `signal' (with signal `%d') received\n", (this_command - UPK_CTRL_SIGNAL_01) + 1);
         last_command = this_command;
         kill(proc_pid, (uint32_t) (this_command - UPK_CTRL_SIGNAL_01) + 1);
-        buddy_record_state();
         return;
     }
 }
@@ -729,8 +780,10 @@ resolve_symlink(void)
 /* ********************************************************************************************************************
    ******************************************************************************************************************* */
 static inline           int32_t
-read_ctrl(void *buf)
+read_ctrl(buddy_cmnd_t *buf)
 {
+    static fd_set           ctrlfdset;
+
     timeout.tv_sec = BUDDY_SELECT_TIMEOUT_SEC;
     timeout.tv_usec = BUDDY_SELECT_TIMEOUT_USEC;
 
@@ -751,8 +804,10 @@ read_ctrl(void *buf)
 /* ********************************************************************************************************************
    ******************************************************************************************************************* */
 static inline           int32_t
-write_ctrl(void *buf)
+write_ctrl(buddy_info_t * buf)
 {
+    static fd_set           ctrlfdset;
+
     timeout.tv_sec = BUDDY_SELECT_TIMEOUT_SEC;
     timeout.tv_usec = BUDDY_SELECT_TIMEOUT_USEC;
 
@@ -811,10 +866,11 @@ buddy_flush_ringbuffer(void)
         sigprocmask(SIG_BLOCK, &sigset, &oldset);
 
         thisp = info_ringbuffer;
-        while(info_ringbuffer != thisp) {
+        do {
             if(info_ringbuffer->populated) {
+                info_ringbuffer->remaining = ringbuffer_pending - 1;
                 if(write_ctrl(info_ringbuffer) > 0) {
-                    if(read_ctrl(&ack) > 0 && ack == UPK_CTRL_ACK) {
+                    if( (read_ctrl(&ack)) > 0 && ack == UPK_CTRL_ACK) {
                         buddy_zero_info();
                         info_ringbuffer = info_ringbuffer->next;
                         continue;
@@ -824,7 +880,10 @@ buddy_flush_ringbuffer(void)
                 break;
             }
             info_ringbuffer = info_ringbuffer->next;
-        }
+        } while(info_ringbuffer != thisp);
+        errno=0;
+        buddy_disconnect(0);
+
         this_command = curcmnd;
         sigprocmask(SIG_SETMASK, &oldset, NULL);
     }

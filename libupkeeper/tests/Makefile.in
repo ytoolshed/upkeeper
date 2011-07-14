@@ -36,11 +36,11 @@ host_triplet = @host@
 check_PROGRAMS = v0_protocol_helpers$(EXEEXT) \
 	v0_protocol_serializers$(EXEEXT) upk_protocol_helpers$(EXEEXT) \
 	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT) \
-	dlinked_lists$(EXEEXT) uuid$(EXEEXT)
+	dlinked_lists$(EXEEXT) uuid$(EXEEXT) util$(EXEEXT)
 TESTS = v0_protocol_helpers$(EXEEXT) v0_protocol_serializers$(EXEEXT) \
 	upk_protocol_helpers$(EXEEXT) \
 	upk_protocol_serializers$(EXEEXT) linked_lists$(EXEEXT) \
-	dlinked_lists$(EXEEXT) uuid$(EXEEXT)
+	dlinked_lists$(EXEEXT) uuid$(EXEEXT) util$(EXEEXT)
 subdir = libupkeeper/tests
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -71,6 +71,10 @@ upk_protocol_helpers_LDADD = $(LDADD)
 upk_protocol_serializers_SOURCES = upk_protocol_serializers.c
 upk_protocol_serializers_OBJECTS = upk_protocol_serializers.$(OBJEXT)
 upk_protocol_serializers_LDADD = $(LDADD)
+util_SOURCES = util.c
+util_OBJECTS = util.$(OBJEXT)
+util_LDADD = $(LDADD)
+util_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
 uuid_SOURCES = uuid.c
 uuid_OBJECTS = uuid.$(OBJEXT)
 uuid_LDADD = $(LDADD)
@@ -95,10 +99,10 @@ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = dlinked_lists.c linked_lists.c upk_protocol_helpers.c \
-	upk_protocol_serializers.c uuid.c v0_protocol_helpers.c \
+	upk_protocol_serializers.c util.c uuid.c v0_protocol_helpers.c \
 	v0_protocol_serializers.c
 DIST_SOURCES = dlinked_lists.c linked_lists.c upk_protocol_helpers.c \
-	upk_protocol_serializers.c uuid.c v0_protocol_helpers.c \
+	upk_protocol_serializers.c util.c uuid.c v0_protocol_helpers.c \
 	v0_protocol_serializers.c
 ETAGS = etags
 CTAGS = ctags
@@ -198,6 +202,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+conf_libexecdir = @conf_libexecdir@
 conf_localstatedir = @conf_localstatedir@
 conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
@@ -296,6 +301,9 @@ upk_protocol_helpers$(EXEEXT): $(upk_protocol_helpers_OBJECTS) $(upk_protocol_he
 upk_protocol_serializers$(EXEEXT): $(upk_protocol_serializers_OBJECTS) $(upk_protocol_serializers_DEPENDENCIES) 
 	@rm -f upk_protocol_serializers$(EXEEXT)
 	$(LINK) $(upk_protocol_serializers_OBJECTS) $(upk_protocol_serializers_LDADD) $(LIBS)
+util$(EXEEXT): $(util_OBJECTS) $(util_DEPENDENCIES) 
+	@rm -f util$(EXEEXT)
+	$(LINK) $(util_OBJECTS) $(util_LDADD) $(LIBS)
 uuid$(EXEEXT): $(uuid_OBJECTS) $(uuid_DEPENDENCIES) 
 	@rm -f uuid$(EXEEXT)
 	$(LINK) $(uuid_OBJECTS) $(uuid_LDADD) $(LIBS)
@@ -316,6 +324,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/linked_lists.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_protocol_helpers.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_protocol_serializers.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/util.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/uuid.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/v0_protocol_helpers.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/v0_protocol_serializers.Po@am__quote@
@@ -644,7 +653,7 @@ valgrind: $(TESTS)
 	for n in $(TESTS); do \
 		CK_FORK=no \
 		LD_LIBRARY_PATH="$(top_builddir)/libupkeeper/.libs/" \
-		valgrind --tool=memcheck --leak-check=full --leak-resolution=high --track-origins=yes --show-reachable=yes $(builddir)/.libs/$$n; \
+		valgrind -q --tool=memcheck --leak-check=full --leak-resolution=high --track-origins=yes --show-reachable=yes $(builddir)/.libs/$$n; \
 	done
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.

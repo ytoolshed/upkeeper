@@ -58,7 +58,7 @@ numeric_string(const char *string, long *num)
     if(p == string)
         return false;
 
-    if((errno == ERANGE && (ringbuffer_size == LONG_MAX || ringbuffer_size == LONG_MIN)) || (ringbuffer_size <= 0))
+    if((errno == ERANGE && (*num == LONG_MAX || *num == LONG_MIN)) || (*num <= 0))
         return false;
 
     return true;
@@ -198,7 +198,7 @@ buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, co
     }
 }
 
-
+extern 
 /* ********************************************************************************************************************
  * ******************************************************************************************************************* */
 int
@@ -208,6 +208,10 @@ main(int argc, char **argv, char **envp)
 
     ringbuffer_size = 32;
     upk_diag_verbosity = 5;
+
+    chdir("/");
+    /* fclose(stdin);
+    fclose(stderr); */
 
     if((retval = (int) opt_parse(argc, argv, envp))) {
         proc_envp = envp;

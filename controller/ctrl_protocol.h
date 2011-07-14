@@ -80,7 +80,7 @@ typedef enum {
 
 
 typedef enum {
-    BUDDY_STOPPED,                                         /* the current state of the managed process is stopped */
+    BUDDY_STOPPED=0,                                         /* the current state of the managed process is stopped */
     BUDDY_RUNNING,                                         /* the current state of the managed process is running */
     BUDDY_RANONCE,                                         /* the current state of the managed process was that it ran
                                                             * once */
@@ -90,11 +90,15 @@ typedef struct _buddy_info buddy_info_t;
 struct _buddy_info {
     bool                    populated;
     pid_t                   service_pid;
+    pid_t                   wait_pid;
     buddy_cmnd_t            command;
     buddy_runstate_t        desired_state;
     siginfo_t               siginfo;
     int                     wait_status;
     time_t                  timestamp;
+    size_t                  remaining;
+    upk_uuid_t              uuid;
+    size_t                  slot_n;
     /* XXX: .next must be last thing in this struct for zeroing to work; always add things before .next */
     buddy_info_t           *next;
 };

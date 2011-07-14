@@ -229,11 +229,11 @@ typedef enum {
  * |----|----|----|<payload ...>|----|
  * ****************************************************************************************************************** */
 typedef struct {
+    uint32_t                payload_len;                   /* not size_t, because this would force the arch of the
+                                                            * client to match the server */
     uint32_t                version_id;
     uint32_t                seq_num;
     upk_pkttype_t           pkttype;                       /* will be forced into a uint32_t; even on 64bit */
-    uint32_t                payload_len;                   /* not size_t, because this would force the arch of the
-                                                            * client to match the server */
     void                   *payload;
     uint32_t                crc32;
 } upk_packet_t;

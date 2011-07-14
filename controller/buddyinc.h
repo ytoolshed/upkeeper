@@ -2,6 +2,8 @@
 #define _BUDDY_INC_H
 
 #include <upkeeper_config.h>
+#include <upkeeper/upk_uuid.h>
+
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>

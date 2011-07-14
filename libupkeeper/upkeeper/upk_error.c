@@ -19,7 +19,7 @@ static void             _upk_default_diag_output(upk_diaglvl_t diaglvl, const ch
 static int32_t          _upk_diagnostic(upk_diaglvl_t diaglvl, const char *loc, const char *fmt, va_list ap);
 
 
-int32_t                 upk_diag_verbosity;
+int32_t                 upk_diag_verbosity = UPK_DIAGLVL_NOTICE;
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -117,9 +117,29 @@ upk_reg_diag_callback(diag_output_callback_t func)
 static void
 _upk_default_diag_output(upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)
 {
-    if(strlen(label) > 0)
-        fprintf(stderr, "%s: ", label);
-    vfprintf(stderr, fmt, ap);
+    UPK_STATIC_ERR_DECL bool show_label, show_loc;
+    show_label = show_loc = false;
+
+    if(diaglvl < UPK_DIAGLVL_ERROR || diaglvl > UPK_DIAGLVL_INFO)
+        show_loc = true;
+
+    if(upk_diag_verbosity > UPK_DIAGLVL_INFO)
+        show_loc = show_label = true;
+
+    switch (diaglvl) {
+        case UPK_DIAGLVL_FATAL:
+        case UPK_DIAGLVL_ALERT:
+        case UPK_DIAGLVL_CRIT:
+        case UPK_DIAGLVL_ERROR:
+            show_label = true;
+        default:
+            if(strlen(loc) > 0 && show_loc)
+                fprintf(stderr, "%s: ", loc);
+            if(strlen(label) > 0 && show_label)
+                fprintf(stderr, "%s: ", label);
+            vfprintf(stderr, fmt, ap);
+            break;
+    }
 }
 
 

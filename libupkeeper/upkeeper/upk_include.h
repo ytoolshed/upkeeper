@@ -9,6 +9,7 @@
 #include "upk_uuid.h"
 #include "upk_types.h"
 #include "upk_error.h"
+#include "upk_json_fmt.h"
 #include "upk_config.h"
 #include "upk_crc32.h"
 #include "upk_protocol.h"
@@ -16,5 +17,6 @@
 #include "upk_v0_protocol_structs.h"
 #include "upk_network.h"
 #include "upk_client.h"
+#include "upk_util.h"
 
 #endif

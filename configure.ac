@@ -56,6 +56,7 @@ AC_FUNC_STRNLEN
 AC_CHECK_FUNCS([dup2 memset select socket strdup strerror memchr strtol strcasecmp atexit mkdir gettimeofday strtoul])
 AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
 
+AC_SUBST([conf_libexecdir], [$libexecdir])
 AC_SUBST([conf_localstatedir], [$localstatedir])
 AC_SUBST([conf_sysconfdir], [$sysconfdir])
 

@@ -5,6 +5,10 @@
 #include <json/json.h>
 #include <stdio.h>
 
+typedef struct _upk_json_string {
+    char *c_str;
+    char *esc_str;
+} upk_json_string_t;
 
 typedef struct _upk_json_type {
     uint8_t                 type;
@@ -12,7 +16,7 @@ typedef struct _upk_json_type {
         bool                    bl;
         double                  dbl;
         int                     i;
-        char                   *str;
+        upk_json_string_t      str;
         struct json_object     *obj;
     } val;
 } upk_json_val_t;
@@ -40,13 +44,6 @@ struct _upk_json_stack_node {
     upk_json_handlers_t     handlers;
     upk_json_stack_node_t  *next;
 };
-
-typedef struct _upk_json_data_output_options {
-    char                   *pad;
-    char                   *indent;
-    char                   *sep;
-} upk_json_data_output_opts_t;
-
 
 /* upkeeper/upk_json.c */
 extern void             upk_json_stack_pop(upk_json_stack_meta_t * meta);

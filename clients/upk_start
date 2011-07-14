@@ -1,9 +1,0 @@
-#!/usr/bin/perl
-use IO::Handle;
-use Socket;
-
-socket(my $fd, PF_UNIX, SOCK_STREAM, 0);
-connect($fd,sockaddr_un("/var/run/upkeeper/buddy/foobar/buddy.sock"));
-$fd->print(pack("I",4));
-$fd->flush();
-$fd->close();

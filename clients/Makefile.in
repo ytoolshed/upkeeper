@@ -34,7 +34,8 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-bin_PROGRAMS = upk$(EXEEXT)
+bin_PROGRAMS = upk$(EXEEXT) upk_start$(EXEEXT) upk_stop$(EXEEXT) \
+	upk_reload$(EXEEXT)
 subdir = clients
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -58,6 +59,18 @@ upk_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
 upk_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(upk_LDFLAGS) \
 	$(LDFLAGS) -o $@
+upk_reload_SOURCES = upk_reload.c
+upk_reload_OBJECTS = upk_reload.$(OBJEXT)
+upk_reload_LDADD = $(LDADD)
+upk_reload_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
+upk_start_SOURCES = upk_start.c
+upk_start_OBJECTS = upk_start.$(OBJEXT)
+upk_start_LDADD = $(LDADD)
+upk_start_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
+upk_stop_SOURCES = upk_stop.c
+upk_stop_OBJECTS = upk_stop.$(OBJEXT)
+upk_stop_LDADD = $(LDADD)
+upk_stop_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -71,8 +84,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = upk.c
-DIST_SOURCES = upk.c
+SOURCES = upk.c upk_reload.c upk_start.c upk_stop.c
+DIST_SOURCES = upk.c upk_reload.c upk_start.c upk_stop.c
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -156,6 +169,7 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
+conf_libexecdir = @conf_libexecdir@
 conf_localstatedir = @conf_localstatedir@
 conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
@@ -275,6 +289,15 @@ clean-binPROGRAMS:
 upk$(EXEEXT): $(upk_OBJECTS) $(upk_DEPENDENCIES) 
 	@rm -f upk$(EXEEXT)
 	$(upk_LINK) $(upk_OBJECTS) $(upk_LDADD) $(LIBS)
+upk_reload$(EXEEXT): $(upk_reload_OBJECTS) $(upk_reload_DEPENDENCIES) 
+	@rm -f upk_reload$(EXEEXT)
+	$(LINK) $(upk_reload_OBJECTS) $(upk_reload_LDADD) $(LIBS)
+upk_start$(EXEEXT): $(upk_start_OBJECTS) $(upk_start_DEPENDENCIES) 
+	@rm -f upk_start$(EXEEXT)
+	$(LINK) $(upk_start_OBJECTS) $(upk_start_LDADD) $(LIBS)
+upk_stop$(EXEEXT): $(upk_stop_OBJECTS) $(upk_stop_DEPENDENCIES) 
+	@rm -f upk_stop$(EXEEXT)
+	$(LINK) $(upk_stop_OBJECTS) $(upk_stop_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -283,6 +306,9 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_reload.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_start.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_stop.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

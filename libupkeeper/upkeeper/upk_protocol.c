@@ -11,10 +11,10 @@ upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint3
     upk_packet_t           *pkt = NULL;
 
     pkt = calloc(1, sizeof(*pkt));
+    pkt->payload_len = payload_len;
     pkt->version_id = proto_ver;
     pkt->seq_num = 0;
     pkt->pkttype = pkttype;
-    pkt->payload_len = payload_len;
     pkt->payload = payload;
     pkt->crc32 = 0;                                        /* populated/utilized by serialize/deserialize; which assert 
                                                             * validity; everything else can assume packets are valid */
