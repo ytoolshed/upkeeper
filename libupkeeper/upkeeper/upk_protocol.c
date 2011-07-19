@@ -44,7 +44,7 @@ upk_create_req_preamble(char *client_name)
     /* FIXME: use upk_error.h */
     assert(preamble = calloc(1, sizeof(*preamble)));
 
-    preamble->msgtype = REQ_PREAMBLE;
+    preamble->msgtype = UPK_REQ_PREAMBLE;
     preamble->min_supported_ver = UPK_MIN_SUPPORTED_PROTO;
     preamble->max_supported_ver = UPK_MAX_SUPPORTED_PROTO;
     preamble->client_name_len = strnlen(client_name, UPK_MAX_STRING_LEN);
@@ -85,7 +85,7 @@ upk_pkt_free(upk_packet_t * pkt)
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 upk_packet_t           *
-upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_req_msgtype_t seq_type, uint32_t count)
+upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)
 {
     switch (handle->version_id) { 
         case 0:
@@ -194,7 +194,7 @@ upk_create_discon_req(upk_protocol_handle_t * handle)
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 upk_packet_t           *
-upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_repl_msgtype_t seq_type, uint32_t count)
+upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)
 {
     switch (handle->version_id) { 
         case 0:
@@ -298,3 +298,6 @@ upk_create_cancel_pubmsg(upk_protocol_handle_t * handle)
     }
     return NULL;
 }
+
+/* *******************************************************************************************************************
+ * ****************************************************************************************************************** */

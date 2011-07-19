@@ -4,9 +4,9 @@
 /* *******************************************************************************************************************
  * |----|----|----|
  * ****************************************************************************************************************** */
-#define UPK_V0_REQ_SEQ_START_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
-    upk_req_msgtype_t       msg_seq_type; \
+#define UPK_V0_UPK_REQ_SEQ_START_T_FIELDS \
+    upk_msgtype_t       msgtype; \
+    upk_msgtype_t       msg_seq_type; \
     uint32_t                msg_seq_count                  /* 0 if open-ended, to be terminated with a seq_end msg */
 
 
@@ -17,8 +17,8 @@
 /* *******************************************************************************************************************
  * |----|-|
  * ****************************************************************************************************************** */
-#define UPK_V0_REQ_SEQ_END_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+#define UPK_V0_UPK_REQ_SEQ_END_T_FIELDS \
+    upk_msgtype_t       msgtype; \
     bool                    commit                         /* if false, the preceding sequence of requests since the */ \
                                                            /* initiating seq_start will be discarded */
 
@@ -26,7 +26,7 @@
  * |----|----|<svc_id ...>|----|<action ...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_ACTION_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+    upk_msgtype_t       msgtype; \
     uint32_t                svc_id_len; \
     char                   *svc_id; \
     uint32_t                action_len; \
@@ -36,7 +36,7 @@
  * |----|----|-|-|----|<svc_id ...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_SIGNAL_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+    upk_msgtype_t       msgtype; \
     upk_signal_t       signal; \
     bool                    signal_sid; \
     bool                    signal_pgrp; \
@@ -47,13 +47,13 @@
  * |----|
  * ****************************************************************************************************************** */
 #define UPK_V0_LIST_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype
+    upk_msgtype_t       msgtype
 
 /* *******************************************************************************************************************
  * |----|----|<svc_id...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_STATUS_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+    upk_msgtype_t       msgtype; \
     uint32_t                svc_id_len; \
     char                   *svc_id
 
@@ -65,7 +65,7 @@
  * |----|-|----|<svc_id...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_SUBSCR_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+    upk_msgtype_t       msgtype; \
     bool                    all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
                                                           /* one shot; svc_id will be ignored, and should have len 0 */ \
     uint32_t                svc_id_len; \
@@ -79,7 +79,7 @@
  * |----|-|----|<svc_id ...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_UNSUBS_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype; \
+    upk_msgtype_t       msgtype; \
     bool                    all_svcs; \
     uint32_t                svc_id_len; \
     char                   *svc_id
@@ -88,21 +88,21 @@
  * |----|
  * ****************************************************************************************************************** */
 #define UPK_V0_DISCON_REQ_T_FIELDS \
-    upk_req_msgtype_t       msgtype
+    upk_msgtype_t       msgtype
 
 /* *******************************************************************************************************************
  * |----|----|----|
  * ****************************************************************************************************************** */
-#define UPK_V0_REPL_SEQ_START_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
-    upk_repl_msgtype_t      msg_seq_type; \
+#define UPK_V0_UPK_REPL_SEQ_START_T_FIELDS \
+    upk_msgtype_t      msgtype; \
+    upk_msgtype_t      msg_seq_type; \
     uint32_t                msg_seq_count
 
 /* *******************************************************************************************************************
  * |----|-|
  * ****************************************************************************************************************** */
-#define UPK_V0_REPL_SEQ_END_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
+#define UPK_V0_UPK_REPL_SEQ_END_T_FIELDS \
+    upk_msgtype_t      msgtype; \
     bool                    commit
 
 /* *******************************************************************************************************************
@@ -112,7 +112,7 @@
  * occured. |----|-|----|<msg...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_RESULT_REPL_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
+    upk_msgtype_t      msgtype; \
     bool                    successful; \
     uint32_t                msg_len; \
     char                   *msg
@@ -121,7 +121,7 @@
  * These will be wrapped in PREAMBLE...COMMIT sequences |----|----|<svc_id...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_LISTING_REPL_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
+    upk_msgtype_t      msgtype; \
     uint32_t                svc_id_len; \
     char                   *svc_id
 
@@ -145,7 +145,7 @@
  * |----|<svcinfo ...>|----|<svc_id...|
  * ****************************************************************************************************************** */
 #define UPK_V0_SVCINFO_REPL_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
+    upk_msgtype_t      msgtype; \
     uint32_t                svcinfo_len;                   /* sizeof struct can be arch dependant; immaterial on unix */ \
                                                            /* domain socket; but to keep this network safe, I'm going */ \
                                                            /* to go ahead and serialize it the same as everything else */ \
@@ -157,13 +157,13 @@
  * for when there's really nothing else to say, but you need to assure the client you were paying attention. |----|
  * ****************************************************************************************************************** */
 #define UPK_V0_ACK_REPL_T_FIELDS \
-    upk_repl_msgtype_t      msgtype
+    upk_msgtype_t      msgtype
 
 /* *******************************************************************************************************************
  * |----|-|----|<msg...>|----|<svc_id_len...>|
  * ****************************************************************************************************************** */
 #define UPK_V0_ERROR_REPL_T_FIELDS \
-    upk_repl_msgtype_t      msgtype; \
+    upk_msgtype_t      msgtype; \
     upk_errlevel_t          errlevel; \
     uint32_t                msg_len; \
     char                   *msg; \
@@ -175,14 +175,14 @@
  * seq_start/seq_end packets.
  * ****************************************************************************************************************** */
 #define UPK_V0_PUBLICATION_T_FIELDS \
-    upk_pub_msgtype_t       msgtype
+    upk_msgtype_t       msgtype
 
 /* *******************************************************************************************************************
  * |---| This just serves as an unsolicited reply marker; which notifies the client that something they subscribed to
  * is no longer available for subscription
  * ****************************************************************************************************************** */
 #define UPK_V0_CANCELATION_T_FIELDS \
-    upk_pub_msgtype_t       msgtype
+    upk_msgtype_t       msgtype
 
 
 

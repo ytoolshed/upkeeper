@@ -1,9 +1,9 @@
 START_TEST(test_proto_req_seq_start)
 {
-    TEST_SETUP(req_seq_start, REQ_LIST, 15);
+    TEST_SETUP(req_seq_start, UPK_REQ_LIST, 15);
 
-    fail_unless(t.msgtype == REQ_SEQ_START, "msgtype");
-    fail_unless(t.msg_seq_type == REQ_LIST, "msg_seq_type");
+    fail_unless(t.msgtype == UPK_REQ_SEQ_START, "msgtype");
+    fail_unless(t.msg_seq_type == UPK_REQ_LIST, "msg_seq_type");
     fail_unless(t.msg_seq_count == 15, "msg_seq_count");
 
     fail_unless(pkt->pkttype == PKT_REQUEST, "pkttype");
@@ -18,7 +18,7 @@ START_TEST(test_proto_req_seq_end)
 {
     TEST_SETUP(req_seq_end, true);
 
-    fail_unless(t.msgtype == REQ_SEQ_END, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_SEQ_END, "msgtype");
     fail_unless(t.commit == true, "commit");
 
     fail_unless(pkt->pkttype == PKT_REQUEST, "pkttype");
@@ -33,7 +33,7 @@ START_TEST(test_proto_action_req)
 {
     TEST_SETUP(action_req, "some service", "some action");
 
-    fail_unless(t.msgtype == REQ_ACTION, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_ACTION, "msgtype");
     fail_unless(t.svc_id_len == strlen("some service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "some service") == 0, "svc_id");
     fail_unless(t.action_len == strlen("some action"), "action_len");
@@ -52,7 +52,7 @@ START_TEST(test_proto_signal_req)
     TEST_SETUP(signal_req, "some service", UPK_SIG_KILL, true, true);
 
 
-    fail_unless(t.msgtype == REQ_SIGNAL, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_SIGNAL, "msgtype");
     fail_unless(t.svc_id_len == strlen("some service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "some service") == 0, "svc_id");
     fail_unless(t.signal == UPK_SIG_KILL, "signal");
@@ -71,7 +71,7 @@ START_TEST(test_proto_list_req)
 {
     TEST_SETUP_NOARGS(list_req);
 
-    fail_unless(t.msgtype == REQ_LIST, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_LIST, "msgtype");
 
     fail_unless(pkt->pkttype == PKT_REQUEST, "pkttype");
     fail_unless(pkt->payload_len == 4, "payload_len");
@@ -86,7 +86,7 @@ START_TEST(test_proto_status_req)
 {
     TEST_SETUP(status_req, "some other service");
 
-    fail_unless(t.msgtype == REQ_STATUS, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_STATUS, "msgtype");
     fail_unless(t.svc_id_len == strlen("some other service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "some other service") == 0, "svc_id");
 
@@ -102,7 +102,7 @@ START_TEST(test_proto_subscr_req)
 {
     TEST_SETUP(subscr_req, "another service", true);
 
-    fail_unless(t.msgtype == REQ_SUBSCRIBE, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_SUBSCRIBE, "msgtype");
     fail_unless(t.all_svcs == true, "all_svcs");
     fail_unless(t.svc_id_len == strlen("another service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "another service") == 0, "svc_id");
@@ -119,7 +119,7 @@ START_TEST(test_proto_unsubs_req)
 {
     TEST_SETUP(unsubs_req, "another service", true);
 
-    fail_unless(t.msgtype == REQ_UNSUBSCRIBE, "msgtype");
+    fail_unless(t.msgtype == UPK_REQ_UNSUBSCRIBE, "msgtype");
     fail_unless(t.all_svcs == true, "all_svcs");
     fail_unless(t.svc_id_len == strlen("another service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "another service") == 0, "svc_id");
@@ -136,7 +136,7 @@ START_TEST(test_proto_discon_req)
 {
     TEST_SETUP_NOARGS(discon_req);
 
-    fail_unless(t.msgtype == REQ_DISCONNECT);
+    fail_unless(t.msgtype == UPK_REQ_DISCONNECT);
 
     fail_unless(pkt->pkttype == PKT_REQUEST, "pkttype");
     fail_unless(pkt->payload_len == (4), "payload_len");
@@ -149,10 +149,10 @@ END_TEST;
 
 START_TEST(test_proto_repl_seq_start)
 {
-    TEST_SETUP(repl_seq_start, REPL_LISTING, 19);
+    TEST_SETUP(repl_seq_start, UPK_REPL_LISTING, 19);
 
-    fail_unless(t.msgtype == REPL_SEQ_START, "msgtype");
-    fail_unless(t.msg_seq_type == REPL_LISTING, "seq_msg_type");
+    fail_unless(t.msgtype == UPK_REPL_SEQ_START, "msgtype");
+    fail_unless(t.msg_seq_type == UPK_REPL_LISTING, "seq_msg_type");
     fail_unless(t.msg_seq_count == 19, "seq_msg_count");
 
     fail_unless(pkt->pkttype == PKT_REPLY, "pkttype");
@@ -167,7 +167,7 @@ START_TEST(test_proto_repl_seq_end)
 {
     TEST_SETUP(repl_seq_end, true);
 
-    fail_unless(t.msgtype == REPL_SEQ_END, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_SEQ_END, "msgtype");
     fail_unless(t.commit == true, "commit");
 
     fail_unless(pkt->pkttype == PKT_REPLY, "pkttype");
@@ -182,7 +182,7 @@ START_TEST(test_proto_result_repl)
 {
     TEST_SETUP(result_repl, "some message", true);
 
-    fail_unless(t.msgtype == REPL_RESULT, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_RESULT, "msgtype");
     fail_unless(t.successful == true, "successful");
     fail_unless(t.msg_len == strlen("some message"), "msg_len");
     fail_unless(strcmp(t.msg, "some message") == 0, "msg");
@@ -199,7 +199,7 @@ START_TEST(test_proto_listing_repl)
 {
     TEST_SETUP(listing_repl, "now with more serviceness");
 
-    fail_unless(t.msgtype == REPL_LISTING, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_LISTING, "msgtype");
     fail_unless(t.svc_id_len == strlen("now with more serviceness"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "now with more serviceness") == 0, "svc_id");
 
@@ -232,7 +232,7 @@ START_TEST(test_proto_svcinfo_repl)
 
     TEST_SETUP(svcinfo_repl, service_name, &svcinfo);
 
-    fail_unless(t.msgtype == REPL_SVCINFO, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_SVCINFO, "msgtype");
 
     svcinfo_length += 4;                                   /* .last_action_time = 12345678, */
     svcinfo_length += 4;                                   /* .last_action_status = 87654321, */
@@ -276,7 +276,7 @@ START_TEST(test_proto_ack_repl)
 {
     TEST_SETUP_NOARGS(ack_repl);
 
-    fail_unless(t.msgtype == REPL_ACK, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_ACK, "msgtype");
 
     fail_unless(pkt->pkttype == PKT_REPLY, "pkttype");
     fail_unless(pkt->payload_len == (4), "payload_len");
@@ -291,7 +291,7 @@ START_TEST(test_proto_error_repl)
 #define errmsg "Some helpful error message telling what happened"
     TEST_SETUP(error_repl, service_name, errmsg, UPK_ERRLVL_ERROR);
 
-    fail_unless(t.msgtype == REPL_ERROR, "msgtype");
+    fail_unless(t.msgtype == UPK_REPL_ERROR, "msgtype");
     fail_unless(t.errlevel == UPK_ERRLVL_ERROR, "errlevel");
     fail_unless(t.msg_len == strlen(errmsg), "msg_len");
     fail_unless(strcmp(t.msg, errmsg) == 0, "msg");
@@ -311,7 +311,7 @@ START_TEST(test_proto_pub_pubmsg)
 {
     TEST_SETUP_NOARGS(pub_pubmsg);
 
-    fail_unless(t.msgtype == PUB_PUBLICATION, "msgtype");
+    fail_unless(t.msgtype == UPK_PUB_PUBLICATION, "msgtype");
 
     fail_unless(pkt->pkttype == PKT_PUBMSG, "pkttype");
     fail_unless(pkt->payload_len == (4), "payload_len");
@@ -324,7 +324,7 @@ START_TEST(test_proto_cancel_pubmsg)
 {
     TEST_SETUP_NOARGS(cancel_pubmsg);
 
-    fail_unless(t.msgtype == PUB_CANCELATION, "msgtype");
+    fail_unless(t.msgtype == UPK_PUB_CANCELATION, "msgtype");
 
     fail_unless(pkt->pkttype == PKT_PUBMSG, "pkttype");
     fail_unless(pkt->payload_len == (4), "payload_len");

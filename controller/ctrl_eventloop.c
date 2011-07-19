@@ -69,7 +69,7 @@ controller_packet_callback(upk_packet_t * pkt, client_fdlist_head_t *clients)
     switch (pkt->pkttype) {
     case PKT_REQUEST:
         switch (((upk_req_preamble_t *) pkt->payload)->msgtype) {
-        case REQ_ACTION:
+        case UPK_REQ_ACTION:
             action = pkt->payload;
 
             upk_debug1("action request received for service %s, type: %s\n", action->svc_id, action->action);
@@ -116,7 +116,7 @@ controller_packet_callback(upk_packet_t * pkt, client_fdlist_head_t *clients)
                 }
             }
             break;
-        case REQ_PREAMBLE:
+        case UPK_REQ_PREAMBLE:
             upk_debug1("Preamble request received, negotiating version: %d", UPK_MIN_SUPPORTED_PROTO);
             break;
         default:

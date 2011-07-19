@@ -1,18 +1,38 @@
 #ifndef _UPK_PROTOCOL_H
 #define _UPK_PROTOCOL_H
 
+/**
+  @file
+  @brief UPK networking protocol.
+
+  The network protocol defined herein is intended at this time for localhost communication via domain socket.
+  If for any reason it is ever desirable to use this over the wire, care has been taken to ensure endian and type
+  safety for transport; however, my current opinion is anything for network transport should require authentication
+  and presumably service-to-service authentication, proxy authentication, etc, i.e. x509 or preferably krb5 or similar
+  mechanisms, along with non-struct-buffer based communication. And so it is my contention that it would
+  probably be far saner to build a network service on top of this library, implementing its own authentication 
+  and communication protocol (probably utilizing json/yaml/xml/protobufs/whatever)
+  */
+
+/**
+  @addtogroup client_protocol
+  @{
+  */
+
+
 #include "upk_error.h"
 #include "upk_types.h"
 
 /* ********************************************************************************************************************
- * enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever
- * additional fields necessary to a vN_protocol_structs.h and append the macro in the appropriate location here.  and
- * add the version specific items to the switch in upk_protocol.c. Note that the underlying protocol does _not_ need to
- * maintain anything as a subset; just the wrapper function must support old and new styles.  this allows for controlled 
- * deprecation, while still providing protocol and API compatibility.
- * ******************************************************************************************************************* */
+   enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever
+   additional fields necessary to a vN_protocol_structs.h and append the macro in the appropriate location here.  and
+   add the version specific items to the switch in upk_protocol.c. Note that the underlying protocol does _not_ need to
+   maintain anything as a subset; just the wrapper function must support old and new styles.  this allows for controlled 
+   deprecation, while still providing protocol and API compatibility.
+   ******************************************************************************************************************* */
 
-#define UPK_MAX_PACKET_SIZE 65536                          /* 64k should be enough for anyone */
+#define UPK_MAX_PACKET_SIZE 65536                          /*!< 64k should be enough for anyone */
+#define UPK_PACKET_HEADER_LEN 16
 
 #define UPK_MIN_SUPPORTED_PROTO 0
 #define UPK_MAX_SUPPORTED_PROTO 0
@@ -68,7 +88,7 @@
 #define UPK_FETCH_UINT8_T(TYPE,MEMB) \
     memcpy(&UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \
     UPK_DATA->MEMB = (TYPE) UPK_UINT8_BUFFER; \
-    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER) 
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
 
 #define UPK_FETCH_UINT8(MEMB) \
     UPK_FETCH_UINT8_T(uint8_t, MEMB)
@@ -156,15 +176,16 @@
     UPK_BUF_PTR += LEN
 
 #ifdef __NEVERDEFINED_NEED_FOR_AUTOSCAN_TO_SEE_FUNCS_USED_IN_ABOVE_MACROS
-static inline void 
+static inline void
 __never_compiled(void)
 {
-    void *foo, *bar;
-    int32_t baz = 1;
-    foo=calloc(1,sizeof(int32_t));
-    bar=calloc(1,sizeof(int32_t));
-    memcpy(foo,bar,sizeof(int32_t));
-    baz=strnlen("foobar", 64);
+    void                   *foo, *bar;
+    int32_t                 baz = 1;
+
+    foo = calloc(1, sizeof(int32_t));
+    bar = calloc(1, sizeof(int32_t));
+    memcpy(foo, bar, sizeof(int32_t));
+    baz = strnlen("foobar", 64);
     baz = htonl(baz);
     baz = ntohl(baz);
     baz = (int32_t) htons((int16_t) baz);
@@ -172,19 +193,17 @@ __never_compiled(void)
 }
 #endif
 
-
-
 #include "upk_std_include.h"
 #include "upk_v0_protocol_structs.h"
 
 typedef unsigned char   upk_pkt_buf_t;
 
 /* *******************************************************************************************************************
- * enums for packet type description; anything >= V0_PROTO_LIMIT is invalid * in version 0 of the protocol; future
- * protocol extensions may be added after V0_PROTO_LIMIT in enumeration, and terminated with V1_PROTO_LIMIT, etc. For
- * the sake of simplicity; these will be forced into uint32_t space; regardless of what the arch's enum size may
- * actually be
- * ****************************************************************************************************************** */
+   enums for packet type description; anything >= V0_PROTO_LIMIT is invalid * in version 0 of the protocol; future
+   protocol extensions may be added after V0_PROTO_LIMIT in enumeration, and terminated with V1_PROTO_LIMIT, etc. For
+   the sake of simplicity; these will be forced into uint32_t space; regardless of what the arch's enum size may
+   actually be
+   ****************************************************************************************************************** */
 typedef enum {
     PKT_REQUEST = 1,
     PKT_REPLY,
@@ -192,45 +211,54 @@ typedef enum {
     PKT_V0_PROTO_LIMIT,
 } upk_pkttype_t;
 
-typedef enum {
-    REQ_PREAMBLE = 1,
-    REQ_SEQ_START,
-    REQ_SEQ_END,
-    REQ_ACTION,
-    REQ_SIGNAL,
-    REQ_LIST,
-    REQ_STATUS,
-    REQ_SUBSCRIBE,
-    REQ_UNSUBSCRIBE,
-    REQ_DISCONNECT,
-    REQ_UNCONFIGURE,
-    REQ_V0_PROTO_LIMIT,
-} upk_req_msgtype_t;
-
-typedef enum {
-    REPL_PREAMBLE = 1,
-    REPL_SEQ_START,
-    REPL_SEQ_END,
-    REPL_RESULT,
-    REPL_LISTING,
-    REPL_SVCINFO,
-    REPL_ACK,
-    REPL_ERROR,
-    REPL_V0_PROTO_LIMIT,
-} upk_repl_msgtype_t;
-
-typedef enum {
-    PUB_PUBLICATION = 1,
-    PUB_CANCELATION,
-    PUB_V0_PROTO_LIMIT,
-} upk_pub_msgtype_t;
+typedef enum _upk_msgtype {
+    UPK_REQ_PREAMBLE = 1,                                  /*!< A preamble message, used to negotiate version, and
+                                                              handshake */
+    UPK_REQ_SEQ_START,                                     /*!< The start of a request sequence */
+    UPK_REQ_SEQ_END,                                       /*!< the end of a request sequence */
+    UPK_REQ_ACTION,                                        /*!< An action request (e.g. start, stop, reload, or custom 
+                                                              actions) */
+    UPK_REQ_SIGNAL,                                        /*!< a signal request (e.g. send signal N) */
+    UPK_REQ_LIST,                                          /*!< A listing request. for a listing of all service-ids
+                                                              known to the controller */
+    UPK_REQ_STATUS,                                        /*!< A status request, to get information on a particular
+                                                              service */
+    UPK_REQ_SUBSCRIBE,                                     /*!< subscribe to a feed of status updates */
+    UPK_REQ_UNSUBSCRIBE,                                   /*!< unsubscribe from a feed of status updates */
+    UPK_REQ_DISCONNECT,                                    /*!< notify controller of your intent to disconnect */
+    UPK_REQ_UNCONFIGURE,                                   /*!< notify controller to unconfigure an existing service */
+    UPK_REQ_V0_PROTO_LIMIT,                                /*!< all valid v0 requests are < this */
+    UPK_REPL_PREAMBLE = 4096,                              /*!< the reply to a preamble request, used to send back
+                                                              what the server decided was the best protocol, and
+                                                              complete the handshake */
+    UPK_REPL_SEQ_START,                                    /*!< the start of a sequence of replies */
+    UPK_REPL_SEQ_END,                                      /*!< the end of a sequence of replies */
+    UPK_REPL_RESULT,                                       /*!< the result of an action or signal request (or anything 
+                                                              else that might benefit from a result msg */
+    UPK_REPL_LISTING,                                      /*!< the name of a service in a sequence listing all
+                                                              services */
+    UPK_REPL_SVCINFO,                                      /*!< all the information known about a service */
+    UPK_REPL_ACK,                                          /*!< an ack, when nothing else really fits, but a reply is
+                                                              still mandated */
+    UPK_REPL_ERROR,                                        /*!< report an error to the client, for instance, if the
+                                                              named service doesn't exist, or an action doesn't exist,
+                                                              etc */
+    UPK_REPL_V0_PROTO_LIMIT,                               /*!< All valid v0 replies are < this */
+    UPK_PUB_PUBLICATION = 8192,                            /*!< a message sent from the controller to a subscriber,
+                                                              followed by svcinfo packets for all subscribed services */
+    UPK_PUB_CANCELATION,                                   /*!< notification that a particular service is no longer
+                                                              available to subscribe to, for instance if its been
+                                                              removed */
+    UPK_PUB_V0_PROTO_LIMIT,                                /*!< All valid pub v0 publication messages are < this */
+} upk_msgtype_t;
 
 /* *******************************************************************************************************************
- * |----|----|----|<payload ...>|----|
- * ****************************************************************************************************************** */
+   |----|----|----|<payload ...>|----|
+   ****************************************************************************************************************** */
 typedef struct {
     uint32_t                payload_len;                   /* not size_t, because this would force the arch of the
-                                                            * client to match the server */
+                                                              client to match the server; and even on localhost, that
+                                                              cannot be guaranteed */
     uint32_t                version_id;
     uint32_t                seq_num;
     upk_pkttype_t           pkttype;                       /* will be forced into a uint32_t; even on 64bit */
@@ -239,10 +267,10 @@ typedef struct {
 } upk_packet_t;
 
 /* *******************************************************************************************************************
- * |----|----|<client_name ...>|
- * ****************************************************************************************************************** */
+   |----|----|<client_name ...>|
+   ****************************************************************************************************************** */
 typedef struct {
-    upk_req_msgtype_t       msgtype;
+    upk_msgtype_t           msgtype;
     uint32_t                min_supported_ver;
     uint32_t                max_supported_ver;
     uint32_t                client_name_len;
@@ -250,22 +278,22 @@ typedef struct {
 } upk_req_preamble_t;
 
 /* *******************************************************************************************************************
- * |----|----|
- * ****************************************************************************************************************** */
+   |----|----|
+   ****************************************************************************************************************** */
 typedef struct {
-    upk_repl_msgtype_t      msgtype;
+    upk_msgtype_t           msgtype;
     uint32_t                best_version;
 } upk_repl_preamble_t;
 
 /* *******************************************************************************************************************
- * fields defined in vN_protocol_structs.h; check them for info
- * ****************************************************************************************************************** */
+   fields defined in vN_protocol_structs.h; check them for info
+   ****************************************************************************************************************** */
 typedef struct {
-    UPK_V0_REQ_SEQ_START_T_FIELDS;
+    UPK_V0_UPK_REQ_SEQ_START_T_FIELDS;
 } upk_req_seq_start_t;
 
 typedef struct {
-    UPK_V0_REQ_SEQ_END_T_FIELDS;
+    UPK_V0_UPK_REQ_SEQ_END_T_FIELDS;
 } upk_req_seq_end_t;
 
 typedef struct {
@@ -297,11 +325,11 @@ typedef struct {
 } upk_discon_req_t;
 
 typedef struct {
-    UPK_V0_REPL_SEQ_START_T_FIELDS;
+    UPK_V0_UPK_REPL_SEQ_START_T_FIELDS;
 } upk_repl_seq_start_t;
 
 typedef struct {
-    UPK_V0_REPL_SEQ_END_T_FIELDS;
+    UPK_V0_UPK_REPL_SEQ_END_T_FIELDS;
 } upk_repl_seq_end_t;
 
 typedef struct {
@@ -313,16 +341,15 @@ typedef struct {
 } upk_listing_repl_t;
 
 /* Moved definition to types.h */
-/* typedef struct {
-    UPK_V0_SVCINFO_T_FIELDS;
-} upk_svcinfo_t; */
+/* typedef struct { UPK_V0_SVCINFO_T_FIELDS; } upk_svcinfo_t; */
 
-/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition
-   while still referencing the correct, version-agnostic, structure therein */
+/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition while still referencing the correct, 
+   version-agnostic, structure therein */
 #define v0_svcinfo_t upk_svcinfo_t
 typedef struct {
     UPK_V0_SVCINFO_REPL_T_FIELDS;
 } upk_svcinfo_repl_t;
+
 #undef v0_svcinfo_t
 
 typedef struct {
@@ -342,68 +369,104 @@ typedef struct {
 } upk_cancel_pubmsg_t;
 
 typedef struct {
-    uint32_t version_id;
-    uint32_t seq_num;
-    int sockfd;
+    uint32_t                version_id;
+    uint32_t                seq_num;
+    int                     sockfd;
 } upk_protocol_handle_t;
 
+typedef union _upk_payload_types {
+    upk_req_preamble_t      req_preamble;
+    upk_repl_preamble_t     repl_preamble;
+    upk_req_seq_start_t     req_seq_start;
+    upk_req_seq_end_t       req_seq_end;
+    upk_action_req_t        action_req;
+    upk_signal_req_t        signal_req;
+    upk_list_req_t          list_req;
+    upk_status_req_t        status_req;
+    upk_subscr_req_t        subscr_req;
+    upk_unsubs_req_t        unsubs_req;
+    upk_discon_req_t        discon_req;
+    upk_repl_seq_start_t    repl_seq_start;
+    upk_repl_seq_end_t      repl_seq_end;
+    upk_result_repl_t       result_repl;
+    upk_listing_repl_t      listing_repl;
+    upk_svcinfo_t           svcinfo;
+    upk_svcinfo_repl_t      svcinfo_repl;
+    upk_ack_repl_t          ack_repl;
+    upk_error_repl_t        error_repl;
+    upk_pub_pubmsg_t        pub_pubmsg;
+    upk_cancel_pubmsg_t     cancel_pubmsg;
+} upk_payload_types_u;
+
+typedef struct _upk_payload {
+    upk_msgtype_t           type;
+    upk_payload_types_u     payload;
+} upk_paylaod_t;
 
 
 /* *******************************************************************************************************************
- * function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.
- * ****************************************************************************************************************** */
+   function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.
+   ****************************************************************************************************************** */
 extern upk_pkt_buf_t   *upk_serialize_packet(upk_packet_t * UPK_DATA_PTR);
 extern upk_packet_t    *upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF);
 
 extern upk_packet_t    *upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint32_t proto_ver);
 
 /* *******************************************************************************************************************
- * convenience functions for requests, when its easier than building the structs yourself
- * ****************************************************************************************************************** */
+   convenience functions for requests, when its easier than building the structs yourself
+   ****************************************************************************************************************** */
 extern upk_packet_t    *upk_create_req_preamble(char *client_name);
 
-extern upk_packet_t    *upk_create_req_seq_start(upk_protocol_handle_t *handle, upk_req_msgtype_t seq_type, uint32_t count);
-extern upk_packet_t    *upk_create_req_seq_end(upk_protocol_handle_t *handle, bool commit);
+extern upk_packet_t    *upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type,
+                                                 uint32_t count);
+extern upk_packet_t    *upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit);
 
-extern upk_packet_t    *upk_create_action_req(upk_protocol_handle_t *handle, char *svc_id, char *action);
-extern upk_packet_t    *upk_create_signal_req(upk_protocol_handle_t *handle, char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp);
-extern upk_packet_t    *upk_create_list_req(upk_protocol_handle_t *handle);
-extern upk_packet_t    *upk_create_status_req(upk_protocol_handle_t *handle, char *svc_id);
-extern upk_packet_t    *upk_create_subscr_req(upk_protocol_handle_t *handle, char *svc_id, bool all_svcs);
-extern upk_packet_t    *upk_create_unsubs_req(upk_protocol_handle_t *handle, char *svc_id, bool all_svcs);
-extern upk_packet_t    *upk_create_discon_req(upk_protocol_handle_t *handle);
+extern upk_packet_t    *upk_create_action_req(upk_protocol_handle_t * handle, char *svc_id, char *action);
+extern upk_packet_t    *upk_create_signal_req(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal,
+                                              bool signal_sid, bool signal_pgrp);
+extern upk_packet_t    *upk_create_list_req(upk_protocol_handle_t * handle);
+extern upk_packet_t    *upk_create_status_req(upk_protocol_handle_t * handle, char *svc_id);
+extern upk_packet_t    *upk_create_subscr_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs);
+extern upk_packet_t    *upk_create_unsubs_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs);
+extern upk_packet_t    *upk_create_discon_req(upk_protocol_handle_t * handle);
 
 
 /* *******************************************************************************************************************
- * convenience functions for replies, when its easier than building the structs yourself
- * ****************************************************************************************************************** */
+   convenience functions for replies, when its easier than building the structs yourself
+   ****************************************************************************************************************** */
 extern upk_packet_t    *upk_create_repl_preamble(uint32_t best_version);
 
-extern upk_packet_t    *upk_create_repl_seq_start(upk_protocol_handle_t *handle, upk_repl_msgtype_t seq_type, uint32_t count);
-extern upk_packet_t    *upk_create_repl_seq_end(upk_protocol_handle_t *handle, bool commit);
+extern upk_packet_t    *upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type,
+                                                  uint32_t count);
+extern upk_packet_t    *upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit);
 
-extern upk_packet_t    *upk_create_result_repl(upk_protocol_handle_t *handle, char *msg, bool successful);
-extern upk_packet_t    *upk_create_listing_repl(upk_protocol_handle_t *handle, char *svc_id);
-extern upk_packet_t    *upk_create_svcinfo_repl(upk_protocol_handle_t *handle, char *svc_id, upk_svcinfo_t * svcinfo);
-extern upk_packet_t    *upk_create_ack_repl(upk_protocol_handle_t *handle);
+extern upk_packet_t    *upk_create_result_repl(upk_protocol_handle_t * handle, char *msg, bool successful);
+extern upk_packet_t    *upk_create_listing_repl(upk_protocol_handle_t * handle, char *svc_id);
+extern upk_packet_t    *upk_create_svcinfo_repl(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo);
+extern upk_packet_t    *upk_create_ack_repl(upk_protocol_handle_t * handle);
 
 /* FIXME: should probably use upk_error_t enum instead of char *errmsg */
-extern upk_packet_t    *upk_create_error_repl(upk_protocol_handle_t *handle, char *svc_id, char *errmsg, upk_errlevel_t errlvl);
+extern upk_packet_t    *upk_create_error_repl(upk_protocol_handle_t * handle, char *svc_id, char *errmsg,
+                                              upk_errlevel_t errlvl);
 
 
 /* *******************************************************************************************************************
- * convenience functions for pubmsg's, because, why not...
- * ****************************************************************************************************************** */
-extern upk_packet_t    *upk_create_pub_pubmsg(upk_protocol_handle_t *handle);
-extern upk_packet_t    *upk_create_cancel_pubmsg(upk_protocol_handle_t *handle);
+   convenience functions for pubmsg's, because, why not...
+   ****************************************************************************************************************** */
+extern upk_packet_t    *upk_create_pub_pubmsg(upk_protocol_handle_t * handle);
+extern upk_packet_t    *upk_create_cancel_pubmsg(upk_protocol_handle_t * handle);
 
 
 /* *******************************************************************************************************************
- * housekeeping
- * ****************************************************************************************************************** */
-extern void upk_pkt_free(upk_packet_t *pkt);
+   housekeeping
+   ****************************************************************************************************************** */
+extern void             upk_pkt_free(upk_packet_t * pkt);
 
 /* *******************************************************************************************************************
- * packet encapsulation 
- * ****************************************************************************************************************** */
+   packet encapsulation
+   ****************************************************************************************************************** */
 #endif
+
+/**
+  @}
+  */

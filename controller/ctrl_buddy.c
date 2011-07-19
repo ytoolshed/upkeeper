@@ -209,6 +209,7 @@ buddy_readstate(int fd)
             upk_debug1("\ttimestamp: %ld\n", buf.timestamp);
             upk_uuid_to_string(uuid_buf, &buf.uuid);
             upk_debug1("\tbuddy UUID: %s\n", uuid_buf);
+            upk_debug1("\tremaining: %ld\n", buf.remaining);
             if(buf.wait_status) {
                 if(WIFEXITED(buf.wait_status))
                     upk_debug0("pid %d exited with: %d\n", buf.wait_pid, WEXITSTATUS(buf.wait_status));
@@ -284,9 +285,21 @@ spawn_buddy(upk_svc_desc_t * buddy)
 static                  bool
 send_buddy_cmd(int fd, buddy_cmnd_t cmd)
 {
+    fd_set sockfdset;
+    struct timeval          timeout = {
+        .tv_sec = 0,
+        .tv_usec = 10000,
+    };
+
+
+    FD_ZERO(&sockfdset);
+    FD_SET(fd, &sockfdset);
+
     if(fd >= 0) {
-        write(fd, &cmd, sizeof(cmd));
-        buddy_readstate(fd);
+        if(select(fd + 1, NULL, &sockfdset, NULL, &timeout) && FD_ISSET(fd, &sockfdset)) {
+            write(fd, &cmd, sizeof(cmd));
+            buddy_readstate(fd);
+        }
         shutdown(fd, SHUT_RDWR);
         close(fd);
         return true;

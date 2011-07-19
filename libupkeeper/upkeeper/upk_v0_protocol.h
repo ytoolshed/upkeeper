@@ -9,11 +9,11 @@
  * fields defined in v0_protocol_structs.h; check there for info
  * ****************************************************************************************************************** */
 typedef struct {
-    UPK_V0_REQ_SEQ_START_T_FIELDS;
+    UPK_V0_UPK_REQ_SEQ_START_T_FIELDS;
 } v0_req_seq_start_t;
 
 typedef struct {
-    UPK_V0_REQ_SEQ_END_T_FIELDS;
+    UPK_V0_UPK_REQ_SEQ_END_T_FIELDS;
 } v0_req_seq_end_t;
 
 typedef struct {
@@ -45,11 +45,11 @@ typedef struct {
 } v0_discon_req_t;
 
 typedef struct {
-    UPK_V0_REPL_SEQ_START_T_FIELDS;
+    UPK_V0_UPK_REPL_SEQ_START_T_FIELDS;
 } v0_repl_seq_start_t;
 
 typedef struct {
-    UPK_V0_REPL_SEQ_END_T_FIELDS;
+    UPK_V0_UPK_REPL_SEQ_END_T_FIELDS;
 } v0_repl_seq_end_t;
 
 typedef struct {
@@ -94,7 +94,7 @@ extern void            *v0_deserialize_payload(upk_pkt_buf_t * UPK_BUF, upk_pktt
 /* *******************************************************************************************************************
  * convenience functions for requests, when its easier than building the structs yourself
  * ****************************************************************************************************************** */
-extern upk_packet_t    *v0_create_req_seq_start(upk_req_msgtype_t msg_seq_type, uint32_t msg_seq_count);
+extern upk_packet_t    *v0_create_req_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count);
 extern upk_packet_t    *v0_create_req_seq_end(bool commit);
 
 extern upk_packet_t    *v0_create_action_req(char *svc_id, char *action);
@@ -109,7 +109,7 @@ extern upk_packet_t    *v0_create_discon_req(void);
 /* *******************************************************************************************************************
  * convenience functions for replies, when its easier than building the structs yourself
  * ****************************************************************************************************************** */
-extern upk_packet_t    *v0_create_repl_seq_start(upk_repl_msgtype_t msg_seq_type, uint32_t msg_seq_count);
+extern upk_packet_t    *v0_create_repl_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count);
 extern upk_packet_t    *v0_create_repl_seq_end(bool commit);
 
 extern upk_packet_t    *v0_create_result_repl(char *msg, bool successful);

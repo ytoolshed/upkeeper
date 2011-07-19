@@ -5,9 +5,9 @@
 #undef UPK_MSG_IDENTIFIER
 #define UPK_MSG_IDENTIFIER msgtype
 extern upk_pkttype_t    upk_pkt_proto_limit[];
-extern upk_req_msgtype_t upk_req_proto_limit[];
-extern upk_repl_msgtype_t upk_repl_proto_limit[];
-extern upk_pub_msgtype_t upk_pub_proto_limit[];
+extern upk_msgtype_t upk_req_proto_limit[];
+extern upk_msgtype_t upk_repl_proto_limit[];
+extern upk_msgtype_t upk_pub_proto_limit[];
 
 typedef void           *(*deserialize_payload_t) (upk_pkt_buf_t *);
 typedef upk_pkt_buf_t  *(*serialize_payload_t) (void *, size_t);
@@ -87,30 +87,30 @@ static deserialize_payload_t   deserial_pkt_dispatch[] = {
 };
 
 static deserialize_payload_t   deserial_req_dispatch[] = {
-    [REQ_SEQ_START] = deserial_req_seq_start,
-    [REQ_SEQ_END] = deserial_req_seq_end,
-    [REQ_ACTION] = deserial_req_action,
-    [REQ_SIGNAL] = deserial_req_signal,
-    [REQ_LIST] = deserial_req_list,
-    [REQ_STATUS] = deserial_req_status,
-    [REQ_SUBSCRIBE] = deserial_req_subscribe,
-    [REQ_UNSUBSCRIBE] = deserial_req_unsub,
-    [REQ_DISCONNECT] = deserial_req_disconnect,
+    [UPK_REQ_SEQ_START] = deserial_req_seq_start,
+    [UPK_REQ_SEQ_END] = deserial_req_seq_end,
+    [UPK_REQ_ACTION] = deserial_req_action,
+    [UPK_REQ_SIGNAL] = deserial_req_signal,
+    [UPK_REQ_LIST] = deserial_req_list,
+    [UPK_REQ_STATUS] = deserial_req_status,
+    [UPK_REQ_SUBSCRIBE] = deserial_req_subscribe,
+    [UPK_REQ_UNSUBSCRIBE] = deserial_req_unsub,
+    [UPK_REQ_DISCONNECT] = deserial_req_disconnect,
 };
 
 static deserialize_payload_t   deserial_repl_dispatch[] = {
-    [REPL_SEQ_START] = deserial_repl_seq_start,
-    [REPL_SEQ_END] = deserial_repl_seq_end,
-    [REPL_RESULT] = deserial_repl_result,
-    [REPL_LISTING] = deserial_repl_listing,
-    [REPL_SVCINFO] = deserial_repl_svcinfo,
-    [REPL_ACK] = deserial_repl_ack,
-    [REPL_ERROR] = deserial_repl_err,
+    [UPK_REPL_SEQ_START] = deserial_repl_seq_start,
+    [UPK_REPL_SEQ_END] = deserial_repl_seq_end,
+    [UPK_REPL_RESULT] = deserial_repl_result,
+    [UPK_REPL_LISTING] = deserial_repl_listing,
+    [UPK_REPL_SVCINFO] = deserial_repl_svcinfo,
+    [UPK_REPL_ACK] = deserial_repl_ack,
+    [UPK_REPL_ERROR] = deserial_repl_err,
 };
 
 static deserialize_payload_t   deserial_pub_dispatch[] = {
-    [PUB_PUBLICATION] = deserial_pub_pub,
-    [PUB_CANCELATION] = deserial_pub_cancel,
+    [UPK_PUB_PUBLICATION] = deserial_pub_pub,
+    [UPK_PUB_CANCELATION] = deserial_pub_cancel,
 };
 
 static serialize_payload_t     serial_pkt_dispatch[] = {
@@ -120,30 +120,30 @@ static serialize_payload_t     serial_pkt_dispatch[] = {
 };
 
 static serialize_payload_t     serial_req_dispatch[] = {
-    [REQ_SEQ_START] = serial_req_seq_start,
-    [REQ_SEQ_END] = serial_req_seq_end,
-    [REQ_ACTION] = serial_req_action,
-    [REQ_SIGNAL] = serial_req_signal,
-    [REQ_LIST] = serial_req_list,
-    [REQ_STATUS] = serial_req_status,
-    [REQ_SUBSCRIBE] = serial_req_subscribe,
-    [REQ_UNSUBSCRIBE] = serial_req_unsub,
-    [REQ_DISCONNECT] = serial_req_disconnect,
+    [UPK_REQ_SEQ_START] = serial_req_seq_start,
+    [UPK_REQ_SEQ_END] = serial_req_seq_end,
+    [UPK_REQ_ACTION] = serial_req_action,
+    [UPK_REQ_SIGNAL] = serial_req_signal,
+    [UPK_REQ_LIST] = serial_req_list,
+    [UPK_REQ_STATUS] = serial_req_status,
+    [UPK_REQ_SUBSCRIBE] = serial_req_subscribe,
+    [UPK_REQ_UNSUBSCRIBE] = serial_req_unsub,
+    [UPK_REQ_DISCONNECT] = serial_req_disconnect,
 };
 
 static serialize_payload_t     serial_repl_dispatch[] = {
-    [REPL_SEQ_START] = serial_repl_seq_start,
-    [REPL_SEQ_END] = serial_repl_seq_end,
-    [REPL_RESULT] = serial_repl_result,
-    [REPL_LISTING] = serial_repl_listing,
-    [REPL_SVCINFO] = serial_repl_svcinfo,
-    [REPL_ACK] = serial_repl_ack,
-    [REPL_ERROR] = serial_repl_err,
+    [UPK_REPL_SEQ_START] = serial_repl_seq_start,
+    [UPK_REPL_SEQ_END] = serial_repl_seq_end,
+    [UPK_REPL_RESULT] = serial_repl_result,
+    [UPK_REPL_LISTING] = serial_repl_listing,
+    [UPK_REPL_SVCINFO] = serial_repl_svcinfo,
+    [UPK_REPL_ACK] = serial_repl_ack,
+    [UPK_REPL_ERROR] = serial_repl_err,
 };
 
 static serialize_payload_t     serial_pub_dispatch[] = {
-    [PUB_PUBLICATION] = serial_pub_pub,
-    [PUB_CANCELATION] = serial_pub_cancel,
+    [UPK_PUB_PUBLICATION] = serial_pub_pub,
+    [UPK_PUB_CANCELATION] = serial_pub_cancel,
 };
 
 /* *******************************************************************************************************************
@@ -181,10 +181,10 @@ static void            *
 deserialize_req_payload(upk_pkt_buf_t * UPK_BUF)
 {
     uint32_t                enum_buf;
-    upk_req_msgtype_t       msgtype;
+    upk_msgtype_t       msgtype;
 
     memcpy(&enum_buf, UPK_BUF, sizeof(enum_buf));
-    msgtype = (upk_req_msgtype_t) ntohl(enum_buf);
+    msgtype = (upk_msgtype_t) ntohl(enum_buf);
     assert(msgtype < sizeof(deserial_req_dispatch));
 
     return (deserial_req_dispatch[msgtype]) (UPK_BUF);
@@ -196,10 +196,10 @@ static void            *
 deserialize_repl_payload(upk_pkt_buf_t * UPK_BUF)
 {
     uint32_t                enum_buf;
-    upk_repl_msgtype_t      msgtype;
+    upk_msgtype_t      msgtype;
 
     memcpy(&enum_buf, UPK_BUF, sizeof(enum_buf));
-    msgtype = (upk_repl_msgtype_t) ntohl(enum_buf);
+    msgtype = (upk_msgtype_t) ntohl(enum_buf);
     assert(msgtype < sizeof(deserial_repl_dispatch));
 
     return (deserial_repl_dispatch[msgtype]) (UPK_BUF);
@@ -211,10 +211,10 @@ static void            *
 deserialize_pub_payload(upk_pkt_buf_t * UPK_BUF)
 {
     uint32_t                enum_buf;
-    upk_pub_msgtype_t       msgtype;
+    upk_msgtype_t       msgtype;
 
     memcpy(&enum_buf, UPK_BUF, sizeof(enum_buf));
-    msgtype = (upk_pub_msgtype_t) ntohl(enum_buf);
+    msgtype = (upk_msgtype_t) ntohl(enum_buf);
     assert(msgtype < sizeof(deserial_pub_dispatch));
 
     return (deserial_pub_dispatch[msgtype]) (UPK_BUF);
@@ -254,7 +254,7 @@ serialize_pub_payload(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
  * REQUESTS
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_req_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -263,7 +263,7 @@ deserial_req_seq_start(upk_pkt_buf_t * UPK_BUF)
 {
     UPK_INIT_DESERIALIZE_MSG(v0_req_seq_start_t);
 
-    UPK_FETCH_ENUM(upk_req_msgtype_t, msg_seq_type);
+    UPK_FETCH_ENUM(upk_msgtype_t, msg_seq_type);
     UPK_FETCH_UINT32(msg_seq_count);
 
     return UPK_DATA;
@@ -378,7 +378,7 @@ deserial_req_disconnect(upk_pkt_buf_t * UPK_BUF)
  * REPLIES
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_repl_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -387,7 +387,7 @@ deserial_repl_seq_start(upk_pkt_buf_t * UPK_BUF)
 {
     UPK_INIT_DESERIALIZE_MSG(v0_repl_seq_start_t);
 
-    UPK_FETCH_ENUM(upk_repl_msgtype_t, msg_seq_type);
+    UPK_FETCH_ENUM(upk_msgtype_t, msg_seq_type);
     UPK_FETCH_UINT32(msg_seq_count);
 
     return UPK_DATA;
@@ -510,7 +510,7 @@ deserial_repl_err(upk_pkt_buf_t * UPK_BUF)
  * PUBMSG's
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_pub_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -542,7 +542,7 @@ deserial_pub_cancel(upk_pkt_buf_t * UPK_BUF)
  * requests
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_req_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -665,7 +665,7 @@ serial_req_disconnect(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
  * replies
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_repl_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
@@ -791,7 +791,7 @@ serial_repl_err(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
  * PUBMSG's
  * ****************************************************************************************************************** */
 #undef UPK_MSG_IDENTIFIER_TYPEDEF
-#define UPK_MSG_IDENTIFIER_TYPEDEF upk_pub_msgtype_t
+#define UPK_MSG_IDENTIFIER_TYPEDEF upk_msgtype_t
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */

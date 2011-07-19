@@ -9,16 +9,16 @@
 upk_pkttype_t           upk_pkt_proto_limit[] = {
     PKT_V0_PROTO_LIMIT,
 };
-upk_req_msgtype_t       upk_req_proto_limit[] = {
-    REQ_V0_PROTO_LIMIT,
+upk_msgtype_t       upk_req_proto_limit[] = {
+    UPK_REQ_V0_PROTO_LIMIT,
 };
 
-upk_repl_msgtype_t      upk_repl_proto_limit[] = {
-    REPL_V0_PROTO_LIMIT,
+upk_msgtype_t      upk_repl_proto_limit[] = {
+    UPK_REPL_V0_PROTO_LIMIT,
 };
 
-upk_pub_msgtype_t       upk_pub_proto_limit[] = {
-    PUB_V0_PROTO_LIMIT,
+upk_msgtype_t       upk_pub_proto_limit[] = {
+    UPK_PUB_V0_PROTO_LIMIT,
 };
 
 /* *******************************************************************************************************************

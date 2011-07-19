@@ -76,25 +76,25 @@ static free_data_t             free_pkt_dispatch[] = {
 };
 
 static free_data_t             free_req_dispatch[] = {
-    [REQ_SEQ_START] = NULL,
-    [REQ_SEQ_END] = NULL,
-    [REQ_ACTION] = v0_free_action_req,
-    [REQ_SIGNAL] = v0_free_signal_req,
-    [REQ_LIST] = NULL,
-    [REQ_STATUS] = v0_free_status_req,
-    [REQ_SUBSCRIBE] = v0_free_subscr_req,
-    [REQ_UNSUBSCRIBE] = v0_free_unsubs_req,
-    [REQ_DISCONNECT] = NULL,
+    [UPK_REQ_SEQ_START] = NULL,
+    [UPK_REQ_SEQ_END] = NULL,
+    [UPK_REQ_ACTION] = v0_free_action_req,
+    [UPK_REQ_SIGNAL] = v0_free_signal_req,
+    [UPK_REQ_LIST] = NULL,
+    [UPK_REQ_STATUS] = v0_free_status_req,
+    [UPK_REQ_SUBSCRIBE] = v0_free_subscr_req,
+    [UPK_REQ_UNSUBSCRIBE] = v0_free_unsubs_req,
+    [UPK_REQ_DISCONNECT] = NULL,
 };
 
 static free_data_t             free_repl_dispatch[] = {
-    [REPL_SEQ_START] = NULL,
-    [REPL_SEQ_END] = NULL,
-    [REPL_RESULT] = v0_free_result_repl,
-    [REPL_LISTING] = v0_free_listing_repl,
-    [REPL_SVCINFO] = v0_free_svcinfo_repl,
-    [REPL_ACK] = NULL,
-    [REPL_ERROR] = v0_free_error_repl,
+    [UPK_REPL_SEQ_START] = NULL,
+    [UPK_REPL_SEQ_END] = NULL,
+    [UPK_REPL_RESULT] = v0_free_result_repl,
+    [UPK_REPL_LISTING] = v0_free_listing_repl,
+    [UPK_REPL_SVCINFO] = v0_free_svcinfo_repl,
+    [UPK_REPL_ACK] = NULL,
+    [UPK_REPL_ERROR] = v0_free_error_repl,
 };
 
 static void
@@ -127,9 +127,9 @@ v0_free_payload(upk_packet_t *pkt)
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 upk_packet_t           *
-v0_create_req_seq_start(upk_req_msgtype_t msg_seq_type, uint32_t msg_seq_count)
+v0_create_req_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count)
 {
-    UPK_INIT_HELPER(v0_req_seq_start_t, REQ_SEQ_START);
+    UPK_INIT_HELPER(v0_req_seq_start_t, UPK_REQ_SEQ_START);
 
     UPK_HELPER_ENUM(msg_seq_type);
     UPK_HELPER_UINT32(msg_seq_count);
@@ -143,7 +143,7 @@ v0_create_req_seq_start(upk_req_msgtype_t msg_seq_type, uint32_t msg_seq_count)
 upk_packet_t           *
 v0_create_req_seq_end(bool commit)
 {
-    UPK_INIT_HELPER(v0_req_seq_end_t, REQ_SEQ_END);
+    UPK_INIT_HELPER(v0_req_seq_end_t, UPK_REQ_SEQ_END);
 
     UPK_HELPER_BOOL(commit);
 
@@ -157,7 +157,7 @@ v0_create_req_seq_end(bool commit)
 upk_packet_t           *
 v0_create_action_req(char *svc_id, char *action)
 {
-    UPK_INIT_HELPER(v0_action_req_t, REQ_ACTION);
+    UPK_INIT_HELPER(v0_action_req_t, UPK_REQ_ACTION);
 
     UPK_HELPER_STRING(svc_id);
     UPK_HELPER_STRING(action);
@@ -186,7 +186,7 @@ v0_free_action_req(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_signal_req(char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp)
 {
-    UPK_INIT_HELPER(v0_signal_req_t, REQ_SIGNAL);
+    UPK_INIT_HELPER(v0_signal_req_t, UPK_REQ_SIGNAL);
 
     UPK_HELPER_ENUM(signal);
     UPK_HELPER_BOOL(signal_sid);
@@ -213,7 +213,7 @@ v0_free_signal_req(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_list_req(void)
 {
-    UPK_INIT_HELPER(v0_list_req_t, REQ_LIST);
+    UPK_INIT_HELPER(v0_list_req_t, UPK_REQ_LIST);
     UPK_END_HELPER(PKT_REQUEST);
 }
 
@@ -224,7 +224,7 @@ v0_create_list_req(void)
 upk_packet_t           *
 v0_create_status_req(char *svc_id)
 {
-    UPK_INIT_HELPER(v0_status_req_t, REQ_STATUS);
+    UPK_INIT_HELPER(v0_status_req_t, UPK_REQ_STATUS);
 
     UPK_HELPER_STRING(svc_id);
 
@@ -250,7 +250,7 @@ v0_free_status_req(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_subscr_req(char *svc_id, bool all_svcs)
 {
-    UPK_INIT_HELPER(v0_subscr_req_t, REQ_SUBSCRIBE);
+    UPK_INIT_HELPER(v0_subscr_req_t, UPK_REQ_SUBSCRIBE);
 
     UPK_HELPER_BOOL(all_svcs);
     UPK_HELPER_STRING(svc_id);
@@ -277,7 +277,7 @@ v0_free_subscr_req(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_unsubs_req(char *svc_id, bool all_svcs)
 {
-    UPK_INIT_HELPER(v0_unsubs_req_t, REQ_UNSUBSCRIBE);
+    UPK_INIT_HELPER(v0_unsubs_req_t, UPK_REQ_UNSUBSCRIBE);
 
     UPK_HELPER_BOOL(all_svcs);
     UPK_HELPER_STRING(svc_id);
@@ -303,16 +303,16 @@ v0_free_unsubs_req(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_discon_req(void)
 {
-    UPK_INIT_HELPER(v0_discon_req_t, REQ_DISCONNECT);
+    UPK_INIT_HELPER(v0_discon_req_t, UPK_REQ_DISCONNECT);
     UPK_END_HELPER(PKT_REQUEST);
 }
 
 /* *******************************************************************************************************************
  * ****************************************************************************************************************** */
 upk_packet_t           *
-v0_create_repl_seq_start(upk_repl_msgtype_t msg_seq_type, uint32_t msg_seq_count)
+v0_create_repl_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count)
 {
-    UPK_INIT_HELPER(v0_repl_seq_start_t, REPL_SEQ_START);
+    UPK_INIT_HELPER(v0_repl_seq_start_t, UPK_REPL_SEQ_START);
 
     UPK_HELPER_ENUM(msg_seq_type);
     UPK_HELPER_UINT32(msg_seq_count);
@@ -325,7 +325,7 @@ v0_create_repl_seq_start(upk_repl_msgtype_t msg_seq_type, uint32_t msg_seq_count
 upk_packet_t           *
 v0_create_repl_seq_end(bool commit)
 {
-    UPK_INIT_HELPER(v0_repl_seq_end_t, REPL_SEQ_END);
+    UPK_INIT_HELPER(v0_repl_seq_end_t, UPK_REPL_SEQ_END);
 
     UPK_HELPER_BOOL(commit);
     UPK_END_HELPER(PKT_REPLY);
@@ -337,7 +337,7 @@ v0_create_repl_seq_end(bool commit)
 upk_packet_t           *
 v0_create_result_repl(char *msg, bool successful)
 {
-    UPK_INIT_HELPER(v0_result_repl_t, REPL_RESULT);
+    UPK_INIT_HELPER(v0_result_repl_t, UPK_REPL_RESULT);
 
     UPK_HELPER_BOOL(successful);
     UPK_HELPER_STRING(msg);
@@ -363,7 +363,7 @@ v0_free_result_repl(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_listing_repl(char *svc_id)
 {
-    UPK_INIT_HELPER(v0_listing_repl_t, REPL_LISTING);
+    UPK_INIT_HELPER(v0_listing_repl_t, UPK_REPL_LISTING);
 
     UPK_HELPER_STRING(svc_id);
 
@@ -402,7 +402,7 @@ get_svcinfo_len(v0_svcinfo_t s)
 upk_packet_t           *
 v0_create_svcinfo_repl(char *svc_id, v0_svcinfo_t * svcinfo)
 {
-    UPK_INIT_HELPER(v0_svcinfo_repl_t, REPL_SVCINFO);
+    UPK_INIT_HELPER(v0_svcinfo_repl_t, UPK_REPL_SVCINFO);
 
     svcinfo->last_action_name_len = strnlen(svcinfo->last_action_name, UPK_MAX_STRING_LEN);
 
@@ -436,7 +436,7 @@ v0_free_svcinfo_repl(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_ack_repl(void)
 {
-    UPK_INIT_HELPER(v0_ack_repl_t, REPL_ACK);
+    UPK_INIT_HELPER(v0_ack_repl_t, UPK_REPL_ACK);
     UPK_END_HELPER(PKT_REPLY);
 }
 
@@ -446,7 +446,7 @@ v0_create_ack_repl(void)
 upk_packet_t           *
 v0_create_error_repl(char *svc_id, char *msg, upk_errlevel_t errlevel)
 {
-    UPK_INIT_HELPER(v0_error_repl_t, REPL_ERROR);
+    UPK_INIT_HELPER(v0_error_repl_t, UPK_REPL_ERROR);
 
     UPK_HELPER_ENUM(errlevel);
     UPK_HELPER_STRING(msg);
@@ -476,7 +476,7 @@ v0_free_error_repl(void *UPK_DATA_PTR)
 upk_packet_t           *
 v0_create_pub_pubmsg(void)
 {
-    UPK_INIT_HELPER(v0_pub_pubmsg_t, PUB_PUBLICATION);
+    UPK_INIT_HELPER(v0_pub_pubmsg_t, UPK_PUB_PUBLICATION);
     UPK_END_HELPER(PKT_PUBMSG);
 }
 
@@ -485,6 +485,6 @@ v0_create_pub_pubmsg(void)
 upk_packet_t           *
 v0_create_cancel_pubmsg(void)
 {
-    UPK_INIT_HELPER(v0_cancel_pubmsg_t, PUB_CANCELATION);
+    UPK_INIT_HELPER(v0_cancel_pubmsg_t, UPK_PUB_CANCELATION);
     UPK_END_HELPER(PKT_PUBMSG);
 }

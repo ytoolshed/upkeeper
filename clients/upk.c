@@ -47,6 +47,7 @@ main(int argc, char ** argv, char ** envp)
 {
     char c, cbuf[3] = "", *cp;
     const char *p, pbuf[1]="";
+    bool finalize = false;
 
     long nbuf = 0;
     bool bbuf = false;
@@ -179,8 +180,20 @@ main(int argc, char ** argv, char ** envp)
             case 's':
                 opts.suppress_null_values = true;
                 break;
+            case 'f':
+                finalize=true;
+                break;
         }
     }
+
+    /*
+    if(finalize)
+        UPKLIST_FOREACH(cfg.svclist) {
+            UPKLIST_APPEND(svclist);
+            upk_svc_desc_clear(svclist->thisp);
+                                        upk_finalize_svc_desc(svclist->thisp, cfg.svclist->thisp);
+                                            }
+    */
 
     cp = upk_json_serialize_svc_config(&svc, opts);
     printf("%s", cp);
