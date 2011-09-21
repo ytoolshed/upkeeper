@@ -1,0 +1,190 @@
+.TH "Functions" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Functions \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_svc_desc_free\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_svclist_free\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrlconf_free\fP (\fBupk_controller_config_t\fP *cfg)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_free_config\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_svcconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_load_config\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_svc_desc_clear\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "char * \fBupk_concat_svcid\fP (char *dest, const char *pkg, const char *name)"
+.br
+.ti -1c
+.RI "char * \fBupk_svc_id\fP (char *dest, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_parse_svc_id\fP (char *key, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svclist_to_json_obj\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svc_desc_to_json_obj\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "char * \fBupk_json_serialize_svc_config\fP (\fBupk_svc_desc_t\fP *svc, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_svcconf_values\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_ctrlconf_values\fP (\fBupk_controller_config_t\fP *dest, \fBupk_controller_config_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_finalize_svc_desc\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *orig)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_service_file\fP (const char *filename)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_services\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char \fBupk_ctrl_configuration_file\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "const char \fBupk_default_configuration_vec\fP []"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_file_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "char* upk_concat_svcid (char *dest, const char *pkg, const char *name)"
+.PP
+References UPK_MAX_STRING_LEN.
+.PP
+Referenced by upk_svc_desc_to_json_obj(), and upk_svc_id().
+.SS "void upk_ctrl_free_config (void)"
+.PP
+References upk_ctrlconf_free(), upk_default_configuration, upk_file_configuration, and upk_runtime_configuration.
+.PP
+Referenced by main().
+.SS "void upk_ctrl_load_config (void)"
+.PP
+References _upk_controller_config::BuddyPollingInterval, _upk_controller_config::controller_buddy_sock, _upk_controller_config::controller_socket, _upk_controller_config::ServiceDefaults, _upk_controller_config::StateDir, upk_config_loadfile(), upk_ctrl_configuration_file, upk_ctrlconf_pack(), upk_default_configuration, upk_default_configuration_vec, upk_file_configuration, UPK_MAX_STRING_LEN, upk_overlay_ctrlconf_values(), upk_runtime_configuration, and upk_svc_desc_clear().
+.PP
+Referenced by main(), and upk_ctrl_init().
+.SS "void upk_ctrlconf_free (\fBupk_controller_config_t\fP *cfg)"
+.PP
+References _upk_controller_config::ServiceDefaults, _upk_controller_config::svclist, upk_svc_desc_free(), and upk_svclist_free().
+.PP
+Referenced by upk_ctrl_free_config().
+.SS "void upk_finalize_svc_desc (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *orig)"
+.PP
+References _upk_svc_desc::ExecReload, _upk_svc_desc::ExecStart, _upk_svc_desc::ExecStop, _upk_svc_desc::ReloadScript, _upk_controller_config::ServiceDefaults, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, upk_overlay_svcconf_values(), upk_replace_string(), and upk_runtime_configuration.
+.PP
+Referenced by upk_load_runtime_services().
+.SS "char* upk_json_serialize_svc_config (\fBupk_svc_desc_t\fP *svc, \fBupk_json_data_output_opts_t\fPopts)"
+.PP
+References _upk_svc_desc::next, upk_json_obj_to_string(), upk_svc_desc_meta_t, upk_svclist_to_json_obj(), UPKLIST_APPEND, and UPKLIST_FREE.
+.PP
+Referenced by main(), and upk_load_runtime_services().
+.SS "void upk_load_runtime_service_file (const char *filename)"
+.SS "void upk_load_runtime_services (void)"
+.PP
+References _upk_json_data_output_options::sep, strnlen(), _upk_controller_config::SvcConfigPath, _upk_controller_config::svclist, upk_config_loadfile(), upk_debug1, upk_diag_verbosity, UPK_DIAGLVL_DEBUG1, upk_file_configuration, upk_finalize_svc_desc(), upk_info, upk_json_serialize_svc_config(), UPK_MAX_PATH_LEN, upk_runtime_configuration, upk_svc_desc_clear(), upk_svcconf_pack(), UPKLIST_APPEND, UPKLIST_FOREACH, and UPKLIST_FREE.
+.PP
+Referenced by upk_ctrl_init().
+.SS "void upk_overlay_ctrlconf_values (\fBupk_controller_config_t\fP *dest, \fBupk_controller_config_t\fP *high)"
+.PP
+References _upk_controller_config::BuddyPollingInterval, _upk_controller_config::controller_buddy_sock, _upk_controller_config::controller_socket, _upk_svc_desc::Name, _upk_controller_config::ServiceDefaults, _upk_controller_config::StateDir, _upk_controller_config::SvcConfigPath, _upk_controller_config::svclist, _upk_controller_config::SvcRunPath, upk_overlay_svcconf_values(), _upk_controller_config::UpkBuddyPath, UPKLIST_APPEND, UPKLIST_FOREACH, and UPKLIST_FREE.
+.PP
+Referenced by upk_ctrl_load_config().
+.SS "void upk_overlay_svcconf_values (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *high)"
+.PP
+References _upk_svc_desc::BuddyShutdownTimeout, _upk_uuid::clk_seq_high, _upk_uuid::clk_seq_low, _upk_svc_desc::custom_action_scripts, _upk_svc_desc::ExecReload, _upk_svc_desc::ExecStart, _upk_svc_desc::ExecStop, _upk_svc_desc::InitialState, _upk_svc_desc::KillTimeout, _upk_svc_desc::LongDescription, _upk_svc_desc::MaxConsecutiveFailures, _upk_svc_desc::Name, _upk_uuid::node, _upk_svc_desc::Package, _upk_svc_desc::PipeStderrScript, _upk_svc_desc::PipeStdoutScript, _upk_svc_desc::PreferBuddyStateForRunning, _upk_svc_desc::PreferBuddyStateForStopped, _upk_svc_desc::Prerequisites, _upk_svc_desc::Provides, _upk_svc_desc::RandomizeRateLimit, _upk_svc_desc::ReconnectRetries, _upk_svc_desc::RedirectStderr, _upk_svc_desc::RedirectStdout, _upk_svc_desc::ReloadScript, _upk_svc_desc::RingbufferSize, _upk_svc_desc::SetGID, _upk_svc_desc::SetUID, _upk_svc_desc::ShortDescription, _upk_svc_desc::StartPriority, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, _upk_uuid::time_high_and_version, _upk_uuid::time_low, _upk_uuid::time_mid, _upk_svc_desc::UnconfigureOnFileRemoval, UPKLIST_APPEND, UPKLIST_FOREACH, UPKLIST_FREE, _upk_svc_desc::UserMaxRestarts, _upk_svc_desc::UserRateLimit, _upk_svc_desc::UserRestartWindow, and _upk_svc_desc::UUID.
+.PP
+Referenced by upk_finalize_svc_desc(), and upk_overlay_ctrlconf_values().
+.SS "void upk_parse_svc_id (char *key, \fBupk_svc_desc_t\fP *svc)"
+.PP
+References _upk_svc_desc::Name, and _upk_svc_desc::Package.
+.PP
+Referenced by upk_ctrlconf_object_handler(), and upk_svcconf_object_handler().
+.SS "void upk_svc_desc_clear (\fBupk_svc_desc_t\fP *svc)"
+.PP
+References _upk_svc_desc::next, and _upk_svc_desc::StartPriority.
+.PP
+Referenced by main(), upk_ctrl_load_config(), upk_load_runtime_services(), and upk_svcconf_object_handler().
+.SS "void upk_svc_desc_free (\fBupk_svc_desc_t\fP *svc)"
+.PP
+References _upk_svc_desc::custom_action_scripts, _upk_svc_desc::LongDescription, _upk_svc_desc::PipeStderrScript, _upk_svc_desc::PipeStdoutScript, _upk_svc_desc::ReloadScript, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, and UPKLIST_FREE.
+.PP
+Referenced by upk_ctrlconf_free(), and upk_svclist_free().
+.SS "struct json_object* upk_svc_desc_to_json_obj (\fBupk_svc_desc_t\fP *svc)\fC [read]\fP"
+.PP
+References _joa, _upk_svc_desc::BuddyShutdownTimeout, _upk_svc_desc::custom_action_scripts, _upk_svc_desc::ExecReload, _upk_svc_desc::ExecStart, _upk_svc_desc::ExecStop, _upk_svc_desc::InitialState, jt_array, jt_boolean, jt_int, jt_string, _upk_svc_desc::KillTimeout, _upk_svc_desc::LongDescription, _upk_svc_desc::MaxConsecutiveFailures, _upk_svc_desc::PipeStderrScript, _upk_svc_desc::PipeStdoutScript, _upk_svc_desc::PreferBuddyStateForRunning, _upk_svc_desc::PreferBuddyStateForStopped, _upk_svc_desc::Prerequisites, _upk_svc_desc::Provides, _upk_svc_desc::RandomizeRateLimit, _upk_svc_desc::ReconnectRetries, _upk_svc_desc::RedirectStderr, _upk_svc_desc::RedirectStdout, _upk_svc_desc::ReloadScript, _upk_svc_desc::RingbufferSize, _upk_svc_desc::SetGID, _upk_svc_desc::SetUID, _upk_svc_desc::ShortDescription, _upk_svc_desc::StartPriority, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, _upk_svc_desc::UnconfigureOnFileRemoval, upk_concat_svcid(), upk_json_serialize_or_null(), UPK_MAX_STRING_LEN, UPK_STATE_RUNNING, UPK_STATE_STOPPED, upk_string_to_uuid(), UPKLIST_FOREACH, _upk_svc_desc::UserMaxRestarts, _upk_svc_desc::UserRateLimit, _upk_svc_desc::UserRestartWindow, and _upk_svc_desc::UUID.
+.PP
+Referenced by upk_svclist_to_json_obj().
+.SS "char* upk_svc_id (char *dest, \fBupk_svc_desc_t\fP *svc)"
+.PP
+References _upk_svc_desc::Name, _upk_svc_desc::Package, and upk_concat_svcid().
+.PP
+Referenced by upk_svclist_to_json_obj().
+.SS "void upk_svcconf_pack (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.PP
+References _upk_json_stack_node::data, upk_conf_error_handler(), upk_json_parse_node(), upk_json_parse_string(), upk_json_stack_meta_t, upk_json_stack_push(), upk_svcconf_toplvl_obj(), and UPKLIST_FREE.
+.PP
+Referenced by upk_load_runtime_services().
+.SS "void upk_svclist_free (\fBupk_svc_desc_meta_t\fP *svclist)"
+.PP
+References upk_svc_desc_free(), UPKLIST_FOREACH, and UPKLIST_FREE.
+.PP
+Referenced by upk_ctrlconf_free().
+.SS "struct json_object* upk_svclist_to_json_obj (\fBupk_svc_desc_meta_t\fP *svclist)\fC [read]\fP"
+.PP
+References _joa, UPK_MAX_STRING_LEN, upk_svc_desc_to_json_obj(), upk_svc_id(), and UPKLIST_FOREACH.
+.PP
+Referenced by upk_json_serialize_svc_config().
+.SH "Variable Documentation"
+.PP 
+.SS "char \fBupk_ctrl_configuration_file\fP[UPK_MAX_PATH_LEN]"
+.PP
+Referenced by upk_ctrl_load_config().
+.SS "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.PP
+Referenced by upk_ctrl_free_config(), and upk_ctrl_load_config().
+.SS "const char \fBupk_default_configuration_vec\fP[]"
+.PP
+Referenced by upk_ctrl_load_config().
+.SS "\fBupk_controller_config_t\fP \fBupk_file_configuration\fP"
+.PP
+Referenced by upk_ctrl_free_config(), upk_ctrl_load_config(), and upk_load_runtime_services().
+.SS "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.PP
+Referenced by controller_packet_callback(), create_buddy_statedir(), ctrl_sock_setup(), event_loop(), main(), upk_clnet_ctrl_connect(), upk_ctrl_free_config(), upk_ctrl_load_config(), upk_db_path(), upk_finalize_svc_desc(), and upk_load_runtime_services().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

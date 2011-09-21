@@ -1,0 +1,168 @@
+.TH "libupkeeper/upkeeper/upk_config.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_config.c \- 
+.PP
+configuration defaults, and implementation  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+\fC#include 'upk_json.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_stringify\fP(A)   #A"
+.br
+.ti -1c
+.RI "#define \fBstringify\fP(A)   _stringify(A)"
+.br
+.ti -1c
+.RI "#define \fB_joa\fP   json_object_object_add"
+.br
+.ti -1c
+.RI "#define \fBjt_string\fP   json_type_string"
+.br
+.ti -1c
+.RI "#define \fBjt_int\fP   json_type_int"
+.br
+.ti -1c
+.RI "#define \fBjt_boolean\fP   json_type_boolean"
+.br
+.ti -1c
+.RI "#define \fBjt_array\fP   json_type_array"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBupk_ctrlconf_string_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_ctrlconf_double_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_ctrlconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_ctrlconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_bool_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_int_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_string_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_conf_error_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static char * \fBupk_config_loadfile\fP (const char *filename)"
+.br
+.ti -1c
+.RI "void \fBupk_svc_desc_free\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_svclist_free\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrlconf_free\fP (\fBupk_controller_config_t\fP *cfg)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_free_config\fP (void)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_setup_handlers\fP (\fBupk_json_handlers_t\fP *handlers)"
+.br
+.ti -1c
+.RI "static void \fBupk_ctrlconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "void \fBupk_svcconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_load_config\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_svc_desc_clear\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "static void * \fBupk_json_serialize_or_null\fP (enum json_type type, void *val)"
+.br
+.ti -1c
+.RI "char * \fBupk_concat_svcid\fP (char *dest, const char *pkg, const char *name)"
+.br
+.ti -1c
+.RI "char * \fBupk_svc_id\fP (char *dest, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_parse_svc_id\fP (char *key, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svclist_to_json_obj\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svc_desc_to_json_obj\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "char * \fBupk_json_serialize_svc_config\fP (\fBupk_svc_desc_t\fP *svc, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_svcconf_values\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_ctrlconf_values\fP (\fBupk_controller_config_t\fP *dest, \fBupk_controller_config_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_finalize_svc_desc\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *orig)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_service_file\fP (const char *filename)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_services\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char \fBupk_ctrl_configuration_file\fP [UPK_MAX_PATH_LEN] = '/upkeeper.conf'"
+.br
+.ti -1c
+.RI "const char \fBupk_default_configuration_vec\fP [] = '}\\n'"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_file_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+configuration defaults, and implementation 
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

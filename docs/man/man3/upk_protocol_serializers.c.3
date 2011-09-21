@@ -1,0 +1,99 @@
+.TH "libupkeeper/tests/upk_protocol_serializers.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/tests/upk_protocol_serializers.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <check.h>\fP
+.br
+\fC#include <upkeeper/upk_protocol.h>\fP
+.br
+\fC#include 'v0_protocol_generic_value_checks.inc.c'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBNAME_TO_FUNC\fP(A)   upk_create_ ## A"
+.br
+.ti -1c
+.RI "#define \fBNAME_TO_TYPE\fP(A)   upk_ ## A ## _t"
+.br
+.ti -1c
+.RI "#define \fBTEST_SETUP\fP(NAME,...)"
+.br
+.ti -1c
+.RI "#define \fBTEST_SETUP_NOARGS\fP(NAME)"
+.br
+.ti -1c
+.RI "#define \fBTEST_TEARDOWN\fP"
+.br
+.ti -1c
+.RI "#define \fBv0_svcinfo_t\fP   \fBupk_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "#define \fBCHECK_PREAMBLE\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "Suite * \fBupk_proto_serializers_suite\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define CHECK_PREAMBLE"
+.SS "#define NAME_TO_FUNC(A)   upk_create_ ## A"
+.SS "#define NAME_TO_TYPE(A)   upk_ ## A ## _t"
+.SS "#define TEST_SETUP(NAME, ...)"\fBValue:\fP
+.PP
+.nf
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    upk_protocol_handle_t handle = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(&handle,__VA_ARGS__); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
+    upk_pkt_free(pkt); \
+    pkt = upk_deserialize_packet(buf); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+.fi
+.SS "#define TEST_SETUP_NOARGS(NAME)"\fBValue:\fP
+.PP
+.nf
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    upk_protocol_handle_t handle = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(&handle); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
+    upk_pkt_free(pkt); \
+    pkt = upk_deserialize_packet(buf); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+.fi
+.SS "#define TEST_TEARDOWN"\fBValue:\fP
+.PP
+.nf
+upk_pkt_free(pkt); \
+    free(buf)
+.fi
+.SS "#define \fBv0_svcinfo_t\fP   \fBupk_svcinfo_t\fP"
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+.PP
+References suite(), and upk_proto_serializers_suite().
+.SS "Suite* upk_proto_serializers_suite (void)"
+.PP
+References suite(), v0_proto_pubmsgs(), v0_proto_replies(), and v0_proto_requests().
+.PP
+Referenced by main().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

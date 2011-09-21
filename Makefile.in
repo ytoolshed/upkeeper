@@ -36,14 +36,16 @@ host_triplet = @host@
 subdir = .
 DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/Makefile.in $(srcdir)/upkeeper_config.h.in \
-	$(top_srcdir)/configure TODO config.guess config.sub depcomp \
-	install-sh ltmain.sh missing
+	$(top_srcdir)/configure TODO compile config.guess config.sub \
+	depcomp install-sh ltmain.sh missing
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/upk_poll.m4 $(top_srcdir)/m4/upk_with_lib.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/upk_have_progname.m4 \
+	$(top_srcdir)/m4/upk_helpers.m4 \
+	$(top_srcdir)/m4/upk_installdirs.m4 \
+	$(top_srcdir)/m4/upk_with_lib.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 am__CONFIG_DISTCLEAN_FILES = config.status config.cache config.log \
@@ -137,6 +139,9 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JSON_CPPFLAGS = @JSON_CPPFLAGS@
+JSON_LDFLAGS = @JSON_LDFLAGS@
+JSON_LIBS = @JSON_LIBS@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
@@ -147,6 +152,9 @@ LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
+NCURSES_CPPFLAGS = @NCURSES_CPPFLAGS@
+NCURSES_LDFLAGS = @NCURSES_LDFLAGS@
+NCURSES_LIBS = @NCURSES_LIBS@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -165,6 +173,9 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SQLITE3_CPPFLAGS = @SQLITE3_CPPFLAGS@
+SQLITE3_LDFLAGS = @SQLITE3_LDFLAGS@
+SQLITE3_LIBS = @SQLITE3_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -185,9 +196,6 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
-conf_libexecdir = @conf_libexecdir@
-conf_localstatedir = @conf_localstatedir@
-conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -224,6 +232,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 SUBDIRS = libupkeeper controller clients 
 ACLOCAL_AMFLAGS = -I m4
+AM_CPPFLAGS_G = -DCONF_SYSCONFDIR=@conf_sysconfdir@ -DCONF_LOCALSTATEDIR=@conf_localstatedir@ -DCONF_LIBEXECDIR=@conf_libexecdir@
 all: upkeeper_config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -719,7 +728,27 @@ uninstall-am:
 	ps ps-am tags tags-recursive uninstall uninstall-am
 
 
-#include buddy/Makefile.am.inc
+#conf_prefix
+#conf_execprefix
+#conf_bindir
+#conf_sbindir
+#conf_libexecdir
+#conf_sysconfdir
+#conf_sharedstatedir
+#conf_localstatedir
+#conf_libdir
+#conf_includedir
+#conf_oldincludedir
+#conf_datarootdir
+#conf_datadir
+#conf_infodir
+#conf_localedir
+#conf_mandir
+#conf_docdir
+#conf_htmldir
+#conf_dvidir
+#conf_pdfdir
+#conf_psdir
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

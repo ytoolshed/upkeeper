@@ -1,0 +1,42 @@
+.TH "_upk_svcid" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_svcid \- 
+.PP
+linked list of service identifiers.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBpkg\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "char \fBname\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "\fBupk_uuid_t\fP \fBuuid\fP"
+.br
+.ti -1c
+.RI "\fBupk_svcid_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+linked list of service identifiers. 
+.SH "Field Documentation"
+.PP 
+.SS "char \fB_upk_svcid::name\fP[UPK_MAX_STRING_LEN]"service name 
+.SS "\fBupk_svcid_t\fP* \fB_upk_svcid::next\fP"next, for use in lists 
+.SS "char \fB_upk_svcid::pkg\fP[UPK_MAX_STRING_LEN]"service package-prefix 
+.SS "\fBupk_uuid_t\fP \fB_upk_svcid::uuid\fP"not sure I need this here; but just in case for now 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,38 @@
+.TH "_upklist_userdata_state_partition" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upklist_userdata_state_partition \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_gstate_t\fP * \fBgstate\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_gstate_t\fP* \fB_upklist_userdata_state_partition::gstate\fP"
+.PP
+Referenced by upk_net_conn_handle_init(), upk_net_get_gstate(), and upk_partitioned_userdata_free().
+.SS "void* \fB_upklist_userdata_state_partition::userdata\fP"
+.PP
+Referenced by upk_net_conn_handle_init(), upk_net_get_gstate(), upk_net_get_userdata(), and upk_partitioned_userdata_free().
+.SS "void(* \fB_upklist_userdata_state_partition::userdata_free_func\fP)(void *)"
+.PP
+Referenced by upk_net_conn_handle_init(), and upk_partitioned_userdata_free().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

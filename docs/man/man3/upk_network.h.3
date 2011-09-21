@@ -1,0 +1,59 @@
+.TH "libupkeeper/upkeeper/upk_network.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_network.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBupk_domain_socket_connect\fP (const char *sockpath)"
+.br
+.RI "\fImake unix-domain socket connection. \fP"
+.ti -1c
+.RI "void \fBupk_read_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIretry socket connection, pausing between each retry. \fP"
+.ti -1c
+.RI "void \fBupk_queue_packet\fP (\fBupk_conn_handle_t\fP *handle, \fBupk_packet_t\fP *pkt, \fBupk_net_callback_t\fP after_write_callback, \fBupk_net_callback_t\fP set_after_read_callback)"
+.br
+.RI "\fIqueue a packet to send, will be sent via upk_write_packet. \fP"
+.ti -1c
+.RI "void \fBupk_write_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIwrite packets from queue async and nonblocking. \fP"
+.ti -1c
+.RI "void \fBupk_disconnect_handle\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIclose the connection on a given handle and remove the handle from the list of connection handles. \fP"
+.ti -1c
+.RI "void \fBupk_net_add_socket_handle\fP (\fBupk_conn_handle_meta_t\fP *handles, int fd, \fBupk_net_callback_t\fP pkt_callback)"
+.br
+.ti -1c
+.RI "void \fBupk_net_event_dispatcher\fP (\fBupk_conn_handle_meta_t\fP *handles, double poll_ival)"
+.br
+.ti -1c
+.RI "void \fBupk_net_flush_closed_sockets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.ti -1c
+.RI "int \fBupk_net_block_until_msg\fP (\fBupk_conn_handle_meta_t\fP *handles, double poll_ival, struct timeval *\fBtimeout\fP)"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBupk_net_conn_handle_init\fP (void *userdata, void(*userdata_free_func)(void *ptr))"
+.br
+.ti -1c
+.RI "void \fBupk_net_shutdown_callback\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

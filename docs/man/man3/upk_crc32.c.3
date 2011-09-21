@@ -1,0 +1,38 @@
+.TH "libupkeeper/upkeeper/upk_crc32.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_crc32.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_crc32.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_create_crc32_table\fP (uint32_t crc_table[256])"
+.br
+.ti -1c
+.RI "uint32_t \fBupk_crc32\fP (unsigned char *block, uint32_t len)"
+.br
+.ti -1c
+.RI "bool \fBupk_verify_crc32\fP (unsigned char *block, uint32_t crc32, uint32_t len)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "uint32_t upk_crc32 (unsigned char *block, uint32_tlen)"
+.PP
+Referenced by upk_serialize_packet(), and upk_verify_crc32().
+.SS "void upk_create_crc32_table (uint32_tcrc_table[256])"
+.SS "bool upk_verify_crc32 (unsigned char *block, uint32_tcrc32, uint32_tlen)"
+.PP
+References upk_crc32().
+.PP
+Referenced by upk_deserialize_packet().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,61 @@
+.TH "controller/ctrl_protocol.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+controller/ctrl_protocol.h \- 
+.PP
+types used to communicate with buddy.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'buddyinc.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_buddy_info\fP"
+.br
+.RI "\fIinformation buddy returns. \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEFAULT_BUDDY_ROOT\fP   '/var/run/upkeeper/buddy'"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef enum \fB_buddy_cmnd\fP \fBbuddy_cmnd_t\fP"
+.br
+.RI "\fIcontroller side of buddy protocol. \fP"
+.ti -1c
+.RI "typedef struct \fB_buddy_info\fP \fBbuddy_info_t\fP"
+.br
+.RI "\fIinformation buddy returns. \fP"
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fB_buddy_cmnd\fP { \fBUPK_CTRL_NONE\fP =  0, \fBUPK_CTRL_ACK\fP =  1, \fBUPK_CTRL_SHUTDOWN\fP, \fBUPK_CTRL_STATUS_REQ\fP, \fBUPK_CTRL_ACTION_START\fP, \fBUPK_CTRL_ACTION_STOP\fP, \fBUPK_CTRL_ACTION_RELOAD\fP, \fBUPK_CTRL_ACTION_RUNONCE\fP, \fBUPK_CTRL_CUSTOM_ACTION_00\fP, \fBUPK_CTRL_CUSTOM_ACTION_01\fP, \fBUPK_CTRL_CUSTOM_ACTION_02\fP, \fBUPK_CTRL_CUSTOM_ACTION_03\fP, \fBUPK_CTRL_CUSTOM_ACTION_04\fP, \fBUPK_CTRL_CUSTOM_ACTION_05\fP, \fBUPK_CTRL_CUSTOM_ACTION_06\fP, \fBUPK_CTRL_CUSTOM_ACTION_07\fP, \fBUPK_CTRL_CUSTOM_ACTION_08\fP, \fBUPK_CTRL_CUSTOM_ACTION_09\fP, \fBUPK_CTRL_CUSTOM_ACTION_10\fP, \fBUPK_CTRL_CUSTOM_ACTION_11\fP, \fBUPK_CTRL_CUSTOM_ACTION_12\fP, \fBUPK_CTRL_CUSTOM_ACTION_13\fP, \fBUPK_CTRL_CUSTOM_ACTION_14\fP, \fBUPK_CTRL_CUSTOM_ACTION_15\fP, \fBUPK_CTRL_CUSTOM_ACTION_16\fP, \fBUPK_CTRL_CUSTOM_ACTION_17\fP, \fBUPK_CTRL_CUSTOM_ACTION_18\fP, \fBUPK_CTRL_CUSTOM_ACTION_19\fP, \fBUPK_CTRL_CUSTOM_ACTION_20\fP, \fBUPK_CTRL_CUSTOM_ACTION_21\fP, \fBUPK_CTRL_CUSTOM_ACTION_22\fP, \fBUPK_CTRL_CUSTOM_ACTION_23\fP, \fBUPK_CTRL_CUSTOM_ACTION_24\fP, \fBUPK_CTRL_CUSTOM_ACTION_25\fP, \fBUPK_CTRL_CUSTOM_ACTION_26\fP, \fBUPK_CTRL_CUSTOM_ACTION_27\fP, \fBUPK_CTRL_CUSTOM_ACTION_28\fP, \fBUPK_CTRL_CUSTOM_ACTION_29\fP, \fBUPK_CTRL_CUSTOM_ACTION_30\fP, \fBUPK_CTRL_CUSTOM_ACTION_31\fP, \fBUPK_CTRL_SIGNAL_01\fP, \fBUPK_CTRL_SIGNAL_02\fP, \fBUPK_CTRL_SIGNAL_03\fP, \fBUPK_CTRL_SIGNAL_04\fP, \fBUPK_CTRL_SIGNAL_05\fP, \fBUPK_CTRL_SIGNAL_06\fP, \fBUPK_CTRL_SIGNAL_07\fP, \fBUPK_CTRL_SIGNAL_08\fP, \fBUPK_CTRL_SIGNAL_09\fP, \fBUPK_CTRL_SIGNAL_10\fP, \fBUPK_CTRL_SIGNAL_11\fP, \fBUPK_CTRL_SIGNAL_12\fP, \fBUPK_CTRL_SIGNAL_13\fP, \fBUPK_CTRL_SIGNAL_14\fP, \fBUPK_CTRL_SIGNAL_15\fP, \fBUPK_CTRL_SIGNAL_16\fP, \fBUPK_CTRL_SIGNAL_17\fP, \fBUPK_CTRL_SIGNAL_18\fP, \fBUPK_CTRL_SIGNAL_19\fP, \fBUPK_CTRL_SIGNAL_20\fP, \fBUPK_CTRL_SIGNAL_21\fP, \fBUPK_CTRL_SIGNAL_22\fP, \fBUPK_CTRL_SIGNAL_23\fP, \fBUPK_CTRL_SIGNAL_24\fP, \fBUPK_CTRL_SIGNAL_25\fP, \fBUPK_CTRL_SIGNAL_26\fP, \fBUPK_CTRL_SIGNAL_27\fP, \fBUPK_CTRL_SIGNAL_28\fP, \fBUPK_CTRL_SIGNAL_29\fP, \fBUPK_CTRL_SIGNAL_30\fP, \fBUPK_CTRL_SIGNAL_31\fP, \fBUPK_CTRL_SIGNAL_32\fP }"
+.br
+.RI "\fIcontroller side of buddy protocol. \fP"
+.ti -1c
+.RI "enum \fBbuddy_runstate_t\fP { \fBBUDDY_UNKNOWN\fP =  0, \fBBUDDY_STOPPED\fP =  1, \fBBUDDY_RUNNING\fP, \fBBUDDY_RANONCE\fP }"
+.br
+.RI "\fIstates for buddy \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+types used to communicate with buddy. 
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

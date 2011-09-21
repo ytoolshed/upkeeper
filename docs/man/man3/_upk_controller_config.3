@@ -1,0 +1,80 @@
+.TH "_upk_controller_config" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_controller_config \- 
+.PP
+controller configuration.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_config.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBStateDir\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char \fBSvcConfigPath\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char \fBSvcRunPath\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char \fBUpkBuddyPath\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "double \fBBuddyPollingInterval\fP"
+.br
+.ti -1c
+.RI "char \fBcontroller_socket\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "char \fBcontroller_buddy_sock\fP [UPK_MAX_PATH_LEN]"
+.br
+.ti -1c
+.RI "\fBupk_svc_desc_t\fP \fBServiceDefaults\fP"
+.br
+.ti -1c
+.RI "\fBupk_svc_desc_meta_t\fP * \fBsvclist\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+controller configuration. 
+.SH "Field Documentation"
+.PP 
+.SS "double \fB_upk_controller_config::BuddyPollingInterval\fP"duration in seconds, or fractions of seconds, to wait between polling buddy sockets for updates; note that for longer durations, larger buddy ringbuffers should be prescribed 
+.PP
+Referenced by event_loop(), upk_ctrl_load_config(), upk_ctrlconf_double_handler(), and upk_overlay_ctrlconf_values().
+.SS "char \fB_upk_controller_config::controller_buddy_sock\fP[UPK_MAX_PATH_LEN]"path to buddy socket; used internally 
+.PP
+Referenced by create_buddy_statedir(), upk_ctrl_load_config(), and upk_overlay_ctrlconf_values().
+.SS "char \fB_upk_controller_config::controller_socket\fP[UPK_MAX_PATH_LEN]"path to the controller socket, used internally 
+.PP
+Referenced by ctrl_sock_setup(), main(), upk_clnet_ctrl_connect(), upk_ctrl_load_config(), and upk_overlay_ctrlconf_values().
+.SS "\fBupk_svc_desc_t\fP \fB_upk_controller_config::ServiceDefaults\fP"default service configuration parameters; used whenever an individual service omits something 
+.PP
+Referenced by upk_ctrl_load_config(), upk_ctrlconf_free(), upk_ctrlconf_object_handler(), upk_finalize_svc_desc(), and upk_overlay_ctrlconf_values().
+.SS "char \fB_upk_controller_config::StateDir\fP[UPK_MAX_PATH_LEN]"path to variable state-dir for controller and buddies 
+.PP
+Referenced by upk_ctrl_load_config(), upk_ctrlconf_string_handler(), upk_db_path(), and upk_overlay_ctrlconf_values().
+.SS "char \fB_upk_controller_config::SvcConfigPath\fP[UPK_MAX_PATH_LEN]"path to service configuration files 
+.PP
+Referenced by upk_ctrlconf_string_handler(), upk_load_runtime_services(), and upk_overlay_ctrlconf_values().
+.SS "\fBupk_svc_desc_meta_t\fP* \fB_upk_controller_config::svclist\fP"meta-pointer to list of service descriptions 
+.PP
+Referenced by controller_packet_callback(), main(), upk_ctrlconf_free(), upk_load_runtime_services(), upk_overlay_ctrlconf_values(), and upk_svcconf_object_handler().
+.SS "char \fB_upk_controller_config::SvcRunPath\fP[UPK_MAX_PATH_LEN]"path where buddy's will be created and run, usually ${statedir}/buddies 
+.PP
+Referenced by upk_ctrlconf_string_handler(), and upk_overlay_ctrlconf_values().
+.SS "char \fB_upk_controller_config::UpkBuddyPath\fP[UPK_MAX_PATH_LEN]"path to upk_buddy executable, usually ${libexecdir}/upk_buddy 
+.PP
+Referenced by upk_ctrlconf_string_handler(), and upk_overlay_ctrlconf_values().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

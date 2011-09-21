@@ -1,0 +1,833 @@
+.TH "deps/sqlite-3.7.3/sqlite3ext.h" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+deps/sqlite-3.7.3/sqlite3ext.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'sqlite3.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsqlite3_api_routines\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBsqlite3_aggregate_context\fP   sqlite3_api->aggregate_context"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_aggregate_count\fP   sqlite3_api->aggregate_count"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_blob\fP   sqlite3_api->bind_blob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_double\fP   sqlite3_api->bind_double"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_int\fP   sqlite3_api->bind_int"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_int64\fP   sqlite3_api->bind_int64"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_null\fP   sqlite3_api->bind_null"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_parameter_count\fP   sqlite3_api->bind_parameter_count"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_parameter_index\fP   sqlite3_api->bind_parameter_index"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_parameter_name\fP   sqlite3_api->bind_parameter_name"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_text\fP   sqlite3_api->bind_text"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_text16\fP   sqlite3_api->bind_text16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_value\fP   sqlite3_api->bind_value"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_busy_handler\fP   sqlite3_api->busy_handler"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_busy_timeout\fP   sqlite3_api->busy_timeout"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_changes\fP   sqlite3_api->changes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_close\fP   sqlite3_api->close"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_collation_needed\fP   sqlite3_api->collation_needed"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_collation_needed16\fP   sqlite3_api->collation_needed16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_blob\fP   sqlite3_api->column_blob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_bytes\fP   sqlite3_api->column_bytes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_bytes16\fP   sqlite3_api->column_bytes16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_count\fP   sqlite3_api->column_count"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_database_name\fP   sqlite3_api->column_database_name"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_database_name16\fP   sqlite3_api->column_database_name16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_decltype\fP   sqlite3_api->column_decltype"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_decltype16\fP   sqlite3_api->column_decltype16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_double\fP   sqlite3_api->column_double"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_int\fP   sqlite3_api->column_int"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_int64\fP   sqlite3_api->column_int64"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_name\fP   sqlite3_api->column_name"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_name16\fP   sqlite3_api->column_name16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_origin_name\fP   sqlite3_api->column_origin_name"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_origin_name16\fP   sqlite3_api->column_origin_name16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_table_name\fP   sqlite3_api->column_table_name"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_table_name16\fP   sqlite3_api->column_table_name16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_text\fP   sqlite3_api->column_text"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_text16\fP   sqlite3_api->column_text16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_type\fP   sqlite3_api->column_type"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_column_value\fP   sqlite3_api->column_value"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_commit_hook\fP   sqlite3_api->commit_hook"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_complete\fP   sqlite3_api->complete"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_complete16\fP   sqlite3_api->complete16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_collation\fP   sqlite3_api->create_collation"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_collation16\fP   sqlite3_api->create_collation16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_function\fP   sqlite3_api->create_function"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_function16\fP   sqlite3_api->create_function16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_module\fP   sqlite3_api->create_module"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_module_v2\fP   sqlite3_api->create_module_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_data_count\fP   sqlite3_api->data_count"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_db_handle\fP   sqlite3_api->db_handle"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_declare_vtab\fP   sqlite3_api->declare_vtab"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_enable_shared_cache\fP   sqlite3_api->enable_shared_cache"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_errcode\fP   sqlite3_api->errcode"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_errmsg\fP   sqlite3_api->errmsg"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_errmsg16\fP   sqlite3_api->errmsg16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_exec\fP   sqlite3_api->exec"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_expired\fP   sqlite3_api->expired"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_finalize\fP   sqlite3_api->finalize"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_free\fP   sqlite3_api->free"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_free_table\fP   sqlite3_api->free_table"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_get_autocommit\fP   sqlite3_api->get_autocommit"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_get_auxdata\fP   sqlite3_api->get_auxdata"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_get_table\fP   sqlite3_api->get_table"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_global_recover\fP   sqlite3_api->global_recover"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_interrupt\fP   sqlite3_api->interruptx"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_last_insert_rowid\fP   sqlite3_api->last_insert_rowid"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_libversion\fP   sqlite3_api->libversion"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_libversion_number\fP   sqlite3_api->libversion_number"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_malloc\fP   sqlite3_api->malloc"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mprintf\fP   sqlite3_api->mprintf"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_open\fP   sqlite3_api->open"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_open16\fP   sqlite3_api->open16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare\fP   sqlite3_api->prepare"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare16\fP   sqlite3_api->prepare16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare_v2\fP   sqlite3_api->prepare_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare16_v2\fP   sqlite3_api->prepare16_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_profile\fP   sqlite3_api->profile"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_progress_handler\fP   sqlite3_api->progress_handler"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_realloc\fP   sqlite3_api->realloc"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_reset\fP   sqlite3_api->reset"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_blob\fP   sqlite3_api->result_blob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_double\fP   sqlite3_api->result_double"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_error\fP   sqlite3_api->result_error"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_error16\fP   sqlite3_api->result_error16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_int\fP   sqlite3_api->result_int"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_int64\fP   sqlite3_api->result_int64"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_null\fP   sqlite3_api->result_null"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_text\fP   sqlite3_api->result_text"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_text16\fP   sqlite3_api->result_text16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_text16be\fP   sqlite3_api->result_text16be"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_text16le\fP   sqlite3_api->result_text16le"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_value\fP   sqlite3_api->result_value"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_rollback_hook\fP   sqlite3_api->rollback_hook"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_set_authorizer\fP   sqlite3_api->set_authorizer"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_set_auxdata\fP   sqlite3_api->set_auxdata"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_snprintf\fP   sqlite3_api->snprintf"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_step\fP   sqlite3_api->step"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_table_column_metadata\fP   sqlite3_api->table_column_metadata"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_thread_cleanup\fP   sqlite3_api->thread_cleanup"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_total_changes\fP   sqlite3_api->total_changes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_trace\fP   sqlite3_api->trace"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_transfer_bindings\fP   sqlite3_api->transfer_bindings"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_update_hook\fP   sqlite3_api->update_hook"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_user_data\fP   sqlite3_api->user_data"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_blob\fP   sqlite3_api->value_blob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_bytes\fP   sqlite3_api->value_bytes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_bytes16\fP   sqlite3_api->value_bytes16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_double\fP   sqlite3_api->value_double"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_int\fP   sqlite3_api->value_int"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_int64\fP   sqlite3_api->value_int64"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_numeric_type\fP   sqlite3_api->value_numeric_type"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_text\fP   sqlite3_api->value_text"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_text16\fP   sqlite3_api->value_text16"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_text16be\fP   sqlite3_api->value_text16be"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_text16le\fP   sqlite3_api->value_text16le"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_value_type\fP   sqlite3_api->value_type"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_vmprintf\fP   sqlite3_api->vmprintf"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_overload_function\fP   sqlite3_api->overload_function"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare_v2\fP   sqlite3_api->prepare_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_prepare16_v2\fP   sqlite3_api->prepare16_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_clear_bindings\fP   sqlite3_api->clear_bindings"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_bind_zeroblob\fP   sqlite3_api->bind_zeroblob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_blob_bytes\fP   sqlite3_api->blob_bytes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_blob_close\fP   sqlite3_api->blob_close"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_blob_open\fP   sqlite3_api->blob_open"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_blob_read\fP   sqlite3_api->blob_read"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_blob_write\fP   sqlite3_api->blob_write"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_create_collation_v2\fP   sqlite3_api->create_collation_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_file_control\fP   sqlite3_api->file_control"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_memory_highwater\fP   sqlite3_api->memory_highwater"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_memory_used\fP   sqlite3_api->memory_used"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mutex_alloc\fP   sqlite3_api->mutex_alloc"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mutex_enter\fP   sqlite3_api->mutex_enter"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mutex_free\fP   sqlite3_api->mutex_free"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mutex_leave\fP   sqlite3_api->mutex_leave"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_mutex_try\fP   sqlite3_api->mutex_try"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_open_v2\fP   sqlite3_api->open_v2"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_release_memory\fP   sqlite3_api->release_memory"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_error_nomem\fP   sqlite3_api->result_error_nomem"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_error_toobig\fP   sqlite3_api->result_error_toobig"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_sleep\fP   sqlite3_api->sleep"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_soft_heap_limit\fP   sqlite3_api->soft_heap_limit"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_vfs_find\fP   sqlite3_api->vfs_find"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_vfs_register\fP   sqlite3_api->vfs_register"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_vfs_unregister\fP   sqlite3_api->vfs_unregister"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_threadsafe\fP   sqlite3_api->xthreadsafe"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_zeroblob\fP   sqlite3_api->result_zeroblob"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_result_error_code\fP   sqlite3_api->result_error_code"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_test_control\fP   sqlite3_api->test_control"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_randomness\fP   sqlite3_api->randomness"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_context_db_handle\fP   sqlite3_api->context_db_handle"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_extended_result_codes\fP   sqlite3_api->extended_result_codes"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_limit\fP   sqlite3_api->limit"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_next_stmt\fP   sqlite3_api->next_stmt"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_sql\fP   sqlite3_api->sql"
+.br
+.ti -1c
+.RI "#define \fBsqlite3_status\fP   sqlite3_api->status"
+.br
+.ti -1c
+.RI "#define \fBSQLITE_EXTENSION_INIT1\fP   const \fBsqlite3_api_routines\fP *sqlite3_api = 0;"
+.br
+.ti -1c
+.RI "#define \fBSQLITE_EXTENSION_INIT2\fP(v)   sqlite3_api = v;"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBsqlite3_api_routines\fP \fBsqlite3_api_routines\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define sqlite3_aggregate_context   sqlite3_api->aggregate_context"
+.PP
+.SS "#define sqlite3_aggregate_count   sqlite3_api->aggregate_count"
+.PP
+.SS "#define sqlite3_bind_blob   sqlite3_api->bind_blob"
+.PP
+.SS "#define sqlite3_bind_double   sqlite3_api->bind_double"
+.PP
+.SS "#define sqlite3_bind_int   sqlite3_api->bind_int"
+.PP
+.SS "#define sqlite3_bind_int64   sqlite3_api->bind_int64"
+.PP
+.SS "#define sqlite3_bind_null   sqlite3_api->bind_null"
+.PP
+.SS "#define sqlite3_bind_parameter_count   sqlite3_api->bind_parameter_count"
+.PP
+.SS "#define sqlite3_bind_parameter_index   sqlite3_api->bind_parameter_index"
+.PP
+.SS "#define sqlite3_bind_parameter_name   sqlite3_api->bind_parameter_name"
+.PP
+.SS "#define sqlite3_bind_text   sqlite3_api->bind_text"
+.PP
+.SS "#define sqlite3_bind_text16   sqlite3_api->bind_text16"
+.PP
+.SS "#define sqlite3_bind_value   sqlite3_api->bind_value"
+.PP
+.SS "#define sqlite3_bind_zeroblob   sqlite3_api->bind_zeroblob"
+.PP
+.SS "#define sqlite3_blob_bytes   sqlite3_api->blob_bytes"
+.PP
+.SS "#define sqlite3_blob_close   sqlite3_api->blob_close"
+.PP
+.SS "#define sqlite3_blob_open   sqlite3_api->blob_open"
+.PP
+.SS "#define sqlite3_blob_read   sqlite3_api->blob_read"
+.PP
+.SS "#define sqlite3_blob_write   sqlite3_api->blob_write"
+.PP
+.SS "#define sqlite3_busy_handler   sqlite3_api->busy_handler"
+.PP
+.SS "#define sqlite3_busy_timeout   sqlite3_api->busy_timeout"
+.PP
+.SS "#define sqlite3_changes   sqlite3_api->changes"
+.PP
+.SS "#define sqlite3_clear_bindings   sqlite3_api->clear_bindings"
+.PP
+.SS "#define sqlite3_close   sqlite3_api->close"
+.PP
+.SS "#define sqlite3_collation_needed   sqlite3_api->collation_needed"
+.PP
+.SS "#define sqlite3_collation_needed16   sqlite3_api->collation_needed16"
+.PP
+.SS "#define sqlite3_column_blob   sqlite3_api->column_blob"
+.PP
+.SS "#define sqlite3_column_bytes   sqlite3_api->column_bytes"
+.PP
+.SS "#define sqlite3_column_bytes16   sqlite3_api->column_bytes16"
+.PP
+.SS "#define sqlite3_column_count   sqlite3_api->column_count"
+.PP
+.SS "#define sqlite3_column_database_name   sqlite3_api->column_database_name"
+.PP
+.SS "#define sqlite3_column_database_name16   sqlite3_api->column_database_name16"
+.PP
+.SS "#define sqlite3_column_decltype   sqlite3_api->column_decltype"
+.PP
+.SS "#define sqlite3_column_decltype16   sqlite3_api->column_decltype16"
+.PP
+.SS "#define sqlite3_column_double   sqlite3_api->column_double"
+.PP
+.SS "#define sqlite3_column_int   sqlite3_api->column_int"
+.PP
+.SS "#define sqlite3_column_int64   sqlite3_api->column_int64"
+.PP
+.SS "#define sqlite3_column_name   sqlite3_api->column_name"
+.PP
+.SS "#define sqlite3_column_name16   sqlite3_api->column_name16"
+.PP
+.SS "#define sqlite3_column_origin_name   sqlite3_api->column_origin_name"
+.PP
+.SS "#define sqlite3_column_origin_name16   sqlite3_api->column_origin_name16"
+.PP
+.SS "#define sqlite3_column_table_name   sqlite3_api->column_table_name"
+.PP
+.SS "#define sqlite3_column_table_name16   sqlite3_api->column_table_name16"
+.PP
+.SS "#define sqlite3_column_text   sqlite3_api->column_text"
+.PP
+.SS "#define sqlite3_column_text16   sqlite3_api->column_text16"
+.PP
+.SS "#define sqlite3_column_type   sqlite3_api->column_type"
+.PP
+.SS "#define sqlite3_column_value   sqlite3_api->column_value"
+.PP
+.SS "#define sqlite3_commit_hook   sqlite3_api->commit_hook"
+.PP
+.SS "#define sqlite3_complete   sqlite3_api->complete"
+.PP
+.SS "#define sqlite3_complete16   sqlite3_api->complete16"
+.PP
+.SS "#define sqlite3_context_db_handle   sqlite3_api->context_db_handle"
+.PP
+.SS "#define sqlite3_create_collation   sqlite3_api->create_collation"
+.PP
+.SS "#define sqlite3_create_collation16   sqlite3_api->create_collation16"
+.PP
+.SS "#define sqlite3_create_collation_v2   sqlite3_api->create_collation_v2"
+.PP
+.SS "#define sqlite3_create_function   sqlite3_api->create_function"
+.PP
+.SS "#define sqlite3_create_function16   sqlite3_api->create_function16"
+.PP
+.SS "#define sqlite3_create_module   sqlite3_api->create_module"
+.PP
+.SS "#define sqlite3_create_module_v2   sqlite3_api->create_module_v2"
+.PP
+.SS "#define sqlite3_data_count   sqlite3_api->data_count"
+.PP
+.SS "#define sqlite3_db_handle   sqlite3_api->db_handle"
+.PP
+.SS "#define sqlite3_declare_vtab   sqlite3_api->declare_vtab"
+.PP
+.SS "#define sqlite3_enable_shared_cache   sqlite3_api->enable_shared_cache"
+.PP
+.SS "#define sqlite3_errcode   sqlite3_api->errcode"
+.PP
+.SS "#define sqlite3_errmsg   sqlite3_api->errmsg"
+.PP
+.SS "#define sqlite3_errmsg16   sqlite3_api->errmsg16"
+.PP
+.SS "#define sqlite3_exec   sqlite3_api->exec"
+.PP
+.SS "#define sqlite3_expired   sqlite3_api->expired"
+.PP
+.SS "#define sqlite3_extended_result_codes   sqlite3_api->extended_result_codes"
+.PP
+.SS "#define sqlite3_file_control   sqlite3_api->file_control"
+.PP
+.SS "#define sqlite3_finalize   sqlite3_api->finalize"
+.PP
+.SS "#define sqlite3_free   sqlite3_api->free"
+.PP
+.SS "#define sqlite3_free_table   sqlite3_api->free_table"
+.PP
+.SS "#define sqlite3_get_autocommit   sqlite3_api->get_autocommit"
+.PP
+.SS "#define sqlite3_get_auxdata   sqlite3_api->get_auxdata"
+.PP
+.SS "#define sqlite3_get_table   sqlite3_api->get_table"
+.PP
+.SS "#define sqlite3_global_recover   sqlite3_api->global_recover"
+.PP
+.SS "#define sqlite3_interrupt   sqlite3_api->interruptx"
+.PP
+.SS "#define sqlite3_last_insert_rowid   sqlite3_api->last_insert_rowid"
+.PP
+.SS "#define sqlite3_libversion   sqlite3_api->libversion"
+.PP
+.SS "#define sqlite3_libversion_number   sqlite3_api->libversion_number"
+.PP
+.SS "#define sqlite3_limit   sqlite3_api->limit"
+.PP
+.SS "#define sqlite3_malloc   sqlite3_api->malloc"
+.PP
+.SS "#define sqlite3_memory_highwater   sqlite3_api->memory_highwater"
+.PP
+.SS "#define sqlite3_memory_used   sqlite3_api->memory_used"
+.PP
+.SS "#define sqlite3_mprintf   sqlite3_api->mprintf"
+.PP
+.SS "#define sqlite3_mutex_alloc   sqlite3_api->mutex_alloc"
+.PP
+.SS "#define sqlite3_mutex_enter   sqlite3_api->mutex_enter"
+.PP
+.SS "#define sqlite3_mutex_free   sqlite3_api->mutex_free"
+.PP
+.SS "#define sqlite3_mutex_leave   sqlite3_api->mutex_leave"
+.PP
+.SS "#define sqlite3_mutex_try   sqlite3_api->mutex_try"
+.PP
+.SS "#define sqlite3_next_stmt   sqlite3_api->next_stmt"
+.PP
+.SS "#define sqlite3_open   sqlite3_api->open"
+.PP
+.SS "#define sqlite3_open16   sqlite3_api->open16"
+.PP
+.SS "#define sqlite3_open_v2   sqlite3_api->open_v2"
+.PP
+.SS "#define sqlite3_overload_function   sqlite3_api->overload_function"
+.PP
+.SS "#define sqlite3_prepare   sqlite3_api->prepare"
+.PP
+.SS "#define sqlite3_prepare16   sqlite3_api->prepare16"
+.PP
+.SS "#define sqlite3_prepare16_v2   sqlite3_api->prepare16_v2"
+.PP
+.SS "#define sqlite3_prepare16_v2   sqlite3_api->prepare16_v2"
+.PP
+.SS "#define sqlite3_prepare_v2   sqlite3_api->prepare_v2"
+.PP
+.SS "#define sqlite3_prepare_v2   sqlite3_api->prepare_v2"
+.PP
+.SS "#define sqlite3_profile   sqlite3_api->profile"
+.PP
+.SS "#define sqlite3_progress_handler   sqlite3_api->progress_handler"
+.PP
+.SS "#define sqlite3_randomness   sqlite3_api->randomness"
+.PP
+.SS "#define sqlite3_realloc   sqlite3_api->realloc"
+.PP
+.SS "#define sqlite3_release_memory   sqlite3_api->release_memory"
+.PP
+.SS "#define sqlite3_reset   sqlite3_api->reset"
+.PP
+.SS "#define sqlite3_result_blob   sqlite3_api->result_blob"
+.PP
+.SS "#define sqlite3_result_double   sqlite3_api->result_double"
+.PP
+.SS "#define sqlite3_result_error   sqlite3_api->result_error"
+.PP
+.SS "#define sqlite3_result_error16   sqlite3_api->result_error16"
+.PP
+.SS "#define sqlite3_result_error_code   sqlite3_api->result_error_code"
+.PP
+.SS "#define sqlite3_result_error_nomem   sqlite3_api->result_error_nomem"
+.PP
+.SS "#define sqlite3_result_error_toobig   sqlite3_api->result_error_toobig"
+.PP
+.SS "#define sqlite3_result_int   sqlite3_api->result_int"
+.PP
+.SS "#define sqlite3_result_int64   sqlite3_api->result_int64"
+.PP
+.SS "#define sqlite3_result_null   sqlite3_api->result_null"
+.PP
+.SS "#define sqlite3_result_text   sqlite3_api->result_text"
+.PP
+.SS "#define sqlite3_result_text16   sqlite3_api->result_text16"
+.PP
+.SS "#define sqlite3_result_text16be   sqlite3_api->result_text16be"
+.PP
+.SS "#define sqlite3_result_text16le   sqlite3_api->result_text16le"
+.PP
+.SS "#define sqlite3_result_value   sqlite3_api->result_value"
+.PP
+.SS "#define sqlite3_result_zeroblob   sqlite3_api->result_zeroblob"
+.PP
+.SS "#define sqlite3_rollback_hook   sqlite3_api->rollback_hook"
+.PP
+.SS "#define sqlite3_set_authorizer   sqlite3_api->set_authorizer"
+.PP
+.SS "#define sqlite3_set_auxdata   sqlite3_api->set_auxdata"
+.PP
+.SS "#define sqlite3_sleep   sqlite3_api->sleep"
+.PP
+.SS "#define sqlite3_snprintf   sqlite3_api->snprintf"
+.PP
+.SS "#define sqlite3_soft_heap_limit   sqlite3_api->soft_heap_limit"
+.PP
+.SS "#define sqlite3_sql   sqlite3_api->sql"
+.PP
+.SS "#define sqlite3_status   sqlite3_api->status"
+.PP
+.SS "#define sqlite3_step   sqlite3_api->step"
+.PP
+.SS "#define sqlite3_table_column_metadata   sqlite3_api->table_column_metadata"
+.PP
+.SS "#define sqlite3_test_control   sqlite3_api->test_control"
+.PP
+.SS "#define sqlite3_thread_cleanup   sqlite3_api->thread_cleanup"
+.PP
+.SS "#define sqlite3_threadsafe   sqlite3_api->xthreadsafe"
+.PP
+.SS "#define sqlite3_total_changes   sqlite3_api->total_changes"
+.PP
+.SS "#define sqlite3_trace   sqlite3_api->trace"
+.PP
+.SS "#define sqlite3_transfer_bindings   sqlite3_api->transfer_bindings"
+.PP
+.SS "#define sqlite3_update_hook   sqlite3_api->update_hook"
+.PP
+.SS "#define sqlite3_user_data   sqlite3_api->user_data"
+.PP
+.SS "#define sqlite3_value_blob   sqlite3_api->value_blob"
+.PP
+.SS "#define sqlite3_value_bytes   sqlite3_api->value_bytes"
+.PP
+.SS "#define sqlite3_value_bytes16   sqlite3_api->value_bytes16"
+.PP
+.SS "#define sqlite3_value_double   sqlite3_api->value_double"
+.PP
+.SS "#define sqlite3_value_int   sqlite3_api->value_int"
+.PP
+.SS "#define sqlite3_value_int64   sqlite3_api->value_int64"
+.PP
+.SS "#define sqlite3_value_numeric_type   sqlite3_api->value_numeric_type"
+.PP
+.SS "#define sqlite3_value_text   sqlite3_api->value_text"
+.PP
+.SS "#define sqlite3_value_text16   sqlite3_api->value_text16"
+.PP
+.SS "#define sqlite3_value_text16be   sqlite3_api->value_text16be"
+.PP
+.SS "#define sqlite3_value_text16le   sqlite3_api->value_text16le"
+.PP
+.SS "#define sqlite3_value_type   sqlite3_api->value_type"
+.PP
+.SS "#define sqlite3_vfs_find   sqlite3_api->vfs_find"
+.PP
+.SS "#define sqlite3_vfs_register   sqlite3_api->vfs_register"
+.PP
+.SS "#define sqlite3_vfs_unregister   sqlite3_api->vfs_unregister"
+.PP
+.SS "#define sqlite3_vmprintf   sqlite3_api->vmprintf"
+.PP
+.SS "#define SQLITE_EXTENSION_INIT1   const \fBsqlite3_api_routines\fP *sqlite3_api = 0;"
+.PP
+.SS "#define SQLITE_EXTENSION_INIT2(v)   sqlite3_api = v;"
+.PP
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBsqlite3_api_routines\fP \fBsqlite3_api_routines\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,155 @@
+\section{libupkeeper/tests/v0\_\-protocol\_\-serializers.c File Reference}
+\label{v0__protocol__serializers_8c}\index{libupkeeper/tests/v0\_\-protocol\_\-serializers.c@{libupkeeper/tests/v0\_\-protocol\_\-serializers.c}}
+{\ttfamily \#include $<$check.h$>$}\par
+{\ttfamily \#include $<$upkeeper/upk\_\-v0\_\-protocol.h$>$}\par
+{\ttfamily \#include \char`\"{}v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c\char`\"{}}\par
+Include dependency graph for v0\_\-protocol\_\-serializers.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{v0__protocol__serializers_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf NAME\_\-TO\_\-FUNC}(A)~v0\_\-create\_\- \#\# A
+\item 
+\#define {\bf NAME\_\-TO\_\-TYPE}(A)~v0\_\- \#\# A \#\# \_\-t
+\item 
+\#define {\bf TEST\_\-SETUP}(NAME,...)
+\item 
+\#define {\bf TEST\_\-SETUP\_\-NOARGS}(NAME)
+\item 
+\#define {\bf TEST\_\-TEARDOWN}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Suite $\ast$ {\bf v0\_\-proto\_\-serializers\_\-suite} (void)
+\item 
+int {\bf main} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!NAME\_\-TO\_\-FUNC@{NAME\_\-TO\_\-FUNC}}
+\index{NAME\_\-TO\_\-FUNC@{NAME\_\-TO\_\-FUNC}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{NAME\_\-TO\_\-FUNC}]{\setlength{\rightskip}{0pt plus 5cm}\#define NAME\_\-TO\_\-FUNC(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~v0\_\-create\_\- \#\# A}\label{v0__protocol__serializers_8c_a2465364896ae6a9f5d5a029843f87fa2}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!NAME\_\-TO\_\-TYPE@{NAME\_\-TO\_\-TYPE}}
+\index{NAME\_\-TO\_\-TYPE@{NAME\_\-TO\_\-TYPE}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{NAME\_\-TO\_\-TYPE}]{\setlength{\rightskip}{0pt plus 5cm}\#define NAME\_\-TO\_\-TYPE(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~v0\_\- \#\# A \#\# \_\-t}\label{v0__protocol__serializers_8c_ac6c929cac18f9881e60a13de8a6dde33}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!TEST\_\-SETUP@{TEST\_\-SETUP}}
+\index{TEST\_\-SETUP@{TEST\_\-SETUP}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{TEST\_\-SETUP}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-SETUP(
+\begin{DoxyParamCaption}
+\item[{}]{NAME, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__serializers_8c_ad9198f6daa353c15cfe5e21689971de9}
+{\bfseries Value:}
+\begin{DoxyCode}
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(__VA_ARGS__); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
+    upk_pkt_free(pkt); \
+    pkt = upk_deserialize_packet(buf); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+\end{DoxyCode}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!TEST\_\-SETUP\_\-NOARGS@{TEST\_\-SETUP\_\-NOARGS}}
+\index{TEST\_\-SETUP\_\-NOARGS@{TEST\_\-SETUP\_\-NOARGS}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{TEST\_\-SETUP\_\-NOARGS}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-SETUP\_\-NOARGS(
+\begin{DoxyParamCaption}
+\item[{}]{NAME}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__serializers_8c_aa4a34f6f94c5eace6a0c837938e48d0e}
+{\bfseries Value:}
+\begin{DoxyCode}
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(); \
+    upk_pkt_buf_t * buf = upk_serialize_packet(pkt); \
+    upk_pkt_free(pkt); \
+    pkt = upk_deserialize_packet(buf); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+\end{DoxyCode}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!TEST\_\-TEARDOWN@{TEST\_\-TEARDOWN}}
+\index{TEST\_\-TEARDOWN@{TEST\_\-TEARDOWN}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{TEST\_\-TEARDOWN}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-TEARDOWN}\label{v0__protocol__serializers_8c_a95cf650329cffbc4f514eb95b315d915}
+{\bfseries Value:}
+\begin{DoxyCode}
+upk_pkt_free(pkt); \
+    free(buf)
+\end{DoxyCode}
+
+
+\subsection{Function Documentation}
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!main@{main}}
+\index{main@{main}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__serializers_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+References suite(), and v0\_\-proto\_\-serializers\_\-suite().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{v0__protocol__serializers_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{v0\_\-protocol\_\-serializers.c@{v0\_\-protocol\_\-serializers.c}!v0\_\-proto\_\-serializers\_\-suite@{v0\_\-proto\_\-serializers\_\-suite}}
+\index{v0\_\-proto\_\-serializers\_\-suite@{v0\_\-proto\_\-serializers\_\-suite}!v0_protocol_serializers.c@{v0\_\-protocol\_\-serializers.c}}
+\subsubsection[{v0\_\-proto\_\-serializers\_\-suite}]{\setlength{\rightskip}{0pt plus 5cm}Suite$\ast$ v0\_\-proto\_\-serializers\_\-suite (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__serializers_8c_ac00bbc6bc38d8eee4bacafb3d3a0d18c}
+
+
+References suite(), v0\_\-proto\_\-pubmsgs(), v0\_\-proto\_\-replies(), and v0\_\-proto\_\-requests().
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=386pt]{v0__protocol__serializers_8c_ac00bbc6bc38d8eee4bacafb3d3a0d18c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{v0__protocol__serializers_8c_ac00bbc6bc38d8eee4bacafb3d3a0d18c_icgraph}
+\end{center}
+\end{figure}
+
+

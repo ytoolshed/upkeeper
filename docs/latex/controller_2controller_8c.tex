@@ -1,0 +1,111 @@
+\section{controller/controller.c File Reference}
+\label{controller_2controller_8c}\index{controller/controller.c@{controller/controller.c}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include \char`\"{}controller.h\char`\"{}}\par
+{\ttfamily \#include $<$sqlite3.h$>$}\par
+Include dependency graph for controller.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_2controller_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf upk\_\-db\_\-path} (char $\ast$$\ast$pathbuf)
+\item 
+sqlite3 $\ast$ {\bf upk\_\-ctrl\_\-init\_\-db} (const char $\ast$db\_\-path)
+\item 
+int {\bf upk\_\-ctrl\_\-init} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{controller/controller.c@{controller/controller.c}!upk\_\-ctrl\_\-init@{upk\_\-ctrl\_\-init}}
+\index{upk\_\-ctrl\_\-init@{upk\_\-ctrl\_\-init}!controller/controller.c@{controller/controller.c}}
+\subsubsection[{upk\_\-ctrl\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-ctrl\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{controller_2controller_8c_a253734ff940e671ba2bd35fc159a9471}
+
+
+References upk\_\-ctrl\_\-init\_\-db(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-db\_\-path(), upk\_\-load\_\-runtime\_\-services(), and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_2controller_8c_a253734ff940e671ba2bd35fc159a9471_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=188pt]{controller_2controller_8c_a253734ff940e671ba2bd35fc159a9471_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller/controller.c@{controller/controller.c}!upk\_\-ctrl\_\-init\_\-db@{upk\_\-ctrl\_\-init\_\-db}}
+\index{upk\_\-ctrl\_\-init\_\-db@{upk\_\-ctrl\_\-init\_\-db}!controller/controller.c@{controller/controller.c}}
+\subsubsection[{upk\_\-ctrl\_\-init\_\-db}]{\setlength{\rightskip}{0pt plus 5cm}sqlite3$\ast$ upk\_\-ctrl\_\-init\_\-db (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{db\_\-path}
+\end{DoxyParamCaption}
+)}\label{controller_2controller_8c_a671ee65096a35adb7126676c69d249ae}
+
+
+Referenced by upk\_\-ctrl\_\-init().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{controller_2controller_8c_a671ee65096a35adb7126676c69d249ae_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller/controller.c@{controller/controller.c}!upk\_\-db\_\-path@{upk\_\-db\_\-path}}
+\index{upk\_\-db\_\-path@{upk\_\-db\_\-path}!controller/controller.c@{controller/controller.c}}
+\subsubsection[{upk\_\-db\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-db\_\-path (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{pathbuf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{controller_2controller_8c_a773907c597ba81a1650f505cfa77a4ec}
+
+
+References \_\-upk\_\-controller\_\-config::StateDir, upk\_\-fatal, and upk\_\-runtime\_\-configuration.
+
+
+
+Referenced by upk\_\-ctrl\_\-init().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{controller_2controller_8c_a773907c597ba81a1650f505cfa77a4ec_icgraph}
+\end{center}
+\end{figure}
+
+

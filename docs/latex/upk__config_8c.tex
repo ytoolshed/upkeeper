@@ -1,0 +1,118 @@
+\section{libupkeeper/upkeeper/upk\_\-config.c File Reference}
+\label{upk__config_8c}\index{libupkeeper/upkeeper/upk\_\-config.c@{libupkeeper/upkeeper/upk\_\-config.c}}
+
+
+configuration defaults, and implementation  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-json.h\char`\"{}}\par
+Include dependency graph for upk\_\-config.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__config_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf \_\-stringify}(A)~\#A
+\item 
+\#define {\bf stringify}(A)~\_\-stringify(A)
+\item 
+\#define {\bf \_\-joa}~json\_\-object\_\-object\_\-add
+\item 
+\#define {\bf jt\_\-string}~json\_\-type\_\-string
+\item 
+\#define {\bf jt\_\-int}~json\_\-type\_\-int
+\item 
+\#define {\bf jt\_\-boolean}~json\_\-type\_\-boolean
+\item 
+\#define {\bf jt\_\-array}~json\_\-type\_\-array
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf upk\_\-ctrlconf\_\-string\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-ctrlconf\_\-double\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-ctrlconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-ctrlconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+static void {\bf upk\_\-svcconf\_\-bool\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-int\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-string\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-conf\_\-error\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static char $\ast$ {\bf upk\_\-config\_\-loadfile} (const char $\ast$filename)
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-free} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-svclist\_\-free} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+void {\bf upk\_\-ctrlconf\_\-free} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg)
+\item 
+void {\bf upk\_\-ctrl\_\-free\_\-config} (void)
+\item 
+static void {\bf upk\_\-svcconf\_\-setup\_\-handlers} ({\bf upk\_\-json\_\-handlers\_\-t} $\ast$handlers)
+\item 
+static void {\bf upk\_\-ctrlconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+void {\bf upk\_\-svcconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+void {\bf upk\_\-ctrl\_\-load\_\-config} (void)
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-clear} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+static void $\ast$ {\bf upk\_\-json\_\-serialize\_\-or\_\-null} (enum json\_\-type type, void $\ast$val)
+\item 
+char $\ast$ {\bf upk\_\-concat\_\-svcid} (char $\ast$dest, const char $\ast$pkg, const char $\ast$name)
+\item 
+char $\ast$ {\bf upk\_\-svc\_\-id} (char $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-parse\_\-svc\_\-id} (char $\ast$key, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svclist\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+char $\ast$ {\bf upk\_\-json\_\-serialize\_\-svc\_\-config} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\item 
+void {\bf upk\_\-overlay\_\-svcconf\_\-values} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-overlay\_\-ctrlconf\_\-values} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$dest, {\bf upk\_\-controller\_\-config\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-finalize\_\-svc\_\-desc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$orig)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-service\_\-file} (const char $\ast$filename)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-services} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char {\bf upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN] = \char`\"{}/upkeeper.conf\char`\"{}
+\item 
+const char {\bf upk\_\-default\_\-configuration\_\-vec} [$\,$] = \char`\"{}\}$\backslash$n\char`\"{}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-file\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-runtime\_\-configuration}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+configuration defaults, and implementation 

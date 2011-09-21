@@ -1,0 +1,87 @@
+.TH "api/upk_api.h" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+api/upk_api.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'store/upk_db.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBupk_api\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_api_service\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_MAGIC\fP   'UPK_MAGIC'"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBupk_api\fP \fBupk_api_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_api_service\fP \fBupk_api_service_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBupk_api_init\fP (struct \fBupk_api\fP *pupk_api)"
+.br
+.ti -1c
+.RI "const char * \fBupk_api_service_desired_state_get\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_actual_state_set\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service, upk_status_t upk_status)"
+.br
+.ti -1c
+.RI "const char * \fBupk_api_service_actual_state_get\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_set\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service, char *cmdline)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_visitor\fP (struct \fBupk_api\fP *pupk_api, void(*callback)(), void *context)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define UPK_MAGIC   'UPK_MAGIC'"
+.PP
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBupk_api_service\fP  \fBupk_api_service_t\fP"
+.PP
+.SS "typedef struct \fBupk_api\fP  \fBupk_api_t\fP"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "int upk_api_init (struct \fBupk_api\fP * pupk_api)"
+.PP
+.SS "const char* upk_api_service_actual_state_get (struct \fBupk_api\fP * pupk_api, char * package, char * service)"
+.PP
+.SS "int upk_api_service_actual_state_set (struct \fBupk_api\fP * pupk_api, char * package, char * service, upk_status_t upk_status)"
+.PP
+.SS "const char* upk_api_service_desired_state_get (struct \fBupk_api\fP * pupk_api, char * package, char * service)"
+.PP
+.SS "int upk_api_service_set (struct \fBupk_api\fP * pupk_api, char * package, char * service, char * cmdline)"
+.PP
+.SS "int upk_api_service_visitor (struct \fBupk_api\fP * pupk_api, void(*)() callback, void * context)"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

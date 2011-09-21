@@ -1,0 +1,154 @@
+\section{libupkeeper/upkeeper/upk\_\-util.h File Reference}
+\label{upk__util_8h}\index{libupkeeper/upkeeper/upk\_\-util.h@{libupkeeper/upkeeper/upk\_\-util.h}}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__util_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf \_\-stringify}(A)~\#A
+\item 
+\#define {\bf stringify}(A)~\_\-stringify(A)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bf upk\_\-numeric\_\-string} (const char $\ast$string, long $\ast$num)
+\item 
+bool {\bf upk\_\-boolean\_\-string} (const char $\ast$string, bool $\ast$val)
+\item 
+void {\bf upk\_\-replace\_\-string} (char $\ast$$\ast$haystack, const char $\ast$needle, const char $\ast$repl)
+\item 
+struct timeval {\bf upk\_\-double\_\-to\_\-timeval} (long double rational)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk\_\-util.h@{upk\_\-util.h}!\_\-stringify@{\_\-stringify}}
+\index{\_\-stringify@{\_\-stringify}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{\_\-stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-stringify(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\#A}\label{upk__util_8h_ae4d04a6a08a5c5b96aca2e1fd83c4282}
+\index{upk\_\-util.h@{upk\_\-util.h}!stringify@{stringify}}
+\index{stringify@{stringify}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define stringify(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\_\-stringify(A)}\label{upk__util_8h_ae8d098a30085240ed6a6ca1d48218828}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-util.h@{upk\_\-util.h}!upk\_\-boolean\_\-string@{upk\_\-boolean\_\-string}}
+\index{upk\_\-boolean\_\-string@{upk\_\-boolean\_\-string}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{upk\_\-boolean\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}bool upk\_\-boolean\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string, }
+\item[{bool $\ast$}]{val}
+\end{DoxyParamCaption}
+)}\label{upk__util_8h_a9b91732d9c4b0c3f43908520440e1326}
+
+
+References upk\_\-numeric\_\-string().
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{upk__util_8h_a9b91732d9c4b0c3f43908520440e1326_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=218pt]{upk__util_8h_a9b91732d9c4b0c3f43908520440e1326_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-util.h@{upk\_\-util.h}!upk\_\-double\_\-to\_\-timeval@{upk\_\-double\_\-to\_\-timeval}}
+\index{upk\_\-double\_\-to\_\-timeval@{upk\_\-double\_\-to\_\-timeval}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{upk\_\-double\_\-to\_\-timeval}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval upk\_\-double\_\-to\_\-timeval (
+\begin{DoxyParamCaption}
+\item[{long double}]{rational}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [read]}}\label{upk__util_8h_ac419231d01359d3c9af855eade772401}
+
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__util_8h_ac419231d01359d3c9af855eade772401_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-util.h@{upk\_\-util.h}!upk\_\-numeric\_\-string@{upk\_\-numeric\_\-string}}
+\index{upk\_\-numeric\_\-string@{upk\_\-numeric\_\-string}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{upk\_\-numeric\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}bool upk\_\-numeric\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string, }
+\item[{long $\ast$}]{num}
+\end{DoxyParamCaption}
+)}\label{upk__util_8h_a7b3be027e64541238710e1821152a1a6}
+
+
+Referenced by main(), and upk\_\-boolean\_\-string().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=356pt]{upk__util_8h_a7b3be027e64541238710e1821152a1a6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-util.h@{upk\_\-util.h}!upk\_\-replace\_\-string@{upk\_\-replace\_\-string}}
+\index{upk\_\-replace\_\-string@{upk\_\-replace\_\-string}!upk_util.h@{upk\_\-util.h}}
+\subsubsection[{upk\_\-replace\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-replace\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$$\ast$}]{haystack, }
+\item[{const char $\ast$}]{needle, }
+\item[{const char $\ast$}]{repl}
+\end{DoxyParamCaption}
+)}\label{upk__util_8h_afa8ca0c65fa02bf5725772ca74a83afd}
+
+
+Referenced by START\_\-TEST(), and upk\_\-finalize\_\-svc\_\-desc().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__util_8h_afa8ca0c65fa02bf5725772ca74a83afd_icgraph}
+\end{center}
+\end{figure}
+
+

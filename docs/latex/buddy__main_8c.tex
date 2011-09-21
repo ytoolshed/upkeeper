@@ -1,0 +1,168 @@
+\section{controller/buddy\_\-main.c File Reference}
+\label{buddy__main_8c}\index{controller/buddy\_\-main.c@{controller/buddy\_\-main.c}}
+{\ttfamily \#include \char`\"{}buddy.h\char`\"{}}\par
+{\ttfamily \#include $<$getopt.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+Include dependency graph for buddy\_\-main.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy__main_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf buddy\_\-usage} (char $\ast$progname)
+\item 
+static bool {\bf numeric\_\-string} (const char $\ast$string, long $\ast$num)
+\item 
+static int {\bf opt\_\-parse} (int argc, char $\ast$$\ast$argv, char $\ast$$\ast$envp)
+\item 
+static void {\bf buddy\_\-diag\_\-handler} ({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$label, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)
+\item 
+int {\bf main} (int argc, char $\ast$$\ast$argv, char $\ast$$\ast$envp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{buddy\_\-main.c@{buddy\_\-main.c}!buddy\_\-diag\_\-handler@{buddy\_\-diag\_\-handler}}
+\index{buddy\_\-diag\_\-handler@{buddy\_\-diag\_\-handler}!buddy_main.c@{buddy\_\-main.c}}
+\subsubsection[{buddy\_\-diag\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void buddy\_\-diag\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-diaglvl\_\-t}}]{diaglvl, }
+\item[{const char $\ast$}]{label, }
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy__main_8c_a6c820af1e7aabaed92d4a53e9ea251e7}
+
+
+References upk\_\-diag\_\-verbosity, UPK\_\-DIAGLVL\_\-ALERT, UPK\_\-DIAGLVL\_\-CRIT, UPK\_\-DIAGLVL\_\-ERROR, UPK\_\-DIAGLVL\_\-FATAL, and UPK\_\-DIAGLVL\_\-INFO.
+
+
+
+Referenced by main().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{buddy__main_8c_a6c820af1e7aabaed92d4a53e9ea251e7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy\_\-main.c@{buddy\_\-main.c}!buddy\_\-usage@{buddy\_\-usage}}
+\index{buddy\_\-usage@{buddy\_\-usage}!buddy_main.c@{buddy\_\-main.c}}
+\subsubsection[{buddy\_\-usage}]{\setlength{\rightskip}{0pt plus 5cm}static void buddy\_\-usage (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{progname}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy__main_8c_a658c2be7485b4fbf2f8462368ae62893}
+
+
+Referenced by opt\_\-parse().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{buddy__main_8c_a658c2be7485b4fbf2f8462368ae62893_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy\_\-main.c@{buddy\_\-main.c}!main@{main}}
+\index{main@{main}!buddy_main.c@{buddy\_\-main.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{char $\ast$$\ast$}]{envp}
+\end{DoxyParamCaption}
+)}\label{buddy__main_8c_a647f21a28344e1d9c643f4115516d7c9}
+
+
+References buddy\_\-cleanup(), buddy\_\-diag\_\-handler(), buddy\_\-event\_\-loop(), buddy\_\-init(), opt\_\-parse(), proc\_\-envp, ringbuffer\_\-size, and upk\_\-diag\_\-verbosity.
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy__main_8c_a647f21a28344e1d9c643f4115516d7c9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy\_\-main.c@{buddy\_\-main.c}!numeric\_\-string@{numeric\_\-string}}
+\index{numeric\_\-string@{numeric\_\-string}!buddy_main.c@{buddy\_\-main.c}}
+\subsubsection[{numeric\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static bool numeric\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string, }
+\item[{long $\ast$}]{num}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy__main_8c_a3c0fdeaae93cff1ffd7a542946bcefde}
+
+
+Referenced by opt\_\-parse().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{buddy__main_8c_a3c0fdeaae93cff1ffd7a542946bcefde_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy\_\-main.c@{buddy\_\-main.c}!opt\_\-parse@{opt\_\-parse}}
+\index{opt\_\-parse@{opt\_\-parse}!buddy_main.c@{buddy\_\-main.c}}
+\subsubsection[{opt\_\-parse}]{\setlength{\rightskip}{0pt plus 5cm}static int opt\_\-parse (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{char $\ast$$\ast$}]{envp}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy__main_8c_adbe704e27f14c47d6f5fbe8689e140d0}
+
+
+References BUDDY\_\-MAX\_\-STRING\_\-LEN, buddy\_\-root\_\-path, buddy\_\-service\_\-name, buddy\_\-setgid, buddy\_\-setuid, buddy\_\-usage(), buddy\_\-uuid, is\_\-valid\_\-upk\_\-uuid\_\-string(), numeric\_\-string(), reconnect\_\-retries, ringbuffer\_\-size, strnlen(), upk\_\-diag\_\-verbosity, and upk\_\-string\_\-to\_\-uuid().
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=398pt]{buddy__main_8c_adbe704e27f14c47d6f5fbe8689e140d0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{buddy__main_8c_adbe704e27f14c47d6f5fbe8689e140d0_icgraph}
+\end{center}
+\end{figure}
+
+

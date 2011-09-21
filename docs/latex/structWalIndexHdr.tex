@@ -1,0 +1,91 @@
+\section{Wal\-Index\-Hdr Struct Reference}
+\label{structWalIndexHdr}\index{WalIndexHdr@{WalIndexHdr}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{u32} \bf{i\-Version}
+\item 
+\bf{u32} \bf{unused}
+\item 
+\bf{u32} \bf{i\-Change}
+\item 
+\bf{u8} \bf{is\-Init}
+\item 
+\bf{u8} \bf{big\-End\-Cksum}
+\item 
+\bf{u16} \bf{sz\-Page}
+\item 
+\bf{u32} \bf{mx\-Frame}
+\item 
+\bf{u32} \bf{n\-Page}
+\item 
+\bf{u32} \bf{a\-Frame\-Cksum} [2]
+\item 
+\bf{u32} \bf{a\-Salt} [2]
+\item 
+\bf{u32} \bf{a\-Cksum} [2]
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!aCksum@{aCksum}}
+\index{aCksum@{aCksum}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::a\-Cksum}}\label{structWalIndexHdr_f21c6adde72a80697f237e44a5f6553c}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!aFrameCksum@{aFrameCksum}}
+\index{aFrameCksum@{aFrameCksum}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::a\-Frame\-Cksum}}\label{structWalIndexHdr_fe8466ea599514fd4c730fc689220b8e}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!aSalt@{aSalt}}
+\index{aSalt@{aSalt}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::a\-Salt}}\label{structWalIndexHdr_96cd221d582620d4c4650ffdbafb0f36}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!bigEndCksum@{bigEndCksum}}
+\index{bigEndCksum@{bigEndCksum}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Wal\-Index\-Hdr::big\-End\-Cksum}}\label{structWalIndexHdr_0c45245bf7d950a20a62c8eba84b8103}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!iChange@{iChange}}
+\index{iChange@{iChange}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::i\-Change}}\label{structWalIndexHdr_af6478ec551b195c81ba110bff708b87}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!isInit@{isInit}}
+\index{isInit@{isInit}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Wal\-Index\-Hdr::is\-Init}}\label{structWalIndexHdr_6bc5aca43574bfc3c336bfcd61f04645}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!iVersion@{iVersion}}
+\index{iVersion@{iVersion}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::i\-Version}}\label{structWalIndexHdr_56d7713fb1a0e73d11d57168d0bcf9e7}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!mxFrame@{mxFrame}}
+\index{mxFrame@{mxFrame}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::mx\-Frame}}\label{structWalIndexHdr_49fa685a69b5a890dcd0994746049641}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!nPage@{nPage}}
+\index{nPage@{nPage}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::n\-Page}}\label{structWalIndexHdr_323308068512262081e932dd2e5beba6}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!szPage@{szPage}}
+\index{szPage@{szPage}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Wal\-Index\-Hdr::sz\-Page}}\label{structWalIndexHdr_0a52f26b5a09775ab224726c9a60fef3}
+
+
+\index{WalIndexHdr@{Wal\-Index\-Hdr}!unused@{unused}}
+\index{unused@{unused}!WalIndexHdr@{Wal\-Index\-Hdr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Wal\-Index\-Hdr::unused}}\label{structWalIndexHdr_af5925f09a3380ef0decaf9c1b4ae214}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

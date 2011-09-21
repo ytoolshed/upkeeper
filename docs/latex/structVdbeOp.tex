@@ -1,0 +1,236 @@
+\section{Vdbe\-Op Struct Reference}
+\label{structVdbeOp}\index{VdbeOp@{VdbeOp}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{u8} \bf{opcode}
+\item 
+signed char \bf{p4type}
+\item 
+\bf{u8} \bf{opflags}
+\item 
+\bf{u8} \bf{p5}
+\item 
+int \bf{p1}
+\item 
+int \bf{p2}
+\item 
+int \bf{p3}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int \bf{i}\\
+\>void $\ast$ \bf{p}\\
+\>char $\ast$ \bf{z}\\
+\>\bf{i64} $\ast$ \bf{pI64}\\
+\>double $\ast$ \bf{pReal}\\
+\>\bf{FuncDef} $\ast$ \bf{pFunc}\\
+\>\bf{VdbeFunc} $\ast$ \bf{pVdbeFunc}\\
+\>\bf{CollSeq} $\ast$ \bf{pColl}\\
+\>\bf{Mem} $\ast$ \bf{pMem}\\
+\>\bf{VTable} $\ast$ \bf{pVtab}\\
+\>\bf{KeyInfo} $\ast$ \bf{pKeyInfo}\\
+\>int $\ast$ \bf{ai}\\
+\>\bf{SubProgram} $\ast$ \bf{pProgram}\\
+\} \bf{p4}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int \bf{i}\\
+\>void $\ast$ \bf{p}\\
+\>char $\ast$ \bf{z}\\
+\>\bf{i64} $\ast$ \bf{pI64}\\
+\>double $\ast$ \bf{pReal}\\
+\>\bf{FuncDef} $\ast$ \bf{pFunc}\\
+\>\bf{VdbeFunc} $\ast$ \bf{pVdbeFunc}\\
+\>\bf{CollSeq} $\ast$ \bf{pColl}\\
+\>\bf{Mem} $\ast$ \bf{pMem}\\
+\>\bf{VTable} $\ast$ \bf{pVtab}\\
+\>\bf{KeyInfo} $\ast$ \bf{pKeyInfo}\\
+\>int $\ast$ \bf{ai}\\
+\>\bf{SubProgram} $\ast$ \bf{pProgram}\\
+\} \bf{p4}\\
+
+\end{tabbing}\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{VdbeOp@{Vdbe\-Op}!ai@{ai}}
+\index{ai@{ai}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Vdbe\-Op::ai}}\label{structVdbeOp_889f70cdebfe2978787f25e195369d11}
+
+
+\index{VdbeOp@{Vdbe\-Op}!ai@{ai}}
+\index{ai@{ai}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Vdbe\-Op::ai}}\label{structVdbeOp_889f70cdebfe2978787f25e195369d11}
+
+
+\index{VdbeOp@{Vdbe\-Op}!i@{i}}
+\index{i@{i}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe\-Op::i}}\label{structVdbeOp_cedbbb234995e9a37f7f57d23bf9e849}
+
+
+\index{VdbeOp@{Vdbe\-Op}!opcode@{opcode}}
+\index{opcode@{opcode}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe\-Op::opcode}}\label{structVdbeOp_e5efaad009f4db068b10de707e167671}
+
+
+\index{VdbeOp@{Vdbe\-Op}!opflags@{opflags}}
+\index{opflags@{opflags}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe\-Op::opflags}}\label{structVdbeOp_a753d7eafa307e02e78b586ef42f24ef}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p@{p}}
+\index{p@{p}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Vdbe\-Op::p}}\label{structVdbeOp_12e6bebbdbd63972daf62f2b7f96d7d3}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p@{p}}
+\index{p@{p}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Vdbe\-Op::p}}\label{structVdbeOp_12e6bebbdbd63972daf62f2b7f96d7d3}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p1@{p1}}
+\index{p1@{p1}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe\-Op::p1}}\label{structVdbeOp_5d584ef8991824a98d1f51f4ba84cb94}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p2@{p2}}
+\index{p2@{p2}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe\-Op::p2}}\label{structVdbeOp_91d9db91a46cc1b7c6d28f717c87c81a}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p3@{p3}}
+\index{p3@{p3}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe\-Op::p3}}\label{structVdbeOp_691ccde4fb3fef32ee4f2dffd20ab579}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p4@{p4}}
+\index{p4@{p4}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Vdbe\-Op::p4}}\label{structVdbeOp_0a71cd118ade78bf348569704da135fa}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p4@{p4}}
+\index{p4@{p4}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Vdbe\-Op::p4}}\label{structVdbeOp_d78da860cd8347eac6d357137ebbef8f}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p4type@{p4type}}
+\index{p4type@{p4type}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}signed char \bf{Vdbe\-Op::p4type}}\label{structVdbeOp_f45295c7cf5374d34e2ddf5de379d76f}
+
+
+\index{VdbeOp@{Vdbe\-Op}!p5@{p5}}
+\index{p5@{p5}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe\-Op::p5}}\label{structVdbeOp_149aab2bfcf29260e966153af3aa97b4}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pColl@{pColl}}
+\index{pColl@{pColl}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Coll\-Seq}$\ast$ \bf{Vdbe\-Op::p\-Coll}}\label{structVdbeOp_9ad63c762417bf947cfd0646a48368f6}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pColl@{pColl}}
+\index{pColl@{pColl}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Coll\-Seq}$\ast$ \bf{Vdbe\-Op::p\-Coll}}\label{structVdbeOp_9ad63c762417bf947cfd0646a48368f6}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pFunc@{pFunc}}
+\index{pFunc@{pFunc}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Func\-Def}$\ast$ \bf{Vdbe\-Op::p\-Func}}\label{structVdbeOp_2ea0c1b60a8f4aad01e7d1a764be621f}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pFunc@{pFunc}}
+\index{pFunc@{pFunc}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Func\-Def}$\ast$ \bf{Vdbe\-Op::p\-Func}}\label{structVdbeOp_2ea0c1b60a8f4aad01e7d1a764be621f}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pI64@{pI64}}
+\index{pI64@{pI64}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64}$\ast$ \bf{Vdbe\-Op::p\-I64}}\label{structVdbeOp_6679bb9ae809d8612ccdd8ba2a88f03a}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pI64@{pI64}}
+\index{pI64@{pI64}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64}$\ast$ \bf{Vdbe\-Op::p\-I64}}\label{structVdbeOp_6679bb9ae809d8612ccdd8ba2a88f03a}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pKeyInfo@{pKeyInfo}}
+\index{pKeyInfo@{pKeyInfo}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Key\-Info}$\ast$ \bf{Vdbe\-Op::p\-Key\-Info}}\label{structVdbeOp_7b9bf238d225f0d695912f52fc28b9d1}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pKeyInfo@{pKeyInfo}}
+\index{pKeyInfo@{pKeyInfo}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Key\-Info}$\ast$ \bf{Vdbe\-Op::p\-Key\-Info}}\label{structVdbeOp_7b9bf238d225f0d695912f52fc28b9d1}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pMem@{pMem}}
+\index{pMem@{pMem}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe\-Op::p\-Mem}}\label{structVdbeOp_5d96f21702a4fc93e6b3273daeb6dfbc}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pMem@{pMem}}
+\index{pMem@{pMem}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe\-Op::p\-Mem}}\label{structVdbeOp_5d96f21702a4fc93e6b3273daeb6dfbc}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pProgram@{pProgram}}
+\index{pProgram@{pProgram}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Sub\-Program}$\ast$ \bf{Vdbe\-Op::p\-Program}}\label{structVdbeOp_63960acf3dc332c322dbadde6e9fb776}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pProgram@{pProgram}}
+\index{pProgram@{pProgram}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Sub\-Program}$\ast$ \bf{Vdbe\-Op::p\-Program}}\label{structVdbeOp_63960acf3dc332c322dbadde6e9fb776}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pReal@{pReal}}
+\index{pReal@{pReal}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ \bf{Vdbe\-Op::p\-Real}}\label{structVdbeOp_a837e3f55297e94d0d6bf41995566c99}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pReal@{pReal}}
+\index{pReal@{pReal}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double$\ast$ \bf{Vdbe\-Op::p\-Real}}\label{structVdbeOp_a837e3f55297e94d0d6bf41995566c99}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pVdbeFunc@{pVdbeFunc}}
+\index{pVdbeFunc@{pVdbeFunc}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Func}$\ast$ \bf{Vdbe\-Op::p\-Vdbe\-Func}}\label{structVdbeOp_c45f7fdcf49c9b5f270e9508c5a81284}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pVdbeFunc@{pVdbeFunc}}
+\index{pVdbeFunc@{pVdbeFunc}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Func}$\ast$ \bf{Vdbe\-Op::p\-Vdbe\-Func}}\label{structVdbeOp_c45f7fdcf49c9b5f270e9508c5a81284}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pVtab@{pVtab}}
+\index{pVtab@{pVtab}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{VTable}$\ast$ \bf{Vdbe\-Op::p\-Vtab}}\label{structVdbeOp_bb0c9d8010e5cf6723859131373b8a29}
+
+
+\index{VdbeOp@{Vdbe\-Op}!pVtab@{pVtab}}
+\index{pVtab@{pVtab}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{VTable}$\ast$ \bf{Vdbe\-Op::p\-Vtab}}\label{structVdbeOp_bb0c9d8010e5cf6723859131373b8a29}
+
+
+\index{VdbeOp@{Vdbe\-Op}!z@{z}}
+\index{z@{z}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe\-Op::z}}\label{structVdbeOp_52dcea68a3174a2061e1554b93d44d07}
+
+
+\index{VdbeOp@{Vdbe\-Op}!z@{z}}
+\index{z@{z}!VdbeOp@{Vdbe\-Op}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe\-Op::z}}\label{structVdbeOp_52dcea68a3174a2061e1554b93d44d07}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

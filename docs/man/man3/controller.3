@@ -1,0 +1,309 @@
+.TH "Controller" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Controller \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_buddy_info\fP"
+.br
+.RI "\fIinformation buddy returns. \fP"
+.ti -1c
+.RI "struct \fB_upk_controller_config\fP"
+.br
+.RI "\fIcontroller configuration. \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBDEFAULT_BUDDY_ROOT\fP   '/var/run/upkeeper/buddy'"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef enum \fB_buddy_cmnd\fP \fBbuddy_cmnd_t\fP"
+.br
+.RI "\fIcontroller side of buddy protocol. \fP"
+.ti -1c
+.RI "typedef struct \fB_buddy_info\fP \fBbuddy_info_t\fP"
+.br
+.RI "\fIinformation buddy returns. \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_controller_config\fP \fBupk_controller_config_t\fP"
+.br
+.RI "\fIcontroller configuration. \fP"
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fB_buddy_cmnd\fP { \fBUPK_CTRL_NONE\fP =  0, \fBUPK_CTRL_ACK\fP =  1, \fBUPK_CTRL_SHUTDOWN\fP, \fBUPK_CTRL_STATUS_REQ\fP, \fBUPK_CTRL_ACTION_START\fP, \fBUPK_CTRL_ACTION_STOP\fP, \fBUPK_CTRL_ACTION_RELOAD\fP, \fBUPK_CTRL_ACTION_RUNONCE\fP, \fBUPK_CTRL_CUSTOM_ACTION_00\fP, \fBUPK_CTRL_CUSTOM_ACTION_01\fP, \fBUPK_CTRL_CUSTOM_ACTION_02\fP, \fBUPK_CTRL_CUSTOM_ACTION_03\fP, \fBUPK_CTRL_CUSTOM_ACTION_04\fP, \fBUPK_CTRL_CUSTOM_ACTION_05\fP, \fBUPK_CTRL_CUSTOM_ACTION_06\fP, \fBUPK_CTRL_CUSTOM_ACTION_07\fP, \fBUPK_CTRL_CUSTOM_ACTION_08\fP, \fBUPK_CTRL_CUSTOM_ACTION_09\fP, \fBUPK_CTRL_CUSTOM_ACTION_10\fP, \fBUPK_CTRL_CUSTOM_ACTION_11\fP, \fBUPK_CTRL_CUSTOM_ACTION_12\fP, \fBUPK_CTRL_CUSTOM_ACTION_13\fP, \fBUPK_CTRL_CUSTOM_ACTION_14\fP, \fBUPK_CTRL_CUSTOM_ACTION_15\fP, \fBUPK_CTRL_CUSTOM_ACTION_16\fP, \fBUPK_CTRL_CUSTOM_ACTION_17\fP, \fBUPK_CTRL_CUSTOM_ACTION_18\fP, \fBUPK_CTRL_CUSTOM_ACTION_19\fP, \fBUPK_CTRL_CUSTOM_ACTION_20\fP, \fBUPK_CTRL_CUSTOM_ACTION_21\fP, \fBUPK_CTRL_CUSTOM_ACTION_22\fP, \fBUPK_CTRL_CUSTOM_ACTION_23\fP, \fBUPK_CTRL_CUSTOM_ACTION_24\fP, \fBUPK_CTRL_CUSTOM_ACTION_25\fP, \fBUPK_CTRL_CUSTOM_ACTION_26\fP, \fBUPK_CTRL_CUSTOM_ACTION_27\fP, \fBUPK_CTRL_CUSTOM_ACTION_28\fP, \fBUPK_CTRL_CUSTOM_ACTION_29\fP, \fBUPK_CTRL_CUSTOM_ACTION_30\fP, \fBUPK_CTRL_CUSTOM_ACTION_31\fP, \fBUPK_CTRL_SIGNAL_01\fP, \fBUPK_CTRL_SIGNAL_02\fP, \fBUPK_CTRL_SIGNAL_03\fP, \fBUPK_CTRL_SIGNAL_04\fP, \fBUPK_CTRL_SIGNAL_05\fP, \fBUPK_CTRL_SIGNAL_06\fP, \fBUPK_CTRL_SIGNAL_07\fP, \fBUPK_CTRL_SIGNAL_08\fP, \fBUPK_CTRL_SIGNAL_09\fP, \fBUPK_CTRL_SIGNAL_10\fP, \fBUPK_CTRL_SIGNAL_11\fP, \fBUPK_CTRL_SIGNAL_12\fP, \fBUPK_CTRL_SIGNAL_13\fP, \fBUPK_CTRL_SIGNAL_14\fP, \fBUPK_CTRL_SIGNAL_15\fP, \fBUPK_CTRL_SIGNAL_16\fP, \fBUPK_CTRL_SIGNAL_17\fP, \fBUPK_CTRL_SIGNAL_18\fP, \fBUPK_CTRL_SIGNAL_19\fP, \fBUPK_CTRL_SIGNAL_20\fP, \fBUPK_CTRL_SIGNAL_21\fP, \fBUPK_CTRL_SIGNAL_22\fP, \fBUPK_CTRL_SIGNAL_23\fP, \fBUPK_CTRL_SIGNAL_24\fP, \fBUPK_CTRL_SIGNAL_25\fP, \fBUPK_CTRL_SIGNAL_26\fP, \fBUPK_CTRL_SIGNAL_27\fP, \fBUPK_CTRL_SIGNAL_28\fP, \fBUPK_CTRL_SIGNAL_29\fP, \fBUPK_CTRL_SIGNAL_30\fP, \fBUPK_CTRL_SIGNAL_31\fP, \fBUPK_CTRL_SIGNAL_32\fP }"
+.br
+.RI "\fIcontroller side of buddy protocol. \fP"
+.ti -1c
+.RI "enum \fBbuddy_runstate_t\fP { \fBBUDDY_UNKNOWN\fP =  0, \fBBUDDY_STOPPED\fP =  1, \fBBUDDY_RUNNING\fP, \fBBUDDY_RANONCE\fP }"
+.br
+.RI "\fIstates for buddy \fP"
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define DEFAULT_BUDDY_ROOT   '/var/run/upkeeper/buddy'"
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef enum \fB_buddy_cmnd\fP  \fBbuddy_cmnd_t\fP"
+.PP
+controller side of buddy protocol. This is what controller sends to buddy 
+.SS "typedef struct \fB_buddy_info\fP \fBbuddy_info_t\fP"
+.PP
+information buddy returns. 
+.SS "typedef struct \fB_upk_controller_config\fP  \fBupk_controller_config_t\fP"
+.PP
+controller configuration. 
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fB_buddy_cmnd\fP"
+.PP
+controller side of buddy protocol. This is what controller sends to buddy 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIUPK_CTRL_NONE \fP\fP
+unset 
+.TP
+\fB\fIUPK_CTRL_ACK \fP\fP
+controller received the last msg buddy sent it 
+.TP
+\fB\fIUPK_CTRL_SHUTDOWN \fP\fP
+buddy shutdown 
+.TP
+\fB\fIUPK_CTRL_STATUS_REQ \fP\fP
+report status to controller 
+.TP
+\fB\fIUPK_CTRL_ACTION_START \fP\fP
+.TP
+\fB\fIUPK_CTRL_ACTION_STOP \fP\fP
+run stop script, which should kill the monitored process 
+.TP
+\fB\fIUPK_CTRL_ACTION_RELOAD \fP\fP
+run reload script, which could, for example, send SIGHUP 
+.TP
+\fB\fIUPK_CTRL_ACTION_RUNONCE \fP\fP
+run a monitored process in a restarter... only once... ??? 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_00 \fP\fP
+run user-defined action 00 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_01 \fP\fP
+run user-defined action 01 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_02 \fP\fP
+run user-defined action 02 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_03 \fP\fP
+run user-defined action 03 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_04 \fP\fP
+run user-defined action 04 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_05 \fP\fP
+run user-defined action 05 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_06 \fP\fP
+run user-defined action 06 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_07 \fP\fP
+run user-defined action 07 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_08 \fP\fP
+run user-defined action 08 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_09 \fP\fP
+run user-defined action 09 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_10 \fP\fP
+run user-defined action 10 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_11 \fP\fP
+run user-defined action 11 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_12 \fP\fP
+run user-defined action 12 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_13 \fP\fP
+run user-defined action 13 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_14 \fP\fP
+run user-defined action 14 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_15 \fP\fP
+run user-defined action 15 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_16 \fP\fP
+run user-defined action 16 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_17 \fP\fP
+run user-defined action 17 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_18 \fP\fP
+run user-defined action 18 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_19 \fP\fP
+run user-defined action 19 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_20 \fP\fP
+run user-defined action 20 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_21 \fP\fP
+run user-defined action 21 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_22 \fP\fP
+run user-defined action 22 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_23 \fP\fP
+run user-defined action 23 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_24 \fP\fP
+run user-defined action 24 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_25 \fP\fP
+run user-defined action 25 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_26 \fP\fP
+run user-defined action 26 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_27 \fP\fP
+run user-defined action 27 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_28 \fP\fP
+run user-defined action 28 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_29 \fP\fP
+run user-defined action 29 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_30 \fP\fP
+run user-defined action 30 
+.TP
+\fB\fIUPK_CTRL_CUSTOM_ACTION_31 \fP\fP
+run user-defined action 31 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_01 \fP\fP
+send managed process signal 01 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_02 \fP\fP
+send managed process signal 02 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_03 \fP\fP
+send managed process signal 03 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_04 \fP\fP
+send managed process signal 04 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_05 \fP\fP
+send managed process signal 05 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_06 \fP\fP
+send managed process signal 06 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_07 \fP\fP
+send managed process signal 07 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_08 \fP\fP
+send managed process signal 08 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_09 \fP\fP
+send managed process signal 09 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_10 \fP\fP
+send managed process signal 10 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_11 \fP\fP
+send managed process signal 11 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_12 \fP\fP
+send managed process signal 12 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_13 \fP\fP
+send managed process signal 13 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_14 \fP\fP
+send managed process signal 14 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_15 \fP\fP
+send managed process signal 15 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_16 \fP\fP
+send managed process signal 16 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_17 \fP\fP
+send managed process signal 17 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_18 \fP\fP
+send managed process signal 18 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_19 \fP\fP
+send managed process signal 19 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_20 \fP\fP
+send managed process signal 20 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_21 \fP\fP
+send managed process signal 21 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_22 \fP\fP
+send managed process signal 22 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_23 \fP\fP
+send managed process signal 23 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_24 \fP\fP
+send managed process signal 24 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_25 \fP\fP
+send managed process signal 25 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_26 \fP\fP
+send managed process signal 26 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_27 \fP\fP
+send managed process signal 27 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_28 \fP\fP
+send managed process signal 28 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_29 \fP\fP
+send managed process signal 29 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_30 \fP\fP
+send managed process signal 30 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_31 \fP\fP
+send managed process signal 31 
+.TP
+\fB\fIUPK_CTRL_SIGNAL_32 \fP\fP
+send managed process signal 32 
+.SS "enum \fBbuddy_runstate_t\fP"
+.PP
+states for buddy 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIBUDDY_UNKNOWN \fP\fP
+.TP
+\fB\fIBUDDY_STOPPED \fP\fP
+the current state of the managed process is stopped 
+.TP
+\fB\fIBUDDY_RUNNING \fP\fP
+the current state of the managed process is running 
+.TP
+\fB\fIBUDDY_RANONCE \fP\fP
+the current state of the managed process was that it ran once 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

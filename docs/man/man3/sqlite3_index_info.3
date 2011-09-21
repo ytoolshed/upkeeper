@@ -1,0 +1,171 @@
+.TH "sqlite3_index_info" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_index_info \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBnConstraint\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBaConstraint\fP"
+.br
+.ti -1c
+.RI "int \fBnOrderBy\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBaOrderBy\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBaConstraintUsage\fP"
+.br
+.ti -1c
+.RI "int \fBidxNum\fP"
+.br
+.ti -1c
+.RI "char * \fBidxStr\fP"
+.br
+.ti -1c
+.RI "int \fBneedToFreeIdxStr\fP"
+.br
+.ti -1c
+.RI "int \fBorderByConsumed\fP"
+.br
+.ti -1c
+.RI "double \fBestimatedCost\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBaConstraint\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBaOrderBy\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBaConstraintUsage\fP"
+.br
+.ti -1c
+.RI "char * \fBidxStr\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBaConstraint\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBaOrderBy\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBaConstraintUsage\fP"
+.br
+.ti -1c
+.RI "char * \fBidxStr\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBaConstraint\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBaOrderBy\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBaConstraintUsage\fP"
+.br
+.ti -1c
+.RI "char * \fBidxStr\fP"
+.br
+.in -1c
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint_usage\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint_usage\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint_usage\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_constraint_usage\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_orderby\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_orderby\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_orderby\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3_index_orderby\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBsqlite3_index_info::aConstraint\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBsqlite3_index_info::aConstraint\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBsqlite3_index_info::aConstraint\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint\fP * \fBsqlite3_index_info::aConstraint\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBsqlite3_index_info::aConstraintUsage\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBsqlite3_index_info::aConstraintUsage\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBsqlite3_index_info::aConstraintUsage\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_constraint_usage\fP * \fBsqlite3_index_info::aConstraintUsage\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBsqlite3_index_info::aOrderBy\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBsqlite3_index_info::aOrderBy\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBsqlite3_index_info::aOrderBy\fP"
+.PP
+.SS "struct \fBsqlite3_index_info::sqlite3_index_orderby\fP * \fBsqlite3_index_info::aOrderBy\fP"
+.PP
+.SS "double \fBsqlite3_index_info::estimatedCost\fP"
+.PP
+.SS "int \fBsqlite3_index_info::idxNum\fP"
+.PP
+.SS "char* \fBsqlite3_index_info::idxStr\fP"
+.PP
+.SS "char* \fBsqlite3_index_info::idxStr\fP"
+.PP
+.SS "char* \fBsqlite3_index_info::idxStr\fP"
+.PP
+.SS "char* \fBsqlite3_index_info::idxStr\fP"
+.PP
+.SS "int \fBsqlite3_index_info::nConstraint\fP"
+.PP
+.SS "int \fBsqlite3_index_info::needToFreeIdxStr\fP"
+.PP
+.SS "int \fBsqlite3_index_info::nOrderBy\fP"
+.PP
+.SS "int \fBsqlite3_index_info::orderByConsumed\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

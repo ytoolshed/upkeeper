@@ -1,0 +1,234 @@
+.TH "BtShared" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BtShared \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBPager\fP * \fBpPager\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpCursor\fP"
+.br
+.ti -1c
+.RI "\fBMemPage\fP * \fBpPage1\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBreadOnly\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBpageSizeFixed\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBsecureDelete\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBinitiallyEmpty\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBopenFlags\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBautoVacuum\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBincrVacuum\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBmaxLocal\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBminLocal\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBmaxLeaf\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBminLeaf\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBinTransaction\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdoNotUseWAL\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBpageSize\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBusableSize\fP"
+.br
+.ti -1c
+.RI "int \fBnTransaction\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnPage\fP"
+.br
+.ti -1c
+.RI "void * \fBpSchema\fP"
+.br
+.ti -1c
+.RI "void(* \fBxFreeSchema\fP )(void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBmutex\fP"
+.br
+.ti -1c
+.RI "\fBBitvec\fP * \fBpHasContent\fP"
+.br
+.ti -1c
+.RI "int \fBnRef\fP"
+.br
+.ti -1c
+.RI "\fBBtShared\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "\fBBtLock\fP * \fBpLock\fP"
+.br
+.ti -1c
+.RI "\fBBtree\fP * \fBpWriter\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisExclusive\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisPending\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP * \fBpTmpSpace\fP"
+.br
+.ti -1c
+.RI "\fBPager\fP * \fBpPager\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpCursor\fP"
+.br
+.ti -1c
+.RI "\fBMemPage\fP * \fBpPage1\fP"
+.br
+.ti -1c
+.RI "void * \fBpSchema\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBmutex\fP"
+.br
+.ti -1c
+.RI "\fBBitvec\fP * \fBpHasContent\fP"
+.br
+.ti -1c
+.RI "\fBBtShared\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "\fBBtLock\fP * \fBpLock\fP"
+.br
+.ti -1c
+.RI "\fBBtree\fP * \fBpWriter\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP * \fBpTmpSpace\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu8\fP \fBBtShared::autoVacuum\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBBtShared::db\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBBtShared::db\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::doNotUseWAL\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::incrVacuum\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::initiallyEmpty\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::inTransaction\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::isExclusive\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::isPending\fP"
+.PP
+.SS "\fBu16\fP \fBBtShared::maxLeaf\fP"
+.PP
+.SS "\fBu16\fP \fBBtShared::maxLocal\fP"
+.PP
+.SS "\fBu16\fP \fBBtShared::minLeaf\fP"
+.PP
+.SS "\fBu16\fP \fBBtShared::minLocal\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBBtShared::mutex\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBBtShared::mutex\fP"
+.PP
+.SS "\fBu32\fP \fBBtShared::nPage\fP"
+.PP
+.SS "int \fBBtShared::nRef\fP"
+.PP
+.SS "int \fBBtShared::nTransaction\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::openFlags\fP"
+.PP
+.SS "\fBu32\fP \fBBtShared::pageSize\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::pageSizeFixed\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBBtShared::pCursor\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBBtShared::pCursor\fP"
+.PP
+.SS "\fBBitvec\fP* \fBBtShared::pHasContent\fP"
+.PP
+.SS "\fBBitvec\fP* \fBBtShared::pHasContent\fP"
+.PP
+.SS "\fBBtLock\fP* \fBBtShared::pLock\fP"
+.PP
+.SS "\fBBtLock\fP* \fBBtShared::pLock\fP"
+.PP
+.SS "\fBBtShared\fP* \fBBtShared::pNext\fP"
+.PP
+.SS "\fBBtShared\fP* \fBBtShared::pNext\fP"
+.PP
+.SS "\fBMemPage\fP* \fBBtShared::pPage1\fP"
+.PP
+.SS "\fBMemPage\fP* \fBBtShared::pPage1\fP"
+.PP
+.SS "\fBPager\fP* \fBBtShared::pPager\fP"
+.PP
+.SS "\fBPager\fP* \fBBtShared::pPager\fP"
+.PP
+.SS "void* \fBBtShared::pSchema\fP"
+.PP
+.SS "void* \fBBtShared::pSchema\fP"
+.PP
+.SS "\fBu8\fP* \fBBtShared::pTmpSpace\fP"
+.PP
+.SS "\fBu8\fP* \fBBtShared::pTmpSpace\fP"
+.PP
+.SS "\fBBtree\fP* \fBBtShared::pWriter\fP"
+.PP
+.SS "\fBBtree\fP* \fBBtShared::pWriter\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::readOnly\fP"
+.PP
+.SS "\fBu8\fP \fBBtShared::secureDelete\fP"
+.PP
+.SS "\fBu32\fP \fBBtShared::usableSize\fP"
+.PP
+.SS "void(* \fBBtShared::xFreeSchema\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

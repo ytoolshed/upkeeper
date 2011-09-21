@@ -1,0 +1,184 @@
+.TH "Table" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Table \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char * \fBzName\fP"
+.br
+.ti -1c
+.RI "int \fBiPKey\fP"
+.br
+.ti -1c
+.RI "int \fBnCol\fP"
+.br
+.ti -1c
+.RI "\fBColumn\fP * \fBaCol\fP"
+.br
+.ti -1c
+.RI "\fBIndex\fP * \fBpIndex\fP"
+.br
+.ti -1c
+.RI "int \fBtnum\fP"
+.br
+.ti -1c
+.RI "unsigned \fBnRowEst\fP"
+.br
+.ti -1c
+.RI "\fBSelect\fP * \fBpSelect\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBnRef\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBtabFlags\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBkeyConf\fP"
+.br
+.ti -1c
+.RI "\fBFKey\fP * \fBpFKey\fP"
+.br
+.ti -1c
+.RI "char * \fBzColAff\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpCheck\fP"
+.br
+.ti -1c
+.RI "int \fBaddColOffset\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP * \fBpVTable\fP"
+.br
+.ti -1c
+.RI "int \fBnModuleArg\fP"
+.br
+.ti -1c
+.RI "char ** \fBazModuleArg\fP"
+.br
+.ti -1c
+.RI "\fBTrigger\fP * \fBpTrigger\fP"
+.br
+.ti -1c
+.RI "\fBSchema\fP * \fBpSchema\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpNextZombie\fP"
+.br
+.ti -1c
+.RI "char * \fBzName\fP"
+.br
+.ti -1c
+.RI "\fBColumn\fP * \fBaCol\fP"
+.br
+.ti -1c
+.RI "\fBIndex\fP * \fBpIndex\fP"
+.br
+.ti -1c
+.RI "\fBSelect\fP * \fBpSelect\fP"
+.br
+.ti -1c
+.RI "\fBFKey\fP * \fBpFKey\fP"
+.br
+.ti -1c
+.RI "char * \fBzColAff\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpCheck\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP * \fBpVTable\fP"
+.br
+.ti -1c
+.RI "char ** \fBazModuleArg\fP"
+.br
+.ti -1c
+.RI "\fBTrigger\fP * \fBpTrigger\fP"
+.br
+.ti -1c
+.RI "\fBSchema\fP * \fBpSchema\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpNextZombie\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBColumn\fP* \fBTable::aCol\fP"
+.PP
+.SS "\fBColumn\fP* \fBTable::aCol\fP"
+.PP
+.SS "int \fBTable::addColOffset\fP"
+.PP
+.SS "char** \fBTable::azModuleArg\fP"
+.PP
+.SS "char** \fBTable::azModuleArg\fP"
+.PP
+.SS "int \fBTable::iPKey\fP"
+.PP
+.SS "\fBu8\fP \fBTable::keyConf\fP"
+.PP
+.SS "int \fBTable::nCol\fP"
+.PP
+.SS "int \fBTable::nModuleArg\fP"
+.PP
+.SS "\fBu16\fP \fBTable::nRef\fP"
+.PP
+.SS "unsigned \fBTable::nRowEst\fP"
+.PP
+.SS "\fBExpr\fP* \fBTable::pCheck\fP"
+.PP
+.SS "\fBExpr\fP* \fBTable::pCheck\fP"
+.PP
+.SS "\fBFKey\fP* \fBTable::pFKey\fP"
+.PP
+.SS "\fBFKey\fP* \fBTable::pFKey\fP"
+.PP
+.SS "\fBIndex\fP* \fBTable::pIndex\fP"
+.PP
+.SS "\fBIndex\fP* \fBTable::pIndex\fP"
+.PP
+.SS "\fBTable\fP* \fBTable::pNextZombie\fP"
+.PP
+.SS "\fBTable\fP* \fBTable::pNextZombie\fP"
+.PP
+.SS "\fBSchema\fP* \fBTable::pSchema\fP"
+.PP
+.SS "\fBSchema\fP* \fBTable::pSchema\fP"
+.PP
+.SS "\fBSelect\fP* \fBTable::pSelect\fP"
+.PP
+.SS "\fBSelect\fP* \fBTable::pSelect\fP"
+.PP
+.SS "\fBTrigger\fP* \fBTable::pTrigger\fP"
+.PP
+.SS "\fBTrigger\fP* \fBTable::pTrigger\fP"
+.PP
+.SS "\fBVTable\fP* \fBTable::pVTable\fP"
+.PP
+.SS "\fBVTable\fP* \fBTable::pVTable\fP"
+.PP
+.SS "\fBu8\fP \fBTable::tabFlags\fP"
+.PP
+.SS "int \fBTable::tnum\fP"
+.PP
+.SS "char* \fBTable::zColAff\fP"
+.PP
+.SS "char* \fBTable::zColAff\fP"
+.PP
+.SS "char* \fBTable::zName\fP"
+.PP
+.SS "char* \fBTable::zName\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

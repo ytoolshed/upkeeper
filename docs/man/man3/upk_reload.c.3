@@ -1,0 +1,30 @@
+.TH "clients/upk_reload.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+clients/upk_reload.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upkeeper.h>\fP
+.br
+\fC#include <sys/un.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv, char **envp)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (intargc, char **argv, char **envp)"
+.PP
+References _upk_controller_config::controller_socket, upk_packet_t::payload, upk_packet_t::payload_len, upk_create_req_action(), upk_ctrl_load_config(), upk_debug1, upk_deserialize_packet(), upk_diag_verbosity, UPK_DIAGLVL_DEBUG1, upk_fatal, UPK_MAX_PACKET_SIZE, upk_notice, upk_pkt_free(), upk_runtime_configuration, upk_serialize_packet(), upk_verbose, and upk_packet_t::version_id.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

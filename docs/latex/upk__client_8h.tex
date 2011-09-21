@@ -1,0 +1,117 @@
+\section{libupkeeper/upkeeper/upk\_\-client.h File Reference}
+\label{upk__client_8h}\index{libupkeeper/upkeeper/upk\_\-client.h@{libupkeeper/upkeeper/upk\_\-client.h}}
+{\ttfamily \#include \char`\"{}upk\_\-types.h\char`\"{}}\par
+Include dependency graph for upk\_\-client.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bf upkeeper\_\-action\_\-request} (char $\ast$service\_\-id, char $\ast$action\_\-name)
+\item 
+bool {\bf upkeeper\_\-signal\_\-request} (char $\ast$service\_\-id, {\bf upk\_\-signal\_\-t} signal)
+\item 
+{\bf upk\_\-svcid\_\-t} $\ast$ {\bf upkeeper\_\-list\_\-services} (void)
+\item 
+{\bf upk\_\-svcinfo\_\-t} {\bf upkeeper\_\-get\_\-status} (char $\ast$service\_\-id)
+\item 
+bool {\bf upkeeper\_\-subscribe} (const char $\ast$svc\_\-id)
+\item 
+bool {\bf upkeeper\_\-subscribe\_\-all} (void)
+\item 
+char $\ast$ {\bf upk\_\-clientid} (void)
+\begin{DoxyCompactList}\small\item\em fill buf with the client\_\-id string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-client.h@{upk\_\-client.h}!upk\_\-clientid@{upk\_\-clientid}}
+\index{upk\_\-clientid@{upk\_\-clientid}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upk\_\-clientid}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-clientid (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_ad5bda55978d99b1f4cfd3b7236d594cf}
+
+
+fill buf with the client\_\-id string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buf} & allocated buffer to write clientid into \\
+\hline
+\end{DoxyParams}
+
+
+References UPK\_\-MAX\_\-STRING\_\-LEN.
+
+
+
+Referenced by main(), and upk\_\-clnet\_\-req\_\-preamble().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client_8h_ad5bda55978d99b1f4cfd3b7236d594cf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-action\_\-request@{upkeeper\_\-action\_\-request}}
+\index{upkeeper\_\-action\_\-request@{upkeeper\_\-action\_\-request}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-action\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}bool upkeeper\_\-action\_\-request (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{service\_\-id, }
+\item[{char $\ast$}]{action\_\-name}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_a250433c65616f4b1f841ce73a9f3dae1}
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-get\_\-status@{upkeeper\_\-get\_\-status}}
+\index{upkeeper\_\-get\_\-status@{upkeeper\_\-get\_\-status}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-get\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcinfo\_\-t} upkeeper\_\-get\_\-status (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{service\_\-id}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_affc36784551fd662bf27a91865609050}
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-list\_\-services@{upkeeper\_\-list\_\-services}}
+\index{upkeeper\_\-list\_\-services@{upkeeper\_\-list\_\-services}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-list\_\-services}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-t}$\ast$ upkeeper\_\-list\_\-services (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_a0707357b7d13aab81e38059faf87168c}
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-signal\_\-request@{upkeeper\_\-signal\_\-request}}
+\index{upkeeper\_\-signal\_\-request@{upkeeper\_\-signal\_\-request}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-signal\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}bool upkeeper\_\-signal\_\-request (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{service\_\-id, }
+\item[{{\bf upk\_\-signal\_\-t}}]{signal}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_a938d9c5e808a5c577ef018a0b2abc570}
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-subscribe@{upkeeper\_\-subscribe}}
+\index{upkeeper\_\-subscribe@{upkeeper\_\-subscribe}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}bool upkeeper\_\-subscribe (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{svc\_\-id}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_a1e1079edd595549502f50014566525a5}
+\index{upk\_\-client.h@{upk\_\-client.h}!upkeeper\_\-subscribe\_\-all@{upkeeper\_\-subscribe\_\-all}}
+\index{upkeeper\_\-subscribe\_\-all@{upkeeper\_\-subscribe\_\-all}!upk_client.h@{upk\_\-client.h}}
+\subsubsection[{upkeeper\_\-subscribe\_\-all}]{\setlength{\rightskip}{0pt plus 5cm}bool upkeeper\_\-subscribe\_\-all (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client_8h_ac304e12e9d72017276ad98b1effd8207}

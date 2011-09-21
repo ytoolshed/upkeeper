@@ -1,0 +1,423 @@
+\section{libupkeeper/tests/v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c File Reference}
+\label{v0__protocol__generic__value__checks_8inc_8c}\index{libupkeeper/tests/v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{libupkeeper/tests/v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{v0__protocol__generic__value__checks_8inc_8c__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf \_\-stringify}(A)~\#A
+\item 
+\#define {\bf stringify}(A)~\_\-stringify(A)
+\item 
+\#define {\bf \_\-create\_\-fmt}(FMT)~\char`\"{}: got: \char`\"{} stringify(FMT) \char`\"{}, wanted: \char`\"{} stringify(FMT)
+\item 
+\#define {\bf check\_\-isequal}(A, B, FMT)~fail\_\-unless( (A == B), stringify(A) \_\-create\_\-fmt(FMT), A, B)
+\item 
+\#define {\bf check\_\-isequal\_\-str}(A, B, FMT)~fail\_\-unless( strcmp(A, B) == 0, stringify(A) \_\-create\_\-fmt(FMT), A, B)
+\item 
+\#define {\bf action\_\-name}~\char`\"{}svcinfo last action name\char`\"{}
+\item 
+\#define {\bf service\_\-name}~\char`\"{}svcinfo service\char`\"{}
+\item 
+\#define {\bf service\_\-name}~\char`\"{}service on which error is being reported\char`\"{}
+\item 
+\#define {\bf errmsg}~\char`\"{}Some helpful error message telling what happened\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-seq\_\-start)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-seq\_\-end)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-action)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-signal)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-list)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-status)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-subscribe)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-unsubscribe)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-req\_\-disconnect)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-seq\_\-start)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-seq\_\-end)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-result)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-listing)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-svcinfo)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-ack)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-repl\_\-error)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-pub\_\-publication)
+\item 
+{\bf START\_\-TEST} (test\_\-proto\_\-pub\_\-cancelation)
+\item 
+TCase $\ast$ {\bf v0\_\-proto\_\-requests} (void)
+\item 
+TCase $\ast$ {\bf v0\_\-proto\_\-replies} (void)
+\item 
+TCase $\ast$ {\bf v0\_\-proto\_\-pubmsgs} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf END\_\-TEST}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!\_\-create\_\-fmt@{\_\-create\_\-fmt}}
+\index{\_\-create\_\-fmt@{\_\-create\_\-fmt}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{\_\-create\_\-fmt}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-create\_\-fmt(
+\begin{DoxyParamCaption}
+\item[{}]{FMT}
+\end{DoxyParamCaption}
+)~\char`\"{}: got: \char`\"{} stringify(FMT) \char`\"{}, wanted: \char`\"{} stringify(FMT)}\label{v0__protocol__generic__value__checks_8inc_8c_a0cbc4ea25f709c780eb512e6cb3caf20}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!\_\-stringify@{\_\-stringify}}
+\index{\_\-stringify@{\_\-stringify}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{\_\-stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-stringify(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\#A}\label{v0__protocol__generic__value__checks_8inc_8c_ae4d04a6a08a5c5b96aca2e1fd83c4282}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!action\_\-name@{action\_\-name}}
+\index{action\_\-name@{action\_\-name}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{action\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\#define action\_\-name~\char`\"{}svcinfo last action name\char`\"{}}\label{v0__protocol__generic__value__checks_8inc_8c_a00430c24f9858e4c15341bfddc519aab}
+
+
+Referenced by START\_\-TEST().
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!check\_\-isequal@{check\_\-isequal}}
+\index{check\_\-isequal@{check\_\-isequal}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{check\_\-isequal}]{\setlength{\rightskip}{0pt plus 5cm}\#define check\_\-isequal(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B, }
+\item[{}]{FMT}
+\end{DoxyParamCaption}
+)~fail\_\-unless( (A == B), stringify(A) \_\-create\_\-fmt(FMT), A, B)}\label{v0__protocol__generic__value__checks_8inc_8c_acbbef338f7d55fd770e99e2b696a4d14}
+
+
+Referenced by START\_\-TEST().
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!check\_\-isequal\_\-str@{check\_\-isequal\_\-str}}
+\index{check\_\-isequal\_\-str@{check\_\-isequal\_\-str}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{check\_\-isequal\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}\#define check\_\-isequal\_\-str(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B, }
+\item[{}]{FMT}
+\end{DoxyParamCaption}
+)~fail\_\-unless( strcmp(A, B) == 0, stringify(A) \_\-create\_\-fmt(FMT), A, B)}\label{v0__protocol__generic__value__checks_8inc_8c_a24d0fb3966b2b807dd8b2868f76ab1c0}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!errmsg@{errmsg}}
+\index{errmsg@{errmsg}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{errmsg}]{\setlength{\rightskip}{0pt plus 5cm}\#define errmsg~\char`\"{}Some helpful error message telling what happened\char`\"{}}\label{v0__protocol__generic__value__checks_8inc_8c_a1bc2c7bca1d103379d68add34f85e0f8}
+
+
+Referenced by START\_\-TEST().
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!service\_\-name@{service\_\-name}}
+\index{service\_\-name@{service\_\-name}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{service\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\#define service\_\-name~\char`\"{}svcinfo service\char`\"{}}\label{v0__protocol__generic__value__checks_8inc_8c_a1d0b15edba2e9922fddecfbfd7a255f6}
+
+
+Referenced by START\_\-TEST().
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!service\_\-name@{service\_\-name}}
+\index{service\_\-name@{service\_\-name}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{service\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}\#define service\_\-name~\char`\"{}service on which error is being reported\char`\"{}}\label{v0__protocol__generic__value__checks_8inc_8c_a1d0b15edba2e9922fddecfbfd7a255f6}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!stringify@{stringify}}
+\index{stringify@{stringify}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define stringify(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\_\-stringify(A)}\label{v0__protocol__generic__value__checks_8inc_8c_ae8d098a30085240ed6a6ca1d48218828}
+
+
+\subsection{Function Documentation}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-seq\_\-start}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a5148e7fe7a38f8ba64dd025a3ff559ab}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, UPK\_\-REQ\_\-LIST, and UPK\_\-REQ\_\-SEQ\_\-START.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-seq\_\-end}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a8cfd188aa68b3edf8948dde128bc8462}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-SEQ\_\-END.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-signal}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a9c6e8e37eba035bf6ccfb9a8cd944d2b}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, UPK\_\-REQ\_\-SIGNAL, and UPK\_\-SIG\_\-KILL.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-unsubscribe}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_abff73f527995eba2cd31cebaba05c380}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-UNSUBSCRIBE.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-pub\_\-cancelation}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_af55c8ded198032c71acb879bc7c8cc83}
+
+
+References PKT\_\-PUBMSG, TEST\_\-SETUP\_\-NOARGS, TEST\_\-TEARDOWN, and UPK\_\-PUB\_\-CANCELATION.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-error}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_ac40779c29932799bae27c629be6c9ce4}
+
+
+References check\_\-isequal, errmsg, PKT\_\-REPLY, service\_\-name, TEST\_\-SETUP, TEST\_\-TEARDOWN, UPK\_\-ERR\_\-UNKNOWN, UPK\_\-ERRLVL\_\-ERROR, and UPK\_\-REPL\_\-ERROR.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-pub\_\-publication}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a1f1109807c19ec9a41528b7973767a2a}
+
+
+References PKT\_\-PUBMSG, TEST\_\-SETUP\_\-NOARGS, TEST\_\-TEARDOWN, and UPK\_\-PUB\_\-PUBLICATION.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-ack}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a4b6229d3d1d978033ae73ece432c83e9}
+
+
+References PKT\_\-REPLY, TEST\_\-SETUP\_\-NOARGS, TEST\_\-TEARDOWN, and UPK\_\-REPL\_\-ACK.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-svcinfo}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a554197ff7968c36a59eac49ca419d4ff}
+
+
+References action\_\-name, PKT\_\-REPLY, service\_\-name, TEST\_\-SETUP, TEST\_\-TEARDOWN, UPK\_\-REPL\_\-SVCINFO, UPK\_\-SIG\_\-KILL, UPK\_\-STATE\_\-RUNNING, and UPK\_\-STATE\_\-SHUTDOWN.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-listing}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_ae0efefe77eac021c5940904d4b0c6363}
+
+
+References PKT\_\-REPLY, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REPL\_\-LISTING.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-result}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a0fa70cfc45717620a008f892e42494f5}
+
+
+References PKT\_\-REPLY, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REPL\_\-RESULT.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-seq\_\-end}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a793b8af5cb0fa587445d93854706bef4}
+
+
+References PKT\_\-REPLY, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REPL\_\-SEQ\_\-END.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-repl\_\-seq\_\-start}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_aa798cd25dc2b52399408e78ce8639c7e}
+
+
+References PKT\_\-REPLY, TEST\_\-SETUP, TEST\_\-TEARDOWN, UPK\_\-REPL\_\-LISTING, and UPK\_\-REPL\_\-SEQ\_\-START.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-disconnect}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a1212f4926dcccc24d655b782f0bcb9bf}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP\_\-NOARGS, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-DISCONNECT.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-list}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a30d1de1be521e2715780e19c358ed61e}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP\_\-NOARGS, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-LIST.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-subscribe}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a03eb9f2d984f383d761f6703d6fe05ae}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-SUBSCRIBE.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-status}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a0212099b62e941e768689a9f11c57f4f}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-STATUS.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-proto\_\-req\_\-action}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a634d74551068c76f399310286799e250}
+
+
+References PKT\_\-REQUEST, TEST\_\-SETUP, TEST\_\-TEARDOWN, and UPK\_\-REQ\_\-ACTION.
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!v0\_\-proto\_\-pubmsgs@{v0\_\-proto\_\-pubmsgs}}
+\index{v0\_\-proto\_\-pubmsgs@{v0\_\-proto\_\-pubmsgs}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{v0\_\-proto\_\-pubmsgs}]{\setlength{\rightskip}{0pt plus 5cm}TCase$\ast$ v0\_\-proto\_\-pubmsgs (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a68c6e9a3fa82fdc4ba3099b5d51325c4}
+
+
+Referenced by upk\_\-proto\_\-helpers\_\-suite(), upk\_\-proto\_\-serializers\_\-suite(), v0\_\-proto\_\-helpers\_\-suite(), and v0\_\-proto\_\-serializers\_\-suite().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=390pt]{v0__protocol__generic__value__checks_8inc_8c_a68c6e9a3fa82fdc4ba3099b5d51325c4_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!v0\_\-proto\_\-replies@{v0\_\-proto\_\-replies}}
+\index{v0\_\-proto\_\-replies@{v0\_\-proto\_\-replies}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{v0\_\-proto\_\-replies}]{\setlength{\rightskip}{0pt plus 5cm}TCase$\ast$ v0\_\-proto\_\-replies (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a2a4a24535c6783d0368bffe5de8fca19}
+
+
+Referenced by upk\_\-proto\_\-helpers\_\-suite(), upk\_\-proto\_\-serializers\_\-suite(), v0\_\-proto\_\-helpers\_\-suite(), and v0\_\-proto\_\-serializers\_\-suite().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=378pt]{v0__protocol__generic__value__checks_8inc_8c_a2a4a24535c6783d0368bffe5de8fca19_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!v0\_\-proto\_\-requests@{v0\_\-proto\_\-requests}}
+\index{v0\_\-proto\_\-requests@{v0\_\-proto\_\-requests}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{v0\_\-proto\_\-requests}]{\setlength{\rightskip}{0pt plus 5cm}TCase$\ast$ v0\_\-proto\_\-requests (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{v0__protocol__generic__value__checks_8inc_8c_a085188d170c07b95395023cb9434bdd0}
+
+
+Referenced by upk\_\-proto\_\-helpers\_\-suite(), upk\_\-proto\_\-serializers\_\-suite(), v0\_\-proto\_\-helpers\_\-suite(), and v0\_\-proto\_\-serializers\_\-suite().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=386pt]{v0__protocol__generic__value__checks_8inc_8c_a085188d170c07b95395023cb9434bdd0_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}!END\_\-TEST@{END\_\-TEST}}
+\index{END\_\-TEST@{END\_\-TEST}!v0_protocol_generic_value_checks.inc.c@{v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c}}
+\subsubsection[{END\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}{\bf END\_\-TEST}}\label{v0__protocol__generic__value__checks_8inc_8c_a458b78ce9e48beb128edb722b07e4716}

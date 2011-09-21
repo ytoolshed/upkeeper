@@ -1,0 +1,573 @@
+\section{Upk\_\-network}
+\label{group__upk__network}\index{Upk\_\-network@{Upk\_\-network}}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-upk\_\-netmsg\_\-queue}
+\begin{DoxyCompactList}\small\item\em this is a tailq for network message queuing \end{DoxyCompactList}\item 
+struct {\bf \_\-upk\_\-net\_\-cb\_\-stk}
+\item 
+struct {\bf \_\-upk\_\-net\_\-gstate}
+\item 
+struct {\bf \_\-upklist\_\-userdata\_\-state\_\-partition}
+\item 
+struct {\bf \_\-upk\_\-conn\_\-handle}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-upk\_\-conn\_\-handle} {\bf upk\_\-conn\_\-handle\_\-t}
+\item 
+typedef void($\ast$ {\bf upk\_\-net\_\-callback\_\-t} )({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em typedef for callback functions. \end{DoxyCompactList}\item 
+typedef struct {\bf \_\-upk\_\-netmsg\_\-queue} {\bf upk\_\-netmsg\_\-queue\_\-t}
+\begin{DoxyCompactList}\small\item\em this is a tailq for network message queuing \end{DoxyCompactList}\item 
+typedef struct {\bf \_\-upk\_\-net\_\-cb\_\-stk} {\bf upk\_\-net\_\-cb\_\-stk\_\-t}
+\item 
+typedef struct {\bf \_\-upk\_\-net\_\-gstate} {\bf upk\_\-net\_\-gstate\_\-t}
+\item 
+typedef struct {\bf \_\-upklist\_\-userdata\_\-state\_\-partition} {\bf upklist\_\-userdata\_\-state\_\-partition\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf upk\_\-domain\_\-socket\_\-connect} (const char $\ast$sockpath)
+\begin{DoxyCompactList}\small\item\em make unix-\/domain socket connection. \end{DoxyCompactList}\item 
+void {\bf upk\_\-read\_\-packets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em retry socket connection, pausing between each retry. \end{DoxyCompactList}\item 
+void {\bf upk\_\-queue\_\-packet} ({\bf upk\_\-conn\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-packet\_\-t} $\ast$pkt, {\bf upk\_\-net\_\-callback\_\-t} after\_\-write\_\-callback, {\bf upk\_\-net\_\-callback\_\-t} set\_\-after\_\-read\_\-callback)
+\begin{DoxyCompactList}\small\item\em queue a packet to send, will be sent via upk\_\-write\_\-packet. \end{DoxyCompactList}\item 
+void {\bf upk\_\-write\_\-packets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em write packets from queue async and nonblocking. \end{DoxyCompactList}\item 
+void {\bf upk\_\-disconnect\_\-handle} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em close the connection on a given handle and remove the handle from the list of connection handles. \end{DoxyCompactList}\item 
+void {\bf upk\_\-net\_\-add\_\-socket\_\-handle} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, int fd, {\bf upk\_\-net\_\-callback\_\-t} pkt\_\-callback)
+\item 
+void {\bf upk\_\-net\_\-event\_\-dispatcher} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, double poll\_\-ival)
+\item 
+void {\bf upk\_\-net\_\-flush\_\-closed\_\-sockets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\item 
+int {\bf upk\_\-net\_\-block\_\-until\_\-msg} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, double poll\_\-ival, struct timeval $\ast${\bf timeout})
+\item 
+{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ {\bf upk\_\-net\_\-conn\_\-handle\_\-init} (void $\ast$userdata, void($\ast$userdata\_\-free\_\-func)(void $\ast$ptr))
+\item 
+void {\bf upk\_\-net\_\-shutdown\_\-callback} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-conn\_\-handle\_\-t}, upk\_\-conn\_\-handle\_\-meta\_\-p)
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-netmsg\_\-queue\_\-t}, upk\_\-netmsg\_\-queue\_\-meta\_\-p)
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-net\_\-cb\_\-stk\_\-t}, upk\_\-net\_\-cb\_\-stk\_\-meta\_\-p)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf upk\_\-conn\_\-handle\_\-meta\_\-t}
+\item 
+typedef {\bf upk\_\-netmsg\_\-queue\_\-meta\_\-t}
+\item 
+typedef {\bf upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-conn\_\-handle\_\-t@{upk\_\-conn\_\-handle\_\-t}}
+\index{upk\_\-conn\_\-handle\_\-t@{upk\_\-conn\_\-handle\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-conn\_\-handle\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-conn\_\-handle} {\bf upk\_\-conn\_\-handle\_\-t}}\label{group__upk__network_ga1c7ed3b2a76c1b7ca4f48178d9147173}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-callback\_\-t@{upk\_\-net\_\-callback\_\-t}}
+\index{upk\_\-net\_\-callback\_\-t@{upk\_\-net\_\-callback\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-callback\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf upk\_\-net\_\-callback\_\-t})({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, {\bf upk\_\-payload\_\-t} $\ast$msg)}\label{group__upk__network_gaf6ed795596aa9f2da2bb297eb99a42c5}
+
+
+typedef for callback functions. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em handles} & -\/ the handle list, where thisp is the handle that generated the event for the callback. \\
+\hline
+\mbox{\tt in,out}  & {\em data} & -\/ used to pass data you specify to the callbacks. \\
+\hline
+\mbox{\tt in}  & {\em msg} & -\/ the deserialized message. \\
+\hline
+\end{DoxyParams}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-cb\_\-stk\_\-t@{upk\_\-net\_\-cb\_\-stk\_\-t}}
+\index{upk\_\-net\_\-cb\_\-stk\_\-t@{upk\_\-net\_\-cb\_\-stk\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-cb\_\-stk\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-net\_\-cb\_\-stk} {\bf upk\_\-net\_\-cb\_\-stk\_\-t}}\label{group__upk__network_ga5458953c084c3de0a860a1292107efd0}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-gstate\_\-t@{upk\_\-net\_\-gstate\_\-t}}
+\index{upk\_\-net\_\-gstate\_\-t@{upk\_\-net\_\-gstate\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-gstate\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-net\_\-gstate} {\bf upk\_\-net\_\-gstate\_\-t}}\label{group__upk__network_gabf424ef3ff0f136494bc533465954506}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-netmsg\_\-queue\_\-t@{upk\_\-netmsg\_\-queue\_\-t}}
+\index{upk\_\-netmsg\_\-queue\_\-t@{upk\_\-netmsg\_\-queue\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-netmsg\_\-queue\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-netmsg\_\-queue} {\bf upk\_\-netmsg\_\-queue\_\-t}}\label{group__upk__network_ga487df5ebb06cfae5b86b4421ede0793e}
+
+
+this is a tailq for network message queuing 
+
+\index{Upk\_\-network@{Upk\_\-network}!upklist\_\-userdata\_\-state\_\-partition\_\-t@{upklist\_\-userdata\_\-state\_\-partition\_\-t}}
+\index{upklist\_\-userdata\_\-state\_\-partition\_\-t@{upklist\_\-userdata\_\-state\_\-partition\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upklist\_\-userdata\_\-state\_\-partition\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upklist\_\-userdata\_\-state\_\-partition} {\bf upklist\_\-userdata\_\-state\_\-partition\_\-t}}\label{group__upk__network_gac8ca8fd2c894e5c9edd10f8720c1e5d1}
+
+
+\subsection{Function Documentation}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-disconnect\_\-handle@{upk\_\-disconnect\_\-handle}}
+\index{upk\_\-disconnect\_\-handle@{upk\_\-disconnect\_\-handle}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-disconnect\_\-handle}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-disconnect\_\-handle (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_gaa44450d0a9c4879e8e354c8fc840840e}
+
+
+close the connection on a given handle and remove the handle from the list of connection handles. 
+
+
+
+Referenced by upk\_\-clnet\_\-req\_\-disconnect(), upk\_\-net\_\-event\_\-dispatcher(), upk\_\-net\_\-shutdown\_\-callback(), upk\_\-read\_\-packets(), and upk\_\-write\_\-packets().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_gaa44450d0a9c4879e8e354c8fc840840e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-domain\_\-socket\_\-connect@{upk\_\-domain\_\-socket\_\-connect}}
+\index{upk\_\-domain\_\-socket\_\-connect@{upk\_\-domain\_\-socket\_\-connect}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-domain\_\-socket\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-domain\_\-socket\_\-connect (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{sockpath}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga63be1bdb5eebb7d4bc4dee03578bdb15}
+
+
+make unix-\/domain socket connection. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em sockpath} & the path to the socket to connect to (e.g. the controller socket) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the file descriptor of the resulting connection 
+
+-\/2 unable to connect, check errno 
+\end{DoxyReturn}
+
+
+Referenced by upk\_\-clnet\_\-ctrl\_\-connect().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga63be1bdb5eebb7d4bc4dee03578bdb15_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-add\_\-socket\_\-handle@{upk\_\-net\_\-add\_\-socket\_\-handle}}
+\index{upk\_\-net\_\-add\_\-socket\_\-handle@{upk\_\-net\_\-add\_\-socket\_\-handle}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-add\_\-socket\_\-handle}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-net\_\-add\_\-socket\_\-handle (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles, }
+\item[{int}]{fd, }
+\item[{{\bf upk\_\-net\_\-callback\_\-t}}]{pkt\_\-callback}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga38cb92cf068435065099a222eab080c5}
+
+
+References sockopts, upk\_\-net\_\-get\_\-gstate(), upk\_\-net\_\-get\_\-userdata(), and UPKLIST\_\-APPEND.
+
+
+
+Referenced by accept\_\-conn(), main(), and upk\_\-clnet\_\-ctrl\_\-connect().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=332pt]{group__upk__network_ga38cb92cf068435065099a222eab080c5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga38cb92cf068435065099a222eab080c5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-block\_\-until\_\-msg@{upk\_\-net\_\-block\_\-until\_\-msg}}
+\index{upk\_\-net\_\-block\_\-until\_\-msg@{upk\_\-net\_\-block\_\-until\_\-msg}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-block\_\-until\_\-msg}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-net\_\-block\_\-until\_\-msg (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles, }
+\item[{double}]{poll\_\-ival, }
+\item[{struct timeval $\ast$}]{timeout}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga27367182816f28b924783233304a7abd}
+
+
+References \_\-upk\_\-conn\_\-handle::fd, \_\-upk\_\-conn\_\-handle::last\_\-pkt\_\-data, \_\-upk\_\-payload::type, and upk\_\-net\_\-event\_\-dispatcher().
+
+
+
+Referenced by upk\_\-clnet\_\-serial\_\-request().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga27367182816f28b924783233304a7abd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga27367182816f28b924783233304a7abd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-conn\_\-handle\_\-init@{upk\_\-net\_\-conn\_\-handle\_\-init}}
+\index{upk\_\-net\_\-conn\_\-handle\_\-init@{upk\_\-net\_\-conn\_\-handle\_\-init}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-conn\_\-handle\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-conn\_\-handle\_\-meta\_\-t}$\ast$ upk\_\-net\_\-conn\_\-handle\_\-init (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{userdata, }
+\item[{void($\ast$)(void $\ast$ptr)}]{userdata\_\-free\_\-func}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_gafb24248e1ae94fa213b5708bb7fbb330}
+
+
+References \_\-upklist\_\-userdata\_\-state\_\-partition::gstate, upk\_\-conn\_\-handle\_\-meta\_\-t, upk\_\-partitioned\_\-userdata\_\-free(), \_\-upklist\_\-userdata\_\-state\_\-partition::userdata, and \_\-upklist\_\-userdata\_\-state\_\-partition::userdata\_\-free\_\-func.
+
+
+
+Referenced by event\_\-loop(), main(), and upk\_\-clnet\_\-ctrl\_\-connect().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{group__upk__network_gafb24248e1ae94fa213b5708bb7fbb330_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_gafb24248e1ae94fa213b5708bb7fbb330_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-event\_\-dispatcher@{upk\_\-net\_\-event\_\-dispatcher}}
+\index{upk\_\-net\_\-event\_\-dispatcher@{upk\_\-net\_\-event\_\-dispatcher}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-event\_\-dispatcher}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-net\_\-event\_\-dispatcher (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles, }
+\item[{double}]{poll\_\-ival}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga903e995b09efa15de0a8088a0005c42b}
+
+
+References \_\-upk\_\-net\_\-gstate::callback\_\-stack, \_\-upk\_\-net\_\-gstate::pending\_\-writeq, upk\_\-build\_\-fd\_\-sets(), upk\_\-disconnect\_\-handle(), upk\_\-double\_\-to\_\-timeval(), upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t, upk\_\-net\_\-get\_\-gstate(), upk\_\-read\_\-packets(), upk\_\-write\_\-packets(), and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by event\_\-loop(), main(), and upk\_\-net\_\-block\_\-until\_\-msg().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga903e995b09efa15de0a8088a0005c42b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga903e995b09efa15de0a8088a0005c42b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-flush\_\-closed\_\-sockets@{upk\_\-net\_\-flush\_\-closed\_\-sockets}}
+\index{upk\_\-net\_\-flush\_\-closed\_\-sockets@{upk\_\-net\_\-flush\_\-closed\_\-sockets}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-flush\_\-closed\_\-sockets}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-net\_\-flush\_\-closed\_\-sockets (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga3a4576d931cba244e55bdc407b9bbcb1}
+
+
+References UPKLIST\_\-FOREACH, and UPKLIST\_\-UNLINK.
+
+
+
+Referenced by event\_\-loop(), upk\_\-clnet\_\-req\_\-disconnect(), and upk\_\-clnet\_\-serial\_\-request().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga3a4576d931cba244e55bdc407b9bbcb1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-shutdown\_\-callback@{upk\_\-net\_\-shutdown\_\-callback}}
+\index{upk\_\-net\_\-shutdown\_\-callback@{upk\_\-net\_\-shutdown\_\-callback}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-shutdown\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-net\_\-shutdown\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga85c0c3d99b75f2d2b40a41ca4b3c1b9c}
+
+
+References upk\_\-disconnect\_\-handle().
+
+
+
+Referenced by controller\_\-packet\_\-callback().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__upk__network_ga85c0c3d99b75f2d2b40a41ca4b3c1b9c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga85c0c3d99b75f2d2b40a41ca4b3c1b9c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-queue\_\-packet@{upk\_\-queue\_\-packet}}
+\index{upk\_\-queue\_\-packet@{upk\_\-queue\_\-packet}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-queue\_\-packet}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-queue\_\-packet (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt, }
+\item[{{\bf upk\_\-net\_\-callback\_\-t}}]{after\_\-write\_\-callback, }
+\item[{{\bf upk\_\-net\_\-callback\_\-t}}]{set\_\-after\_\-read\_\-callback}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_gae2abc6f00b1e39952fdffb19c09b5b38}
+
+
+queue a packet to send, will be sent via upk\_\-write\_\-packet. 
+
+Queue a packet for a handle 
+
+References \_\-upk\_\-netmsg\_\-queue::after\_\-write\_\-callback, \_\-upk\_\-conn\_\-handle::gstate, \_\-upk\_\-netmsg\_\-queue::msg, \_\-upk\_\-netmsg\_\-queue::msg\_\-len, upk\_\-packet\_\-t::payload\_\-len, \_\-upk\_\-net\_\-gstate::pending\_\-writeq, \_\-upk\_\-netmsg\_\-queue::set\_\-after\_\-read\_\-callback, UPK\_\-PACKET\_\-FOOTER\_\-LEN, UPK\_\-PACKET\_\-HEADER\_\-LEN, upk\_\-serialize\_\-packet(), UPKLIST\_\-APPEND, and \_\-upk\_\-conn\_\-handle::writeq.
+
+
+
+Referenced by controller\_\-packet\_\-callback(), main(), and upk\_\-clnet\_\-serial\_\-request().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_gae2abc6f00b1e39952fdffb19c09b5b38_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_gae2abc6f00b1e39952fdffb19c09b5b38_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-read\_\-packets@{upk\_\-read\_\-packets}}
+\index{upk\_\-read\_\-packets@{upk\_\-read\_\-packets}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-read\_\-packets}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-read\_\-packets (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga4768b12de031d8bc532886acc6e5f7c6}
+
+
+retry socket connection, pausing between each retry. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em retries} & number of times to retry. \\
+\hline
+\mbox{\tt in}  & {\em sockpath} & path to the socket to connect to (e.g. the controller socket).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the file descriptor of the resulting connection 
+
+-\/2 unable to connect, check errno non-\/blocking read a packet off the 'wire'.
+\end{DoxyReturn}
+After an entire packet has been recieved, will call the appropriate callback for the packet type. 
+
+References \_\-upk\_\-conn\_\-handle::fd, \_\-upk\_\-conn\_\-handle::n\_\-hdr\_\-bytes\_\-read, \_\-upk\_\-conn\_\-handle::n\_\-remaining\_\-read, \_\-upk\_\-conn\_\-handle::readbuf, upk\_\-call\_\-received\_\-packet\_\-callbacks(), upk\_\-debug1, upk\_\-deserialize\_\-packet(), upk\_\-disconnect\_\-handle(), upk\_\-error, UPK\_\-MAX\_\-PACKET\_\-SIZE, UPK\_\-MAX\_\-SUPPORTED\_\-PROTO, UPK\_\-MIN\_\-SUPPORTED\_\-PROTO, UPK\_\-PACKET\_\-FOOTER\_\-LEN, UPK\_\-PACKET\_\-HEADER\_\-LEN, and upk\_\-pkt\_\-free().
+
+
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga4768b12de031d8bc532886acc6e5f7c6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga4768b12de031d8bc532886acc6e5f7c6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-write\_\-packets@{upk\_\-write\_\-packets}}
+\index{upk\_\-write\_\-packets@{upk\_\-write\_\-packets}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-write\_\-packets}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-write\_\-packets (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{handles}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga01deb471c83c94104d12b85522292bb8}
+
+
+write packets from queue async and nonblocking. 
+
+
+
+References \_\-upk\_\-conn\_\-handle::after\_\-read\_\-callback, \_\-upk\_\-netmsg\_\-queue::after\_\-write\_\-callback, \_\-upk\_\-conn\_\-handle::fd, \_\-upk\_\-netmsg\_\-queue::msg, \_\-upk\_\-netmsg\_\-queue::msg\_\-len, \_\-upk\_\-netmsg\_\-queue::n\_\-bytes\_\-written, \_\-upk\_\-net\_\-gstate::pending\_\-writeq, \_\-upk\_\-netmsg\_\-queue::set\_\-after\_\-read\_\-callback, upk\_\-disconnect\_\-handle(), upk\_\-net\_\-get\_\-gstate(), UPKLIST\_\-UNLINK, and \_\-upk\_\-conn\_\-handle::writeq.
+
+
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{group__upk__network_ga01deb471c83c94104d12b85522292bb8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__upk__network_ga01deb471c83c94104d12b85522292bb8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Upk\_\-network@{Upk\_\-network}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!Upk_network@{Upk\_\-network}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-t}}]{, }
+\item[{upk\_\-conn\_\-handle\_\-meta\_\-p}]{}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga61657720bab708984d0ca8a7bbfdc284}
+\index{Upk\_\-network@{Upk\_\-network}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!Upk_network@{Upk\_\-network}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-netmsg\_\-queue\_\-t}}]{, }
+\item[{upk\_\-netmsg\_\-queue\_\-meta\_\-p}]{}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_gaf93f773bf33705143eb8211f88cf097d}
+\index{Upk\_\-network@{Upk\_\-network}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!Upk_network@{Upk\_\-network}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-net\_\-cb\_\-stk\_\-t}}]{, }
+\item[{upk\_\-net\_\-cb\_\-stk\_\-meta\_\-p}]{}
+\end{DoxyParamCaption}
+)}\label{group__upk__network_ga2df37a3e3c18bb443c488a701f10c371}
+
+
+\subsection{Variable Documentation}
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-conn\_\-handle\_\-meta\_\-t@{upk\_\-conn\_\-handle\_\-meta\_\-t}}
+\index{upk\_\-conn\_\-handle\_\-meta\_\-t@{upk\_\-conn\_\-handle\_\-meta\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-conn\_\-handle\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-conn\_\-handle\_\-meta\_\-t}}\label{group__upk__network_ga64ae05a2acaefbc2d0cb8106b209c981}
+
+
+Referenced by event\_\-loop(), main(), upk\_\-clnet\_\-ctrl\_\-connect(), and upk\_\-net\_\-conn\_\-handle\_\-init().
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t@{upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t}}
+\index{upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t@{upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t}}\label{group__upk__network_gadd690d14f14702fc03894ce04e150458}
+
+
+Referenced by upk\_\-call\_\-received\_\-packet\_\-callbacks(), and upk\_\-net\_\-event\_\-dispatcher().
+
+\index{Upk\_\-network@{Upk\_\-network}!upk\_\-netmsg\_\-queue\_\-meta\_\-t@{upk\_\-netmsg\_\-queue\_\-meta\_\-t}}
+\index{upk\_\-netmsg\_\-queue\_\-meta\_\-t@{upk\_\-netmsg\_\-queue\_\-meta\_\-t}!Upk_network@{Upk\_\-network}}
+\subsubsection[{upk\_\-netmsg\_\-queue\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-netmsg\_\-queue\_\-meta\_\-t}}\label{group__upk__network_gac998706432365d99ac53c9880147b585}

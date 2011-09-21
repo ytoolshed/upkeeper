@@ -1,0 +1,179 @@
+.TH "libupkeeper/upkeeper/upk_error.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_error.h \- 
+.PP
+handle errors and single-exit-point semantics.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_std_include.h'\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_ERR_INIT\fP"
+.br
+.ti -1c
+.RI "#define \fBUPK_FUNC_ASSERT\fP(A, B)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FUNC_ASSERT_MSG\fP(A, B,...)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
+.br
+.ti -1c
+.RI "#define \fBIF_UPK_ERROR\fP"
+.br
+.ti -1c
+.RI "#define \fB_UPK_AS_STRING\fP(A)   #A"
+.br
+.ti -1c
+.RI "#define \fBUPK_AS_STRING\fP(A)   _UPK_AS_STRING(A)"
+.br
+.ti -1c
+.RI "#define \fB_UPK_DIAG_LOCATION\fP   __FILE__ ':' UPK_AS_STRING(__LINE__)"
+.br
+.ti -1c
+.RI "#define \fBupk_fatal\fP(...)   _upk_fatal(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_alert\fP(...)   _upk_alert(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_crit\fP(...)   _upk_crit(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_error\fP(...)   _upk_error(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_warn\fP(...)   _upk_warn(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_notice\fP(...)   _upk_notice(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_info\fP(...)   _upk_info(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_verbose\fP(...)   _upk_verbose(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_debug0\fP(...)   _upk_debug0(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.ti -1c
+.RI "#define \fBupk_debug1\fP(...)   _upk_debug1(_UPK_DIAG_LOCATION, __VA_ARGS__)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBerr_rpt_callback_t\fP )(\fBupk_errno_t\fP)"
+.br
+.ti -1c
+.RI "typedef void(* \fBerr_rpt_msg_callback_t\fP )(\fBupk_errno_t\fP, const char *)"
+.br
+.ti -1c
+.RI "typedef void(* \fBdiag_output_callback_t\fP )(\fBupk_diaglvl_t\fP diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBupk_diaglvl_t\fP { \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP }"
+.br
+.ti -1c
+.RI "enum \fBupk_errlevel_t\fP { \fBUPK_ERRLVL_ERROR\fP }"
+.br
+.ti -1c
+.RI "enum \fBupk_errno_t\fP { \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "const char * \fBupk_strerror\fP (\fBupk_errno_t\fP err)"
+.br
+.ti -1c
+.RI "void \fBupk_report_error\fP (\fBupk_errno_t\fP err)"
+.br
+.ti -1c
+.RI "void \fBupk_report_error_msg\fP (\fBupk_errno_t\fP err, const char *msg)"
+.br
+.ti -1c
+.RI "\fBerr_rpt_callback_t\fP \fBupk_reg_error_callback\fP (\fBerr_rpt_callback_t\fP func)"
+.br
+.ti -1c
+.RI "\fBerr_rpt_msg_callback_t\fP \fBupk_reg_err_msg_callback\fP (\fBerr_rpt_msg_callback_t\fP func)"
+.br
+.ti -1c
+.RI "\fBdiag_output_callback_t\fP \fBupk_reg_diag_callback\fP (\fBdiag_output_callback_t\fP func)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_fatal\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_alert\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_crit\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_error\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_warn\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_notice\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_info\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_verbose\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_debug0\fP (const char *loc, const char *fmt,...)"
+.br
+.ti -1c
+.RI "int32_t \fB_upk_debug1\fP (const char *loc, const char *fmt,...)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static const char \fBupk_diag_label_idx\fP [][16]"
+.br
+.ti -1c
+.RI "static const char \fB__upk_errors\fP [][128]"
+.br
+.ti -1c
+.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
+.br
+.ti -1c
+.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
+.br
+.ti -1c
+.RI "int32_t \fBupk_diag_verbosity\fP"
+.br
+.ti -1c
+.RI "char \fBlabel_idx\fP [][16]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+handle errors and single-exit-point semantics. 
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

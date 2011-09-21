@@ -1,0 +1,166 @@
+.TH "WhereLevel" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WhereLevel \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBWherePlan\fP \fBplan\fP"
+.br
+.ti -1c
+.RI "int \fBiLeftJoin\fP"
+.br
+.ti -1c
+.RI "int \fBiTabCur\fP"
+.br
+.ti -1c
+.RI "int \fBiIdxCur\fP"
+.br
+.ti -1c
+.RI "int \fBaddrBrk\fP"
+.br
+.ti -1c
+.RI "int \fBaddrNxt\fP"
+.br
+.ti -1c
+.RI "int \fBaddrCont\fP"
+.br
+.ti -1c
+.RI "int \fBaddrFirst\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBiFrom\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBop\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBp5\fP"
+.br
+.ti -1c
+.RI "int \fBp1\fP"
+.br
+.ti -1c
+.RI "int \fBp2\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      int \fBnIn\fP"
+.br
+.ti -1c
+.RI "      struct \fBInLoop\fP {"
+.br
+.ti -1c
+.RI "         int \fBiCur\fP"
+.br
+.ti -1c
+.RI "         int \fBaddrInTop\fP"
+.br
+.ti -1c
+.RI "      } \fBaInLoop\fP"
+.br
+.ti -1c
+.RI "   } \fBin\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info\fP * \fBpIdxInfo\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      int \fBnIn\fP"
+.br
+.ti -1c
+.RI "      struct \fBInLoop\fP {"
+.br
+.ti -1c
+.RI "         int \fBiCur\fP"
+.br
+.ti -1c
+.RI "         int \fBaddrInTop\fP"
+.br
+.ti -1c
+.RI "      } \fBaInLoop\fP"
+.br
+.ti -1c
+.RI "   } \fBin\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_index_info\fP * \fBpIdxInfo\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int \fBWhereLevel::addrBrk\fP"
+.PP
+.SS "int \fBWhereLevel::addrCont\fP"
+.PP
+.SS "int \fBWhereLevel::addrFirst\fP"
+.PP
+.SS "int \fBWhereLevel::addrInTop\fP"
+.PP
+.SS "int \fBWhereLevel::addrNxt\fP"
+.PP
+.SS "struct { ... } ::InLoop * \fBWhereLevel::aInLoop\fP"
+.PP
+.SS "struct { ... } ::InLoop * \fBWhereLevel::aInLoop\fP"
+.PP
+.SS "int \fBWhereLevel::iCur\fP"
+.PP
+.SS "\fBu8\fP \fBWhereLevel::iFrom\fP"
+.PP
+.SS "int \fBWhereLevel::iIdxCur\fP"
+.PP
+.SS "int \fBWhereLevel::iLeftJoin\fP"
+.PP
+.SS "struct { ... }   \fBWhereLevel::in\fP"
+.PP
+.SS "struct { ... }   \fBWhereLevel::in\fP"
+.PP
+.SS "int \fBWhereLevel::iTabCur\fP"
+.PP
+.SS "int \fBWhereLevel::nIn\fP"
+.PP
+.SS "\fBu8\fP \fBWhereLevel::op\fP"
+.PP
+.SS "int \fBWhereLevel::p1\fP"
+.PP
+.SS "int \fBWhereLevel::p2\fP"
+.PP
+.SS "\fBu8\fP \fBWhereLevel::p5\fP"
+.PP
+.SS "\fBsqlite3_index_info\fP* \fBWhereLevel::pIdxInfo\fP"
+.PP
+.SS "\fBsqlite3_index_info\fP* \fBWhereLevel::pIdxInfo\fP"
+.PP
+.SS "\fBWherePlan\fP \fBWhereLevel::plan\fP"
+.PP
+.SS "union { ... }   \fBWhereLevel::u\fP"
+.PP
+.SS "union { ... }   \fBWhereLevel::u\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

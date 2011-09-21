@@ -1,0 +1,97 @@
+\section{libupkeeper/upkeeper/upk\_\-config.h File Reference}
+\label{upk__config_8h}\index{libupkeeper/upkeeper/upk\_\-config.h@{libupkeeper/upkeeper/upk\_\-config.h}}
+
+
+configuration implementation for controller and services.  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+Include dependency graph for upk\_\-config.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__config_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__config_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-upk\_\-svc\_\-desc}
+\begin{DoxyCompactList}\small\item\em service configuration. \end{DoxyCompactList}\item 
+struct {\bf \_\-upk\_\-controller\_\-config}
+\begin{DoxyCompactList}\small\item\em controller configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-upk\_\-svc\_\-desc} {\bf upk\_\-svc\_\-desc\_\-t}
+\begin{DoxyCompactList}\small\item\em service configuration. \end{DoxyCompactList}\item 
+typedef struct {\bf \_\-upk\_\-controller\_\-config} {\bf upk\_\-controller\_\-config\_\-t}
+\begin{DoxyCompactList}\small\item\em controller configuration. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-svc\_\-desc\_\-t}, upk\_\-svc\_\-desc\_\-meta\_\-p)
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-free} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-svclist\_\-free} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+void {\bf upk\_\-ctrlconf\_\-free} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg)
+\item 
+void {\bf upk\_\-ctrl\_\-free\_\-config} (void)
+\item 
+void {\bf upk\_\-svcconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+void {\bf upk\_\-ctrl\_\-load\_\-config} (void)
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-clear} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+char $\ast$ {\bf upk\_\-concat\_\-svcid} (char $\ast$dest, const char $\ast$pkg, const char $\ast$name)
+\item 
+char $\ast$ {\bf upk\_\-svc\_\-id} (char $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-parse\_\-svc\_\-id} (char $\ast$key, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svclist\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+char $\ast$ {\bf upk\_\-json\_\-serialize\_\-svc\_\-config} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\item 
+void {\bf upk\_\-overlay\_\-svcconf\_\-values} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-overlay\_\-ctrlconf\_\-values} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$dest, {\bf upk\_\-controller\_\-config\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-finalize\_\-svc\_\-desc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$orig)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-service\_\-file} (const char $\ast$filename)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-services} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf upk\_\-svc\_\-desc\_\-meta\_\-t}
+\item 
+char {\bf upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN]
+\item 
+const char {\bf upk\_\-default\_\-configuration\_\-vec} [$\,$]
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-file\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-runtime\_\-configuration}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+configuration implementation for controller and services. Structures and prototypes handling and defining service and controller's configuration. 

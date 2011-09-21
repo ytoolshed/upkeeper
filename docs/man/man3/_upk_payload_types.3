@@ -1,0 +1,106 @@
+.TH "_upk_payload_types" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_payload_types \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_protocol.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_req_preamble_t\fP \fBreq_preamble\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_preamble_t\fP \fBrepl_preamble\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_seq_start_t\fP \fBreq_seq_start\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_seq_end_t\fP \fBreq_seq_end\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_action_t\fP \fBreq_action\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_signal_t\fP \fBreq_signal\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_list_t\fP \fBreq_list\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_status_t\fP \fBreq_status\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_subscribe_t\fP \fBreq_subscribe\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_unsubscribe_t\fP \fBreq_unsubscribe\fP"
+.br
+.ti -1c
+.RI "\fBupk_req_disconnect_t\fP \fBreq_disconnect\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_seq_start_t\fP \fBrepl_seq_start\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_seq_end_t\fP \fBrepl_seq_end\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_result_t\fP \fBrepl_result\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_listing_t\fP \fBrepl_listing\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_svcinfo_t\fP \fBrepl_svcinfo\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_ack_t\fP \fBrepl_ack\fP"
+.br
+.ti -1c
+.RI "\fBupk_repl_error_t\fP \fBrepl_error\fP"
+.br
+.ti -1c
+.RI "\fBupk_pub_publication_t\fP \fBpub_publication\fP"
+.br
+.ti -1c
+.RI "\fBupk_pub_cancelation_t\fP \fBpub_cancelation\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_pub_cancelation_t\fP \fB_upk_payload_types::pub_cancelation\fP"
+.SS "\fBupk_pub_publication_t\fP \fB_upk_payload_types::pub_publication\fP"
+.SS "\fBupk_repl_ack_t\fP \fB_upk_payload_types::repl_ack\fP"
+.SS "\fBupk_repl_error_t\fP \fB_upk_payload_types::repl_error\fP"
+.SS "\fBupk_repl_listing_t\fP \fB_upk_payload_types::repl_listing\fP"
+.SS "\fBupk_repl_preamble_t\fP \fB_upk_payload_types::repl_preamble\fP"
+.SS "\fBupk_repl_result_t\fP \fB_upk_payload_types::repl_result\fP"
+.PP
+Referenced by received_packet_callback(), and upk_clnet_req_action().
+.SS "\fBupk_repl_seq_end_t\fP \fB_upk_payload_types::repl_seq_end\fP"
+.SS "\fBupk_repl_seq_start_t\fP \fB_upk_payload_types::repl_seq_start\fP"
+.SS "\fBupk_repl_svcinfo_t\fP \fB_upk_payload_types::repl_svcinfo\fP"
+.SS "\fBupk_req_action_t\fP \fB_upk_payload_types::req_action\fP"
+.PP
+Referenced by controller_packet_callback().
+.SS "\fBupk_req_disconnect_t\fP \fB_upk_payload_types::req_disconnect\fP"
+.SS "\fBupk_req_list_t\fP \fB_upk_payload_types::req_list\fP"
+.SS "\fBupk_req_preamble_t\fP \fB_upk_payload_types::req_preamble\fP"
+.PP
+Referenced by controller_packet_callback().
+.SS "\fBupk_req_seq_end_t\fP \fB_upk_payload_types::req_seq_end\fP"
+.SS "\fBupk_req_seq_start_t\fP \fB_upk_payload_types::req_seq_start\fP"
+.SS "\fBupk_req_signal_t\fP \fB_upk_payload_types::req_signal\fP"
+.SS "\fBupk_req_status_t\fP \fB_upk_payload_types::req_status\fP"
+.SS "\fBupk_req_subscribe_t\fP \fB_upk_payload_types::req_subscribe\fP"
+.SS "\fBupk_req_unsubscribe_t\fP \fB_upk_payload_types::req_unsubscribe\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

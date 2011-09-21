@@ -1,0 +1,74 @@
+.TH "WalIndexHdr" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WalIndexHdr \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBu32\fP \fBiVersion\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBunused\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBiChange\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisInit\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBbigEndCksum\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBszPage\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBmxFrame\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnPage\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBaFrameCksum\fP [2]"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBaSalt\fP [2]"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBaCksum\fP [2]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu32\fP \fBWalIndexHdr::aCksum\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::aFrameCksum\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::aSalt\fP"
+.PP
+.SS "\fBu8\fP \fBWalIndexHdr::bigEndCksum\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::iChange\fP"
+.PP
+.SS "\fBu8\fP \fBWalIndexHdr::isInit\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::iVersion\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::mxFrame\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::nPage\fP"
+.PP
+.SS "\fBu16\fP \fBWalIndexHdr::szPage\fP"
+.PP
+.SS "\fBu32\fP \fBWalIndexHdr::unused\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

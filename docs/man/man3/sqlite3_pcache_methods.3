@@ -1,0 +1,121 @@
+.TH "sqlite3_pcache_methods" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_pcache_methods \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "void * \fBpArg\fP"
+.br
+.ti -1c
+.RI "int(* \fBxInit\fP )(void *)"
+.br
+.ti -1c
+.RI "void(* \fBxShutdown\fP )(void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_pcache\fP *(* \fBxCreate\fP )(int szPage, int bPurgeable)"
+.br
+.ti -1c
+.RI "void(* \fBxCachesize\fP )(\fBsqlite3_pcache\fP *, int nCachesize)"
+.br
+.ti -1c
+.RI "int(* \fBxPagecount\fP )(\fBsqlite3_pcache\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBxFetch\fP )(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.br
+.ti -1c
+.RI "void(* \fBxUnpin\fP )(\fBsqlite3_pcache\fP *, void *, int discard)"
+.br
+.ti -1c
+.RI "void(* \fBxRekey\fP )(\fBsqlite3_pcache\fP *, void *, unsigned oldKey, unsigned newKey)"
+.br
+.ti -1c
+.RI "void(* \fBxTruncate\fP )(\fBsqlite3_pcache\fP *, unsigned iLimit)"
+.br
+.ti -1c
+.RI "void(* \fBxDestroy\fP )(\fBsqlite3_pcache\fP *)"
+.br
+.ti -1c
+.RI "void * \fBpArg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_pcache\fP *(* \fBxCreate\fP )(int szPage, int bPurgeable)"
+.br
+.ti -1c
+.RI "void *(* \fBxFetch\fP )(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.br
+.ti -1c
+.RI "void * \fBpArg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_pcache\fP *(* \fBxCreate\fP )(int szPage, int bPurgeable)"
+.br
+.ti -1c
+.RI "void *(* \fBxFetch\fP )(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.br
+.ti -1c
+.RI "void * \fBpArg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_pcache\fP *(* \fBxCreate\fP )(int szPage, int bPurgeable)"
+.br
+.ti -1c
+.RI "void *(* \fBxFetch\fP )(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "void* \fBsqlite3_pcache_methods::pArg\fP"
+.PP
+.SS "void* \fBsqlite3_pcache_methods::pArg\fP"
+.PP
+.SS "void* \fBsqlite3_pcache_methods::pArg\fP"
+.PP
+.SS "void* \fBsqlite3_pcache_methods::pArg\fP"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xCachesize\fP"
+.PP
+.SS "\fBsqlite3_pcache\fP*(* \fBsqlite3_pcache_methods::xCreate\fP)(int szPage, int bPurgeable)"
+.PP
+.SS "\fBsqlite3_pcache\fP*(* \fBsqlite3_pcache_methods::xCreate\fP)(int szPage, int bPurgeable)"
+.PP
+.SS "\fBsqlite3_pcache\fP*(* \fBsqlite3_pcache_methods::xCreate\fP)(int szPage, int bPurgeable)"
+.PP
+.SS "\fBsqlite3_pcache\fP*(* \fBsqlite3_pcache_methods::xCreate\fP)(int szPage, int bPurgeable)"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xDestroy\fP"
+.PP
+.SS "void*(* \fBsqlite3_pcache_methods::xFetch\fP)(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.PP
+.SS "void*(* \fBsqlite3_pcache_methods::xFetch\fP)(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.PP
+.SS "void*(* \fBsqlite3_pcache_methods::xFetch\fP)(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.PP
+.SS "void*(* \fBsqlite3_pcache_methods::xFetch\fP)(\fBsqlite3_pcache\fP *, unsigned key, int createFlag)"
+.PP
+.SS "int(* \fBsqlite3_pcache_methods::xInit\fP"
+.PP
+.SS "int(* \fBsqlite3_pcache_methods::xPagecount\fP"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xRekey\fP"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xShutdown\fP"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xTruncate\fP"
+.PP
+.SS "void(* \fBsqlite3_pcache_methods::xUnpin\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

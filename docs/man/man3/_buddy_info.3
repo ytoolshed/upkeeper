@@ -1,0 +1,100 @@
+.TH "_buddy_info" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_buddy_info \- 
+.PP
+information buddy returns.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <ctrl_protocol.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "bool \fBpopulated\fP"
+.br
+.ti -1c
+.RI "pid_t \fBservice_pid\fP"
+.br
+.ti -1c
+.RI "pid_t \fBwait_pid\fP"
+.br
+.ti -1c
+.RI "\fBbuddy_cmnd_t\fP \fBcommand\fP"
+.br
+.ti -1c
+.RI "\fBbuddy_runstate_t\fP \fBdesired_state\fP"
+.br
+.ti -1c
+.RI "siginfo_t \fBsiginfo\fP"
+.br
+.ti -1c
+.RI "int \fBwait_status\fP"
+.br
+.ti -1c
+.RI "time_t \fBtimestamp\fP"
+.br
+.ti -1c
+.RI "size_t \fBremaining\fP"
+.br
+.ti -1c
+.RI "\fBupk_uuid_t\fP \fBuuid\fP"
+.br
+.ti -1c
+.RI "size_t \fBslot_n\fP"
+.br
+.ti -1c
+.RI "\fBbuddy_info_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+information buddy returns. 
+
+This is what buddy sends to controller. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBbuddy_cmnd_t\fP \fB_buddy_info::command\fP"last command handled by buddy 
+.PP
+Referenced by buddy_readstate(), and buddy_record_state().
+.SS "\fBbuddy_runstate_t\fP \fB_buddy_info::desired_state\fP"desired state of the buddy 
+.PP
+Referenced by buddy_readstate(), and buddy_record_state().
+.SS "\fBbuddy_info_t\fP* \fB_buddy_info::next\fP"pointer to next member in ringbuffer 
+.PP
+Referenced by buddy_flush_ringbuffer(), buddy_free_ringbuffer(), buddy_init_ringbuffer(), buddy_start_proc(), buddy_zero_info(), and sa_sigaction_func().
+.SS "bool \fB_buddy_info::populated\fP"this member is populated; used in ringbuffer 
+.PP
+Referenced by buddy_flush_ringbuffer(), buddy_record_state(), and buddy_zero_info().
+.SS "size_t \fB_buddy_info::remaining\fP"number of remaining messages to be sent from buddy 
+.PP
+Referenced by buddy_flush_ringbuffer(), and buddy_readstate().
+.SS "pid_t \fB_buddy_info::service_pid\fP"pid of the managed process 
+.PP
+Referenced by buddy_readstate(), and buddy_record_state().
+.SS "siginfo_t \fB_buddy_info::siginfo\fP"siginfo struct if available 
+.PP
+Referenced by sa_sigaction_func().
+.SS "size_t \fB_buddy_info::slot_n\fP"used for diagnostics 
+.PP
+Referenced by buddy_init_ringbuffer(), and buddy_zero_info().
+.SS "time_t \fB_buddy_info::timestamp\fP"timestamp 
+.PP
+Referenced by buddy_readstate(), and buddy_record_state().
+.SS "\fBupk_uuid_t\fP \fB_buddy_info::uuid\fP"uuid of service managed by buddy 
+.PP
+Referenced by buddy_readstate().
+.SS "pid_t \fB_buddy_info::wait_pid\fP"pid of the process just waited on, if applicable 
+.PP
+Referenced by buddy_readstate(), and sa_sigaction_func().
+.SS "int \fB_buddy_info::wait_status\fP"wait status, if available 
+.PP
+Referenced by buddy_readstate(), and sa_sigaction_func().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

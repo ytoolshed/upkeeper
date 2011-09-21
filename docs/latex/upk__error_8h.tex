@@ -1,0 +1,154 @@
+\section{libupkeeper/upkeeper/upk\_\-error.h File Reference}
+\label{upk__error_8h}\index{libupkeeper/upkeeper/upk\_\-error.h@{libupkeeper/upkeeper/upk\_\-error.h}}
+
+
+handle errors and single-\/exit-\/point semantics.  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-std\_\-include.h\char`\"{}}\par
+{\ttfamily \#include $<$stdarg.h$>$}\par
+Include dependency graph for upk\_\-error.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__error_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__error_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-ERR\_\-INIT}
+\item 
+\#define {\bf UPK\_\-FUNC\_\-ASSERT}(A, B)~do \{ if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\item 
+\#define {\bf UPK\_\-FUNC\_\-ASSERT\_\-MSG}(A, B,...)~do \{ if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; memset((char $\ast$) {\bf \_\-\_\-upk\_\-err\_\-buf},0,sizeof({\bf \_\-\_\-upk\_\-err\_\-buf})); snprintf((char $\ast$){\bf \_\-\_\-upk\_\-err\_\-buf}, UPK\_\-MAX\_\-STRING\_\-LEN -\/ 1, \_\-\_\-VA\_\-ARGS\_\-\_\-); goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\item 
+\#define {\bf IF\_\-UPK\_\-ERROR}
+\item 
+\#define {\bf \_\-UPK\_\-AS\_\-STRING}(A)~\#A
+\item 
+\#define {\bf UPK\_\-AS\_\-STRING}(A)~\_\-UPK\_\-AS\_\-STRING(A)
+\item 
+\#define {\bf \_\-UPK\_\-DIAG\_\-LOCATION}~\_\-\_\-FILE\_\-\_\- \char`\"{}:\char`\"{} UPK\_\-AS\_\-STRING(\_\-\_\-LINE\_\-\_\-)
+\item 
+\#define {\bf upk\_\-fatal}(...)~\_\-upk\_\-fatal(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-alert}(...)~\_\-upk\_\-alert(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-crit}(...)~\_\-upk\_\-crit(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-error}(...)~\_\-upk\_\-error(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-warn}(...)~\_\-upk\_\-warn(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-notice}(...)~\_\-upk\_\-notice(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-info}(...)~\_\-upk\_\-info(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-verbose}(...)~\_\-upk\_\-verbose(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-debug0}(...)~\_\-upk\_\-debug0(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-debug1}(...)~\_\-upk\_\-debug1(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bf err\_\-rpt\_\-callback\_\-t} )({\bf upk\_\-errno\_\-t})
+\item 
+typedef void($\ast$ {\bf err\_\-rpt\_\-msg\_\-callback\_\-t} )({\bf upk\_\-errno\_\-t}, const char $\ast$)
+\item 
+typedef void($\ast$ {\bf diag\_\-output\_\-callback\_\-t} )({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$label, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf upk\_\-diaglvl\_\-t} \{ \par
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}
+ \}
+\item 
+enum {\bf upk\_\-errlevel\_\-t} \{ {\bf UPK\_\-ERRLVL\_\-ERROR}
+ \}
+\item 
+enum {\bf upk\_\-errno\_\-t} \{ \par
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+\par
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ {\bf upk\_\-strerror} ({\bf upk\_\-errno\_\-t} err)
+\item 
+void {\bf upk\_\-report\_\-error} ({\bf upk\_\-errno\_\-t} err)
+\item 
+void {\bf upk\_\-report\_\-error\_\-msg} ({\bf upk\_\-errno\_\-t} err, const char $\ast$msg)
+\item 
+{\bf err\_\-rpt\_\-callback\_\-t} {\bf upk\_\-reg\_\-error\_\-callback} ({\bf err\_\-rpt\_\-callback\_\-t} func)
+\item 
+{\bf err\_\-rpt\_\-msg\_\-callback\_\-t} {\bf upk\_\-reg\_\-err\_\-msg\_\-callback} ({\bf err\_\-rpt\_\-msg\_\-callback\_\-t} func)
+\item 
+{\bf diag\_\-output\_\-callback\_\-t} {\bf upk\_\-reg\_\-diag\_\-callback} ({\bf diag\_\-output\_\-callback\_\-t} func)
+\item 
+int32\_\-t {\bf \_\-upk\_\-fatal} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-alert} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-crit} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-error} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-warn} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-notice} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-info} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-verbose} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug0} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug1} (const char $\ast$loc, const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char {\bf upk\_\-diag\_\-label\_\-idx} [$\,$][16]
+\item 
+static const char {\bf \_\-\_\-upk\_\-errors} [$\,$][128]
+\item 
+static const {\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type} = 0
+\item 
+static const char {\bf \_\-\_\-upk\_\-err\_\-buf} [4096] = \char`\"{}\char`\"{}
+\item 
+int32\_\-t {\bf upk\_\-diag\_\-verbosity}
+\item 
+char {\bf label\_\-idx} [$\,$][16]
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+handle errors and single-\/exit-\/point semantics. 

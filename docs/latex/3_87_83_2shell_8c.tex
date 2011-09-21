@@ -1,0 +1,611 @@
+\section{deps/sqlite-3.7.3/shell.c File Reference}
+\label{3_87_83_2shell_8c}\index{deps/sqlite-3.7.3/shell.c@{deps/sqlite-3.7.3/shell.c}}
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include \char`\"{}sqlite3.h\char`\"{}}\par
+{\tt \#include $<$ctype.h$>$}\par
+{\tt \#include $<$stdarg.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$pwd.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$sys/time.h$>$}\par
+{\tt \#include $<$sys/resource.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{previous\_\-mode\_\-data}
+\item 
+struct \bf{callback\_\-data}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{readline}(p)~local\_\-getline(p,stdin)
+\item 
+\#define \bf{add\_\-history}(X)
+\item 
+\#define \bf{read\_\-history}(X)
+\item 
+\#define \bf{write\_\-history}(X)
+\item 
+\#define \bf{stifle\_\-history}(X)
+\item 
+\#define \bf{BEGIN\_\-TIMER}~begin\-Timer()
+\item 
+\#define \bf{END\_\-TIMER}~end\-Timer()
+\item 
+\#define \bf{HAS\_\-TIMER}~1
+\item 
+\#define \bf{UNUSED\_\-PARAMETER}(x)~(void)(x)
+\item 
+\#define \bf{MODE\_\-Line}~0
+\item 
+\#define \bf{MODE\_\-Column}~1
+\item 
+\#define \bf{MODE\_\-List}~2
+\item 
+\#define \bf{MODE\_\-Semi}~3
+\item 
+\#define \bf{MODE\_\-Html}~4
+\item 
+\#define \bf{MODE\_\-Insert}~5
+\item 
+\#define \bf{MODE\_\-Tcl}~6
+\item 
+\#define \bf{MODE\_\-Csv}~7
+\item 
+\#define \bf{MODE\_\-Explain}~8
+\item 
+\#define \bf{Array\-Size}(X)~(int)(sizeof(X)/sizeof(X[0]))
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{isatty} ()
+\item 
+static void \bf{begin\-Timer} (void)
+\item 
+static double \bf{time\-Diff} (struct timeval $\ast$p\-Start, struct timeval $\ast$p\-End)
+\item 
+static void \bf{end\-Timer} (void)
+\item 
+static int \bf{is\-Number} (const char $\ast$z, int $\ast$realnum)
+\item 
+static void \bf{shellstatic\-Func} (\bf{sqlite3\_\-context} $\ast$context, int argc, \bf{sqlite3\_\-value} $\ast$$\ast$argv)
+\item 
+static char $\ast$ \bf{local\_\-getline} (char $\ast$z\-Prompt, FILE $\ast$in)
+\item 
+static char $\ast$ \bf{one\_\-input\_\-line} (const char $\ast$z\-Prior, FILE $\ast$in)
+\item 
+static int \bf{strlen30} (const char $\ast$z)
+\item 
+static void \bf{shell\-Log} (void $\ast$p\-Arg, int i\-Err\-Code, const char $\ast$z\-Msg)
+\item 
+static void \bf{output\_\-hex\_\-blob} (FILE $\ast$out, const void $\ast$p\-Blob, int n\-Blob)
+\item 
+static void \bf{output\_\-quoted\_\-string} (FILE $\ast$out, const char $\ast$z)
+\item 
+static void \bf{output\_\-c\_\-string} (FILE $\ast$out, const char $\ast$z)
+\item 
+static void \bf{output\_\-html\_\-string} (FILE $\ast$out, const char $\ast$z)
+\item 
+static void \bf{output\_\-csv} (struct \bf{callback\_\-data} $\ast$p, const char $\ast$z, int b\-Sep)
+\item 
+static int \bf{shell\_\-callback} (void $\ast$p\-Arg, int n\-Arg, char $\ast$$\ast$az\-Arg, char $\ast$$\ast$az\-Col, int $\ast$ai\-Type)
+\item 
+static int \bf{callback} (void $\ast$p\-Arg, int n\-Arg, char $\ast$$\ast$az\-Arg, char $\ast$$\ast$az\-Col)
+\item 
+static void \bf{set\_\-table\_\-name} (struct \bf{callback\_\-data} $\ast$p, const char $\ast$z\-Name)
+\item 
+static char $\ast$ \bf{append\-Text} (char $\ast$z\-In, char const $\ast$z\-Append, char quote)
+\item 
+static int \bf{run\_\-table\_\-dump\_\-query} (FILE $\ast$out, \bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Select, const char $\ast$z\-First\-Row)
+\item 
+static char $\ast$ \bf{save\_\-err\_\-msg} (\bf{sqlite3} $\ast$\bf{db})
+\item 
+static int \bf{display\_\-stats} (\bf{sqlite3} $\ast$\bf{db}, struct \bf{callback\_\-data} $\ast$p\-Arg, int b\-Reset)
+\item 
+static int \bf{shell\_\-exec} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Sql, int($\ast$x\-Callback)(void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$, int $\ast$), struct \bf{callback\_\-data} $\ast$p\-Arg, char $\ast$$\ast$pz\-Err\-Msg)
+\item 
+static int \bf{dump\_\-callback} (void $\ast$p\-Arg, int n\-Arg, char $\ast$$\ast$az\-Arg, char $\ast$$\ast$az\-Col)
+\item 
+static int \bf{run\_\-schema\_\-dump\_\-query} (struct \bf{callback\_\-data} $\ast$p, const char $\ast$z\-Query, char $\ast$$\ast$pz\-Err\-Msg)
+\item 
+static int \bf{process\_\-input} (struct \bf{callback\_\-data} $\ast$p, FILE $\ast$in)
+\item 
+static void \bf{open\_\-db} (struct \bf{callback\_\-data} $\ast$p)
+\item 
+static void \bf{resolve\_\-backslashes} (char $\ast$z)
+\item 
+static int \bf{boolean\-Value} (char $\ast$z\-Arg)
+\item 
+static int \bf{do\_\-meta\_\-command} (char $\ast$z\-Line, struct \bf{callback\_\-data} $\ast$p)
+\item 
+static int \bf{\_\-contains\_\-semicolon} (const char $\ast$z, int N)
+\item 
+static int \bf{\_\-all\_\-whitespace} (const char $\ast$z)
+\item 
+static int \bf{\_\-is\_\-command\_\-terminator} (const char $\ast$z\-Line)
+\item 
+static int \bf{\_\-is\_\-complete} (char $\ast$z\-Sql, int n\-Sql)
+\item 
+static char $\ast$ \bf{find\_\-home\_\-dir} (void)
+\item 
+static int \bf{process\_\-sqliterc} (struct \bf{callback\_\-data} $\ast$p, const char $\ast$sqliterc\_\-override)
+\item 
+static void \bf{usage} (int show\-Detail)
+\item 
+static void \bf{main\_\-init} (struct \bf{callback\_\-data} $\ast$data)
+\item 
+int \bf{main} (int argc, char $\ast$$\ast$argv)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+static struct rusage \bf{s\-Begin}
+\item 
+static int \bf{enable\-Timer} = 0
+\item 
+static int \bf{bail\_\-on\_\-error} = 0
+\item 
+static int \bf{stdin\_\-is\_\-interactive} = 1
+\item 
+static \bf{sqlite3} $\ast$ \bf{db} = 0
+\item 
+static volatile int \bf{seen\-Interrupt} = 0
+\item 
+static char $\ast$ \bf{Argv0}
+\item 
+static char \bf{main\-Prompt} [20]
+\item 
+static char \bf{continue\-Prompt} [20]
+\item 
+static const char $\ast$ \bf{z\-Shell\-Static} = 0
+\item 
+static const char $\ast$ \bf{mode\-Descr} [$\,$]
+\item 
+static const char \bf{need\-Csv\-Quote} [$\,$]
+\item 
+static char \bf{z\-Help} [$\,$]
+\item 
+static char \bf{z\-Timer\-Help} [$\,$]
+\item 
+static const char \bf{z\-Options} [$\,$]
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!add_history@{add\_\-history}}
+\index{add_history@{add\_\-history}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define add\_\-history(X)}\label{3_87_83_2shell_8c_829b1d1666a6724e57520cfcff4beeb3}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!ArraySize@{ArraySize}}
+\index{ArraySize@{ArraySize}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define Array\-Size(X)~(int)(sizeof(X)/sizeof(X[0]))}\label{3_87_83_2shell_8c_390beda80f7cb63d92fdbf9782364a4f}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!BEGIN_TIMER@{BEGIN\_\-TIMER}}
+\index{BEGIN_TIMER@{BEGIN\_\-TIMER}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define BEGIN\_\-TIMER~begin\-Timer()}\label{3_87_83_2shell_8c_3923ee752c18cc6cc8f64496ab01ef7d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!END_TIMER@{END\_\-TIMER}}
+\index{END_TIMER@{END\_\-TIMER}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define END\_\-TIMER~end\-Timer()}\label{3_87_83_2shell_8c_adf87514baa252d7d744e1021028a93b}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!HAS_TIMER@{HAS\_\-TIMER}}
+\index{HAS_TIMER@{HAS\_\-TIMER}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define HAS\_\-TIMER~1}\label{3_87_83_2shell_8c_e602ff84aeb55f34203b645d1b31ece4}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Column@{MODE\_\-Column}}
+\index{MODE_Column@{MODE\_\-Column}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Column~1}\label{3_87_83_2shell_8c_073588a80057c5392c99cd74644c454d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Csv@{MODE\_\-Csv}}
+\index{MODE_Csv@{MODE\_\-Csv}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Csv~7}\label{3_87_83_2shell_8c_c1c9521d99e77f7b0c27b52552f23ea1}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Explain@{MODE\_\-Explain}}
+\index{MODE_Explain@{MODE\_\-Explain}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Explain~8}\label{3_87_83_2shell_8c_ea751cd5a6cdbdd5da8e47ff866dbf7a}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Html@{MODE\_\-Html}}
+\index{MODE_Html@{MODE\_\-Html}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Html~4}\label{3_87_83_2shell_8c_f9c7110f78c5da412bb8530d89d4fb96}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Insert@{MODE\_\-Insert}}
+\index{MODE_Insert@{MODE\_\-Insert}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Insert~5}\label{3_87_83_2shell_8c_f43acb7e04395b5f1bc1de0e7760b807}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Line@{MODE\_\-Line}}
+\index{MODE_Line@{MODE\_\-Line}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Line~0}\label{3_87_83_2shell_8c_c991474bd1ef5e4916425302b6c2f49d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_List@{MODE\_\-List}}
+\index{MODE_List@{MODE\_\-List}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-List~2}\label{3_87_83_2shell_8c_4fbccfcfcfe819a21798224ce0553a88}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Semi@{MODE\_\-Semi}}
+\index{MODE_Semi@{MODE\_\-Semi}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Semi~3}\label{3_87_83_2shell_8c_a56375b9b1b6537d4bd671b38391524e}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!MODE_Tcl@{MODE\_\-Tcl}}
+\index{MODE_Tcl@{MODE\_\-Tcl}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define MODE\_\-Tcl~6}\label{3_87_83_2shell_8c_42a2b1b29ec857ea0f88de5aaca25a1a}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!read_history@{read\_\-history}}
+\index{read_history@{read\_\-history}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define read\_\-history(X)}\label{3_87_83_2shell_8c_0c321f607bc5607f22e4604ce5a2e943}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!readline@{readline}}
+\index{readline@{readline}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define readline(p)~local\_\-getline(p,stdin)}\label{3_87_83_2shell_8c_85546daad832848520a778464f34f8d2}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!stifle_history@{stifle\_\-history}}
+\index{stifle_history@{stifle\_\-history}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define stifle\_\-history(X)}\label{3_87_83_2shell_8c_1d90c632b9c0f26e558fea19005662d5}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!UNUSED_PARAMETER@{UNUSED\_\-PARAMETER}}
+\index{UNUSED_PARAMETER@{UNUSED\_\-PARAMETER}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define UNUSED\_\-PARAMETER(x)~(void)(x)}\label{3_87_83_2shell_8c_1bddaf97bd564beba8c55ea0c40d5d20}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!write_history@{write\_\-history}}
+\index{write_history@{write\_\-history}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define write\_\-history(X)}\label{3_87_83_2shell_8c_3de2bcf1bd94149703534842a5d14902}
+
+
+
+
+\subsection{Function Documentation}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!_all_whitespace@{\_\-all\_\-whitespace}}
+\index{_all_whitespace@{\_\-all\_\-whitespace}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int \_\-all\_\-whitespace (const char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_d922781eda4cee0076d6fdd32151f6f9}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!_contains_semicolon@{\_\-contains\_\-semicolon}}
+\index{_contains_semicolon@{\_\-contains\_\-semicolon}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int \_\-contains\_\-semicolon (const char $\ast$ {\em z}, int {\em N})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_c1c193904e464abd369f547360fad99c}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!_is_command_terminator@{\_\-is\_\-command\_\-terminator}}
+\index{_is_command_terminator@{\_\-is\_\-command\_\-terminator}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int \_\-is\_\-command\_\-terminator (const char $\ast$ {\em z\-Line})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_224e525617aceec5d594f48bf321fb58}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!_is_complete@{\_\-is\_\-complete}}
+\index{_is_complete@{\_\-is\_\-complete}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int \_\-is\_\-complete (char $\ast$ {\em z\-Sql}, int {\em n\-Sql})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_c130c1480b4041cd6bbb0fd37dbea791}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!appendText@{appendText}}
+\index{appendText@{appendText}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ append\-Text (char $\ast$ {\em z\-In}, char const $\ast$ {\em z\-Append}, char {\em quote})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_7cbcf9dabd1e091883015e7e1120316d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!beginTimer@{beginTimer}}
+\index{beginTimer@{beginTimer}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void begin\-Timer (void)\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_096de62ecb8ed3ddf24a46999927c236}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!booleanValue@{booleanValue}}
+\index{booleanValue@{booleanValue}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int boolean\-Value (char $\ast$ {\em z\-Arg})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_d4622c59d20bdabcb2ba78672e4231ff}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!callback@{callback}}
+\index{callback@{callback}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int callback (void $\ast$ {\em p\-Arg}, int {\em n\-Arg}, char $\ast$$\ast$ {\em az\-Arg}, char $\ast$$\ast$ {\em az\-Col})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_c6fa8cf7855adf0890eb5b7fdd16d897}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!display_stats@{display\_\-stats}}
+\index{display_stats@{display\_\-stats}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int display\_\-stats (\bf{sqlite3} $\ast$ {\em db}, struct \bf{callback\_\-data} $\ast$ {\em p\-Arg}, int {\em b\-Reset})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_aee7ae110f21aa48000e63b282e652d3}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!do_meta_command@{do\_\-meta\_\-command}}
+\index{do_meta_command@{do\_\-meta\_\-command}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int do\_\-meta\_\-command (char $\ast$ {\em z\-Line}, struct \bf{callback\_\-data} $\ast$ {\em p})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_13003430efafb8cf47cc00104befc53b}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!dump_callback@{dump\_\-callback}}
+\index{dump_callback@{dump\_\-callback}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int dump\_\-callback (void $\ast$ {\em p\-Arg}, int {\em n\-Arg}, char $\ast$$\ast$ {\em az\-Arg}, char $\ast$$\ast$ {\em az\-Col})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_07b1414d3499a0025d1d3ad6ddf9d2be}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!endTimer@{endTimer}}
+\index{endTimer@{endTimer}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void end\-Timer (void)\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_88176d2f14f5c5b34f8eb5780ec62d0d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!find_home_dir@{find\_\-home\_\-dir}}
+\index{find_home_dir@{find\_\-home\_\-dir}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ find\_\-home\_\-dir (void)\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_4a9467b15c76b2b2fef31a9cb6a3b218}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!isatty@{isatty}}
+\index{isatty@{isatty}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int isatty ()}\label{3_87_83_2shell_8c_11ec71119b960937d3280781dad9ce78}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!isNumber@{isNumber}}
+\index{isNumber@{isNumber}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int is\-Number (const char $\ast$ {\em z}, int $\ast$ {\em realnum})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_b1799a60d1733907048fe9b25b57b1cc}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!local_getline@{local\_\-getline}}
+\index{local_getline@{local\_\-getline}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ local\_\-getline (char $\ast$ {\em z\-Prompt}, FILE $\ast$ {\em in})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_a991700deef88b8bc55c3af6f767b2a6}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!main@{main}}
+\index{main@{main}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, char $\ast$$\ast$ {\em argv})}\label{3_87_83_2shell_8c_24e6ce6d053864cf5fb7af941457bb0e}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!main_init@{main\_\-init}}
+\index{main_init@{main\_\-init}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void main\_\-init (struct \bf{callback\_\-data} $\ast$ {\em data})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_0f0662086c0356720ae4777f81fa24c7}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!one_input_line@{one\_\-input\_\-line}}
+\index{one_input_line@{one\_\-input\_\-line}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ one\_\-input\_\-line (const char $\ast$ {\em z\-Prior}, FILE $\ast$ {\em in})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_cf18abc4cb09bb69f835b1f946334b73}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!open_db@{open\_\-db}}
+\index{open_db@{open\_\-db}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void open\_\-db (struct \bf{callback\_\-data} $\ast$ {\em p})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_5b1f1627559f28c7921d4a94d44b94c7}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!output_c_string@{output\_\-c\_\-string}}
+\index{output_c_string@{output\_\-c\_\-string}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void output\_\-c\_\-string (FILE $\ast$ {\em out}, const char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_98ff4b9c0f796c94638477a70d97f4d8}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!output_csv@{output\_\-csv}}
+\index{output_csv@{output\_\-csv}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void output\_\-csv (struct \bf{callback\_\-data} $\ast$ {\em p}, const char $\ast$ {\em z}, int {\em b\-Sep})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_ff1663feb3833881e282c86b54689e55}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!output_hex_blob@{output\_\-hex\_\-blob}}
+\index{output_hex_blob@{output\_\-hex\_\-blob}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void output\_\-hex\_\-blob (FILE $\ast$ {\em out}, const void $\ast$ {\em p\-Blob}, int {\em n\-Blob})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_eb12b42e2e983ecfb97cd90ef73e868f}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!output_html_string@{output\_\-html\_\-string}}
+\index{output_html_string@{output\_\-html\_\-string}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void output\_\-html\_\-string (FILE $\ast$ {\em out}, const char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_cdcdf8fe843abb23f24701eb9f9c8e47}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!output_quoted_string@{output\_\-quoted\_\-string}}
+\index{output_quoted_string@{output\_\-quoted\_\-string}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void output\_\-quoted\_\-string (FILE $\ast$ {\em out}, const char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_44bda22aa4b64143edc3ca426c8a9adc}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!process_input@{process\_\-input}}
+\index{process_input@{process\_\-input}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int process\_\-input (struct \bf{callback\_\-data} $\ast$ {\em p}, FILE $\ast$ {\em in})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_6d9fad3dbe0be67215f43246fbe90531}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!process_sqliterc@{process\_\-sqliterc}}
+\index{process_sqliterc@{process\_\-sqliterc}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int process\_\-sqliterc (struct \bf{callback\_\-data} $\ast$ {\em p}, const char $\ast$ {\em sqliterc\_\-override})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_037dcc99eb0e6fbaf64f778a030b14a6}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!resolve_backslashes@{resolve\_\-backslashes}}
+\index{resolve_backslashes@{resolve\_\-backslashes}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void resolve\_\-backslashes (char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_2f9459cba2c7695ad3596f57c6b85a8a}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!run_schema_dump_query@{run\_\-schema\_\-dump\_\-query}}
+\index{run_schema_dump_query@{run\_\-schema\_\-dump\_\-query}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int run\_\-schema\_\-dump\_\-query (struct \bf{callback\_\-data} $\ast$ {\em p}, const char $\ast$ {\em z\-Query}, char $\ast$$\ast$ {\em pz\-Err\-Msg})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_f892970670148a3b2eb2b02e1bb068aa}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!run_table_dump_query@{run\_\-table\_\-dump\_\-query}}
+\index{run_table_dump_query@{run\_\-table\_\-dump\_\-query}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int run\_\-table\_\-dump\_\-query (FILE $\ast$ {\em out}, \bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Select}, const char $\ast$ {\em z\-First\-Row})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_db74025591888b7b81b0d06f111cab10}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!save_err_msg@{save\_\-err\_\-msg}}
+\index{save_err_msg@{save\_\-err\_\-msg}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ save\_\-err\_\-msg (\bf{sqlite3} $\ast$ {\em db})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_e6232beb3ddb5df3f0d86a1e71531812}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!set_table_name@{set\_\-table\_\-name}}
+\index{set_table_name@{set\_\-table\_\-name}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void set\_\-table\_\-name (struct \bf{callback\_\-data} $\ast$ {\em p}, const char $\ast$ {\em z\-Name})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_60e07b7c3c1de22873be8a23f7d1561b}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!shell_callback@{shell\_\-callback}}
+\index{shell_callback@{shell\_\-callback}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int shell\_\-callback (void $\ast$ {\em p\-Arg}, int {\em n\-Arg}, char $\ast$$\ast$ {\em az\-Arg}, char $\ast$$\ast$ {\em az\-Col}, int $\ast$ {\em ai\-Type})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_8a9e0633525947e99e8013a851beb26b}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!shell_exec@{shell\_\-exec}}
+\index{shell_exec@{shell\_\-exec}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int shell\_\-exec (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Sql}, int($\ast$)(void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$, int $\ast$) {\em x\-Callback}, struct \bf{callback\_\-data} $\ast$ {\em p\-Arg}, char $\ast$$\ast$ {\em pz\-Err\-Msg})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_cde3e1282b06ed812d82a3dc397436a6}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!shellLog@{shellLog}}
+\index{shellLog@{shellLog}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void shell\-Log (void $\ast$ {\em p\-Arg}, int {\em i\-Err\-Code}, const char $\ast$ {\em z\-Msg})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_22637190dc517c24ce5115074d059625}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!shellstaticFunc@{shellstaticFunc}}
+\index{shellstaticFunc@{shellstaticFunc}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void shellstatic\-Func (\bf{sqlite3\_\-context} $\ast$ {\em context}, int {\em argc}, \bf{sqlite3\_\-value} $\ast$$\ast$ {\em argv})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_5635c981f0122ed8f2ec8952a49bc50e}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!strlen30@{strlen30}}
+\index{strlen30@{strlen30}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static int strlen30 (const char $\ast$ {\em z})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_fe20d941e9f763d4f93284ce0807c26a}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!timeDiff@{timeDiff}}
+\index{timeDiff@{timeDiff}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static double time\-Diff (struct timeval $\ast$ {\em p\-Start}, struct timeval $\ast$ {\em p\-End})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_3e5e4a10de57c40c4d2e0bae4887ec37}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!usage@{usage}}
+\index{usage@{usage}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}static void usage (int {\em show\-Detail})\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_506ec868e8dd410fb9cd2f0368943003}
+
+
+
+
+\subsection{Variable Documentation}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!Argv0@{Argv0}}
+\index{Argv0@{Argv0}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Argv0}\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_d2ce19cdb60d033ab72f85f676ddfe6d}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!bail_on_error@{bail\_\-on\_\-error}}
+\index{bail_on_error@{bail\_\-on\_\-error}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{bail\_\-on\_\-error} = 0\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_9c5f2ec9feca234ca36123f816011b72}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!continuePrompt@{continuePrompt}}
+\index{continuePrompt@{continuePrompt}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{continue\-Prompt}[20]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_ff1ed62148051b97d627614666451fc0}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!db@{db}}
+\index{db@{db}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3}$\ast$ \bf{db} = 0\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_33b421616dbb2c4acab51f37e97597d6}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!enableTimer@{enableTimer}}
+\index{enableTimer@{enableTimer}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{enable\-Timer} = 0\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_dbb31e2e16494ed9a0594f1890e2c6b1}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!mainPrompt@{mainPrompt}}
+\index{mainPrompt@{mainPrompt}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{main\-Prompt}[20]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_07c32890354dcc72526d768cc7f3f104}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!modeDescr@{modeDescr}}
+\index{modeDescr@{modeDescr}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{mode\-Descr}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_a4f12ad742d84e6b7178041f767c087e}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  "line",
+  "column",
+  "list",
+  "semi",
+  "html",
+  "insert",
+  "tcl",
+  "csv",
+  "explain",
+}
+\end{verbatim}\end{Code}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!needCsvQuote@{needCsvQuote}}
+\index{needCsvQuote@{needCsvQuote}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char \bf{need\-Csv\-Quote}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_2bf82b89bb4c95c96d328b320447072c}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} {
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 0, 1, 0, 0, 0, 0, 1,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 1, 
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+}
+\end{verbatim}\end{Code}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!sBegin@{sBegin}}
+\index{sBegin@{sBegin}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct rusage \bf{s\-Begin}\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_6ec49c758c9d39def0d62e135b63a89a}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!seenInterrupt@{seenInterrupt}}
+\index{seenInterrupt@{seenInterrupt}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}volatile int \bf{seen\-Interrupt} = 0\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_7cbb56b0354cec0829c2ea1fe7a5a3d7}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!stdin_is_interactive@{stdin\_\-is\_\-interactive}}
+\index{stdin_is_interactive@{stdin\_\-is\_\-interactive}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{stdin\_\-is\_\-interactive} = 1\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_29e4d240d9b9770ed5f9a20b6ad4bda5}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!zHelp@{zHelp}}
+\index{zHelp@{zHelp}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{z\-Help}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_0300e505aaddc75b284cc62c242bbea6}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!zOptions@{zOptions}}
+\index{zOptions@{zOptions}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char \bf{z\-Options}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_33eb6a9f186fcc8f1a2ad7b8feda4e48}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim} 
+  "   -help                show this message\n"
+  "   -init filename       read/process named file\n"
+  "   -echo                print commands before execution\n"
+  "   -[no]header          turn headers on or off\n"
+  "   -bail                stop after hitting an error\n"
+  "   -interactive         force interactive I/O\n"
+  "   -batch               force batch I/O\n"
+  "   -column              set output mode to 'column'\n"
+  "   -csv                 set output mode to 'csv'\n"
+  "   -html                set output mode to HTML\n"
+  "   -line                set output mode to 'line'\n"
+  "   -list                set output mode to 'list'\n"
+  "   -separator 'x'       set output field separator (|)\n"
+  "   -stats               print memory stats before each finalize\n"
+  "   -nullvalue 'text'    set text string for NULL values\n"
+  "   -version             show SQLite version\n"
+\end{verbatim}\end{Code}
+\index{3.7.3/shell.c@{3.7.3/shell.c}!zShellStatic@{zShellStatic}}
+\index{zShellStatic@{zShellStatic}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{z\-Shell\-Static} = 0\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_7fcc02f813362fbca7ab2966c6abc6ff}
+
+
+\index{3.7.3/shell.c@{3.7.3/shell.c}!zTimerHelp@{zTimerHelp}}
+\index{zTimerHelp@{zTimerHelp}!3.7.3/shell.c@{3.7.3/shell.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{z\-Timer\-Help}[$\,$]\hspace{0.3cm}{\tt  [static]}}\label{3_87_83_2shell_8c_bdc9ce25e5f1de0d6821fdd674f8b486}
+
+
+\textbf{Initial value:}
+
+\begin{Code}\begin{verbatim}
+  ".timer ON|OFF          Turn the CPU timer measurement on or off\n"
+\end{verbatim}\end{Code}

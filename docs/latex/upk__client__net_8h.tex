@@ -1,0 +1,252 @@
+\section{libupkeeper/upkeeper/upk\_\-client\_\-net.h File Reference}
+\label{upk__client__net_8h}\index{libupkeeper/upkeeper/upk\_\-client\_\-net.h@{libupkeeper/upkeeper/upk\_\-client\_\-net.h}}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-payload\_\-t} $\ast$ {\bf upk\_\-clnet\_\-serial\_\-request} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl, {\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+void {\bf upk\_\-clnet\_\-req\_\-preamble} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl)
+\item 
+{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ {\bf upk\_\-clnet\_\-ctrl\_\-connect} (void)
+\item 
+void {\bf upk\_\-clnet\_\-req\_\-disconnect} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl)
+\item 
+void {\bf upk\_\-clnet\_\-ctrl\_\-disconnect} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl)
+\item 
+\_\-Bool {\bf upk\_\-clnet\_\-req\_\-action} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl, char $\ast$svc\_\-id, char $\ast$action)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-ctrl\_\-connect@{upk\_\-clnet\_\-ctrl\_\-connect}}
+\index{upk\_\-clnet\_\-ctrl\_\-connect@{upk\_\-clnet\_\-ctrl\_\-connect}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-ctrl\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-conn\_\-handle\_\-meta\_\-t}$\ast$ upk\_\-clnet\_\-ctrl\_\-connect (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_adc9b54f471b3390b4740f62e85a9a324}
+
+
+References \_\-upk\_\-controller\_\-config::controller\_\-socket, upk\_\-clnet\_\-req\_\-preamble(), upk\_\-conn\_\-handle\_\-meta\_\-t, upk\_\-domain\_\-socket\_\-connect(), upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-conn\_\-handle\_\-init(), upk\_\-runtime\_\-configuration, and UPKLIST\_\-HEAD.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_adc9b54f471b3390b4740f62e85a9a324_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=236pt]{upk__client__net_8h_adc9b54f471b3390b4740f62e85a9a324_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-ctrl\_\-disconnect@{upk\_\-clnet\_\-ctrl\_\-disconnect}}
+\index{upk\_\-clnet\_\-ctrl\_\-disconnect@{upk\_\-clnet\_\-ctrl\_\-disconnect}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-ctrl\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-clnet\_\-ctrl\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_a8d7e372cd6428f266cfb371189a291c9}
+
+
+References upk\_\-clnet\_\-req\_\-disconnect(), and UPKLIST\_\-FREE.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_a8d7e372cd6428f266cfb371189a291c9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{upk__client__net_8h_a8d7e372cd6428f266cfb371189a291c9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-req\_\-action@{upk\_\-clnet\_\-req\_\-action}}
+\index{upk\_\-clnet\_\-req\_\-action@{upk\_\-clnet\_\-req\_\-action}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool upk\_\-clnet\_\-req\_\-action (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{char $\ast$}]{action}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_a3c6607b59d3bd0c769a71d813afe1b52}
+
+
+References \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-result, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-action(), upk\_\-error, upk\_\-notice, upk\_\-pkt\_\-free(), and UPK\_\-REPL\_\-RESULT.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_a3c6607b59d3bd0c769a71d813afe1b52_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{upk__client__net_8h_a3c6607b59d3bd0c769a71d813afe1b52_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-req\_\-disconnect@{upk\_\-clnet\_\-req\_\-disconnect}}
+\index{upk\_\-clnet\_\-req\_\-disconnect@{upk\_\-clnet\_\-req\_\-disconnect}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-clnet\_\-req\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_af573b85764e9dc557daed0b1b2ee0bf6}
+
+
+References \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-disconnect(), upk\_\-debug1, upk\_\-disconnect\_\-handle(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-pkt\_\-free(), UPK\_\-REQ\_\-DISCONNECT, and UPKLIST\_\-HEAD.
+
+
+
+Referenced by upk\_\-clnet\_\-ctrl\_\-disconnect().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_af573b85764e9dc557daed0b1b2ee0bf6_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_af573b85764e9dc557daed0b1b2ee0bf6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-req\_\-preamble@{upk\_\-clnet\_\-req\_\-preamble}}
+\index{upk\_\-clnet\_\-req\_\-preamble@{upk\_\-clnet\_\-req\_\-preamble}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-req\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-clnet\_\-req\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_a3c8470569c64aa14552d455bdadc9ae5}
+
+
+References \_\-upk\_\-payload::type, upk\_\-clientid(), upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-preamble(), upk\_\-fatal, upk\_\-notice, upk\_\-pkt\_\-free(), and UPK\_\-REPL\_\-PREAMBLE.
+
+
+
+Referenced by upk\_\-clnet\_\-ctrl\_\-connect().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_a3c8470569c64aa14552d455bdadc9ae5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=394pt]{upk__client__net_8h_a3c8470569c64aa14552d455bdadc9ae5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.h@{upk\_\-client\_\-net.h}!upk\_\-clnet\_\-serial\_\-request@{upk\_\-clnet\_\-serial\_\-request}}
+\index{upk\_\-clnet\_\-serial\_\-request@{upk\_\-clnet\_\-serial\_\-request}!upk_client_net.h@{upk\_\-client\_\-net.h}}
+\subsubsection[{upk\_\-clnet\_\-serial\_\-request}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-payload\_\-t}$\ast$ upk\_\-clnet\_\-serial\_\-request (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl, }
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8h_a49ae58fb782583a8f9543aab27cc2fd8}
+
+
+References upk\_\-net\_\-block\_\-until\_\-msg(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-queue\_\-packet(), and UPKLIST\_\-HEAD.
+
+
+
+Referenced by upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-disconnect(), and upk\_\-clnet\_\-req\_\-preamble().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_a49ae58fb782583a8f9543aab27cc2fd8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client__net_8h_a49ae58fb782583a8f9543aab27cc2fd8_icgraph}
+\end{center}
+\end{figure}
+
+

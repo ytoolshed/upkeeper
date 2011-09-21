@@ -1,0 +1,252 @@
+\section{libupkeeper/tests/uuid.c File Reference}
+\label{tests_2uuid_8c}\index{libupkeeper/tests/uuid.c@{libupkeeper/tests/uuid.c}}
+{\ttfamily \#include $<$check.h$>$}\par
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+Include dependency graph for uuid.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{tests_2uuid_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf TESTCASE\_\-NAME}~\char`\"{}uuid\char`\"{}
+\item 
+\#define {\bf SUITE\_\-NAME}~\char`\"{}uuid\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf START\_\-TEST} (test\_\-string\_\-to\_\-uuid)
+\item 
+{\bf START\_\-TEST} (test\_\-uuid\_\-to\_\-string)
+\item 
+{\bf START\_\-TEST} (test\_\-is\_\-valid)
+\item 
+{\bf START\_\-TEST} (test\_\-gen\_\-uuid)
+\item 
+TCase $\ast$ {\bf upk\_\-tcase} (void)
+\item 
+Suite $\ast$ {\bf upk\_\-suite} (void)
+\item 
+int {\bf main} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf END\_\-TEST}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{tests/uuid.c@{tests/uuid.c}!SUITE\_\-NAME@{SUITE\_\-NAME}}
+\index{SUITE\_\-NAME@{SUITE\_\-NAME}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{SUITE\_\-NAME}]{\setlength{\rightskip}{0pt plus 5cm}\#define SUITE\_\-NAME~\char`\"{}uuid\char`\"{}}\label{tests_2uuid_8c_a63bbe54e7d5255201975871ab2e0450b}
+
+
+Referenced by upk\_\-suite().
+
+\index{tests/uuid.c@{tests/uuid.c}!TESTCASE\_\-NAME@{TESTCASE\_\-NAME}}
+\index{TESTCASE\_\-NAME@{TESTCASE\_\-NAME}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{TESTCASE\_\-NAME}]{\setlength{\rightskip}{0pt plus 5cm}\#define TESTCASE\_\-NAME~\char`\"{}uuid\char`\"{}}\label{tests_2uuid_8c_a6f8a99555738c48135a89ea410f3b7d4}
+
+
+Referenced by upk\_\-tcase().
+
+
+
+\subsection{Function Documentation}
+\index{tests/uuid.c@{tests/uuid.c}!main@{main}}
+\index{main@{main}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+References suite(), and upk\_\-suite().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{tests_2uuid_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-is\_\-valid}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_a19b6bd7f21b51341c7b6a3693030c4c5}
+
+
+References is\_\-valid\_\-upk\_\-uuid\_\-string().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=284pt]{tests_2uuid_8c_a19b6bd7f21b51341c7b6a3693030c4c5_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-uuid\_\-to\_\-string}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_abcac4ce98e7997e86d00e2c722cdb726}
+
+
+References \_\-upk\_\-uuid::time\_\-low, and upk\_\-uuid\_\-to\_\-string().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{tests_2uuid_8c_abcac4ce98e7997e86d00e2c722cdb726_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-gen\_\-uuid}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_a22a50f5d4c6000b6655c351906dd444e}
+
+
+References \_\-upk\_\-uuid::clk\_\-seq\_\-high, \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version, and upk\_\-gen\_\-uuid\_\-bytes().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{tests_2uuid_8c_a22a50f5d4c6000b6655c351906dd444e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!START\_\-TEST@{START\_\-TEST}}
+\index{START\_\-TEST@{START\_\-TEST}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{START\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}START\_\-TEST (
+\begin{DoxyParamCaption}
+\item[{test\_\-string\_\-to\_\-uuid}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_a3097fcd3881a49c19a256c1cce883c93}
+
+
+References \_\-upk\_\-uuid::clk\_\-seq\_\-high, \_\-upk\_\-uuid::clk\_\-seq\_\-low, \_\-upk\_\-uuid::node, \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version, \_\-upk\_\-uuid::time\_\-low, \_\-upk\_\-uuid::time\_\-mid, and upk\_\-string\_\-to\_\-uuid().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{tests_2uuid_8c_a3097fcd3881a49c19a256c1cce883c93_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!upk\_\-suite@{upk\_\-suite}}
+\index{upk\_\-suite@{upk\_\-suite}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{upk\_\-suite}]{\setlength{\rightskip}{0pt plus 5cm}Suite$\ast$ upk\_\-suite (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_ac4122b5e934a573110ae00763990b79b}
+
+
+References suite(), SUITE\_\-NAME, and upk\_\-tcase().
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{tests_2uuid_8c_ac4122b5e934a573110ae00763990b79b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{tests_2uuid_8c_ac4122b5e934a573110ae00763990b79b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{tests/uuid.c@{tests/uuid.c}!upk\_\-tcase@{upk\_\-tcase}}
+\index{upk\_\-tcase@{upk\_\-tcase}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{upk\_\-tcase}]{\setlength{\rightskip}{0pt plus 5cm}TCase$\ast$ upk\_\-tcase (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{tests_2uuid_8c_af6888f755408e718291d8b54195c48be}
+
+
+References tcase(), and TESTCASE\_\-NAME.
+
+
+
+Referenced by upk\_\-suite().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{tests_2uuid_8c_af6888f755408e718291d8b54195c48be_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{tests_2uuid_8c_af6888f755408e718291d8b54195c48be_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{tests/uuid.c@{tests/uuid.c}!END\_\-TEST@{END\_\-TEST}}
+\index{END\_\-TEST@{END\_\-TEST}!tests/uuid.c@{tests/uuid.c}}
+\subsubsection[{END\_\-TEST}]{\setlength{\rightskip}{0pt plus 5cm}{\bf END\_\-TEST}}\label{tests_2uuid_8c_a458b78ce9e48beb128edb722b07e4716}

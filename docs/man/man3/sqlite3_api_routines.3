@@ -1,0 +1,1426 @@
+.TH "sqlite3_api_routines" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_api_routines \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3ext.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "void *(* \fBaggregate_context\fP )(\fBsqlite3_context\fP *, int nBytes)"
+.br
+.ti -1c
+.RI "int(* \fBaggregate_count\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBbind_blob\fP )(\fBsqlite3_stmt\fP *, int, const void *, int n, void(*)(void *))"
+.br
+.ti -1c
+.RI "int(* \fBbind_double\fP )(\fBsqlite3_stmt\fP *, int, double)"
+.br
+.ti -1c
+.RI "int(* \fBbind_int\fP )(\fBsqlite3_stmt\fP *, int, int)"
+.br
+.ti -1c
+.RI "int(* \fBbind_int64\fP )(\fBsqlite3_stmt\fP *, int, \fBsqlite_int64\fP)"
+.br
+.ti -1c
+.RI "int(* \fBbind_null\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBbind_parameter_count\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBbind_parameter_index\fP )(\fBsqlite3_stmt\fP *, const char *zName)"
+.br
+.ti -1c
+.RI "const char *(* \fBbind_parameter_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBbind_text\fP )(\fBsqlite3_stmt\fP *, int, const char *, int n, void(*)(void *))"
+.br
+.ti -1c
+.RI "int(* \fBbind_text16\fP )(\fBsqlite3_stmt\fP *, int, const void *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "int(* \fBbind_value\fP )(\fBsqlite3_stmt\fP *, int, const \fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBbusy_handler\fP )(\fBsqlite3\fP *, int(*)(void *, int), void *)"
+.br
+.ti -1c
+.RI "int(* \fBbusy_timeout\fP )(\fBsqlite3\fP *, int ms)"
+.br
+.ti -1c
+.RI "int(* \fBchanges\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBclose\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBcollation_needed\fP )(\fBsqlite3\fP *, void *, void(*)(void *, \fBsqlite3\fP *, int eTextRep, const char *))"
+.br
+.ti -1c
+.RI "int(* \fBcollation_needed16\fP )(\fBsqlite3\fP *, void *, void(*)(void *, \fBsqlite3\fP *, int eTextRep, const void *))"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_blob\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "int(* \fBcolumn_bytes\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "int(* \fBcolumn_bytes16\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "int(* \fBcolumn_count\fP )(\fBsqlite3_stmt\fP *pStmt)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_database_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_database_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_decltype\fP )(\fBsqlite3_stmt\fP *, int i)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_decltype16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "double(* \fBcolumn_double\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "int(* \fBcolumn_int\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "\fBsqlite_int64\fP(* \fBcolumn_int64\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_origin_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_origin_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_table_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_table_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBcolumn_text\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_text16\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "int(* \fBcolumn_type\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP *(* \fBcolumn_value\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "void *(* \fBcommit_hook\fP )(\fBsqlite3\fP *, int(*)(void *), void *)"
+.br
+.ti -1c
+.RI "int(* \fBcomplete\fP )(const char *\fBsql\fP)"
+.br
+.ti -1c
+.RI "int(* \fBcomplete16\fP )(const void *\fBsql\fP)"
+.br
+.ti -1c
+.RI "int(* \fBcreate_collation\fP )(\fBsqlite3\fP *, const char *, int, void *, int(*)(void *, int, const void *, int, const void *))"
+.br
+.ti -1c
+.RI "int(* \fBcreate_collation16\fP )(\fBsqlite3\fP *, const void *, int, void *, int(*)(void *, int, const void *, int, const void *))"
+.br
+.ti -1c
+.RI "int(* \fBcreate_function\fP )(\fBsqlite3\fP *, const char *, int, int, void *, void(*xFunc)(\fBsqlite3_context\fP *, int, \fBsqlite3_value\fP **), void(*xStep)(\fBsqlite3_context\fP *, int, \fBsqlite3_value\fP **), void(*xFinal)(\fBsqlite3_context\fP *))"
+.br
+.ti -1c
+.RI "int(* \fBcreate_function16\fP )(\fBsqlite3\fP *, const void *, int, int, void *, void(*xFunc)(\fBsqlite3_context\fP *, int, \fBsqlite3_value\fP **), void(*xStep)(\fBsqlite3_context\fP *, int, \fBsqlite3_value\fP **), void(*xFinal)(\fBsqlite3_context\fP *))"
+.br
+.ti -1c
+.RI "int(* \fBcreate_module\fP )(\fBsqlite3\fP *, const char *, const \fBsqlite3_module\fP *, void *)"
+.br
+.ti -1c
+.RI "int(* \fBdata_count\fP )(\fBsqlite3_stmt\fP *pStmt)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBdb_handle\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBdeclare_vtab\fP )(\fBsqlite3\fP *, const char *)"
+.br
+.ti -1c
+.RI "int(* \fBenable_shared_cache\fP )(int)"
+.br
+.ti -1c
+.RI "int(* \fBerrcode\fP )(\fBsqlite3\fP *\fBdb\fP)"
+.br
+.ti -1c
+.RI "const char *(* \fBerrmsg\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBerrmsg16\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBexec\fP )(\fBsqlite3\fP *, const char *, \fBsqlite3_callback\fP, void *, char **)"
+.br
+.ti -1c
+.RI "int(* \fBexpired\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBfinalize\fP )(\fBsqlite3_stmt\fP *pStmt)"
+.br
+.ti -1c
+.RI "void(* \fBfree\fP )(void *)"
+.br
+.ti -1c
+.RI "void(* \fBfree_table\fP )(char **result)"
+.br
+.ti -1c
+.RI "int(* \fBget_autocommit\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBget_auxdata\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBget_table\fP )(\fBsqlite3\fP *, const char *, char ***, int *, int *, char **)"
+.br
+.ti -1c
+.RI "int(* \fBglobal_recover\fP )(void)"
+.br
+.ti -1c
+.RI "void(* \fBinterruptx\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite_int64\fP(* \fBlast_insert_rowid\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBlibversion\fP )(void)"
+.br
+.ti -1c
+.RI "int(* \fBlibversion_number\fP )(void)"
+.br
+.ti -1c
+.RI "void *(* \fBmalloc\fP )(int)"
+.br
+.ti -1c
+.RI "char *(* \fBmprintf\fP )(const char *,...)"
+.br
+.ti -1c
+.RI "int(* \fBopen\fP )(const char *, \fBsqlite3\fP **)"
+.br
+.ti -1c
+.RI "int(* \fBopen16\fP )(const void *, \fBsqlite3\fP **)"
+.br
+.ti -1c
+.RI "int(* \fBprepare\fP )(\fBsqlite3\fP *, const char *, int, \fBsqlite3_stmt\fP **, const char **)"
+.br
+.ti -1c
+.RI "int(* \fBprepare16\fP )(\fBsqlite3\fP *, const void *, int, \fBsqlite3_stmt\fP **, const void **)"
+.br
+.ti -1c
+.RI "void *(* \fBprofile\fP )(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.br
+.ti -1c
+.RI "void(* \fBprogress_handler\fP )(\fBsqlite3\fP *, int, int(*)(void *), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBrealloc\fP )(void *, int)"
+.br
+.ti -1c
+.RI "int(* \fBreset\fP )(\fBsqlite3_stmt\fP *pStmt)"
+.br
+.ti -1c
+.RI "void(* \fBresult_blob\fP )(\fBsqlite3_context\fP *, const void *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "void(* \fBresult_double\fP )(\fBsqlite3_context\fP *, double)"
+.br
+.ti -1c
+.RI "void(* \fBresult_error\fP )(\fBsqlite3_context\fP *, const char *, int)"
+.br
+.ti -1c
+.RI "void(* \fBresult_error16\fP )(\fBsqlite3_context\fP *, const void *, int)"
+.br
+.ti -1c
+.RI "void(* \fBresult_int\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "void(* \fBresult_int64\fP )(\fBsqlite3_context\fP *, \fBsqlite_int64\fP)"
+.br
+.ti -1c
+.RI "void(* \fBresult_null\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBresult_text\fP )(\fBsqlite3_context\fP *, const char *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "void(* \fBresult_text16\fP )(\fBsqlite3_context\fP *, const void *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "void(* \fBresult_text16be\fP )(\fBsqlite3_context\fP *, const void *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "void(* \fBresult_text16le\fP )(\fBsqlite3_context\fP *, const void *, int, void(*)(void *))"
+.br
+.ti -1c
+.RI "void(* \fBresult_value\fP )(\fBsqlite3_context\fP *, \fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBrollback_hook\fP )(\fBsqlite3\fP *, void(*)(void *), void *)"
+.br
+.ti -1c
+.RI "int(* \fBset_authorizer\fP )(\fBsqlite3\fP *, int(*)(void *, int, const char *, const char *, const char *, const char *), void *)"
+.br
+.ti -1c
+.RI "void(* \fBset_auxdata\fP )(\fBsqlite3_context\fP *, int, void *, void(*)(void *))"
+.br
+.ti -1c
+.RI "char *(* \fBsnprintf\fP )(int, char *, const char *,...)"
+.br
+.ti -1c
+.RI "int(* \fBstep\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBtable_column_metadata\fP )(\fBsqlite3\fP *, const char *, const char *, const char *, char const **, char const **, int *, int *, int *)"
+.br
+.ti -1c
+.RI "void(* \fBthread_cleanup\fP )(void)"
+.br
+.ti -1c
+.RI "int(* \fBtotal_changes\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBtrace\fP )(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.br
+.ti -1c
+.RI "int(* \fBtransfer_bindings\fP )(\fBsqlite3_stmt\fP *, \fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBupdate_hook\fP )(\fBsqlite3\fP *, void(*)(void *, int, char const *, char const *, \fBsqlite_int64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBuser_data\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_blob\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBvalue_bytes\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBvalue_bytes16\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "double(* \fBvalue_double\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBvalue_int\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite_int64\fP(* \fBvalue_int64\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBvalue_numeric_type\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBvalue_text\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16be\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16le\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBvalue_type\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "char *(* \fBvmprintf\fP )(const char *, va_list)"
+.br
+.ti -1c
+.RI "int(* \fBoverload_function\fP )(\fBsqlite3\fP *, const char *zFuncName, int nArg)"
+.br
+.ti -1c
+.RI "int(* \fBprepare_v2\fP )(\fBsqlite3\fP *, const char *, int, \fBsqlite3_stmt\fP **, const char **)"
+.br
+.ti -1c
+.RI "int(* \fBprepare16_v2\fP )(\fBsqlite3\fP *, const void *, int, \fBsqlite3_stmt\fP **, const void **)"
+.br
+.ti -1c
+.RI "int(* \fBclear_bindings\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBcreate_module_v2\fP )(\fBsqlite3\fP *, const char *, const \fBsqlite3_module\fP *, void *, void(*xDestroy)(void *))"
+.br
+.ti -1c
+.RI "int(* \fBbind_zeroblob\fP )(\fBsqlite3_stmt\fP *, int, int)"
+.br
+.ti -1c
+.RI "int(* \fBblob_bytes\fP )(\fBsqlite3_blob\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBblob_close\fP )(\fBsqlite3_blob\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBblob_open\fP )(\fBsqlite3\fP *, const char *, const char *, const char *, \fBsqlite3_int64\fP, int, \fBsqlite3_blob\fP **)"
+.br
+.ti -1c
+.RI "int(* \fBblob_read\fP )(\fBsqlite3_blob\fP *, void *, int, int)"
+.br
+.ti -1c
+.RI "int(* \fBblob_write\fP )(\fBsqlite3_blob\fP *, const void *, int, int)"
+.br
+.ti -1c
+.RI "int(* \fBcreate_collation_v2\fP )(\fBsqlite3\fP *, const char *, int, void *, int(*)(void *, int, const void *, int, const void *), void(*)(void *))"
+.br
+.ti -1c
+.RI "int(* \fBfile_control\fP )(\fBsqlite3\fP *, const char *, int, void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_int64\fP(* \fBmemory_highwater\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_int64\fP(* \fBmemory_used\fP )(void)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBmutex_alloc\fP )(int)"
+.br
+.ti -1c
+.RI "void(* \fBmutex_enter\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBmutex_free\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBmutex_leave\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBmutex_try\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBopen_v2\fP )(const char *, \fBsqlite3\fP **, int, const char *)"
+.br
+.ti -1c
+.RI "int(* \fBrelease_memory\fP )(int)"
+.br
+.ti -1c
+.RI "void(* \fBresult_error_nomem\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBresult_error_toobig\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBsleep\fP )(int)"
+.br
+.ti -1c
+.RI "void(* \fBsoft_heap_limit\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP *(* \fBvfs_find\fP )(const char *)"
+.br
+.ti -1c
+.RI "int(* \fBvfs_register\fP )(\fBsqlite3_vfs\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBvfs_unregister\fP )(\fBsqlite3_vfs\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxthreadsafe\fP )(void)"
+.br
+.ti -1c
+.RI "void(* \fBresult_zeroblob\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "void(* \fBresult_error_code\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBtest_control\fP )(int,...)"
+.br
+.ti -1c
+.RI "void(* \fBrandomness\fP )(int, void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBcontext_db_handle\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBextended_result_codes\fP )(\fBsqlite3\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBlimit\fP )(\fBsqlite3\fP *, int, int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_stmt\fP *(* \fBnext_stmt\fP )(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBsql\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBstatus\fP )(int, int *, int *, int)"
+.br
+.ti -1c
+.RI "void *(* \fBaggregate_context\fP )(\fBsqlite3_context\fP *, int nBytes)"
+.br
+.ti -1c
+.RI "const char *(* \fBbind_parameter_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_blob\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_database_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_database_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_decltype\fP )(\fBsqlite3_stmt\fP *, int i)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_decltype16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_origin_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_origin_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_table_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_table_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBcolumn_text\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_text16\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP *(* \fBcolumn_value\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "void *(* \fBcommit_hook\fP )(\fBsqlite3\fP *, int(*)(void *), void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBdb_handle\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBerrmsg\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBerrmsg16\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBget_auxdata\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBlibversion\fP )(void)"
+.br
+.ti -1c
+.RI "void *(* \fBmalloc\fP )(int)"
+.br
+.ti -1c
+.RI "char *(* \fBmprintf\fP )(const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBprofile\fP )(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBrealloc\fP )(void *, int)"
+.br
+.ti -1c
+.RI "void *(* \fBrollback_hook\fP )(\fBsqlite3\fP *, void(*)(void *), void *)"
+.br
+.ti -1c
+.RI "char *(* \fBsnprintf\fP )(int, char *, const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBtrace\fP )(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBupdate_hook\fP )(\fBsqlite3\fP *, void(*)(void *, int, char const *, char const *, \fBsqlite_int64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBuser_data\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_blob\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBvalue_text\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16be\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16le\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "char *(* \fBvmprintf\fP )(const char *, va_list)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBmutex_alloc\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP *(* \fBvfs_find\fP )(const char *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBcontext_db_handle\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_stmt\fP *(* \fBnext_stmt\fP )(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBsql\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBaggregate_context\fP )(\fBsqlite3_context\fP *, int nBytes)"
+.br
+.ti -1c
+.RI "const char *(* \fBbind_parameter_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_blob\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_database_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_database_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_decltype\fP )(\fBsqlite3_stmt\fP *, int i)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_decltype16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_origin_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_origin_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_table_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_table_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBcolumn_text\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_text16\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP *(* \fBcolumn_value\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "void *(* \fBcommit_hook\fP )(\fBsqlite3\fP *, int(*)(void *), void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBdb_handle\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBerrmsg\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBerrmsg16\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBget_auxdata\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBlibversion\fP )(void)"
+.br
+.ti -1c
+.RI "void *(* \fBmalloc\fP )(int)"
+.br
+.ti -1c
+.RI "char *(* \fBmprintf\fP )(const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBprofile\fP )(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBrealloc\fP )(void *, int)"
+.br
+.ti -1c
+.RI "void *(* \fBrollback_hook\fP )(\fBsqlite3\fP *, void(*)(void *), void *)"
+.br
+.ti -1c
+.RI "char *(* \fBsnprintf\fP )(int, char *, const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBtrace\fP )(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBupdate_hook\fP )(\fBsqlite3\fP *, void(*)(void *, int, char const *, char const *, \fBsqlite_int64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBuser_data\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_blob\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBvalue_text\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16be\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16le\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "char *(* \fBvmprintf\fP )(const char *, va_list)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBmutex_alloc\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP *(* \fBvfs_find\fP )(const char *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBcontext_db_handle\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_stmt\fP *(* \fBnext_stmt\fP )(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBsql\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBaggregate_context\fP )(\fBsqlite3_context\fP *, int nBytes)"
+.br
+.ti -1c
+.RI "const char *(* \fBbind_parameter_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_blob\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_database_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_database_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_decltype\fP )(\fBsqlite3_stmt\fP *, int i)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_decltype16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_origin_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_origin_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBcolumn_table_name\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_table_name16\fP )(\fBsqlite3_stmt\fP *, int)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBcolumn_text\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "const void *(* \fBcolumn_text16\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP *(* \fBcolumn_value\fP )(\fBsqlite3_stmt\fP *, int iCol)"
+.br
+.ti -1c
+.RI "void *(* \fBcommit_hook\fP )(\fBsqlite3\fP *, int(*)(void *), void *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBdb_handle\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBerrmsg\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBerrmsg16\fP )(\fBsqlite3\fP *)"
+.br
+.ti -1c
+.RI "void *(* \fBget_auxdata\fP )(\fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "const char *(* \fBlibversion\fP )(void)"
+.br
+.ti -1c
+.RI "void *(* \fBmalloc\fP )(int)"
+.br
+.ti -1c
+.RI "char *(* \fBmprintf\fP )(const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBprofile\fP )(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBrealloc\fP )(void *, int)"
+.br
+.ti -1c
+.RI "void *(* \fBrollback_hook\fP )(\fBsqlite3\fP *, void(*)(void *), void *)"
+.br
+.ti -1c
+.RI "char *(* \fBsnprintf\fP )(int, char *, const char *,...)"
+.br
+.ti -1c
+.RI "void *(* \fBtrace\fP )(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBupdate_hook\fP )(\fBsqlite3\fP *, void(*)(void *, int, char const *, char const *, \fBsqlite_int64\fP), void *)"
+.br
+.ti -1c
+.RI "void *(* \fBuser_data\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_blob\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const unsigned char *(* \fBvalue_text\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16be\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "const void *(* \fBvalue_text16le\fP )(\fBsqlite3_value\fP *)"
+.br
+.ti -1c
+.RI "char *(* \fBvmprintf\fP )(const char *, va_list)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBmutex_alloc\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP *(* \fBvfs_find\fP )(const char *)"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP *(* \fBcontext_db_handle\fP )(\fBsqlite3_context\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_stmt\fP *(* \fBnext_stmt\fP )(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.br
+.ti -1c
+.RI "const char *(* \fBsql\fP )(\fBsqlite3_stmt\fP *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "void*(* \fBsqlite3_api_routines::aggregate_context\fP)(\fBsqlite3_context\fP *, int nBytes)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::aggregate_context\fP)(\fBsqlite3_context\fP *, int nBytes)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::aggregate_context\fP)(\fBsqlite3_context\fP *, int nBytes)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::aggregate_context\fP)(\fBsqlite3_context\fP *, int nBytes)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::aggregate_count\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_blob\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_double\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_int\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_int64\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_null\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_parameter_count\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_parameter_index\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::bind_parameter_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::bind_parameter_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::bind_parameter_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::bind_parameter_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_text\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_text16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_value\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::bind_zeroblob\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::blob_bytes\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::blob_close\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::blob_open\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::blob_read\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::blob_write\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::busy_handler\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::busy_timeout\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::changes\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::clear_bindings\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::close\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::collation_needed\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::collation_needed16\fP"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_blob\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_blob\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_blob\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_blob\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::column_bytes\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::column_bytes16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::column_count\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_database_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_database_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_database_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_database_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_database_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_database_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_database_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_database_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_decltype\fP)(\fBsqlite3_stmt\fP *, int i)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_decltype\fP)(\fBsqlite3_stmt\fP *, int i)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_decltype\fP)(\fBsqlite3_stmt\fP *, int i)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_decltype\fP)(\fBsqlite3_stmt\fP *, int i)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_decltype16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_decltype16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_decltype16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_decltype16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "double(* \fBsqlite3_api_routines::column_double\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::column_int\fP"
+.PP
+.SS "\fBsqlite_int64\fP(* \fBsqlite3_api_routines::column_int64\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_origin_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_origin_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_origin_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_origin_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_origin_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_origin_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_origin_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_origin_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_table_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_table_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_table_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::column_table_name\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_table_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_table_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_table_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_table_name16\fP)(\fBsqlite3_stmt\fP *, int)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::column_text\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::column_text\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::column_text\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::column_text\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_text16\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_text16\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_text16\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::column_text16\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::column_type\fP"
+.PP
+.SS "\fBsqlite3_value\fP*(* \fBsqlite3_api_routines::column_value\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "\fBsqlite3_value\fP*(* \fBsqlite3_api_routines::column_value\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "\fBsqlite3_value\fP*(* \fBsqlite3_api_routines::column_value\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "\fBsqlite3_value\fP*(* \fBsqlite3_api_routines::column_value\fP)(\fBsqlite3_stmt\fP *, int iCol)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::commit_hook\fP)(\fBsqlite3\fP *, int(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::commit_hook\fP)(\fBsqlite3\fP *, int(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::commit_hook\fP)(\fBsqlite3\fP *, int(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::commit_hook\fP)(\fBsqlite3\fP *, int(*)(void *), void *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::complete\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::complete16\fP"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::context_db_handle\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::context_db_handle\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::context_db_handle\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::context_db_handle\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_collation\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_collation16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_collation_v2\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_function\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_function16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_module\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::create_module_v2\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::data_count\fP"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::db_handle\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::db_handle\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::db_handle\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3\fP*(* \fBsqlite3_api_routines::db_handle\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::declare_vtab\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::enable_shared_cache\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::errcode\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::errmsg\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::errmsg\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::errmsg\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::errmsg\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::errmsg16\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::errmsg16\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::errmsg16\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::errmsg16\fP)(\fBsqlite3\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::exec\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::expired\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::extended_result_codes\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::file_control\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::finalize\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::free\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::free_table\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::get_autocommit\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::get_auxdata\fP)(\fBsqlite3_context\fP *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::get_auxdata\fP)(\fBsqlite3_context\fP *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::get_auxdata\fP)(\fBsqlite3_context\fP *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::get_auxdata\fP)(\fBsqlite3_context\fP *, int)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::get_table\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::global_recover\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::interruptx\fP"
+.PP
+.SS "\fBsqlite_int64\fP(* \fBsqlite3_api_routines::last_insert_rowid\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::libversion\fP)(void)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::libversion\fP)(void)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::libversion\fP)(void)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::libversion\fP)(void)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::libversion_number\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::limit\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::malloc\fP)(int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::malloc\fP)(int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::malloc\fP)(int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::malloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_int64\fP(* \fBsqlite3_api_routines::memory_highwater\fP"
+.PP
+.SS "\fBsqlite3_int64\fP(* \fBsqlite3_api_routines::memory_used\fP"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::mprintf\fP)(const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::mprintf\fP)(const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::mprintf\fP)(const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::mprintf\fP)(const char *,...)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_api_routines::mutex_alloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_api_routines::mutex_alloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_api_routines::mutex_alloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_api_routines::mutex_alloc\fP)(int)"
+.PP
+.SS "void(* \fBsqlite3_api_routines::mutex_enter\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::mutex_free\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::mutex_leave\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::mutex_try\fP"
+.PP
+.SS "\fBsqlite3_stmt\fP*(* \fBsqlite3_api_routines::next_stmt\fP)(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3_stmt\fP*(* \fBsqlite3_api_routines::next_stmt\fP)(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3_stmt\fP*(* \fBsqlite3_api_routines::next_stmt\fP)(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.PP
+.SS "\fBsqlite3_stmt\fP*(* \fBsqlite3_api_routines::next_stmt\fP)(\fBsqlite3\fP *, \fBsqlite3_stmt\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::open\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::open16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::open_v2\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::overload_function\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::prepare\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::prepare16\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::prepare16_v2\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::prepare_v2\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::profile\fP)(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::profile\fP)(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::profile\fP)(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::profile\fP)(\fBsqlite3\fP *, void(*)(void *, const char *, \fBsqlite_uint64\fP), void *)"
+.PP
+.SS "void(* \fBsqlite3_api_routines::progress_handler\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::randomness\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::realloc\fP)(void *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::realloc\fP)(void *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::realloc\fP)(void *, int)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::realloc\fP)(void *, int)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::release_memory\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::reset\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_blob\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_double\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_error\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_error16\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_error_code\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_error_nomem\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_error_toobig\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_int\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_int64\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_null\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_text\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_text16\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_text16be\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_text16le\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_value\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::result_zeroblob\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::rollback_hook\fP)(\fBsqlite3\fP *, void(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::rollback_hook\fP)(\fBsqlite3\fP *, void(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::rollback_hook\fP)(\fBsqlite3\fP *, void(*)(void *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::rollback_hook\fP)(\fBsqlite3\fP *, void(*)(void *), void *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::set_authorizer\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::set_auxdata\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::sleep\fP"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::snprintf\fP)(int, char *, const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::snprintf\fP)(int, char *, const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::snprintf\fP)(int, char *, const char *,...)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::snprintf\fP)(int, char *, const char *,...)"
+.PP
+.SS "void(* \fBsqlite3_api_routines::soft_heap_limit\fP"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::sql\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::sql\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::sql\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "const char*(* \fBsqlite3_api_routines::sql\fP)(\fBsqlite3_stmt\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::status\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::step\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::table_column_metadata\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::test_control\fP"
+.PP
+.SS "void(* \fBsqlite3_api_routines::thread_cleanup\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::total_changes\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::trace\fP)(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::trace\fP)(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::trace\fP)(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::trace\fP)(\fBsqlite3\fP *, void(*xTrace)(void *, const char *), void *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::transfer_bindings\fP"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::update_hook\fP)(\fBsqlite3\fP *, void(*)(void *, int,char const *, char const *, \fBsqlite_int64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::update_hook\fP)(\fBsqlite3\fP *, void(*)(void *, int,char const *, char const *, \fBsqlite_int64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::update_hook\fP)(\fBsqlite3\fP *, void(*)(void *, int,char const *, char const *, \fBsqlite_int64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::update_hook\fP)(\fBsqlite3\fP *, void(*)(void *, int,char const *, char const *, \fBsqlite_int64\fP), void *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::user_data\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::user_data\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::user_data\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "void*(* \fBsqlite3_api_routines::user_data\fP)(\fBsqlite3_context\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_blob\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_blob\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_blob\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_blob\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::value_bytes\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::value_bytes16\fP"
+.PP
+.SS "double(* \fBsqlite3_api_routines::value_double\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::value_int\fP"
+.PP
+.SS "\fBsqlite_int64\fP(* \fBsqlite3_api_routines::value_int64\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::value_numeric_type\fP"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::value_text\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::value_text\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::value_text\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const unsigned char*(* \fBsqlite3_api_routines::value_text\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16be\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16be\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16be\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16be\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16le\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16le\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16le\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "const void*(* \fBsqlite3_api_routines::value_text16le\fP)(\fBsqlite3_value\fP *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::value_type\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP*(* \fBsqlite3_api_routines::vfs_find\fP)(const char *)"
+.PP
+.SS "\fBsqlite3_vfs\fP*(* \fBsqlite3_api_routines::vfs_find\fP)(const char *)"
+.PP
+.SS "\fBsqlite3_vfs\fP*(* \fBsqlite3_api_routines::vfs_find\fP)(const char *)"
+.PP
+.SS "\fBsqlite3_vfs\fP*(* \fBsqlite3_api_routines::vfs_find\fP)(const char *)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::vfs_register\fP"
+.PP
+.SS "int(* \fBsqlite3_api_routines::vfs_unregister\fP"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::vmprintf\fP)(const char *, va_list)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::vmprintf\fP)(const char *, va_list)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::vmprintf\fP)(const char *, va_list)"
+.PP
+.SS "char*(* \fBsqlite3_api_routines::vmprintf\fP)(const char *, va_list)"
+.PP
+.SS "int(* \fBsqlite3_api_routines::xthreadsafe\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

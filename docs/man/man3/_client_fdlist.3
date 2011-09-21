@@ -1,0 +1,56 @@
+.TH "_client_fdlist" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_client_fdlist \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <controller.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int32_t \fBfd\fP"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP \fBreadbuf\fP [UPK_MAX_PACKET_SIZE]"
+.br
+.ti -1c
+.RI "uint8_t \fBn_hdr_bytes_read\fP"
+.br
+.ti -1c
+.RI "size_t \fBn_remaining_read\fP"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP \fBwritebuf\fP [UPK_MAX_PACKET_SIZE]"
+.br
+.ti -1c
+.RI "size_t \fBn_remaining_write\fP"
+.br
+.ti -1c
+.RI "\fBclient_fdlist_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int32_t \fB_client_fdlist::fd\fP"
+.PP
+.SS "uint8_t \fB_client_fdlist::n_hdr_bytes_read\fP"
+.PP
+.SS "size_t \fB_client_fdlist::n_remaining_read\fP"
+.PP
+.SS "size_t \fB_client_fdlist::n_remaining_write\fP"
+.PP
+.SS "\fBclient_fdlist_t\fP* \fB_client_fdlist::next\fP"
+.PP
+.SS "\fBupk_pkt_buf_t\fP \fB_client_fdlist::readbuf\fP[UPK_MAX_PACKET_SIZE]"
+.PP
+.SS "\fBupk_pkt_buf_t\fP \fB_client_fdlist::writebuf\fP[UPK_MAX_PACKET_SIZE]"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

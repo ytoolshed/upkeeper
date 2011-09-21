@@ -1,0 +1,826 @@
+.TH "Client_protocol" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Client_protocol \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBupk_packet_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_preamble_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_preamble_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_generic_msg_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_action_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_signal_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_list_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_status_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_subscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_unsubscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_req_disconnect_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_result_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_listing_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_ack_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_repl_error_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_pub_publication_t\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_pub_cancelation_t\fP"
+.br
+.ti -1c
+.RI "union \fB_upk_payload_types\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_payload\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_MAX_PACKET_SIZE\fP   65536"
+.br
+.ti -1c
+.RI "#define \fBUPK_PACKET_HEADER_LEN\fP   16"
+.br
+.ti -1c
+.RI "#define \fBUPK_PACKET_FOOTER_LEN\fP   4"
+.br
+.ti -1c
+.RI "#define \fBUPK_MIN_SUPPORTED_PROTO\fP   0"
+.br
+.ti -1c
+.RI "#define \fBUPK_MAX_SUPPORTED_PROTO\fP   0"
+.br
+.ti -1c
+.RI "#define \fBUPK_DATA\fP   __upk_data"
+.br
+.ti -1c
+.RI "#define \fBUPK_DATA_PTR\fP   __upk_data_ptr"
+.br
+.ti -1c
+.RI "#define \fBUPK_DATA_LEN\fP   __upk_data_len"
+.br
+.ti -1c
+.RI "#define \fBUPK_BUF\fP   __upk_buf"
+.br
+.ti -1c
+.RI "#define \fBUPK_BUF_PTR\fP   __upk_buf_ptr"
+.br
+.ti -1c
+.RI "#define \fBUPK_UINT8_BUFFER\fP   __upk_uint8_buf"
+.br
+.ti -1c
+.RI "#define \fBUPK_UINT16_BUFFER\fP   __upk_uint16_buf"
+.br
+.ti -1c
+.RI "#define \fBUPK_UINT32_BUFFER\fP   __upk_uint32_buf"
+.br
+.ti -1c
+.RI "#define \fBUPK_STRING_LENGTH\fP   __upk_string_len"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER_TYPEDEF\fP   \fBupk_pkttype_t\fP"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER\fP   pkttype"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_DESERIALIZE\fP(TYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_MEMB_TO_LEN\fP(MEMB)   MEMB ## _len"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_DESERIALIZE_MSG\fP(TYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT32_T\fP(TYPE, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT32\fP(MEMB)   UPK_FETCH_UINT32_T(uint32_t, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT16_T\fP(TYPE, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT16\fP(MEMB)   UPK_FETCH_UINT16_T(uint16_t, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT8_T\fP(TYPE, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_UINT8\fP(MEMB)   UPK_FETCH_UINT8_T(uint8_t, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_BOOL\fP(MEMB)   UPK_FETCH_UINT8_T(bool, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_ENUM\fP(TYPE, MEMB)   UPK_FETCH_UINT32_T(TYPE, MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_STRING\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_DATA_TO_BUF\fP(BUF, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_DATA\fP(MEMB)   UPK_FETCH_DATA_TO_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))"
+.br
+.ti -1c
+.RI "#define \fBUPK_FETCH_ARRAY\fP(MEMB, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_SERIALIZE\fP(TYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_SERIALIZE_BUF\fP(TYPE, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_SERIALIZE_MSG\fP(TYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_UINT32\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_UINT16\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_UINT8\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_BOOL\fP(MEMB)   UPK_PUT_UINT8(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_ENUM\fP(MEMB)   UPK_PUT_UINT32(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_STRING\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_DATA_FROM_BUF\fP(BUF, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_DATA\fP(MEMB)   UPK_PUT_DATA_FROM_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))"
+.br
+.ti -1c
+.RI "#define \fBUPK_PUT_ARRAY\fP(MEMB, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_N_SUPPORTED_PROTOS\fP   (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)"
+.br
+.ti -1c
+.RI "#define \fB_UPK_N_PER_TYPE\fP(A)   (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - UPK_N_SUPPORTED_PROTOS)"
+.br
+.ti -1c
+.RI "#define \fBUPK_N_REQ_TYPES\fP   _UPK_N_PER_TYPE(REQ)"
+.br
+.ti -1c
+.RI "#define \fBUPK_N_REPL_TYPES\fP   _UPK_N_PER_TYPE(REPL)"
+.br
+.ti -1c
+.RI "#define \fBUPK_N_PUB_TYPES\fP   _UPK_N_PER_TYPE(PUB)"
+.br
+.ti -1c
+.RI "#define \fB_UPK_MSGTYPE_OFFSET\fP(V, A, B)   (V < UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSGTYPE_IDX\fP(MSGTYPE)"
+.br
+.ti -1c
+.RI "#define \fBv0_svcinfo_t\fP   \fBupk_svcinfo_t\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef unsigned char \fBupk_pkt_buf_t\fP"
+.br
+.ti -1c
+.RI "typedef enum \fB_upk_msgtype\fP \fBupk_msgtype_t\fP"
+.br
+.RI "\fImessage type. \fP"
+.ti -1c
+.RI "typedef union \fB_upk_payload_types\fP \fBupk_payload_types_u\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_payload\fP \fBupk_payload_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_conn_handle_t\fP \fBupk_protocol_handle_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBupk_pkttype_t\fP { \fBPKT_REQUEST\fP =  1, \fBPKT_REPLY\fP, \fBPKT_PUBMSG\fP, \fBPKT_V0_PROTO_LIMIT\fP }"
+.br
+.RI "\fIpacket type. \fP"
+.ti -1c
+.RI "enum \fB_upk_msgtype\fP { \fBUPK_REQ_ORIGIN\fP =  1, \fBUPK_REQ_PREAMBLE\fP =  1, \fBUPK_REQ_SEQ_START\fP, \fBUPK_REQ_SEQ_END\fP, \fBUPK_REQ_ACTION\fP, \fBUPK_REQ_SIGNAL\fP, \fBUPK_REQ_LIST\fP, \fBUPK_REQ_STATUS\fP, \fBUPK_REQ_SUBSCRIBE\fP, \fBUPK_REQ_UNSUBSCRIBE\fP, \fBUPK_REQ_DISCONNECT\fP, \fBUPK_REQ_V0_PROTO_LIMIT\fP, \fBUPK_REQ_LIMIT\fP, \fBUPK_REPL_ORIGIN\fP =  4096, \fBUPK_REPL_PREAMBLE\fP =  4096, \fBUPK_REPL_SEQ_START\fP, \fBUPK_REPL_SEQ_END\fP, \fBUPK_REPL_RESULT\fP, \fBUPK_REPL_LISTING\fP, \fBUPK_REPL_SVCINFO\fP, \fBUPK_REPL_ACK\fP, \fBUPK_REPL_ERROR\fP, \fBUPK_REPL_V0_PROTO_LIMIT\fP, \fBUPK_REPL_LIMIT\fP, \fBUPK_PUB_ORIGIN\fP =  8192, \fBUPK_PUB_PUBLICATION\fP =  8192, \fBUPK_PUB_CANCELATION\fP, \fBUPK_PUB_V0_PROTO_LIMIT\fP, \fBUPK_PUB_LIMIT\fP }"
+.br
+.RI "\fImessage type. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_packet\fP (\fBupk_packet_t\fP *UPK_DATA_PTR)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_deserialize_packet\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "void * \fBupk_deserialize_req_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_req_preamble\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.br
+.ti -1c
+.RI "void * \fBupk_deserialize_repl_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_repl_preamble\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pkt\fP (void *payload, uint32_t payload_len, \fBupk_pkttype_t\fP pkttype, uint32_t proto_ver)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_preamble\fP (\fBupk_protocol_handle_t\fP *handle, char *client_name)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fP seq_type, uint32_t count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_action\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_signal\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_list\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_status\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_subscribe\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_unsubscribe\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_disconnect\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_preamble\fP (\fBupk_protocol_handle_t\fP *handle, uint32_t best_version)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fP seq_type, uint32_t count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_result\fP (\fBupk_protocol_handle_t\fP *handle, char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_listing\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_svcinfo\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_ack\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_error\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_errno_t\fP uerrno, char *errmsg, \fBupk_errlevel_t\fP errlvl)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pub_publication\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pub_cancelation\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "void \fBupk_pkt_free\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBupk_get_msgtype\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "size_t \fBupk_get_msgsize\fP (\fBupk_msgtype_t\fP type)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define _UPK_MSGTYPE_OFFSET(V, A, B)   (V < UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B"
+.SS "#define _UPK_N_PER_TYPE(A)   (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - UPK_N_SUPPORTED_PROTOS)"
+.SS "#define UPK_BUF   __upk_buf"
+.PP
+Referenced by deserialize_pub_payload(), deserialize_repl_payload(), deserialize_req_payload(), serial_pub_cancel(), serial_pub_pub(), serial_repl_ack(), serial_repl_err(), serial_repl_listing(), serial_repl_result(), serial_repl_seq_end(), serial_repl_seq_start(), serial_repl_svcinfo(), serial_req_action(), serial_req_disconnect(), serial_req_list(), serial_req_seq_end(), serial_req_seq_start(), serial_req_signal(), serial_req_status(), serial_req_subscribe(), serial_req_unsub(), serial_svcinfo_data(), upk_serialize_packet(), upk_serialize_repl_preamble(), upk_serialize_req_preamble(), and v0_deserialize_payload().
+.SS "#define UPK_BUF_PTR   __upk_buf_ptr"
+.SS "#define UPK_DATA   __upk_data"
+.PP
+Referenced by deserial_pub_cancel(), deserial_pub_pub(), deserial_repl_ack(), deserial_repl_err(), deserial_repl_listing(), deserial_repl_result(), deserial_repl_seq_end(), deserial_repl_seq_start(), deserial_repl_svcinfo(), deserial_req_action(), deserial_req_disconnect(), deserial_req_list(), deserial_req_seq_end(), deserial_req_seq_start(), deserial_req_signal(), deserial_req_status(), deserial_req_subscribe(), deserial_req_unsub(), deserial_svcinfo_data(), serial_repl_svcinfo(), serial_svcinfo_data(), upk_deserialize_packet(), upk_deserialize_repl_preamble(), upk_deserialize_req_preamble(), upk_serialize_packet(), v0_create_repl_svcinfo(), v0_free_repl_payload(), and v0_free_req_payload().
+.SS "#define UPK_DATA_LEN   __upk_data_len"
+.PP
+Referenced by serialize_pub_payload(), serialize_repl_payload(), serialize_req_payload(), and v0_create_repl_svcinfo().
+.SS "#define UPK_DATA_PTR   __upk_data_ptr"
+.PP
+Referenced by serialize_pub_payload(), serialize_repl_payload(), and serialize_req_payload().
+.SS "#define UPK_FETCH_ARRAY(MEMB, LEN)"\fBValue:\fP
+.PP
+.nf
+memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, LEN); \
+    UPK_BUF_PTR += LEN
+.fi
+.PP
+Referenced by deserial_svcinfo_data().
+.SS "#define UPK_FETCH_BOOL(MEMB)   UPK_FETCH_UINT8_T(bool, MEMB)"
+.PP
+Referenced by deserial_repl_result(), deserial_repl_seq_end(), deserial_req_seq_end(), deserial_req_signal(), deserial_req_subscribe(), and deserial_req_unsub().
+.SS "#define UPK_FETCH_DATA(MEMB)   UPK_FETCH_DATA_TO_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))"
+.PP
+Referenced by upk_deserialize_packet().
+.SS "#define UPK_FETCH_DATA_TO_BUF(BUF, LEN)"\fBValue:\fP
+.PP
+.nf
+BUF = calloc(1, UPK_DATA->LEN); \
+    memcpy(BUF, UPK_BUF_PTR, UPK_DATA->LEN); \
+    UPK_BUF_PTR += UPK_DATA->LEN
+.fi
+.PP
+Referenced by deserial_repl_svcinfo().
+.SS "#define UPK_FETCH_ENUM(TYPE, MEMB)   UPK_FETCH_UINT32_T(TYPE, MEMB)"
+.PP
+Referenced by deserial_repl_err(), deserial_repl_seq_start(), deserial_req_seq_start(), deserial_req_signal(), deserial_svcinfo_data(), and upk_deserialize_packet().
+.SS "#define UPK_FETCH_STRING(MEMB)"\fBValue:\fP
+.PP
+.nf
+/* memset(UPK_DATA->MEMB,0,sizeof(UPK_DATA->MEMB)); */ \
+    /* UPK_DATA->MEMB = calloc(1, UPK_DATA->UPK_MEMB_TO_LEN(MEMB) + 1);  * null terminate */ \
+    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, UPK_DATA->UPK_MEMB_TO_LEN(MEMB)); \
+    UPK_BUF_PTR += UPK_DATA->UPK_MEMB_TO_LEN(MEMB)
+.fi
+.PP
+Referenced by deserial_repl_err(), deserial_repl_listing(), deserial_repl_result(), deserial_repl_svcinfo(), deserial_req_action(), deserial_req_signal(), deserial_req_status(), deserial_req_subscribe(), deserial_req_unsub(), and upk_deserialize_req_preamble().
+.SS "#define UPK_FETCH_UINT16(MEMB)   UPK_FETCH_UINT16_T(uint16_t, MEMB)"
+.SS "#define UPK_FETCH_UINT16_T(TYPE, MEMB)"\fBValue:\fP
+.PP
+.nf
+memcpy(&UPK_UINT16_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) ntohs( UPK_UINT16_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+.fi
+.SS "#define UPK_FETCH_UINT32(MEMB)   UPK_FETCH_UINT32_T(uint32_t, MEMB)"
+.PP
+Referenced by deserial_repl_err(), deserial_repl_listing(), deserial_repl_result(), deserial_repl_seq_start(), deserial_repl_svcinfo(), deserial_req_action(), deserial_req_seq_start(), deserial_req_signal(), deserial_req_status(), deserial_req_subscribe(), deserial_req_unsub(), deserial_svcinfo_data(), upk_deserialize_packet(), upk_deserialize_repl_preamble(), and upk_deserialize_req_preamble().
+.SS "#define UPK_FETCH_UINT32_T(TYPE, MEMB)"\fBValue:\fP
+.PP
+.nf
+memcpy(&UPK_UINT32_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT32_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) ntohl( UPK_UINT32_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+.fi
+.SS "#define UPK_FETCH_UINT8(MEMB)   UPK_FETCH_UINT8_T(uint8_t, MEMB)"
+.SS "#define UPK_FETCH_UINT8_T(TYPE, MEMB)"\fBValue:\fP
+.PP
+.nf
+memcpy(&UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) UPK_UINT8_BUFFER; \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
+.fi
+.SS "#define UPK_INIT_DESERIALIZE(TYPE)"\fBValue:\fP
+.PP
+.nf
+TYPE * UPK_DATA = NULL; \
+    unsigned char * UPK_BUF_PTR = UPK_BUF; \
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0; \
+    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \
+    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \
+    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0
+.fi
+.PP
+Referenced by deserial_svcinfo_data(), and upk_deserialize_packet().
+.SS "#define UPK_INIT_DESERIALIZE_MSG(TYPE)"\fBValue:\fP
+.PP
+.nf
+UPK_INIT_DESERIALIZE(TYPE); \
+    UPK_DATA = calloc(1,sizeof(*UPK_DATA)); \
+    UPK_FETCH_ENUM(UPK_MSG_IDENTIFIER_TYPEDEF, UPK_MSG_IDENTIFIER)
+.fi
+.PP
+Referenced by deserial_pub_cancel(), deserial_pub_pub(), deserial_repl_ack(), deserial_repl_err(), deserial_repl_listing(), deserial_repl_result(), deserial_repl_seq_end(), deserial_repl_seq_start(), deserial_repl_svcinfo(), deserial_req_action(), deserial_req_disconnect(), deserial_req_list(), deserial_req_seq_end(), deserial_req_seq_start(), deserial_req_signal(), deserial_req_status(), deserial_req_subscribe(), deserial_req_unsub(), upk_deserialize_repl_preamble(), and upk_deserialize_req_preamble().
+.SS "#define UPK_INIT_SERIALIZE(TYPE)"\fBValue:\fP
+.PP
+.nf
+TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \
+    upk_pkt_buf_t * UPK_BUF = NULL; \
+    upk_pkt_buf_t * UPK_BUF_PTR = NULL; \
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0; \
+    size_t UPK_STRING_LENGTH = 0; \
+    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \
+    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \
+    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0; \
+    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0
+.fi
+.SS "#define UPK_INIT_SERIALIZE_BUF(TYPE, LEN)"\fBValue:\fP
+.PP
+.nf
+UPK_INIT_SERIALIZE(TYPE); \
+    UPK_BUF = calloc(1, LEN); \
+    UPK_BUF_PTR = UPK_BUF
+.fi
+.PP
+Referenced by serial_svcinfo_data(), and upk_serialize_packet().
+.SS "#define UPK_INIT_SERIALIZE_MSG(TYPE)"\fBValue:\fP
+.PP
+.nf
+UPK_INIT_SERIALIZE_BUF(TYPE, UPK_DATA_LEN); \
+    UPK_PUT_ENUM(UPK_MSG_IDENTIFIER)
+.fi
+.PP
+Referenced by serial_pub_cancel(), serial_pub_pub(), serial_repl_ack(), serial_repl_err(), serial_repl_listing(), serial_repl_result(), serial_repl_seq_end(), serial_repl_seq_start(), serial_repl_svcinfo(), serial_req_action(), serial_req_disconnect(), serial_req_list(), serial_req_seq_end(), serial_req_seq_start(), serial_req_signal(), serial_req_status(), serial_req_subscribe(), serial_req_unsub(), upk_serialize_repl_preamble(), and upk_serialize_req_preamble().
+.SS "#define UPK_MAX_PACKET_SIZE   65536"64k should be enough for anyone 
+.PP
+Referenced by main(), upk_deserialize_packet(), and upk_read_packets().
+.SS "#define UPK_MAX_SUPPORTED_PROTO   0"
+.PP
+Referenced by controller_packet_callback(), upk_create_req_preamble(), upk_deserialize_packet(), and upk_read_packets().
+.SS "#define UPK_MEMB_TO_LEN(MEMB)   MEMB ## _len"
+.SS "#define UPK_MIN_SUPPORTED_PROTO   0"
+.PP
+Referenced by controller_packet_callback(), upk_create_req_preamble(), upk_deserialize_packet(), and upk_read_packets().
+.SS "#define UPK_MSG_IDENTIFIER   pkttype"
+.SS "#define UPK_MSG_IDENTIFIER_TYPEDEF   \fBupk_pkttype_t\fP"
+.SS "#define UPK_MSGTYPE_IDX(MSGTYPE)"\fBValue:\fP
+.PP
+.nf
+( _UPK_MSGTYPE_OFFSET(MSGTYPE,REQ,0) : _UPK_MSGTYPE_OFFSET(MSGTYPE,REPL,UPK_N_REQ_TYPES) : \
+    _UPK_MSGTYPE_OFFSET(MSGTYPE,PUB,UPK_N_REQ_TYPES+UPK_N_REPL_TYPES) : -1 )
+.fi
+.PP
+Referenced by upk_call_received_packet_callbacks(), and upk_get_msgsize().
+.SS "#define UPK_N_PUB_TYPES   _UPK_N_PER_TYPE(PUB)"
+.SS "#define UPK_N_REPL_TYPES   _UPK_N_PER_TYPE(REPL)"
+.SS "#define UPK_N_REQ_TYPES   _UPK_N_PER_TYPE(REQ)"
+.SS "#define UPK_N_SUPPORTED_PROTOS   (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)"
+.SS "#define UPK_PACKET_FOOTER_LEN   4"
+.PP
+Referenced by upk_queue_packet(), and upk_read_packets().
+.SS "#define UPK_PACKET_HEADER_LEN   16"
+.PP
+Referenced by upk_queue_packet(), and upk_read_packets().
+.SS "#define UPK_PUT_ARRAY(MEMB, LEN)"\fBValue:\fP
+.PP
+.nf
+memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, LEN); \
+    UPK_BUF_PTR += LEN
+.fi
+.PP
+Referenced by serial_svcinfo_data().
+.SS "#define UPK_PUT_BOOL(MEMB)   UPK_PUT_UINT8(MEMB)"
+.PP
+Referenced by serial_repl_result(), serial_repl_seq_end(), serial_req_seq_end(), serial_req_signal(), serial_req_subscribe(), and serial_req_unsub().
+.SS "#define UPK_PUT_DATA(MEMB)   UPK_PUT_DATA_FROM_BUF(UPK_DATA->MEMB, UPK_MEMB_TO_LEN(MEMB))"
+.SS "#define UPK_PUT_DATA_FROM_BUF(BUF, LEN)"\fBValue:\fP
+.PP
+.nf
+memcpy(UPK_BUF_PTR, BUF, UPK_DATA->LEN); \
+    UPK_BUF_PTR += UPK_DATA->LEN
+.fi
+.PP
+Referenced by serial_repl_svcinfo(), and upk_serialize_packet().
+.SS "#define UPK_PUT_ENUM(MEMB)   UPK_PUT_UINT32(MEMB)"
+.PP
+Referenced by serial_repl_err(), serial_repl_seq_start(), serial_req_seq_start(), serial_req_signal(), serial_svcinfo_data(), and upk_serialize_packet().
+.SS "#define UPK_PUT_STRING(MEMB)"\fBValue:\fP
+.PP
+.nf
+UPK_STRING_LENGTH = strnlen(UPK_DATA->MEMB, UPK_MAX_STRING_LEN); \
+    memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, strnlen(UPK_DATA->MEMB, UPK_STRING_LENGTH)); \
+    UPK_BUF_PTR += UPK_STRING_LENGTH
+.fi
+.PP
+Referenced by serial_repl_err(), serial_repl_listing(), serial_repl_result(), serial_repl_svcinfo(), serial_req_action(), serial_req_signal(), serial_req_status(), serial_req_subscribe(), serial_req_unsub(), and upk_serialize_req_preamble().
+.SS "#define UPK_PUT_UINT16(MEMB)"\fBValue:\fP
+.PP
+.nf
+UPK_UINT16_BUFFER = htons( (uint16_t) UPK_DATA->MEMB ); \
+    memcpy(UPK_BUF_PTR, &UPK_UINT16_BUFFER, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+.fi
+.SS "#define UPK_PUT_UINT32(MEMB)"\fBValue:\fP
+.PP
+.nf
+UPK_UINT32_BUFFER = htonl( (uint32_t) UPK_DATA->MEMB ); \
+    memcpy(UPK_BUF_PTR, &UPK_UINT32_BUFFER, sizeof(UPK_UINT32_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+.fi
+.PP
+Referenced by serial_repl_err(), serial_repl_listing(), serial_repl_result(), serial_repl_seq_start(), serial_repl_svcinfo(), serial_req_action(), serial_req_seq_start(), serial_req_signal(), serial_req_status(), serial_req_subscribe(), serial_req_unsub(), serial_svcinfo_data(), upk_serialize_packet(), upk_serialize_repl_preamble(), and upk_serialize_req_preamble().
+.SS "#define UPK_PUT_UINT8(MEMB)"\fBValue:\fP
+.PP
+.nf
+UPK_UINT8_BUFFER = (uint8_t) UPK_DATA->MEMB; \
+    memcpy(UPK_BUF_PTR, &UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
+.fi
+.SS "#define UPK_STRING_LENGTH   __upk_string_len"
+.PP
+Referenced by v0_create_repl_svcinfo().
+.SS "#define UPK_UINT16_BUFFER   __upk_uint16_buf"
+.SS "#define UPK_UINT32_BUFFER   __upk_uint32_buf"
+.SS "#define UPK_UINT8_BUFFER   __upk_uint8_buf"
+.SS "#define \fBv0_svcinfo_t\fP   \fBupk_svcinfo_t\fP"
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef enum \fB_upk_msgtype\fP  \fBupk_msgtype_t\fP"
+.PP
+message type. ***************************************************************************************************************** ***************************************************************************************************************** 
+.SS "typedef struct \fB_upk_payload\fP  \fBupk_payload_t\fP"
+.SS "typedef union \fB_upk_payload_types\fP  \fBupk_payload_types_u\fP"
+.SS "typedef unsigned char \fBupk_pkt_buf_t\fP"
+.SS "typedef \fBupk_conn_handle_t\fP \fBupk_protocol_handle_t\fP"
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fB_upk_msgtype\fP"
+.PP
+message type. ***************************************************************************************************************** ***************************************************************************************************************** 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIUPK_REQ_ORIGIN \fP\fP
+idenitfy start of range 
+.TP
+\fB\fIUPK_REQ_PREAMBLE \fP\fP
+A preamble message, used to negotiate version, and handshake 
+.TP
+\fB\fIUPK_REQ_SEQ_START \fP\fP
+The start of a request sequence 
+.TP
+\fB\fIUPK_REQ_SEQ_END \fP\fP
+the end of a request sequence 
+.TP
+\fB\fIUPK_REQ_ACTION \fP\fP
+An action request (e.g. start, stop, reload, or custom actions) 
+.TP
+\fB\fIUPK_REQ_SIGNAL \fP\fP
+a signal request (e.g. send signal N) 
+.TP
+\fB\fIUPK_REQ_LIST \fP\fP
+A listing request. for a listing of all service-ids known to the controller 
+.TP
+\fB\fIUPK_REQ_STATUS \fP\fP
+A status request, to get information on a particular service 
+.TP
+\fB\fIUPK_REQ_SUBSCRIBE \fP\fP
+subscribe to a feed of status updates 
+.TP
+\fB\fIUPK_REQ_UNSUBSCRIBE \fP\fP
+unsubscribe from a feed of status updates 
+.TP
+\fB\fIUPK_REQ_DISCONNECT \fP\fP
+notify controller of your intent to disconnect 
+.TP
+\fB\fIUPK_REQ_V0_PROTO_LIMIT \fP\fP
+all valid v0 requests are < this 
+.TP
+\fB\fIUPK_REQ_LIMIT \fP\fP
+all requests are < this 
+.TP
+\fB\fIUPK_REPL_ORIGIN \fP\fP
+identify start of range 
+.TP
+\fB\fIUPK_REPL_PREAMBLE \fP\fP
+the reply to a preamble request, used to send back what the server decided was the best protocol, and complete the handshake 
+.TP
+\fB\fIUPK_REPL_SEQ_START \fP\fP
+the start of a sequence of replies 
+.TP
+\fB\fIUPK_REPL_SEQ_END \fP\fP
+the end of a sequence of replies 
+.TP
+\fB\fIUPK_REPL_RESULT \fP\fP
+the result of an action or signal request (or anything else that might benefit from a result msg 
+.TP
+\fB\fIUPK_REPL_LISTING \fP\fP
+the name of a service in a sequence listing all services 
+.TP
+\fB\fIUPK_REPL_SVCINFO \fP\fP
+all the information known about a service 
+.TP
+\fB\fIUPK_REPL_ACK \fP\fP
+an ack, when nothing else really fits, but a reply is still mandated 
+.TP
+\fB\fIUPK_REPL_ERROR \fP\fP
+report an error to the client, for instance, if the named service doesn't exist, or an action doesn't exist, etc 
+.TP
+\fB\fIUPK_REPL_V0_PROTO_LIMIT \fP\fP
+All valid v0 replies are < this 
+.TP
+\fB\fIUPK_REPL_LIMIT \fP\fP
+All replies are < this 
+.TP
+\fB\fIUPK_PUB_ORIGIN \fP\fP
+pub origin 
+.TP
+\fB\fIUPK_PUB_PUBLICATION \fP\fP
+a message sent from the controller to a subscriber, followed by svcinfo packets for all subscribed services 
+.TP
+\fB\fIUPK_PUB_CANCELATION \fP\fP
+notification that a particular service is no longer available to subscribe to, for instance if its been removed 
+.TP
+\fB\fIUPK_PUB_V0_PROTO_LIMIT \fP\fP
+All valid pub v0 publication messages are < this 
+.TP
+\fB\fIUPK_PUB_LIMIT \fP\fP
+All publication messages are < this 
+.SS "enum \fBupk_pkttype_t\fP"
+.PP
+packet type. ***************************************************************************************************************** enums for packet type description; anything >= V0_PROTO_LIMIT is invalid * in version 0 of the protocol; future protocol extensions may be added after V0_PROTO_LIMIT in enumeration, and terminated with V1_PROTO_LIMIT, etc. For the sake of simplicity; these will be forced into uint32_t space; regardless of what the arch's enum size may actually be 
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIPKT_REQUEST \fP\fP
+.TP
+\fB\fIPKT_REPLY \fP\fP
+.TP
+\fB\fIPKT_PUBMSG \fP\fP
+.TP
+\fB\fIPKT_V0_PROTO_LIMIT \fP\fP
+
+.SH "Function Documentation"
+.PP 
+.SS "\fBupk_packet_t\fP* upk_create_pkt (void *payload, uint32_tpayload_len, \fBupk_pkttype_t\fPpkttype, uint32_tproto_ver)"
+.PP
+References upk_packet_t::crc32, upk_packet_t::payload, upk_packet_t::payload_len, upk_packet_t::pkttype, upk_packet_t::seq_num, and upk_packet_t::version_id.
+.PP
+Referenced by upk_create_repl_preamble(), and upk_create_req_preamble().
+.SS "\fBupk_packet_t\fP* upk_create_pub_cancelation (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_pub_cancelation(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_pub_publication (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_pub_publication(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_ack (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_repl_ack(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_error (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_errno_t\fPuerrno, char *errmsg, \fBupk_errlevel_t\fPerrlvl)"
+.PP
+References v0_create_repl_error(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_listing (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.PP
+References v0_create_repl_listing(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_preamble (\fBupk_protocol_handle_t\fP *handle, uint32_tbest_version)"
+.PP
+References upk_repl_preamble_t::best_version, upk_repl_preamble_t::msgtype, PKT_REPLY, upk_create_pkt(), and UPK_REPL_PREAMBLE.
+.PP
+Referenced by controller_packet_callback().
+.SS "\fBupk_packet_t\fP* upk_create_repl_result (\fBupk_protocol_handle_t\fP *handle, char *msg, boolsuccessful)"
+.PP
+References v0_create_repl_result(), and _upk_conn_handle::version_id.
+.PP
+Referenced by controller_packet_callback().
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_end (\fBupk_protocol_handle_t\fP *handle, boolcommit)"
+.PP
+References v0_create_repl_seq_end(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_start (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fPseq_type, uint32_tcount)"
+.PP
+References v0_create_repl_seq_start(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_svcinfo (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_svcinfo_t\fP *svcinfo)"
+.PP
+References v0_create_repl_svcinfo(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_action (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *action)"
+.PP
+References v0_create_req_action(), and _upk_conn_handle::version_id.
+.PP
+Referenced by main(), and upk_clnet_req_action().
+.SS "\fBupk_packet_t\fP* upk_create_req_disconnect (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_req_disconnect(), and _upk_conn_handle::version_id.
+.PP
+Referenced by controller_packet_callback(), and upk_clnet_req_disconnect().
+.SS "\fBupk_packet_t\fP* upk_create_req_list (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_req_list(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_preamble (\fBupk_protocol_handle_t\fP *handle, char *client_name)"
+.PP
+References upk_req_preamble_t::client_name, upk_req_preamble_t::client_name_len, upk_req_preamble_t::max_supported_ver, upk_req_preamble_t::min_supported_ver, upk_req_preamble_t::msgtype, PKT_REQUEST, req_preamble_len(), strnlen(), upk_create_pkt(), UPK_MAX_STRING_LEN, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, and UPK_REQ_PREAMBLE.
+.PP
+Referenced by main(), and upk_clnet_req_preamble().
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_end (\fBupk_protocol_handle_t\fP *handle, boolcommit)"
+.PP
+References v0_create_req_seq_end(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_start (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fPseq_type, uint32_tcount)"
+.PP
+References v0_create_req_seq_start(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_signal (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_signal_t\fPsignal, boolsignal_sid, boolsignal_pgrp)"
+.PP
+References v0_create_req_signal(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_status (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.PP
+References v0_create_req_status(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_subscribe (\fBupk_protocol_handle_t\fP *handle, char *svc_id, boolall_svcs)"
+.PP
+References v0_create_req_subscribe(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_unsubscribe (\fBupk_protocol_handle_t\fP *handle, char *svc_id, boolall_svcs)"
+.PP
+References v0_create_req_unsubscribe(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_deserialize_packet (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.PP
+References IF_UPK_ERROR, UPK_DATA, upk_deserialize_payload(), UPK_ERR_INIT, UPK_ERR_INVALID_PKT, UPK_ERR_UNSUP, UPK_FETCH_DATA, UPK_FETCH_ENUM, UPK_FETCH_UINT32, UPK_FUNC_ASSERT, UPK_INIT_DESERIALIZE, UPK_MAX_PACKET_SIZE, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, upk_pkt_proto_limit, and upk_verify_crc32().
+.PP
+Referenced by main(), and upk_read_packets().
+.SS "void* upk_deserialize_repl_preamble (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.PP
+References UPK_DATA, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
+.SS "void* upk_deserialize_req_preamble (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.PP
+References UPK_DATA, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
+.SS "size_t upk_get_msgsize (\fBupk_msgtype_t\fPtype)"
+.PP
+References UPK_MSGTYPE_IDX.
+.PP
+Referenced by upk_call_received_packet_callbacks().
+.SS "\fBupk_msgtype_t\fP upk_get_msgtype (\fBupk_packet_t\fP *pkt)"
+.PP
+References upk_generic_msg_t::msgtype, and upk_packet_t::payload.
+.PP
+Referenced by upk_call_received_packet_callbacks().
+.SS "void upk_pkt_free (\fBupk_packet_t\fP *pkt)"
+.PP
+References upk_free_payload().
+.PP
+Referenced by controller_packet_callback(), main(), upk_clnet_req_action(), upk_clnet_req_disconnect(), upk_clnet_req_preamble(), and upk_read_packets().
+.SS "\fBupk_pkt_buf_t\fP* upk_serialize_packet (\fBupk_packet_t\fP *UPK_DATA_PTR)"
+.PP
+References UPK_BUF, upk_crc32(), UPK_DATA, UPK_INIT_SERIALIZE_BUF, UPK_PUT_DATA_FROM_BUF, UPK_PUT_ENUM, UPK_PUT_UINT32, and upk_serialize_payload().
+.PP
+Referenced by main(), and upk_queue_packet().
+.SS "\fBupk_pkt_buf_t\fP* upk_serialize_repl_preamble (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)"
+.PP
+References UPK_BUF, UPK_INIT_SERIALIZE_MSG, and UPK_PUT_UINT32.
+.SS "\fBupk_pkt_buf_t\fP* upk_serialize_req_preamble (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)"
+.PP
+References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_STRING, and UPK_PUT_UINT32.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

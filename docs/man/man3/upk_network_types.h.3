@@ -1,0 +1,84 @@
+.TH "libupkeeper/upkeeper/upk_network_types.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_network_types.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_netmsg_queue\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "struct \fB_upk_net_cb_stk\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_net_gstate\fP"
+.br
+.ti -1c
+.RI "struct \fB_upklist_userdata_state_partition\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_conn_handle\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_conn_handle\fP \fBupk_conn_handle_t\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBupk_net_callback_t\fP )(\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fItypedef for callback functions. \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_netmsg_queue\fP \fBupk_netmsg_queue_t\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_net_cb_stk\fP \fBupk_net_cb_stk_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_net_gstate\fP \fBupk_net_gstate_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upklist_userdata_state_partition\fP \fBupklist_userdata_state_partition_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_conn_handle_t\fP, upk_conn_handle_meta_p)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_netmsg_queue_t\fP, upk_netmsg_queue_meta_p)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_net_cb_stk_t\fP, upk_net_cb_stk_meta_p)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBupk_conn_handle_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_netmsg_queue_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_net_cb_stk_meta_t\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

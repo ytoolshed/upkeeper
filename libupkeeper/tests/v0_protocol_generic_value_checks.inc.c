@@ -1,3 +1,59 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
+#define _stringify(A) #A
+#define stringify(A) _stringify(A)
+
+#define _create_fmt(FMT) ": got: " stringify(FMT) ", wanted: " stringify(FMT)
+
+#define check_isequal(A, B, FMT) \
+                fail_unless( (A == B), stringify(A) _create_fmt(FMT), A, B)
+
+#define check_isequal_str(A, B, FMT) \
+                fail_unless( strcmp(A, B) == 0, stringify(A) _create_fmt(FMT), A, B)
+
+#ifdef CHECK_PREAMBLE
+START_TEST(test_proto_req_preamble)
+{
+    TEST_SETUP(req_preamble, "clientname");
+
+    check_isequal(t.msgtype, UPK_REQ_PREAMBLE, %d);
+    check_isequal(t.min_supported_ver, UPK_MIN_SUPPORTED_PROTO, %d);
+    check_isequal(t.max_supported_ver, UPK_MAX_SUPPORTED_PROTO, %d);
+    check_isequal(t.client_name_len, strlen("clientname"), %d);
+    check_isequal_str(t.client_name, "clientname", %s);
+    check_isequal(pkt->pkttype, PKT_REQUEST, %d);
+    check_isequal(pkt->payload_len, (4 + 4 + 4 + 4) + strlen("clientname"), %d);
+
+    TEST_TEARDOWN;
+}
+END_TEST;
+
+START_TEST(test_proto_repl_preamble)
+{
+    TEST_SETUP(repl_preamble, 4);
+
+    check_isequal(t.msgtype, UPK_REPL_PREAMBLE, %d);
+    check_isequal(t.best_version, 4, %d);
+
+    check_isequal(pkt->pkttype, PKT_REPLY, %d);
+    check_isequal(pkt->payload_len, (4 + 4), %d);
+
+    TEST_TEARDOWN;
+}
+END_TEST;
+
+#endif
+
 START_TEST(test_proto_req_seq_start)
 {
     TEST_SETUP(req_seq_start, UPK_REQ_LIST, 15);
@@ -29,9 +85,9 @@ START_TEST(test_proto_req_seq_end)
 
 END_TEST;
 
-START_TEST(test_proto_action_req)
+START_TEST(test_proto_req_action)
 {
-    TEST_SETUP(action_req, "some service", "some action");
+    TEST_SETUP(req_action, "some service", "some action");
 
     fail_unless(t.msgtype == UPK_REQ_ACTION, "msgtype");
     fail_unless(t.svc_id_len == strlen("some service"), "svc_id_len");
@@ -47,9 +103,9 @@ START_TEST(test_proto_action_req)
 
 END_TEST;
 
-START_TEST(test_proto_signal_req)
+START_TEST(test_proto_req_signal)
 {
-    TEST_SETUP(signal_req, "some service", UPK_SIG_KILL, true, true);
+    TEST_SETUP(req_signal, "some service", UPK_SIG_KILL, true, true);
 
 
     fail_unless(t.msgtype == UPK_REQ_SIGNAL, "msgtype");
@@ -67,9 +123,9 @@ START_TEST(test_proto_signal_req)
 
 END_TEST;
 
-START_TEST(test_proto_list_req)
+START_TEST(test_proto_req_list)
 {
-    TEST_SETUP_NOARGS(list_req);
+    TEST_SETUP_NOARGS(req_list);
 
     fail_unless(t.msgtype == UPK_REQ_LIST, "msgtype");
 
@@ -82,9 +138,9 @@ START_TEST(test_proto_list_req)
 END_TEST;
 
 
-START_TEST(test_proto_status_req)
+START_TEST(test_proto_req_status)
 {
-    TEST_SETUP(status_req, "some other service");
+    TEST_SETUP(req_status, "some other service");
 
     fail_unless(t.msgtype == UPK_REQ_STATUS, "msgtype");
     fail_unless(t.svc_id_len == strlen("some other service"), "svc_id_len");
@@ -98,9 +154,9 @@ START_TEST(test_proto_status_req)
 
 END_TEST;
 
-START_TEST(test_proto_subscr_req)
+START_TEST(test_proto_req_subscribe)
 {
-    TEST_SETUP(subscr_req, "another service", true);
+    TEST_SETUP(req_subscribe, "another service", true);
 
     fail_unless(t.msgtype == UPK_REQ_SUBSCRIBE, "msgtype");
     fail_unless(t.all_svcs == true, "all_svcs");
@@ -115,9 +171,9 @@ START_TEST(test_proto_subscr_req)
 
 END_TEST;
 
-START_TEST(test_proto_unsubs_req)
+START_TEST(test_proto_req_unsubscribe)
 {
-    TEST_SETUP(unsubs_req, "another service", true);
+    TEST_SETUP(req_unsubscribe, "another service", true);
 
     fail_unless(t.msgtype == UPK_REQ_UNSUBSCRIBE, "msgtype");
     fail_unless(t.all_svcs == true, "all_svcs");
@@ -132,9 +188,9 @@ START_TEST(test_proto_unsubs_req)
 
 END_TEST;
 
-START_TEST(test_proto_discon_req)
+START_TEST(test_proto_req_disconnect)
 {
-    TEST_SETUP_NOARGS(discon_req);
+    TEST_SETUP_NOARGS(req_disconnect);
 
     fail_unless(t.msgtype == UPK_REQ_DISCONNECT);
 
@@ -178,9 +234,9 @@ START_TEST(test_proto_repl_seq_end)
 
 END_TEST;
 
-START_TEST(test_proto_result_repl)
+START_TEST(test_proto_repl_result)
 {
-    TEST_SETUP(result_repl, "some message", true);
+    TEST_SETUP(repl_result, "some message", true);
 
     fail_unless(t.msgtype == UPK_REPL_RESULT, "msgtype");
     fail_unless(t.successful == true, "successful");
@@ -195,9 +251,9 @@ START_TEST(test_proto_result_repl)
 
 END_TEST;
 
-START_TEST(test_proto_listing_repl)
+START_TEST(test_proto_repl_listing)
 {
-    TEST_SETUP(listing_repl, "now with more serviceness");
+    TEST_SETUP(repl_listing, "now with more serviceness");
 
     fail_unless(t.msgtype == UPK_REPL_LISTING, "msgtype");
     fail_unless(t.svc_id_len == strlen("now with more serviceness"), "svc_id_len");
@@ -211,7 +267,7 @@ START_TEST(test_proto_listing_repl)
 
 END_TEST;
 
-START_TEST(test_proto_svcinfo_repl)
+START_TEST(test_proto_repl_svcinfo)
 {
 #define action_name "svcinfo last action name"
 #define service_name "svcinfo service"
@@ -230,7 +286,7 @@ START_TEST(test_proto_svcinfo_repl)
     };
     uint32_t                svcinfo_length = 0;
 
-    TEST_SETUP(svcinfo_repl, service_name, &svcinfo);
+    TEST_SETUP(repl_svcinfo, service_name, &svcinfo);
 
     fail_unless(t.msgtype == UPK_REPL_SVCINFO, "msgtype");
 
@@ -272,9 +328,9 @@ START_TEST(test_proto_svcinfo_repl)
 
 END_TEST;
 
-START_TEST(test_proto_ack_repl)
+START_TEST(test_proto_repl_ack)
 {
-    TEST_SETUP_NOARGS(ack_repl);
+    TEST_SETUP_NOARGS(repl_ack);
 
     fail_unless(t.msgtype == UPK_REPL_ACK, "msgtype");
 
@@ -285,21 +341,24 @@ START_TEST(test_proto_ack_repl)
 }
 END_TEST;
 
-START_TEST(test_proto_error_repl)
+START_TEST(test_proto_repl_error)
 {
 #define service_name  "service on which error is being reported"
 #define errmsg "Some helpful error message telling what happened"
-    TEST_SETUP(error_repl, service_name, errmsg, UPK_ERRLVL_ERROR);
+    TEST_SETUP(repl_error, service_name, UPK_ERR_UNKNOWN, errmsg, UPK_ERRLVL_ERROR);
 
     fail_unless(t.msgtype == UPK_REPL_ERROR, "msgtype");
     fail_unless(t.errlevel == UPK_ERRLVL_ERROR, "errlevel");
+    check_isequal(t.uerrno, UPK_ERR_UNKNOWN, %d);
+    
+    
     fail_unless(t.msg_len == strlen(errmsg), "msg_len");
     fail_unless(strcmp(t.msg, errmsg) == 0, "msg");
     fail_unless(t.svc_id_len == strlen(service_name), "svc_id_len");
     fail_unless(strcmp(t.svc_id, service_name) == 0, "svc_id");
 
     fail_unless(pkt->pkttype == PKT_REPLY, "pkttype");
-    fail_unless(pkt->payload_len == (4 + 4 + 4 + strlen(errmsg) + 4 + strlen(service_name)), "payload_len");
+    fail_unless(pkt->payload_len == (4 + 4 + 4 + 4 + strlen(errmsg) + 4 + strlen(service_name)), "payload_len");
 
     TEST_TEARDOWN;
 #undef service_name
@@ -307,9 +366,9 @@ START_TEST(test_proto_error_repl)
 }
 END_TEST;
 
-START_TEST(test_proto_pub_pubmsg)
+START_TEST(test_proto_pub_publication)
 {
-    TEST_SETUP_NOARGS(pub_pubmsg);
+    TEST_SETUP_NOARGS(pub_publication);
 
     fail_unless(t.msgtype == UPK_PUB_PUBLICATION, "msgtype");
 
@@ -320,9 +379,9 @@ START_TEST(test_proto_pub_pubmsg)
 }
 END_TEST;
 
-START_TEST(test_proto_cancel_pubmsg)
+START_TEST(test_proto_pub_cancelation)
 {
-    TEST_SETUP_NOARGS(cancel_pubmsg);
+    TEST_SETUP_NOARGS(pub_cancelation);
 
     fail_unless(t.msgtype == UPK_PUB_CANCELATION, "msgtype");
 
@@ -339,15 +398,19 @@ v0_proto_requests(void)
 {
     TCase                  *requests = tcase_create("requests");
 
+#ifdef CHECK_PREAMBLE
+    tcase_add_test(requests, test_proto_req_preamble);
+    tcase_add_test(requests, test_proto_repl_preamble);
+#endif
     tcase_add_test(requests, test_proto_req_seq_start);
     tcase_add_test(requests, test_proto_req_seq_end);
-    tcase_add_test(requests, test_proto_action_req);
-    tcase_add_test(requests, test_proto_signal_req);
-    tcase_add_test(requests, test_proto_list_req);
-    tcase_add_test(requests, test_proto_status_req);
-    tcase_add_test(requests, test_proto_subscr_req);
-    tcase_add_test(requests, test_proto_unsubs_req);
-    tcase_add_test(requests, test_proto_discon_req);
+    tcase_add_test(requests, test_proto_req_action);
+    tcase_add_test(requests, test_proto_req_signal);
+    tcase_add_test(requests, test_proto_req_list);
+    tcase_add_test(requests, test_proto_req_status);
+    tcase_add_test(requests, test_proto_req_subscribe);
+    tcase_add_test(requests, test_proto_req_unsubscribe);
+    tcase_add_test(requests, test_proto_req_disconnect);
 
     return requests;
 }
@@ -359,11 +422,11 @@ v0_proto_replies(void)
 
     tcase_add_test(replies, test_proto_repl_seq_start);
     tcase_add_test(replies, test_proto_repl_seq_end);
-    tcase_add_test(replies, test_proto_result_repl);
-    tcase_add_test(replies, test_proto_listing_repl);
-    tcase_add_test(replies, test_proto_svcinfo_repl);
-    tcase_add_test(replies, test_proto_ack_repl);
-    tcase_add_test(replies, test_proto_error_repl);
+    tcase_add_test(replies, test_proto_repl_result);
+    tcase_add_test(replies, test_proto_repl_listing);
+    tcase_add_test(replies, test_proto_repl_svcinfo);
+    tcase_add_test(replies, test_proto_repl_ack);
+    tcase_add_test(replies, test_proto_repl_error);
 
     return replies;
 }
@@ -373,8 +436,8 @@ v0_proto_pubmsgs(void)
 {
     TCase                  *pubmsgs = tcase_create("pubmsgs");
 
-    tcase_add_test(pubmsgs, test_proto_pub_pubmsg);
-    tcase_add_test(pubmsgs, test_proto_cancel_pubmsg);
+    tcase_add_test(pubmsgs, test_proto_pub_publication);
+    tcase_add_test(pubmsgs, test_proto_pub_cancelation);
 
     return pubmsgs;
 }

@@ -1,0 +1,235 @@
+\section{sqlite3\_\-vfs Struct Reference}
+\label{structsqlite3__vfs}\index{sqlite3_vfs@{sqlite3\_\-vfs}}
+{\tt \#include $<$sqlite3.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+int \bf{i\-Version}
+\item 
+int \bf{sz\-Os\-File}
+\item 
+int \bf{mx\-Pathname}
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Next}
+\item 
+const char $\ast$ \bf{z\-Name}
+\item 
+void $\ast$ \bf{p\-App\-Data}
+\item 
+int($\ast$ \bf{x\-Open} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$\bf{z\-Name}, \bf{sqlite3\_\-file} $\ast$, int flags, int $\ast$p\-Out\-Flags)
+\item 
+int($\ast$ \bf{x\-Delete} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$\bf{z\-Name}, int sync\-Dir)
+\item 
+int($\ast$ \bf{x\-Access} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$\bf{z\-Name}, int flags, int $\ast$p\-Res\-Out)
+\item 
+int($\ast$ \bf{x\-Full\-Pathname} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$\bf{z\-Name}, int n\-Out, char $\ast$z\-Out)
+\item 
+void $\ast$($\ast$ \bf{x\-Dl\-Open} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)
+\item 
+void($\ast$ \bf{x\-Dl\-Error} )(\bf{sqlite3\_\-vfs} $\ast$, int n\-Byte, char $\ast$z\-Err\-Msg)
+\item 
+void($\ast$($\ast$ \bf{x\-Dl\-Sym} )(\bf{sqlite3\_\-vfs} $\ast$, void $\ast$, const char $\ast$z\-Symbol))(void)
+\item 
+void($\ast$ \bf{x\-Dl\-Close} )(\bf{sqlite3\_\-vfs} $\ast$, void $\ast$)
+\item 
+int($\ast$ \bf{x\-Randomness} )(\bf{sqlite3\_\-vfs} $\ast$, int n\-Byte, char $\ast$z\-Out)
+\item 
+int($\ast$ \bf{x\-Sleep} )(\bf{sqlite3\_\-vfs} $\ast$, int microseconds)
+\item 
+int($\ast$ \bf{x\-Current\-Time} )(\bf{sqlite3\_\-vfs} $\ast$, double $\ast$)
+\item 
+int($\ast$ \bf{x\-Get\-Last\-Error} )(\bf{sqlite3\_\-vfs} $\ast$, int, char $\ast$)
+\item 
+int($\ast$ \bf{x\-Current\-Time\-Int64} )(\bf{sqlite3\_\-vfs} $\ast$, \bf{sqlite3\_\-int64} $\ast$)
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Next}
+\item 
+const char $\ast$ \bf{z\-Name}
+\item 
+void $\ast$ \bf{p\-App\-Data}
+\item 
+void $\ast$($\ast$ \bf{x\-Dl\-Open} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Next}
+\item 
+const char $\ast$ \bf{z\-Name}
+\item 
+void $\ast$ \bf{p\-App\-Data}
+\item 
+void $\ast$($\ast$ \bf{x\-Dl\-Open} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Next}
+\item 
+const char $\ast$ \bf{z\-Name}
+\item 
+void $\ast$ \bf{p\-App\-Data}
+\item 
+void $\ast$($\ast$ \bf{x\-Dl\-Open} )(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!iVersion@{iVersion}}
+\index{iVersion@{iVersion}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sqlite3\_\-vfs::i\-Version}}\label{structsqlite3__vfs_78287ec546f1990f5f49995275c7586a}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!mxPathname@{mxPathname}}
+\index{mxPathname@{mxPathname}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sqlite3\_\-vfs::mx\-Pathname}}\label{structsqlite3__vfs_bd3e3d07f9f622fb3eb65e287868dcaf}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pAppData@{pAppData}}
+\index{pAppData@{pAppData}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{sqlite3\_\-vfs::p\-App\-Data}}\label{structsqlite3__vfs_56f63af6d3de92a5a8aaac4e86042506}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pAppData@{pAppData}}
+\index{pAppData@{pAppData}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{sqlite3\_\-vfs::p\-App\-Data}}\label{structsqlite3__vfs_56f63af6d3de92a5a8aaac4e86042506}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pAppData@{pAppData}}
+\index{pAppData@{pAppData}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{sqlite3\_\-vfs::p\-App\-Data}}\label{structsqlite3__vfs_56f63af6d3de92a5a8aaac4e86042506}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pAppData@{pAppData}}
+\index{pAppData@{pAppData}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{sqlite3\_\-vfs::p\-App\-Data}}\label{structsqlite3__vfs_56f63af6d3de92a5a8aaac4e86042506}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pNext@{pNext}}
+\index{pNext@{pNext}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{sqlite3\_\-vfs::p\-Next}}\label{structsqlite3__vfs_309e8e420e09be7986c1e343b6cd7bdb}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pNext@{pNext}}
+\index{pNext@{pNext}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{sqlite3\_\-vfs::p\-Next}}\label{structsqlite3__vfs_309e8e420e09be7986c1e343b6cd7bdb}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pNext@{pNext}}
+\index{pNext@{pNext}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{sqlite3\_\-vfs::p\-Next}}\label{structsqlite3__vfs_309e8e420e09be7986c1e343b6cd7bdb}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!pNext@{pNext}}
+\index{pNext@{pNext}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{sqlite3\_\-vfs::p\-Next}}\label{structsqlite3__vfs_309e8e420e09be7986c1e343b6cd7bdb}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!szOsFile@{szOsFile}}
+\index{szOsFile@{szOsFile}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sqlite3\_\-vfs::sz\-Os\-File}}\label{structsqlite3__vfs_93e3e73f1a89d602b70b583c5e0d14d8}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xAccess@{xAccess}}
+\index{xAccess@{xAccess}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Access}}\label{structsqlite3__vfs_25efed7126f415d2b0e52b00e00b1a0f}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xCurrentTime@{xCurrentTime}}
+\index{xCurrentTime@{xCurrentTime}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Current\-Time}}\label{structsqlite3__vfs_0beb7b520a36ab71e6c3d2c5d01277c9}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xCurrentTimeInt64@{xCurrentTimeInt64}}
+\index{xCurrentTimeInt64@{xCurrentTimeInt64}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Current\-Time\-Int64}}\label{structsqlite3__vfs_7af31785ef36db1813be87f68277ca01}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDelete@{xDelete}}
+\index{xDelete@{xDelete}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Delete}}\label{structsqlite3__vfs_a351120cd7d0b94aace4e02c7adfd564}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlClose@{xDlClose}}
+\index{xDlClose@{xDlClose}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Close}}\label{structsqlite3__vfs_972d593c1a149c48bba294641696253f}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlError@{xDlError}}
+\index{xDlError@{xDlError}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Error}}\label{structsqlite3__vfs_83fd60057bba8178827e02c05f97bb49}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlOpen@{xDlOpen}}
+\index{xDlOpen@{xDlOpen}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Open})(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)}\label{structsqlite3__vfs_6da2bf41bfd937659d09003744ea72b5}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlOpen@{xDlOpen}}
+\index{xDlOpen@{xDlOpen}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Open})(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)}\label{structsqlite3__vfs_6da2bf41bfd937659d09003744ea72b5}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlOpen@{xDlOpen}}
+\index{xDlOpen@{xDlOpen}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Open})(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)}\label{structsqlite3__vfs_6da2bf41bfd937659d09003744ea72b5}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlOpen@{xDlOpen}}
+\index{xDlOpen@{xDlOpen}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Open})(\bf{sqlite3\_\-vfs} $\ast$, const char $\ast$z\-Filename)}\label{structsqlite3__vfs_6da2bf41bfd937659d09003744ea72b5}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xDlSym@{xDlSym}}
+\index{xDlSym@{xDlSym}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void($\ast$($\ast$ \bf{sqlite3\_\-vfs::x\-Dl\-Sym}}\label{structsqlite3__vfs_a47582c0aea9793e8337e9833b41b74b}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xFullPathname@{xFullPathname}}
+\index{xFullPathname@{xFullPathname}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Full\-Pathname}}\label{structsqlite3__vfs_024bb018a8381bbd8e438ba79b53eb4c}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xGetLastError@{xGetLastError}}
+\index{xGetLastError@{xGetLastError}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Get\-Last\-Error}}\label{structsqlite3__vfs_bb13e459868bb95ea64ad0d26ba64c0a}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xOpen@{xOpen}}
+\index{xOpen@{xOpen}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Open}}\label{structsqlite3__vfs_0f129f2f062709a2e550ea0cf359b786}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xRandomness@{xRandomness}}
+\index{xRandomness@{xRandomness}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Randomness}}\label{structsqlite3__vfs_76d0634c3d3feac1b7a6a9c36ab18d50}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!xSleep@{xSleep}}
+\index{xSleep@{xSleep}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-vfs::x\-Sleep}}\label{structsqlite3__vfs_6d8a77b40d0ca58260ba3e59146cc258}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!zName@{zName}}
+\index{zName@{zName}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{sqlite3\_\-vfs::z\-Name}}\label{structsqlite3__vfs_316ee65fab88994c5451e782d91aa308}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!zName@{zName}}
+\index{zName@{zName}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{sqlite3\_\-vfs::z\-Name}}\label{structsqlite3__vfs_316ee65fab88994c5451e782d91aa308}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!zName@{zName}}
+\index{zName@{zName}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{sqlite3\_\-vfs::z\-Name}}\label{structsqlite3__vfs_316ee65fab88994c5451e782d91aa308}
+
+
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!zName@{zName}}
+\index{zName@{zName}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{sqlite3\_\-vfs::z\-Name}}\label{structsqlite3__vfs_316ee65fab88994c5451e782d91aa308}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite/\bf{sqlite3.h}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.h}\end{CompactItemize}

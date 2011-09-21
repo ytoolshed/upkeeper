@@ -1,0 +1,311 @@
+\section{libupkeeper/upkeeper/upk\_\-protocol.h File Reference}
+\label{upk__protocol_8h}\index{libupkeeper/upkeeper/upk\_\-protocol.h@{libupkeeper/upkeeper/upk\_\-protocol.h}}
+
+
+UPK networking protocol.  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-error.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-types.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-std\_\-include.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-v0\_\-protocol\_\-structs.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-network\_\-types.h\char`\"{}}\par
+Include dependency graph for upk\_\-protocol.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf upk\_\-packet\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-preamble\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-preamble\_\-t}
+\item 
+struct {\bf upk\_\-generic\_\-msg\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-seq\_\-start\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-seq\_\-end\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-action\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-signal\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-list\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-status\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-subscribe\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-unsubscribe\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-disconnect\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-seq\_\-start\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-seq\_\-end\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-result\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-listing\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-svcinfo\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-ack\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-error\_\-t}
+\item 
+struct {\bf upk\_\-pub\_\-publication\_\-t}
+\item 
+struct {\bf upk\_\-pub\_\-cancelation\_\-t}
+\item 
+union {\bf \_\-upk\_\-payload\_\-types}
+\item 
+struct {\bf \_\-upk\_\-payload}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-MAX\_\-PACKET\_\-SIZE}~65536
+\item 
+\#define {\bf UPK\_\-PACKET\_\-HEADER\_\-LEN}~16
+\item 
+\#define {\bf UPK\_\-PACKET\_\-FOOTER\_\-LEN}~4
+\item 
+\#define {\bf UPK\_\-MIN\_\-SUPPORTED\_\-PROTO}~0
+\item 
+\#define {\bf UPK\_\-MAX\_\-SUPPORTED\_\-PROTO}~0
+\item 
+\#define {\bf UPK\_\-DATA}~\_\-\_\-upk\_\-data
+\item 
+\#define {\bf UPK\_\-DATA\_\-PTR}~\_\-\_\-upk\_\-data\_\-ptr
+\item 
+\#define {\bf UPK\_\-DATA\_\-LEN}~\_\-\_\-upk\_\-data\_\-len
+\item 
+\#define {\bf UPK\_\-BUF}~\_\-\_\-upk\_\-buf
+\item 
+\#define {\bf UPK\_\-BUF\_\-PTR}~\_\-\_\-upk\_\-buf\_\-ptr
+\item 
+\#define {\bf UPK\_\-UINT8\_\-BUFFER}~\_\-\_\-upk\_\-uint8\_\-buf
+\item 
+\#define {\bf UPK\_\-UINT16\_\-BUFFER}~\_\-\_\-upk\_\-uint16\_\-buf
+\item 
+\#define {\bf UPK\_\-UINT32\_\-BUFFER}~\_\-\_\-upk\_\-uint32\_\-buf
+\item 
+\#define {\bf UPK\_\-STRING\_\-LENGTH}~\_\-\_\-upk\_\-string\_\-len
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-pkttype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER}~pkttype
+\item 
+\#define {\bf UPK\_\-INIT\_\-DESERIALIZE}(TYPE)
+\item 
+\#define {\bf UPK\_\-MEMB\_\-TO\_\-LEN}(MEMB)~MEMB \#\# \_\-len
+\item 
+\#define {\bf UPK\_\-INIT\_\-DESERIALIZE\_\-MSG}(TYPE)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT32\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT32}(MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T(uint32\_\-t, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT16\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT16}(MEMB)~UPK\_\-FETCH\_\-UINT16\_\-T(uint16\_\-t, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT8\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT8}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T(uint8\_\-t, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-BOOL}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T(bool, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-ENUM}(TYPE, MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF}(BUF, LEN)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-DATA}(MEMB)~UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))
+\item 
+\#define {\bf UPK\_\-FETCH\_\-ARRAY}(MEMB, LEN)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE}(TYPE)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE\_\-BUF}(TYPE, LEN)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE\_\-MSG}(TYPE)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT32}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT16}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT8}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-BOOL}(MEMB)~UPK\_\-PUT\_\-UINT8(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-ENUM}(MEMB)~UPK\_\-PUT\_\-UINT32(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF}(BUF, LEN)
+\item 
+\#define {\bf UPK\_\-PUT\_\-DATA}(MEMB)~UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))
+\item 
+\#define {\bf UPK\_\-PUT\_\-ARRAY}(MEMB, LEN)
+\item 
+\#define {\bf UPK\_\-N\_\-SUPPORTED\_\-PROTOS}~(1 + UPK\_\-MAX\_\-SUPPORTED\_\-PROTO -\/ UPK\_\-MIN\_\-SUPPORTED\_\-PROTO)
+\item 
+\#define {\bf \_\-UPK\_\-N\_\-PER\_\-TYPE}(A)~(UPK\_\-\#\#A\#\#\_\-LIMIT -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN -\/ UPK\_\-N\_\-SUPPORTED\_\-PROTOS)
+\item 
+\#define {\bf UPK\_\-N\_\-REQ\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(REQ)
+\item 
+\#define {\bf UPK\_\-N\_\-REPL\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(REPL)
+\item 
+\#define {\bf UPK\_\-N\_\-PUB\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(PUB)
+\item 
+\#define {\bf \_\-UPK\_\-MSGTYPE\_\-OFFSET}(V, A, B)~(V $<$ UPK\_\-\#\#A\#\#\_\-LIMIT) ? (V -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN) + B
+\item 
+\#define {\bf UPK\_\-MSGTYPE\_\-IDX}(MSGTYPE)
+\item 
+\#define {\bf v0\_\-svcinfo\_\-t}~{\bf upk\_\-svcinfo\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char {\bf upk\_\-pkt\_\-buf\_\-t}
+\item 
+typedef enum {\bf \_\-upk\_\-msgtype} {\bf upk\_\-msgtype\_\-t}
+\begin{DoxyCompactList}\small\item\em message type. \end{DoxyCompactList}\item 
+typedef union {\bf \_\-upk\_\-payload\_\-types} {\bf upk\_\-payload\_\-types\_\-u}
+\item 
+typedef struct {\bf \_\-upk\_\-payload} {\bf upk\_\-payload\_\-t}
+\item 
+typedef {\bf upk\_\-conn\_\-handle\_\-t} {\bf upk\_\-protocol\_\-handle\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf upk\_\-pkttype\_\-t} \{ {\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}
+ \}
+\begin{DoxyCompactList}\small\item\em packet type. \end{DoxyCompactList}\item 
+enum {\bf \_\-upk\_\-msgtype} \{ \par
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+\par
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+{\bf UPK\_\-REQ\_\-LIST}, 
+{\bf UPK\_\-REQ\_\-STATUS}, 
+\par
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+\par
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+{\bf UPK\_\-REPL\_\-LISTING}, 
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+\par
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+\par
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-PUB\_\-LIMIT}
+ \}
+\begin{DoxyCompactList}\small\item\em message type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-packet} ({\bf upk\_\-packet\_\-t} $\ast$UPK\_\-DATA\_\-PTR)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-deserialize\_\-packet} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-req\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-req\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-repl\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, uint32\_\-t payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, uint32\_\-t proto\_\-ver)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$client\_\-name)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-action} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, char $\ast$action)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-signal} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-list} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-subscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-unsubscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-disconnect} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, uint32\_\-t best\_\-version)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-result} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$msg, bool successful)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-listing} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-svcinfo} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-ack} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-error} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-errno\_\-t} uerrno, char $\ast$errmsg, {\bf upk\_\-errlevel\_\-t} errlvl)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-publication} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-cancelation} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-get\_\-msgtype} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+size\_\-t {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+UPK networking protocol. The network protocol defined herein is intended at this time for localhost communication via domain socket. If for any reason it is ever desirable to use this over the wire, care has been taken to ensure endian and type safety for transport; however, my current opinion is anything for network transport should require authentication and presumably service-\/to-\/service authentication, proxy authentication, etc, i.e. x509 or preferably krb5 or similar mechanisms, along with non-\/struct-\/buffer based communication. And so it is my contention that it would probably be far saner to build a network service on top of this library, implementing its own authentication and communication protocol (probably utilizing json/yaml/xml/protobufs/whatever) 

@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #ifndef _UPK_CONFIG_H
 #define _UPK_CONFIG_H
 
@@ -13,10 +25,10 @@
   @{
   */
 
-//#include "upk_types.h"
+// #include "upk_types.h"
 #include "upk_include.h"
-//#include "upk_uuid.h"
-//#include "upk_json.h"
+// #include "upk_uuid.h"
+// #include "upk_json.h"
 
 /**
   @addtogroup services
@@ -57,7 +69,7 @@ struct _upk_svc_desc {
 
     char                   *LongDescription;               /*!< an arbitrary length description of the service */
 
-    upk_svclisthead_t      *Prerequisites;                 /*!< A list of prerequisite services that must be started
+    upk_svcid_meta_t       *Prerequisites;                 /*!< A list of prerequisite services that must be started
                                                               prior to this service; either by name, pkg-prefix, or by
                                                               what they provide */
 
@@ -118,7 +130,7 @@ struct _upk_svc_desc {
     char                   *ReloadScript;                  /*!< replace the default reload script of 'exec kill -HUP
                                                               $1'; argv[1] == pid of monitored process */
 
-    upk_cust_actscr_listhead_t *custom_action_scripts;     /*!< linked list of custom actions */
+    upk_cust_actscr_meta_t *custom_action_scripts;         /*!< linked list of custom actions */
 
     char                   *PipeStdoutScript;              /*!< optional script to pipe stdout to. for instance: 'exec 
                                                               logger -p local0.notice' */
@@ -164,7 +176,7 @@ struct _upk_svc_desc {
     upk_svc_desc_t         *next;                          /*!< for use in lists */
 };
 
-typedef                 UPKLIST_METANODE(upk_svc_desc_t, upk_svc_desc_head_p), upk_svc_desc_head_t;
+typedef                 UPKLIST_METANODE(upk_svc_desc_t, upk_svc_desc_meta_p), upk_svc_desc_meta_t;
 
 /**
   @}
@@ -182,10 +194,12 @@ typedef struct _upk_controller_config {
 
     char                    SvcRunPath[UPK_MAX_PATH_LEN];  /*!< path where buddy's will be created and run, usually
                                                               ${statedir}/buddies */
-    char                    UpkBuddyPath[UPK_MAX_PATH_LEN]; /*!< path to upk_buddy executable, usually ${libexecdir}/upk_buddy */
-    
-    double                  BuddyPollingInterval;           /*!< duration in seconds, or fractions of seconds, to wait between polling buddy
-                                                              sockets for updates; note that for longer durations, larger buddy ringbuffers should be
+    char                    UpkBuddyPath[UPK_MAX_PATH_LEN]; /*!< path to upk_buddy executable, usually
+                                                               ${libexecdir}/upk_buddy */
+
+    double                  BuddyPollingInterval;          /*!< duration in seconds, or fractions of seconds, to wait
+                                                              between polling buddy sockets for updates; note that for
+                                                              longer durations, larger buddy ringbuffers should be
                                                               prescribed */
 
     char                    controller_socket[UPK_MAX_PATH_LEN];    /*!< path to the controller socket, used
@@ -196,7 +210,7 @@ typedef struct _upk_controller_config {
     upk_svc_desc_t          ServiceDefaults;               /*!< default service configuration parameters; used
                                                               whenever an individual service omits something */
 
-    upk_svc_desc_head_t    *svclist;                       /*!< head-pointer to list of service descriptions */
+    upk_svc_desc_meta_t    *svclist;                       /*!< meta-pointer to list of service descriptions */
 } upk_controller_config_t;
 
 /**
@@ -208,7 +222,7 @@ typedef struct _upk_controller_config {
 /* upkeeper/upk_config.c */
 
 /* upk_config.c */
-extern char       upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
+extern char             upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
 extern const char       upk_default_configuration_vec[];
 extern upk_controller_config_t upk_default_configuration;
 extern upk_controller_config_t upk_file_configuration;
@@ -216,24 +230,27 @@ extern upk_controller_config_t upk_runtime_configuration;
 
 
 /* upkeeper/upk_config.c */
-extern void upk_svc_desc_free(upk_svc_desc_t *svc);
-extern void upk_svclist_free(upk_svc_desc_head_t *svclist);
-extern void upk_ctrlconf_free(upk_controller_config_t *cfg);
-extern void upk_ctrl_free_config(void);
-extern void upk_svcconf_pack(upk_controller_config_t *cfg, const char *json_string);
-extern void upk_ctrl_load_config(void);
-extern void upk_svc_desc_clear(upk_svc_desc_t *svc);
-extern void upk_svc_id(char *dest, upk_svc_desc_t *svc);
-extern void upk_parse_svc_id(char *key, upk_svc_desc_t *svc);
-extern struct json_object *upk_svclist_to_json_obj(upk_svc_desc_head_t *svclist);
-extern struct json_object *upk_svc_desc_to_json_obj(upk_svc_desc_t *svc);
-extern char *upk_json_serialize_svc_config(upk_svc_desc_t *svc, upk_json_data_output_opts_t opts);
-extern void upk_overlay_svcconf_values(upk_svc_desc_t *dest, upk_svc_desc_t *high);
-extern void upk_overlay_ctrlconf_values(upk_controller_config_t *dest, upk_controller_config_t *high);
-extern void upk_finalize_svc_desc(upk_svc_desc_t *dest, upk_svc_desc_t *orig);
-extern void upk_load_runtime_service_file(const char *filename);
-extern void upk_load_runtime_services(void);
+extern void             upk_svc_desc_free(upk_svc_desc_t * svc);
+extern void             upk_svclist_free(upk_svc_desc_meta_t * svclist);
+extern void             upk_ctrlconf_free(upk_controller_config_t * cfg);
+extern void             upk_ctrl_free_config(void);
+extern void             upk_svcconf_pack(upk_controller_config_t * cfg, const char *json_string);
+extern void             upk_ctrl_load_config(void);
+extern void             upk_svc_desc_clear(upk_svc_desc_t * svc);
+extern char            *upk_concat_svcid(char *dest, const char *pkg, const char *name);
+extern char            *upk_svc_id(char *dest, upk_svc_desc_t * svc);
+extern void             upk_parse_svc_id(char *key, upk_svc_desc_t * svc);
+extern struct json_object *upk_svclist_to_json_obj(upk_svc_desc_meta_t * svclist);
+extern struct json_object *upk_svc_desc_to_json_obj(upk_svc_desc_t * svc);
+extern char            *upk_json_serialize_svc_config(upk_svc_desc_t * svc, upk_json_data_output_opts_t opts);
+extern void             upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high);
+extern void             upk_overlay_ctrlconf_values(upk_controller_config_t * dest, upk_controller_config_t * high);
+extern void             upk_finalize_svc_desc(upk_svc_desc_t * dest, upk_svc_desc_t * orig);
+extern void             upk_load_runtime_service_file(const char *filename);
+extern void             upk_load_runtime_services(void);
+
 /** 
+  @}
   @}
   */
 

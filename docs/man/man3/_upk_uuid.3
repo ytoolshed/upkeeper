@@ -1,0 +1,64 @@
+.TH "_upk_uuid" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_uuid \- 
+.PP
+structure for holding 16 byte UUID.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_uuid.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBtime_low\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBtime_mid\fP"
+.br
+.ti -1c
+.RI "uint16_t \fBtime_high_and_version\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBclk_seq_high\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBclk_seq_low\fP"
+.br
+.ti -1c
+.RI "uint8_t \fBnode\fP [6]"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+structure for holding 16 byte UUID. 
+
+Despite only using v4 uuids, field labels chosen to reflect convention but All bits save those for version and id are random; and do not contain the information the label might imply 
+.SH "Field Documentation"
+.PP 
+.SS "uint8_t \fB_upk_uuid::clk_seq_high\fP"clock sequence high bits (0x80 - 0xB0 in this impl) 
+.PP
+Referenced by START_TEST(), upk_gen_uuid_bytes(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+.SS "uint8_t \fB_upk_uuid::clk_seq_low\fP"clock sequence low bits (random in this impl) 
+.PP
+Referenced by START_TEST(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+.SS "uint8_t \fB_upk_uuid::node\fP[6]"unique, usually random number (random in this impl) 
+.PP
+Referenced by START_TEST(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+.SS "uint16_t \fB_upk_uuid::time_high_and_version\fP"high-resolution bits, and the version id of the uuid (time_high is random in this impl; version is 0x40) 
+.PP
+Referenced by START_TEST(), upk_gen_uuid_bytes(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+.SS "uint32_t \fB_upk_uuid::time_low\fP"low resolution bits, usually seconds since epoch (random in this impl) 
+.PP
+Referenced by START_TEST(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+.SS "uint16_t \fB_upk_uuid::time_mid\fP"mid resolution bits (random in this impl) 
+.PP
+Referenced by START_TEST(), upk_overlay_svcconf_values(), upk_string_to_uuid(), and upk_uuid_to_string().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

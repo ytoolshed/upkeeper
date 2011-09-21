@@ -1,0 +1,349 @@
+.TH "Vdbe" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Vdbe \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpPrev\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "int \fBnOp\fP"
+.br
+.ti -1c
+.RI "int \fBnOpAlloc\fP"
+.br
+.ti -1c
+.RI "\fBOp\fP * \fBaOp\fP"
+.br
+.ti -1c
+.RI "int \fBnLabel\fP"
+.br
+.ti -1c
+.RI "int \fBnLabelAlloc\fP"
+.br
+.ti -1c
+.RI "int * \fBaLabel\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP ** \fBapArg\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaColName\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBpResultSet\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBnResColumn\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBnCursor\fP"
+.br
+.ti -1c
+.RI "\fBVdbeCursor\fP ** \fBapCsr\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBerrorAction\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBokVar\fP"
+.br
+.ti -1c
+.RI "\fBynVar\fP \fBnVar\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaVar\fP"
+.br
+.ti -1c
+.RI "char ** \fBazVar\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBmagic\fP"
+.br
+.ti -1c
+.RI "int \fBnMem\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaMem\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBcacheCtr\fP"
+.br
+.ti -1c
+.RI "int \fBpc\fP"
+.br
+.ti -1c
+.RI "int \fBrc\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBexplain\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBchangeCntOn\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBexpired\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBrunOnlyOnce\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBminWriteFileFormat\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBinVtabMethod\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBusesStmtJournal\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBreadOnly\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisPrepareV2\fP"
+.br
+.ti -1c
+.RI "int \fBnChange\fP"
+.br
+.ti -1c
+.RI "int \fBbtreeMask\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBstartTime\fP"
+.br
+.ti -1c
+.RI "\fBBtreeMutexArray\fP \fBaMutex\fP"
+.br
+.ti -1c
+.RI "int \fBaCounter\fP [3]"
+.br
+.ti -1c
+.RI "char * \fBzSql\fP"
+.br
+.ti -1c
+.RI "void * \fBpFree\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBnFkConstraint\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBnStmtDefCons\fP"
+.br
+.ti -1c
+.RI "int \fBiStatement\fP"
+.br
+.ti -1c
+.RI "\fBVdbeFrame\fP * \fBpFrame\fP"
+.br
+.ti -1c
+.RI "int \fBnFrame\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBexpmask\fP"
+.br
+.ti -1c
+.RI "\fBSubProgram\fP * \fBpProgram\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpPrev\fP"
+.br
+.ti -1c
+.RI "\fBOp\fP * \fBaOp\fP"
+.br
+.ti -1c
+.RI "int * \fBaLabel\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP ** \fBapArg\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaColName\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBpResultSet\fP"
+.br
+.ti -1c
+.RI "\fBVdbeCursor\fP ** \fBapCsr\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaVar\fP"
+.br
+.ti -1c
+.RI "char ** \fBazVar\fP"
+.br
+.ti -1c
+.RI "\fBMem\fP * \fBaMem\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "char * \fBzSql\fP"
+.br
+.ti -1c
+.RI "void * \fBpFree\fP"
+.br
+.ti -1c
+.RI "\fBVdbeFrame\fP * \fBpFrame\fP"
+.br
+.ti -1c
+.RI "\fBSubProgram\fP * \fBpProgram\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBMem\fP* \fBVdbe::aColName\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::aColName\fP"
+.PP
+.SS "int \fBVdbe::aCounter\fP"
+.PP
+.SS "int* \fBVdbe::aLabel\fP"
+.PP
+.SS "int* \fBVdbe::aLabel\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::aMem\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::aMem\fP"
+.PP
+.SS "\fBBtreeMutexArray\fP \fBVdbe::aMutex\fP"
+.PP
+.SS "\fBOp\fP* \fBVdbe::aOp\fP"
+.PP
+.SS "\fBOp\fP* \fBVdbe::aOp\fP"
+.PP
+.SS "\fBMem\fP** \fBVdbe::apArg\fP"
+.PP
+.SS "\fBMem\fP** \fBVdbe::apArg\fP"
+.PP
+.SS "\fBVdbeCursor\fP** \fBVdbe::apCsr\fP"
+.PP
+.SS "\fBVdbeCursor\fP** \fBVdbe::apCsr\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::aVar\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::aVar\fP"
+.PP
+.SS "char** \fBVdbe::azVar\fP"
+.PP
+.SS "char** \fBVdbe::azVar\fP"
+.PP
+.SS "int \fBVdbe::btreeMask\fP"
+.PP
+.SS "\fBu32\fP \fBVdbe::cacheCtr\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::changeCntOn\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBVdbe::db\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBVdbe::db\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::errorAction\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::expired\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::explain\fP"
+.PP
+.SS "\fBu32\fP \fBVdbe::expmask\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::inVtabMethod\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::isPrepareV2\fP"
+.PP
+.SS "int \fBVdbe::iStatement\fP"
+.PP
+.SS "\fBu32\fP \fBVdbe::magic\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::minWriteFileFormat\fP"
+.PP
+.SS "int \fBVdbe::nChange\fP"
+.PP
+.SS "\fBu16\fP \fBVdbe::nCursor\fP"
+.PP
+.SS "\fBi64\fP \fBVdbe::nFkConstraint\fP"
+.PP
+.SS "int \fBVdbe::nFrame\fP"
+.PP
+.SS "int \fBVdbe::nLabel\fP"
+.PP
+.SS "int \fBVdbe::nLabelAlloc\fP"
+.PP
+.SS "int \fBVdbe::nMem\fP"
+.PP
+.SS "int \fBVdbe::nOp\fP"
+.PP
+.SS "int \fBVdbe::nOpAlloc\fP"
+.PP
+.SS "\fBu16\fP \fBVdbe::nResColumn\fP"
+.PP
+.SS "\fBi64\fP \fBVdbe::nStmtDefCons\fP"
+.PP
+.SS "\fBynVar\fP \fBVdbe::nVar\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::okVar\fP"
+.PP
+.SS "int \fBVdbe::pc\fP"
+.PP
+.SS "\fBVdbeFrame\fP* \fBVdbe::pFrame\fP"
+.PP
+.SS "\fBVdbeFrame\fP* \fBVdbe::pFrame\fP"
+.PP
+.SS "void* \fBVdbe::pFree\fP"
+.PP
+.SS "void* \fBVdbe::pFree\fP"
+.PP
+.SS "\fBVdbe\fP * \fBVdbe::pNext\fP"
+.PP
+.SS "\fBVdbe\fP* \fBVdbe::pPrev\fP"
+.PP
+.SS "\fBVdbe\fP* \fBVdbe::pPrev\fP"
+.PP
+.SS "\fBSubProgram\fP* \fBVdbe::pProgram\fP"
+.PP
+.SS "\fBSubProgram\fP* \fBVdbe::pProgram\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::pResultSet\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbe::pResultSet\fP"
+.PP
+.SS "int \fBVdbe::rc\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::readOnly\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::runOnlyOnce\fP"
+.PP
+.SS "\fBi64\fP \fBVdbe::startTime\fP"
+.PP
+.SS "\fBu8\fP \fBVdbe::usesStmtJournal\fP"
+.PP
+.SS "char* \fBVdbe::zErrMsg\fP"
+.PP
+.SS "char* \fBVdbe::zErrMsg\fP"
+.PP
+.SS "char* \fBVdbe::zSql\fP"
+.PP
+.SS "char* \fBVdbe::zSql\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

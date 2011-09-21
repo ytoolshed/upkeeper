@@ -1,0 +1,194 @@
+.TH "Sqlite3Config" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Sqlite3Config \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBbMemstat\fP"
+.br
+.ti -1c
+.RI "int \fBbCoreMutex\fP"
+.br
+.ti -1c
+.RI "int \fBbFullMutex\fP"
+.br
+.ti -1c
+.RI "int \fBmxStrlen\fP"
+.br
+.ti -1c
+.RI "int \fBszLookaside\fP"
+.br
+.ti -1c
+.RI "int \fBnLookaside\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mem_methods\fP \fBm\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex_methods\fP \fBmutex\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_pcache_methods\fP \fBpcache\fP"
+.br
+.ti -1c
+.RI "void * \fBpHeap\fP"
+.br
+.ti -1c
+.RI "int \fBnHeap\fP"
+.br
+.ti -1c
+.RI "int \fBmnReq\fP"
+.br
+.ti -1c
+.RI "int \fBmxReq\fP"
+.br
+.ti -1c
+.RI "void * \fBpScratch\fP"
+.br
+.ti -1c
+.RI "int \fBszScratch\fP"
+.br
+.ti -1c
+.RI "int \fBnScratch\fP"
+.br
+.ti -1c
+.RI "void * \fBpPage\fP"
+.br
+.ti -1c
+.RI "int \fBszPage\fP"
+.br
+.ti -1c
+.RI "int \fBnPage\fP"
+.br
+.ti -1c
+.RI "int \fBmxParserStack\fP"
+.br
+.ti -1c
+.RI "int \fBsharedCacheEnabled\fP"
+.br
+.ti -1c
+.RI "int \fBisInit\fP"
+.br
+.ti -1c
+.RI "int \fBinProgress\fP"
+.br
+.ti -1c
+.RI "int \fBisMutexInit\fP"
+.br
+.ti -1c
+.RI "int \fBisMallocInit\fP"
+.br
+.ti -1c
+.RI "int \fBisPCacheInit\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBpInitMutex\fP"
+.br
+.ti -1c
+.RI "int \fBnRefInitMutex\fP"
+.br
+.ti -1c
+.RI "void(* \fBxLog\fP )(void *, int, const char *)"
+.br
+.ti -1c
+.RI "void * \fBpLogArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpHeap\fP"
+.br
+.ti -1c
+.RI "void * \fBpScratch\fP"
+.br
+.ti -1c
+.RI "void * \fBpPage\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBpInitMutex\fP"
+.br
+.ti -1c
+.RI "void * \fBpLogArg\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int \fBSqlite3Config::bCoreMutex\fP"
+.PP
+.SS "int \fBSqlite3Config::bFullMutex\fP"
+.PP
+.SS "int \fBSqlite3Config::bMemstat\fP"
+.PP
+.SS "int \fBSqlite3Config::inProgress\fP"
+.PP
+.SS "int \fBSqlite3Config::isInit\fP"
+.PP
+.SS "int \fBSqlite3Config::isMallocInit\fP"
+.PP
+.SS "int \fBSqlite3Config::isMutexInit\fP"
+.PP
+.SS "int \fBSqlite3Config::isPCacheInit\fP"
+.PP
+.SS "\fBsqlite3_mem_methods\fP \fBSqlite3Config::m\fP"
+.PP
+.SS "int \fBSqlite3Config::mnReq\fP"
+.PP
+.SS "\fBsqlite3_mutex_methods\fP \fBSqlite3Config::mutex\fP"
+.PP
+.SS "int \fBSqlite3Config::mxParserStack\fP"
+.PP
+.SS "int \fBSqlite3Config::mxReq\fP"
+.PP
+.SS "int \fBSqlite3Config::mxStrlen\fP"
+.PP
+.SS "int \fBSqlite3Config::nHeap\fP"
+.PP
+.SS "int \fBSqlite3Config::nLookaside\fP"
+.PP
+.SS "int \fBSqlite3Config::nPage\fP"
+.PP
+.SS "int \fBSqlite3Config::nRefInitMutex\fP"
+.PP
+.SS "int \fBSqlite3Config::nScratch\fP"
+.PP
+.SS "\fBsqlite3_pcache_methods\fP \fBSqlite3Config::pcache\fP"
+.PP
+.SS "void* \fBSqlite3Config::pHeap\fP"
+.PP
+.SS "void* \fBSqlite3Config::pHeap\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBSqlite3Config::pInitMutex\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBSqlite3Config::pInitMutex\fP"
+.PP
+.SS "void* \fBSqlite3Config::pLogArg\fP"
+.PP
+.SS "void* \fBSqlite3Config::pLogArg\fP"
+.PP
+.SS "void* \fBSqlite3Config::pPage\fP"
+.PP
+.SS "void* \fBSqlite3Config::pPage\fP"
+.PP
+.SS "void* \fBSqlite3Config::pScratch\fP"
+.PP
+.SS "void* \fBSqlite3Config::pScratch\fP"
+.PP
+.SS "int \fBSqlite3Config::sharedCacheEnabled\fP"
+.PP
+.SS "int \fBSqlite3Config::szLookaside\fP"
+.PP
+.SS "int \fBSqlite3Config::szPage\fP"
+.PP
+.SS "int \fBSqlite3Config::szScratch\fP"
+.PP
+.SS "void(* \fBSqlite3Config::xLog\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

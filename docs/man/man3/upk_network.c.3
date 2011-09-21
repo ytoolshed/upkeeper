@@ -1,0 +1,98 @@
+.TH "libupkeeper/upkeeper/upk_network.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_network.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static int \fBupk_build_fd_sets\fP (fd_set *readfds, fd_set *writefds, fd_set *exceptfds, \fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.ti -1c
+.RI "static void \fBupk_partitioned_userdata_free\fP (void *ptr)"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBupk_net_conn_handle_init\fP (void *userdata, void(*userdata_free_func)(void *ptr))"
+.br
+.ti -1c
+.RI "\fBupk_net_gstate_t\fP * \fBupk_net_get_gstate\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.ti -1c
+.RI "void * \fBupk_net_get_userdata\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.ti -1c
+.RI "void \fBupk_net_add_socket_handle\fP (\fBupk_conn_handle_meta_t\fP *handles, int fd, \fBupk_net_callback_t\fP pkt_callback)"
+.br
+.ti -1c
+.RI "void \fBupk_net_flush_closed_sockets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.ti -1c
+.RI "void \fBupk_net_event_dispatcher\fP (\fBupk_conn_handle_meta_t\fP *handles, double sel_ival)"
+.br
+.ti -1c
+.RI "int \fBupk_net_block_until_msg\fP (\fBupk_conn_handle_meta_t\fP *handles, double sel_ival, struct timeval *\fBtimeout\fP)"
+.br
+.ti -1c
+.RI "static void \fBupk_call_received_packet_callbacks\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void \fBupk_disconnect_handle\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIclose the connection on a given handle and remove the handle from the list of connection handles. \fP"
+.ti -1c
+.RI "void \fBupk_net_shutdown_callback\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.ti -1c
+.RI "void \fBupk_queue_packet\fP (\fBupk_conn_handle_t\fP *handle, \fBupk_packet_t\fP *pkt, \fBupk_net_callback_t\fP after_write_callback, \fBupk_net_callback_t\fP set_after_read_callback)"
+.br
+.RI "\fIqueue a packet to send, will be sent via upk_write_packet. \fP"
+.ti -1c
+.RI "void \fBupk_write_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIwrite packets from queue async and nonblocking. \fP"
+.ti -1c
+.RI "void \fBupk_read_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIretry socket connection, pausing between each retry. \fP"
+.ti -1c
+.RI "int \fBupk_domain_socket_connect\fP (const char *sockpath)"
+.br
+.RI "\fImake unix-domain socket connection. \fP"
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static int upk_build_fd_sets (fd_set *readfds, fd_set *writefds, fd_set *exceptfds, \fBupk_conn_handle_meta_t\fP *handles)\fC [inline, static]\fP"
+.PP
+References UPKLIST_FOREACH.
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "static void upk_call_received_packet_callbacks (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_packet_t\fP *pkt)\fC [static]\fP"
+.PP
+References _upk_conn_handle::after_read_callback, _upk_net_gstate::callback_stack, _upk_conn_handle::last_pkt_data, upk_packet_t::payload, _upk_payload::payload, _upk_payload::type, upk_get_msgsize(), upk_get_msgtype(), UPK_MSGTYPE_IDX, upk_net_cb_stk_meta_t, and upk_net_get_gstate().
+.PP
+Referenced by upk_read_packets().
+.SS "\fBupk_net_gstate_t\fP* upk_net_get_gstate (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+References _upklist_userdata_state_partition::gstate, and _upklist_userdata_state_partition::userdata.
+.PP
+Referenced by upk_call_received_packet_callbacks(), upk_net_add_socket_handle(), upk_net_event_dispatcher(), and upk_write_packets().
+.SS "void* upk_net_get_userdata (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+References _upklist_userdata_state_partition::userdata.
+.PP
+Referenced by upk_net_add_socket_handle().
+.SS "static void upk_partitioned_userdata_free (void *ptr)\fC [static]\fP"
+.PP
+References _upk_net_gstate::callback_stack, _upklist_userdata_state_partition::gstate, UPKLIST_FREE, _upklist_userdata_state_partition::userdata, and _upklist_userdata_state_partition::userdata_free_func.
+.PP
+Referenced by upk_net_conn_handle_init().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

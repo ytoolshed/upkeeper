@@ -1,0 +1,285 @@
+\section{libupkeeper/upkeeper/upk\_\-json.h File Reference}
+\label{upk__json_8h}\index{libupkeeper/upkeeper/upk\_\-json.h@{libupkeeper/upkeeper/upk\_\-json.h}}
+{\ttfamily \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+{\ttfamily \#include $<$json/json.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+Include dependency graph for upk\_\-json.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-upk\_\-json\_\-string}
+\item 
+struct {\bf \_\-upk\_\-json\_\-type}
+\item 
+struct {\bf \_\-upk\_\-json\_\-stack\_\-handlers}
+\item 
+struct {\bf \_\-upk\_\-json\_\-stack\_\-node}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-upk\_\-json\_\-string} {\bf upk\_\-json\_\-string\_\-t}
+\item 
+typedef struct {\bf \_\-upk\_\-json\_\-type} {\bf upk\_\-json\_\-val\_\-t}
+\item 
+typedef struct {\bf \_\-upk\_\-json\_\-stack\_\-node} {\bf upk\_\-json\_\-stack\_\-node\_\-t}
+\item 
+typedef void($\ast$ {\bf upk\_\-json\_\-handler\_\-t} )({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+typedef struct {\bf \_\-upk\_\-json\_\-stack\_\-handlers} {\bf upk\_\-json\_\-handlers\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-json\_\-stack\_\-node\_\-t}, upk\_\-json\_\-stack\_\-meta\_\-p)
+\item 
+void {\bf upk\_\-json\_\-stack\_\-pop} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta)
+\item 
+void {\bf upk\_\-json\_\-stack\_\-push} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, {\bf upk\_\-json\_\-stack\_\-node\_\-t} $\ast$node)
+\item 
+void {\bf upk\_\-json\_\-parse\_\-node} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$jobj)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-json\_\-parse\_\-string} (const char $\ast$string)
+\item 
+char $\ast$ {\bf upk\_\-json\_\-obj\_\-to\_\-string} (struct json\_\-object $\ast$obj, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\item 
+void {\bf upk\_\-json\_\-obj\_\-to\_\-stream} (struct json\_\-object $\ast$obj, FILE $\ast$stream, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf upk\_\-json\_\-stack\_\-meta\_\-t}
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-handler\_\-t@{upk\_\-json\_\-handler\_\-t}}
+\index{upk\_\-json\_\-handler\_\-t@{upk\_\-json\_\-handler\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-handler\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf upk\_\-json\_\-handler\_\-t})({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)}\label{upk__json_8h_ada3f40d8b9993986ed2474266c3767fd}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-handlers\_\-t@{upk\_\-json\_\-handlers\_\-t}}
+\index{upk\_\-json\_\-handlers\_\-t@{upk\_\-json\_\-handlers\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-handlers\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-json\_\-stack\_\-handlers}  {\bf upk\_\-json\_\-handlers\_\-t}}\label{upk__json_8h_a33c5fa99d61d51b6283dc73b1e455433}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-stack\_\-node\_\-t@{upk\_\-json\_\-stack\_\-node\_\-t}}
+\index{upk\_\-json\_\-stack\_\-node\_\-t@{upk\_\-json\_\-stack\_\-node\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-stack\_\-node\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-json\_\-stack\_\-node} {\bf upk\_\-json\_\-stack\_\-node\_\-t}}\label{upk__json_8h_a6e073cd5f1db80010f3eefe7e50e8817}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-string\_\-t@{upk\_\-json\_\-string\_\-t}}
+\index{upk\_\-json\_\-string\_\-t@{upk\_\-json\_\-string\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-string\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-json\_\-string}  {\bf upk\_\-json\_\-string\_\-t}}\label{upk__json_8h_a8737ac348e369b457e5c471458f601ad}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-val\_\-t@{upk\_\-json\_\-val\_\-t}}
+\index{upk\_\-json\_\-val\_\-t@{upk\_\-json\_\-val\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-val\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-json\_\-type}  {\bf upk\_\-json\_\-val\_\-t}}\label{upk__json_8h_a6eb2d509b12e3e9594d2fbeab6a00a03}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-obj\_\-to\_\-stream@{upk\_\-json\_\-obj\_\-to\_\-stream}}
+\index{upk\_\-json\_\-obj\_\-to\_\-stream@{upk\_\-json\_\-obj\_\-to\_\-stream}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-obj\_\-to\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-obj\_\-to\_\-stream (
+\begin{DoxyParamCaption}
+\item[{struct json\_\-object $\ast$}]{obj, }
+\item[{FILE $\ast$}]{stream, }
+\item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a95a5c8d27288affe2621f3521975483c}
+
+
+References data\_\-type\_\-stream, \_\-upk\_\-json\_\-output\_\-data::type, and upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a95a5c8d27288affe2621f3521975483c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-obj\_\-to\_\-string@{upk\_\-json\_\-obj\_\-to\_\-string}}
+\index{upk\_\-json\_\-obj\_\-to\_\-string@{upk\_\-json\_\-obj\_\-to\_\-string}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-obj\_\-to\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-json\_\-obj\_\-to\_\-string (
+\begin{DoxyParamCaption}
+\item[{struct json\_\-object $\ast$}]{obj, }
+\item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a40b01bf12283a69e42e025934ef029b0}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::d, data\_\-type\_\-string, \_\-upk\_\-stream\_\-string::p, \_\-upk\_\-stream\_\-string::str, \_\-upk\_\-json\_\-output\_\-data::type, and upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Referenced by upk\_\-json\_\-serialize\_\-svc\_\-config().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a40b01bf12283a69e42e025934ef029b0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a40b01bf12283a69e42e025934ef029b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-parse\_\-node@{upk\_\-json\_\-parse\_\-node}}
+\index{upk\_\-json\_\-parse\_\-node@{upk\_\-json\_\-parse\_\-node}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-parse\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-parse\_\-node (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{jobj}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a7b66ec61f45805d9f955dc218aeb7f85}
+
+
+References \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Referenced by upk\_\-ctrlconf\_\-pack(), upk\_\-json\_\-obj\_\-serializer(), and upk\_\-svcconf\_\-pack().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a7b66ec61f45805d9f955dc218aeb7f85_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a7b66ec61f45805d9f955dc218aeb7f85_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-parse\_\-string@{upk\_\-json\_\-parse\_\-string}}
+\index{upk\_\-json\_\-parse\_\-string@{upk\_\-json\_\-parse\_\-string}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-parse\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}struct json\_\-object$\ast$ upk\_\-json\_\-parse\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [read]}}\label{upk__json_8h_a2537c9031342aede9398e0c0e3ecf826}
+
+
+References IF\_\-UPK\_\-ERROR, UPK\_\-ERR\_\-INIT, UPK\_\-FUNC\_\-ASSERT\_\-MSG, and UPK\_\-JSON\_\-PARSE\_\-ERROR.
+
+
+
+Referenced by main(), upk\_\-ctrlconf\_\-pack(), and upk\_\-svcconf\_\-pack().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a2537c9031342aede9398e0c0e3ecf826_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-stack\_\-pop@{upk\_\-json\_\-stack\_\-pop}}
+\index{upk\_\-json\_\-stack\_\-pop@{upk\_\-json\_\-stack\_\-pop}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-stack\_\-pop}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-stack\_\-pop (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a8ca65d0a84d16aad7204129ac833f306}
+
+
+References UPKLIST\_\-FOREACH, and UPKLIST\_\-UNLINK.
+
+
+
+Referenced by \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a8ca65d0a84d16aad7204129ac833f306_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-stack\_\-push@{upk\_\-json\_\-stack\_\-push}}
+\index{upk\_\-json\_\-stack\_\-push@{upk\_\-json\_\-stack\_\-push}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-stack\_\-push}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-stack\_\-push (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{{\bf upk\_\-json\_\-stack\_\-node\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a0f2e70a432b238a91e18691188ff6d4c}
+
+
+References UPKLIST\_\-PREPEND.
+
+
+
+Referenced by upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-obj\_\-serializer(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-svcconf\_\-object\_\-handler(), upk\_\-svcconf\_\-pack(), and upk\_\-svcconf\_\-toplvl\_\-obj().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8h_a0f2e70a432b238a91e18691188ff6d4c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.h@{upk\_\-json.h}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-node\_\-t}}]{, }
+\item[{upk\_\-json\_\-stack\_\-meta\_\-p}]{}
+\end{DoxyParamCaption}
+)}\label{upk__json_8h_a7d254c23e846aa3cfd7bddbc8500f837}
+
+
+\subsection{Variable Documentation}
+\index{upk\_\-json.h@{upk\_\-json.h}!upk\_\-json\_\-stack\_\-meta\_\-t@{upk\_\-json\_\-stack\_\-meta\_\-t}}
+\index{upk\_\-json\_\-stack\_\-meta\_\-t@{upk\_\-json\_\-stack\_\-meta\_\-t}!upk_json.h@{upk\_\-json.h}}
+\subsubsection[{upk\_\-json\_\-stack\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-json\_\-stack\_\-meta\_\-t}}\label{upk__json_8h_aff609f6fce8f333fcdbe7a130c7c33b8}
+
+
+Referenced by upk\_\-ctrlconf\_\-pack(), upk\_\-json\_\-obj\_\-serializer(), and upk\_\-svcconf\_\-pack().
+

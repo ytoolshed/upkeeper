@@ -1,0 +1,144 @@
+\section{Where\-Term Struct Reference}
+\label{structWhereTerm}\index{WhereTerm@{WhereTerm}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{Expr} $\ast$ \bf{p\-Expr}
+\item 
+int \bf{i\-Parent}
+\item 
+int \bf{left\-Cursor}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int \bf{leftColumn}\\
+\>\bf{WhereOrInfo} $\ast$ \bf{pOrInfo}\\
+\>\bf{WhereAndInfo} $\ast$ \bf{pAndInfo}\\
+\} \bf{u}\\
+
+\end{tabbing}\item 
+\bf{u16} \bf{e\-Operator}
+\item 
+\bf{u8} \bf{wt\-Flags}
+\item 
+\bf{u8} \bf{n\-Child}
+\item 
+\bf{Where\-Clause} $\ast$ \bf{p\-WC}
+\item 
+\bf{Bitmask} \bf{prereq\-Right}
+\item 
+\bf{Bitmask} \bf{prereq\-All}
+\item 
+\bf{Expr} $\ast$ \bf{p\-Expr}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int \bf{leftColumn}\\
+\>\bf{WhereOrInfo} $\ast$ \bf{pOrInfo}\\
+\>\bf{WhereAndInfo} $\ast$ \bf{pAndInfo}\\
+\} \bf{u}\\
+
+\end{tabbing}\item 
+\bf{Where\-Clause} $\ast$ \bf{p\-WC}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{WhereTerm@{Where\-Term}!eOperator@{eOperator}}
+\index{eOperator@{eOperator}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Where\-Term::e\-Operator}}\label{structWhereTerm_5ac845129241a6cb94a6baf9cc797676}
+
+
+\index{WhereTerm@{Where\-Term}!iParent@{iParent}}
+\index{iParent@{iParent}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Where\-Term::i\-Parent}}\label{structWhereTerm_c7879a4ba520226914c927127956bfc9}
+
+
+\index{WhereTerm@{Where\-Term}!leftColumn@{leftColumn}}
+\index{leftColumn@{leftColumn}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Where\-Term::left\-Column}}\label{structWhereTerm_a1b72569f50e7c174791aa91faa86209}
+
+
+\index{WhereTerm@{Where\-Term}!leftCursor@{leftCursor}}
+\index{leftCursor@{leftCursor}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Where\-Term::left\-Cursor}}\label{structWhereTerm_208984f9a803c38af702b99362bab118}
+
+
+\index{WhereTerm@{Where\-Term}!nChild@{nChild}}
+\index{nChild@{nChild}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Where\-Term::n\-Child}}\label{structWhereTerm_34bb5369e9546c7d6d8c6f2affa1ffd1}
+
+
+\index{WhereTerm@{Where\-Term}!pAndInfo@{pAndInfo}}
+\index{pAndInfo@{pAndInfo}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-And\-Info}$\ast$ \bf{Where\-Term::p\-And\-Info}}\label{structWhereTerm_fb0735c1777875859f608630cbee21ca}
+
+
+\index{WhereTerm@{Where\-Term}!pAndInfo@{pAndInfo}}
+\index{pAndInfo@{pAndInfo}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-And\-Info}$\ast$ \bf{Where\-Term::p\-And\-Info}}\label{structWhereTerm_fb0735c1777875859f608630cbee21ca}
+
+
+\index{WhereTerm@{Where\-Term}!pExpr@{pExpr}}
+\index{pExpr@{pExpr}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Where\-Term::p\-Expr}}\label{structWhereTerm_c99568ae62f15d86ac715b87a7fbf41e}
+
+
+\index{WhereTerm@{Where\-Term}!pExpr@{pExpr}}
+\index{pExpr@{pExpr}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Where\-Term::p\-Expr}}\label{structWhereTerm_c99568ae62f15d86ac715b87a7fbf41e}
+
+
+\index{WhereTerm@{Where\-Term}!pOrInfo@{pOrInfo}}
+\index{pOrInfo@{pOrInfo}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-Or\-Info}$\ast$ \bf{Where\-Term::p\-Or\-Info}}\label{structWhereTerm_96da0545c84d0a442bd807ed11e0cf67}
+
+
+\index{WhereTerm@{Where\-Term}!pOrInfo@{pOrInfo}}
+\index{pOrInfo@{pOrInfo}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-Or\-Info}$\ast$ \bf{Where\-Term::p\-Or\-Info}}\label{structWhereTerm_96da0545c84d0a442bd807ed11e0cf67}
+
+
+\index{WhereTerm@{Where\-Term}!prereqAll@{prereqAll}}
+\index{prereqAll@{prereqAll}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bitmask} \bf{Where\-Term::prereq\-All}}\label{structWhereTerm_7c343d70ac2cb653f9bd24fd07e5a018}
+
+
+\index{WhereTerm@{Where\-Term}!prereqRight@{prereqRight}}
+\index{prereqRight@{prereqRight}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bitmask} \bf{Where\-Term::prereq\-Right}}\label{structWhereTerm_eac74e8a3ee92dd6ae6d32a8ddf33922}
+
+
+\index{WhereTerm@{Where\-Term}!pWC@{pWC}}
+\index{pWC@{pWC}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-Clause}$\ast$ \bf{Where\-Term::p\-WC}}\label{structWhereTerm_19ad74063ab0dcd08ad5db2109595f9d}
+
+
+\index{WhereTerm@{Where\-Term}!pWC@{pWC}}
+\index{pWC@{pWC}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Where\-Clause}$\ast$ \bf{Where\-Term::p\-WC}}\label{structWhereTerm_19ad74063ab0dcd08ad5db2109595f9d}
+
+
+\index{WhereTerm@{Where\-Term}!u@{u}}
+\index{u@{u}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Where\-Term::u}}\label{structWhereTerm_3660ad412b1bb2acc1d920eb548f9a6a}
+
+
+\index{WhereTerm@{Where\-Term}!u@{u}}
+\index{u@{u}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Where\-Term::u}}\label{structWhereTerm_ee3376a67cddd8a86e97d7d2b663134f}
+
+
+\index{WhereTerm@{Where\-Term}!wtFlags@{wtFlags}}
+\index{wtFlags@{wtFlags}!WhereTerm@{Where\-Term}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Where\-Term::wt\-Flags}}\label{structWhereTerm_6d595d003e8a0a489367b1f716754903}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

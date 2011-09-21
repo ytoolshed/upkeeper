@@ -1,0 +1,86 @@
+\section{uptop/render.c File Reference}
+\label{render_8c}\index{uptop/render.c@{uptop/render.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$ncurses.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$sqlite3.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{table\_\-item}
+\item 
+struct \bf{table\_\-row}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+\bf{table\_\-item} $\ast$ \bf{table\_\-item\_\-new} (void)
+\item 
+void \bf{table\_\-item\_\-format\_\-set} (struct \bf{table\_\-item} $\ast$item, char $\ast$format)
+\item 
+char $\ast$ \bf{table\_\-item\_\-mrender} (struct \bf{table\_\-item} $\ast$item)
+\item 
+void \bf{table\_\-item\_\-free} (struct \bf{table\_\-item} $\ast$item)
+\item 
+void \bf{table\_\-item\_\-dump} (struct \bf{table\_\-item} $\ast$item)
+\item 
+void \bf{table\_\-item\_\-content\_\-set} (struct \bf{table\_\-item} $\ast$item, char $\ast$content)
+\item 
+\bf{main} ()
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{DEBUG} = 0
+\end{CompactItemize}
+
+
+\subsection{Function Documentation}
+\index{render.c@{render.c}!main@{main}}
+\index{main@{main}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}main (void)}\label{render_8c_a80b17e0c8331167079b7bd039285448}
+
+
+\index{render.c@{render.c}!table_item_content_set@{table\_\-item\_\-content\_\-set}}
+\index{table_item_content_set@{table\_\-item\_\-content\_\-set}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-item\_\-content\_\-set (struct \bf{table\_\-item} $\ast$ {\em item}, char $\ast$ {\em content})}\label{render_8c_6b3fb60b7459742a91d4a108a614ba71}
+
+
+\index{render.c@{render.c}!table_item_dump@{table\_\-item\_\-dump}}
+\index{table_item_dump@{table\_\-item\_\-dump}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-item\_\-dump (struct \bf{table\_\-item} $\ast$ {\em item})}\label{render_8c_7ce861c8e8de2d7ec6d4894909b9ffa6}
+
+
+\index{render.c@{render.c}!table_item_format_set@{table\_\-item\_\-format\_\-set}}
+\index{table_item_format_set@{table\_\-item\_\-format\_\-set}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-item\_\-format\_\-set (struct \bf{table\_\-item} $\ast$ {\em item}, char $\ast$ {\em format})}\label{render_8c_8645b73bf4cb7c3a1b7c954a0621725a}
+
+
+\index{render.c@{render.c}!table_item_free@{table\_\-item\_\-free}}
+\index{table_item_free@{table\_\-item\_\-free}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void table\_\-item\_\-free (struct \bf{table\_\-item} $\ast$ {\em item})}\label{render_8c_36c75236636ca647ff2dc0151e335e8d}
+
+
+\index{render.c@{render.c}!table_item_mrender@{table\_\-item\_\-mrender}}
+\index{table_item_mrender@{table\_\-item\_\-mrender}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ table\_\-item\_\-mrender (struct \bf{table\_\-item} $\ast$ {\em item})}\label{render_8c_e73c416deac2ee2b1c1a13be8722912e}
+
+
+\index{render.c@{render.c}!table_item_new@{table\_\-item\_\-new}}
+\index{table_item_new@{table\_\-item\_\-new}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \bf{table\_\-item} $\ast$ table\_\-item\_\-new (void)}\label{render_8c_2e4b846c46b55bd7d5593c839ee92c05}
+
+
+
+
+\subsection{Variable Documentation}
+\index{render.c@{render.c}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!render.c@{render.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{DEBUG} = 0}\label{render_8c_9c602b43f791fa5e1018e90fbb9178eb}
+
+

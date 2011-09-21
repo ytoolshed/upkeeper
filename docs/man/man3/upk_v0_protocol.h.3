@@ -1,0 +1,251 @@
+.TH "libupkeeper/upkeeper/upk_v0_protocol.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_v0_protocol.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_protocol.h'\fP
+.br
+\fC#include 'upk_v0_protocol_structs.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBv0_req_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_action_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_signal_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_list_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_status_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_subscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_unsubscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_disconnect_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_result_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_listing_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_ack_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_error_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_pub_publication_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_pub_cancelation_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBv0_serialize_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void * \fBv0_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fP pkttype)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, uint32_t msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_action\fP (char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_signal\fP (char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_list\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_status\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_subscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_unsubscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_disconnect\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, uint32_t msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_result\fP (char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_listing\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_svcinfo\fP (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_ack\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_error\fP (char *svc_id, \fBupk_errno_t\fP uerrno, char *errmsg, \fBupk_errlevel_t\fP errlvl)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_publication\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_cancelation\fP (void)"
+.br
+.ti -1c
+.RI "void \fBv0_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBupk_packet_t\fP* v0_create_pub_cancelation (void)"
+.PP
+References PKT_PUBMSG, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_PUB_CANCELATION.
+.PP
+Referenced by upk_create_pub_cancelation().
+.SS "\fBupk_packet_t\fP* v0_create_pub_publication (void)"
+.PP
+References PKT_PUBMSG, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_PUB_PUBLICATION.
+.PP
+Referenced by upk_create_pub_publication().
+.SS "\fBupk_packet_t\fP* v0_create_repl_ack (void)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REPL_ACK.
+.PP
+Referenced by upk_create_repl_ack().
+.SS "\fBupk_packet_t\fP* v0_create_repl_error (char *svc_id, \fBupk_errno_t\fPuerrno, char *errmsg, \fBupk_errlevel_t\fPerrlvl)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_ERROR.
+.PP
+Referenced by upk_create_repl_error().
+.SS "\fBupk_packet_t\fP* v0_create_repl_listing (char *svc_id)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_LISTING.
+.PP
+Referenced by upk_create_repl_listing().
+.SS "\fBupk_packet_t\fP* v0_create_repl_result (char *msg, boolsuccessful)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_RESULT.
+.PP
+Referenced by upk_create_repl_result().
+.SS "\fBupk_packet_t\fP* v0_create_repl_seq_end (boolcommit)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_INIT_HELPER, and UPK_REPL_SEQ_END.
+.PP
+Referenced by upk_create_repl_seq_end().
+.SS "\fBupk_packet_t\fP* v0_create_repl_seq_start (\fBupk_msgtype_t\fPmsg_seq_type, uint32_tmsg_seq_count)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_UINT32, UPK_INIT_HELPER, and UPK_REPL_SEQ_START.
+.PP
+Referenced by upk_create_repl_seq_start().
+.SS "\fBupk_packet_t\fP* v0_create_repl_svcinfo (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.PP
+References get_svcinfo_len(), PKT_REPLY, strnlen(), UPK_DATA, UPK_DATA_LEN, UPK_END_HELPER, UPK_HELPER_STRING, UPK_HELPER_UINT32_EXPLICIT, UPK_INIT_HELPER, UPK_MAX_STRING_LEN, UPK_REPL_SVCINFO, and UPK_STRING_LENGTH.
+.PP
+Referenced by upk_create_repl_svcinfo().
+.SS "\fBupk_packet_t\fP* v0_create_req_action (char *svc_id, char *action)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_ACTION.
+.PP
+Referenced by upk_create_req_action().
+.SS "\fBupk_packet_t\fP* v0_create_req_disconnect (void)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REQ_DISCONNECT.
+.PP
+Referenced by upk_create_req_disconnect().
+.SS "\fBupk_packet_t\fP* v0_create_req_list (void)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REQ_LIST.
+.PP
+Referenced by upk_create_req_list().
+.SS "\fBupk_packet_t\fP* v0_create_req_seq_end (boolcommit)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_INIT_HELPER, and UPK_REQ_SEQ_END.
+.PP
+Referenced by upk_create_req_seq_end().
+.SS "\fBupk_packet_t\fP* v0_create_req_seq_start (\fBupk_msgtype_t\fPmsg_seq_type, uint32_tmsg_seq_count)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_UINT32, UPK_INIT_HELPER, and UPK_REQ_SEQ_START.
+.PP
+Referenced by upk_create_req_seq_start().
+.SS "\fBupk_packet_t\fP* v0_create_req_signal (char *svc_id, \fBupk_signal_t\fPsignal, boolsignal_sid, boolsignal_pgrp)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_ENUM, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_SIGNAL.
+.PP
+Referenced by upk_create_req_signal().
+.SS "\fBupk_packet_t\fP* v0_create_req_status (char *svc_id)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_STATUS.
+.PP
+Referenced by upk_create_req_status().
+.SS "\fBupk_packet_t\fP* v0_create_req_subscribe (char *svc_id, boolall_svcs)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_SUBSCRIBE.
+.PP
+Referenced by upk_create_req_subscribe().
+.SS "\fBupk_packet_t\fP* v0_create_req_unsubscribe (char *svc_id, boolall_svcs)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_UNSUBSCRIBE.
+.PP
+Referenced by upk_create_req_unsubscribe().
+.SS "void* v0_deserialize_payload (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fPpkttype)"
+.PP
+References deserial_pkt_dispatch, and UPK_BUF.
+.PP
+Referenced by upk_deserialize_payload().
+.SS "void v0_free_payload (\fBupk_packet_t\fP *pkt)"
+.PP
+References free_pkt_dispatch, upk_packet_t::payload, and upk_packet_t::pkttype.
+.PP
+Referenced by upk_free_payload().
+.SS "\fBupk_pkt_buf_t\fP* v0_serialize_payload (\fBupk_packet_t\fP *pkt)"
+.PP
+References upk_packet_t::payload, upk_packet_t::payload_len, upk_packet_t::pkttype, and serial_pkt_dispatch.
+.PP
+Referenced by upk_serialize_payload().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

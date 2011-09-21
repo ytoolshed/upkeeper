@@ -1,0 +1,60 @@
+.TH "_upk_netmsg_queue" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_netmsg_queue \- 
+.PP
+this is a tailq for network message queuing  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP \fBmsg\fP [UPK_MAX_PACKET_SIZE]"
+.br
+.ti -1c
+.RI "size_t \fBmsg_len\fP"
+.br
+.ti -1c
+.RI "size_t \fBn_bytes_written\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBafter_write_callback\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBset_after_read_callback\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+this is a tailq for network message queuing 
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_callback_t\fP \fB_upk_netmsg_queue::after_write_callback\fP"call this after writing this msg; may be NULL 
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+.SS "\fBupk_pkt_buf_t\fP \fB_upk_netmsg_queue::msg\fP[UPK_MAX_PACKET_SIZE]"serialized packet (a message) 
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+.SS "size_t \fB_upk_netmsg_queue::msg_len\fP"length of msg to write 
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+.SS "size_t \fB_upk_netmsg_queue::n_bytes_written\fP"remaining bytes in message to write ; used to advance ptr 
+.PP
+Referenced by upk_write_packets().
+.SS "\fBupk_netmsg_queue_t\fP* \fB_upk_netmsg_queue::next\fP"next 
+.SS "\fBupk_net_callback_t\fP \fB_upk_netmsg_queue::set_after_read_callback\fP"call this after writing this msg; may be NULL 
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

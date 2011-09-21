@@ -1,0 +1,126 @@
+\section{\_\-upk\_\-conn\_\-handle Struct Reference}
+\label{struct__upk__conn__handle}\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}}
+
+
+{\ttfamily \#include $<$upk\_\-network\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-conn\_\-handle:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{struct__upk__conn__handle__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+uint32\_\-t {\bf version\_\-id}
+\item 
+int {\bf fd}
+\item 
+char {\bf cl\_\-name} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} {\bf readbuf} [UPK\_\-MAX\_\-PACKET\_\-SIZE]
+\item 
+uint8\_\-t {\bf n\_\-hdr\_\-bytes\_\-read}
+\item 
+size\_\-t {\bf n\_\-remaining\_\-read}
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf after\_\-read\_\-callback}
+\item 
+{\bf upk\_\-netmsg\_\-queue\_\-meta\_\-t} {\bf writeq}
+\item 
+{\bf upk\_\-payload\_\-t} {\bf last\_\-pkt\_\-data}
+\item 
+{\bf upk\_\-net\_\-gstate\_\-t} $\ast$ {\bf gstate}
+\item 
+void $\ast$ {\bf userdata}
+\item 
+{\bf upk\_\-conn\_\-handle\_\-t} $\ast$ {\bf next}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!after\_\-read\_\-callback@{after\_\-read\_\-callback}}
+\index{after\_\-read\_\-callback@{after\_\-read\_\-callback}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{after\_\-read\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-conn\_\-handle::after\_\-read\_\-callback}}\label{struct__upk__conn__handle_a1eaabc8b82f399d9abf3d91a44ccdef8}
+after an entire packet read, call this callback 
+
+Referenced by upk\_\-call\_\-received\_\-packet\_\-callbacks(), and upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!cl\_\-name@{cl\_\-name}}
+\index{cl\_\-name@{cl\_\-name}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{cl\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-conn\_\-handle::cl\_\-name}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__conn__handle_abf3ba969bba3bb135c0c46415f7da5de}
+name of associated client 
+
+Referenced by controller\_\-packet\_\-callback().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!fd@{fd}}
+\index{fd@{fd}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{fd}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \_\-upk\_\-conn\_\-handle::fd}}\label{struct__upk__conn__handle_ac03668d85ace564c00ace2a0dafa5a99}
+file descriptor 
+
+Referenced by upk\_\-net\_\-block\_\-until\_\-msg(), upk\_\-read\_\-packets(), and upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!gstate@{gstate}}
+\index{gstate@{gstate}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{gstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-gstate\_\-t}$\ast$ {\bf \_\-upk\_\-conn\_\-handle::gstate}}\label{struct__upk__conn__handle_a9e1447ed2101ef8bf54d3bc349d4c3c5}
+instance state data, maintained in list metanode 
+
+Referenced by upk\_\-queue\_\-packet().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!last\_\-pkt\_\-data@{last\_\-pkt\_\-data}}
+\index{last\_\-pkt\_\-data@{last\_\-pkt\_\-data}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{last\_\-pkt\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-payload\_\-t} {\bf \_\-upk\_\-conn\_\-handle::last\_\-pkt\_\-data}}\label{struct__upk__conn__handle_a710dc65b81c7f60848d8b820fa74a827}
+Last received packet data 
+
+Referenced by upk\_\-call\_\-received\_\-packet\_\-callbacks(), and upk\_\-net\_\-block\_\-until\_\-msg().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!n\_\-hdr\_\-bytes\_\-read@{n\_\-hdr\_\-bytes\_\-read}}
+\index{n\_\-hdr\_\-bytes\_\-read@{n\_\-hdr\_\-bytes\_\-read}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{n\_\-hdr\_\-bytes\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t {\bf \_\-upk\_\-conn\_\-handle::n\_\-hdr\_\-bytes\_\-read}}\label{struct__upk__conn__handle_a9d01770138bb94d0e060929a635cd71d}
+remaining header bytes for async read 
+
+Referenced by upk\_\-read\_\-packets().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!n\_\-remaining\_\-read@{n\_\-remaining\_\-read}}
+\index{n\_\-remaining\_\-read@{n\_\-remaining\_\-read}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{n\_\-remaining\_\-read}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf \_\-upk\_\-conn\_\-handle::n\_\-remaining\_\-read}}\label{struct__upk__conn__handle_a2fc49e5a769b39f8522a33a738d8bfff}
+reamining bytes after header for async read 
+
+Referenced by upk\_\-read\_\-packets().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!next@{next}}
+\index{next@{next}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-conn\_\-handle\_\-t}$\ast$ {\bf \_\-upk\_\-conn\_\-handle::next}}\label{struct__upk__conn__handle_aedb759ce4d08a0d8b20b58a2ed70ac09}
+next \index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!readbuf@{readbuf}}
+\index{readbuf@{readbuf}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{readbuf}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t} {\bf \_\-upk\_\-conn\_\-handle::readbuf}[UPK\_\-MAX\_\-PACKET\_\-SIZE]}\label{struct__upk__conn__handle_a1fdb2e874d3857b8966aa7dc6db0361f}
+readbuffer used in async read 
+
+Referenced by upk\_\-read\_\-packets().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!userdata@{userdata}}
+\index{userdata@{userdata}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{userdata}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ {\bf \_\-upk\_\-conn\_\-handle::userdata}}\label{struct__upk__conn__handle_ab2f299ba31ef81890e202d838916af22}
+any user-\/data you might need too pass around \index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!version\_\-id@{version\_\-id}}
+\index{version\_\-id@{version\_\-id}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{version\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf \_\-upk\_\-conn\_\-handle::version\_\-id}}\label{struct__upk__conn__handle_a8a1da5597243e08b9240cc84379d08d5}
+proto version for connection 
+
+Referenced by upk\_\-create\_\-pub\_\-cancelation(), upk\_\-create\_\-pub\_\-publication(), upk\_\-create\_\-repl\_\-ack(), upk\_\-create\_\-repl\_\-error(), upk\_\-create\_\-repl\_\-listing(), upk\_\-create\_\-repl\_\-result(), upk\_\-create\_\-repl\_\-seq\_\-end(), upk\_\-create\_\-repl\_\-seq\_\-start(), upk\_\-create\_\-repl\_\-svcinfo(), upk\_\-create\_\-req\_\-action(), upk\_\-create\_\-req\_\-disconnect(), upk\_\-create\_\-req\_\-list(), upk\_\-create\_\-req\_\-seq\_\-end(), upk\_\-create\_\-req\_\-seq\_\-start(), upk\_\-create\_\-req\_\-signal(), upk\_\-create\_\-req\_\-status(), upk\_\-create\_\-req\_\-subscribe(), and upk\_\-create\_\-req\_\-unsubscribe().
+
+\index{\_\-upk\_\-conn\_\-handle@{\_\-upk\_\-conn\_\-handle}!writeq@{writeq}}
+\index{writeq@{writeq}!_upk_conn_handle@{\_\-upk\_\-conn\_\-handle}}
+\subsubsection[{writeq}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-netmsg\_\-queue\_\-meta\_\-t} {\bf \_\-upk\_\-conn\_\-handle::writeq}}\label{struct__upk__conn__handle_a68692e4f2f84769ddbaa5165f83114a7}
+write queue linked list 
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-write\_\-packets().
+
+
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+libupkeeper/upkeeper/{\bf upk\_\-network\_\-types.h}\end{DoxyCompactItemize}

@@ -42,8 +42,10 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/upk_poll.m4 $(top_srcdir)/m4/upk_with_lib.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/upk_have_progname.m4 \
+	$(top_srcdir)/m4/upk_helpers.m4 \
+	$(top_srcdir)/m4/upk_installdirs.m4 \
+	$(top_srcdir)/m4/upk_with_lib.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -55,7 +57,8 @@ PROGRAMS = $(libexec_PROGRAMS) $(sbin_PROGRAMS)
 am_upk_buddy_OBJECTS = upk_buddy-buddy.$(OBJEXT) \
 	upk_buddy-buddy_main.$(OBJEXT) upk_buddy-upk_error.$(OBJEXT)
 upk_buddy_OBJECTS = $(am_upk_buddy_OBJECTS)
-upk_buddy_DEPENDENCIES =
+upk_buddy_DEPENDENCIES =  \
+	$(top_builddir)/libupkeeper/libupkeeper_util.la
 upk_buddy_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(upk_buddy_CFLAGS) \
 	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
@@ -63,10 +66,8 @@ am_upk_controller_OBJECTS = controller.$(OBJEXT) \
 	controller_main.$(OBJEXT) ctrl_protocol.$(OBJEXT) \
 	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT)
 upk_controller_OBJECTS = $(am_upk_controller_OBJECTS)
-upk_controller_LDADD = $(LDADD)
-upk_controller_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(upk_controller_LDFLAGS) $(LDFLAGS) -o $@
+upk_controller_DEPENDENCIES =  \
+	$(top_builddir)/libupkeeper/libupkeeper.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -95,7 +96,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = @CFLAGS@
+CFLAGS = 
 CHECK_CFLAGS = @CHECK_CFLAGS@
 CHECK_LIBS = @CHECK_LIBS@
 CPP = @CPP@
@@ -117,8 +118,11 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JSON_CPPFLAGS = @JSON_CPPFLAGS@
+JSON_LDFLAGS = @JSON_LDFLAGS@
+JSON_LIBS = @JSON_LIBS@
 LD = @LD@
-LDFLAGS = @LDFLAGS@
+LDFLAGS = 
 LIBOBJS = @LIBOBJS@
 LIBS = 
 LIBTOOL = @LIBTOOL@
@@ -127,6 +131,9 @@ LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
+NCURSES_CPPFLAGS = @NCURSES_CPPFLAGS@
+NCURSES_LDFLAGS = @NCURSES_LDFLAGS@
+NCURSES_LIBS = @NCURSES_LIBS@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -145,6 +152,9 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SQLITE3_CPPFLAGS = @SQLITE3_CPPFLAGS@
+SQLITE3_LDFLAGS = @SQLITE3_LDFLAGS@
+SQLITE3_LIBS = @SQLITE3_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -165,9 +175,6 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
-conf_libexecdir = @conf_libexecdir@
-conf_localstatedir = @conf_localstatedir@
-conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -202,14 +209,17 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
-LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
-upk_buddy_LDADD = 
-upk_buddy_CFLAGS = -DUPK_STATIC_ERR_DECL
-upk_buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h
 upk_controller_SOURCES = controller.c controller_main.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
-upk_controller_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
-upk_controller_LDFLAGS = -ljson -lsqlite3
+upk_controller_LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
+
+#### upk_controller_LIBS = -ljson -lsqlite3 -lupkeeper
+AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
+AM_LDFLAGS = -static
+LDADD = 
+LD_RUN_PATH = 
+upk_buddy_CFLAGS = -DUPK_STATIC_ERR_DECL 
+upk_buddy_LDADD = $(top_builddir)/libupkeeper/libupkeeper_util.la
+upk_buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h 
 all: all-am
 
 .SUFFIXES:
@@ -335,7 +345,7 @@ upk_buddy$(EXEEXT): $(upk_buddy_OBJECTS) $(upk_buddy_DEPENDENCIES)
 	$(upk_buddy_LINK) $(upk_buddy_OBJECTS) $(upk_buddy_LDADD) $(LIBS)
 upk_controller$(EXEEXT): $(upk_controller_OBJECTS) $(upk_controller_DEPENDENCIES) 
 	@rm -f upk_controller$(EXEEXT)
-	$(upk_controller_LINK) $(upk_controller_OBJECTS) $(upk_controller_LDADD) $(LIBS)
+	$(LINK) $(upk_controller_OBJECTS) $(upk_controller_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)

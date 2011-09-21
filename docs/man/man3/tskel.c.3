@@ -1,0 +1,76 @@
+.TH "libupkeeper/tests/tskel.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/tests/tskel.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <check.h>\fP
+.br
+\fC#include <upkeeper.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTESTCASE_NAME\fP   'uuid'"
+.br
+.ti -1c
+.RI "#define \fBSUITE_NAME\fP   'uuid'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_gen_uuid)"
+.br
+.ti -1c
+.RI "TCase * \fBtcase\fP (void)"
+.br
+.ti -1c
+.RI "Suite * \fBsuite\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBEND_TEST\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define SUITE_NAME   'uuid'"
+.PP
+Referenced by suite().
+.SS "#define TESTCASE_NAME   'uuid'"
+.PP
+Referenced by tcase().
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+.PP
+References suite().
+.SS "START_TEST (test_gen_uuid)"
+.SS "Suite* suite (void)"
+.PP
+References SUITE_NAME, and tcase().
+.PP
+Referenced by main(), test_suite(), upk_ll_suite(), upk_proto_helpers_suite(), upk_proto_serializers_suite(), upk_suite(), v0_proto_helpers_suite(), and v0_proto_serializers_suite().
+.SS "TCase* tcase (void)"
+.PP
+References TESTCASE_NAME.
+.PP
+Referenced by suite(), test_tcase(), and upk_tcase().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBEND_TEST\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,92 @@
+.TH "uptop/render.c" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+uptop/render.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <ncurses.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <assert.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <sqlite3.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBtable_item\fP"
+.br
+.ti -1c
+.RI "struct \fBtable_row\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBtable_item\fP * \fBtable_item_new\fP (void)"
+.br
+.ti -1c
+.RI "void \fBtable_item_format_set\fP (struct \fBtable_item\fP *item, char *format)"
+.br
+.ti -1c
+.RI "char * \fBtable_item_mrender\fP (struct \fBtable_item\fP *item)"
+.br
+.ti -1c
+.RI "void \fBtable_item_free\fP (struct \fBtable_item\fP *item)"
+.br
+.ti -1c
+.RI "void \fBtable_item_dump\fP (struct \fBtable_item\fP *item)"
+.br
+.ti -1c
+.RI "void \fBtable_item_content_set\fP (struct \fBtable_item\fP *item, char *content)"
+.br
+.ti -1c
+.RI "\fBmain\fP ()"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBDEBUG\fP = 0"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "main (void)"
+.PP
+.SS "void table_item_content_set (struct \fBtable_item\fP * item, char * content)"
+.PP
+.SS "void table_item_dump (struct \fBtable_item\fP * item)"
+.PP
+.SS "void table_item_format_set (struct \fBtable_item\fP * item, char * format)"
+.PP
+.SS "void table_item_free (struct \fBtable_item\fP * item)"
+.PP
+.SS "char * table_item_mrender (struct \fBtable_item\fP * item)"
+.PP
+.SS "struct \fBtable_item\fP * table_item_new (void)"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBDEBUG\fP = 0"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

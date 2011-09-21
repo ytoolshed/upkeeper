@@ -1,0 +1,129 @@
+\section{uptop/main.c File Reference}
+\label{main_8c}\index{uptop/main.c@{uptop/main.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$getopt.h$>$}\par
+{\tt \#include \char`\"{}../store/upk\_\-db.h\char`\"{}}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include \char`\"{}uptop.h\char`\"{}}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$ncurses.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{COMPONENT}~\char`\"{}uptop\char`\"{}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{options\_\-parse} (int argc, char $\ast$argv[$\,$])
+\item 
+void \bf{uptop\_\-signal\_\-handler} (int sig)
+\item 
+const char $\ast$ \bf{time\_\-as\_\-string} ()
+\item 
+void \bf{clock\_\-update} ()
+\item 
+void \bf{cursor\_\-corner} ()
+\item 
+int \bf{main} (int argc, char $\ast$argv[$\,$])
+\item 
+void \bf{uptop\_\-print\_\-callback} (void $\ast$ignored, upk\_\-srvc\_\-t srvc, const char $\ast$status\_\-desired, const char $\ast$status\_\-actual)
+\item 
+void \bf{uptop\_\-services\_\-print} (sqlite3 $\ast$pdb)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{DEBUG} = 0
+\item 
+int \bf{DB\_\-CHECK\_\-INTERVAL} = 10
+\item 
+int \bf{DB\_\-CHECK\_\-LAST} = 0
+\item 
+upk\_\-db \bf{UPK\_\-DB}
+\item 
+static int \bf{OPT\_\-VERSION} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{main.c@{main.c}!COMPONENT@{COMPONENT}}
+\index{COMPONENT@{COMPONENT}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define COMPONENT~\char`\"{}uptop\char`\"{}}\label{main_8c_923d1e201cd277f26fb7f65b516e06dc}
+
+
+
+
+\subsection{Function Documentation}
+\index{main.c@{main.c}!clock_update@{clock\_\-update}}
+\index{clock_update@{clock\_\-update}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void clock\_\-update ()}\label{main_8c_deffdc8d9373f8b15db03c6f3f283a0c}
+
+
+\index{main.c@{main.c}!cursor_corner@{cursor\_\-corner}}
+\index{cursor_corner@{cursor\_\-corner}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void cursor\_\-corner ()}\label{main_8c_6298b79dce94f2beb37f4a6a8c56d3e1}
+
+
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, char $\ast$ {\em argv}[$\,$])}\label{main_8c_28052c36c3b61c6c0eaa18f5d226118f}
+
+
+\index{main.c@{main.c}!options_parse@{options\_\-parse}}
+\index{options_parse@{options\_\-parse}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int options\_\-parse (int {\em argc}, char $\ast$ {\em argv}[$\,$])}\label{main_8c_6da3d38637ee68a846aed0723145ae1e}
+
+
+\index{main.c@{main.c}!time_as_string@{time\_\-as\_\-string}}
+\index{time_as_string@{time\_\-as\_\-string}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char $\ast$ time\_\-as\_\-string ()}\label{main_8c_7f123ac7f8697f2a434a0ae4ebc295eb}
+
+
+\index{main.c@{main.c}!uptop_print_callback@{uptop\_\-print\_\-callback}}
+\index{uptop_print_callback@{uptop\_\-print\_\-callback}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void uptop\_\-print\_\-callback (void $\ast$ {\em ignored}, upk\_\-srvc\_\-t {\em srvc}, const char $\ast$ {\em status\_\-desired}, const char $\ast$ {\em status\_\-actual})}\label{main_8c_2c839c25b82e23765d6d2de68c08dcd7}
+
+
+\index{main.c@{main.c}!uptop_services_print@{uptop\_\-services\_\-print}}
+\index{uptop_services_print@{uptop\_\-services\_\-print}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void uptop\_\-services\_\-print (sqlite3 $\ast$ {\em pdb})}\label{main_8c_e45ae19281a114bc2579a125abbcadbb}
+
+
+\index{main.c@{main.c}!uptop_signal_handler@{uptop\_\-signal\_\-handler}}
+\index{uptop_signal_handler@{uptop\_\-signal\_\-handler}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void uptop\_\-signal\_\-handler (int {\em sig})}\label{main_8c_0217d316366c1381d7f53fadb499bfb6}
+
+
+
+
+\subsection{Variable Documentation}
+\index{main.c@{main.c}!DB_CHECK_INTERVAL@{DB\_\-CHECK\_\-INTERVAL}}
+\index{DB_CHECK_INTERVAL@{DB\_\-CHECK\_\-INTERVAL}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{DB\_\-CHECK\_\-INTERVAL} = 10}\label{main_8c_6d0b906204b3c018a49ad701f7337a79}
+
+
+\index{main.c@{main.c}!DB_CHECK_LAST@{DB\_\-CHECK\_\-LAST}}
+\index{DB_CHECK_LAST@{DB\_\-CHECK\_\-LAST}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{DB\_\-CHECK\_\-LAST} = 0}\label{main_8c_08d2a2d0fc14129bc1425a6871f0ba74}
+
+
+\index{main.c@{main.c}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{DEBUG} = 0}\label{main_8c_9c602b43f791fa5e1018e90fbb9178eb}
+
+
+\index{main.c@{main.c}!OPT_VERSION@{OPT\_\-VERSION}}
+\index{OPT_VERSION@{OPT\_\-VERSION}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-VERSION} = 0\hspace{0.3cm}{\tt  [static]}}\label{main_8c_68dcf3237c7efee7031ff9b0ecec80c8}
+
+
+\index{main.c@{main.c}!UPK_DB@{UPK\_\-DB}}
+\index{UPK_DB@{UPK\_\-DB}!main.c@{main.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct upk\_\-db \bf{UPK\_\-DB}}\label{main_8c_7667d4ba5e085b5e90187817c396705b}
+
+

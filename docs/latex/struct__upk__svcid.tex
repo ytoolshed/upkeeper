@@ -1,0 +1,54 @@
+\section{\_\-upk\_\-svcid Struct Reference}
+\label{struct__upk__svcid}\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}}
+
+
+linked list of service identifiers.  
+
+
+
+
+{\ttfamily \#include $<$upk\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-svcid:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=147pt]{struct__upk__svcid__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char {\bf pkg} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+char {\bf name} [UPK\_\-MAX\_\-STRING\_\-LEN]
+\item 
+{\bf upk\_\-uuid\_\-t} {\bf uuid}
+\item 
+{\bf upk\_\-svcid\_\-t} $\ast$ {\bf next}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+linked list of service identifiers. 
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!name@{name}}
+\index{name@{name}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svcid::name}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svcid_abe2d59cc8836ed4791582075c5f24102}
+service name \index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!next@{next}}
+\index{next@{next}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-t}$\ast$ {\bf \_\-upk\_\-svcid::next}}\label{struct__upk__svcid_a776066487e206e67f457156db9c9943d}
+next, for use in lists \index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!pkg@{pkg}}
+\index{pkg@{pkg}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{pkg}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svcid::pkg}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svcid_aaa0bdc96910d275d9d0fa247508e18fc}
+service package-\/prefix \index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!uuid@{uuid}}
+\index{uuid@{uuid}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf \_\-upk\_\-svcid::uuid}}\label{struct__upk__svcid_a3b7d5a1866b60ecac8ea4dabe871dfbe}
+not sure I need this here; but just in case for now 
+
+The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+libupkeeper/upkeeper/{\bf upk\_\-types.h}\end{DoxyCompactItemize}

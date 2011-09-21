@@ -1,0 +1,38 @@
+.TH "clients/upk_start.b.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+clients/upk_start.b.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upkeeper.h>\fP
+.br
+\fC#include <sys/un.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBreceived_packet_callback\fP (\fBupk_conn_handle_meta_t\fP *controller, \fBupk_payload_t\fP *msg)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv, char **envp)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (intargc, char **argv, char **envp)"
+.PP
+References _upk_controller_config::controller_socket, received_packet_callback(), upk_conn_handle_meta_t, upk_create_req_action(), upk_ctrl_load_config(), upk_diag_verbosity, UPK_DIAGLVL_DEBUG1, upk_fatal, upk_net_add_socket_handle(), upk_net_event_dispatcher(), upk_pkt_free(), upk_queue_packet(), upk_runtime_configuration, and upk_verbose.
+.SS "void received_packet_callback (\fBupk_conn_handle_meta_t\fP *controller, \fBupk_payload_t\fP *msg)"
+.PP
+References _upk_payload::payload, _upk_payload_types::repl_result, _upk_payload::type, upk_notice, and UPK_REPL_RESULT.
+.PP
+Referenced by main().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

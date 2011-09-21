@@ -1,0 +1,59 @@
+\section{Uuid}
+\label{group__uuid}\index{Uuid@{Uuid}}
+Collaboration diagram for Uuid:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{group__uuid}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-upk\_\-uuid}
+\begin{DoxyCompactList}\small\item\em structure for holding 16 byte UUID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Modules}
+\begin{DoxyCompactItemize}
+\item 
+{\bf Uuid\_\-functions}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-UUID\_\-LEN}~sizeof({\bf upk\_\-uuid\_\-t})
+\item 
+\#define {\bf UPK\_\-UUID\_\-STRING\_\-LEN}~36
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-upk\_\-uuid} {\bf upk\_\-uuid\_\-t}
+\begin{DoxyCompactList}\small\item\em structure for holding 16 byte UUID. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{Uuid@{Uuid}!UPK\_\-UUID\_\-LEN@{UPK\_\-UUID\_\-LEN}}
+\index{UPK\_\-UUID\_\-LEN@{UPK\_\-UUID\_\-LEN}!Uuid@{Uuid}}
+\subsubsection[{UPK\_\-UUID\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-UUID\_\-LEN~sizeof({\bf upk\_\-uuid\_\-t})}\label{group__uuid_ga5c492b948c7c6a74289b75ef6dee5f8b}
+
+
+Referenced by upk\_\-gen\_\-uuid\_\-bytes().
+
+\index{Uuid@{Uuid}!UPK\_\-UUID\_\-STRING\_\-LEN@{UPK\_\-UUID\_\-STRING\_\-LEN}}
+\index{UPK\_\-UUID\_\-STRING\_\-LEN@{UPK\_\-UUID\_\-STRING\_\-LEN}!Uuid@{Uuid}}
+\subsubsection[{UPK\_\-UUID\_\-STRING\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-UUID\_\-STRING\_\-LEN~36}\label{group__uuid_ga4e7d198c8257d81f92ec7d4c1d6e7cb5}
+
+
+Referenced by upk\_\-uuid\_\-to\_\-string().
+
+
+
+\subsection{Typedef Documentation}
+\index{Uuid@{Uuid}!upk\_\-uuid\_\-t@{upk\_\-uuid\_\-t}}
+\index{upk\_\-uuid\_\-t@{upk\_\-uuid\_\-t}!Uuid@{Uuid}}
+\subsubsection[{upk\_\-uuid\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-uuid}  {\bf upk\_\-uuid\_\-t}}\label{group__uuid_gad592133cddb5acf4c36149653d128496}
+
+
+structure for holding 16 byte UUID. 
+
+Despite only using v4 uuids, field labels chosen to reflect convention but All bits save those for version and id are random; and do not contain the information the label might imply 

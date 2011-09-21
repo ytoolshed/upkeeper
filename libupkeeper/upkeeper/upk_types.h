@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #ifndef _UPK_TYPES_H
 #define _UPK_TYPES_H
 
@@ -68,17 +80,18 @@ typedef enum {
 } upk_signal_t;
 
 /**
-  @brief linked list of service identifiers.
-  */
-typedef struct _upk_svclist upk_svclist_t;
+ @brief linked list of service identifiers.
+ */
+typedef struct _upk_svcid upk_svcid_t;
 
 /**
-  @brief linked list of service identifiers.
-  */
-struct _upk_svclist {
-    char                    svc_id[UPK_MAX_STRING_LEN];    /*!< @brief service-id (concatination of [<pkg>::]<name>) */
+ @brief linked list of service identifiers.
+ */
+struct _upk_svcid {
+    char                    pkg[UPK_MAX_STRING_LEN];       /*!< service package-prefix */
+    char                    name[UPK_MAX_STRING_LEN];      /*!< service name */
     upk_uuid_t              uuid;                          /*!< not sure I need this here; but just in case for now */
-    upk_svclist_t          *next;                          /*!< next, for use in lists */
+    upk_svcid_t            *next;                          /*!< next, for use in lists */
 };
 
 /**
@@ -116,7 +129,7 @@ typedef struct _upk_svcinfo {
 
 
 #define UPKLIST_METANODE(TYPE, NAME) \
-    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
+    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME
 
 #define UPKLIST_INIT(TYPE, NAME) \
     UPKLIST_METANODE(TYPE, NAME) = NULL; \
@@ -171,6 +184,8 @@ typedef struct _upk_svcinfo {
 #define UPKLIST_FOREACH(NAME) \
     for( _UPKLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKLIST_FOREACH_CONTINUE(NAME) )
 
+#define UPKLIST_HEAD(NAME) \
+    do { UPKLIST_FOREACH(NAME) { break; } } while(0)
 
 #define UPKLIST_SWAP(NAME, A, APREV, B, BPREV) \
     NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
@@ -195,14 +210,17 @@ typedef struct _upk_svcinfo {
 
 #define UPKLIST_FREE(NAME) \
     do { \
-        UPKLIST_FOREACH(NAME) { \
-            UPKLIST_UNLINK(NAME); \
-        }\
-        if(NAME) { free(NAME); } \
+        if(NAME) { \
+            UPKLIST_FOREACH(NAME) { \
+                UPKLIST_UNLINK(NAME); \
+            }\
+            if(NAME->userdata && NAME->userdata_free_func) { NAME->userdata_free_func(NAME->userdata); } \
+            free(NAME); \
+        } \
     } while(0)
 
 #define UPKDLIST_METANODE(TYPE, NAME) \
-    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; } * NAME
+    struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME
 
 
 #define _UPKDLIST_NEWNODE(NAME) \
@@ -259,6 +277,9 @@ typedef struct _upk_svcinfo {
 #define UPKDLIST_FOREACH(NAME) \
     for( _UPKDLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKDLIST_FOREACH_CONTINUE(NAME) )
 
+#define UPKDLIST_HEAD(NAME) \
+    do { UPKDLIST_FOREACH(NAME) { break; } } while(0)
+
 #define _UPKDLIST_FOREACH_R_CONTINUE(NAME) \
     NAME->tempp = NULL, NAME->nextp = NAME->thisp, NAME->thisp = NAME->prevp, \
     NAME->prevp = _UPKDLIST_PREVNODE(NAME), NAME->nextp = _UPKDLIST_NEXTNODE(NAME)
@@ -269,6 +290,8 @@ typedef struct _upk_svcinfo {
 #define UPKDLIST_FOREACH_REVERSE(NAME) \
     for( _UPKDLIST_FOREACH_R_INIT(NAME); NAME->thisp != NULL; _UPKDLIST_FOREACH_R_CONTINUE(NAME) )
 
+#define UPKDLIST_TAIL(NAME) \
+    do { UPKDLIST_FOREACH_REVERSE(NAME) { break; } } while(0)
 
 #define UPKDLIST_SWAP(NAME, A, B) \
     NAME->tempp = calloc(1,sizeof(*NAME->tempp)); \
@@ -291,19 +314,22 @@ typedef struct _upk_svcinfo {
             free(NAME->thisp); NAME->thisp = NULL; \
             --NAME->count; \
         } \
-    } while(0) 
+    } while(0)
 
 #define UPKDLIST_FREE(NAME) \
     do { \
-        UPKDLIST_FOREACH(NAME) { \
-            UPKDLIST_UNLINK(NAME); \
-        }\
-        if(NAME) { free(NAME); } \
+        if(NAME) { \
+            UPKDLIST_FOREACH(NAME) { \
+                UPKDLIST_UNLINK(NAME); \
+            }\
+            if(NAME->userdata && NAME->userdata_free_func) { NAME->userdata_free_func(NAME->userdata); } \
+            free(NAME); \
+        } \
     } while(0)
 
 
-typedef UPKLIST_METANODE(upk_svclist_t, _upk_svclisthead_p), upk_svclisthead_t;
-typedef UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_listhead_p), upk_cust_actscr_listhead_t;
+typedef                 UPKLIST_METANODE(upk_svcid_t, _upk_svcid_meta_p), upk_svcid_meta_t;
+typedef                 UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_meta_p), upk_cust_actscr_meta_t;
 
 
 #endif

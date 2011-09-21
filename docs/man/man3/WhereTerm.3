@@ -1,0 +1,118 @@
+.TH "WhereTerm" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WhereTerm \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBExpr\fP * \fBpExpr\fP"
+.br
+.ti -1c
+.RI "int \fBiParent\fP"
+.br
+.ti -1c
+.RI "int \fBleftCursor\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBleftColumn\fP"
+.br
+.ti -1c
+.RI "   \fBWhereOrInfo\fP * \fBpOrInfo\fP"
+.br
+.ti -1c
+.RI "   \fBWhereAndInfo\fP * \fBpAndInfo\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBeOperator\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBwtFlags\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnChild\fP"
+.br
+.ti -1c
+.RI "\fBWhereClause\fP * \fBpWC\fP"
+.br
+.ti -1c
+.RI "\fBBitmask\fP \fBprereqRight\fP"
+.br
+.ti -1c
+.RI "\fBBitmask\fP \fBprereqAll\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpExpr\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBleftColumn\fP"
+.br
+.ti -1c
+.RI "   \fBWhereOrInfo\fP * \fBpOrInfo\fP"
+.br
+.ti -1c
+.RI "   \fBWhereAndInfo\fP * \fBpAndInfo\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBWhereClause\fP * \fBpWC\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu16\fP \fBWhereTerm::eOperator\fP"
+.PP
+.SS "int \fBWhereTerm::iParent\fP"
+.PP
+.SS "int \fBWhereTerm::leftColumn\fP"
+.PP
+.SS "int \fBWhereTerm::leftCursor\fP"
+.PP
+.SS "\fBu8\fP \fBWhereTerm::nChild\fP"
+.PP
+.SS "\fBWhereAndInfo\fP* \fBWhereTerm::pAndInfo\fP"
+.PP
+.SS "\fBWhereAndInfo\fP* \fBWhereTerm::pAndInfo\fP"
+.PP
+.SS "\fBExpr\fP* \fBWhereTerm::pExpr\fP"
+.PP
+.SS "\fBExpr\fP* \fBWhereTerm::pExpr\fP"
+.PP
+.SS "\fBWhereOrInfo\fP* \fBWhereTerm::pOrInfo\fP"
+.PP
+.SS "\fBWhereOrInfo\fP* \fBWhereTerm::pOrInfo\fP"
+.PP
+.SS "\fBBitmask\fP \fBWhereTerm::prereqAll\fP"
+.PP
+.SS "\fBBitmask\fP \fBWhereTerm::prereqRight\fP"
+.PP
+.SS "\fBWhereClause\fP* \fBWhereTerm::pWC\fP"
+.PP
+.SS "\fBWhereClause\fP* \fBWhereTerm::pWC\fP"
+.PP
+.SS "union { ... }   \fBWhereTerm::u\fP"
+.PP
+.SS "union { ... }   \fBWhereTerm::u\fP"
+.PP
+.SS "\fBu8\fP \fBWhereTerm::wtFlags\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,189 @@
+.TH "Expr" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Expr \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBu8\fP \fBop\fP"
+.br
+.ti -1c
+.RI "char \fBaffinity\fP"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBflags\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   char * \fBzToken\fP"
+.br
+.ti -1c
+.RI "   int \fBiValue\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpLeft\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpRight\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   \fBExprList\fP * \fBpList\fP"
+.br
+.ti -1c
+.RI "   \fBSelect\fP * \fBpSelect\fP"
+.br
+.ti -1c
+.RI "} \fBx\fP"
+.br
+.ti -1c
+.RI "\fBCollSeq\fP * \fBpColl\fP"
+.br
+.ti -1c
+.RI "int \fBiTable\fP"
+.br
+.ti -1c
+.RI "\fBynVar\fP \fBiColumn\fP"
+.br
+.ti -1c
+.RI "\fBi16\fP \fBiAgg\fP"
+.br
+.ti -1c
+.RI "\fBi16\fP \fBiRightJoinTable\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBflags2\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBop2\fP"
+.br
+.ti -1c
+.RI "\fBAggInfo\fP * \fBpAggInfo\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpTab\fP"
+.br
+.ti -1c
+.RI "int \fBnHeight\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   char * \fBzToken\fP"
+.br
+.ti -1c
+.RI "   int \fBiValue\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpLeft\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP * \fBpRight\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   \fBExprList\fP * \fBpList\fP"
+.br
+.ti -1c
+.RI "   \fBSelect\fP * \fBpSelect\fP"
+.br
+.ti -1c
+.RI "} \fBx\fP"
+.br
+.ti -1c
+.RI "\fBCollSeq\fP * \fBpColl\fP"
+.br
+.ti -1c
+.RI "\fBAggInfo\fP * \fBpAggInfo\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpTab\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "char \fBExpr::affinity\fP"
+.PP
+.SS "\fBu16\fP \fBExpr::flags\fP"
+.PP
+.SS "\fBu8\fP \fBExpr::flags2\fP"
+.PP
+.SS "\fBi16\fP \fBExpr::iAgg\fP"
+.PP
+.SS "\fBynVar\fP \fBExpr::iColumn\fP"
+.PP
+.SS "\fBi16\fP \fBExpr::iRightJoinTable\fP"
+.PP
+.SS "int \fBExpr::iTable\fP"
+.PP
+.SS "int \fBExpr::iValue\fP"
+.PP
+.SS "int \fBExpr::nHeight\fP"
+.PP
+.SS "\fBu8\fP \fBExpr::op\fP"
+.PP
+.SS "\fBu8\fP \fBExpr::op2\fP"
+.PP
+.SS "\fBAggInfo\fP* \fBExpr::pAggInfo\fP"
+.PP
+.SS "\fBAggInfo\fP* \fBExpr::pAggInfo\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBExpr::pColl\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBExpr::pColl\fP"
+.PP
+.SS "\fBExpr\fP* \fBExpr::pLeft\fP"
+.PP
+.SS "\fBExpr\fP* \fBExpr::pLeft\fP"
+.PP
+.SS "\fBExprList\fP* \fBExpr::pList\fP"
+.PP
+.SS "\fBExprList\fP* \fBExpr::pList\fP"
+.PP
+.SS "\fBExpr\fP* \fBExpr::pRight\fP"
+.PP
+.SS "\fBExpr\fP* \fBExpr::pRight\fP"
+.PP
+.SS "\fBSelect\fP* \fBExpr::pSelect\fP"
+.PP
+.SS "\fBSelect\fP* \fBExpr::pSelect\fP"
+.PP
+.SS "\fBTable\fP* \fBExpr::pTab\fP"
+.PP
+.SS "\fBTable\fP* \fBExpr::pTab\fP"
+.PP
+.SS "union { ... }   \fBExpr::u\fP"
+.PP
+.SS "union { ... }   \fBExpr::u\fP"
+.PP
+.SS "union { ... }   \fBExpr::x\fP"
+.PP
+.SS "union { ... }   \fBExpr::x\fP"
+.PP
+.SS "char* \fBExpr::zToken\fP"
+.PP
+.SS "char* \fBExpr::zToken\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

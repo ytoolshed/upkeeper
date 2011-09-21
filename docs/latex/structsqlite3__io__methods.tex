@@ -1,0 +1,137 @@
+\section{sqlite3\_\-io\_\-methods Struct Reference}
+\label{structsqlite3__io__methods}\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+{\tt \#include $<$sqlite3.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+int \bf{i\-Version}
+\item 
+int($\ast$ \bf{x\-Close} )(\bf{sqlite3\_\-file} $\ast$)
+\item 
+int($\ast$ \bf{x\-Read} )(\bf{sqlite3\_\-file} $\ast$, void $\ast$, int i\-Amt, \bf{sqlite3\_\-int64} i\-Ofst)
+\item 
+int($\ast$ \bf{x\-Write} )(\bf{sqlite3\_\-file} $\ast$, const void $\ast$, int i\-Amt, \bf{sqlite3\_\-int64} i\-Ofst)
+\item 
+int($\ast$ \bf{x\-Truncate} )(\bf{sqlite3\_\-file} $\ast$, \bf{sqlite3\_\-int64} size)
+\item 
+int($\ast$ \bf{x\-Sync} )(\bf{sqlite3\_\-file} $\ast$, int flags)
+\item 
+int($\ast$ \bf{x\-File\-Size} )(\bf{sqlite3\_\-file} $\ast$, \bf{sqlite3\_\-int64} $\ast$p\-Size)
+\item 
+int($\ast$ \bf{x\-Lock} )(\bf{sqlite3\_\-file} $\ast$, int)
+\item 
+int($\ast$ \bf{x\-Unlock} )(\bf{sqlite3\_\-file} $\ast$, int)
+\item 
+int($\ast$ \bf{x\-Check\-Reserved\-Lock} )(\bf{sqlite3\_\-file} $\ast$, int $\ast$p\-Res\-Out)
+\item 
+int($\ast$ \bf{x\-File\-Control} )(\bf{sqlite3\_\-file} $\ast$, int op, void $\ast$p\-Arg)
+\item 
+int($\ast$ \bf{x\-Sector\-Size} )(\bf{sqlite3\_\-file} $\ast$)
+\item 
+int($\ast$ \bf{x\-Device\-Characteristics} )(\bf{sqlite3\_\-file} $\ast$)
+\item 
+int($\ast$ \bf{x\-Shm\-Map} )(\bf{sqlite3\_\-file} $\ast$, int i\-Pg, int pgsz, int, void volatile $\ast$$\ast$)
+\item 
+int($\ast$ \bf{x\-Shm\-Lock} )(\bf{sqlite3\_\-file} $\ast$, int offset, int n, int flags)
+\item 
+void($\ast$ \bf{x\-Shm\-Barrier} )(\bf{sqlite3\_\-file} $\ast$)
+\item 
+int($\ast$ \bf{x\-Shm\-Unmap} )(\bf{sqlite3\_\-file} $\ast$, int delete\-Flag)
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!iVersion@{iVersion}}
+\index{iVersion@{iVersion}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sqlite3\_\-io\_\-methods::i\-Version}}\label{structsqlite3__io__methods_7de2d9645aaadbc4c59ddd8d43817d05}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xCheckReservedLock@{xCheckReservedLock}}
+\index{xCheckReservedLock@{xCheckReservedLock}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Check\-Reserved\-Lock}}\label{structsqlite3__io__methods_fa9ca580dcdeb2fbab596bc74277f8df}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xClose@{xClose}}
+\index{xClose@{xClose}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Close}}\label{structsqlite3__io__methods_cfd12ef0291f92c096568b8de2771405}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xDeviceCharacteristics@{xDeviceCharacteristics}}
+\index{xDeviceCharacteristics@{xDeviceCharacteristics}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Device\-Characteristics}}\label{structsqlite3__io__methods_a057c61196002f280da74d0a92256b03}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xFileControl@{xFileControl}}
+\index{xFileControl@{xFileControl}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-File\-Control}}\label{structsqlite3__io__methods_7b05968864e878a307e093609ac6dc2a}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xFileSize@{xFileSize}}
+\index{xFileSize@{xFileSize}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-File\-Size}}\label{structsqlite3__io__methods_408f5dd79fb964f6e04365b2ca7eea4c}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xLock@{xLock}}
+\index{xLock@{xLock}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Lock}}\label{structsqlite3__io__methods_f3f3d986929be5e2bc3b049c4b14441e}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xRead@{xRead}}
+\index{xRead@{xRead}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Read}}\label{structsqlite3__io__methods_3c1ba3f406ca8ffb299007f15b374d74}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xSectorSize@{xSectorSize}}
+\index{xSectorSize@{xSectorSize}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Sector\-Size}}\label{structsqlite3__io__methods_88cb063ce32d7e5a0fb4ca4b4ffb6c8c}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xShmBarrier@{xShmBarrier}}
+\index{xShmBarrier@{xShmBarrier}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Shm\-Barrier}}\label{structsqlite3__io__methods_e25b472f2477cea3f28be8e7193b6ffb}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xShmLock@{xShmLock}}
+\index{xShmLock@{xShmLock}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Shm\-Lock}}\label{structsqlite3__io__methods_9a6c3e210d3f2f0458550766a4211bff}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xShmMap@{xShmMap}}
+\index{xShmMap@{xShmMap}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Shm\-Map}}\label{structsqlite3__io__methods_de651f03542c76574cb0e761132b7081}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xShmUnmap@{xShmUnmap}}
+\index{xShmUnmap@{xShmUnmap}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Shm\-Unmap}}\label{structsqlite3__io__methods_515fceb5b319556f7bb5e2a576199b3a}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xSync@{xSync}}
+\index{xSync@{xSync}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Sync}}\label{structsqlite3__io__methods_cfcd0caf14791ec8915bd49df3519955}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xTruncate@{xTruncate}}
+\index{xTruncate@{xTruncate}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Truncate}}\label{structsqlite3__io__methods_2e949bb722280e794d6b26d6c43ec295}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xUnlock@{xUnlock}}
+\index{xUnlock@{xUnlock}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Unlock}}\label{structsqlite3__io__methods_9ee09024b0d79d911c1fd1f6dc796182}
+
+
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!xWrite@{xWrite}}
+\index{xWrite@{xWrite}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-io\_\-methods::x\-Write}}\label{structsqlite3__io__methods_536d5f0501f11a9afe914455780b2697}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite/\bf{sqlite3.h}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.h}\end{CompactItemize}

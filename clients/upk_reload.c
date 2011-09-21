@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #include <upkeeper.h>
 #include <sys/un.h>
 #include <stdio.h>
@@ -23,7 +35,7 @@ main(int argc, char **argv, char **envp)
         upk_fatal("Must provide service id\n");
 
     svc_id = argv[1];
-    req = upk_create_action_req(&handle, svc_id, "reload");
+    req = upk_create_req_action(&handle, svc_id, "reload");
     upk_debug1("version_id: %d\n", req->version_id);
 
     upk_verbose("opening socket: %s\n", upk_runtime_configuration.controller_socket);
@@ -44,7 +56,7 @@ main(int argc, char **argv, char **envp)
         reply = upk_deserialize_packet(reply_buf);
 
         if(reply && reply->payload) {
-            upk_notice("%s\n", ((upk_result_repl_t *) reply->payload)->msg);
+            upk_notice("%s\n", ((upk_repl_result_t *) reply->payload)->msg);
         }
 
         shutdown(fd, SHUT_RDWR);

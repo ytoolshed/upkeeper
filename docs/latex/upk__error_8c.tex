@@ -1,0 +1,123 @@
+\section{libupkeeper/upkeeper/upk\_\-error.c File Reference}
+\label{upk__error_8c}\index{libupkeeper/upkeeper/upk\_\-error.c@{libupkeeper/upkeeper/upk\_\-error.c}}
+{\ttfamily \#include \char`\"{}upk\_\-error.h\char`\"{}}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$stdarg.h$>$}\par
+Include dependency graph for upk\_\-error.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__error_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-STATIC\_\-ERR\_\-DECL}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf \_\-upk\_\-default\_\-diag\_\-output} ({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$label, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)
+\item 
+static int32\_\-t {\bf \_\-upk\_\-diagnostic} ({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)
+\item 
+const char $\ast$ {\bf upk\_\-strerror} ({\bf upk\_\-errno\_\-t} err)
+\item 
+{\bf diag\_\-output\_\-callback\_\-t} {\bf upk\_\-reg\_\-diag\_\-callback} ({\bf diag\_\-output\_\-callback\_\-t} func)
+\item 
+int32\_\-t {\bf \_\-upk\_\-fatal} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-alert} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-crit} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-error} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-warn} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-notice} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-info} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-verbose} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug0} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug1} (const char $\ast$loc, const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int32\_\-t {\bf upk\_\-diag\_\-verbosity} = UPK\_\-DIAGLVL\_\-NOTICE
+\item 
+{\bf diag\_\-output\_\-callback\_\-t} {\bf \_\-\_\-upk\_\-diag\_\-output\_\-callback} = \_\-upk\_\-default\_\-diag\_\-output
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk\_\-error.c@{upk\_\-error.c}!UPK\_\-STATIC\_\-ERR\_\-DECL@{UPK\_\-STATIC\_\-ERR\_\-DECL}}
+\index{UPK\_\-STATIC\_\-ERR\_\-DECL@{UPK\_\-STATIC\_\-ERR\_\-DECL}!upk_error.c@{upk\_\-error.c}}
+\subsubsection[{UPK\_\-STATIC\_\-ERR\_\-DECL}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-STATIC\_\-ERR\_\-DECL}\label{upk__error_8c_ae10462bb9dc587860c9f9b5793cd5144}
+
+
+Referenced by \_\-upk\_\-alert(), \_\-upk\_\-crit(), \_\-upk\_\-debug0(), \_\-upk\_\-debug1(), \_\-upk\_\-default\_\-diag\_\-output(), \_\-upk\_\-error(), \_\-upk\_\-fatal(), \_\-upk\_\-info(), \_\-upk\_\-notice(), \_\-upk\_\-verbose(), and \_\-upk\_\-warn().
+
+
+
+\subsection{Function Documentation}
+\index{upk\_\-error.c@{upk\_\-error.c}!\_\-upk\_\-default\_\-diag\_\-output@{\_\-upk\_\-default\_\-diag\_\-output}}
+\index{\_\-upk\_\-default\_\-diag\_\-output@{\_\-upk\_\-default\_\-diag\_\-output}!upk_error.c@{upk\_\-error.c}}
+\subsubsection[{\_\-upk\_\-default\_\-diag\_\-output}]{\setlength{\rightskip}{0pt plus 5cm}static void \_\-upk\_\-default\_\-diag\_\-output (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-diaglvl\_\-t}}]{diaglvl, }
+\item[{const char $\ast$}]{label, }
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__error_8c_a5d2d98f10ed28c8b4dd84a013b5fa0d7}
+
+
+References upk\_\-diag\_\-verbosity, UPK\_\-DIAGLVL\_\-ALERT, UPK\_\-DIAGLVL\_\-CRIT, UPK\_\-DIAGLVL\_\-ERROR, UPK\_\-DIAGLVL\_\-FATAL, UPK\_\-DIAGLVL\_\-INFO, and UPK\_\-STATIC\_\-ERR\_\-DECL.
+
+\index{upk\_\-error.c@{upk\_\-error.c}!\_\-upk\_\-diagnostic@{\_\-upk\_\-diagnostic}}
+\index{\_\-upk\_\-diagnostic@{\_\-upk\_\-diagnostic}!upk_error.c@{upk\_\-error.c}}
+\subsubsection[{\_\-upk\_\-diagnostic}]{\setlength{\rightskip}{0pt plus 5cm}static int32\_\-t \_\-upk\_\-diagnostic (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-diaglvl\_\-t}}]{diaglvl, }
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{va\_\-list}]{ap}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__error_8c_ad14e81d375393c4706c348edabd52a99}
+
+
+References \_\-\_\-upk\_\-diag\_\-output\_\-callback, upk\_\-diag\_\-label\_\-idx, upk\_\-diag\_\-verbosity, and UPK\_\-DIAGLVL\_\-FATAL.
+
+
+
+Referenced by \_\-upk\_\-alert(), \_\-upk\_\-crit(), \_\-upk\_\-debug0(), \_\-upk\_\-debug1(), \_\-upk\_\-error(), \_\-upk\_\-fatal(), \_\-upk\_\-info(), \_\-upk\_\-notice(), \_\-upk\_\-verbose(), and \_\-upk\_\-warn().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=246pt]{upk__error_8c_ad14e81d375393c4706c348edabd52a99_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{upk\_\-error.c@{upk\_\-error.c}!\_\-\_\-upk\_\-diag\_\-output\_\-callback@{\_\-\_\-upk\_\-diag\_\-output\_\-callback}}
+\index{\_\-\_\-upk\_\-diag\_\-output\_\-callback@{\_\-\_\-upk\_\-diag\_\-output\_\-callback}!upk_error.c@{upk\_\-error.c}}
+\subsubsection[{\_\-\_\-upk\_\-diag\_\-output\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf diag\_\-output\_\-callback\_\-t} {\bf \_\-\_\-upk\_\-diag\_\-output\_\-callback} = \_\-upk\_\-default\_\-diag\_\-output}\label{upk__error_8c_aedd920cbf73e5ed62af50ee77ac71c56}
+
+
+Referenced by \_\-upk\_\-diagnostic(), and upk\_\-reg\_\-diag\_\-callback().
+

@@ -1,0 +1,88 @@
+.TH "_upk_conn_handle" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_conn_handle \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "uint32_t \fBversion_id\fP"
+.br
+.ti -1c
+.RI "int \fBfd\fP"
+.br
+.ti -1c
+.RI "char \fBcl_name\fP [UPK_MAX_STRING_LEN]"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP \fBreadbuf\fP [UPK_MAX_PACKET_SIZE]"
+.br
+.ti -1c
+.RI "uint8_t \fBn_hdr_bytes_read\fP"
+.br
+.ti -1c
+.RI "size_t \fBn_remaining_read\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBafter_read_callback\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_meta_t\fP \fBwriteq\fP"
+.br
+.ti -1c
+.RI "\fBupk_payload_t\fP \fBlast_pkt_data\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_gstate_t\fP * \fBgstate\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_callback_t\fP \fB_upk_conn_handle::after_read_callback\fP"after an entire packet read, call this callback 
+.PP
+Referenced by upk_call_received_packet_callbacks(), and upk_write_packets().
+.SS "char \fB_upk_conn_handle::cl_name\fP[UPK_MAX_STRING_LEN]"name of associated client 
+.PP
+Referenced by controller_packet_callback().
+.SS "int \fB_upk_conn_handle::fd\fP"file descriptor 
+.PP
+Referenced by upk_net_block_until_msg(), upk_read_packets(), and upk_write_packets().
+.SS "\fBupk_net_gstate_t\fP* \fB_upk_conn_handle::gstate\fP"instance state data, maintained in list metanode 
+.PP
+Referenced by upk_queue_packet().
+.SS "\fBupk_payload_t\fP \fB_upk_conn_handle::last_pkt_data\fP"Last received packet data 
+.PP
+Referenced by upk_call_received_packet_callbacks(), and upk_net_block_until_msg().
+.SS "uint8_t \fB_upk_conn_handle::n_hdr_bytes_read\fP"remaining header bytes for async read 
+.PP
+Referenced by upk_read_packets().
+.SS "size_t \fB_upk_conn_handle::n_remaining_read\fP"reamining bytes after header for async read 
+.PP
+Referenced by upk_read_packets().
+.SS "\fBupk_conn_handle_t\fP* \fB_upk_conn_handle::next\fP"next 
+.SS "\fBupk_pkt_buf_t\fP \fB_upk_conn_handle::readbuf\fP[UPK_MAX_PACKET_SIZE]"readbuffer used in async read 
+.PP
+Referenced by upk_read_packets().
+.SS "void* \fB_upk_conn_handle::userdata\fP"any user-data you might need too pass around 
+.SS "uint32_t \fB_upk_conn_handle::version_id\fP"proto version for connection 
+.PP
+Referenced by upk_create_pub_cancelation(), upk_create_pub_publication(), upk_create_repl_ack(), upk_create_repl_error(), upk_create_repl_listing(), upk_create_repl_result(), upk_create_repl_seq_end(), upk_create_repl_seq_start(), upk_create_repl_svcinfo(), upk_create_req_action(), upk_create_req_disconnect(), upk_create_req_list(), upk_create_req_seq_end(), upk_create_req_seq_start(), upk_create_req_signal(), upk_create_req_status(), upk_create_req_subscribe(), and upk_create_req_unsubscribe().
+.SS "\fBupk_netmsg_queue_meta_t\fP \fB_upk_conn_handle::writeq\fP"write queue linked list 
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

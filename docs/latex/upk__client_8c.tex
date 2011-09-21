@@ -1,0 +1,75 @@
+\section{libupkeeper/upkeeper/upk\_\-client.c File Reference}
+\label{upk__client_8c}\index{libupkeeper/upkeeper/upk\_\-client.c@{libupkeeper/upkeeper/upk\_\-client.c}}
+
+
+public client API.  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+Include dependency graph for upk\_\-client.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bf upk\_\-clientid} (void)
+\begin{DoxyCompactList}\small\item\em fill buf with the client\_\-id string. \end{DoxyCompactList}\item 
+bool {\bf upk\_\-client\_\-event\_\-hook} (void)
+\begin{DoxyCompactList}\small\item\em the body of the client event-\/loop; so you can call it once per pass of your own eventloop if you prefer. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+public client API. 
+
+\subsection{Function Documentation}
+\index{upk\_\-client.c@{upk\_\-client.c}!upk\_\-client\_\-event\_\-hook@{upk\_\-client\_\-event\_\-hook}}
+\index{upk\_\-client\_\-event\_\-hook@{upk\_\-client\_\-event\_\-hook}!upk_client.c@{upk\_\-client.c}}
+\subsubsection[{upk\_\-client\_\-event\_\-hook}]{\setlength{\rightskip}{0pt plus 5cm}bool upk\_\-client\_\-event\_\-hook (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client_8c_a93a0743ec8afde432503054a32bcd4dc}
+
+
+the body of the client event-\/loop; so you can call it once per pass of your own eventloop if you prefer. 
+
+\index{upk\_\-client.c@{upk\_\-client.c}!upk\_\-clientid@{upk\_\-clientid}}
+\index{upk\_\-clientid@{upk\_\-clientid}!upk_client.c@{upk\_\-client.c}}
+\subsubsection[{upk\_\-clientid}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-clientid (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__client_8c_ad5bda55978d99b1f4cfd3b7236d594cf}
+
+
+fill buf with the client\_\-id string. 
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buf} & allocated buffer to write clientid into \\
+\hline
+\end{DoxyParams}
+
+
+References UPK\_\-MAX\_\-STRING\_\-LEN.
+
+
+
+Referenced by main(), and upk\_\-clnet\_\-req\_\-preamble().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__client_8c_ad5bda55978d99b1f4cfd3b7236d594cf_icgraph}
+\end{center}
+\end{figure}
+
+

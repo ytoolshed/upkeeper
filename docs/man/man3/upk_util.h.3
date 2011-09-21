@@ -1,0 +1,57 @@
+.TH "libupkeeper/upkeeper/upk_util.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_util.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_stringify\fP(A)   #A"
+.br
+.ti -1c
+.RI "#define \fBstringify\fP(A)   _stringify(A)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBupk_numeric_string\fP (const char *string, long *num)"
+.br
+.ti -1c
+.RI "bool \fBupk_boolean_string\fP (const char *string, bool *val)"
+.br
+.ti -1c
+.RI "void \fBupk_replace_string\fP (char **haystack, const char *needle, const char *repl)"
+.br
+.ti -1c
+.RI "struct timeval \fBupk_double_to_timeval\fP (long double rational)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define _stringify(A)   #A"
+.SS "#define stringify(A)   _stringify(A)"
+.SH "Function Documentation"
+.PP 
+.SS "bool upk_boolean_string (const char *string, bool *val)"
+.PP
+References upk_numeric_string().
+.PP
+Referenced by main().
+.SS "struct timeval upk_double_to_timeval (long doublerational)\fC [read]\fP"
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "bool upk_numeric_string (const char *string, long *num)"
+.PP
+Referenced by main(), and upk_boolean_string().
+.SS "void upk_replace_string (char **haystack, const char *needle, const char *repl)"
+.PP
+Referenced by START_TEST(), and upk_finalize_svc_desc().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

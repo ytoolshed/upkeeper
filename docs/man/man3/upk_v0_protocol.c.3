@@ -1,0 +1,388 @@
+.TH "libupkeeper/upkeeper/upk_v0_protocol.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_v0_protocol.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_v0_protocol.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPROTOCOL_VERSION\fP   0"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_HELPER\fP(TYPE, MSGTYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT32_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT32\fP(MEMB)   UPK_HELPER_UINT32_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT16_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT16\fP(MEMB)   UPK_HELPER_UINT16_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT8_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT8\fP(MEMB)   UPK_HELPER_UINT8_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_ENUM\fP(MEMB)   UPK_HELPER_UINT32(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_BOOL\fP(MEMB)   UPK_HELPER_UINT8(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_BUF\fP(DEST, SRC, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_ANSISTRING\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_STRING\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_END_HELPER\fP(PKT_TYPE)   return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBfree_data_t\fP )(void *)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBv0_free_repl_payload\fP (void *UPK_DATA_PTR)"
+.br
+.ti -1c
+.RI "static void \fBv0_free_req_payload\fP (void *UPK_DATA_PTR)"
+.br
+.ti -1c
+.RI "void \fBv0_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, uint32_t msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_action\fP (char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_signal\fP (char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_list\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_status\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_subscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_unsubscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_disconnect\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, uint32_t msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_result\fP (char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_listing\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "static uint32_t \fBget_svcinfo_len\fP (\fBv0_svcinfo_t\fP s)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_svcinfo\fP (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_ack\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_error\fP (char *svc_id, \fBupk_errno_t\fP uerrno, char *msg, \fBupk_errlevel_t\fP errlevel)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_publication\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_cancelation\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static \fBfree_data_t\fP \fBfree_pkt_dispatch\fP []"
+.br
+.ti -1c
+.RI "static \fBfree_data_t\fP \fBfree_req_dispatch\fP []"
+.br
+.ti -1c
+.RI "static \fBfree_data_t\fP \fBfree_repl_dispatch\fP []"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define PROTOCOL_VERSION   0"
+.SS "#define UPK_END_HELPER(PKT_TYPE)   return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)"
+.PP
+Referenced by v0_create_pub_cancelation(), v0_create_pub_publication(), v0_create_repl_ack(), v0_create_repl_error(), v0_create_repl_listing(), v0_create_repl_result(), v0_create_repl_seq_end(), v0_create_repl_seq_start(), v0_create_repl_svcinfo(), v0_create_req_action(), v0_create_req_disconnect(), v0_create_req_list(), v0_create_req_seq_end(), v0_create_req_seq_start(), v0_create_req_signal(), v0_create_req_status(), v0_create_req_subscribe(), and v0_create_req_unsubscribe().
+.SS "#define UPK_HELPER_ANSISTRING(DEST, SRC)"\fBValue:\fP
+.PP
+.nf
+UPK_STRING_LENGTH = strnlen(SRC, UPK_MAX_STRING_LEN); \
+    UPK_HELPER_BUF(DEST, SRC, UPK_STRING_LENGTH + 1); \
+    UPK_DATA_LEN--
+.fi
+.SS "#define UPK_HELPER_BOOL(MEMB)   UPK_HELPER_UINT8(MEMB)"
+.PP
+Referenced by v0_create_repl_result(), v0_create_repl_seq_end(), v0_create_req_seq_end(), v0_create_req_signal(), v0_create_req_subscribe(), and v0_create_req_unsubscribe().
+.SS "#define UPK_HELPER_BUF(DEST, SRC, LEN)"\fBValue:\fP
+.PP
+.nf
+/* DEST = calloc(1, LEN); */ \
+    memcpy(DEST,SRC,LEN); \
+    UPK_DATA_LEN += LEN
+.fi
+.SS "#define UPK_HELPER_ENUM(MEMB)   UPK_HELPER_UINT32(MEMB)"
+.PP
+Referenced by v0_create_repl_error(), v0_create_repl_seq_start(), v0_create_req_seq_start(), and v0_create_req_signal().
+.SS "#define UPK_HELPER_STRING(MEMB)"\fBValue:\fP
+.PP
+.nf
+UPK_HELPER_ANSISTRING(UPK_DATA->MEMB, MEMB); \
+    UPK_HELPER_UINT32_EXPLICIT(UPK_DATA->UPK_MEMB_TO_LEN(MEMB), UPK_STRING_LENGTH)
+.fi
+.PP
+Referenced by v0_create_repl_error(), v0_create_repl_listing(), v0_create_repl_result(), v0_create_repl_svcinfo(), v0_create_req_action(), v0_create_req_signal(), v0_create_req_status(), v0_create_req_subscribe(), and v0_create_req_unsubscribe().
+.SS "#define UPK_HELPER_UINT16(MEMB)   UPK_HELPER_UINT16_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.SS "#define UPK_HELPER_UINT16_EXPLICIT(DEST, SRC)"\fBValue:\fP
+.PP
+.nf
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint16_t)
+.fi
+.SS "#define UPK_HELPER_UINT32(MEMB)   UPK_HELPER_UINT32_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.PP
+Referenced by v0_create_repl_seq_start(), and v0_create_req_seq_start().
+.SS "#define UPK_HELPER_UINT32_EXPLICIT(DEST, SRC)"\fBValue:\fP
+.PP
+.nf
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint32_t)
+.fi
+.PP
+Referenced by v0_create_repl_svcinfo().
+.SS "#define UPK_HELPER_UINT8(MEMB)   UPK_HELPER_UINT8_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.SS "#define UPK_HELPER_UINT8_EXPLICIT(DEST, SRC)"\fBValue:\fP
+.PP
+.nf
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint8_t)
+.fi
+.SS "#define UPK_INIT_HELPER(TYPE, MSGTYPE)"\fBValue:\fP
+.PP
+.nf
+TYPE *UPK_DATA = NULL; \
+    uint32_t UPK_DATA_LEN = 0; \
+    size_t UPK_STRING_LENGTH = 0; \
+    UPK_DATA = calloc(1, sizeof(*UPK_DATA)); \
+    UPK_DATA->msgtype = MSGTYPE; \
+    UPK_DATA_LEN += 4; \
+    UPK_DATA_LEN = UPK_DATA_LEN + 0; \
+    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0
+.fi
+.PP
+Referenced by v0_create_pub_cancelation(), v0_create_pub_publication(), v0_create_repl_ack(), v0_create_repl_error(), v0_create_repl_listing(), v0_create_repl_result(), v0_create_repl_seq_end(), v0_create_repl_seq_start(), v0_create_repl_svcinfo(), v0_create_req_action(), v0_create_req_disconnect(), v0_create_req_list(), v0_create_req_seq_end(), v0_create_req_seq_start(), v0_create_req_signal(), v0_create_req_status(), v0_create_req_subscribe(), and v0_create_req_unsubscribe().
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* \fBfree_data_t\fP)(void *)"
+.SH "Function Documentation"
+.PP 
+.SS "static uint32_t get_svcinfo_len (\fBv0_svcinfo_t\fPs)\fC [static]\fP"
+.PP
+Referenced by v0_create_repl_svcinfo().
+.SS "\fBupk_packet_t\fP* v0_create_pub_cancelation (void)"
+.PP
+References PKT_PUBMSG, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_PUB_CANCELATION.
+.PP
+Referenced by upk_create_pub_cancelation().
+.SS "\fBupk_packet_t\fP* v0_create_pub_publication (void)"
+.PP
+References PKT_PUBMSG, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_PUB_PUBLICATION.
+.PP
+Referenced by upk_create_pub_publication().
+.SS "\fBupk_packet_t\fP* v0_create_repl_ack (void)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REPL_ACK.
+.PP
+Referenced by upk_create_repl_ack().
+.SS "\fBupk_packet_t\fP* v0_create_repl_error (char *svc_id, \fBupk_errno_t\fPuerrno, char *msg, \fBupk_errlevel_t\fPerrlevel)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_ERROR.
+.PP
+Referenced by upk_create_repl_error().
+.SS "\fBupk_packet_t\fP* v0_create_repl_listing (char *svc_id)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_LISTING.
+.PP
+Referenced by upk_create_repl_listing().
+.SS "\fBupk_packet_t\fP* v0_create_repl_result (char *msg, boolsuccessful)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REPL_RESULT.
+.PP
+Referenced by upk_create_repl_result().
+.SS "\fBupk_packet_t\fP* v0_create_repl_seq_end (boolcommit)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_INIT_HELPER, and UPK_REPL_SEQ_END.
+.PP
+Referenced by upk_create_repl_seq_end().
+.SS "\fBupk_packet_t\fP* v0_create_repl_seq_start (\fBupk_msgtype_t\fPmsg_seq_type, uint32_tmsg_seq_count)"
+.PP
+References PKT_REPLY, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_UINT32, UPK_INIT_HELPER, and UPK_REPL_SEQ_START.
+.PP
+Referenced by upk_create_repl_seq_start().
+.SS "\fBupk_packet_t\fP* v0_create_repl_svcinfo (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.PP
+References get_svcinfo_len(), PKT_REPLY, strnlen(), UPK_DATA, UPK_DATA_LEN, UPK_END_HELPER, UPK_HELPER_STRING, UPK_HELPER_UINT32_EXPLICIT, UPK_INIT_HELPER, UPK_MAX_STRING_LEN, UPK_REPL_SVCINFO, and UPK_STRING_LENGTH.
+.PP
+Referenced by upk_create_repl_svcinfo().
+.SS "\fBupk_packet_t\fP* v0_create_req_action (char *svc_id, char *action)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_ACTION.
+.PP
+Referenced by upk_create_req_action().
+.SS "\fBupk_packet_t\fP* v0_create_req_disconnect (void)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REQ_DISCONNECT.
+.PP
+Referenced by upk_create_req_disconnect().
+.SS "\fBupk_packet_t\fP* v0_create_req_list (void)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_INIT_HELPER, and UPK_REQ_LIST.
+.PP
+Referenced by upk_create_req_list().
+.SS "\fBupk_packet_t\fP* v0_create_req_seq_end (boolcommit)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_INIT_HELPER, and UPK_REQ_SEQ_END.
+.PP
+Referenced by upk_create_req_seq_end().
+.SS "\fBupk_packet_t\fP* v0_create_req_seq_start (\fBupk_msgtype_t\fPmsg_seq_type, uint32_tmsg_seq_count)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_ENUM, UPK_HELPER_UINT32, UPK_INIT_HELPER, and UPK_REQ_SEQ_START.
+.PP
+Referenced by upk_create_req_seq_start().
+.SS "\fBupk_packet_t\fP* v0_create_req_signal (char *svc_id, \fBupk_signal_t\fPsignal, boolsignal_sid, boolsignal_pgrp)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_ENUM, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_SIGNAL.
+.PP
+Referenced by upk_create_req_signal().
+.SS "\fBupk_packet_t\fP* v0_create_req_status (char *svc_id)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_STATUS.
+.PP
+Referenced by upk_create_req_status().
+.SS "\fBupk_packet_t\fP* v0_create_req_subscribe (char *svc_id, boolall_svcs)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_SUBSCRIBE.
+.PP
+Referenced by upk_create_req_subscribe().
+.SS "\fBupk_packet_t\fP* v0_create_req_unsubscribe (char *svc_id, boolall_svcs)"
+.PP
+References PKT_REQUEST, UPK_END_HELPER, UPK_HELPER_BOOL, UPK_HELPER_STRING, UPK_INIT_HELPER, and UPK_REQ_UNSUBSCRIBE.
+.PP
+Referenced by upk_create_req_unsubscribe().
+.SS "void v0_free_payload (\fBupk_packet_t\fP *pkt)"
+.PP
+References free_pkt_dispatch, upk_packet_t::payload, and upk_packet_t::pkttype.
+.PP
+Referenced by upk_free_payload().
+.SS "static void v0_free_repl_payload (void *UPK_DATA_PTR)\fC [static]\fP"
+.PP
+References free_repl_dispatch, and UPK_DATA.
+.SS "static void v0_free_req_payload (void *UPK_DATA_PTR)\fC [static]\fP"
+.PP
+References free_req_dispatch, and UPK_DATA.
+.SH "Variable Documentation"
+.PP 
+.SS "\fBfree_data_t\fP \fBfree_pkt_dispatch\fP[]\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+    [PKT_REQUEST] = v0_free_req_payload,
+    
+    [PKT_REPLY] = v0_free_repl_payload,
+    
+    [PKT_PUBMSG] = NULL,
+}
+.fi
+.PP
+Referenced by v0_free_payload().
+.SS "\fBfree_data_t\fP \fBfree_repl_dispatch\fP[]\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+    [UPK_REPL_SEQ_START] = NULL,
+    [UPK_REPL_SEQ_END] = NULL,
+    
+    [UPK_REPL_RESULT] = NULL,
+    
+    [UPK_REPL_LISTING] = NULL,
+    
+    [UPK_REPL_SVCINFO] = NULL,
+    [UPK_REPL_ACK] = NULL,
+    
+    [UPK_REPL_ERROR] = NULL,
+}
+.fi
+.PP
+Referenced by v0_free_repl_payload().
+.SS "\fBfree_data_t\fP \fBfree_req_dispatch\fP[]\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {
+    [UPK_REQ_SEQ_START] = NULL,
+    [UPK_REQ_SEQ_END] = NULL,
+    
+    [UPK_REQ_ACTION] = NULL,
+    
+    [UPK_REQ_SIGNAL] = NULL,
+    [UPK_REQ_LIST] = NULL,
+    
+    [UPK_REQ_STATUS] = NULL,
+    
+    [UPK_REQ_SUBSCRIBE] = NULL,
+    
+    [UPK_REQ_UNSUBSCRIBE] = NULL,
+    [UPK_REQ_DISCONNECT] = NULL,
+}
+.fi
+.PP
+Referenced by v0_free_req_payload().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,145 @@
+\section{controller/ctrl\_\-protocol.h File Reference}
+\label{ctrl__protocol_8h}\index{controller/ctrl\_\-protocol.h@{controller/ctrl\_\-protocol.h}}
+
+
+types used to communicate with buddy.  
+
+
+{\ttfamily \#include \char`\"{}buddyinc.h\char`\"{}}\par
+Include dependency graph for ctrl\_\-protocol.h:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__protocol_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__protocol_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-buddy\_\-info}
+\begin{DoxyCompactList}\small\item\em information buddy returns. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf DEFAULT\_\-BUDDY\_\-ROOT}~\char`\"{}/var/run/upkeeper/buddy\char`\"{}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef enum {\bf \_\-buddy\_\-cmnd} {\bf buddy\_\-cmnd\_\-t}
+\begin{DoxyCompactList}\small\item\em controller side of buddy protocol. \end{DoxyCompactList}\item 
+typedef struct {\bf \_\-buddy\_\-info} {\bf buddy\_\-info\_\-t}
+\begin{DoxyCompactList}\small\item\em information buddy returns. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf \_\-buddy\_\-cmnd} \{ \par
+{\bf UPK\_\-CTRL\_\-NONE} =  0, 
+{\bf UPK\_\-CTRL\_\-ACK} =  1, 
+{\bf UPK\_\-CTRL\_\-SHUTDOWN}, 
+{\bf UPK\_\-CTRL\_\-STATUS\_\-REQ}, 
+\par
+{\bf UPK\_\-CTRL\_\-ACTION\_\-START}, 
+{\bf UPK\_\-CTRL\_\-ACTION\_\-STOP}, 
+{\bf UPK\_\-CTRL\_\-ACTION\_\-RELOAD}, 
+{\bf UPK\_\-CTRL\_\-ACTION\_\-RUNONCE}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-00}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-01}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-02}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-03}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-04}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-05}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-06}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-07}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-08}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-09}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-10}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-11}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-12}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-13}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-14}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-15}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-16}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-17}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-18}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-19}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-20}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-21}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-22}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-23}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-24}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-25}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-26}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-27}, 
+\par
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-28}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-29}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-30}, 
+{\bf UPK\_\-CTRL\_\-CUSTOM\_\-ACTION\_\-31}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-01}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-02}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-03}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-04}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-05}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-06}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-07}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-08}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-09}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-10}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-11}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-12}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-13}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-14}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-15}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-16}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-17}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-18}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-19}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-20}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-21}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-22}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-23}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-24}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-25}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-26}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-27}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-28}, 
+\par
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-29}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-30}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-31}, 
+{\bf UPK\_\-CTRL\_\-SIGNAL\_\-32}
+ \}
+\begin{DoxyCompactList}\small\item\em controller side of buddy protocol. \end{DoxyCompactList}\item 
+enum {\bf buddy\_\-runstate\_\-t} \{ {\bf BUDDY\_\-UNKNOWN} =  0, 
+{\bf BUDDY\_\-STOPPED} =  1, 
+{\bf BUDDY\_\-RUNNING}, 
+{\bf BUDDY\_\-RANONCE}
+ \}
+\begin{DoxyCompactList}\small\item\em states for buddy \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+types used to communicate with buddy. 

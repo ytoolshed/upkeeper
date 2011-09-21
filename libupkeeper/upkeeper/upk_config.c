@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #include "upk_include.h"
 #include "upk_json.h"
 
@@ -35,7 +47,7 @@ static char            *upk_config_loadfile(const char *filename);
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 /* FIXME: allow specifying default via configure */
-char              upk_ctrl_configuration_file[UPK_MAX_PATH_LEN] = stringify(CONF_SYSCONFDIR) "/upkeeper.conf";
+char                    upk_ctrl_configuration_file[UPK_MAX_PATH_LEN] = stringify(CONF_SYSCONFDIR) "/upkeeper.conf";
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -101,9 +113,12 @@ const char upk_default_configuration_vec[] =
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
-upk_controller_config_t upk_default_configuration;
-upk_controller_config_t upk_file_configuration;
-upk_controller_config_t upk_runtime_configuration;
+upk_controller_config_t
+    upk_default_configuration;
+upk_controller_config_t
+    upk_file_configuration;
+upk_controller_config_t
+    upk_runtime_configuration;
 
 
 /* ******************************************************************************************************************
@@ -132,12 +147,13 @@ upk_svc_desc_free(upk_svc_desc_t * svc)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
-upk_svclist_free(upk_svc_desc_head_t * svclist)
+upk_svclist_free(upk_svc_desc_meta_t * svclist)
 {
     if(svclist) {
         UPKLIST_FOREACH(svclist) {
             upk_svc_desc_free(svclist->thisp);
         }
+        UPKLIST_FREE(svclist);
     }
 }
 
@@ -220,7 +236,7 @@ upk_ctrlconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key,
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
-upk_ctrlconf_double_handler(upk_json_stack_meta_t *meta, void *data, char *key, upk_json_val_t v)
+upk_ctrlconf_double_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
     upk_controller_config_t *d = data;
 
@@ -229,8 +245,7 @@ upk_ctrlconf_double_handler(upk_json_stack_meta_t *meta, void *data, char *key, 
             d->BuddyPollingInterval = v.val.dbl;
         else if(v.type == json_type_int)
             d->BuddyPollingInterval = v.val.i;
-    }
-    else {
+    } else {
         upk_fatal("Invalid configuration: %s\n", key);
     }
 }
@@ -265,7 +280,7 @@ upk_svcconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
 
     upk_svcconf_setup_handlers(&service_node.handlers);
 
-    if(! d->svclist)
+    if(!d->svclist)
         d->svclist = calloc(1, sizeof(*d->svclist));
 
     UPKLIST_APPEND(d->svclist);
@@ -490,19 +505,19 @@ upk_conf_error_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_
 static char            *
 upk_config_loadfile(const char *filename)
 {
-    FILE *conf;
-    char buf[UPK_MAX_STRING_LEN] = "";
-    char *json_string = NULL;
-    size_t len=0, add=0, size=64;
+    FILE                   *conf;
+    char                    buf[UPK_MAX_STRING_LEN] = "";
+    char                   *json_string = NULL;
+    size_t                  len = 0, add = 0, size = 64;
 
     json_string = calloc(1, size);
 
-    errno=0;
-    if( ( conf = fopen(filename, "r") ) ) {
-        while( fgets(buf, sizeof(buf) - 1, conf) ) {
+    errno = 0;
+    if((conf = fopen(filename, "r"))) {
+        while(fgets(buf, sizeof(buf) - 1, conf)) {
             len += (add = strnlen(buf, sizeof(buf)));
             if(len > size) {
-                size*=2;
+                size *= 2;
                 json_string = realloc(json_string, size);
             }
             strncat(json_string, buf, add);
@@ -528,7 +543,8 @@ upk_ctrl_load_config(void)
     strncpy(upk_default_configuration.controller_socket, upk_default_configuration.StateDir, UPK_MAX_STRING_LEN - 1);
     strcat(upk_default_configuration.controller_socket, "/.controler.sock");
 
-    strncpy(upk_default_configuration.controller_buddy_sock, upk_default_configuration.StateDir, UPK_MAX_STRING_LEN - 1);
+    strncpy(upk_default_configuration.controller_buddy_sock, upk_default_configuration.StateDir,
+            UPK_MAX_STRING_LEN - 1);
     strcat(upk_default_configuration.controller_buddy_sock, "/.buddy.sock");
 
     upk_file_configuration.BuddyPollingInterval = DBL_MIN;
@@ -538,8 +554,8 @@ upk_ctrl_load_config(void)
         if(json && strlen(json) > 0) {
             upk_svc_desc_clear(&upk_file_configuration.ServiceDefaults);
             upk_ctrlconf_pack(&upk_file_configuration, json);
-            free(json);
         }
+        free(json);
     }
     upk_svc_desc_clear(&upk_runtime_configuration.ServiceDefaults);
     upk_overlay_ctrlconf_values(&upk_runtime_configuration, &upk_default_configuration);
@@ -616,15 +632,30 @@ upk_json_serialize_or_null(enum json_type type, void *val)
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
-void
-upk_svc_id(char *dest, upk_svc_desc_t * svc)
+char                   *
+upk_concat_svcid(char *dest, const char *pkg, const char *name)
 {
-    if(strlen(svc->Package) > 0) {
-        strcpy(dest, svc->Package);
-        strcat(dest, "::");
+    size_t                  remainder = UPK_MAX_STRING_LEN - 1, len = 0;
+
+    memset(dest,0,UPK_MAX_STRING_LEN);
+    if(pkg && (len = strlen(pkg))) {
+        strncpy(dest, pkg, remainder);
+        remainder -= len;
+        strncat(dest, "::", remainder);
+        remainder -= 2;
     }
 
-    strcat(dest, svc->Name);
+    strncat(dest, name, remainder);
+    return dest;
+}
+
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+char                   *
+upk_svc_id(char *dest, upk_svc_desc_t * svc)
+{
+    return upk_concat_svcid(dest, svc->Package, svc->Name);
 }
 
 
@@ -656,12 +687,12 @@ upk_parse_svc_id(char *key, upk_svc_desc_t * svc)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 struct json_object     *
-upk_svclist_to_json_obj(upk_svc_desc_head_t * svclist)
+upk_svclist_to_json_obj(upk_svc_desc_meta_t * svclist)
 {
     struct json_object     *top, *p;
     char                    idbuf[UPK_MAX_STRING_LEN] = "";
 
-    if(!svclist) 
+    if(!svclist)
         return NULL;
 
     top = json_object_new_object();
@@ -683,12 +714,14 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
 {
     struct json_object     *obj, *p;
     char                    uuid_buf[37] = "";
+    char                    svc_id_buf[UPK_MAX_STRING_LEN] = "";
 
     obj = json_object_new_object();
 
     /* 
        json_object_object_add(obj, "Name", json_object_new_string(svc->Name)); json_object_object_add(obj, "Package",
        upk_json_serialize_or_null(jt_string, svc->Package)); */
+
     _joa(obj, "Provides", upk_json_serialize_or_null(jt_string, svc->Provides));
     upk_string_to_uuid(uuid_buf, &svc->UUID);
     _joa(obj, "UUID", upk_json_serialize_or_null(jt_string, uuid_buf));
@@ -698,13 +731,11 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
     p = json_object_new_array();
     if(svc->Prerequisites) {
         UPKLIST_FOREACH(svc->Prerequisites) {
-            json_object_array_add(p, json_object_new_string(svc->Prerequisites->thisp->svc_id));
+            upk_concat_svcid(svc_id_buf, svc->Prerequisites->thisp->pkg, svc->Prerequisites->thisp->name);
+            json_object_array_add(p, json_object_new_string(svc_id_buf));
         }
-    } else {
-        // json_object_array_add(p, json_object_new_string("Your f'ing mother"));
     }
     _joa(obj, "Prerequisites", upk_json_serialize_or_null(jt_array, p));
-    // json_object_put(p); /* decrement ref count back to 1 */
 
     _joa(obj, "StartPriority", upk_json_serialize_or_null(jt_int, &svc->StartPriority));
     _joa(obj, "BuddyShutdownTimeout", upk_json_serialize_or_null(jt_int, &svc->BuddyShutdownTimeout));
@@ -765,7 +796,7 @@ upk_json_serialize_svc_config(upk_svc_desc_t * svc, upk_json_data_output_opts_t 
 {
     struct json_object     *top;
     char                   *cp;
-    upk_svc_desc_head_t    *svclist;
+    upk_svc_desc_meta_t    *svclist;
 
     svclist = calloc(1, sizeof(*svclist));
 
@@ -997,7 +1028,7 @@ upk_overlay_ctrlconf_values(upk_controller_config_t * dest, upk_controller_confi
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
-upk_finalize_svc_desc(upk_svc_desc_t *dest, upk_svc_desc_t *orig)
+upk_finalize_svc_desc(upk_svc_desc_t * dest, upk_svc_desc_t * orig)
 {
     upk_overlay_svcconf_values(dest, &upk_runtime_configuration.ServiceDefaults);
     upk_overlay_svcconf_values(dest, orig);
@@ -1023,24 +1054,24 @@ upk_load_runtime_service_file(const char *filename)
 void
 upk_load_runtime_services(void)
 {
-    DIR *dir;
-    struct dirent *ent = NULL;
-    size_t filename_len;
-    char *filename_suffix = ".conf";
-    size_t suffix_len = strlen(filename_suffix);
-    char *p, path_buf[UPK_MAX_PATH_LEN], *pathp; 
-    upk_json_data_output_opts_t opts = { .sep = "\n", .indent = "    ", .pad = " " };
+    DIR                    *dir;
+    struct dirent          *ent = NULL;
+    size_t                  filename_len;
+    char                   *filename_suffix = ".conf";
+    size_t                  suffix_len = strlen(filename_suffix);
+    char                   *p, path_buf[UPK_MAX_PATH_LEN], *pathp;
+    upk_json_data_output_opts_t opts = {.sep = "\n",.indent = "    ",.pad = " " };
 
     strncpy(path_buf, upk_runtime_configuration.SvcConfigPath, sizeof(path_buf) - 1);
     pathp = path_buf + strnlen(path_buf, sizeof(path_buf));
 
     if(strnlen(upk_runtime_configuration.SvcConfigPath, sizeof(upk_runtime_configuration.SvcConfigPath)) > 0) {
         errno = 0;
-        if( (dir = opendir(upk_runtime_configuration.SvcConfigPath) ) ) {
+        if((dir = opendir(upk_runtime_configuration.SvcConfigPath))) {
             errno = 0;
-            while( (ent = readdir(dir)) ) {
+            while((ent = readdir(dir))) {
                 filename_len = strlen(ent->d_name);
-                if( strcmp(ent->d_name + filename_len - suffix_len, filename_suffix) == 0 ) {
+                if(strcmp(ent->d_name + filename_len - suffix_len, filename_suffix) == 0) {
                     *pathp = '\0';
                     strcat(path_buf, "/");
                     strncat(path_buf, ent->d_name, sizeof(path_buf) - 1);
@@ -1067,8 +1098,7 @@ upk_load_runtime_services(void)
                     free(p);
                 }
             }
-        }
-        else {
+        } else {
             perror(upk_runtime_configuration.SvcConfigPath);
         }
     }
