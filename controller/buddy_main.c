@@ -82,7 +82,7 @@ numeric_string(const char *string, long *num)
 static int
 opt_parse(int argc, char **argv, char **envp)
 {
-    int                     c = 0, option_index = 0;
+    int                     c = 0, n = 0, option_index = 0;
     char                    cbuf[3] = "-";
     const char             *p, pbuf[1] = "";
     long                    num = 0;
@@ -102,7 +102,7 @@ opt_parse(int argc, char **argv, char **envp)
         {0, 0, 0, 0}
     };
 
-    while((c = getopt_long(argc, argv, "qhvR:r:u:g:", long_options, &option_index)) > 0) {
+    while((c = getopt_long(argc, argv, "qhvR:r:u:g:", long_options, &option_index)) >= 0) {
         *(cbuf + 1) = (option_index) ? '-' : c;
         p = (option_index) ? long_options[option_index].name : pbuf;
 
@@ -114,11 +114,10 @@ opt_parse(int argc, char **argv, char **envp)
             }
             else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
                 if(is_valid_upk_uuid_string(optarg)) {
-                    upk_string_to_uuid(optarg, &buddy_uuid); 
+                    upk_string_to_uuid(&buddy_uuid, optarg);
                     break;
                 }
             }
-
             valid = false;
             break;
         case 'q':

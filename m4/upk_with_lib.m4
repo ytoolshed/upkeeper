@@ -39,11 +39,11 @@ AC_DEFUN([ax_make_tmpvars],[dnl
     ax_store_val([ax_extlib_varname],[m4_toupper([[$1_$2]])]) dnl
     m4_if([ax_extlib_varname],[_],[:],[ dnl
         AS_VAR_SET_IF([ax_extlib_varname],[ dnl
-			AS_ECHO(["m4_bpatsubst(["$ax_extlib_varname"],["[\"\'\$]"],[])"])
+			dnl AS_ECHO(["m4_bpatsubst(["$ax_extlib_varname"],["[\"\'\$]"],[])"])
             ax_store_val([variable_payload],[m4_unquote([AX_SH_ACTION([ax_extlib_varname])])]) dnl
             m4_bpatsubst([variable_payload],[\"],[]) dnl
-            AC_MSG_CHECKING([$1 flags ax_extlib_varname])
-            AC_MSG_RESULT(variable_payload)
+			AC_MSG_CHECKING([$1 flags ax_extlib_varname])
+			AC_MSG_RESULT(variable_payload)
             m4_apply([AC_SUBST],[ax_extlib_varname])
         ])
     ])

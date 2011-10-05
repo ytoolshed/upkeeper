@@ -64,15 +64,29 @@ AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
 ## Check whether or not symbol '__progname' is defined
 AX_CHECK___PROGNAME
 
-##AC_DEFINE([CONF_LIBEXECDIR], [$libexecdir], [Define to the value of libexecdir])
-##AC_DEFINE([CONF_LOCALSTATEDIR], [$localstatedir], [Define to the value of localstatedir])
-##AC_DEFINE([CONF_SYSCONFDIR], [$sysconfdir], [Define to the value of sysconfdir])
+#if test "x$prefix" = "xNONE"; then
+#	prefix="/usr/local"
+#fi
 
-##AC_SUBST([conf_libexecdir], [$libexecdir])
-##AC_SUBST([conf_localstatedir], [$localstatedir])
-##AC_SUBST([conf_sysconfdir], [$sysconfdir])
-#AX_ACSUBST_INSTDIRS
-AX_SHELL_EXPANDVAR([libexecdir])
+#if test "x$exec_prefix" = "xNONE"; then 
+#	exec_prefix="$prefix"
+#fi
+
+#conf_libexecdir="`eval echo \"$libexecdir\"`"
+#conf_localstatedir="`eval echo \"$localstatedir\"`"
+#conf_sysconfdir="`eval echo \"$sysconfdir\"`"
+
+#AC_DEFINE_UNQUOTED([CONF_LIBEXECDIR], $conf_libexecdir, [Define to the value of libexecdir])
+#AC_DEFINE_UNQUOTED([CONF_LOCALSTATEDIR], $conf_localstatedir, [Define to the value of localstatedir])
+#AC_DEFINE_UNQUOTED([CONF_SYSCONFDIR], $conf_sysconfdir, [Define to the value of sysconfdir])
+
+AX_ACDEFINE_INSTDIRS
+
+#AC_SUBST([conf_libexecdir], [$libexecdir])
+#AC_SUBST([conf_localstatedir], [$localstatedir])
+#AC_SUBST([conf_sysconfdir], [$sysconfdir])
+##AX_ACSUBST_INSTDIRS
+#AX_SHELL_EXPANDVAR([libexecdir])
 
 # TODO: we should have an AC_SUBST for this
 # AX_FUNC_POLL

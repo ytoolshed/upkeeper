@@ -395,6 +395,7 @@ buddy_record_state(void)
 
     buddy_zero_info();
     ringbuffer_pending = (ringbuffer_pending >= ringbuffer_size) ? ringbuffer_size : ringbuffer_pending + 1;
+    info_ringbuffer->uuid = buddy_uuid;
     info_ringbuffer->service_pid = proc_pid;
     info_ringbuffer->command = last_command;
     info_ringbuffer->desired_state = desired_state;
