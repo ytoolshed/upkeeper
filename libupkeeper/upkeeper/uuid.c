@@ -99,7 +99,7 @@ is_valid_upk_uuid_string(const char *string)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
-upk_string_to_uuid(const char *string, upk_uuid_t * uuid)
+upk_string_to_uuid(upk_uuid_t * uuid, const char *string)
 {
     int32_t                 n = 0;
     char                    buf[3] = "";

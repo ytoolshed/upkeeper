@@ -81,7 +81,7 @@ main(int argc, char ** argv, char ** envp)
                 else if(strcmp(longopts[option_index].name, "package") == 0)
                     strcpy(svc.Package, optarg);
                 else if(strcmp(longopts[option_index].name, "uuid") == 0) {
-                    upk_string_to_uuid(optarg, &svc.UUID);
+                    upk_string_to_uuid(&svc.UUID, optarg);
                 }
                 else if(strcmp(longopts[option_index].name, "short_description") == 0)
                     strcpy(svc.ShortDescription, optarg);

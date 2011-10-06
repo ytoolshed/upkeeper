@@ -22,7 +22,7 @@ START_TEST(test_string_to_uuid)
     char buf[37] = "12345678-1234-5678-9ABC-0123456789AB";
     upk_uuid_t foo = { 0 };
 
-    upk_string_to_uuid(buf, &foo);
+    upk_string_to_uuid(&foo, buf);
 
     fail_unless(foo.time_low == 0x12345678, "time_low: %02X", foo.time_low);
     fail_unless(foo.time_mid == 0x1234, "time_mid: %02X", foo.time_mid);
