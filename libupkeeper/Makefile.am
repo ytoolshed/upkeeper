@@ -46,10 +46,10 @@ libupkeeper_la_include_HEADERS = upkeeper.h
 libupkeeper_la_libincludedir = $(libdir)/upkeeper-1.0/include/
 nodist_libupkeeper_la_libinclude_HEADERS = $(top_builddir)/upkeeper_config.h
 
-bin_PROGRAMS = t json s
-t_LDADD = libupkeeper.la
-json_LDADD = libupkeeper.la
-s_LDADD = libupkeeper.la
+#bin_PROGRAMS = t json s
+#t_LDADD = libupkeeper.la
+#json_LDADD = libupkeeper.la
+#s_LDADD = libupkeeper.la
 
 
 valgrind: 

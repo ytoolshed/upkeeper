@@ -12456,6 +12456,11 @@ esac
 
 fi
 
+            if test -d "${ax_with_ncurses}/lib64"; then
+                  NCURSES_LDFLAGS="NCURSES_LDFLAGS -L${ax_with_ncurses}/lib64"
+
+fi
+
             if test -d "${ax_with_ncurses}/include"; then
                   NCURSES_CPPFLAGS="-L${ax_with_ncurses}/include"
 
@@ -12467,6 +12472,8 @@ fi
 
 
 
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $NCURSES_LDFLAGS"
           { $as_echo "$as_me:$LINENO: checking for main in -lncurses" >&5
 $as_echo_n "checking for main in -lncurses... " >&6; }
 if test "${ac_cv_lib_ncurses_main+set}" = set; then
@@ -12535,9 +12542,9 @@ _ACEOF
 
           NCURSES_LIBS=-lncurses
                                  if test "${NCURSES_LIBS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LIBS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LIBS" >&5
 $as_echo_n "checking ncurses flags NCURSES_LIBS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LIBS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LIBS\" 	" >&5
 $as_echo "					\"$NCURSES_LIBS\" 	" >&6; }
 
 
@@ -12545,9 +12552,9 @@ fi
 
 
                        if test "${NCURSES_LDFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LDFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LDFLAGS" >&5
 $as_echo_n "checking ncurses flags NCURSES_LDFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LDFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LDFLAGS\" 	" >&5
 $as_echo "					\"$NCURSES_LDFLAGS\" 	" >&6; }
 
 
@@ -12555,9 +12562,9 @@ fi
 
 
                        if test "${NCURSES_CPPFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_CPPFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_CPPFLAGS" >&5
 $as_echo_n "checking ncurses flags NCURSES_CPPFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_CPPFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_CPPFLAGS\" 	" >&5
 $as_echo "					\"$NCURSES_CPPFLAGS\" 	" >&6; }
 
 
@@ -12573,6 +12580,7 @@ $as_echo "$as_me: error: ncurses is required" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 
@@ -12608,6 +12616,11 @@ esac
 
 fi
 
+            if test -d "${ax_with_sqlite3}/lib64"; then
+                  SQLITE3_LDFLAGS="SQLITE3_LDFLAGS -L${ax_with_sqlite3}/lib64"
+
+fi
+
             if test -d "${ax_with_sqlite3}/include"; then
                   SQLITE3_CPPFLAGS="-L${ax_with_sqlite3}/include"
 
@@ -12619,6 +12632,8 @@ fi
 
 
 
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $SQLITE3_LDFLAGS"
           { $as_echo "$as_me:$LINENO: checking for sqlite3_open in -lsqlite3" >&5
 $as_echo_n "checking for sqlite3_open in -lsqlite3... " >&6; }
 if test "${ac_cv_lib_sqlite3_sqlite3_open+set}" = set; then
@@ -12693,9 +12708,9 @@ _ACEOF
 
           SQLITE3_LIBS=-lsqlite3
                                  if test "${SQLITE3_LIBS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LIBS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LIBS" >&5
 $as_echo_n "checking sqlite3 flags SQLITE3_LIBS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LIBS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LIBS\" 	" >&5
 $as_echo "					\"$SQLITE3_LIBS\" 	" >&6; }
 
 
@@ -12703,9 +12718,9 @@ fi
 
 
                        if test "${SQLITE3_LDFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LDFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LDFLAGS" >&5
 $as_echo_n "checking sqlite3 flags SQLITE3_LDFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LDFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LDFLAGS\" 	" >&5
 $as_echo "					\"$SQLITE3_LDFLAGS\" 	" >&6; }
 
 
@@ -12713,9 +12728,9 @@ fi
 
 
                        if test "${SQLITE3_CPPFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_CPPFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_CPPFLAGS" >&5
 $as_echo_n "checking sqlite3 flags SQLITE3_CPPFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_CPPFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_CPPFLAGS\" 	" >&5
 $as_echo "					\"$SQLITE3_CPPFLAGS\" 	" >&6; }
 
 
@@ -12731,6 +12746,7 @@ $as_echo "$as_me: error: sqlite is required" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 
@@ -12766,6 +12782,11 @@ esac
 
 fi
 
+            if test -d "${ax_with_json}/lib64"; then
+                  JSON_LDFLAGS="JSON_LDFLAGS -L${ax_with_json}/lib64"
+
+fi
+
             if test -d "${ax_with_json}/include"; then
                   JSON_CPPFLAGS="-L${ax_with_json}/include"
 
@@ -12777,6 +12798,8 @@ fi
 
 
 
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $JSON_LDFLAGS"
           { $as_echo "$as_me:$LINENO: checking for json_tokener_parse in -ljson" >&5
 $as_echo_n "checking for json_tokener_parse in -ljson... " >&6; }
 if test "${ac_cv_lib_json_json_tokener_parse+set}" = set; then
@@ -12851,9 +12874,9 @@ _ACEOF
 
           JSON_LIBS=-ljson
                                  if test "${JSON_LIBS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking json flags JSON_LIBS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_LIBS" >&5
 $as_echo_n "checking json flags JSON_LIBS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$JSON_LIBS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_LIBS\" 	" >&5
 $as_echo "					\"$JSON_LIBS\" 	" >&6; }
 
 
@@ -12861,9 +12884,9 @@ fi
 
 
                        if test "${JSON_LDFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking json flags JSON_LDFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_LDFLAGS" >&5
 $as_echo_n "checking json flags JSON_LDFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$JSON_LDFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_LDFLAGS\" 	" >&5
 $as_echo "					\"$JSON_LDFLAGS\" 	" >&6; }
 
 
@@ -12871,9 +12894,9 @@ fi
 
 
                        if test "${JSON_CPPFLAGS+set}" = set; then
-   			                         			 			{ $as_echo "$as_me:$LINENO: checking json flags JSON_CPPFLAGS" >&5
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_CPPFLAGS" >&5
 $as_echo_n "checking json flags JSON_CPPFLAGS... " >&6; }
-			{ $as_echo "$as_me:$LINENO: result: 					\"$JSON_CPPFLAGS\" 	" >&5
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_CPPFLAGS\" 	" >&5
 $as_echo "					\"$JSON_CPPFLAGS\" 	" >&6; }
 
 
@@ -12889,6 +12912,7 @@ $as_echo "$as_me: error: json-c is required" >&2;}
    { (exit 1); exit 1; }; }
 fi
 
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 # Checks for header files.
