@@ -27,7 +27,7 @@ AC_DEFUN([AX_SETUP_EXT_LIB],[dnl
                 AS_VAR_SET([m4_toupper([$1_LDFLAGS])],["m4_toupper([$1_LDFLAGS]) -L${ax_tmp_with}/lib64"])
             ])
             AS_IF([test -d "${ax_tmp_with}/include"],[dnl
-                AS_VAR_SET([m4_toupper([$1_CPPFLAGS])],["-L${ax_tmp_with}/include"])
+                AS_VAR_SET([m4_toupper([$1_CPPFLAGS])],["-I${ax_tmp_with}/include"])
             ])
         ])
         AS_VAR_POPDEF([ax_tmp_with])
