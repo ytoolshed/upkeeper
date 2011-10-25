@@ -58,9 +58,6 @@ upk_SOURCES = upk.c
 upk_OBJECTS = upk.$(OBJEXT)
 upk_LDADD = $(LDADD)
 upk_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
-upk_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
-	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(upk_LDFLAGS) \
-	$(LDFLAGS) -o $@
 upk_reload_SOURCES = upk_reload.c
 upk_reload_OBJECTS = upk_reload.$(OBJEXT)
 upk_reload_LDADD = $(LDADD)
@@ -129,6 +126,7 @@ JSON_LIBS = @JSON_LIBS@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
+#AM_LIBADD   = @JSON_LIBS@     $(AM_LIBADD_G)
 LIBS = 
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
@@ -214,10 +212,13 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
+AM_CPPFLAGS_G := $(CPPFLAGS) -I$(top_builddir)/libupkeeper
+#AM_LDFLAGS = -static
+AM_LDFLAGS_G := $(LDFLAGS)
+#AM_LIBADD_G   := $(LIBADD)
+AM_CPPFLAGS = @JSON_CPPFLAGS@ $(AM_CPPFLAGS_G)
+AM_LDFLAGS = @JSON_LDFLAGS@  $(AM_LDFLAGS_G)
 LDADD = $(top_builddir)/libupkeeper/libupkeeper.la
-AM_LDFLAGS = -static
-upk_LDFLAGS = -ljson
 all: all-am
 
 .SUFFIXES:
@@ -297,7 +298,7 @@ clean-binPROGRAMS:
 	rm -f $$list
 upk$(EXEEXT): $(upk_OBJECTS) $(upk_DEPENDENCIES) 
 	@rm -f upk$(EXEEXT)
-	$(upk_LINK) $(upk_OBJECTS) $(upk_LDADD) $(LIBS)
+	$(LINK) $(upk_OBJECTS) $(upk_LDADD) $(LIBS)
 upk_reload$(EXEEXT): $(upk_reload_OBJECTS) $(upk_reload_DEPENDENCIES) 
 	@rm -f upk_reload$(EXEEXT)
 	$(LINK) $(upk_reload_OBJECTS) $(upk_reload_LDADD) $(LIBS)
@@ -546,6 +547,7 @@ uninstall-am: uninstall-binPROGRAMS
 	pdf pdf-am ps ps-am tags uninstall uninstall-am \
 	uninstall-binPROGRAMS
 
+#upk_LDFLAGS = -ljson
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
