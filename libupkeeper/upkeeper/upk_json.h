@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -18,8 +19,8 @@
 #include <stdio.h>
 
 typedef struct _upk_json_string {
-    char *c_str;
-    char *esc_str;
+    char                   *c_str;
+    char                   *esc_str;
 } upk_json_string_t;
 
 typedef struct _upk_json_type {
@@ -28,7 +29,7 @@ typedef struct _upk_json_type {
         bool                    bl;
         double                  dbl;
         int                     i;
-        upk_json_string_t      str;
+        upk_json_string_t       str;
         struct json_object     *obj;
     } val;
 } upk_json_val_t;
@@ -60,9 +61,11 @@ struct _upk_json_stack_node {
 /* upkeeper/upk_json.c */
 extern void             upk_json_stack_pop(upk_json_stack_meta_t * meta);
 extern void             upk_json_stack_push(upk_json_stack_meta_t * meta, upk_json_stack_node_t * node);
+
 extern void             upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj);
-extern struct json_object * upk_json_parse_string(const char *string);
+extern struct json_object *upk_json_parse_string(const char *string);
 extern char            *upk_json_obj_to_string(struct json_object *obj, upk_json_data_output_opts_t opts);
-extern void             upk_json_obj_to_stream(struct json_object *obj, FILE *stream, upk_json_data_output_opts_t opts);
+extern void             upk_json_obj_to_stream(struct json_object *obj, FILE * stream,
+                                               upk_json_data_output_opts_t opts);
 
 #endif

@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -18,8 +19,8 @@
 
 
 /* *******************************************************************************************************************
- * fields defined in v0_protocol_structs.h; check there for info
- * ****************************************************************************************************************** */
+   fields defined in v0_protocol_structs.h; check there for info
+   ****************************************************************************************************************** */
 typedef struct {
     UPK_V0_UPK_REQ_SEQ_START_T_FIELDS;
 } v0_req_seq_start_t;
@@ -98,14 +99,14 @@ typedef struct {
 
 
 /* *******************************************************************************************************************
- * function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.
- * ****************************************************************************************************************** */
+   function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.
+   ****************************************************************************************************************** */
 extern upk_pkt_buf_t   *v0_serialize_payload(upk_packet_t * pkt);   /* , upk_pkttype_t pkttype, size_t size); */
 extern void            *v0_deserialize_payload(upk_pkt_buf_t * UPK_BUF, upk_pkttype_t pkttype);
 
 /* *******************************************************************************************************************
- * convenience functions for requests, when its easier than building the structs yourself
- * ****************************************************************************************************************** */
+   convenience functions for requests, when its easier than building the structs yourself
+   ****************************************************************************************************************** */
 extern upk_packet_t    *v0_create_req_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count);
 extern upk_packet_t    *v0_create_req_seq_end(bool commit);
 
@@ -119,8 +120,8 @@ extern upk_packet_t    *v0_create_req_disconnect(void);
 
 
 /* *******************************************************************************************************************
- * convenience functions for replies, when its easier than building the structs yourself
- * ****************************************************************************************************************** */
+   convenience functions for replies, when its easier than building the structs yourself
+   ****************************************************************************************************************** */
 extern upk_packet_t    *v0_create_repl_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count);
 extern upk_packet_t    *v0_create_repl_seq_end(bool commit);
 
@@ -132,14 +133,14 @@ extern upk_packet_t    *v0_create_repl_error(char *svc_id, upk_errno_t uerrno, c
 
 
 /* *******************************************************************************************************************
- * convenience functions for pubmsg's, because, why not...
- * ****************************************************************************************************************** */
+   convenience functions for pubmsg's, because, why not...
+   ****************************************************************************************************************** */
 extern upk_packet_t    *v0_create_pub_publication(void);
 extern upk_packet_t    *v0_create_pub_cancelation(void);
 
 /* *******************************************************************************************************************
- * housekeeping
- * ****************************************************************************************************************** */
-extern void v0_free_payload(upk_packet_t * pkt);
+   housekeeping
+   ****************************************************************************************************************** */
+extern void             v0_free_payload(upk_packet_t * pkt);
 
 #endif

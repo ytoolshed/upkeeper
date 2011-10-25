@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -227,7 +228,6 @@ extern const char       upk_default_configuration_vec[];
 extern upk_controller_config_t upk_default_configuration;
 extern upk_controller_config_t upk_file_configuration;
 extern upk_controller_config_t upk_runtime_configuration;
-
 
 /* upkeeper/upk_config.c */
 extern void             upk_svc_desc_free(upk_svc_desc_t * svc);

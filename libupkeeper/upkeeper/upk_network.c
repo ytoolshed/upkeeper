@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -9,6 +10,7 @@
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
  ************************************************************************** */
+
 
 #include "upk_include.h"
 
@@ -37,9 +39,10 @@ upk_build_fd_sets(fd_set * readfds, fd_set * writefds, fd_set * exceptfds, upk_c
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 static void
-upk_partitioned_userdata_free(void * ptr)
+upk_partitioned_userdata_free(void *ptr)
 {
     upklist_userdata_state_partition_t *data = ptr;
+
     if(!data)
         return;
 
@@ -56,7 +59,7 @@ upk_partitioned_userdata_free(void * ptr)
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 upk_conn_handle_meta_t *
-upk_net_conn_handle_init(void *userdata, void (*userdata_free_func)(void *ptr))
+upk_net_conn_handle_init(void *userdata, void (*userdata_free_func) (void *ptr))
 {
     upk_conn_handle_meta_t *handles = calloc(1, sizeof(*handles));
     upklist_userdata_state_partition_t *data = calloc(1, sizeof(*data));
@@ -72,19 +75,21 @@ upk_net_conn_handle_init(void *userdata, void (*userdata_free_func)(void *ptr))
 
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
-upk_net_gstate_t *
+upk_net_gstate_t       *
 upk_net_get_gstate(upk_conn_handle_meta_t * handles)
 {
     upklist_userdata_state_partition_t *data = handles->userdata;
+
     return data->gstate;
 }
 
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
-void *
+void                   *
 upk_net_get_userdata(upk_conn_handle_meta_t * handles)
 {
     upklist_userdata_state_partition_t *data = handles->userdata;
+
     return data->userdata;
 }
 
@@ -132,7 +137,8 @@ upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double sel_ival)
     upk_net_cb_stk_meta_t  *callbacks = gstate->callback_stack;
     struct timeval          timeout = upk_double_to_timeval(sel_ival);
 
-    if(callbacks && callbacks->head && callbacks->head->net_dispatch_pre) callbacks->head->net_dispatch_pre(handles, NULL);
+    if(callbacks && callbacks->head && callbacks->head->net_dispatch_pre)
+        callbacks->head->net_dispatch_pre(handles, NULL);
 
     nfds = upk_build_fd_sets(&readfds, &writefds, &exceptfds, handles);
     writefds_p = (gstate->pending_writeq > 0) ? &writefds : NULL;
@@ -144,7 +150,8 @@ upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double sel_ival)
 
     if(ready > 0) {
         UPKLIST_FOREACH(handles) {
-            if(callbacks && callbacks->head && callbacks->head->net_dispatch_foreach) callbacks->head->net_dispatch_foreach(handles, NULL);
+            if(callbacks && callbacks->head && callbacks->head->net_dispatch_foreach)
+                callbacks->head->net_dispatch_foreach(handles, NULL);
             if(handles->thisp->fd >= 0 && fcntl(handles->thisp->fd, F_GETFL)) {
                 if(FD_ISSET(handles->thisp->fd, &readfds))
                     upk_read_packets(handles);
@@ -156,7 +163,8 @@ upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double sel_ival)
             }
         }
     }
-    if(callbacks && callbacks->head && callbacks->head->net_dispatch_post) callbacks->head->net_dispatch_post(handles, NULL);
+    if(callbacks && callbacks->head && callbacks->head->net_dispatch_post)
+        callbacks->head->net_dispatch_post(handles, NULL);
 }
 
 
@@ -208,10 +216,10 @@ upk_call_received_packet_callbacks(upk_conn_handle_meta_t * handles, upk_packet_
     data->type = upk_get_msgtype(pkt);
     memcpy(&data->payload, pkt->payload, upk_get_msgsize(data->type));
 
-    if(handle->after_read_callback) 
+    if(handle->after_read_callback)
         handle->after_read_callback(handles, data);
     if(callbacks && callbacks->head && callbacks->head->msg_handlers[UPK_MSGTYPE_IDX(data->type)])
-        callbacks->head->msg_handlers[UPK_MSGTYPE_IDX(data->type)](handles, data);
+        callbacks->head->msg_handlers[UPK_MSGTYPE_IDX(data->type)] (handles, data);
 }
 
 
@@ -230,7 +238,7 @@ upk_disconnect_handle(upk_conn_handle_meta_t * handles)
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 void
-upk_net_shutdown_callback(upk_conn_handle_meta_t *handles, upk_payload_t *msg)
+upk_net_shutdown_callback(upk_conn_handle_meta_t * handles, upk_payload_t * msg)
 {
     upk_disconnect_handle(handles);
 }

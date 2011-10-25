@@ -43,6 +43,8 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
     case UPK_REQ_ACTION:
         upk_debug1("action request received for service %s, type: %s\n", msg->payload.req_action.svc_id,
                    msg->payload.req_action.action);
+
+        /* FIXME: should have a hash table for more efficient service lookup */
         UPKLIST_FOREACH(svclist) {
             if(strncmp(svclist->thisp->Name, msg->payload.req_action.svc_id, UPK_MAX_STRING_LEN) == 0) {
                 if(strncasecmp(msg->payload.req_action.action, "start", UPK_MAX_STRING_LEN) == 0) {
@@ -63,6 +65,12 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
                         reply = upk_create_repl_result(handle, "success", true);
                     else
                         reply = upk_create_repl_result(handle, "failed", false);
+                } else if(strncasecmp(msg->payload.req_action.action, "unconfigure", UPK_MAX_STRING_LEN) == 0) {
+                /*
+                   if(upk_unconfigure_buddy_svc(svclist)) {
+                        
+
+                     */
                 }
 
                 upk_queue_packet(handle, reply, NULL, NULL);
@@ -88,8 +96,8 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
                     reply = upk_create_repl_preamble(handle, p);
 
         upk_debug1("negotiated version: %d\n", ((upk_repl_preamble_t *) reply->payload)->best_version);
-
         upk_debug1("setting clientid: %s\n", msg->payload.req_preamble.client_name);
+
         strncpy(handle->cl_name, msg->payload.req_preamble.client_name, UPK_MAX_STRING_LEN - 1);
 
         upk_queue_packet(handle, reply, NULL, NULL);
@@ -120,6 +128,9 @@ event_loop(int32_t listen_sock)
     double                  sel_ival = upk_runtime_configuration.BuddyPollingInterval / 2;
     struct timeval          timeout, timeoutv = { 0, 0 };
     int n = 0;
+#ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
+    int connections = 0;
+#endif
 
 
     clients = upk_net_conn_handle_init(NULL, NULL);
@@ -136,13 +147,18 @@ event_loop(int32_t listen_sock)
             if(FD_ISSET(listen_sock, &lfds)) {
                 upk_debug1("Accepting connection\n");
                 accept_conn(listen_sock, clients);
+#ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
+                connections++;
+#endif
             }
         }
 
         upk_net_event_dispatcher(clients, sel_ival);
         upk_net_flush_closed_sockets(clients);
-        if(n++ > 50)
+#ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
+        if(n++ > 50 || connections > UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N)
             break;
+#endif
     }
     UPKLIST_FREE(clients);
 }

@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -12,11 +13,11 @@
 
 #ifndef HAVE_STRNLEN
 size_t
-strnlen (const char * restrict string, size_t maxlen)
+strnlen(const char *restrict string, size_t maxlen)
 {
-	size_t n = 0;
-	while(string + n != '\0' && n++ < maxlen);
-	return n;
+    size_t                  n = 0;
+
+    while(string + n != '\0' && n++ < maxlen);
+    return n;
 }
 #endif
-

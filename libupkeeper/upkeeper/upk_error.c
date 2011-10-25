@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -9,6 +10,7 @@
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
  ************************************************************************** */
+
 
 #include "upk_error.h"
 #include <stdio.h>
@@ -24,14 +26,14 @@
 #endif
 
 /* upk_error.c */
-//static void             _upk_default_error_rpt(upk_errno_t err);
-//static void             _upk_default_error_rpt_msg(upk_errno_t err, const char *msg);
+// static void _upk_default_error_rpt(upk_errno_t err);
+// static void _upk_default_error_rpt_msg(upk_errno_t err, const char *msg);
 static void             _upk_default_diag_output(upk_diaglvl_t diaglvl, const char *label, const char *loc,
                                                  const char *fmt, va_list ap);
 static int32_t          _upk_diagnostic(upk_diaglvl_t diaglvl, const char *loc, const char *fmt, va_list ap);
 
 
-int32_t          upk_diag_verbosity = UPK_DIAGLVL_NOTICE;
+int32_t                 upk_diag_verbosity = UPK_DIAGLVL_NOTICE;
 
 
 /* *******************************************************************************************************************
@@ -41,8 +43,8 @@ int32_t          upk_diag_verbosity = UPK_DIAGLVL_NOTICE;
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-//err_rpt_callback_t      __upk_error_rpt_callback = _upk_default_error_rpt;
-//err_rpt_msg_callback_t  __upk_error_rpt_msg_callback = _upk_default_error_rpt_msg;
+// err_rpt_callback_t __upk_error_rpt_callback = _upk_default_error_rpt;
+// err_rpt_msg_callback_t __upk_error_rpt_msg_callback = _upk_default_error_rpt_msg;
 diag_output_callback_t  __upk_diag_output_callback = _upk_default_diag_output;
 
 /* *******************************************************************************************************************
@@ -59,71 +61,41 @@ upk_strerror(upk_errno_t err)
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-static void
-_upk_default_error_rpt(upk_errno_t err)
-{
-    fprintf(stderr, "Error: `%s'\n", upk_strerror(err));
-}
-*/
+/* 
+   static void _upk_default_error_rpt(upk_errno_t err) { fprintf(stderr, "Error: `%s'\n", upk_strerror(err)); } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-static void
-_upk_default_error_rpt_msg(upk_errno_t err, const char *msg)
-{
-    fprintf(stderr, "Error: `%s': %s\n", upk_strerror(err), msg);
-}
-*/
+/* 
+   static void _upk_default_error_rpt_msg(upk_errno_t err, const char *msg) { fprintf(stderr, "Error: `%s': %s\n",
+   upk_strerror(err), msg); } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-void
-upk_report_error(upk_errno_t err)
-{
-    if(__upk_error_rpt_callback)
-        __upk_error_rpt_callback(err);
-}
-*/
+/* 
+   void upk_report_error(upk_errno_t err) { if(__upk_error_rpt_callback) __upk_error_rpt_callback(err); } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-void
-upk_report_error_msg(upk_errno_t err, const char *msg)
-{
-    if(__upk_error_rpt_msg_callback)
-        __upk_error_rpt_msg_callback(err, msg);
-}
-*/
+/* 
+   void upk_report_error_msg(upk_errno_t err, const char *msg) { if(__upk_error_rpt_msg_callback)
+   __upk_error_rpt_msg_callback(err, msg); } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-err_rpt_callback_t
-upk_reg_error_callback(err_rpt_callback_t func)
-{
-    err_rpt_callback_t      oldfunc = __upk_error_rpt_callback;
+/* 
+   err_rpt_callback_t upk_reg_error_callback(err_rpt_callback_t func) { err_rpt_callback_t oldfunc =
+   __upk_error_rpt_callback;
 
-    __upk_error_rpt_callback = func;
-    return oldfunc;
-}
-*/
+   __upk_error_rpt_callback = func; return oldfunc; } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-/*
-err_rpt_msg_callback_t
-upk_reg_err_msg_callback(err_rpt_msg_callback_t func)
-{
-    err_rpt_msg_callback_t  oldfunc = __upk_error_rpt_msg_callback;
+/* 
+   err_rpt_msg_callback_t upk_reg_err_msg_callback(err_rpt_msg_callback_t func) { err_rpt_msg_callback_t oldfunc =
+   __upk_error_rpt_msg_callback;
 
-    __upk_error_rpt_msg_callback = func;
-    return oldfunc;
-}
-*/
+   __upk_error_rpt_msg_callback = func; return oldfunc; } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */

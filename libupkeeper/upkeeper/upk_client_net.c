@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -10,15 +11,16 @@
  * See accompanying LICENSE file. 
  ************************************************************************** */
 
+
 #include "upk_include.h"
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
-upk_payload_t *
-upk_clnet_serial_request(upk_conn_handle_meta_t *ctrl, upk_packet_t *pkt)
+upk_payload_t          *
+upk_clnet_serial_request(upk_conn_handle_meta_t * ctrl, upk_packet_t * pkt)
 {
-    upk_payload_t *pl = calloc(1,sizeof(*pl));
-    struct timeval timeout = { 30, 0 };
+    upk_payload_t          *pl = calloc(1, sizeof(*pl));
+    struct timeval          timeout = { 30, 0 };
 
     UPKLIST_HEAD(ctrl);
     upk_queue_packet(ctrl->head, pkt, NULL, NULL);
@@ -36,21 +38,21 @@ upk_clnet_serial_request(upk_conn_handle_meta_t *ctrl, upk_packet_t *pkt)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
-upk_clnet_req_preamble(upk_conn_handle_meta_t *ctrl)
+upk_clnet_req_preamble(upk_conn_handle_meta_t * ctrl)
 {
-    upk_packet_t *preamble = NULL;
-    upk_payload_t *pl = NULL;
+    upk_packet_t           *preamble = NULL;
+    upk_payload_t          *pl = NULL;
 
     preamble = upk_create_req_preamble(ctrl->head, upk_clientid());
     pl = upk_clnet_serial_request(ctrl, preamble);
 
     switch (pl->type) {
-        case UPK_REPL_PREAMBLE:
-            ctrl->head->version_id = ctrl->head->last_pkt_data.payload.repl_preamble.best_version;
-            upk_notice("client negotiated version %d\n", ctrl->head->version_id);
-            break;
-        default:
-            upk_fatal("Unexpected reply during handshake\n");
+    case UPK_REPL_PREAMBLE:
+        ctrl->head->version_id = ctrl->head->last_pkt_data.payload.repl_preamble.best_version;
+        upk_notice("client negotiated version %d\n", ctrl->head->version_id);
+        break;
+    default:
+        upk_fatal("Unexpected reply during handshake\n");
     }
     upk_pkt_free(preamble);
     free(pl);
@@ -63,7 +65,7 @@ upk_conn_handle_meta_t *
 upk_clnet_ctrl_connect(void)
 {
     upk_conn_handle_meta_t *ctrl = NULL;
-	int fd;
+    int                     fd;
 
     ctrl = upk_net_conn_handle_init(NULL, NULL);
     fd = upk_domain_socket_connect(upk_runtime_configuration.controller_socket);
@@ -81,21 +83,21 @@ upk_clnet_ctrl_connect(void)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
-upk_clnet_req_disconnect(upk_conn_handle_meta_t *ctrl)
+upk_clnet_req_disconnect(upk_conn_handle_meta_t * ctrl)
 {
-    upk_packet_t *req = NULL;
-    upk_payload_t *pl = NULL;
+    upk_packet_t           *req = NULL;
+    upk_payload_t          *pl = NULL;
 
-    if(ctrl->head) { 
+    if(ctrl->head) {
         req = upk_create_req_disconnect(ctrl->head);
         pl = upk_clnet_serial_request(ctrl, req);
         upk_pkt_free(req);
-        switch(pl->type) {
-            case UPK_REQ_DISCONNECT:
-                upk_debug1("received a disconnect\n");
-            default:
-                UPKLIST_HEAD(ctrl);
-                upk_disconnect_handle(ctrl);
+        switch (pl->type) {
+        case UPK_REQ_DISCONNECT:
+            upk_debug1("received a disconnect\n");
+        default:
+            UPKLIST_HEAD(ctrl);
+            upk_disconnect_handle(ctrl);
         }
         free(pl);
     }
@@ -115,41 +117,27 @@ upk_clnet_ctrl_disconnect(upk_conn_handle_meta_t * ctrl)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 bool
-upk_clnet_req_action(upk_conn_handle_meta_t *ctrl, char *svc_id, char *action)
+upk_clnet_req_action(upk_conn_handle_meta_t * ctrl, char *svc_id, char *action)
 {
-    upk_packet_t *req = NULL;
-    upk_payload_t *pl = NULL;
-    bool success = false;
+    upk_packet_t           *req = NULL;
+    upk_payload_t          *pl = NULL;
+    bool                    success = false;
 
     req = upk_create_req_action(ctrl->head, svc_id, action);
     pl = upk_clnet_serial_request(ctrl, req);
 
     switch (pl->type) {
-        case UPK_REPL_RESULT:
-           upk_notice("%s\n", pl->payload.repl_result.msg);
-           success = pl->payload.repl_result.successful;
-           break;
-        /* case UPK_REPL_ERROR:
-           if(pl->payload.repl_error.errlevel > upk_diaglvl_verbosity)
-               upk_warn("Controller encountered the following error: %s\n", pl->payload.repl_error.msg); */
-        default:
-           upk_error("unexpected reply\n");
+    case UPK_REPL_RESULT:
+        upk_notice("%s\n", pl->payload.repl_result.msg);
+        success = pl->payload.repl_result.successful;
+        break;
+    case UPK_REPL_ERROR:
+        if(pl->payload.repl_error.errlevel > upk_diag_verbosity)
+            upk_warn("Controller encountered the following error: %s\n", pl->payload.repl_error.msg);
+    default:
+        upk_error("unexpected reply\n");
     }
     upk_pkt_free(req);
     free(pl);
     return success;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

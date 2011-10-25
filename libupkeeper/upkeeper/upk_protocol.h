@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -283,7 +284,7 @@ typedef enum _upk_msgtype {
 #define UPK_N_REPL_TYPES _UPK_N_PER_TYPE(REPL)
 #define UPK_N_PUB_TYPES _UPK_N_PER_TYPE(PUB)
 
-#define _UPK_MSGTYPE_OFFSET(V,A,B) (V < UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B 
+#define _UPK_MSGTYPE_OFFSET(V,A,B) (V < UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B
 #define UPK_MSGTYPE_IDX(MSGTYPE) \
     ( _UPK_MSGTYPE_OFFSET(MSGTYPE,REQ,0) : _UPK_MSGTYPE_OFFSET(MSGTYPE,REPL,UPK_N_REQ_TYPES) : \
     _UPK_MSGTYPE_OFFSET(MSGTYPE,PUB,UPK_N_REQ_TYPES+UPK_N_REPL_TYPES) : -1 )

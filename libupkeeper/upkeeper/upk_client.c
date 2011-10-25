@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -9,6 +10,7 @@
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
  ************************************************************************** */
+
 
 #include "upk_include.h"
 
@@ -22,10 +24,10 @@
 
   @param[out] buf allocated buffer to write clientid into
   */
-char *
+char                   *
 upk_clientid(void)
 {
-    static char client_id[UPK_MAX_STRING_LEN] = "";
+    static char             client_id[UPK_MAX_STRING_LEN] = "";
 
     if(*client_id == '\0')
         snprintf(client_id, UPK_MAX_STRING_LEN - 1, "%s-%d", upk_getprogname, getpid());
@@ -43,11 +45,3 @@ upk_client_event_hook(void)
 {
     return false;
 }
-
-
-
-
-
-
-
-

@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -13,10 +14,10 @@
 #ifndef _UPK_UTIL_H
 #define _UPK_UTIL_H
 /* upkeeper/upk_util.c */
-extern bool upk_numeric_string(const char *string, long *num);
-extern bool upk_boolean_string(const char *string, bool *val);
-extern void upk_replace_string(char **haystack, const char *needle, const char *repl);
-extern struct timeval upk_double_to_timeval(long double rational);
+extern bool             upk_numeric_string(const char *string, long *num);
+extern bool             upk_boolean_string(const char *string, bool * val);
+extern void             upk_replace_string(char **haystack, const char *needle, const char *repl);
+extern struct timeval   upk_double_to_timeval(long double rational);
 
 #define _stringify(A) #A
 #define stringify(A) _stringify(A)

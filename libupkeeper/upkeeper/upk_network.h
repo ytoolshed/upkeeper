@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -74,9 +75,10 @@ extern void             upk_net_add_socket_handle(upk_conn_handle_meta_t * handl
                                                   upk_net_callback_t pkt_callback);
 extern void             upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double poll_ival);
 extern void             upk_net_flush_closed_sockets(upk_conn_handle_meta_t * handles);
-extern int              upk_net_block_until_msg(upk_conn_handle_meta_t * handles, double poll_ival, struct timeval *timeout);
-extern upk_conn_handle_meta_t * upk_net_conn_handle_init(void *userdata, void (*userdata_free_func)(void *ptr));
-extern void upk_net_shutdown_callback(upk_conn_handle_meta_t *handles, upk_payload_t *msg);
+extern int              upk_net_block_until_msg(upk_conn_handle_meta_t * handles, double poll_ival,
+                                                struct timeval *timeout);
+extern upk_conn_handle_meta_t *upk_net_conn_handle_init(void *userdata, void (*userdata_free_func) (void *ptr));
+extern void             upk_net_shutdown_callback(upk_conn_handle_meta_t * handles, upk_payload_t * msg);
 
 
 /**

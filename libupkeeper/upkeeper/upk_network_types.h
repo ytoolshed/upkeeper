@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -58,15 +59,15 @@ typedef                 UPKLIST_METANODE(upk_netmsg_queue_t, upk_netmsg_queue_me
 
 typedef struct _upk_net_cb_stk upk_net_cb_stk_t;
 struct _upk_net_cb_stk {
-    upk_net_callback_t msg_handlers[UPK_N_REQ_TYPES + UPK_N_REPL_TYPES + UPK_N_PUB_TYPES]; 
-    upk_net_callback_t net_dispatch_pre;
-    upk_net_callback_t net_dispatch_foreach;
-    upk_net_callback_t net_dispatch_post;
-    upk_net_cb_stk_t *next;
+    upk_net_callback_t      msg_handlers[UPK_N_REQ_TYPES + UPK_N_REPL_TYPES + UPK_N_PUB_TYPES];
+    upk_net_callback_t      net_dispatch_pre;
+    upk_net_callback_t      net_dispatch_foreach;
+    upk_net_callback_t      net_dispatch_post;
+    upk_net_cb_stk_t       *next;
 };
-typedef UPKLIST_METANODE(upk_net_cb_stk_t, upk_net_cb_stk_meta_p), upk_net_cb_stk_meta_t;
+typedef                 UPKLIST_METANODE(upk_net_cb_stk_t, upk_net_cb_stk_meta_p), upk_net_cb_stk_meta_t;
 
-typedef  struct _upk_net_gstate upk_net_gstate_t;
+typedef struct _upk_net_gstate upk_net_gstate_t;
 struct _upk_net_gstate {
     size_t                  pending_writeq;
     upk_net_cb_stk_meta_t  *callback_stack;
@@ -74,9 +75,9 @@ struct _upk_net_gstate {
 
 typedef struct _upklist_userdata_state_partition upklist_userdata_state_partition_t;
 struct _upklist_userdata_state_partition {
-    void *userdata;
-    upk_net_gstate_t *gstate;
-    void (*userdata_free_func)(void *);
+    void                   *userdata;
+    upk_net_gstate_t       *gstate;
+    void                    (*userdata_free_func) (void *);
 };
 
 struct _upk_conn_handle {
@@ -90,7 +91,7 @@ struct _upk_conn_handle {
     upk_netmsg_queue_meta_t writeq;                        /*!< write queue linked list */
     upk_payload_t           last_pkt_data;                 /*!< Last received packet data */
     upk_net_gstate_t       *gstate;                        /*!< instance state data, maintained in list metanode */
-    void                   *userdata;                      /*!< any user-data you might need too pass around*/
+    void                   *userdata;                      /*!< any user-data you might need too pass around */
     upk_conn_handle_t      *next;                          /*!< next */
 };
 

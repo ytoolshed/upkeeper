@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -13,6 +14,8 @@
 #include "upk_include.h"
 #include <stdio.h>
 
+/* ***************************************************************************
+   ************************************************************************* */
 bool
 upk_numeric_string(const char *string, long *num)
 {
@@ -35,6 +38,8 @@ upk_numeric_string(const char *string, long *num)
     return true;
 }
 
+/* ***************************************************************************
+   ************************************************************************* */
 bool
 upk_boolean_string(const char *string, bool * val)
 {
@@ -64,28 +69,29 @@ upk_boolean_string(const char *string, bool * val)
     return false;
 }
 
+/* ***************************************************************************
+   ************************************************************************* */
 void
 upk_replace_string(char **haystack, const char *needle, const char *repl)
 {
-    char *cp, *seek;
-    size_t len = strlen(*haystack);
-    size_t nlen = strlen(needle);
-    size_t rlen = strlen(repl);
-    size_t newsize = (len + rlen - nlen) + 1;
-    size_t offset;
+    char                   *cp, *seek;
+    size_t                  len = strlen(*haystack);
+    size_t                  nlen = strlen(needle);
+    size_t                  rlen = strlen(repl);
+    size_t                  newsize = (len + rlen - nlen) + 1;
+    size_t                  offset;
 
-    if( (cp = strstr(*haystack, needle)) ) {
+    if((cp = strstr(*haystack, needle))) {
         offset = cp - *haystack;
         if(newsize > len) {
             *haystack = realloc(*haystack, newsize);
-            cp = *haystack+offset;
-            for(seek = *haystack+len; seek != cp+nlen-1; seek--)
-                *(seek+rlen-nlen) = *seek;
-        }
-        else if(newsize < len) {
-            for(seek = cp+rlen; (seek+nlen-rlen) != (*haystack)+len; seek++)
-                *seek = *(seek+nlen-rlen);
-            *seek='\0';
+            cp = *haystack + offset;
+            for(seek = *haystack + len; seek != cp + nlen - 1; seek--)
+                *(seek + rlen - nlen) = *seek;
+        } else if(newsize < len) {
+            for(seek = cp + rlen; (seek + nlen - rlen) != (*haystack) + len; seek++)
+                *seek = *(seek + nlen - rlen);
+            *seek = '\0';
             *haystack = realloc(*haystack, newsize);
             cp = *haystack + offset;
         }
@@ -94,6 +100,8 @@ upk_replace_string(char **haystack, const char *needle, const char *repl)
     }
 }
 
+/* ***************************************************************************
+   ************************************************************************* */
 struct timeval
 upk_double_to_timeval(long double r)
 {

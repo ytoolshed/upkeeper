@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -9,6 +10,7 @@
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
  ************************************************************************** */
+
 
 #include "upk_protocol.h"
 #include "upk_v0_protocol.h"
@@ -41,7 +43,7 @@ upk_msgtype_t           upk_pub_proto_limit[] = {
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-void            *
+void                   *
 upk_deserialize_req_preamble(upk_pkt_buf_t * UPK_BUF)
 {
     UPK_INIT_DESERIALIZE_MSG(upk_req_preamble_t);
@@ -56,7 +58,7 @@ upk_deserialize_req_preamble(upk_pkt_buf_t * UPK_BUF)
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-upk_pkt_buf_t   *
+upk_pkt_buf_t          *
 upk_serialize_req_preamble(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
 {
     UPK_INIT_SERIALIZE_MSG(upk_req_preamble_t);
@@ -71,7 +73,7 @@ upk_serialize_req_preamble(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-void            *
+void                   *
 upk_deserialize_repl_preamble(upk_pkt_buf_t * UPK_BUF)
 {
     UPK_INIT_DESERIALIZE_MSG(upk_repl_preamble_t);
@@ -83,7 +85,7 @@ upk_deserialize_repl_preamble(upk_pkt_buf_t * UPK_BUF)
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
-upk_pkt_buf_t   *
+upk_pkt_buf_t          *
 upk_serialize_repl_preamble(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
 {
     UPK_INIT_SERIALIZE_MSG(upk_repl_preamble_t);
@@ -180,7 +182,7 @@ upk_serialize_packet(upk_packet_t * UPK_DATA_PTR)
 {
     upk_pkt_buf_t          *payload_buf;
 
-    UPK_INIT_SERIALIZE_BUF(upk_packet_t, sizeof(*UPK_DATA) + UPK_DATA->payload_len - sizeof(UPK_DATA->payload) );
+    UPK_INIT_SERIALIZE_BUF(upk_packet_t, sizeof(*UPK_DATA) + UPK_DATA->payload_len - sizeof(UPK_DATA->payload));
 
     payload_buf = upk_serialize_payload(UPK_DATA);
     UPK_DATA->crc32 = upk_crc32(payload_buf, UPK_DATA->payload_len);

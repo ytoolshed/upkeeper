@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -9,6 +10,7 @@
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
  ************************************************************************** */
+
 
 #include "upk_include.h"
 #include "upk_json.h"
@@ -113,12 +115,9 @@ const char upk_default_configuration_vec[] =
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
-upk_controller_config_t
-    upk_default_configuration;
-upk_controller_config_t
-    upk_file_configuration;
-upk_controller_config_t
-    upk_runtime_configuration;
+upk_controller_config_t upk_default_configuration;
+upk_controller_config_t upk_file_configuration;
+upk_controller_config_t upk_runtime_configuration;
 
 
 /* ******************************************************************************************************************
@@ -448,7 +447,7 @@ upk_svcconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
     } else if(strcasecmp(key, "Provides") == 0) {
         strncpy(d->Provides, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
     } else if(strcasecmp(key, "UUID") == 0) {
-        upk_string_to_uuid(v.val.str.c_str, &d->UUID);
+        upk_string_to_uuid(&d->UUID, v.val.str.c_str);
     } else if(strcasecmp(key, "ShortDescription") == 0) {
         strncpy(d->ShortDescription, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
     } else if(strcasecmp(key, "LongDescription") == 0) {
@@ -637,7 +636,7 @@ upk_concat_svcid(char *dest, const char *pkg, const char *name)
 {
     size_t                  remainder = UPK_MAX_STRING_LEN - 1, len = 0;
 
-    memset(dest,0,UPK_MAX_STRING_LEN);
+    memset(dest, 0, UPK_MAX_STRING_LEN);
     if(pkg && (len = strlen(pkg))) {
         strncpy(dest, pkg, remainder);
         remainder -= len;
@@ -723,7 +722,7 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
        upk_json_serialize_or_null(jt_string, svc->Package)); */
 
     _joa(obj, "Provides", upk_json_serialize_or_null(jt_string, svc->Provides));
-    upk_string_to_uuid(uuid_buf, &svc->UUID);
+    upk_string_to_uuid(&svc->UUID, uuid_buf);
     _joa(obj, "UUID", upk_json_serialize_or_null(jt_string, uuid_buf));
     _joa(obj, "ShortDescription", upk_json_serialize_or_null(jt_string, svc->ShortDescription));
     _joa(obj, "LongDescription", upk_json_serialize_or_null(jt_string, svc->LongDescription));

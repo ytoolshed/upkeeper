@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -15,15 +16,16 @@
 
 #include "upk_types.h"
 
-extern bool upkeeper_action_request(char * service_id, char * action_name);
-extern bool upkeeper_signal_request(char * service_id, upk_signal_t signal);
-extern upk_svcid_t *upkeeper_list_services(void); 
+extern bool             upkeeper_action_request(char *service_id, char *action_name);
+extern bool             upkeeper_signal_request(char *service_id, upk_signal_t signal);
+extern upk_svcid_t     *upkeeper_list_services(void);
 
-extern upk_svcinfo_t upkeeper_get_status(char * service_id);
+extern upk_svcinfo_t    upkeeper_get_status(char *service_id);
 
-extern bool upkeeper_subscribe(const char * svc_id);
-extern bool upkeeper_subscribe_all(void);
+extern bool             upkeeper_subscribe(const char *svc_id);
+extern bool             upkeeper_subscribe_all(void);
 
-extern char * upk_clientid(void);
+extern char            *upk_clientid(void);
+
 
 #endif

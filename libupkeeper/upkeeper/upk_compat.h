@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -35,11 +36,11 @@
 #define upk_getprogname getprogname()
 #elif defined HAVE_GETEXECNAME
 #define upk_getprogname getexecname()
-#elif defined HAVE___PROGNAME 
-extern const char * __progname;
+#elif defined HAVE___PROGNAME
+extern const char      *__progname;
+
 #define upk_getprogname __progname
 #endif
-
 
 #ifndef HAVE_STRNLEN
 extern size_t           strnlen(const char *restrict string, size_t maxlen);
