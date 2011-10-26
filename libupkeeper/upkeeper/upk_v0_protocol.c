@@ -11,6 +11,13 @@
  * See accompanying LICENSE file. 
  ************************************************************************** */
 
+/**
+  @file
+  @brief version 0 of the protocol between clients and controlelr
+  @add_to_section protocol
+  @{
+  */
+
 
 #include "upk_v0_protocol.h"
 #define PROTOCOL_VERSION 0
@@ -68,12 +75,6 @@
 
 #define UPK_END_HELPER(PKT_TYPE) return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)
 
-/* 
-   static void v0_free_error_repl(void *UPK_DATA_PTR); static void v0_free_svcinfo_repl(void *UPK_DATA_PTR); static
-   void v0_free_listing_repl(void *UPK_DATA_PTR); static void v0_free_result_repl(void *UPK_DATA_PTR); static void
-   v0_free_unsubscribe_req(void *UPK_DATA_PTR); static void v0_free_subscribe_req(void *UPK_DATA_PTR); static void
-   v0_free_status_req(void *UPK_DATA_PTR); static void v0_free_signal_req(void *UPK_DATA_PTR); static void
-   v0_free_action_req(void *UPK_DATA_PTR); */
 static void             v0_free_repl_payload(void *UPK_DATA_PTR);
 static void             v0_free_req_payload(void *UPK_DATA_PTR);
 
@@ -83,25 +84,23 @@ typedef void            (*free_data_t) (void *);
 
 static free_data_t      free_pkt_dispatch[] = {
     [PKT_REQUEST] = v0_free_req_payload,
-    // [PKT_REQUEST] = NULL,
     [PKT_REPLY] = v0_free_repl_payload,
-    // [PKT_REPLY] = NULL,
     [PKT_PUBMSG] = NULL,
 };
 
 static free_data_t      free_req_dispatch[] = {
     [UPK_REQ_SEQ_START] = NULL,
     [UPK_REQ_SEQ_END] = NULL,
-    // [UPK_REQ_ACTION] = v0_free_action_req,
     [UPK_REQ_ACTION] = NULL,
-    // [UPK_REQ_SIGNAL] = v0_free_signal_req,
+    [UPK_REQ_ACTION] = NULL,
+    [UPK_REQ_SIGNAL] = NULL,
     [UPK_REQ_SIGNAL] = NULL,
     [UPK_REQ_LIST] = NULL,
-    // [UPK_REQ_STATUS] = v0_free_status_req,
     [UPK_REQ_STATUS] = NULL,
-    // [UPK_REQ_SUBSCRIBE] = v0_free_subscribe_req,
+    [UPK_REQ_STATUS] = NULL,
     [UPK_REQ_SUBSCRIBE] = NULL,
-    // [UPK_REQ_UNSUBSCRIBE] = v0_free_unsubscribe_req,
+    [UPK_REQ_SUBSCRIBE] = NULL,
+    [UPK_REQ_UNSUBSCRIBE] = NULL,
     [UPK_REQ_UNSUBSCRIBE] = NULL,
     [UPK_REQ_DISCONNECT] = NULL,
 };
@@ -109,14 +108,14 @@ static free_data_t      free_req_dispatch[] = {
 static free_data_t      free_repl_dispatch[] = {
     [UPK_REPL_SEQ_START] = NULL,
     [UPK_REPL_SEQ_END] = NULL,
-    // [UPK_REPL_RESULT] = v0_free_result_repl,
     [UPK_REPL_RESULT] = NULL,
-    // [UPK_REPL_LISTING] = v0_free_listing_repl,
+    [UPK_REPL_RESULT] = NULL,
     [UPK_REPL_LISTING] = NULL,
-    // [UPK_REPL_SVCINFO] = v0_free_svcinfo_repl,
+    [UPK_REPL_LISTING] = NULL,
+    [UPK_REPL_SVCINFO] = NULL,
     [UPK_REPL_SVCINFO] = NULL,
     [UPK_REPL_ACK] = NULL,
-    // [UPK_REPL_ERROR] = v0_free_error_repl,
+    [UPK_REPL_ERROR] = NULL,
     [UPK_REPL_ERROR] = NULL,
 };
 
@@ -192,14 +191,6 @@ v0_create_req_action(char *svc_id, char *action)
 }
 
 /* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_action_req(void *UPK_DATA_PTR) { v0_req_action_t *UPK_DATA = (v0_req_action_t *) UPK_DATA_PTR;
-   if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); if(UPK_DATA->action) free(UPK_DATA->action); } */
-
-
-/* *******************************************************************************************************************
    create
    ****************************************************************************************************************** */
 upk_packet_t           *
@@ -214,14 +205,6 @@ v0_create_req_signal(char *svc_id, upk_signal_t signal, bool signal_sid, bool si
 
     UPK_END_HELPER(PKT_REQUEST);
 }
-
-/* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_signal_req(void *UPK_DATA_PTR) { v0_req_signal_t *UPK_DATA = (v0_req_signal_t *) UPK_DATA_PTR;
-
-   if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); } */
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -247,15 +230,6 @@ v0_create_req_status(char *svc_id)
 }
 
 /* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_status_req(void *UPK_DATA_PTR) { v0_req_status_t *UPK_DATA = (v0_req_status_t *) UPK_DATA_PTR;
-
-   if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); } */
-
-
-/* *******************************************************************************************************************
    create
    ****************************************************************************************************************** */
 upk_packet_t           *
@@ -270,16 +244,6 @@ v0_create_req_subscribe(char *svc_id, bool all_svcs)
 }
 
 /* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_subscribe_req(void *UPK_DATA_PTR) { v0_req_subscribe_t *UPK_DATA = (v0_req_subscribe_t *)
-   UPK_DATA_PTR;
-
-   if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); } */
-
-
-/* *******************************************************************************************************************
    create
    ****************************************************************************************************************** */
 upk_packet_t           *
@@ -292,16 +256,6 @@ v0_create_req_unsubscribe(char *svc_id, bool all_svcs)
 
     UPK_END_HELPER(PKT_REQUEST);
 }
-
-/* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_unsubscribe_req(void *UPK_DATA_PTR) { v0_req_unsubscribe_t *UPK_DATA = (v0_req_unsubscribe_t *)
-   UPK_DATA_PTR;
-
-   if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); } */
-
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -349,16 +303,6 @@ v0_create_repl_result(char *msg, bool successful)
 
     UPK_END_HELPER(PKT_REPLY);
 }
-
-/* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_result_repl(void *UPK_DATA_PTR) { v0_repl_result_t *UPK_DATA = (v0_repl_result_t *)
-   UPK_DATA_PTR;
-
-   if(UPK_DATA->msg) free(UPK_DATA->msg); } */
-
 
 /* *******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -416,17 +360,6 @@ v0_create_repl_svcinfo(char *svc_id, v0_svcinfo_t * svcinfo)
 }
 
 /* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_svcinfo_repl(void *UPK_DATA_PTR) { v0_repl_svcinfo_t *UPK_DATA = (v0_repl_svcinfo_t *)
-   UPK_DATA_PTR;
-
-   if(UPK_DATA->svcinfo.last_action_name) free(UPK_DATA->svcinfo.last_action_name); if(UPK_DATA->svc_id)
-   free(UPK_DATA->svc_id); } */
-
-
-/* *******************************************************************************************************************
    ****************************************************************************************************************** */
 upk_packet_t           *
 v0_create_repl_ack(void)
@@ -452,15 +385,6 @@ v0_create_repl_error(char *svc_id, upk_errno_t uerrno, char *msg, upk_errlevel_t
 }
 
 /* *******************************************************************************************************************
-   free
-   ****************************************************************************************************************** */
-/* 
-   static void v0_free_error_repl(void *UPK_DATA_PTR) { v0_repl_error_t *UPK_DATA = (v0_repl_error_t *) UPK_DATA_PTR;
-
-   if(UPK_DATA->msg) free(UPK_DATA->msg); if(UPK_DATA->svc_id) free(UPK_DATA->svc_id); } */
-
-
-/* *******************************************************************************************************************
    convenience functions for pubmsg's, because, why not...
    ****************************************************************************************************************** */
 upk_packet_t           *
@@ -478,3 +402,7 @@ v0_create_pub_cancelation(void)
     UPK_INIT_HELPER(v0_pub_cancelation_t, UPK_PUB_CANCELATION);
     UPK_END_HELPER(PKT_PUBMSG);
 }
+
+/**
+  @}
+  */

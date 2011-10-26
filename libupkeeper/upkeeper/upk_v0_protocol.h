@@ -101,7 +101,8 @@ typedef struct {
 /* *******************************************************************************************************************
    function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.
    ****************************************************************************************************************** */
-extern upk_pkt_buf_t   *v0_serialize_payload(upk_packet_t * pkt);   /* , upk_pkttype_t pkttype, size_t size); */
+extern upk_pkt_buf_t   *v0_serialize_payload(upk_packet_t * pkt);   /* , upk_pkttype_t pkttype, size_t size); 
+                                                                     */
 extern void            *v0_deserialize_payload(upk_pkt_buf_t * UPK_BUF, upk_pkttype_t pkttype);
 
 /* *******************************************************************************************************************
@@ -111,7 +112,8 @@ extern upk_packet_t    *v0_create_req_seq_start(upk_msgtype_t msg_seq_type, uint
 extern upk_packet_t    *v0_create_req_seq_end(bool commit);
 
 extern upk_packet_t    *v0_create_req_action(char *svc_id, char *action);
-extern upk_packet_t    *v0_create_req_signal(char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp);
+extern upk_packet_t    *v0_create_req_signal(char *svc_id, upk_signal_t signal, bool signal_sid,
+                                             bool signal_pgrp);
 extern upk_packet_t    *v0_create_req_list(void);
 extern upk_packet_t    *v0_create_req_status(char *svc_id);
 extern upk_packet_t    *v0_create_req_subscribe(char *svc_id, bool all_svcs);
@@ -129,7 +131,8 @@ extern upk_packet_t    *v0_create_repl_result(char *msg, bool successful);
 extern upk_packet_t    *v0_create_repl_listing(char *svc_id);
 extern upk_packet_t    *v0_create_repl_svcinfo(char *svc_id, v0_svcinfo_t * svcinfo);
 extern upk_packet_t    *v0_create_repl_ack(void);
-extern upk_packet_t    *v0_create_repl_error(char *svc_id, upk_errno_t uerrno, char *errmsg, upk_errlevel_t errlvl);
+extern upk_packet_t    *v0_create_repl_error(char *svc_id, upk_errno_t uerrno, char *errmsg,
+                                             upk_errlevel_t errlvl);
 
 
 /* *******************************************************************************************************************

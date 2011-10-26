@@ -20,7 +20,8 @@
 #define UPK_V0_UPK_REQ_SEQ_START_T_FIELDS \
     upk_msgtype_t       msgtype; \
     upk_msgtype_t       msg_seq_type; \
-    uint32_t                msg_seq_count                  /* 0 if open-ended, to be terminated with a seq_end msg */
+    uint32_t            msg_seq_count                      /* 0 if open-ended, to be terminated with a
+                                                              seq_end msg */
 
 
 /* 
@@ -32,7 +33,7 @@
    ****************************************************************************************************************** */
 #define UPK_V0_UPK_REQ_SEQ_END_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    bool                    commit                         /* if false, the preceding sequence of requests since the */ \
+    bool                commit                         /* if false, the preceding sequence of requests since the */ \
                                                            /* initiating seq_start will be discarded */
 
 /* *******************************************************************************************************************
@@ -40,21 +41,21 @@
    ****************************************************************************************************************** */
 #define UPK_V0_REQ_ACTION_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]; \
-    uint32_t                action_len; \
-    char                    action[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]; \
+    uint32_t            action_len; \
+    char                action[UPK_MAX_STRING_LEN]
 
 /* *******************************************************************************************************************
    |----|----|-|-|----|<svc_id ...>|
    ****************************************************************************************************************** */
 #define UPK_V0_REQ_SIGNAL_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    upk_signal_t       signal; \
-    bool                    signal_sid; \
-    bool                    signal_pgrp; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    upk_signal_t        signal; \
+    bool                signal_sid; \
+    bool                signal_pgrp; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 
 /* *******************************************************************************************************************
    |----|
@@ -67,8 +68,8 @@
    ****************************************************************************************************************** */
 #define UPK_V0_REQ_STATUS_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 
 /* 
  * XXX: All bool types will be typecast to uint8_t when serialized (they probably are already on your platform anyway)
@@ -79,10 +80,10 @@
    ****************************************************************************************************************** */
 #define UPK_V0_REQ_SUBSCR_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    bool                    all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
+    bool                all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
                                                           /* one shot; svc_id will be ignored, and should have len 0 */ \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 
 /* 
  * XXX: All bool types will be typecast to uint8_t when serialized (they probably are already on your platform anyway)
@@ -93,9 +94,9 @@
    ****************************************************************************************************************** */
 #define UPK_V0_REQ_UNSUBS_T_FIELDS \
     upk_msgtype_t       msgtype; \
-    bool                    all_svcs; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    bool                all_svcs; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 
 /* *******************************************************************************************************************
    |----|

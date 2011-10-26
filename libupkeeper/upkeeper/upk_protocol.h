@@ -234,47 +234,51 @@ typedef enum {
  ** ***************************************************************************************************************** */
 typedef enum _upk_msgtype {
     UPK_REQ_ORIGIN = 1,                                    /*!< idenitfy start of range */
-    UPK_REQ_PREAMBLE = 1,                                  /*!< A preamble message, used to negotiate version, and
-                                                              handshake */
+    UPK_REQ_PREAMBLE = 1,                                  /*!< A preamble message, used to negotiate
+                                                              version, and handshake */
     UPK_REQ_SEQ_START,                                     /*!< The start of a request sequence */
     UPK_REQ_SEQ_END,                                       /*!< the end of a request sequence */
-    UPK_REQ_ACTION,                                        /*!< An action request (e.g. start, stop, reload, or custom 
-                                                              actions) */
+    UPK_REQ_ACTION,                                        /*!< An action request (e.g. start, stop, reload, 
+                                                              or custom actions) */
     UPK_REQ_SIGNAL,                                        /*!< a signal request (e.g. send signal N) */
-    UPK_REQ_LIST,                                          /*!< A listing request. for a listing of all service-ids
-                                                              known to the controller */
-    UPK_REQ_STATUS,                                        /*!< A status request, to get information on a particular
-                                                              service */
+    UPK_REQ_LIST,                                          /*!< A listing request. for a listing of all
+                                                              service-ids known to the controller */
+    UPK_REQ_STATUS,                                        /*!< A status request, to get information on a
+                                                              particular service */
     UPK_REQ_SUBSCRIBE,                                     /*!< subscribe to a feed of status updates */
     UPK_REQ_UNSUBSCRIBE,                                   /*!< unsubscribe from a feed of status updates */
-    UPK_REQ_DISCONNECT,                                    /*!< notify controller of your intent to disconnect */
+    UPK_REQ_DISCONNECT,                                    /*!< notify controller of your intent to
+                                                              disconnect */
     UPK_REQ_V0_PROTO_LIMIT,                                /*!< all valid v0 requests are < this */
     UPK_REQ_LIMIT,                                         /*!< all requests are < this */
     UPK_REPL_ORIGIN = 4096,                                /*!< identify start of range */
-    UPK_REPL_PREAMBLE = 4096,                              /*!< the reply to a preamble request, used to send back
-                                                              what the server decided was the best protocol, and
-                                                              complete the handshake */
+    UPK_REPL_PREAMBLE = 4096,                              /*!< the reply to a preamble request, used to
+                                                              send back what the server decided was the best
+                                                              protocol, and complete the handshake */
     UPK_REPL_SEQ_START,                                    /*!< the start of a sequence of replies */
     UPK_REPL_SEQ_END,                                      /*!< the end of a sequence of replies */
-    UPK_REPL_RESULT,                                       /*!< the result of an action or signal request (or anything 
-                                                              else that might benefit from a result msg */
-    UPK_REPL_LISTING,                                      /*!< the name of a service in a sequence listing all
-                                                              services */
+    UPK_REPL_RESULT,                                       /*!< the result of an action or signal request
+                                                              (or anything else that might benefit from a
+                                                              result msg */
+    UPK_REPL_LISTING,                                      /*!< the name of a service in a sequence listing
+                                                              all services */
     UPK_REPL_SVCINFO,                                      /*!< all the information known about a service */
-    UPK_REPL_ACK,                                          /*!< an ack, when nothing else really fits, but a reply is
-                                                              still mandated */
-    UPK_REPL_ERROR,                                        /*!< report an error to the client, for instance, if the
-                                                              named service doesn't exist, or an action doesn't exist,
-                                                              etc */
+    UPK_REPL_ACK,                                          /*!< an ack, when nothing else really fits, but a 
+                                                              reply is still mandated */
+    UPK_REPL_ERROR,                                        /*!< report an error to the client, for instance, 
+                                                              if the named service doesn't exist, or an
+                                                              action doesn't exist, etc */
     UPK_REPL_V0_PROTO_LIMIT,                               /*!< All valid v0 replies are < this */
     UPK_REPL_LIMIT,                                        /*!< All replies are < this */
     UPK_PUB_ORIGIN = 8192,                                 /*!< pub origin */
-    UPK_PUB_PUBLICATION = 8192,                            /*!< a message sent from the controller to a subscriber,
-                                                              followed by svcinfo packets for all subscribed services */
-    UPK_PUB_CANCELATION,                                   /*!< notification that a particular service is no longer
-                                                              available to subscribe to, for instance if its been
-                                                              removed */
-    UPK_PUB_V0_PROTO_LIMIT,                                /*!< All valid pub v0 publication messages are < this */
+    UPK_PUB_PUBLICATION = 8192,                            /*!< a message sent from the controller to a
+                                                              subscriber, followed by svcinfo packets for all 
+                                                              subscribed services */
+    UPK_PUB_CANCELATION,                                   /*!< notification that a particular service is no 
+                                                              longer available to subscribe to, for instance
+                                                              if its been removed */
+    UPK_PUB_V0_PROTO_LIMIT,                                /*!< All valid pub v0 publication messages are <
+                                                              this */
     UPK_PUB_LIMIT,                                         /*!< All publication messages are < this */
 } upk_msgtype_t;
 
@@ -294,12 +298,13 @@ typedef enum _upk_msgtype {
    |<----  header  --->|             |foot|
    ****************************************************************************************************************** */
 typedef struct {
-    uint32_t                payload_len;                   /*!< not size_t, because this would force the arch of the
-                                                              client to match the server; and even on localhost, that
-                                                              cannot be guaranteed */
+    uint32_t                payload_len;                   /*!< not size_t, because this would force the
+                                                              arch of the client to match the server; and
+                                                              even on localhost, that cannot be guaranteed */
     uint32_t                version_id;                    /*!< this packet's version */
     uint32_t                seq_num;                       /*!< not used at this time */
-    upk_pkttype_t           pkttype;                       /*!< will be forced into a uint32_t; even on 64bit */
+    upk_pkttype_t           pkttype;                       /*!< will be forced into a uint32_t; even on
+                                                              64bit */
     void                   *payload;                       /*!< the payload */
     uint32_t                crc32;
 } upk_packet_t;
@@ -386,8 +391,8 @@ typedef struct {
 /* Moved definition to types.h */
 /* typedef struct { UPK_V0_SVCINFO_T_FIELDS; } upk_svcinfo_t; */
 
-/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition while still referencing the correct, 
-   version-agnostic, structure therein */
+/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition while still referencing
+   the correct, version-agnostic, structure therein */
 #define v0_svcinfo_t upk_svcinfo_t
 typedef struct {
     UPK_V0_REPL_SVCINFO_T_FIELDS;
@@ -455,7 +460,8 @@ extern upk_pkt_buf_t   *upk_serialize_req_preamble(void *UPK_DATA_PTR, size_t UP
 extern void            *upk_deserialize_repl_preamble(upk_pkt_buf_t * UPK_BUF);
 extern upk_pkt_buf_t   *upk_serialize_repl_preamble(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
 
-extern upk_packet_t    *upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint32_t proto_ver);
+extern upk_packet_t    *upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype,
+                                       uint32_t proto_ver);
 
 /* *******************************************************************************************************************
    convenience functions for requests, when its easier than building the structs yourself
@@ -467,12 +473,13 @@ extern upk_packet_t    *upk_create_req_seq_start(upk_protocol_handle_t * handle,
 extern upk_packet_t    *upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit);
 
 extern upk_packet_t    *upk_create_req_action(upk_protocol_handle_t * handle, char *svc_id, char *action);
-extern upk_packet_t    *upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal,
-                                              bool signal_sid, bool signal_pgrp);
+extern upk_packet_t    *upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id,
+                                              upk_signal_t signal, bool signal_sid, bool signal_pgrp);
 extern upk_packet_t    *upk_create_req_list(upk_protocol_handle_t * handle);
 extern upk_packet_t    *upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id);
 extern upk_packet_t    *upk_create_req_subscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs);
-extern upk_packet_t    *upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs);
+extern upk_packet_t    *upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id,
+                                                   bool all_svcs);
 extern upk_packet_t    *upk_create_req_disconnect(upk_protocol_handle_t * handle);
 
 
@@ -487,12 +494,13 @@ extern upk_packet_t    *upk_create_repl_seq_end(upk_protocol_handle_t * handle, 
 
 extern upk_packet_t    *upk_create_repl_result(upk_protocol_handle_t * handle, char *msg, bool successful);
 extern upk_packet_t    *upk_create_repl_listing(upk_protocol_handle_t * handle, char *svc_id);
-extern upk_packet_t    *upk_create_repl_svcinfo(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo);
+extern upk_packet_t    *upk_create_repl_svcinfo(upk_protocol_handle_t * handle, char *svc_id,
+                                                upk_svcinfo_t * svcinfo);
 extern upk_packet_t    *upk_create_repl_ack(upk_protocol_handle_t * handle);
 
 /* FIXME: should probably use upk_error_t enum instead of char *errmsg */
-extern upk_packet_t    *upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id, upk_errno_t uerrno,
-                                              char *errmsg, upk_errlevel_t errlvl);
+extern upk_packet_t    *upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id,
+                                              upk_errno_t uerrno, char *errmsg, upk_errlevel_t errlvl);
 
 
 /* *******************************************************************************************************************

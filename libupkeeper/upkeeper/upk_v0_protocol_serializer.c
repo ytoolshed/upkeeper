@@ -13,8 +13,9 @@
 
 #include "upk_v0_protocol.h"
 #include "upk_error.h"
-#include <assert.h>                                        /* FIXME: this should not be an assert, but should use
-                                                              internal error handling to report invalid packet */
+#include <assert.h>                                        /* FIXME: this should not be an assert, but should 
+                                                              use internal error handling to report invalid
+                                                              packet */
 
 #undef UPK_MSG_IDENTIFIER
 #define UPK_MSG_IDENTIFIER msgtype
@@ -81,8 +82,10 @@ static upk_pkt_buf_t   *serial_repl_seq_start(void *UPK_DATA_PTR, size_t UPK_DAT
 static upk_pkt_buf_t   *serial_repl_seq_end(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
 static upk_pkt_buf_t   *serial_repl_result(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
 static upk_pkt_buf_t   *serial_repl_listing(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
-static inline upk_pkt_buf_t *serial_svcinfo_data(v0_svcinfo_t * data, size_t UPK_DATA_LEN); /* A helper function for *
-                                                                                               serial_repl_svcinfo */
+static inline upk_pkt_buf_t *serial_svcinfo_data(v0_svcinfo_t * data, size_t UPK_DATA_LEN); /* A helper
+                                                                                               function for *
+                                                                                               serial_repl_svcinfo 
+                                                                                             */
 static upk_pkt_buf_t   *serial_repl_svcinfo(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
 static upk_pkt_buf_t   *serial_repl_ack(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);
 static upk_pkt_buf_t   *serial_repl_err(void *UPK_DATA_PTR, size_t UPK_DATA_LEN);

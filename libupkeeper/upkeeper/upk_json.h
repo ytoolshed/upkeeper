@@ -36,7 +36,8 @@ typedef struct _upk_json_type {
 
 typedef struct _upk_json_stack_node upk_json_stack_node_t;
 typedef                 UPKLIST_METANODE(upk_json_stack_node_t, upk_json_stack_meta_p), upk_json_stack_meta_t;
-typedef void            (*upk_json_handler_t) (upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v);
+typedef void            (*upk_json_handler_t) (upk_json_stack_meta_t * meta, void *data, char *key,
+                                               upk_json_val_t v);
 
 
 typedef struct _upk_json_stack_handlers {
@@ -62,7 +63,8 @@ struct _upk_json_stack_node {
 extern void             upk_json_stack_pop(upk_json_stack_meta_t * meta);
 extern void             upk_json_stack_push(upk_json_stack_meta_t * meta, upk_json_stack_node_t * node);
 
-extern void             upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj);
+extern void             upk_json_parse_node(upk_json_stack_meta_t * meta, char *key,
+                                            struct json_object *jobj);
 extern struct json_object *upk_json_parse_string(const char *string);
 extern char            *upk_json_obj_to_string(struct json_object *obj, upk_json_data_output_opts_t opts);
 extern void             upk_json_obj_to_stream(struct json_object *obj, FILE * stream,

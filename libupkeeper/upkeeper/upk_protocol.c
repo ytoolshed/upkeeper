@@ -29,8 +29,9 @@ upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint3
     pkt->seq_num = 0;
     pkt->pkttype = pkttype;
     pkt->payload = payload;
-    pkt->crc32 = 0;                                        /* populated/utilized by serialize/deserialize; which assert 
-                                                            * validity; everything else can assume packets are valid */
+    pkt->crc32 = 0;                                        /* populated/utilized by serialize/deserialize;
+                                                              which assert validity; everything else can
+                                                              assume packets are valid */
 
     return pkt;
 }

@@ -20,6 +20,11 @@
   */
 
 /**
+  @add_to_section API
+  @{
+  */
+
+/**
   @brief fill buf with the client_id string.
 
   @param[out] buf allocated buffer to write clientid into
@@ -45,3 +50,7 @@ upk_client_event_hook(void)
 {
     return false;
 }
+
+/**
+  @}
+  */
