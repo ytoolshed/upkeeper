@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -16,7 +17,7 @@
 #include <errno.h>
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static void
 buddy_usage(char *progname)
 {
@@ -53,7 +54,7 @@ buddy_usage(char *progname)
 
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static inline           bool
 numeric_string(const char *string, long *num)
 {
@@ -78,7 +79,7 @@ numeric_string(const char *string, long *num)
 
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static int
 opt_parse(int argc, char **argv, char **envp)
 {
@@ -111,8 +112,7 @@ opt_parse(int argc, char **argv, char **envp)
             if(strncmp("buddy_path", long_options[option_index].name, strlen("buddy_path")) == 0) {
                 strncpy(buddy_root_path, optarg, sizeof(buddy_root_path) - 1);
                 break;
-            }
-            else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
+            } else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
                 if(is_valid_upk_uuid_string(optarg)) {
                     upk_string_to_uuid(&buddy_uuid, optarg);
                     break;
@@ -172,8 +172,7 @@ opt_parse(int argc, char **argv, char **envp)
         strncpy(buddy_service_name, argv[optind], len);
     }
 
-    /* if(strnlen(buddy_uuid, 37) != 36)
-        valid = false; */
+    /* if(strnlen(buddy_uuid, 37) != 36) valid = false; */
 
     if(!valid)
         buddy_usage(argv[0]);
@@ -182,11 +181,12 @@ opt_parse(int argc, char **argv, char **envp)
 }
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static void
 buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)
 {
-    static bool show_label, show_loc;
+    static bool             show_label, show_loc;
+
     show_label = show_loc = false;
 
     if(diaglvl < UPK_DIAGLVL_ERROR || diaglvl > UPK_DIAGLVL_INFO)
@@ -196,25 +196,25 @@ buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, co
         show_loc = show_label = true;
 
     switch (diaglvl) {
-        case UPK_DIAGLVL_FATAL:
-        case UPK_DIAGLVL_ALERT:
-        case UPK_DIAGLVL_CRIT:
-        case UPK_DIAGLVL_ERROR:
-            show_label = true;
-        default:
-            if(strlen(loc) > 0 && show_loc) 
-                fprintf(stderr, "%s: ", loc);
-            if(strlen(label) > 0 && show_label)
-                fprintf(stderr, "%s: ", label);
-            vfprintf(stderr, fmt, ap);
-            break;
+    case UPK_DIAGLVL_FATAL:
+    case UPK_DIAGLVL_ALERT:
+    case UPK_DIAGLVL_CRIT:
+    case UPK_DIAGLVL_ERROR:
+        show_label = true;
+    default:
+        if(strlen(loc) > 0 && show_loc)
+            fprintf(stderr, "%s: ", loc);
+        if(strlen(label) > 0 && show_label)
+            fprintf(stderr, "%s: ", label);
+        vfprintf(stderr, fmt, ap);
+        break;
     }
 }
 
-extern 
+extern
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
-int
+   ******************************************************************************************************************* */
+    int
 main(int argc, char **argv, char **envp)
 {
     int                     retval = 0;
@@ -223,8 +223,7 @@ main(int argc, char **argv, char **envp)
     upk_diag_verbosity = 5;
 
     chdir("/");
-    /* fclose(stdin);
-    fclose(stderr); */
+    /* fclose(stdin); fclose(stderr); */
 
     if((retval = (int) opt_parse(argc, argv, envp))) {
         proc_envp = envp;

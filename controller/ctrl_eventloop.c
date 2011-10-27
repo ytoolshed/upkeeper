@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -66,9 +67,9 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
                     else
                         reply = upk_create_repl_result(handle, "failed", false);
                 } else if(strncasecmp(msg->payload.req_action.action, "unconfigure", UPK_MAX_STRING_LEN) == 0) {
-                /*
-                   if(upk_unconfigure_buddy_svc(svclist)) {
-                        
+                    /* 
+                       if(upk_unconfigure_buddy_svc(svclist)) {
+
 
                      */
                 }
@@ -81,12 +82,13 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
         break;
     case UPK_REQ_PREAMBLE:
         upk_debug1("negotiating preamble\n");
-        int32_t clmin, clmax, n, p;
+        int32_t                 clmin, clmax, n, p;
+
         clmin = msg->payload.req_preamble.min_supported_ver;
         clmax = msg->payload.req_preamble.max_supported_ver;
 
         if(clmin > UPK_MAX_SUPPORTED_PROTO || clmax < UPK_MIN_SUPPORTED_PROTO) {
-            upk_debug1("unsupported version range from client\n"); 
+            upk_debug1("unsupported version range from client\n");
             break;
         }
 
@@ -127,9 +129,10 @@ event_loop(int32_t listen_sock)
     fd_set                  lfds;
     double                  sel_ival = upk_runtime_configuration.BuddyPollingInterval / 2;
     struct timeval          timeout, timeoutv = { 0, 0 };
-    int n = 0;
+    int                     n = 0;
+
 #ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
-    int connections = 0;
+    int                     connections = 0;
 #endif
 
 
@@ -188,7 +191,8 @@ ctrl_sock_setup()
     /* setsockopt(sock_fd, SOL_SOCKET, SO_PASSCRED, &sockopts, sizeof(sockopts)); */
 
     UPK_FUNC_ASSERT_MSG(bind(sock_fd, (struct sockaddr *) &sa, sizeof(sa)) == 0, UPK_SOCKET_FAILURE,
-                        "could not bind: %s: %s", upk_runtime_configuration.controller_socket, strerror(errno));
+                        "could not bind: %s: %s", upk_runtime_configuration.controller_socket,
+                        strerror(errno));
     UPK_FUNC_ASSERT_MSG(listen(sock_fd, SOMAXCONN) == 0, UPK_SOCKET_FAILURE, "could not listen: %s: %s",
                         upk_runtime_configuration.controller_socket, strerror(errno));
 

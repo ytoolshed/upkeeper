@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -36,9 +37,9 @@ upk_ctrl_init_db(const char *db_path)
 {
     sqlite3                *dbh = NULL;
 
-    /* if(sqlite3_open(db_path, &dbh) != 0) {
+    if(sqlite3_open(db_path, &dbh) != 0) {
         upk_fatal("Cannot open database");
-    } */
+    }
     return dbh;
 }
 

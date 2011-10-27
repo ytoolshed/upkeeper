@@ -1,4 +1,4 @@
-/* ***************************************************************************
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -18,35 +18,6 @@
 #include <ctrl_protocol.h>
 
 #define UPK_CTRL_MAX_CLIENTS FD_SETSIZE
-
-/*
-
-typedef struct _client_fdlist client_fdlist_t;
-struct _client_fdlist {
-    int32_t                 fd;
-    upk_pkt_buf_t           readbuf[UPK_MAX_PACKET_SIZE];
-    uint8_t                 n_hdr_bytes_read;
-    size_t                  n_remaining_read;
-    upk_pkt_buf_t           writebuf[UPK_MAX_PACKET_SIZE];
-    size_t                  n_remaining_write;
-    client_fdlist_t        *next;
-};
-
-*/
-
-/* typedef UPKLIST_METANODE(client_fdlist_t, client_fdlist_head_p), client_fdlist_head_t; */
-
-/*
-typedef struct _buddylist buddylist_t;
-struct _buddylist {
-    char                    buddy_name[UPK_MAX_STRING_LEN];
-    char                    custom_actions[32][UPK_MAX_STRING_LEN];
-    buddylist_t            *next;
-};
-*/
-
-//extern upk_controller_config_t *upk_ctrl_config;
-
 
 extern int              socket_setup(const char *sock_path);
 extern void             handle_signals(void);

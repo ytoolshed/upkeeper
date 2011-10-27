@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -32,16 +33,17 @@
   */
 typedef enum _buddy_cmnd {
     UPK_CTRL_NONE = 0,                                     /*!< unset */
-    UPK_CTRL_ACK = 1,                                      /*!< controller received the last msg buddy sent it */
+    UPK_CTRL_ACK = 1,                                      /*!< controller received the last msg buddy sent
+                                                              it */
     UPK_CTRL_SHUTDOWN,                                     /*!< buddy shutdown */
     UPK_CTRL_STATUS_REQ,                                   /*!< report status to controller */
     UPK_CTRL_ACTION_START,                                 /* run start script and monitor */
-    UPK_CTRL_ACTION_STOP,                                  /*!< run stop script, which should kill the monitored
-                                                              process */
-    UPK_CTRL_ACTION_RELOAD,                                /*!< run reload script, which could, for example, send
-                                                              SIGHUP */
-    UPK_CTRL_ACTION_RUNONCE,                               /*!< run a monitored process in a restarter... only once... 
-                                                              ??? */
+    UPK_CTRL_ACTION_STOP,                                  /*!< run stop script, which should kill the
+                                                              monitored process */
+    UPK_CTRL_ACTION_RELOAD,                                /*!< run reload script, which could, for example, 
+                                                              send SIGHUP */
+    UPK_CTRL_ACTION_RUNONCE,                               /*!< run a monitored process in a restarter...
+                                                              only once... ??? */
     UPK_CTRL_CUSTOM_ACTION_00,                             /*!< run user-defined action 00 */
     UPK_CTRL_CUSTOM_ACTION_01,                             /*!< run user-defined action 01 */
     UPK_CTRL_CUSTOM_ACTION_02,                             /*!< run user-defined action 02 */
@@ -113,10 +115,12 @@ typedef enum _buddy_cmnd {
   */
 typedef enum {
     BUDDY_UNKNOWN = 0,
-    BUDDY_STOPPED = 1,                                     /*!< the current state of the managed process is stopped */
-    BUDDY_RUNNING,                                         /*!< the current state of the managed process is running */
-    BUDDY_RANONCE,                                         /*!< the current state of the managed process was that it
-                                                              ran once */
+    BUDDY_STOPPED = 1,                                     /*!< the current state of the managed process is
+                                                              stopped */
+    BUDDY_RUNNING,                                         /*!< the current state of the managed process is
+                                                              running */
+    BUDDY_RANONCE,                                         /*!< the current state of the managed process was 
+                                                              that it ran once */
 } buddy_runstate_t;
 
 /**
@@ -130,15 +134,18 @@ typedef struct _buddy_info buddy_info_t;
   This is what buddy sends to controller.
   */
 struct _buddy_info {
-    bool                    populated;                     /*!< this member is populated; used in ringbuffer */
+    bool                    populated;                     /*!< this member is populated; used in ringbuffer 
+                                                            */
     pid_t                   service_pid;                   /*!< pid of the managed process */
-    pid_t                   wait_pid;                      /*!< pid of the process just waited on, if applicable */
+    pid_t                   wait_pid;                      /*!< pid of the process just waited on, if
+                                                              applicable */
     buddy_cmnd_t            command;                       /*!< last command handled by buddy */
     buddy_runstate_t        desired_state;                 /*!< desired state of the buddy */
     siginfo_t               siginfo;                       /*!< siginfo struct if available */
     int                     wait_status;                   /*!< wait status, if available */
     time_t                  timestamp;                     /*!< timestamp */
-    size_t                  remaining;                     /*!< number of remaining messages to be sent from buddy */
+    size_t                  remaining;                     /*!< number of remaining messages to be sent from 
+                                                              buddy */
     upk_uuid_t              uuid;                          /*!< uuid of service managed by buddy */
     size_t                  slot_n;                        /*!< used for diagnostics */
     buddy_info_t           *next;                          /*!< pointer to next member in ringbuffer */

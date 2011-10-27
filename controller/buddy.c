@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -22,13 +23,14 @@
 #define BUDDY_SELECT_TIMEOUT_USEC 0                        // 0000
 
 #define RESPAWN_WINDOW 5                                   /* seconds */
-#define MAX_RESPAWN_COUNT 10                               /* max number of times a process may restart within the
-                                                              restart window before mandatory ratelimit is applied */
-#define RESPAWN_RATELIMIT 300                              /* seconds to wait before trying to respawn again after
-                                                              respawning too fast */
+#define MAX_RESPAWN_COUNT 10                               /* max number of times a process may restart
+                                                              within the restart window before mandatory
+                                                              ratelimit is applied */
+#define RESPAWN_RATELIMIT 300                              /* seconds to wait before trying to respawn again
+                                                              after respawning too fast */
 
 /* exportable */
-//char                    buddy_uuid[37] = "";
+// char buddy_uuid[37] = "";
 upk_uuid_t              buddy_uuid;
 char                   *buddy_service_name = NULL;
 char                    buddy_root_path[BUDDY_MAX_PATH_LEN] = DEFAULT_BUDDY_ROOT;
@@ -70,7 +72,8 @@ static socklen_t        buddy_sockaddr_len = 0;
 static int              sockopts = 0;
 static int              highest_fd = 0;
 static struct timeval   timeout = {.tv_sec = BUDDY_SELECT_TIMEOUT_SEC,.tv_usec = BUDDY_SELECT_TIMEOUT_USEC };
-static struct timespec  nanotimeout = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec = BUDDY_RETRY_TIMEOUT_NSEC };
+static struct timespec  nanotimeout = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec =
+        BUDDY_RETRY_TIMEOUT_NSEC };
 static size_t           ncount = 0;
 
 static buddy_runstate_t desired_state = BUDDY_STOPPED;
@@ -95,7 +98,7 @@ static inline void      buddy_cust_action(uint32_t act_num);
 static inline void      buddy_handle_command(void);
 static inline void      buddy_setreguid(void);
 static inline void      buddy_setup_fds(void);
-static inline int32_t   read_ctrl(buddy_cmnd_t *buf);
+static inline int32_t   read_ctrl(buddy_cmnd_t * buf);
 static inline int32_t   write_ctrl(buddy_info_t * buf);
 
 static pid_t            buddy_exec_action(void);
@@ -190,7 +193,8 @@ buddy_init_socket(void)
 
     upk_debug0("initalizing socket %s\n", buddy_path("buddy.sock"));
 
-    strncpy(buddy_sockaddr.sun_path, (const char *) buddy_path("buddy.sock"), sizeof(buddy_sockaddr.sun_path) - 1);
+    strncpy(buddy_sockaddr.sun_path, (const char *) buddy_path("buddy.sock"),
+            sizeof(buddy_sockaddr.sun_path) - 1);
     buddy_sockaddr.sun_family = AF_UNIX;
 
     oldumask = umask(077);
@@ -340,7 +344,7 @@ buddy_event_loop(void)
         if(buddy_handle_flags())
             break;
     }
-    if(buddy_shutdown && buddy_shutdown != SIGHUP) 
+    if(buddy_shutdown && buddy_shutdown != SIGHUP)
         commit_buddycide(buddy_shutdown);
 
     return 0;
@@ -524,7 +528,7 @@ buddy_exec_action(void)
     static sigset_t         sigset, oldset;
     struct sigaction        sigact;
     static struct stat      buf;
-    static char path_buf[BUDDY_MAX_PATH_LEN];
+    static char             path_buf[BUDDY_MAX_PATH_LEN];
 
     sigfillset(&sigset);
     sigprocmask(SIG_BLOCK, &sigset, &oldset);
@@ -532,11 +536,11 @@ buddy_exec_action(void)
     strncpy(path_buf, buddy_path_buf, sizeof(path_buf) - 1);
 
     stat(path_buf, &buf);
-    if(! S_ISREG(buf.st_mode)) {
+    if(!S_ISREG(buf.st_mode)) {
         upk_alert("cannot exec: %s: %s\n", path_buf, strerror(EPERM));
         return 0;
     }
-    if( (buf.st_mode & S_IXUSR) != S_IXUSR ) {
+    if((buf.st_mode & S_IXUSR) != S_IXUSR) {
         upk_alert("cannot exec: %s: %s\n", path_buf, strerror(EACCES));
         return 0;
     }
@@ -553,9 +557,10 @@ buddy_exec_action(void)
         sigaction(SIGPIPE, &sigact, NULL);
 
 
-        /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting ulimits */
-        //assert((pathp = calloc(1, strlen(path_buf) + 1)));
-        //strcpy(pathp, path_buf);
+        /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting
+           ulimits */
+        // assert((pathp = calloc(1, strlen(path_buf) + 1)));
+        // strcpy(pathp, path_buf);
 
         buddy_setreguid();
 
@@ -570,30 +575,30 @@ buddy_exec_action(void)
         upk_debug0("redirecting output\n");
         buddy_setup_fds();
 
-        /* a child may reset these itself, but if a user knows that their service does not; they may use one or both
-           identifiers to ensure that all of the services children have exited before considering the service stopped,
-           or perhaps more interesting things */
+        /* a child may reset these itself, but if a user knows that their service does not; they may use one
+           or both identifiers to ensure that all of the services children have exited before considering the 
+           service stopped, or perhaps more interesting things */
 
         setsid();
         setpgid(0, 0);
 
-        /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid above, but
-           in a way that cannot be abandoned by the monitored process; can then use the cgroup context to set process
-           limits) */
+        /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid
+           above, but in a way that cannot be abandoned by the monitored process; can then use the cgroup
+           context to set process limits) */
 
         memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
         snprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, "%d", proc_pid);
         sigemptyset(&sigset);
         sigprocmask(SIG_SETMASK, &sigset, NULL);
-        errno=0;
+        errno = 0;
         if(proc_pid) {
             execle(path_buf, path_buf, buddy_string_buf, (char *) NULL, proc_envp);
-        }
-        else {
+        } else {
             execle(path_buf, path_buf, (char *) NULL, proc_envp);
         }
 
-        //fprintf(oldstderr, "exec failed for %s %d; This should never happen!: %s\n", path_buf, proc_pid, strerror(errno));
+        // fprintf(oldstderr, "exec failed for %s %d; This should never happen!: %s\n", path_buf, proc_pid,
+        // strerror(errno));
         _exit(errno);
     }
     sigprocmask(SIG_SETMASK, &oldset, NULL);
@@ -621,8 +626,8 @@ buddy_start_proc(void)
             rapid_respawn_count = 0;
 
         if(rapid_respawn_count > MAX_RESPAWN_COUNT) {
-            upk_notice("%s's start script respawning too fast, imposing ratelimit for %d seconds\n", buddy_service_name,
-                       RESPAWN_RATELIMIT);
+            upk_notice("%s's start script respawning too fast, imposing ratelimit for %d seconds\n",
+                       buddy_service_name, RESPAWN_RATELIMIT);
             force_ratelimit = true;
             return false;
         }
@@ -647,14 +652,14 @@ buddy_stop_proc(void)
     static uint8_t          n = 0;
 
     nanotimeout.tv_sec = 0;
-    nanotimeout.tv_nsec = 5000000;                               // 100000000L; /* 1/10th a second; */
+    nanotimeout.tv_nsec = 5000000;                         // 100000000L; /* 1/10th a second; */
 
     if(proc_pid != 0) {
         buddy_path("actions/stop");
         buddy_exec_action();
 
-        /* XXX: Should this level of insistance that the stop script work be located here, or should it only be in
-           buddy_cleanup? */
+        /* XXX: Should this level of insistance that the stop script work be located here, or should it only
+           be in buddy_cleanup? */
 
         /* give child time to terminate normally */
         /* FIXME: should be configurable duration to wait for a child to exit cleanly - JB */
@@ -662,15 +667,15 @@ buddy_stop_proc(void)
             nanosleep(&nanotimeout, NULL);
 
         /* send signal a TERM directly, in the hopes this will do the trick */
-        //if(proc_pid)
-        //    kill(proc_pid, SIGTERM);
+        // if(proc_pid)
+        // kill(proc_pid, SIGTERM);
 
         /* FIXME: again, should be configurable - JB */
-        //while(proc_pid && n++ < 20)
-        //    nanosleep(&nanotimeout, NULL);
+        // while(proc_pid && n++ < 20)
+        // nanosleep(&nanotimeout, NULL);
 
-        //if(proc_pid)
-        //    kill(proc_pid, SIGKILL);
+        // if(proc_pid)
+        // kill(proc_pid, SIGKILL);
     }
     return;
 }
@@ -742,12 +747,14 @@ buddy_handle_command(void)
         break;
     }
     if(this_command >= UPK_CTRL_CUSTOM_ACTION_00 && this_command <= UPK_CTRL_CUSTOM_ACTION_31) {
-        upk_verbose("command to invoke action %2d' received\n", (uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
+        upk_verbose("command to invoke action %2d' received\n",
+                    (uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
         last_command = this_command;
         buddy_cust_action((uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
         return;
     } else if(this_command >= UPK_CTRL_SIGNAL_01 && this_command <= UPK_CTRL_SIGNAL_32) {
-        upk_verbose("command `signal' (with signal `%d') received\n", (this_command - UPK_CTRL_SIGNAL_01) + 1);
+        upk_verbose("command `signal' (with signal `%d') received\n",
+                    (this_command - UPK_CTRL_SIGNAL_01) + 1);
         last_command = this_command;
         kill(proc_pid, (uint32_t) (this_command - UPK_CTRL_SIGNAL_01) + 1);
         return;
@@ -760,9 +767,9 @@ static inline void
 buddy_setreguid(void)
 {
     if(buddy_setuid)
-        setreuid(buddy_setuid, buddy_setuid);              /* no point in capturing errors here, because there's
-                                                              nothing we can really do; we complain in buddy_init() if
-                                                              we think this won't work */
+        setreuid(buddy_setuid, buddy_setuid);              /* no point in capturing errors here, because
+                                                              there's nothing we can really do; we complain
+                                                              in buddy_init() if we think this won't work */
     if(buddy_setgid)
         setregid(buddy_setgid, buddy_setgid);              /* ditto */
 }
@@ -801,7 +808,7 @@ resolve_symlink(void)
 /* ********************************************************************************************************************
    ******************************************************************************************************************* */
 static inline           int32_t
-read_ctrl(buddy_cmnd_t *buf)
+read_ctrl(buddy_cmnd_t * buf)
 {
     static fd_set           ctrlfdset;
 
@@ -891,7 +898,7 @@ buddy_flush_ringbuffer(void)
             if(info_ringbuffer->populated) {
                 info_ringbuffer->remaining = ringbuffer_pending - 1;
                 if(write_ctrl(info_ringbuffer) > 0) {
-                    if( (read_ctrl(&ack)) > 0 && ack == UPK_CTRL_ACK) {
+                    if((read_ctrl(&ack)) > 0 && ack == UPK_CTRL_ACK) {
                         buddy_zero_info();
                         info_ringbuffer = info_ringbuffer->next;
                         continue;
@@ -902,7 +909,7 @@ buddy_flush_ringbuffer(void)
             }
             info_ringbuffer = info_ringbuffer->next;
         } while(info_ringbuffer != thisp);
-        errno=0;
+        errno = 0;
         buddy_disconnect(0);
 
         this_command = curcmnd;

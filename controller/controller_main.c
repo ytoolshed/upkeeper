@@ -1,4 +1,5 @@
-/* ***************************************************************************
+
+/****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License
@@ -16,7 +17,7 @@
 #include <errno.h>
 
 /* *******************************************************************************************************************
- * ****************************************************************************************************************** */
+   ****************************************************************************************************************** */
 int
 main(int argc, char **argv, char **envp)
 {
@@ -27,9 +28,9 @@ main(int argc, char **argv, char **envp)
 
     UPKLIST_FOREACH(upk_runtime_configuration.svclist) {
         create_buddy(upk_runtime_configuration.svclist->thisp);
-    } 
+    }
 
-    fclose(stdin);                                          /* fclose(stdout); fclose(stderr); */
+    fclose(stdin);                                         /* fclose(stdout); fclose(stderr); */
     chdir("/");
 
     sock_fd = ctrl_sock_setup();
