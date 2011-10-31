@@ -4,8 +4,7 @@
 {\ttfamily \#include $<$assert.h$>$}\par
 {\ttfamily \#include $<$stdarg.h$>$}\par
 {\ttfamily \#include $<$upkeeper/upk\_\-error.h$>$}\par
-Include dependency graph for buddy.c:
-\nopagebreak
+Include dependency graph for buddy.c:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -155,7 +154,7 @@ static int {\bf highest\_\-fd} = 0
 \item 
 static struct timeval {\bf timeout} = \{.tv\_\-sec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC,.tv\_\-usec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC \}
 \item 
-static struct timespec {\bf nanotimeout} = \{.tv\_\-sec = BUDDY\_\-RETRY\_\-TIMEOUT\_\-SEC,.tv\_\-nsec = BUDDY\_\-RETRY\_\-TIMEOUT\_\-NSEC \}
+static struct timespec {\bf nanotimeout}
 \item 
 static size\_\-t {\bf ncount} = 0
 \item 
@@ -589,7 +588,8 @@ Referenced by main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -626,7 +626,8 @@ Referenced by buddy\_\-init().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -782,7 +783,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_af17b00432a66198a2d8a4c322813d194}
 
 
-References buddy\_\-zero\_\-info(), \_\-buddy\_\-info::command, desired\_\-state, \_\-buddy\_\-info::desired\_\-state, last\_\-command, \_\-buddy\_\-info::populated, proc\_\-pid, ringbuffer\_\-pending, ringbuffer\_\-size, \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, and upk\_\-debug1.
+References buddy\_\-uuid, buddy\_\-zero\_\-info(), \_\-buddy\_\-info::command, desired\_\-state, \_\-buddy\_\-info::desired\_\-state, last\_\-command, \_\-buddy\_\-info::populated, proc\_\-pid, ringbuffer\_\-pending, ringbuffer\_\-size, \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, upk\_\-debug1, and \_\-buddy\_\-info::uuid.
 
 
 
@@ -1315,7 +1316,7 @@ Referenced by buddy\_\-exec\_\-action(), buddy\_\-path(), buddy\_\-phone\_\-home
 \subsubsection[{buddy\_\-uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf buddy\_\-uuid}}\label{buddy_8c_a3e9321d881ca257289c65b5022b693c8}
 
 
-Referenced by opt\_\-parse().
+Referenced by buddy\_\-record\_\-state(), and opt\_\-parse().
 
 \index{buddy.c@{buddy.c}!chld\_\-terminated@{chld\_\-terminated}}
 \index{chld\_\-terminated@{chld\_\-terminated}!buddy.c@{buddy.c}}
@@ -1361,7 +1362,12 @@ Referenced by buddy\_\-handle\_\-command(), and buddy\_\-record\_\-state().
 
 \index{buddy.c@{buddy.c}!nanotimeout@{nanotimeout}}
 \index{nanotimeout@{nanotimeout}!buddy.c@{buddy.c}}
-\subsubsection[{nanotimeout}]{\setlength{\rightskip}{0pt plus 5cm}struct timespec {\bf nanotimeout} = \{.tv\_\-sec = BUDDY\_\-RETRY\_\-TIMEOUT\_\-SEC,.tv\_\-nsec = BUDDY\_\-RETRY\_\-TIMEOUT\_\-NSEC \}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a0aa2ef11dabd8b068b1725e8a94c92cb}
+\subsubsection[{nanotimeout}]{\setlength{\rightskip}{0pt plus 5cm}struct timespec {\bf nanotimeout}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a0aa2ef11dabd8b068b1725e8a94c92cb}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec =
+        BUDDY_RETRY_TIMEOUT_NSEC }
+\end{DoxyCode}
 
 
 Referenced by buddy\_\-stop\_\-proc(), and phone\_\-home\_\-if\_\-appropriate().

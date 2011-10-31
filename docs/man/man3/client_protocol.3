@@ -1,4 +1,4 @@
-.TH "Client_protocol" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "Client_protocol" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -498,7 +498,7 @@ UPK_INIT_SERIALIZE_BUF(TYPE, UPK_DATA_LEN); \
 Referenced by serial_pub_cancel(), serial_pub_pub(), serial_repl_ack(), serial_repl_err(), serial_repl_listing(), serial_repl_result(), serial_repl_seq_end(), serial_repl_seq_start(), serial_repl_svcinfo(), serial_req_action(), serial_req_disconnect(), serial_req_list(), serial_req_seq_end(), serial_req_seq_start(), serial_req_signal(), serial_req_status(), serial_req_subscribe(), serial_req_unsub(), upk_serialize_repl_preamble(), and upk_serialize_req_preamble().
 .SS "#define UPK_MAX_PACKET_SIZE   65536"64k should be enough for anyone 
 .PP
-Referenced by main(), upk_deserialize_packet(), and upk_read_packets().
+Referenced by upk_deserialize_packet(), and upk_read_packets().
 .SS "#define UPK_MAX_SUPPORTED_PROTO   0"
 .PP
 Referenced by controller_packet_callback(), upk_create_req_preamble(), upk_deserialize_packet(), and upk_read_packets().
@@ -788,7 +788,7 @@ References v0_create_req_unsubscribe(), and _upk_conn_handle::version_id.
 .PP
 References IF_UPK_ERROR, UPK_DATA, upk_deserialize_payload(), UPK_ERR_INIT, UPK_ERR_INVALID_PKT, UPK_ERR_UNSUP, UPK_FETCH_DATA, UPK_FETCH_ENUM, UPK_FETCH_UINT32, UPK_FUNC_ASSERT, UPK_INIT_DESERIALIZE, UPK_MAX_PACKET_SIZE, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, upk_pkt_proto_limit, and upk_verify_crc32().
 .PP
-Referenced by main(), and upk_read_packets().
+Referenced by upk_read_packets().
 .SS "void* upk_deserialize_repl_preamble (\fBupk_pkt_buf_t\fP *UPK_BUF)"
 .PP
 References UPK_DATA, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
@@ -814,7 +814,7 @@ Referenced by controller_packet_callback(), main(), upk_clnet_req_action(), upk_
 .PP
 References UPK_BUF, upk_crc32(), UPK_DATA, UPK_INIT_SERIALIZE_BUF, UPK_PUT_DATA_FROM_BUF, UPK_PUT_ENUM, UPK_PUT_UINT32, and upk_serialize_payload().
 .PP
-Referenced by main(), and upk_queue_packet().
+Referenced by upk_queue_packet().
 .SS "\fBupk_pkt_buf_t\fP* upk_serialize_repl_preamble (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, and UPK_PUT_UINT32.

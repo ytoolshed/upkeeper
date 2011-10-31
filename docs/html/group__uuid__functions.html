@@ -57,8 +57,8 @@ Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">convert uuid to string and place in buf.  <a href="#ga531ded5ea8455b772e093cf15147bea6"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uuid__functions.html#gac7166422edb32c235fcda2f7215cb16c">is_valid_upk_uuid_string</a> (const char *string)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">test if a given string is a valid uuid string.  <a href="#gac7166422edb32c235fcda2f7215cb16c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uuid__functions.html#ga46cfa1a663d86b7509fdaf45aea831ee">upk_string_to_uuid</a> (const char *string, <a class="el" href="struct__upk__uuid.html">upk_uuid_t</a> *uuid)</td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">convert uuid string into uuid structure.  <a href="#ga46cfa1a663d86b7509fdaf45aea831ee"></a><br/></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__uuid__functions.html#ga96de704424fa69212eea81582a57c28d">upk_string_to_uuid</a> (<a class="el" href="struct__upk__uuid.html">upk_uuid_t</a> *uuid, const char *string)</td></tr>
+<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">convert uuid string into uuid structure.  <a href="#ga96de704424fa69212eea81582a57c28d"></a><br/></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="gac7166422edb32c235fcda2f7215cb16c"></a><!-- doxytag: member="upk_uuid.h::is_valid_upk_uuid_string" ref="gac7166422edb32c235fcda2f7215cb16c" args="(const char *string)" -->
@@ -87,14 +87,14 @@ Functions</h2></td></tr>
 
 <p>References <a class="el" href="upk__compat_8h.html#ac5e51f809ee57eb80d8f28d0cec262e8">c_isxdigit</a>.</p>
 
-<p>Referenced by <a class="el" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0">opt_parse()</a>, <a class="el" href="tests_2uuid_8c.html#a19b6bd7f21b51341c7b6a3693030c4c5">START_TEST()</a>, and <a class="el" href="group__uuid__functions.html#ga46cfa1a663d86b7509fdaf45aea831ee">upk_string_to_uuid()</a>.</p>
+<p>Referenced by <a class="el" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0">opt_parse()</a>, <a class="el" href="tests_2uuid_8c.html#a19b6bd7f21b51341c7b6a3693030c4c5">START_TEST()</a>, and <a class="el" href="group__uuid__functions.html#ga96de704424fa69212eea81582a57c28d">upk_string_to_uuid()</a>.</p>
 
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="group__uuid__functions_gac7166422edb32c235fcda2f7215cb16c_icgraph.png" border="0" usemap="#group__uuid__functions_gac7166422edb32c235fcda2f7215cb16c_icgraph" alt=""/></div>
 <map name="group__uuid__functions_gac7166422edb32c235fcda2f7215cb16c_icgraph" id="group__uuid__functions_gac7166422edb32c235fcda2f7215cb16c_icgraph">
-<area shape="rect" id="node3" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0" title="opt_parse" alt="" coords="451,5,528,37"/><area shape="rect" id="node7" href="tests_2uuid_8c.html#a19b6bd7f21b51341c7b6a3693030c4c5" title="START_TEST" alt="" coords="231,59,337,91"/><area shape="rect" id="node9" href="group__uuid__functions.html#ga46cfa1a663d86b7509fdaf45aea831ee" title="convert uuid string into uuid structure." alt="" coords="219,115,349,147"/><area shape="rect" id="node5" href="buddy__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="701,5,749,37"/><area shape="rect" id="node11" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1172,117,1220,149"/><area shape="rect" id="node14" href="tests_2uuid_8c.html#a3097fcd3881a49c19a256c1cce883c93" title="START_TEST" alt="" coords="436,168,543,200"/><area shape="rect" id="node16" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291" title="upk_svc_desc_to_json_obj" alt="" coords="400,224,579,256"/><area shape="rect" id="node29" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0" title="upk_svcconf_string_handler" alt="" coords="397,61,581,93"/><area shape="rect" id="node18" href="group__functions.html#ga82376799c5e86edd919376c308139d8b" title="upk_svclist_to_json_obj" alt="" coords="645,197,805,229"/><area shape="rect" id="node20" href="group__functions.html#ga19d2bc0bd2e96a937820f26f4e56b2d9" title="upk_json_serialize_svc_config" alt="" coords="871,171,1068,203"/><area shape="rect" id="node23" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9" title="upk_load_runtime_services" alt="" coords="1503,61,1681,93"/><area shape="rect" id="node25" href="controller_8h.html#a253734ff940e671ba2bd35fc159a9471" title="upk_ctrl_init" alt="" coords="1732,61,1823,93"/><area shape="rect" id="node27" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1873,61,1921,93"/><area shape="rect" id="node31" href="group__config__impl.html#ga91a20d1386c12a7ca48670777f2a13b6" title="upk_svcconf_setup_handlers" alt="" coords="631,61,820,93"/><area shape="rect" id="node33" href="group__config__impl.html#ga70bcf5d4574ec504ccfa7c02e54f2f6d" title="upk_ctrlconf_object_handler" alt="" coords="877,5,1061,37"/><area shape="rect" id="node44" href="group__config__impl.html#ga8753074ecae15841a5f5c3a28e31b58a" title="upk_svcconf_object_handler" alt="" coords="876,61,1063,93"/><area shape="rect" id="node35" href="group__config__impl.html#gab9fcf0078a632239eeca0eba28d9d467" title="upk_ctrlconf_toplvl_obj" alt="" coords="1119,5,1273,37"/><area shape="rect" id="node37" href="group__config__impl.html#ga141b988b89261c395ef928630abd7492" title="upk_ctrlconf_pack" alt="" coords="1324,5,1452,37"/><area shape="rect" id="node39" href="group__functions.html#ga11c5a55e854fb56c864a12ef5d314798" title="upk_ctrl_load_config" alt="" coords="1523,5,1661,37"/><area shape="rect" id="node41" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1753,5,1801,37"/><area shape="rect" id="node46" href="group__config__impl.html#ga79e7ae10de877eae2a7c297af5e3a2e1" title="upk_svcconf_toplvl_obj" alt="" coords="1117,61,1275,93"/><area shape="rect" id="node48" href="group__functions.html#gaef8b858931337dfe742cae5815857dec" title="upk_svcconf_pack" alt="" coords="1323,61,1453,93"/></map>
+<area shape="rect" id="node3" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0" title="opt_parse" alt="" coords="451,5,528,37"/><area shape="rect" id="node7" href="tests_2uuid_8c.html#a19b6bd7f21b51341c7b6a3693030c4c5" title="START_TEST" alt="" coords="231,59,337,91"/><area shape="rect" id="node9" href="group__uuid__functions.html#ga96de704424fa69212eea81582a57c28d" title="convert uuid string into uuid structure." alt="" coords="219,115,349,147"/><area shape="rect" id="node5" href="buddy__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="701,5,749,37"/><area shape="rect" id="node11" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1172,117,1220,149"/><area shape="rect" id="node14" href="tests_2uuid_8c.html#a3097fcd3881a49c19a256c1cce883c93" title="START_TEST" alt="" coords="436,168,543,200"/><area shape="rect" id="node16" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291" title="upk_svc_desc_to_json_obj" alt="" coords="400,224,579,256"/><area shape="rect" id="node29" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0" title="upk_svcconf_string_handler" alt="" coords="397,61,581,93"/><area shape="rect" id="node18" href="group__functions.html#ga82376799c5e86edd919376c308139d8b" title="upk_svclist_to_json_obj" alt="" coords="645,197,805,229"/><area shape="rect" id="node20" href="group__functions.html#ga19d2bc0bd2e96a937820f26f4e56b2d9" title="upk_json_serialize_svc_config" alt="" coords="871,171,1068,203"/><area shape="rect" id="node23" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9" title="upk_load_runtime_services" alt="" coords="1503,61,1681,93"/><area shape="rect" id="node25" href="controller_8h.html#a253734ff940e671ba2bd35fc159a9471" title="upk_ctrl_init" alt="" coords="1732,61,1823,93"/><area shape="rect" id="node27" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1873,61,1921,93"/><area shape="rect" id="node31" href="group__config__impl.html#ga91a20d1386c12a7ca48670777f2a13b6" title="upk_svcconf_setup_handlers" alt="" coords="631,61,820,93"/><area shape="rect" id="node33" href="group__config__impl.html#ga70bcf5d4574ec504ccfa7c02e54f2f6d" title="upk_ctrlconf_object_handler" alt="" coords="877,5,1061,37"/><area shape="rect" id="node44" href="group__config__impl.html#ga8753074ecae15841a5f5c3a28e31b58a" title="upk_svcconf_object_handler" alt="" coords="876,61,1063,93"/><area shape="rect" id="node35" href="group__config__impl.html#gab9fcf0078a632239eeca0eba28d9d467" title="upk_ctrlconf_toplvl_obj" alt="" coords="1119,5,1273,37"/><area shape="rect" id="node37" href="group__config__impl.html#ga141b988b89261c395ef928630abd7492" title="upk_ctrlconf_pack" alt="" coords="1324,5,1452,37"/><area shape="rect" id="node39" href="group__functions.html#ga11c5a55e854fb56c864a12ef5d314798" title="upk_ctrl_load_config" alt="" coords="1523,5,1661,37"/><area shape="rect" id="node41" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1753,5,1801,37"/><area shape="rect" id="node46" href="group__config__impl.html#ga79e7ae10de877eae2a7c297af5e3a2e1" title="upk_svcconf_toplvl_obj" alt="" coords="1117,61,1275,93"/><area shape="rect" id="node48" href="group__functions.html#gaef8b858931337dfe742cae5815857dec" title="upk_svcconf_pack" alt="" coords="1323,61,1453,93"/></map>
 </div>
 </p>
 
@@ -148,21 +148,21 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="ga46cfa1a663d86b7509fdaf45aea831ee"></a><!-- doxytag: member="upk_uuid.h::upk_string_to_uuid" ref="ga46cfa1a663d86b7509fdaf45aea831ee" args="(const char *string, upk_uuid_t *uuid)" -->
+<a class="anchor" id="ga96de704424fa69212eea81582a57c28d"></a><!-- doxytag: member="upk_uuid.h::upk_string_to_uuid" ref="ga96de704424fa69212eea81582a57c28d" args="(upk_uuid_t *uuid, const char *string)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">void upk_string_to_uuid </td>
           <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>string</em>, </td>
+          <td class="paramtype"><a class="el" href="struct__upk__uuid.html">upk_uuid_t</a> *&#160;</td>
+          <td class="paramname"><em>uuid</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="struct__upk__uuid.html">upk_uuid_t</a> *&#160;</td>
-          <td class="paramname"><em>uuid</em>&#160;</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>string</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -190,8 +190,8 @@ Here is the caller graph for this function:</div>
 <p><div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_cgraph.png" border="0" usemap="#group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_cgraph" alt=""/></div>
-<map name="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_cgraph" id="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_cgraph">
+<div class="center"><img src="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_cgraph.png" border="0" usemap="#group__uuid__functions_ga96de704424fa69212eea81582a57c28d_cgraph" alt=""/></div>
+<map name="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_cgraph" id="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_cgraph">
 <area shape="rect" id="node3" href="group__uuid__functions.html#gac7166422edb32c235fcda2f7215cb16c" title="test if a given string is a valid uuid string." alt="" coords="185,5,348,37"/></map>
 </div>
 </p>
@@ -199,8 +199,8 @@ Here is the call graph for this function:</div>
 <p><div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><img src="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_icgraph.png" border="0" usemap="#group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_icgraph" alt=""/></div>
-<map name="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_icgraph" id="group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_icgraph">
+<div class="center"><img src="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_icgraph.png" border="0" usemap="#group__uuid__functions_ga96de704424fa69212eea81582a57c28d_icgraph" alt=""/></div>
+<map name="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_icgraph" id="group__uuid__functions_ga96de704424fa69212eea81582a57c28d_icgraph">
 <area shape="rect" id="node3" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="959,63,1007,95"/><area shape="rect" id="node5" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0" title="opt_parse" alt="" coords="237,60,315,92"/><area shape="rect" id="node9" href="tests_2uuid_8c.html#a3097fcd3881a49c19a256c1cce883c93" title="START_TEST" alt="" coords="223,116,329,148"/><area shape="rect" id="node11" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291" title="upk_svc_desc_to_json_obj" alt="" coords="187,172,365,204"/><area shape="rect" id="node24" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0" title="upk_svcconf_string_handler" alt="" coords="184,228,368,260"/><area shape="rect" id="node7" href="buddy__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="488,60,536,92"/><area shape="rect" id="node13" href="group__functions.html#ga82376799c5e86edd919376c308139d8b" title="upk_svclist_to_json_obj" alt="" coords="432,159,592,191"/><area shape="rect" id="node15" href="group__functions.html#ga19d2bc0bd2e96a937820f26f4e56b2d9" title="upk_json_serialize_svc_config" alt="" coords="657,144,855,176"/><area shape="rect" id="node18" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9" title="upk_load_runtime_services" alt="" coords="1289,200,1468,232"/><area shape="rect" id="node20" href="controller_8h.html#a253734ff940e671ba2bd35fc159a9471" title="upk_ctrl_init" alt="" coords="1519,200,1609,232"/><area shape="rect" id="node22" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1660,200,1708,232"/><area shape="rect" id="node26" href="group__config__impl.html#ga91a20d1386c12a7ca48670777f2a13b6" title="upk_svcconf_setup_handlers" alt="" coords="417,228,607,260"/><area shape="rect" id="node28" href="group__config__impl.html#ga70bcf5d4574ec504ccfa7c02e54f2f6d" title="upk_ctrlconf_object_handler" alt="" coords="664,256,848,288"/><area shape="rect" id="node39" href="group__config__impl.html#ga8753074ecae15841a5f5c3a28e31b58a" title="upk_svcconf_object_handler" alt="" coords="663,200,849,232"/><area shape="rect" id="node30" href="group__config__impl.html#gab9fcf0078a632239eeca0eba28d9d467" title="upk_ctrlconf_toplvl_obj" alt="" coords="905,256,1060,288"/><area shape="rect" id="node32" href="group__config__impl.html#ga141b988b89261c395ef928630abd7492" title="upk_ctrlconf_pack" alt="" coords="1111,256,1239,288"/><area shape="rect" id="node34" href="group__functions.html#ga11c5a55e854fb56c864a12ef5d314798" title="upk_ctrl_load_config" alt="" coords="1309,256,1448,288"/><area shape="rect" id="node36" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1540,256,1588,288"/><area shape="rect" id="node41" href="group__config__impl.html#ga79e7ae10de877eae2a7c297af5e3a2e1" title="upk_svcconf_toplvl_obj" alt="" coords="904,200,1061,232"/><area shape="rect" id="node43" href="group__functions.html#gaef8b858931337dfe742cae5815857dec" title="upk_svcconf_pack" alt="" coords="1109,200,1240,232"/></map>
 </div>
 </p>
@@ -312,7 +312,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Wed Sep 14 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

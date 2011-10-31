@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_error.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_error.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -157,10 +157,10 @@ handle errors and single-exit-point semantics.
 .RI "static const char \fB__upk_errors\fP [][128]"
 .br
 .ti -1c
-.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
+.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
 .br
 .ti -1c
-.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
+.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
 .br
 .ti -1c
 .RI "int32_t \fBupk_diag_verbosity\fP"

@@ -20,7 +20,7 @@ void {\bf upk\_\-uuid\_\-to\_\-string} (char $\ast$buf, const {\bf upk\_\-uuid\_
 \begin{DoxyCompactList}\small\item\em convert uuid to string and place in buf. \end{DoxyCompactList}\item 
 bool {\bf is\_\-valid\_\-upk\_\-uuid\_\-string} (const char $\ast$string)
 \begin{DoxyCompactList}\small\item\em test if a given string is a valid uuid string. \end{DoxyCompactList}\item 
-void {\bf upk\_\-string\_\-to\_\-uuid} (const char $\ast$string, {\bf upk\_\-uuid\_\-t} $\ast$uuid)
+void {\bf upk\_\-string\_\-to\_\-uuid} ({\bf upk\_\-uuid\_\-t} $\ast$uuid, const char $\ast$string)
 \begin{DoxyCompactList}\small\item\em convert uuid string into uuid structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
@@ -53,7 +53,8 @@ Referenced by opt\_\-parse(), START\_\-TEST(), and upk\_\-string\_\-to\_\-uuid()
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -114,10 +115,10 @@ Here is the caller graph for this function:\nopagebreak
 \index{upk\_\-string\_\-to\_\-uuid@{upk\_\-string\_\-to\_\-uuid}!Uuid_functions@{Uuid\_\-functions}}
 \subsubsection[{upk\_\-string\_\-to\_\-uuid}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-string\_\-to\_\-uuid (
 \begin{DoxyParamCaption}
-\item[{const char $\ast$}]{string, }
-\item[{{\bf upk\_\-uuid\_\-t} $\ast$}]{uuid}
+\item[{{\bf upk\_\-uuid\_\-t} $\ast$}]{uuid, }
+\item[{const char $\ast$}]{string}
 \end{DoxyParamCaption}
-)}\label{group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee}
+)}\label{group__uuid__functions_ga96de704424fa69212eea81582a57c28d}
 
 
 convert uuid string into uuid structure. 
@@ -139,22 +140,24 @@ Referenced by main(), opt\_\-parse(), START\_\-TEST(), upk\_\-svc\_\-desc\_\-to\
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=302pt]{group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_cgraph}
+\includegraphics[width=302pt]{group__uuid__functions_ga96de704424fa69212eea81582a57c28d_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__uuid__functions_ga46cfa1a663d86b7509fdaf45aea831ee_icgraph}
+\includegraphics[width=400pt]{group__uuid__functions_ga96de704424fa69212eea81582a57c28d_icgraph}
 \end{center}
 \end{figure}
 

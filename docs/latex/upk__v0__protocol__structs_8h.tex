@@ -1,6 +1,7 @@
 \section{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-structs.h File Reference}
 \label{upk__v0__protocol__structs_8h}\index{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-structs.h@{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-structs.h}}
-This graph shows which files directly or indirectly include this file:\nopagebreak
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -114,10 +115,10 @@ upk_msgtype_t           msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]; \
-    uint32_t                action_len; \
-    char                    action[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]; \
+    uint32_t            action_len; \
+    char                action[UPK_MAX_STRING_LEN]
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-REQ\_\-DISCON\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-DISCON\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-REQ\_\-DISCON\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-DISCON\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -131,11 +132,11 @@ upk_msgtype_t       msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    upk_signal_t       signal; \
-    bool                    signal_sid; \
-    bool                    signal_pgrp; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    upk_signal_t        signal; \
+    bool                signal_sid; \
+    bool                signal_pgrp; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-REQ\_\-STATUS\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-STATUS\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-REQ\_\-STATUS\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-STATUS\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -143,8 +144,8 @@ upk_msgtype_t       msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -152,12 +153,12 @@ upk_msgtype_t       msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    bool                    all_svcs;                     /* send a req with all=
-      true to subscribe to everything in */ \
+    bool                all_svcs;                     /* send a req with all=true
+       to subscribe to everything in */ \
                                                           /* one shot; svc_id wil
       l be ignored, and should have len 0 */ \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-REQ\_\-UNSUBS\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-UNSUBS\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-REQ\_\-UNSUBS\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-UNSUBS\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -165,9 +166,9 @@ upk_msgtype_t       msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    bool                    all_svcs; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    bool                all_svcs; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS@{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS@{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -209,8 +210,8 @@ upk_msgtype_t      msgtype; \
 {\bfseries Value:}
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
-    bool                    commit                         /* if false, the prece
-      ding sequence of requests since the */ \
+    bool                commit                         /* if false, the preceding
+       sequence of requests since the */ \
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-UPK\_\-REQ\_\-SEQ\_\-START\_\-T\_\-FIELDS@{UPK\_\-V0\_\-UPK\_\-REQ\_\-SEQ\_\-START\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-UPK\_\-REQ\_\-SEQ\_\-START\_\-T\_\-FIELDS@{UPK\_\-V0\_\-UPK\_\-REQ\_\-SEQ\_\-START\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -219,5 +220,5 @@ upk_msgtype_t       msgtype; \
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
     upk_msgtype_t       msg_seq_type; \
-    uint32_t                msg_seq_count
+    uint32_t            msg_seq_count
 \end{DoxyCode}

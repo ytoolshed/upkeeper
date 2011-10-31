@@ -1,4 +1,4 @@
-.TH "Upk_errors" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "Upk_errors" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -146,10 +146,10 @@ Upk_errors \-
 .RI "static const char \fB__upk_errors\fP [][128]"
 .br
 .ti -1c
-.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
+.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
 .br
 .ti -1c
-.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
+.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
 .br
 .ti -1c
 .RI "int32_t \fBupk_diag_verbosity\fP"
@@ -181,7 +181,7 @@ Referenced by buddy_connect(), buddy_exec_action(), upk_conf_error_handler(), up
 Referenced by buddy_exec_action(), buddy_init_socket(), buddy_readstate(), and buddy_start_proc().
 .SS "#define upk_debug1(...)   _upk_debug1(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_accept(), buddy_disconnect(), buddy_event_loop(), buddy_flush_ringbuffer(), buddy_handle_command(), buddy_readstate(), buddy_record_state(), buddy_zero_info(), commit_buddycide(), controller_packet_callback(), event_loop(), main(), sa_sigaction_func(), upk_clnet_req_disconnect(), upk_load_runtime_services(), and upk_read_packets().
+Referenced by buddy_accept(), buddy_disconnect(), buddy_event_loop(), buddy_flush_ringbuffer(), buddy_handle_command(), buddy_readstate(), buddy_record_state(), buddy_zero_info(), commit_buddycide(), controller_packet_callback(), event_loop(), sa_sigaction_func(), upk_clnet_req_disconnect(), upk_load_runtime_services(), and upk_read_packets().
 .SS "#define UPK_ERR_INIT"
 .PP
 Referenced by ctrl_sock_setup(), upk_deserialize_packet(), and upk_json_parse_string().
@@ -190,7 +190,7 @@ Referenced by ctrl_sock_setup(), upk_deserialize_packet(), and upk_json_parse_st
 Referenced by upk_clnet_req_action(), and upk_read_packets().
 .SS "#define upk_fatal(...)   _upk_fatal(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_init_paths(), main(), spawn_buddy(), upk_clnet_req_preamble(), upk_ctrlconf_double_handler(), upk_ctrlconf_string_handler(), and upk_db_path().
+Referenced by buddy_init_paths(), main(), spawn_buddy(), upk_clnet_req_preamble(), upk_ctrl_init_db(), upk_ctrlconf_double_handler(), upk_ctrlconf_string_handler(), and upk_db_path().
 .SS "#define UPK_FUNC_ASSERT(A, B)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
 .PP
 Referenced by ctrl_sock_setup(), and upk_deserialize_packet().
@@ -202,13 +202,13 @@ Referenced by ctrl_sock_setup(), and upk_json_parse_string().
 Referenced by upk_load_runtime_services().
 .SS "#define upk_notice(...)   _upk_notice(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_exec_action(), buddy_handle_flags(), buddy_init(), buddy_start_proc(), main(), received_packet_callback(), upk_clnet_req_action(), upk_clnet_req_preamble(), and upk_config_loadfile().
+Referenced by buddy_exec_action(), buddy_handle_flags(), buddy_init(), buddy_start_proc(), received_packet_callback(), upk_clnet_req_action(), upk_clnet_req_preamble(), and upk_config_loadfile().
 .SS "#define upk_verbose(...)   _upk_verbose(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
 Referenced by buddy_handle_command(), buddy_init(), create_buddy_statedir(), main(), and phone_home_if_appropriate().
 .SS "#define upk_warn(...)   _upk_warn(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_init().
+Referenced by buddy_init(), and upk_clnet_req_action().
 .SH "Typedef Documentation"
 .PP 
 .SS "typedef void(* \fBdiag_output_callback_t\fP)(\fBupk_diaglvl_t\fP diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)"
@@ -358,7 +358,7 @@ Referenced by upk_strerror().
 Referenced by _upk_diagnostic().
 .SS "int32_t \fBupk_diag_verbosity\fP"
 .PP
-Referenced by _upk_default_diag_output(), _upk_diagnostic(), buddy_diag_handler(), main(), opt_parse(), and upk_load_runtime_services().
+Referenced by _upk_default_diag_output(), _upk_diagnostic(), buddy_diag_handler(), main(), opt_parse(), upk_clnet_req_action(), and upk_load_runtime_services().
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

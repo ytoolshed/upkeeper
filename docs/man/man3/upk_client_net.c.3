@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_client_net.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_client_net.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -45,7 +45,7 @@ References upk_clnet_req_disconnect(), and UPKLIST_FREE.
 Referenced by main().
 .SS "bool upk_clnet_req_action (\fBupk_conn_handle_meta_t\fP *ctrl, char *svc_id, char *action)"
 .PP
-References _upk_payload::payload, _upk_payload_types::repl_result, _upk_payload::type, upk_clnet_serial_request(), upk_create_req_action(), upk_error, upk_notice, upk_pkt_free(), and UPK_REPL_RESULT.
+References _upk_payload::payload, _upk_payload_types::repl_error, _upk_payload_types::repl_result, _upk_payload::type, upk_clnet_serial_request(), upk_create_req_action(), upk_diag_verbosity, upk_error, upk_notice, upk_pkt_free(), UPK_REPL_ERROR, UPK_REPL_RESULT, and upk_warn.
 .PP
 Referenced by main().
 .SS "void upk_clnet_req_disconnect (\fBupk_conn_handle_meta_t\fP *ctrl)"

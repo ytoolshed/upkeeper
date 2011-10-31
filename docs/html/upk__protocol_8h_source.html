@@ -39,465 +39,481 @@
 <div class="title">libupkeeper/upkeeper/upk_protocol.h</div>  </div>
 </div>
 <div class="contents">
-<a href="upk__protocol_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef _UPK_PROTOCOL_H</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define _UPK_PROTOCOL_H</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00023"></a>00023 <span class="preprocessor">#include &quot;<a class="code" href="upk__error_8h.html" title="handle errors and single-exit-point semantics.">upk_error.h</a>&quot;</span>
-<a name="l00024"></a>00024 <span class="preprocessor">#include &quot;<a class="code" href="upk__types_8h.html" title="types common throughout libupkeeper.">upk_types.h</a>&quot;</span>
-<a name="l00025"></a>00025 
-<a name="l00026"></a>00026 <span class="comment">/* ********************************************************************************************************************</span>
-<a name="l00027"></a>00027 <span class="comment">   enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever</span>
-<a name="l00028"></a>00028 <span class="comment">   additional fields necessary to a vN_protocol_structs.h and append the macro in the appropriate location here.  and</span>
-<a name="l00029"></a>00029 <span class="comment">   add the version specific items to the switch in upk_protocol.c. Note that the underlying protocol does _not_ need to</span>
-<a name="l00030"></a>00030 <span class="comment">   maintain anything as a subset; just the wrapper function must support old and new styles.  this allows for controlled </span>
-<a name="l00031"></a>00031 <span class="comment">   deprecation, while still providing protocol and API compatibility.</span>
-<a name="l00032"></a>00032 <span class="comment">   ******************************************************************************************************************* */</span>
-<a name="l00033"></a>00033 
-<a name="l00034"></a><a class="code" href="group__client__protocol.html#ga12cb200dc853e42582ceae43528fd80a">00034</a> <span class="preprocessor">#define UPK_MAX_PACKET_SIZE 65536                          </span>
-<a name="l00035"></a><a class="code" href="group__client__protocol.html#ga24f73662144614e8a14026b567c45fc5">00035</a> <span class="preprocessor">#define UPK_PACKET_HEADER_LEN 16</span>
-<a name="l00036"></a><a class="code" href="group__client__protocol.html#ga7f89b21b5bdec5ea97f2fffa12893990">00036</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_PACKET_FOOTER_LEN 4</span>
-<a name="l00037"></a>00037 <span class="preprocessor"></span>
-<a name="l00038"></a><a class="code" href="group__client__protocol.html#gafebb05a5b0ab9fe4f6ec8ba2fc7001fb">00038</a> <span class="preprocessor">#define UPK_MIN_SUPPORTED_PROTO 0</span>
-<a name="l00039"></a><a class="code" href="group__client__protocol.html#ga845e1f4da3372f878635c308b1465f0f">00039</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MAX_SUPPORTED_PROTO 0</span>
-<a name="l00040"></a>00040 <span class="preprocessor"></span>
-<a name="l00041"></a><a class="code" href="group__client__protocol.html#ga3c63e3d81e8528b3300170bb020ef84b">00041</a> <span class="preprocessor">#define UPK_DATA __upk_data</span>
-<a name="l00042"></a><a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">00042</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_DATA_PTR __upk_data_ptr</span>
-<a name="l00043"></a><a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">00043</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_DATA_LEN __upk_data_len</span>
-<a name="l00044"></a><a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">00044</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_BUF __upk_buf</span>
-<a name="l00045"></a><a class="code" href="group__client__protocol.html#gaf916eeceef858d64ba063052210159f9">00045</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_BUF_PTR __upk_buf_ptr</span>
-<a name="l00046"></a><a class="code" href="group__client__protocol.html#gaa40bdc0e154dbe9dbc32f319d1971f76">00046</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT8_BUFFER __upk_uint8_buf</span>
-<a name="l00047"></a><a class="code" href="group__client__protocol.html#gafa0b01f804c4cae1ab30abf31924a5f2">00047</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT16_BUFFER __upk_uint16_buf</span>
-<a name="l00048"></a><a class="code" href="group__client__protocol.html#ga350f04aa944c7b184810a882f79a4ab0">00048</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT32_BUFFER __upk_uint32_buf</span>
-<a name="l00049"></a><a class="code" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">00049</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_STRING_LENGTH __upk_string_len</span>
+<a href="upk__protocol_8h.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00002"></a>00002 <span class="comment">/****************************************************************************</span>
+<a name="l00003"></a>00003 <span class="comment"> * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the</span>
+<a name="l00004"></a>00004 <span class="comment"> * Apache License, Version 2.0 (the &quot;License&quot;); you may not use this file</span>
+<a name="l00005"></a>00005 <span class="comment"> * except in compliance with the License. You may obtain a copy of the License</span>
+<a name="l00006"></a>00006 <span class="comment"> * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable</span>
+<a name="l00007"></a>00007 <span class="comment"> * law or agreed to in writing, software distributed under the License is</span>
+<a name="l00008"></a>00008 <span class="comment"> * distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY</span>
+<a name="l00009"></a>00009 <span class="comment"> * KIND, either express or implied. See the License for the specific language</span>
+<a name="l00010"></a>00010 <span class="comment"> * governing permissions and limitations under the License.</span>
+<a name="l00011"></a>00011 <span class="comment"> * See accompanying LICENSE file. </span>
+<a name="l00012"></a>00012 <span class="comment"> ************************************************************************** */</span>
+<a name="l00013"></a>00013 
+<a name="l00014"></a>00014 <span class="preprocessor">#ifndef _UPK_PROTOCOL_H</span>
+<a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#define _UPK_PROTOCOL_H</span>
+<a name="l00016"></a>00016 <span class="preprocessor"></span>
+<a name="l00036"></a>00036 <span class="preprocessor">#include &quot;<a class="code" href="upk__error_8h.html" title="handle errors and single-exit-point semantics.">upk_error.h</a>&quot;</span>
+<a name="l00037"></a>00037 <span class="preprocessor">#include &quot;<a class="code" href="upk__types_8h.html" title="types common throughout libupkeeper.">upk_types.h</a>&quot;</span>
+<a name="l00038"></a>00038 
+<a name="l00039"></a>00039 <span class="comment">/* ********************************************************************************************************************</span>
+<a name="l00040"></a>00040 <span class="comment">   enums must preserve order. To add support for a new protocol version, create a new vN interface, add whatever</span>
+<a name="l00041"></a>00041 <span class="comment">   additional fields necessary to a vN_protocol_structs.h and append the macro in the appropriate location here.  and</span>
+<a name="l00042"></a>00042 <span class="comment">   add the version specific items to the switch in upk_protocol.c. Note that the underlying protocol does _not_ need to</span>
+<a name="l00043"></a>00043 <span class="comment">   maintain anything as a subset; just the wrapper function must support old and new styles.  this allows for controlled </span>
+<a name="l00044"></a>00044 <span class="comment">   deprecation, while still providing protocol and API compatibility.</span>
+<a name="l00045"></a>00045 <span class="comment">   ******************************************************************************************************************* */</span>
+<a name="l00046"></a>00046 
+<a name="l00047"></a><a class="code" href="group__client__protocol.html#ga12cb200dc853e42582ceae43528fd80a">00047</a> <span class="preprocessor">#define UPK_MAX_PACKET_SIZE 65536                          </span>
+<a name="l00048"></a><a class="code" href="group__client__protocol.html#ga24f73662144614e8a14026b567c45fc5">00048</a> <span class="preprocessor">#define UPK_PACKET_HEADER_LEN 16</span>
+<a name="l00049"></a><a class="code" href="group__client__protocol.html#ga7f89b21b5bdec5ea97f2fffa12893990">00049</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_PACKET_FOOTER_LEN 4</span>
 <a name="l00050"></a>00050 <span class="preprocessor"></span>
-<a name="l00051"></a>00051 <span class="comment">/* XXX you will want to redefine these depending on the type of data you&#39;re dealing with */</span>
-<a name="l00052"></a><a class="code" href="group__client__protocol.html#gadc68886f7e9cb52b8b404cb9c8c75ecb">00052</a> <span class="preprocessor">#define UPK_MSG_IDENTIFIER_TYPEDEF upk_pkttype_t</span>
-<a name="l00053"></a><a class="code" href="group__client__protocol.html#ga085168993b6f7b7f00302e0c30df8302">00053</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MSG_IDENTIFIER pkttype</span>
-<a name="l00054"></a>00054 <span class="preprocessor"></span>
-<a name="l00055"></a><a class="code" href="group__client__protocol.html#gaaaafc9b0eedc14615222be8eb09dfe0f">00055</a> <span class="preprocessor">#define UPK_INIT_DESERIALIZE(TYPE) \</span>
-<a name="l00056"></a>00056 <span class="preprocessor">    TYPE * UPK_DATA = NULL; \</span>
-<a name="l00057"></a>00057 <span class="preprocessor">    unsigned char * UPK_BUF_PTR = UPK_BUF; \</span>
-<a name="l00058"></a>00058 <span class="preprocessor">    uint32_t UPK_UINT32_BUFFER = 0; \</span>
-<a name="l00059"></a>00059 <span class="preprocessor">    uint16_t UPK_UINT16_BUFFER = 0; \</span>
-<a name="l00060"></a>00060 <span class="preprocessor">    uint8_t UPK_UINT8_BUFFER = 0; \</span>
-<a name="l00061"></a>00061 <span class="preprocessor">    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \</span>
-<a name="l00062"></a>00062 <span class="preprocessor">    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \</span>
-<a name="l00063"></a>00063 <span class="preprocessor">    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0</span>
-<a name="l00064"></a>00064 <span class="preprocessor"></span>
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="group__client__protocol.html#ga2c06486a36c97c9435999880e4c67754">00066</a> <span class="preprocessor">#define UPK_MEMB_TO_LEN(MEMB) MEMB ## _len</span>
+<a name="l00051"></a><a class="code" href="group__client__protocol.html#gafebb05a5b0ab9fe4f6ec8ba2fc7001fb">00051</a> <span class="preprocessor">#define UPK_MIN_SUPPORTED_PROTO 0</span>
+<a name="l00052"></a><a class="code" href="group__client__protocol.html#ga845e1f4da3372f878635c308b1465f0f">00052</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MAX_SUPPORTED_PROTO 0</span>
+<a name="l00053"></a>00053 <span class="preprocessor"></span>
+<a name="l00054"></a><a class="code" href="group__client__protocol.html#ga3c63e3d81e8528b3300170bb020ef84b">00054</a> <span class="preprocessor">#define UPK_DATA __upk_data</span>
+<a name="l00055"></a><a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">00055</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_DATA_PTR __upk_data_ptr</span>
+<a name="l00056"></a><a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">00056</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_DATA_LEN __upk_data_len</span>
+<a name="l00057"></a><a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">00057</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_BUF __upk_buf</span>
+<a name="l00058"></a><a class="code" href="group__client__protocol.html#gaf916eeceef858d64ba063052210159f9">00058</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_BUF_PTR __upk_buf_ptr</span>
+<a name="l00059"></a><a class="code" href="group__client__protocol.html#gaa40bdc0e154dbe9dbc32f319d1971f76">00059</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT8_BUFFER __upk_uint8_buf</span>
+<a name="l00060"></a><a class="code" href="group__client__protocol.html#gafa0b01f804c4cae1ab30abf31924a5f2">00060</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT16_BUFFER __upk_uint16_buf</span>
+<a name="l00061"></a><a class="code" href="group__client__protocol.html#ga350f04aa944c7b184810a882f79a4ab0">00061</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_UINT32_BUFFER __upk_uint32_buf</span>
+<a name="l00062"></a><a class="code" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">00062</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_STRING_LENGTH __upk_string_len</span>
+<a name="l00063"></a>00063 <span class="preprocessor"></span>
+<a name="l00064"></a>00064 <span class="comment">/* XXX you will want to redefine these depending on the type of data you&#39;re dealing with */</span>
+<a name="l00065"></a><a class="code" href="group__client__protocol.html#gadc68886f7e9cb52b8b404cb9c8c75ecb">00065</a> <span class="preprocessor">#define UPK_MSG_IDENTIFIER_TYPEDEF upk_pkttype_t</span>
+<a name="l00066"></a><a class="code" href="group__client__protocol.html#ga085168993b6f7b7f00302e0c30df8302">00066</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MSG_IDENTIFIER pkttype</span>
 <a name="l00067"></a>00067 <span class="preprocessor"></span>
-<a name="l00068"></a><a class="code" href="group__client__protocol.html#gafdbc5b1b94ac848744b473d4d651aee4">00068</a> <span class="preprocessor">#define UPK_INIT_DESERIALIZE_MSG(TYPE) \</span>
-<a name="l00069"></a>00069 <span class="preprocessor">    UPK_INIT_DESERIALIZE(TYPE); \</span>
-<a name="l00070"></a>00070 <span class="preprocessor">    UPK_DATA = calloc(1,sizeof(*UPK_DATA)); \</span>
-<a name="l00071"></a>00071 <span class="preprocessor">    UPK_FETCH_ENUM(UPK_MSG_IDENTIFIER_TYPEDEF, UPK_MSG_IDENTIFIER)</span>
-<a name="l00072"></a>00072 <span class="preprocessor"></span>
-<a name="l00073"></a><a class="code" href="group__client__protocol.html#ga9a47112ae5c848a99f81e06650875a06">00073</a> <span class="preprocessor">#define UPK_FETCH_UINT32_T(TYPE,MEMB) \</span>
-<a name="l00074"></a>00074 <span class="preprocessor">    memcpy(&amp;UPK_UINT32_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT32_BUFFER)); \</span>
-<a name="l00075"></a>00075 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) ntohl( UPK_UINT32_BUFFER ); \</span>
-<a name="l00076"></a>00076 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)</span>
+<a name="l00068"></a><a class="code" href="group__client__protocol.html#gaaaafc9b0eedc14615222be8eb09dfe0f">00068</a> <span class="preprocessor">#define UPK_INIT_DESERIALIZE(TYPE) \</span>
+<a name="l00069"></a>00069 <span class="preprocessor">    TYPE * UPK_DATA = NULL; \</span>
+<a name="l00070"></a>00070 <span class="preprocessor">    unsigned char * UPK_BUF_PTR = UPK_BUF; \</span>
+<a name="l00071"></a>00071 <span class="preprocessor">    uint32_t UPK_UINT32_BUFFER = 0; \</span>
+<a name="l00072"></a>00072 <span class="preprocessor">    uint16_t UPK_UINT16_BUFFER = 0; \</span>
+<a name="l00073"></a>00073 <span class="preprocessor">    uint8_t UPK_UINT8_BUFFER = 0; \</span>
+<a name="l00074"></a>00074 <span class="preprocessor">    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \</span>
+<a name="l00075"></a>00075 <span class="preprocessor">    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \</span>
+<a name="l00076"></a>00076 <span class="preprocessor">    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0</span>
 <a name="l00077"></a>00077 <span class="preprocessor"></span>
-<a name="l00078"></a><a class="code" href="group__client__protocol.html#ga922f6d4edd47629a72059028c8a9b2d7">00078</a> <span class="preprocessor">#define UPK_FETCH_UINT32(MEMB) \</span>
-<a name="l00079"></a>00079 <span class="preprocessor">    UPK_FETCH_UINT32_T(uint32_t, MEMB)</span>
+<a name="l00078"></a>00078 
+<a name="l00079"></a><a class="code" href="group__client__protocol.html#ga2c06486a36c97c9435999880e4c67754">00079</a> <span class="preprocessor">#define UPK_MEMB_TO_LEN(MEMB) MEMB ## _len</span>
 <a name="l00080"></a>00080 <span class="preprocessor"></span>
-<a name="l00081"></a><a class="code" href="group__client__protocol.html#ga4fbec843866b8e04d8c1db8e50397178">00081</a> <span class="preprocessor">#define UPK_FETCH_UINT16_T(TYPE,MEMB) \</span>
-<a name="l00082"></a>00082 <span class="preprocessor">    memcpy(&amp;UPK_UINT16_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT16_BUFFER)); \</span>
-<a name="l00083"></a>00083 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) ntohs( UPK_UINT16_BUFFER ); \</span>
-<a name="l00084"></a>00084 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)</span>
+<a name="l00081"></a><a class="code" href="group__client__protocol.html#gafdbc5b1b94ac848744b473d4d651aee4">00081</a> <span class="preprocessor">#define UPK_INIT_DESERIALIZE_MSG(TYPE) \</span>
+<a name="l00082"></a>00082 <span class="preprocessor">    UPK_INIT_DESERIALIZE(TYPE); \</span>
+<a name="l00083"></a>00083 <span class="preprocessor">    UPK_DATA = calloc(1,sizeof(*UPK_DATA)); \</span>
+<a name="l00084"></a>00084 <span class="preprocessor">    UPK_FETCH_ENUM(UPK_MSG_IDENTIFIER_TYPEDEF, UPK_MSG_IDENTIFIER)</span>
 <a name="l00085"></a>00085 <span class="preprocessor"></span>
-<a name="l00086"></a><a class="code" href="group__client__protocol.html#ga925fa3a5499566c9cc2dd8f564fae4ce">00086</a> <span class="preprocessor">#define UPK_FETCH_UINT16(MEMB) \</span>
-<a name="l00087"></a>00087 <span class="preprocessor">    UPK_FETCH_UINT16_T(uint16_t, MEMB)</span>
-<a name="l00088"></a>00088 <span class="preprocessor"></span>
-<a name="l00089"></a><a class="code" href="group__client__protocol.html#ga82d22a720ac32f32381e2cd09d62f351">00089</a> <span class="preprocessor">#define UPK_FETCH_UINT8_T(TYPE,MEMB) \</span>
-<a name="l00090"></a>00090 <span class="preprocessor">    memcpy(&amp;UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \</span>
-<a name="l00091"></a>00091 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) UPK_UINT8_BUFFER; \</span>
-<a name="l00092"></a>00092 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)</span>
+<a name="l00086"></a><a class="code" href="group__client__protocol.html#ga9a47112ae5c848a99f81e06650875a06">00086</a> <span class="preprocessor">#define UPK_FETCH_UINT32_T(TYPE,MEMB) \</span>
+<a name="l00087"></a>00087 <span class="preprocessor">    memcpy(&amp;UPK_UINT32_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT32_BUFFER)); \</span>
+<a name="l00088"></a>00088 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) ntohl( UPK_UINT32_BUFFER ); \</span>
+<a name="l00089"></a>00089 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)</span>
+<a name="l00090"></a>00090 <span class="preprocessor"></span>
+<a name="l00091"></a><a class="code" href="group__client__protocol.html#ga922f6d4edd47629a72059028c8a9b2d7">00091</a> <span class="preprocessor">#define UPK_FETCH_UINT32(MEMB) \</span>
+<a name="l00092"></a>00092 <span class="preprocessor">    UPK_FETCH_UINT32_T(uint32_t, MEMB)</span>
 <a name="l00093"></a>00093 <span class="preprocessor"></span>
-<a name="l00094"></a><a class="code" href="group__client__protocol.html#gac6f7a7f9d40fc189ce0fb3c7c718e67b">00094</a> <span class="preprocessor">#define UPK_FETCH_UINT8(MEMB) \</span>
-<a name="l00095"></a>00095 <span class="preprocessor">    UPK_FETCH_UINT8_T(uint8_t, MEMB)</span>
-<a name="l00096"></a>00096 <span class="preprocessor"></span>
-<a name="l00097"></a><a class="code" href="group__client__protocol.html#gace840787c519ae8568f206f0409486ce">00097</a> <span class="preprocessor">#define UPK_FETCH_BOOL(MEMB) \</span>
-<a name="l00098"></a>00098 <span class="preprocessor">    UPK_FETCH_UINT8_T(bool, MEMB)</span>
-<a name="l00099"></a>00099 <span class="preprocessor"></span>
-<a name="l00100"></a><a class="code" href="group__client__protocol.html#ga78962b2083a90b4e3c276dd505fc3ceb">00100</a> <span class="preprocessor">#define UPK_FETCH_ENUM(TYPE,MEMB) \</span>
-<a name="l00101"></a>00101 <span class="preprocessor">    UPK_FETCH_UINT32_T(TYPE, MEMB)</span>
-<a name="l00102"></a>00102 <span class="preprocessor"></span>
-<a name="l00103"></a><a class="code" href="group__client__protocol.html#ga185f4f2771b53ad3b8f3d6f52507ba64">00103</a> <span class="preprocessor">#define UPK_FETCH_STRING(MEMB) \</span>
-<a name="l00104"></a>00104 <span class="preprocessor">    </span><span class="comment">/* memset(UPK_DATA-&gt;MEMB,0,sizeof(UPK_DATA-&gt;MEMB)); */</span> \
-<a name="l00105"></a>00105     <span class="comment">/* UPK_DATA-&gt;MEMB = calloc(1, UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB) + 1);  * null terminate */</span> \
-<a name="l00106"></a>00106     memcpy(UPK_DATA-&gt;MEMB, UPK_BUF_PTR, UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB)); \
-<a name="l00107"></a>00107     UPK_BUF_PTR += UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB)
-<a name="l00108"></a>00108 
-<a name="l00109"></a><a class="code" href="group__client__protocol.html#ga9213b489238b9cf7bc3bd2ddaa35fe36">00109</a> <span class="preprocessor">#define UPK_FETCH_DATA_TO_BUF(BUF, LEN) \</span>
-<a name="l00110"></a>00110 <span class="preprocessor">    BUF = calloc(1, UPK_DATA-&gt;LEN); \</span>
-<a name="l00111"></a>00111 <span class="preprocessor">    memcpy(BUF, UPK_BUF_PTR, UPK_DATA-&gt;LEN); \</span>
-<a name="l00112"></a>00112 <span class="preprocessor">    UPK_BUF_PTR += UPK_DATA-&gt;LEN</span>
-<a name="l00113"></a>00113 <span class="preprocessor"></span>
-<a name="l00114"></a><a class="code" href="group__client__protocol.html#gac4914d9faed2c3770345a00ab72c0cf2">00114</a> <span class="preprocessor">#define UPK_FETCH_DATA(MEMB) \</span>
-<a name="l00115"></a>00115 <span class="preprocessor">    UPK_FETCH_DATA_TO_BUF(UPK_DATA-&gt;MEMB, UPK_MEMB_TO_LEN(MEMB))</span>
-<a name="l00116"></a>00116 <span class="preprocessor"></span>
-<a name="l00117"></a><a class="code" href="group__client__protocol.html#ga9231bfac6be62483e2540c1af442c99a">00117</a> <span class="preprocessor">#define UPK_FETCH_ARRAY(MEMB, LEN) \</span>
-<a name="l00118"></a>00118 <span class="preprocessor">    memcpy(UPK_DATA-&gt;MEMB, UPK_BUF_PTR, LEN); \</span>
-<a name="l00119"></a>00119 <span class="preprocessor">    UPK_BUF_PTR += LEN</span>
-<a name="l00120"></a>00120 <span class="preprocessor"></span>
-<a name="l00121"></a><a class="code" href="group__client__protocol.html#ga4e839e8dfd0239f7b137a581c5a5d202">00121</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE(TYPE) \</span>
-<a name="l00122"></a>00122 <span class="preprocessor">    TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \</span>
-<a name="l00123"></a>00123 <span class="preprocessor">    upk_pkt_buf_t * UPK_BUF = NULL; \</span>
-<a name="l00124"></a>00124 <span class="preprocessor">    upk_pkt_buf_t * UPK_BUF_PTR = NULL; \</span>
-<a name="l00125"></a>00125 <span class="preprocessor">    uint32_t UPK_UINT32_BUFFER = 0; \</span>
-<a name="l00126"></a>00126 <span class="preprocessor">    uint16_t UPK_UINT16_BUFFER = 0; \</span>
-<a name="l00127"></a>00127 <span class="preprocessor">    uint8_t UPK_UINT8_BUFFER = 0; \</span>
-<a name="l00128"></a>00128 <span class="preprocessor">    size_t UPK_STRING_LENGTH = 0; \</span>
-<a name="l00129"></a>00129 <span class="preprocessor">    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \</span>
-<a name="l00130"></a>00130 <span class="preprocessor">    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \</span>
-<a name="l00131"></a>00131 <span class="preprocessor">    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0; \</span>
-<a name="l00132"></a>00132 <span class="preprocessor">    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0</span>
+<a name="l00094"></a><a class="code" href="group__client__protocol.html#ga4fbec843866b8e04d8c1db8e50397178">00094</a> <span class="preprocessor">#define UPK_FETCH_UINT16_T(TYPE,MEMB) \</span>
+<a name="l00095"></a>00095 <span class="preprocessor">    memcpy(&amp;UPK_UINT16_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT16_BUFFER)); \</span>
+<a name="l00096"></a>00096 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) ntohs( UPK_UINT16_BUFFER ); \</span>
+<a name="l00097"></a>00097 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)</span>
+<a name="l00098"></a>00098 <span class="preprocessor"></span>
+<a name="l00099"></a><a class="code" href="group__client__protocol.html#ga925fa3a5499566c9cc2dd8f564fae4ce">00099</a> <span class="preprocessor">#define UPK_FETCH_UINT16(MEMB) \</span>
+<a name="l00100"></a>00100 <span class="preprocessor">    UPK_FETCH_UINT16_T(uint16_t, MEMB)</span>
+<a name="l00101"></a>00101 <span class="preprocessor"></span>
+<a name="l00102"></a><a class="code" href="group__client__protocol.html#ga82d22a720ac32f32381e2cd09d62f351">00102</a> <span class="preprocessor">#define UPK_FETCH_UINT8_T(TYPE,MEMB) \</span>
+<a name="l00103"></a>00103 <span class="preprocessor">    memcpy(&amp;UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \</span>
+<a name="l00104"></a>00104 <span class="preprocessor">    UPK_DATA-&gt;MEMB = (TYPE) UPK_UINT8_BUFFER; \</span>
+<a name="l00105"></a>00105 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)</span>
+<a name="l00106"></a>00106 <span class="preprocessor"></span>
+<a name="l00107"></a><a class="code" href="group__client__protocol.html#gac6f7a7f9d40fc189ce0fb3c7c718e67b">00107</a> <span class="preprocessor">#define UPK_FETCH_UINT8(MEMB) \</span>
+<a name="l00108"></a>00108 <span class="preprocessor">    UPK_FETCH_UINT8_T(uint8_t, MEMB)</span>
+<a name="l00109"></a>00109 <span class="preprocessor"></span>
+<a name="l00110"></a><a class="code" href="group__client__protocol.html#gace840787c519ae8568f206f0409486ce">00110</a> <span class="preprocessor">#define UPK_FETCH_BOOL(MEMB) \</span>
+<a name="l00111"></a>00111 <span class="preprocessor">    UPK_FETCH_UINT8_T(bool, MEMB)</span>
+<a name="l00112"></a>00112 <span class="preprocessor"></span>
+<a name="l00113"></a><a class="code" href="group__client__protocol.html#ga78962b2083a90b4e3c276dd505fc3ceb">00113</a> <span class="preprocessor">#define UPK_FETCH_ENUM(TYPE,MEMB) \</span>
+<a name="l00114"></a>00114 <span class="preprocessor">    UPK_FETCH_UINT32_T(TYPE, MEMB)</span>
+<a name="l00115"></a>00115 <span class="preprocessor"></span>
+<a name="l00116"></a><a class="code" href="group__client__protocol.html#ga185f4f2771b53ad3b8f3d6f52507ba64">00116</a> <span class="preprocessor">#define UPK_FETCH_STRING(MEMB) \</span>
+<a name="l00117"></a>00117 <span class="preprocessor">    </span><span class="comment">/* memset(UPK_DATA-&gt;MEMB,0,sizeof(UPK_DATA-&gt;MEMB)); */</span> \
+<a name="l00118"></a>00118     <span class="comment">/* UPK_DATA-&gt;MEMB = calloc(1, UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB) + 1);  * null terminate */</span> \
+<a name="l00119"></a>00119     memcpy(UPK_DATA-&gt;MEMB, UPK_BUF_PTR, UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB)); \
+<a name="l00120"></a>00120     UPK_BUF_PTR += UPK_DATA-&gt;UPK_MEMB_TO_LEN(MEMB)
+<a name="l00121"></a>00121 
+<a name="l00122"></a><a class="code" href="group__client__protocol.html#ga9213b489238b9cf7bc3bd2ddaa35fe36">00122</a> <span class="preprocessor">#define UPK_FETCH_DATA_TO_BUF(BUF, LEN) \</span>
+<a name="l00123"></a>00123 <span class="preprocessor">    BUF = calloc(1, UPK_DATA-&gt;LEN); \</span>
+<a name="l00124"></a>00124 <span class="preprocessor">    memcpy(BUF, UPK_BUF_PTR, UPK_DATA-&gt;LEN); \</span>
+<a name="l00125"></a>00125 <span class="preprocessor">    UPK_BUF_PTR += UPK_DATA-&gt;LEN</span>
+<a name="l00126"></a>00126 <span class="preprocessor"></span>
+<a name="l00127"></a><a class="code" href="group__client__protocol.html#gac4914d9faed2c3770345a00ab72c0cf2">00127</a> <span class="preprocessor">#define UPK_FETCH_DATA(MEMB) \</span>
+<a name="l00128"></a>00128 <span class="preprocessor">    UPK_FETCH_DATA_TO_BUF(UPK_DATA-&gt;MEMB, UPK_MEMB_TO_LEN(MEMB))</span>
+<a name="l00129"></a>00129 <span class="preprocessor"></span>
+<a name="l00130"></a><a class="code" href="group__client__protocol.html#ga9231bfac6be62483e2540c1af442c99a">00130</a> <span class="preprocessor">#define UPK_FETCH_ARRAY(MEMB, LEN) \</span>
+<a name="l00131"></a>00131 <span class="preprocessor">    memcpy(UPK_DATA-&gt;MEMB, UPK_BUF_PTR, LEN); \</span>
+<a name="l00132"></a>00132 <span class="preprocessor">    UPK_BUF_PTR += LEN</span>
 <a name="l00133"></a>00133 <span class="preprocessor"></span>
-<a name="l00134"></a><a class="code" href="group__client__protocol.html#ga7a90d2e9d331454aacb57d267c82123d">00134</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE_BUF(TYPE, LEN) \</span>
-<a name="l00135"></a>00135 <span class="preprocessor">    UPK_INIT_SERIALIZE(TYPE); \</span>
-<a name="l00136"></a>00136 <span class="preprocessor">    UPK_BUF = calloc(1, LEN); \</span>
-<a name="l00137"></a>00137 <span class="preprocessor">    UPK_BUF_PTR = UPK_BUF</span>
-<a name="l00138"></a>00138 <span class="preprocessor"></span>
-<a name="l00139"></a><a class="code" href="group__client__protocol.html#ga6cdbbc0c7eef16ceb644b444ea564718">00139</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE_MSG(TYPE) \</span>
-<a name="l00140"></a>00140 <span class="preprocessor">    UPK_INIT_SERIALIZE_BUF(TYPE, UPK_DATA_LEN); \</span>
-<a name="l00141"></a>00141 <span class="preprocessor">    UPK_PUT_ENUM(UPK_MSG_IDENTIFIER)</span>
-<a name="l00142"></a>00142 <span class="preprocessor"></span>
-<a name="l00143"></a><a class="code" href="group__client__protocol.html#gadeb5637679537c1ebcbb93b9916b181a">00143</a> <span class="preprocessor">#define UPK_PUT_UINT32(MEMB) \</span>
-<a name="l00144"></a>00144 <span class="preprocessor">    UPK_UINT32_BUFFER = htonl( (uint32_t) UPK_DATA-&gt;MEMB ); \</span>
-<a name="l00145"></a>00145 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT32_BUFFER, sizeof(UPK_UINT32_BUFFER)); \</span>
-<a name="l00146"></a>00146 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)</span>
-<a name="l00147"></a>00147 <span class="preprocessor"></span>
-<a name="l00148"></a><a class="code" href="group__client__protocol.html#gaa18f4562c8b2b2ec7083343ebed6cccb">00148</a> <span class="preprocessor">#define UPK_PUT_UINT16(MEMB) \</span>
-<a name="l00149"></a>00149 <span class="preprocessor">    UPK_UINT16_BUFFER = htons( (uint16_t) UPK_DATA-&gt;MEMB ); \</span>
-<a name="l00150"></a>00150 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT16_BUFFER, sizeof(UPK_UINT16_BUFFER)); \</span>
-<a name="l00151"></a>00151 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)</span>
-<a name="l00152"></a>00152 <span class="preprocessor"></span>
-<a name="l00153"></a><a class="code" href="group__client__protocol.html#ga7945932893c86b955cc693e89de831cc">00153</a> <span class="preprocessor">#define UPK_PUT_UINT8(MEMB) \</span>
-<a name="l00154"></a>00154 <span class="preprocessor">    UPK_UINT8_BUFFER = (uint8_t) UPK_DATA-&gt;MEMB; \</span>
-<a name="l00155"></a>00155 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \</span>
-<a name="l00156"></a>00156 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)</span>
-<a name="l00157"></a>00157 <span class="preprocessor"></span>
-<a name="l00158"></a><a class="code" href="group__client__protocol.html#ga707febaef37d003d7d32946b655aca3f">00158</a> <span class="preprocessor">#define UPK_PUT_BOOL(MEMB) \</span>
-<a name="l00159"></a>00159 <span class="preprocessor">    UPK_PUT_UINT8(MEMB)</span>
+<a name="l00134"></a><a class="code" href="group__client__protocol.html#ga4e839e8dfd0239f7b137a581c5a5d202">00134</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE(TYPE) \</span>
+<a name="l00135"></a>00135 <span class="preprocessor">    TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \</span>
+<a name="l00136"></a>00136 <span class="preprocessor">    upk_pkt_buf_t * UPK_BUF = NULL; \</span>
+<a name="l00137"></a>00137 <span class="preprocessor">    upk_pkt_buf_t * UPK_BUF_PTR = NULL; \</span>
+<a name="l00138"></a>00138 <span class="preprocessor">    uint32_t UPK_UINT32_BUFFER = 0; \</span>
+<a name="l00139"></a>00139 <span class="preprocessor">    uint16_t UPK_UINT16_BUFFER = 0; \</span>
+<a name="l00140"></a>00140 <span class="preprocessor">    uint8_t UPK_UINT8_BUFFER = 0; \</span>
+<a name="l00141"></a>00141 <span class="preprocessor">    size_t UPK_STRING_LENGTH = 0; \</span>
+<a name="l00142"></a>00142 <span class="preprocessor">    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \</span>
+<a name="l00143"></a>00143 <span class="preprocessor">    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \</span>
+<a name="l00144"></a>00144 <span class="preprocessor">    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0; \</span>
+<a name="l00145"></a>00145 <span class="preprocessor">    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0</span>
+<a name="l00146"></a>00146 <span class="preprocessor"></span>
+<a name="l00147"></a><a class="code" href="group__client__protocol.html#ga7a90d2e9d331454aacb57d267c82123d">00147</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE_BUF(TYPE, LEN) \</span>
+<a name="l00148"></a>00148 <span class="preprocessor">    UPK_INIT_SERIALIZE(TYPE); \</span>
+<a name="l00149"></a>00149 <span class="preprocessor">    UPK_BUF = calloc(1, LEN); \</span>
+<a name="l00150"></a>00150 <span class="preprocessor">    UPK_BUF_PTR = UPK_BUF</span>
+<a name="l00151"></a>00151 <span class="preprocessor"></span>
+<a name="l00152"></a><a class="code" href="group__client__protocol.html#ga6cdbbc0c7eef16ceb644b444ea564718">00152</a> <span class="preprocessor">#define UPK_INIT_SERIALIZE_MSG(TYPE) \</span>
+<a name="l00153"></a>00153 <span class="preprocessor">    UPK_INIT_SERIALIZE_BUF(TYPE, UPK_DATA_LEN); \</span>
+<a name="l00154"></a>00154 <span class="preprocessor">    UPK_PUT_ENUM(UPK_MSG_IDENTIFIER)</span>
+<a name="l00155"></a>00155 <span class="preprocessor"></span>
+<a name="l00156"></a><a class="code" href="group__client__protocol.html#gadeb5637679537c1ebcbb93b9916b181a">00156</a> <span class="preprocessor">#define UPK_PUT_UINT32(MEMB) \</span>
+<a name="l00157"></a>00157 <span class="preprocessor">    UPK_UINT32_BUFFER = htonl( (uint32_t) UPK_DATA-&gt;MEMB ); \</span>
+<a name="l00158"></a>00158 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT32_BUFFER, sizeof(UPK_UINT32_BUFFER)); \</span>
+<a name="l00159"></a>00159 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)</span>
 <a name="l00160"></a>00160 <span class="preprocessor"></span>
-<a name="l00161"></a><a class="code" href="group__client__protocol.html#gaea1c85c387bdd484b04bfd7ddc351f7b">00161</a> <span class="preprocessor">#define UPK_PUT_ENUM(MEMB) \</span>
-<a name="l00162"></a>00162 <span class="preprocessor">    UPK_PUT_UINT32(MEMB)</span>
-<a name="l00163"></a>00163 <span class="preprocessor"></span>
-<a name="l00164"></a><a class="code" href="group__client__protocol.html#ga2b02996dc2060bc5b1e4c1a4b3d091cd">00164</a> <span class="preprocessor">#define UPK_PUT_STRING(MEMB) \</span>
-<a name="l00165"></a>00165 <span class="preprocessor">    UPK_STRING_LENGTH = strnlen(UPK_DATA-&gt;MEMB, UPK_MAX_STRING_LEN); \</span>
-<a name="l00166"></a>00166 <span class="preprocessor">    memcpy(UPK_BUF_PTR, UPK_DATA-&gt;MEMB, strnlen(UPK_DATA-&gt;MEMB, UPK_STRING_LENGTH)); \</span>
-<a name="l00167"></a>00167 <span class="preprocessor">    UPK_BUF_PTR += UPK_STRING_LENGTH</span>
-<a name="l00168"></a>00168 <span class="preprocessor"></span>
-<a name="l00169"></a><a class="code" href="group__client__protocol.html#gafe30ab3562da3a63a90a2d43d9a6f474">00169</a> <span class="preprocessor">#define UPK_PUT_DATA_FROM_BUF(BUF, LEN) \</span>
-<a name="l00170"></a>00170 <span class="preprocessor">    memcpy(UPK_BUF_PTR, BUF, UPK_DATA-&gt;LEN); \</span>
-<a name="l00171"></a>00171 <span class="preprocessor">    UPK_BUF_PTR += UPK_DATA-&gt;LEN</span>
-<a name="l00172"></a>00172 <span class="preprocessor"></span>
-<a name="l00173"></a><a class="code" href="group__client__protocol.html#gae62777b9d53e266713ef68782d16c44a">00173</a> <span class="preprocessor">#define UPK_PUT_DATA(MEMB) \</span>
-<a name="l00174"></a>00174 <span class="preprocessor">    UPK_PUT_DATA_FROM_BUF(UPK_DATA-&gt;MEMB, UPK_MEMB_TO_LEN(MEMB))</span>
-<a name="l00175"></a>00175 <span class="preprocessor"></span>
-<a name="l00176"></a><a class="code" href="group__client__protocol.html#ga065d946f37c97e6e2a6602dca6b242f4">00176</a> <span class="preprocessor">#define UPK_PUT_ARRAY(MEMB, LEN) \</span>
-<a name="l00177"></a>00177 <span class="preprocessor">    memcpy(UPK_BUF_PTR, UPK_DATA-&gt;MEMB, LEN); \</span>
-<a name="l00178"></a>00178 <span class="preprocessor">    UPK_BUF_PTR += LEN</span>
-<a name="l00179"></a>00179 <span class="preprocessor"></span>
-<a name="l00180"></a>00180 <span class="preprocessor">#ifdef __NEVERDEFINED_NEED_FOR_AUTOSCAN_TO_SEE_FUNCS_USED_IN_ABOVE_MACROS</span>
-<a name="l00181"></a>00181 <span class="preprocessor"></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
-<a name="l00182"></a>00182 __never_compiled(<span class="keywordtype">void</span>)
-<a name="l00183"></a>00183 {
-<a name="l00184"></a>00184     <span class="keywordtype">void</span>                   *foo, *bar;
-<a name="l00185"></a>00185     int32_t                 baz = 1;
-<a name="l00186"></a>00186 
-<a name="l00187"></a>00187     foo = calloc(1, <span class="keyword">sizeof</span>(int32_t));
-<a name="l00188"></a>00188     bar = calloc(1, <span class="keyword">sizeof</span>(int32_t));
-<a name="l00189"></a>00189     memcpy(foo, bar, <span class="keyword">sizeof</span>(int32_t));
-<a name="l00190"></a>00190     baz = <a class="code" href="strnlen_8c.html#a0862027ba42b443d4ce8ff4a0d9b6459">strnlen</a>(<span class="stringliteral">&quot;foobar&quot;</span>, 64);
-<a name="l00191"></a>00191     baz = htonl(baz);
-<a name="l00192"></a>00192     baz = ntohl(baz);
-<a name="l00193"></a>00193     baz = (int32_t) htons((int16_t) baz);
-<a name="l00194"></a>00194     baz = (int32_t) ntohs((int16_t) baz);
-<a name="l00195"></a>00195 }
-<a name="l00196"></a>00196 <span class="preprocessor">#endif</span>
-<a name="l00197"></a>00197 <span class="preprocessor"></span>
-<a name="l00198"></a>00198 <span class="preprocessor">#include &quot;<a class="code" href="upk__std__include_8h.html">upk_std_include.h</a>&quot;</span>
-<a name="l00199"></a>00199 <span class="preprocessor">#include &quot;<a class="code" href="upk__v0__protocol__structs_8h.html">upk_v0_protocol_structs.h</a>&quot;</span>
-<a name="l00200"></a>00200 
-<a name="l00201"></a><a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">00201</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>;
-<a name="l00202"></a>00202 
-<a name="l00211"></a><a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126">00211</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
-<a name="l00212"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0">00212</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0">PKT_REQUEST</a> = 1,
-<a name="l00213"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">00213</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">PKT_REPLY</a>,
-<a name="l00214"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6">00214</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6">PKT_PUBMSG</a>,
-<a name="l00215"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb">00215</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb">PKT_V0_PROTO_LIMIT</a>,
-<a name="l00216"></a>00216 } <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a>;
-<a name="l00217"></a>00217 
-<a name="l00222"></a><a class="code" href="group__client__protocol.html#gab04f5fc5314f6296f0ef4b171d1b4282">00222</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="group__client__protocol.html#gab04f5fc5314f6296f0ef4b171d1b4282" title="message type.">_upk_msgtype</a> {
-<a name="l00223"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3">00223</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3">UPK_REQ_ORIGIN</a> = 1,                                    
-<a name="l00224"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f">00224</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f">UPK_REQ_PREAMBLE</a> = 1,                                  
-<a name="l00226"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c">00226</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c">UPK_REQ_SEQ_START</a>,                                     
-<a name="l00227"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b">00227</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b">UPK_REQ_SEQ_END</a>,                                       
-<a name="l00228"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">00228</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">UPK_REQ_ACTION</a>,                                        
-<a name="l00230"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">00230</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">UPK_REQ_SIGNAL</a>,                                        
-<a name="l00231"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc">00231</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc">UPK_REQ_LIST</a>,                                          
-<a name="l00233"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">00233</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">UPK_REQ_STATUS</a>,                                        
-<a name="l00235"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">00235</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">UPK_REQ_SUBSCRIBE</a>,                                     
-<a name="l00236"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">00236</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">UPK_REQ_UNSUBSCRIBE</a>,                                   
-<a name="l00237"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07">00237</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07">UPK_REQ_DISCONNECT</a>,                                    
-<a name="l00238"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444">00238</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444">UPK_REQ_V0_PROTO_LIMIT</a>,                                
-<a name="l00239"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30">00239</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30">UPK_REQ_LIMIT</a>,                                         
-<a name="l00240"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163">00240</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163">UPK_REPL_ORIGIN</a> = 4096,                                
-<a name="l00241"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4">00241</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4">UPK_REPL_PREAMBLE</a> = 4096,                              
-<a name="l00244"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d">00244</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d">UPK_REPL_SEQ_START</a>,                                    
-<a name="l00245"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2">00245</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2">UPK_REPL_SEQ_END</a>,                                      
-<a name="l00246"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">00246</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">UPK_REPL_RESULT</a>,                                       
-<a name="l00248"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">00248</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">UPK_REPL_LISTING</a>,                                      
-<a name="l00250"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">00250</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>,                                      
-<a name="l00251"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d">00251</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d">UPK_REPL_ACK</a>,                                          
-<a name="l00253"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">00253</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">UPK_REPL_ERROR</a>,                                        
-<a name="l00256"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524">00256</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524">UPK_REPL_V0_PROTO_LIMIT</a>,                               
-<a name="l00257"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e">00257</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e">UPK_REPL_LIMIT</a>,                                        
-<a name="l00258"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b">00258</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b">UPK_PUB_ORIGIN</a> = 8192,                                 
-<a name="l00259"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e">00259</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e">UPK_PUB_PUBLICATION</a> = 8192,                            
-<a name="l00261"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785">00261</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785">UPK_PUB_CANCELATION</a>,                                   
-<a name="l00264"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52">00264</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52">UPK_PUB_V0_PROTO_LIMIT</a>,                                
-<a name="l00265"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236">00265</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236">UPK_PUB_LIMIT</a>,                                         
-<a name="l00266"></a>00266 } <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>;
-<a name="l00267"></a>00267 
-<a name="l00268"></a><a class="code" href="group__client__protocol.html#ga0054661ac76c836ef32f6c19ac783492">00268</a> <span class="preprocessor">#define UPK_N_SUPPORTED_PROTOS (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)</span>
-<a name="l00269"></a><a class="code" href="group__client__protocol.html#ga772d0d3ccab3d25e2ef6869185c82bdb">00269</a> <span class="preprocessor"></span><span class="preprocessor">#define _UPK_N_PER_TYPE(A) (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - UPK_N_SUPPORTED_PROTOS)</span>
-<a name="l00270"></a><a class="code" href="group__client__protocol.html#ga11010acfb9cde9fd30b31d9dbabc3859">00270</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_REQ_TYPES _UPK_N_PER_TYPE(REQ)</span>
-<a name="l00271"></a><a class="code" href="group__client__protocol.html#ga39e6f45e037d18790fc450dfa197ff5f">00271</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_REPL_TYPES _UPK_N_PER_TYPE(REPL)</span>
-<a name="l00272"></a><a class="code" href="group__client__protocol.html#ga3b95948f33a532906897f998010c26c4">00272</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_PUB_TYPES _UPK_N_PER_TYPE(PUB)</span>
-<a name="l00273"></a>00273 <span class="preprocessor"></span>
-<a name="l00274"></a><a class="code" href="group__client__protocol.html#ga5f72d20e915db202fdc6b1cb07d60cc8">00274</a> <span class="preprocessor">#define _UPK_MSGTYPE_OFFSET(V,A,B) (V &lt; UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B </span>
-<a name="l00275"></a><a class="code" href="group__client__protocol.html#gad9b7e8c40ab66ea44d07826b155dc315">00275</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MSGTYPE_IDX(MSGTYPE) \</span>
-<a name="l00276"></a>00276 <span class="preprocessor">    ( _UPK_MSGTYPE_OFFSET(MSGTYPE,REQ,0) : _UPK_MSGTYPE_OFFSET(MSGTYPE,REPL,UPK_N_REQ_TYPES) : \</span>
-<a name="l00277"></a>00277 <span class="preprocessor">    _UPK_MSGTYPE_OFFSET(MSGTYPE,PUB,UPK_N_REQ_TYPES+UPK_N_REPL_TYPES) : -1 )</span>
-<a name="l00278"></a>00278 <span class="preprocessor"></span>
-<a name="l00283"></a><a class="code" href="structupk__packet__t.html">00283</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00284"></a><a class="code" href="structupk__packet__t.html#a4763ca6853e27fe3eb7e2b3ec45deeb5">00284</a>     uint32_t                payload_len;                   
-<a name="l00287"></a><a class="code" href="structupk__packet__t.html#a7af5bfe76852db8538b31fe06418c9d4">00287</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a7af5bfe76852db8538b31fe06418c9d4">version_id</a>;                    
-<a name="l00288"></a><a class="code" href="structupk__packet__t.html#a80fc00b3c474ce2364b738c0cc2eefa2">00288</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a80fc00b3c474ce2364b738c0cc2eefa2">seq_num</a>;                       
-<a name="l00289"></a><a class="code" href="structupk__packet__t.html#a90897befc1fe65ebb2c18748a5881d83">00289</a>     <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a>           <a class="code" href="structupk__packet__t.html#a90897befc1fe65ebb2c18748a5881d83">pkttype</a>;                       
-<a name="l00290"></a><a class="code" href="structupk__packet__t.html#aeae9f273821e5bb68fd6957cbde86a14">00290</a>     <span class="keywordtype">void</span>                   *<a class="code" href="structupk__packet__t.html#aeae9f273821e5bb68fd6957cbde86a14">payload</a>;                       
-<a name="l00291"></a><a class="code" href="structupk__packet__t.html#a440fa8d8947e7f5c17997d51f12d4cee">00291</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a440fa8d8947e7f5c17997d51f12d4cee">crc32</a>;
-<a name="l00292"></a>00292 } <a class="code" href="structupk__packet__t.html">upk_packet_t</a>;
-<a name="l00293"></a>00293 
-<a name="l00294"></a>00294 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00295"></a>00295 <span class="comment">   |----|----|&lt;client_name ...&gt;|</span>
-<a name="l00296"></a>00296 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00297"></a><a class="code" href="structupk__req__preamble__t.html">00297</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00298"></a><a class="code" href="structupk__req__preamble__t.html#a25327dc25130f88e919e2a728b3d26c5">00298</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__req__preamble__t.html#a25327dc25130f88e919e2a728b3d26c5">msgtype</a>;
-<a name="l00299"></a><a class="code" href="structupk__req__preamble__t.html#a47fb19db9df40e58c4ee3f7027edfdf6">00299</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#a47fb19db9df40e58c4ee3f7027edfdf6">min_supported_ver</a>;
-<a name="l00300"></a><a class="code" href="structupk__req__preamble__t.html#a229ac56dffaffc07213d4f63d1fc4540">00300</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#a229ac56dffaffc07213d4f63d1fc4540">max_supported_ver</a>;
-<a name="l00301"></a><a class="code" href="structupk__req__preamble__t.html#ab7c7470433e8489c766b23a63e4c08a5">00301</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#ab7c7470433e8489c766b23a63e4c08a5">client_name_len</a>;
-<a name="l00302"></a><a class="code" href="structupk__req__preamble__t.html#ae5e8a220f9d9beeba78c82a9b0a46ce1">00302</a>     <span class="keywordtype">char</span>                    client_name[<a class="code" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402" title="longest allowable string (other than paths).">UPK_MAX_STRING_LEN</a>];
-<a name="l00303"></a>00303 } <a class="code" href="structupk__req__preamble__t.html">upk_req_preamble_t</a>;
-<a name="l00304"></a>00304 
-<a name="l00305"></a>00305 
-<a name="l00306"></a>00306 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00307"></a>00307 <span class="comment">   |----|----|</span>
-<a name="l00308"></a>00308 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00309"></a><a class="code" href="structupk__repl__preamble__t.html">00309</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00310"></a><a class="code" href="structupk__repl__preamble__t.html#a0eaad3473178ed8d37b80a739a0db41b">00310</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__repl__preamble__t.html#a0eaad3473178ed8d37b80a739a0db41b">msgtype</a>;
-<a name="l00311"></a><a class="code" href="structupk__repl__preamble__t.html#acb127799abee95f15a59a0097b239658">00311</a>     uint32_t                <a class="code" href="structupk__repl__preamble__t.html#acb127799abee95f15a59a0097b239658">best_version</a>;
-<a name="l00312"></a>00312 } <a class="code" href="structupk__repl__preamble__t.html">upk_repl_preamble_t</a>;
-<a name="l00313"></a>00313 
-<a name="l00314"></a><a class="code" href="structupk__generic__msg__t.html">00314</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00315"></a><a class="code" href="structupk__generic__msg__t.html#af8898deba9f752f9f6b0281800a4b9c1">00315</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__generic__msg__t.html#af8898deba9f752f9f6b0281800a4b9c1">msgtype</a>;
-<a name="l00316"></a>00316 } <a class="code" href="structupk__generic__msg__t.html">upk_generic_msg_t</a>;
-<a name="l00317"></a>00317 
-<a name="l00318"></a>00318 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00319"></a>00319 <span class="comment">   fields defined in vN_protocol_structs.h; check them for info</span>
-<a name="l00320"></a>00320 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00321"></a><a class="code" href="structupk__req__seq__start__t.html">00321</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00322"></a><a class="code" href="structupk__req__seq__start__t.html#aaa301b5afff419786ec000e1c759b8af">00322</a>     <a class="code" href="structupk__req__seq__start__t.html#aaa301b5afff419786ec000e1c759b8af">UPK_V0_UPK_REQ_SEQ_START_T_FIELDS</a>;
-<a name="l00323"></a>00323 } <a class="code" href="structupk__req__seq__start__t.html">upk_req_seq_start_t</a>;
-<a name="l00324"></a>00324 
-<a name="l00325"></a><a class="code" href="structupk__req__seq__end__t.html">00325</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00326"></a><a class="code" href="structupk__req__seq__end__t.html#ad88003bbd45ae9b26798b9050675b8c4">00326</a>     <a class="code" href="structupk__req__seq__end__t.html#ad88003bbd45ae9b26798b9050675b8c4">UPK_V0_UPK_REQ_SEQ_END_T_FIELDS</a>;
-<a name="l00327"></a>00327 } <a class="code" href="structupk__req__seq__end__t.html">upk_req_seq_end_t</a>;
-<a name="l00328"></a>00328 
-<a name="l00329"></a><a class="code" href="structupk__req__action__t.html">00329</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00330"></a><a class="code" href="structupk__req__action__t.html#ade60e37e9de796558057acc11c27f5fa">00330</a>     <a class="code" href="structupk__req__action__t.html#ade60e37e9de796558057acc11c27f5fa">UPK_V0_REQ_ACTION_T_FIELDS</a>;
-<a name="l00331"></a>00331 } <a class="code" href="structupk__req__action__t.html">upk_req_action_t</a>;
-<a name="l00332"></a>00332 
-<a name="l00333"></a><a class="code" href="structupk__req__signal__t.html">00333</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00334"></a><a class="code" href="structupk__req__signal__t.html#ab7fb5ea2d5f44e08782fae707d7b516f">00334</a>     <a class="code" href="structupk__req__signal__t.html#ab7fb5ea2d5f44e08782fae707d7b516f">UPK_V0_REQ_SIGNAL_T_FIELDS</a>;
-<a name="l00335"></a>00335 } <a class="code" href="structupk__req__signal__t.html">upk_req_signal_t</a>;
-<a name="l00336"></a>00336 
-<a name="l00337"></a><a class="code" href="structupk__req__list__t.html">00337</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00338"></a><a class="code" href="structupk__req__list__t.html#ae9269a149b7751fe056f25e9164bd980">00338</a>     <a class="code" href="structupk__req__list__t.html#ae9269a149b7751fe056f25e9164bd980">UPK_V0_REQ_LIST_T_FIELDS</a>;
-<a name="l00339"></a>00339 } <a class="code" href="structupk__req__list__t.html">upk_req_list_t</a>;
-<a name="l00340"></a>00340 
-<a name="l00341"></a><a class="code" href="structupk__req__status__t.html">00341</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00342"></a><a class="code" href="structupk__req__status__t.html#a87e1da7d16a42b83b5c3b0478943f81d">00342</a>     <a class="code" href="structupk__req__status__t.html#a87e1da7d16a42b83b5c3b0478943f81d">UPK_V0_REQ_STATUS_T_FIELDS</a>;
-<a name="l00343"></a>00343 } <a class="code" href="structupk__req__status__t.html">upk_req_status_t</a>;
-<a name="l00344"></a>00344 
-<a name="l00345"></a><a class="code" href="structupk__req__subscribe__t.html">00345</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00346"></a><a class="code" href="structupk__req__subscribe__t.html#a750774bdb4b4f21e3229dc5ecf6ccadd">00346</a>     <a class="code" href="structupk__req__subscribe__t.html#a750774bdb4b4f21e3229dc5ecf6ccadd">UPK_V0_REQ_SUBSCR_T_FIELDS</a>;
-<a name="l00347"></a>00347 } <a class="code" href="structupk__req__subscribe__t.html">upk_req_subscribe_t</a>;
-<a name="l00348"></a>00348 
-<a name="l00349"></a><a class="code" href="structupk__req__unsubscribe__t.html">00349</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00350"></a><a class="code" href="structupk__req__unsubscribe__t.html#ada8e9bdec7dc31dabccca69f374e5573">00350</a>     <a class="code" href="structupk__req__unsubscribe__t.html#ada8e9bdec7dc31dabccca69f374e5573">UPK_V0_REQ_UNSUBS_T_FIELDS</a>;
-<a name="l00351"></a>00351 } <a class="code" href="structupk__req__unsubscribe__t.html">upk_req_unsubscribe_t</a>;
-<a name="l00352"></a>00352 
-<a name="l00353"></a><a class="code" href="structupk__req__disconnect__t.html">00353</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00354"></a><a class="code" href="structupk__req__disconnect__t.html#a56fedd39c75b4b84c287717fc9955085">00354</a>     <a class="code" href="structupk__req__disconnect__t.html#a56fedd39c75b4b84c287717fc9955085">UPK_V0_REQ_DISCON_T_FIELDS</a>;
-<a name="l00355"></a>00355 } <a class="code" href="structupk__req__disconnect__t.html">upk_req_disconnect_t</a>;
-<a name="l00356"></a>00356 
-<a name="l00357"></a><a class="code" href="structupk__repl__seq__start__t.html">00357</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00358"></a><a class="code" href="structupk__repl__seq__start__t.html#ab32c1fd5691f8e19d59626fca34b01e9">00358</a>     <a class="code" href="structupk__repl__seq__start__t.html#ab32c1fd5691f8e19d59626fca34b01e9">UPK_V0_UPK_REPL_SEQ_START_T_FIELDS</a>;
-<a name="l00359"></a>00359 } <a class="code" href="structupk__repl__seq__start__t.html">upk_repl_seq_start_t</a>;
-<a name="l00360"></a>00360 
-<a name="l00361"></a><a class="code" href="structupk__repl__seq__end__t.html">00361</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00362"></a><a class="code" href="structupk__repl__seq__end__t.html#a0c385e70e5f767f48e854d1e722561cd">00362</a>     <a class="code" href="structupk__repl__seq__end__t.html#a0c385e70e5f767f48e854d1e722561cd">UPK_V0_UPK_REPL_SEQ_END_T_FIELDS</a>;
-<a name="l00363"></a>00363 } <a class="code" href="structupk__repl__seq__end__t.html">upk_repl_seq_end_t</a>;
-<a name="l00364"></a>00364 
-<a name="l00365"></a><a class="code" href="structupk__repl__result__t.html">00365</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00366"></a><a class="code" href="structupk__repl__result__t.html#a01f0b780b7197ff655348942bcecf36e">00366</a>     <a class="code" href="structupk__repl__result__t.html#a01f0b780b7197ff655348942bcecf36e">UPK_V0_REPL_RESULT_T_FIELDS</a>;
-<a name="l00367"></a>00367 } <a class="code" href="structupk__repl__result__t.html">upk_repl_result_t</a>;
-<a name="l00368"></a>00368 
-<a name="l00369"></a><a class="code" href="structupk__repl__listing__t.html">00369</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00370"></a><a class="code" href="structupk__repl__listing__t.html#ad4640b0129723569038bf8ed05da0cd4">00370</a>     <a class="code" href="structupk__repl__listing__t.html#ad4640b0129723569038bf8ed05da0cd4">UPK_V0_REPL_LISTING_T_FIELDS</a>;
-<a name="l00371"></a>00371 } <a class="code" href="structupk__repl__listing__t.html">upk_repl_listing_t</a>;
-<a name="l00372"></a>00372 
-<a name="l00373"></a>00373 <span class="comment">/* Moved definition to types.h */</span>
-<a name="l00374"></a>00374 <span class="comment">/* typedef struct { UPK_V0_SVCINFO_T_FIELDS; } upk_svcinfo_t; */</span>
-<a name="l00375"></a>00375 
-<a name="l00376"></a>00376 <span class="comment">/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition while still referencing the correct, </span>
-<a name="l00377"></a>00377 <span class="comment">   version-agnostic, structure therein */</span>
-<a name="l00378"></a><a class="code" href="group__client__protocol.html#ga5eaabf9c7c85d9fb75104c8a7c77dcb1">00378</a> <span class="preprocessor">#define v0_svcinfo_t upk_svcinfo_t</span>
-<a name="l00379"></a><a class="code" href="structupk__repl__svcinfo__t.html">00379</a> <span class="preprocessor"></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00380"></a><a class="code" href="structupk__repl__svcinfo__t.html#a8bdbf253811aa5675a03517667e5af46">00380</a>     <a class="code" href="structupk__repl__svcinfo__t.html#a8bdbf253811aa5675a03517667e5af46">UPK_V0_REPL_SVCINFO_T_FIELDS</a>;
-<a name="l00381"></a>00381 } <a class="code" href="structupk__repl__svcinfo__t.html">upk_repl_svcinfo_t</a>;
+<a name="l00161"></a><a class="code" href="group__client__protocol.html#gaa18f4562c8b2b2ec7083343ebed6cccb">00161</a> <span class="preprocessor">#define UPK_PUT_UINT16(MEMB) \</span>
+<a name="l00162"></a>00162 <span class="preprocessor">    UPK_UINT16_BUFFER = htons( (uint16_t) UPK_DATA-&gt;MEMB ); \</span>
+<a name="l00163"></a>00163 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT16_BUFFER, sizeof(UPK_UINT16_BUFFER)); \</span>
+<a name="l00164"></a>00164 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)</span>
+<a name="l00165"></a>00165 <span class="preprocessor"></span>
+<a name="l00166"></a><a class="code" href="group__client__protocol.html#ga7945932893c86b955cc693e89de831cc">00166</a> <span class="preprocessor">#define UPK_PUT_UINT8(MEMB) \</span>
+<a name="l00167"></a>00167 <span class="preprocessor">    UPK_UINT8_BUFFER = (uint8_t) UPK_DATA-&gt;MEMB; \</span>
+<a name="l00168"></a>00168 <span class="preprocessor">    memcpy(UPK_BUF_PTR, &amp;UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \</span>
+<a name="l00169"></a>00169 <span class="preprocessor">    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)</span>
+<a name="l00170"></a>00170 <span class="preprocessor"></span>
+<a name="l00171"></a><a class="code" href="group__client__protocol.html#ga707febaef37d003d7d32946b655aca3f">00171</a> <span class="preprocessor">#define UPK_PUT_BOOL(MEMB) \</span>
+<a name="l00172"></a>00172 <span class="preprocessor">    UPK_PUT_UINT8(MEMB)</span>
+<a name="l00173"></a>00173 <span class="preprocessor"></span>
+<a name="l00174"></a><a class="code" href="group__client__protocol.html#gaea1c85c387bdd484b04bfd7ddc351f7b">00174</a> <span class="preprocessor">#define UPK_PUT_ENUM(MEMB) \</span>
+<a name="l00175"></a>00175 <span class="preprocessor">    UPK_PUT_UINT32(MEMB)</span>
+<a name="l00176"></a>00176 <span class="preprocessor"></span>
+<a name="l00177"></a><a class="code" href="group__client__protocol.html#ga2b02996dc2060bc5b1e4c1a4b3d091cd">00177</a> <span class="preprocessor">#define UPK_PUT_STRING(MEMB) \</span>
+<a name="l00178"></a>00178 <span class="preprocessor">    UPK_STRING_LENGTH = strnlen(UPK_DATA-&gt;MEMB, UPK_MAX_STRING_LEN); \</span>
+<a name="l00179"></a>00179 <span class="preprocessor">    memcpy(UPK_BUF_PTR, UPK_DATA-&gt;MEMB, strnlen(UPK_DATA-&gt;MEMB, UPK_STRING_LENGTH)); \</span>
+<a name="l00180"></a>00180 <span class="preprocessor">    UPK_BUF_PTR += UPK_STRING_LENGTH</span>
+<a name="l00181"></a>00181 <span class="preprocessor"></span>
+<a name="l00182"></a><a class="code" href="group__client__protocol.html#gafe30ab3562da3a63a90a2d43d9a6f474">00182</a> <span class="preprocessor">#define UPK_PUT_DATA_FROM_BUF(BUF, LEN) \</span>
+<a name="l00183"></a>00183 <span class="preprocessor">    memcpy(UPK_BUF_PTR, BUF, UPK_DATA-&gt;LEN); \</span>
+<a name="l00184"></a>00184 <span class="preprocessor">    UPK_BUF_PTR += UPK_DATA-&gt;LEN</span>
+<a name="l00185"></a>00185 <span class="preprocessor"></span>
+<a name="l00186"></a><a class="code" href="group__client__protocol.html#gae62777b9d53e266713ef68782d16c44a">00186</a> <span class="preprocessor">#define UPK_PUT_DATA(MEMB) \</span>
+<a name="l00187"></a>00187 <span class="preprocessor">    UPK_PUT_DATA_FROM_BUF(UPK_DATA-&gt;MEMB, UPK_MEMB_TO_LEN(MEMB))</span>
+<a name="l00188"></a>00188 <span class="preprocessor"></span>
+<a name="l00189"></a><a class="code" href="group__client__protocol.html#ga065d946f37c97e6e2a6602dca6b242f4">00189</a> <span class="preprocessor">#define UPK_PUT_ARRAY(MEMB, LEN) \</span>
+<a name="l00190"></a>00190 <span class="preprocessor">    memcpy(UPK_BUF_PTR, UPK_DATA-&gt;MEMB, LEN); \</span>
+<a name="l00191"></a>00191 <span class="preprocessor">    UPK_BUF_PTR += LEN</span>
+<a name="l00192"></a>00192 <span class="preprocessor"></span>
+<a name="l00193"></a>00193 <span class="preprocessor">#ifdef __NEVERDEFINED_NEED_FOR_AUTOSCAN_TO_SEE_FUNCS_USED_IN_ABOVE_MACROS</span>
+<a name="l00194"></a>00194 <span class="preprocessor"></span><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keywordtype">void</span>
+<a name="l00195"></a>00195 __never_compiled(<span class="keywordtype">void</span>)
+<a name="l00196"></a>00196 {
+<a name="l00197"></a>00197     <span class="keywordtype">void</span>                   *foo, *bar;
+<a name="l00198"></a>00198     int32_t                 baz = 1;
+<a name="l00199"></a>00199 
+<a name="l00200"></a>00200     foo = calloc(1, <span class="keyword">sizeof</span>(int32_t));
+<a name="l00201"></a>00201     bar = calloc(1, <span class="keyword">sizeof</span>(int32_t));
+<a name="l00202"></a>00202     memcpy(foo, bar, <span class="keyword">sizeof</span>(int32_t));
+<a name="l00203"></a>00203     baz = <a class="code" href="upk__compat_8c.html#a46f2e73d24c7ab8289f978f80647478c">strnlen</a>(<span class="stringliteral">&quot;foobar&quot;</span>, 64);
+<a name="l00204"></a>00204     baz = htonl(baz);
+<a name="l00205"></a>00205     baz = ntohl(baz);
+<a name="l00206"></a>00206     baz = (int32_t) htons((int16_t) baz);
+<a name="l00207"></a>00207     baz = (int32_t) ntohs((int16_t) baz);
+<a name="l00208"></a>00208 }
+<a name="l00209"></a>00209 <span class="preprocessor">#endif</span>
+<a name="l00210"></a>00210 <span class="preprocessor"></span>
+<a name="l00211"></a>00211 <span class="preprocessor">#include &quot;<a class="code" href="upk__std__include_8h.html">upk_std_include.h</a>&quot;</span>
+<a name="l00212"></a>00212 <span class="preprocessor">#include &quot;<a class="code" href="upk__v0__protocol__structs_8h.html">upk_v0_protocol_structs.h</a>&quot;</span>
+<a name="l00213"></a>00213 
+<a name="l00214"></a><a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">00214</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>   <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>;
+<a name="l00215"></a>00215 
+<a name="l00224"></a><a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126">00224</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> {
+<a name="l00225"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0">00225</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0">PKT_REQUEST</a> = 1,
+<a name="l00226"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">00226</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">PKT_REPLY</a>,
+<a name="l00227"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6">00227</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6">PKT_PUBMSG</a>,
+<a name="l00228"></a><a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb">00228</a>     <a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb">PKT_V0_PROTO_LIMIT</a>,
+<a name="l00229"></a>00229 } <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a>;
+<a name="l00230"></a>00230 
+<a name="l00235"></a><a class="code" href="group__client__protocol.html#gab04f5fc5314f6296f0ef4b171d1b4282">00235</a> <span class="keyword">typedef</span> <span class="keyword">enum</span> <a class="code" href="group__client__protocol.html#gab04f5fc5314f6296f0ef4b171d1b4282" title="message type.">_upk_msgtype</a> {
+<a name="l00236"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3">00236</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3">UPK_REQ_ORIGIN</a> = 1,                                    
+<a name="l00237"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f">00237</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f">UPK_REQ_PREAMBLE</a> = 1,                                  
+<a name="l00239"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c">00239</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c">UPK_REQ_SEQ_START</a>,                                     
+<a name="l00240"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b">00240</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b">UPK_REQ_SEQ_END</a>,                                       
+<a name="l00241"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">00241</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">UPK_REQ_ACTION</a>,                                        
+<a name="l00243"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">00243</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">UPK_REQ_SIGNAL</a>,                                        
+<a name="l00244"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc">00244</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc">UPK_REQ_LIST</a>,                                          
+<a name="l00246"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">00246</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">UPK_REQ_STATUS</a>,                                        
+<a name="l00248"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">00248</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">UPK_REQ_SUBSCRIBE</a>,                                     
+<a name="l00249"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">00249</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">UPK_REQ_UNSUBSCRIBE</a>,                                   
+<a name="l00250"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07">00250</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07">UPK_REQ_DISCONNECT</a>,                                    
+<a name="l00252"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444">00252</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444">UPK_REQ_V0_PROTO_LIMIT</a>,                                
+<a name="l00253"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30">00253</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30">UPK_REQ_LIMIT</a>,                                         
+<a name="l00254"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163">00254</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163">UPK_REPL_ORIGIN</a> = 4096,                                
+<a name="l00255"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4">00255</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4">UPK_REPL_PREAMBLE</a> = 4096,                              
+<a name="l00258"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d">00258</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d">UPK_REPL_SEQ_START</a>,                                    
+<a name="l00259"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2">00259</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2">UPK_REPL_SEQ_END</a>,                                      
+<a name="l00260"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">00260</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">UPK_REPL_RESULT</a>,                                       
+<a name="l00263"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">00263</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">UPK_REPL_LISTING</a>,                                      
+<a name="l00265"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">00265</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>,                                      
+<a name="l00266"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d">00266</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d">UPK_REPL_ACK</a>,                                          
+<a name="l00268"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">00268</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">UPK_REPL_ERROR</a>,                                        
+<a name="l00271"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524">00271</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524">UPK_REPL_V0_PROTO_LIMIT</a>,                               
+<a name="l00272"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e">00272</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e">UPK_REPL_LIMIT</a>,                                        
+<a name="l00273"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b">00273</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b">UPK_PUB_ORIGIN</a> = 8192,                                 
+<a name="l00274"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e">00274</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e">UPK_PUB_PUBLICATION</a> = 8192,                            
+<a name="l00277"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785">00277</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785">UPK_PUB_CANCELATION</a>,                                   
+<a name="l00280"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52">00280</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52">UPK_PUB_V0_PROTO_LIMIT</a>,                                
+<a name="l00282"></a><a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236">00282</a>     <a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236">UPK_PUB_LIMIT</a>,                                         
+<a name="l00283"></a>00283 } <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>;
+<a name="l00284"></a>00284 
+<a name="l00285"></a><a class="code" href="group__client__protocol.html#ga0054661ac76c836ef32f6c19ac783492">00285</a> <span class="preprocessor">#define UPK_N_SUPPORTED_PROTOS (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)</span>
+<a name="l00286"></a><a class="code" href="group__client__protocol.html#ga772d0d3ccab3d25e2ef6869185c82bdb">00286</a> <span class="preprocessor"></span><span class="preprocessor">#define _UPK_N_PER_TYPE(A) (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - UPK_N_SUPPORTED_PROTOS)</span>
+<a name="l00287"></a><a class="code" href="group__client__protocol.html#ga11010acfb9cde9fd30b31d9dbabc3859">00287</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_REQ_TYPES _UPK_N_PER_TYPE(REQ)</span>
+<a name="l00288"></a><a class="code" href="group__client__protocol.html#ga39e6f45e037d18790fc450dfa197ff5f">00288</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_REPL_TYPES _UPK_N_PER_TYPE(REPL)</span>
+<a name="l00289"></a><a class="code" href="group__client__protocol.html#ga3b95948f33a532906897f998010c26c4">00289</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_N_PUB_TYPES _UPK_N_PER_TYPE(PUB)</span>
+<a name="l00290"></a>00290 <span class="preprocessor"></span>
+<a name="l00291"></a><a class="code" href="group__client__protocol.html#ga5f72d20e915db202fdc6b1cb07d60cc8">00291</a> <span class="preprocessor">#define _UPK_MSGTYPE_OFFSET(V,A,B) (V &lt; UPK_##A##_LIMIT) ? (V - UPK_##A##_ORIGIN) + B</span>
+<a name="l00292"></a><a class="code" href="group__client__protocol.html#gad9b7e8c40ab66ea44d07826b155dc315">00292</a> <span class="preprocessor"></span><span class="preprocessor">#define UPK_MSGTYPE_IDX(MSGTYPE) \</span>
+<a name="l00293"></a>00293 <span class="preprocessor">    ( _UPK_MSGTYPE_OFFSET(MSGTYPE,REQ,0) : _UPK_MSGTYPE_OFFSET(MSGTYPE,REPL,UPK_N_REQ_TYPES) : \</span>
+<a name="l00294"></a>00294 <span class="preprocessor">    _UPK_MSGTYPE_OFFSET(MSGTYPE,PUB,UPK_N_REQ_TYPES+UPK_N_REPL_TYPES) : -1 )</span>
+<a name="l00295"></a>00295 <span class="preprocessor"></span>
+<a name="l00300"></a><a class="code" href="structupk__packet__t.html">00300</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00301"></a><a class="code" href="structupk__packet__t.html#a4763ca6853e27fe3eb7e2b3ec45deeb5">00301</a>     uint32_t                payload_len;                   
+<a name="l00304"></a><a class="code" href="structupk__packet__t.html#a7af5bfe76852db8538b31fe06418c9d4">00304</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a7af5bfe76852db8538b31fe06418c9d4">version_id</a>;                    
+<a name="l00305"></a><a class="code" href="structupk__packet__t.html#a80fc00b3c474ce2364b738c0cc2eefa2">00305</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a80fc00b3c474ce2364b738c0cc2eefa2">seq_num</a>;                       
+<a name="l00306"></a><a class="code" href="structupk__packet__t.html#a90897befc1fe65ebb2c18748a5881d83">00306</a>     <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a>           pkttype;                       
+<a name="l00308"></a><a class="code" href="structupk__packet__t.html#aeae9f273821e5bb68fd6957cbde86a14">00308</a>     <span class="keywordtype">void</span>                   *<a class="code" href="structupk__packet__t.html#aeae9f273821e5bb68fd6957cbde86a14">payload</a>;                       
+<a name="l00309"></a><a class="code" href="structupk__packet__t.html#a440fa8d8947e7f5c17997d51f12d4cee">00309</a>     uint32_t                <a class="code" href="structupk__packet__t.html#a440fa8d8947e7f5c17997d51f12d4cee">crc32</a>;
+<a name="l00310"></a>00310 } <a class="code" href="structupk__packet__t.html">upk_packet_t</a>;
+<a name="l00311"></a>00311 
+<a name="l00312"></a>00312 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00313"></a>00313 <span class="comment">   |----|----|&lt;client_name ...&gt;|</span>
+<a name="l00314"></a>00314 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00315"></a><a class="code" href="structupk__req__preamble__t.html">00315</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00316"></a><a class="code" href="structupk__req__preamble__t.html#a25327dc25130f88e919e2a728b3d26c5">00316</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__req__preamble__t.html#a25327dc25130f88e919e2a728b3d26c5">msgtype</a>;
+<a name="l00317"></a><a class="code" href="structupk__req__preamble__t.html#a47fb19db9df40e58c4ee3f7027edfdf6">00317</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#a47fb19db9df40e58c4ee3f7027edfdf6">min_supported_ver</a>;
+<a name="l00318"></a><a class="code" href="structupk__req__preamble__t.html#a229ac56dffaffc07213d4f63d1fc4540">00318</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#a229ac56dffaffc07213d4f63d1fc4540">max_supported_ver</a>;
+<a name="l00319"></a><a class="code" href="structupk__req__preamble__t.html#ab7c7470433e8489c766b23a63e4c08a5">00319</a>     uint32_t                <a class="code" href="structupk__req__preamble__t.html#ab7c7470433e8489c766b23a63e4c08a5">client_name_len</a>;
+<a name="l00320"></a><a class="code" href="structupk__req__preamble__t.html#ae5e8a220f9d9beeba78c82a9b0a46ce1">00320</a>     <span class="keywordtype">char</span>                    client_name[<a class="code" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402" title="longest allowable string (other than paths).">UPK_MAX_STRING_LEN</a>];
+<a name="l00321"></a>00321 } <a class="code" href="structupk__req__preamble__t.html">upk_req_preamble_t</a>;
+<a name="l00322"></a>00322 
+<a name="l00323"></a>00323 
+<a name="l00324"></a>00324 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00325"></a>00325 <span class="comment">   |----|----|</span>
+<a name="l00326"></a>00326 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00327"></a><a class="code" href="structupk__repl__preamble__t.html">00327</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00328"></a><a class="code" href="structupk__repl__preamble__t.html#a0eaad3473178ed8d37b80a739a0db41b">00328</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__repl__preamble__t.html#a0eaad3473178ed8d37b80a739a0db41b">msgtype</a>;
+<a name="l00329"></a><a class="code" href="structupk__repl__preamble__t.html#acb127799abee95f15a59a0097b239658">00329</a>     uint32_t                <a class="code" href="structupk__repl__preamble__t.html#acb127799abee95f15a59a0097b239658">best_version</a>;
+<a name="l00330"></a>00330 } <a class="code" href="structupk__repl__preamble__t.html">upk_repl_preamble_t</a>;
+<a name="l00331"></a>00331 
+<a name="l00332"></a><a class="code" href="structupk__generic__msg__t.html">00332</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00333"></a><a class="code" href="structupk__generic__msg__t.html#af8898deba9f752f9f6b0281800a4b9c1">00333</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="structupk__generic__msg__t.html#af8898deba9f752f9f6b0281800a4b9c1">msgtype</a>;
+<a name="l00334"></a>00334 } <a class="code" href="structupk__generic__msg__t.html">upk_generic_msg_t</a>;
+<a name="l00335"></a>00335 
+<a name="l00336"></a>00336 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00337"></a>00337 <span class="comment">   fields defined in vN_protocol_structs.h; check them for info</span>
+<a name="l00338"></a>00338 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00339"></a><a class="code" href="structupk__req__seq__start__t.html">00339</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00340"></a><a class="code" href="structupk__req__seq__start__t.html#aaa301b5afff419786ec000e1c759b8af">00340</a>     <a class="code" href="structupk__req__seq__start__t.html#aaa301b5afff419786ec000e1c759b8af">UPK_V0_UPK_REQ_SEQ_START_T_FIELDS</a>;
+<a name="l00341"></a>00341 } <a class="code" href="structupk__req__seq__start__t.html">upk_req_seq_start_t</a>;
+<a name="l00342"></a>00342 
+<a name="l00343"></a><a class="code" href="structupk__req__seq__end__t.html">00343</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00344"></a><a class="code" href="structupk__req__seq__end__t.html#ad88003bbd45ae9b26798b9050675b8c4">00344</a>     <a class="code" href="structupk__req__seq__end__t.html#ad88003bbd45ae9b26798b9050675b8c4">UPK_V0_UPK_REQ_SEQ_END_T_FIELDS</a>;
+<a name="l00345"></a>00345 } <a class="code" href="structupk__req__seq__end__t.html">upk_req_seq_end_t</a>;
+<a name="l00346"></a>00346 
+<a name="l00347"></a><a class="code" href="structupk__req__action__t.html">00347</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00348"></a><a class="code" href="structupk__req__action__t.html#ade60e37e9de796558057acc11c27f5fa">00348</a>     <a class="code" href="structupk__req__action__t.html#ade60e37e9de796558057acc11c27f5fa">UPK_V0_REQ_ACTION_T_FIELDS</a>;
+<a name="l00349"></a>00349 } <a class="code" href="structupk__req__action__t.html">upk_req_action_t</a>;
+<a name="l00350"></a>00350 
+<a name="l00351"></a><a class="code" href="structupk__req__signal__t.html">00351</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00352"></a><a class="code" href="structupk__req__signal__t.html#ab7fb5ea2d5f44e08782fae707d7b516f">00352</a>     <a class="code" href="structupk__req__signal__t.html#ab7fb5ea2d5f44e08782fae707d7b516f">UPK_V0_REQ_SIGNAL_T_FIELDS</a>;
+<a name="l00353"></a>00353 } <a class="code" href="structupk__req__signal__t.html">upk_req_signal_t</a>;
+<a name="l00354"></a>00354 
+<a name="l00355"></a><a class="code" href="structupk__req__list__t.html">00355</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00356"></a><a class="code" href="structupk__req__list__t.html#ae9269a149b7751fe056f25e9164bd980">00356</a>     <a class="code" href="structupk__req__list__t.html#ae9269a149b7751fe056f25e9164bd980">UPK_V0_REQ_LIST_T_FIELDS</a>;
+<a name="l00357"></a>00357 } <a class="code" href="structupk__req__list__t.html">upk_req_list_t</a>;
+<a name="l00358"></a>00358 
+<a name="l00359"></a><a class="code" href="structupk__req__status__t.html">00359</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00360"></a><a class="code" href="structupk__req__status__t.html#a87e1da7d16a42b83b5c3b0478943f81d">00360</a>     <a class="code" href="structupk__req__status__t.html#a87e1da7d16a42b83b5c3b0478943f81d">UPK_V0_REQ_STATUS_T_FIELDS</a>;
+<a name="l00361"></a>00361 } <a class="code" href="structupk__req__status__t.html">upk_req_status_t</a>;
+<a name="l00362"></a>00362 
+<a name="l00363"></a><a class="code" href="structupk__req__subscribe__t.html">00363</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00364"></a><a class="code" href="structupk__req__subscribe__t.html#a750774bdb4b4f21e3229dc5ecf6ccadd">00364</a>     <a class="code" href="structupk__req__subscribe__t.html#a750774bdb4b4f21e3229dc5ecf6ccadd">UPK_V0_REQ_SUBSCR_T_FIELDS</a>;
+<a name="l00365"></a>00365 } <a class="code" href="structupk__req__subscribe__t.html">upk_req_subscribe_t</a>;
+<a name="l00366"></a>00366 
+<a name="l00367"></a><a class="code" href="structupk__req__unsubscribe__t.html">00367</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00368"></a><a class="code" href="structupk__req__unsubscribe__t.html#ada8e9bdec7dc31dabccca69f374e5573">00368</a>     <a class="code" href="structupk__req__unsubscribe__t.html#ada8e9bdec7dc31dabccca69f374e5573">UPK_V0_REQ_UNSUBS_T_FIELDS</a>;
+<a name="l00369"></a>00369 } <a class="code" href="structupk__req__unsubscribe__t.html">upk_req_unsubscribe_t</a>;
+<a name="l00370"></a>00370 
+<a name="l00371"></a><a class="code" href="structupk__req__disconnect__t.html">00371</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00372"></a><a class="code" href="structupk__req__disconnect__t.html#a56fedd39c75b4b84c287717fc9955085">00372</a>     <a class="code" href="structupk__req__disconnect__t.html#a56fedd39c75b4b84c287717fc9955085">UPK_V0_REQ_DISCON_T_FIELDS</a>;
+<a name="l00373"></a>00373 } <a class="code" href="structupk__req__disconnect__t.html">upk_req_disconnect_t</a>;
+<a name="l00374"></a>00374 
+<a name="l00375"></a><a class="code" href="structupk__repl__seq__start__t.html">00375</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00376"></a><a class="code" href="structupk__repl__seq__start__t.html#ab32c1fd5691f8e19d59626fca34b01e9">00376</a>     <a class="code" href="structupk__repl__seq__start__t.html#ab32c1fd5691f8e19d59626fca34b01e9">UPK_V0_UPK_REPL_SEQ_START_T_FIELDS</a>;
+<a name="l00377"></a>00377 } <a class="code" href="structupk__repl__seq__start__t.html">upk_repl_seq_start_t</a>;
+<a name="l00378"></a>00378 
+<a name="l00379"></a><a class="code" href="structupk__repl__seq__end__t.html">00379</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00380"></a><a class="code" href="structupk__repl__seq__end__t.html#a0c385e70e5f767f48e854d1e722561cd">00380</a>     <a class="code" href="structupk__repl__seq__end__t.html#a0c385e70e5f767f48e854d1e722561cd">UPK_V0_UPK_REPL_SEQ_END_T_FIELDS</a>;
+<a name="l00381"></a>00381 } <a class="code" href="structupk__repl__seq__end__t.html">upk_repl_seq_end_t</a>;
 <a name="l00382"></a>00382 
-<a name="l00383"></a>00383 <span class="preprocessor">#undef v0_svcinfo_t</span>
-<a name="l00384"></a>00384 <span class="preprocessor"></span>
-<a name="l00385"></a><a class="code" href="structupk__repl__ack__t.html">00385</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00386"></a><a class="code" href="structupk__repl__ack__t.html#a53ee389198f457d645700611ac4eb61e">00386</a>     <a class="code" href="structupk__repl__ack__t.html#a53ee389198f457d645700611ac4eb61e">UPK_V0_REPL_ACK_T_FIELDS</a>;
-<a name="l00387"></a>00387 } <a class="code" href="structupk__repl__ack__t.html">upk_repl_ack_t</a>;
-<a name="l00388"></a>00388 
-<a name="l00389"></a><a class="code" href="structupk__repl__error__t.html">00389</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00390"></a><a class="code" href="structupk__repl__error__t.html#afa660d3d6dbc44ccac6524cda82bf08d">00390</a>     <a class="code" href="structupk__repl__error__t.html#afa660d3d6dbc44ccac6524cda82bf08d">UPK_V0_REPL_ERROR_T_FIELDS</a>;
-<a name="l00391"></a>00391 } <a class="code" href="structupk__repl__error__t.html">upk_repl_error_t</a>;
-<a name="l00392"></a>00392 
-<a name="l00393"></a><a class="code" href="structupk__pub__publication__t.html">00393</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00394"></a><a class="code" href="structupk__pub__publication__t.html#ae9bc317f7b9728751b7f71e84c9ee9cc">00394</a>     <a class="code" href="structupk__pub__publication__t.html#ae9bc317f7b9728751b7f71e84c9ee9cc">UPK_V0_PUBLICATION_T_FIELDS</a>;
-<a name="l00395"></a>00395 } <a class="code" href="structupk__pub__publication__t.html">upk_pub_publication_t</a>;
-<a name="l00396"></a>00396 
-<a name="l00397"></a><a class="code" href="structupk__pub__cancelation__t.html">00397</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
-<a name="l00398"></a><a class="code" href="structupk__pub__cancelation__t.html#a6457691e1fbba6c131ff6f02f9dd3ff2">00398</a>     <a class="code" href="structupk__pub__cancelation__t.html#a6457691e1fbba6c131ff6f02f9dd3ff2">UPK_V0_CANCELATION_T_FIELDS</a>;
-<a name="l00399"></a>00399 } <a class="code" href="structupk__pub__cancelation__t.html">upk_pub_cancelation_t</a>;
+<a name="l00383"></a><a class="code" href="structupk__repl__result__t.html">00383</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00384"></a><a class="code" href="structupk__repl__result__t.html#a01f0b780b7197ff655348942bcecf36e">00384</a>     <a class="code" href="structupk__repl__result__t.html#a01f0b780b7197ff655348942bcecf36e">UPK_V0_REPL_RESULT_T_FIELDS</a>;
+<a name="l00385"></a>00385 } <a class="code" href="structupk__repl__result__t.html">upk_repl_result_t</a>;
+<a name="l00386"></a>00386 
+<a name="l00387"></a><a class="code" href="structupk__repl__listing__t.html">00387</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00388"></a><a class="code" href="structupk__repl__listing__t.html#ad4640b0129723569038bf8ed05da0cd4">00388</a>     <a class="code" href="structupk__repl__listing__t.html#ad4640b0129723569038bf8ed05da0cd4">UPK_V0_REPL_LISTING_T_FIELDS</a>;
+<a name="l00389"></a>00389 } <a class="code" href="structupk__repl__listing__t.html">upk_repl_listing_t</a>;
+<a name="l00390"></a>00390 
+<a name="l00391"></a>00391 <span class="comment">/* Moved definition to types.h */</span>
+<a name="l00392"></a>00392 <span class="comment">/* typedef struct { UPK_V0_SVCINFO_T_FIELDS; } upk_svcinfo_t; */</span>
+<a name="l00393"></a>00393 
+<a name="l00394"></a>00394 <span class="comment">/* redefine v0_svcinfo_t with upk_svcinfo_t so we can borrow the struct definition while still referencing</span>
+<a name="l00395"></a>00395 <span class="comment">   the correct, version-agnostic, structure therein */</span>
+<a name="l00396"></a><a class="code" href="group__client__protocol.html#ga5eaabf9c7c85d9fb75104c8a7c77dcb1">00396</a> <span class="preprocessor">#define v0_svcinfo_t upk_svcinfo_t</span>
+<a name="l00397"></a><a class="code" href="structupk__repl__svcinfo__t.html">00397</a> <span class="preprocessor"></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00398"></a><a class="code" href="structupk__repl__svcinfo__t.html#a8bdbf253811aa5675a03517667e5af46">00398</a>     <a class="code" href="structupk__repl__svcinfo__t.html#a8bdbf253811aa5675a03517667e5af46">UPK_V0_REPL_SVCINFO_T_FIELDS</a>;
+<a name="l00399"></a>00399 } <a class="code" href="structupk__repl__svcinfo__t.html">upk_repl_svcinfo_t</a>;
 <a name="l00400"></a>00400 
-<a name="l00401"></a><a class="code" href="union__upk__payload__types.html">00401</a> <span class="keyword">typedef</span> <span class="keyword">union </span><a class="code" href="union__upk__payload__types.html">_upk_payload_types</a> {
-<a name="l00402"></a><a class="code" href="union__upk__payload__types.html#a238d495cdbd50f355dd2222ef55f3dcb">00402</a>     <a class="code" href="structupk__req__preamble__t.html">upk_req_preamble_t</a>      <a class="code" href="union__upk__payload__types.html#a238d495cdbd50f355dd2222ef55f3dcb">req_preamble</a>;
-<a name="l00403"></a><a class="code" href="union__upk__payload__types.html#a319993760ad216611e39b6b6178c0f6d">00403</a>     <a class="code" href="structupk__repl__preamble__t.html">upk_repl_preamble_t</a>     <a class="code" href="union__upk__payload__types.html#a319993760ad216611e39b6b6178c0f6d">repl_preamble</a>;
-<a name="l00404"></a><a class="code" href="union__upk__payload__types.html#a4a8a58315cbdb8336bd2547767ac6be9">00404</a>     <a class="code" href="structupk__req__seq__start__t.html">upk_req_seq_start_t</a>     <a class="code" href="union__upk__payload__types.html#a4a8a58315cbdb8336bd2547767ac6be9">req_seq_start</a>;
-<a name="l00405"></a><a class="code" href="union__upk__payload__types.html#ad7515dab1367ab23b347bbd210d4ce41">00405</a>     <a class="code" href="structupk__req__seq__end__t.html">upk_req_seq_end_t</a>       <a class="code" href="union__upk__payload__types.html#ad7515dab1367ab23b347bbd210d4ce41">req_seq_end</a>;
-<a name="l00406"></a><a class="code" href="union__upk__payload__types.html#abc1bf3b102d683a0f031588df6bc97db">00406</a>     <a class="code" href="structupk__req__action__t.html">upk_req_action_t</a>        <a class="code" href="union__upk__payload__types.html#abc1bf3b102d683a0f031588df6bc97db">req_action</a>;
-<a name="l00407"></a><a class="code" href="union__upk__payload__types.html#a2bd158d8e0ae2aa4fe01b4557cf36b1b">00407</a>     <a class="code" href="structupk__req__signal__t.html">upk_req_signal_t</a>        <a class="code" href="union__upk__payload__types.html#a2bd158d8e0ae2aa4fe01b4557cf36b1b">req_signal</a>;
-<a name="l00408"></a><a class="code" href="union__upk__payload__types.html#a5c71b56a0a5ae15086be9dc8aeb820f8">00408</a>     <a class="code" href="structupk__req__list__t.html">upk_req_list_t</a>          <a class="code" href="union__upk__payload__types.html#a5c71b56a0a5ae15086be9dc8aeb820f8">req_list</a>;
-<a name="l00409"></a><a class="code" href="union__upk__payload__types.html#a45f26e1cb6d1430b95b55cbcc3e96172">00409</a>     <a class="code" href="structupk__req__status__t.html">upk_req_status_t</a>        <a class="code" href="union__upk__payload__types.html#a45f26e1cb6d1430b95b55cbcc3e96172">req_status</a>;
-<a name="l00410"></a><a class="code" href="union__upk__payload__types.html#a5b88e06488f6a6b32f3173071fe3d5a0">00410</a>     <a class="code" href="structupk__req__subscribe__t.html">upk_req_subscribe_t</a>     <a class="code" href="union__upk__payload__types.html#a5b88e06488f6a6b32f3173071fe3d5a0">req_subscribe</a>;
-<a name="l00411"></a><a class="code" href="union__upk__payload__types.html#aa40a745f243b9efe2c32284a2e5c0707">00411</a>     <a class="code" href="structupk__req__unsubscribe__t.html">upk_req_unsubscribe_t</a>   <a class="code" href="union__upk__payload__types.html#aa40a745f243b9efe2c32284a2e5c0707">req_unsubscribe</a>;
-<a name="l00412"></a><a class="code" href="union__upk__payload__types.html#aa4cc2c914570b63c6f56845320f2fe5c">00412</a>     <a class="code" href="structupk__req__disconnect__t.html">upk_req_disconnect_t</a>    <a class="code" href="union__upk__payload__types.html#aa4cc2c914570b63c6f56845320f2fe5c">req_disconnect</a>;
-<a name="l00413"></a><a class="code" href="union__upk__payload__types.html#a8e34156b16c4fcb741b534ae9623b7de">00413</a>     <a class="code" href="structupk__repl__seq__start__t.html">upk_repl_seq_start_t</a>    <a class="code" href="union__upk__payload__types.html#a8e34156b16c4fcb741b534ae9623b7de">repl_seq_start</a>;
-<a name="l00414"></a><a class="code" href="union__upk__payload__types.html#abc833464995e89ef3ca605f2fdb2a419">00414</a>     <a class="code" href="structupk__repl__seq__end__t.html">upk_repl_seq_end_t</a>      <a class="code" href="union__upk__payload__types.html#abc833464995e89ef3ca605f2fdb2a419">repl_seq_end</a>;
-<a name="l00415"></a><a class="code" href="union__upk__payload__types.html#aeca4b63aae1ce10365c8a9d3cee78c74">00415</a>     <a class="code" href="structupk__repl__result__t.html">upk_repl_result_t</a>       <a class="code" href="union__upk__payload__types.html#aeca4b63aae1ce10365c8a9d3cee78c74">repl_result</a>;
-<a name="l00416"></a><a class="code" href="union__upk__payload__types.html#a76278ef40db5c8ca9f9142c583904fac">00416</a>     <a class="code" href="structupk__repl__listing__t.html">upk_repl_listing_t</a>      <a class="code" href="union__upk__payload__types.html#a76278ef40db5c8ca9f9142c583904fac">repl_listing</a>;
-<a name="l00417"></a><a class="code" href="union__upk__payload__types.html#ac6d06061ceed386d95971d6c3be8627d">00417</a>     <a class="code" href="structupk__repl__svcinfo__t.html">upk_repl_svcinfo_t</a>      <a class="code" href="union__upk__payload__types.html#ac6d06061ceed386d95971d6c3be8627d">repl_svcinfo</a>;
-<a name="l00418"></a><a class="code" href="union__upk__payload__types.html#a96d028013b1a4d33847c86a768a5ecf5">00418</a>     <a class="code" href="structupk__repl__ack__t.html">upk_repl_ack_t</a>          <a class="code" href="union__upk__payload__types.html#a96d028013b1a4d33847c86a768a5ecf5">repl_ack</a>;
-<a name="l00419"></a><a class="code" href="union__upk__payload__types.html#a234ea3f49e119dc43e7df00869340b12">00419</a>     <a class="code" href="structupk__repl__error__t.html">upk_repl_error_t</a>        <a class="code" href="union__upk__payload__types.html#a234ea3f49e119dc43e7df00869340b12">repl_error</a>;
-<a name="l00420"></a><a class="code" href="union__upk__payload__types.html#ae1e555822f3e14f8ef281c34988ac2ac">00420</a>     <a class="code" href="structupk__pub__publication__t.html">upk_pub_publication_t</a>   <a class="code" href="union__upk__payload__types.html#ae1e555822f3e14f8ef281c34988ac2ac">pub_publication</a>;
-<a name="l00421"></a><a class="code" href="union__upk__payload__types.html#a924a8938282849aec3628cab9a9c70e2">00421</a>     <a class="code" href="structupk__pub__cancelation__t.html">upk_pub_cancelation_t</a>   <a class="code" href="union__upk__payload__types.html#a924a8938282849aec3628cab9a9c70e2">pub_cancelation</a>;
-<a name="l00422"></a>00422 } <a class="code" href="group__client__protocol.html#ga0ea150662dae4a0aa5c289821c81db99">upk_payload_types_u</a>;
-<a name="l00423"></a>00423 
-<a name="l00424"></a><a class="code" href="struct__upk__payload.html">00424</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__payload.html">_upk_payload</a> {
-<a name="l00425"></a><a class="code" href="struct__upk__payload.html#ac6a896e3a9a5ecf0efdc6c092f959d1c">00425</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="struct__upk__payload.html#ac6a896e3a9a5ecf0efdc6c092f959d1c">type</a>;
-<a name="l00426"></a><a class="code" href="struct__upk__payload.html#a22f7f03c4df6792a307fe00cd8a72dbb">00426</a>     <a class="code" href="union__upk__payload__types.html">upk_payload_types_u</a>     <a class="code" href="struct__upk__payload.html#a22f7f03c4df6792a307fe00cd8a72dbb">payload</a>;
-<a name="l00427"></a>00427 } <a class="code" href="group__client__protocol.html#gaa54f28065ff66bf44e65ecfd2ed89764">upk_payload_t</a>;
-<a name="l00428"></a>00428 
-<a name="l00429"></a>00429 <span class="preprocessor">#include &quot;<a class="code" href="upk__network__types_8h.html">upk_network_types.h</a>&quot;</span>
-<a name="l00430"></a><a class="code" href="group__client__protocol.html#ga9b638e014b70b34a96880dc2b62b268f">00430</a> <span class="keyword">typedef</span> <a class="code" href="struct__upk__conn__handle.html">upk_conn_handle_t</a> <a class="code" href="group__client__protocol.html#ga9b638e014b70b34a96880dc2b62b268f">upk_protocol_handle_t</a>;
-<a name="l00431"></a>00431 
-<a name="l00432"></a>00432 
-<a name="l00433"></a>00433 
-<a name="l00434"></a>00434 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00435"></a>00435 <span class="comment">   function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.</span>
-<a name="l00436"></a>00436 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00437"></a>00437 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#gac79bbd2e82607a6e936e01c4c1f816ee">upk_serialize_packet</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * <a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>);
-<a name="l00438"></a>00438 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
-<a name="l00439"></a>00439 
-<a name="l00440"></a>00440 <span class="keyword">extern</span> <span class="keywordtype">void</span>            *<a class="code" href="group__client__protocol.html#ga4f0b2a5d8e1f979259f698fdd87054e4">upk_deserialize_req_preamble</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
-<a name="l00441"></a>00441 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#gafc67a2e4d7e644ef60eafa1ec8278b72">upk_serialize_req_preamble</a>(<span class="keywordtype">void</span> *<a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>, <span class="keywordtype">size_t</span> <a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>);
-<a name="l00442"></a>00442 <span class="keyword">extern</span> <span class="keywordtype">void</span>            *<a class="code" href="group__client__protocol.html#ga545eb262d1c2b43e3b70c0535d709300">upk_deserialize_repl_preamble</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
-<a name="l00443"></a>00443 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#ga9d746d3c3531cf9092767e8e85dee5c6">upk_serialize_repl_preamble</a>(<span class="keywordtype">void</span> *<a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>, <span class="keywordtype">size_t</span> <a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>);
-<a name="l00444"></a>00444 
-<a name="l00445"></a>00445 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4bf0c5692ae4bcac2293d8baaa5fdc33">upk_create_pkt</a>(<span class="keywordtype">void</span> *payload, uint32_t payload_len, <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a> pkttype, uint32_t proto_ver);
+<a name="l00401"></a>00401 <span class="preprocessor">#undef v0_svcinfo_t</span>
+<a name="l00402"></a>00402 <span class="preprocessor"></span>
+<a name="l00403"></a><a class="code" href="structupk__repl__ack__t.html">00403</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00404"></a><a class="code" href="structupk__repl__ack__t.html#a53ee389198f457d645700611ac4eb61e">00404</a>     <a class="code" href="structupk__repl__ack__t.html#a53ee389198f457d645700611ac4eb61e">UPK_V0_REPL_ACK_T_FIELDS</a>;
+<a name="l00405"></a>00405 } <a class="code" href="structupk__repl__ack__t.html">upk_repl_ack_t</a>;
+<a name="l00406"></a>00406 
+<a name="l00407"></a><a class="code" href="structupk__repl__error__t.html">00407</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00408"></a><a class="code" href="structupk__repl__error__t.html#afa660d3d6dbc44ccac6524cda82bf08d">00408</a>     <a class="code" href="structupk__repl__error__t.html#afa660d3d6dbc44ccac6524cda82bf08d">UPK_V0_REPL_ERROR_T_FIELDS</a>;
+<a name="l00409"></a>00409 } <a class="code" href="structupk__repl__error__t.html">upk_repl_error_t</a>;
+<a name="l00410"></a>00410 
+<a name="l00411"></a><a class="code" href="structupk__pub__publication__t.html">00411</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00412"></a><a class="code" href="structupk__pub__publication__t.html#ae9bc317f7b9728751b7f71e84c9ee9cc">00412</a>     <a class="code" href="structupk__pub__publication__t.html#ae9bc317f7b9728751b7f71e84c9ee9cc">UPK_V0_PUBLICATION_T_FIELDS</a>;
+<a name="l00413"></a>00413 } <a class="code" href="structupk__pub__publication__t.html">upk_pub_publication_t</a>;
+<a name="l00414"></a>00414 
+<a name="l00415"></a><a class="code" href="structupk__pub__cancelation__t.html">00415</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00416"></a><a class="code" href="structupk__pub__cancelation__t.html#a6457691e1fbba6c131ff6f02f9dd3ff2">00416</a>     <a class="code" href="structupk__pub__cancelation__t.html#a6457691e1fbba6c131ff6f02f9dd3ff2">UPK_V0_CANCELATION_T_FIELDS</a>;
+<a name="l00417"></a>00417 } <a class="code" href="structupk__pub__cancelation__t.html">upk_pub_cancelation_t</a>;
+<a name="l00418"></a>00418 
+<a name="l00419"></a><a class="code" href="union__upk__payload__types.html">00419</a> <span class="keyword">typedef</span> <span class="keyword">union </span><a class="code" href="union__upk__payload__types.html">_upk_payload_types</a> {
+<a name="l00420"></a><a class="code" href="union__upk__payload__types.html#a238d495cdbd50f355dd2222ef55f3dcb">00420</a>     <a class="code" href="structupk__req__preamble__t.html">upk_req_preamble_t</a>      <a class="code" href="union__upk__payload__types.html#a238d495cdbd50f355dd2222ef55f3dcb">req_preamble</a>;
+<a name="l00421"></a><a class="code" href="union__upk__payload__types.html#a319993760ad216611e39b6b6178c0f6d">00421</a>     <a class="code" href="structupk__repl__preamble__t.html">upk_repl_preamble_t</a>     <a class="code" href="union__upk__payload__types.html#a319993760ad216611e39b6b6178c0f6d">repl_preamble</a>;
+<a name="l00422"></a><a class="code" href="union__upk__payload__types.html#a4a8a58315cbdb8336bd2547767ac6be9">00422</a>     <a class="code" href="structupk__req__seq__start__t.html">upk_req_seq_start_t</a>     <a class="code" href="union__upk__payload__types.html#a4a8a58315cbdb8336bd2547767ac6be9">req_seq_start</a>;
+<a name="l00423"></a><a class="code" href="union__upk__payload__types.html#ad7515dab1367ab23b347bbd210d4ce41">00423</a>     <a class="code" href="structupk__req__seq__end__t.html">upk_req_seq_end_t</a>       <a class="code" href="union__upk__payload__types.html#ad7515dab1367ab23b347bbd210d4ce41">req_seq_end</a>;
+<a name="l00424"></a><a class="code" href="union__upk__payload__types.html#abc1bf3b102d683a0f031588df6bc97db">00424</a>     <a class="code" href="structupk__req__action__t.html">upk_req_action_t</a>        <a class="code" href="union__upk__payload__types.html#abc1bf3b102d683a0f031588df6bc97db">req_action</a>;
+<a name="l00425"></a><a class="code" href="union__upk__payload__types.html#a2bd158d8e0ae2aa4fe01b4557cf36b1b">00425</a>     <a class="code" href="structupk__req__signal__t.html">upk_req_signal_t</a>        <a class="code" href="union__upk__payload__types.html#a2bd158d8e0ae2aa4fe01b4557cf36b1b">req_signal</a>;
+<a name="l00426"></a><a class="code" href="union__upk__payload__types.html#a5c71b56a0a5ae15086be9dc8aeb820f8">00426</a>     <a class="code" href="structupk__req__list__t.html">upk_req_list_t</a>          <a class="code" href="union__upk__payload__types.html#a5c71b56a0a5ae15086be9dc8aeb820f8">req_list</a>;
+<a name="l00427"></a><a class="code" href="union__upk__payload__types.html#a45f26e1cb6d1430b95b55cbcc3e96172">00427</a>     <a class="code" href="structupk__req__status__t.html">upk_req_status_t</a>        <a class="code" href="union__upk__payload__types.html#a45f26e1cb6d1430b95b55cbcc3e96172">req_status</a>;
+<a name="l00428"></a><a class="code" href="union__upk__payload__types.html#a5b88e06488f6a6b32f3173071fe3d5a0">00428</a>     <a class="code" href="structupk__req__subscribe__t.html">upk_req_subscribe_t</a>     <a class="code" href="union__upk__payload__types.html#a5b88e06488f6a6b32f3173071fe3d5a0">req_subscribe</a>;
+<a name="l00429"></a><a class="code" href="union__upk__payload__types.html#aa40a745f243b9efe2c32284a2e5c0707">00429</a>     <a class="code" href="structupk__req__unsubscribe__t.html">upk_req_unsubscribe_t</a>   <a class="code" href="union__upk__payload__types.html#aa40a745f243b9efe2c32284a2e5c0707">req_unsubscribe</a>;
+<a name="l00430"></a><a class="code" href="union__upk__payload__types.html#aa4cc2c914570b63c6f56845320f2fe5c">00430</a>     <a class="code" href="structupk__req__disconnect__t.html">upk_req_disconnect_t</a>    <a class="code" href="union__upk__payload__types.html#aa4cc2c914570b63c6f56845320f2fe5c">req_disconnect</a>;
+<a name="l00431"></a><a class="code" href="union__upk__payload__types.html#a8e34156b16c4fcb741b534ae9623b7de">00431</a>     <a class="code" href="structupk__repl__seq__start__t.html">upk_repl_seq_start_t</a>    <a class="code" href="union__upk__payload__types.html#a8e34156b16c4fcb741b534ae9623b7de">repl_seq_start</a>;
+<a name="l00432"></a><a class="code" href="union__upk__payload__types.html#abc833464995e89ef3ca605f2fdb2a419">00432</a>     <a class="code" href="structupk__repl__seq__end__t.html">upk_repl_seq_end_t</a>      <a class="code" href="union__upk__payload__types.html#abc833464995e89ef3ca605f2fdb2a419">repl_seq_end</a>;
+<a name="l00433"></a><a class="code" href="union__upk__payload__types.html#aeca4b63aae1ce10365c8a9d3cee78c74">00433</a>     <a class="code" href="structupk__repl__result__t.html">upk_repl_result_t</a>       <a class="code" href="union__upk__payload__types.html#aeca4b63aae1ce10365c8a9d3cee78c74">repl_result</a>;
+<a name="l00434"></a><a class="code" href="union__upk__payload__types.html#a76278ef40db5c8ca9f9142c583904fac">00434</a>     <a class="code" href="structupk__repl__listing__t.html">upk_repl_listing_t</a>      <a class="code" href="union__upk__payload__types.html#a76278ef40db5c8ca9f9142c583904fac">repl_listing</a>;
+<a name="l00435"></a><a class="code" href="union__upk__payload__types.html#ac6d06061ceed386d95971d6c3be8627d">00435</a>     <a class="code" href="structupk__repl__svcinfo__t.html">upk_repl_svcinfo_t</a>      <a class="code" href="union__upk__payload__types.html#ac6d06061ceed386d95971d6c3be8627d">repl_svcinfo</a>;
+<a name="l00436"></a><a class="code" href="union__upk__payload__types.html#a96d028013b1a4d33847c86a768a5ecf5">00436</a>     <a class="code" href="structupk__repl__ack__t.html">upk_repl_ack_t</a>          <a class="code" href="union__upk__payload__types.html#a96d028013b1a4d33847c86a768a5ecf5">repl_ack</a>;
+<a name="l00437"></a><a class="code" href="union__upk__payload__types.html#a234ea3f49e119dc43e7df00869340b12">00437</a>     <a class="code" href="structupk__repl__error__t.html">upk_repl_error_t</a>        <a class="code" href="union__upk__payload__types.html#a234ea3f49e119dc43e7df00869340b12">repl_error</a>;
+<a name="l00438"></a><a class="code" href="union__upk__payload__types.html#ae1e555822f3e14f8ef281c34988ac2ac">00438</a>     <a class="code" href="structupk__pub__publication__t.html">upk_pub_publication_t</a>   <a class="code" href="union__upk__payload__types.html#ae1e555822f3e14f8ef281c34988ac2ac">pub_publication</a>;
+<a name="l00439"></a><a class="code" href="union__upk__payload__types.html#a924a8938282849aec3628cab9a9c70e2">00439</a>     <a class="code" href="structupk__pub__cancelation__t.html">upk_pub_cancelation_t</a>   <a class="code" href="union__upk__payload__types.html#a924a8938282849aec3628cab9a9c70e2">pub_cancelation</a>;
+<a name="l00440"></a>00440 } <a class="code" href="group__client__protocol.html#ga0ea150662dae4a0aa5c289821c81db99">upk_payload_types_u</a>;
+<a name="l00441"></a>00441 
+<a name="l00442"></a><a class="code" href="struct__upk__payload.html">00442</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__payload.html">_upk_payload</a> {
+<a name="l00443"></a><a class="code" href="struct__upk__payload.html#ac6a896e3a9a5ecf0efdc6c092f959d1c">00443</a>     <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>           <a class="code" href="struct__upk__payload.html#ac6a896e3a9a5ecf0efdc6c092f959d1c">type</a>;
+<a name="l00444"></a><a class="code" href="struct__upk__payload.html#a22f7f03c4df6792a307fe00cd8a72dbb">00444</a>     <a class="code" href="union__upk__payload__types.html">upk_payload_types_u</a>     <a class="code" href="struct__upk__payload.html#a22f7f03c4df6792a307fe00cd8a72dbb">payload</a>;
+<a name="l00445"></a>00445 } <a class="code" href="group__client__protocol.html#gaa54f28065ff66bf44e65ecfd2ed89764">upk_payload_t</a>;
 <a name="l00446"></a>00446 
-<a name="l00447"></a>00447 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00448"></a>00448 <span class="comment">   convenience functions for requests, when its easier than building the structs yourself</span>
-<a name="l00449"></a>00449 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00450"></a>00450 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gac4d30dd77c618f7dc65c109ed287537d">upk_create_req_preamble</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *client_name);
+<a name="l00447"></a>00447 <span class="preprocessor">#include &quot;<a class="code" href="upk__network__types_8h.html">upk_network_types.h</a>&quot;</span>
+<a name="l00448"></a><a class="code" href="group__client__protocol.html#ga9b638e014b70b34a96880dc2b62b268f">00448</a> <span class="keyword">typedef</span> <a class="code" href="struct__upk__conn__handle.html">upk_conn_handle_t</a> <a class="code" href="group__client__protocol.html#ga9b638e014b70b34a96880dc2b62b268f">upk_protocol_handle_t</a>;
+<a name="l00449"></a>00449 
+<a name="l00450"></a>00450 
 <a name="l00451"></a>00451 
-<a name="l00452"></a>00452 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae7bcaac788e23b97a8888570ccce6f45">upk_create_req_seq_start</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> seq_type,
-<a name="l00453"></a>00453                                                  uint32_t count);
-<a name="l00454"></a>00454 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gad49d09abb4fc1e5aef6d088f5455c90c">upk_create_req_seq_end</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">bool</span> commit);
-<a name="l00455"></a>00455 
-<a name="l00456"></a>00456 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4a223dc1789d567857d4027864c96a38">upk_create_req_action</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">char</span> *action);
-<a name="l00457"></a>00457 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gab73fb097863d0233bd52ea933e25e481">upk_create_req_signal</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <a class="code" href="upk__types_8h.html#a5d95f9080cfb23be1dc92324fbd4f505" title="signal names.">upk_signal_t</a> signal,
-<a name="l00458"></a>00458                                               <span class="keywordtype">bool</span> signal_sid, <span class="keywordtype">bool</span> signal_pgrp);
-<a name="l00459"></a>00459 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga539525025ae3769acfcad9447fb70697">upk_create_req_list</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
-<a name="l00460"></a>00460 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gac3e4dcc149e6fcc7cd43772beede7563">upk_create_req_status</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id);
-<a name="l00461"></a>00461 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gaa0e2537f813b322269c31230f3fbd813">upk_create_req_subscribe</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">bool</span> all_svcs);
-<a name="l00462"></a>00462 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4d9387ead342167aedab47b8ffaaba6a">upk_create_req_unsubscribe</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">bool</span> all_svcs);
-<a name="l00463"></a>00463 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae0326e499d4821a8e2c5b0d52a456155">upk_create_req_disconnect</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
-<a name="l00464"></a>00464 
+<a name="l00452"></a>00452 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00453"></a>00453 <span class="comment">   function prototypes for serializing, deserializing, creating, and otherwise manipulating packets.</span>
+<a name="l00454"></a>00454 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00455"></a>00455 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#gac79bbd2e82607a6e936e01c4c1f816ee">upk_serialize_packet</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * <a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>);
+<a name="l00456"></a>00456 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
+<a name="l00457"></a>00457 
+<a name="l00458"></a>00458 <span class="keyword">extern</span> <span class="keywordtype">void</span>            *<a class="code" href="group__client__protocol.html#ga4f0b2a5d8e1f979259f698fdd87054e4">upk_deserialize_req_preamble</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
+<a name="l00459"></a>00459 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#gafc67a2e4d7e644ef60eafa1ec8278b72">upk_serialize_req_preamble</a>(<span class="keywordtype">void</span> *<a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>, <span class="keywordtype">size_t</span> <a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>);
+<a name="l00460"></a>00460 <span class="keyword">extern</span> <span class="keywordtype">void</span>            *<a class="code" href="group__client__protocol.html#ga545eb262d1c2b43e3b70c0535d709300">upk_deserialize_repl_preamble</a>(<a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a> * <a class="code" href="group__client__protocol.html#ga2f8e3fdadca458dd0df4929c67687354">UPK_BUF</a>);
+<a name="l00461"></a>00461 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gaa79480f1d86444e4054e06d50c886fe9">upk_pkt_buf_t</a>   *<a class="code" href="group__client__protocol.html#ga9d746d3c3531cf9092767e8e85dee5c6">upk_serialize_repl_preamble</a>(<span class="keywordtype">void</span> *<a class="code" href="group__client__protocol.html#gac298973e7b451bf04b2dcb4d2088e2c4">UPK_DATA_PTR</a>, <span class="keywordtype">size_t</span> <a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>);
+<a name="l00462"></a>00462 
+<a name="l00463"></a>00463 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4bf0c5692ae4bcac2293d8baaa5fdc33">upk_create_pkt</a>(<span class="keywordtype">void</span> *payload, uint32_t payload_len, <a class="code" href="group__client__protocol.html#ga434039581eb81ed8ad335ab19ad1d126" title="packet type.">upk_pkttype_t</a> pkttype,
+<a name="l00464"></a>00464                                        uint32_t proto_ver);
 <a name="l00465"></a>00465 
 <a name="l00466"></a>00466 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00467"></a>00467 <span class="comment">   convenience functions for replies, when its easier than building the structs yourself</span>
+<a name="l00467"></a>00467 <span class="comment">   convenience functions for requests, when its easier than building the structs yourself</span>
 <a name="l00468"></a>00468 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00469"></a>00469 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga8783766294f8c67dd8390b90f26f046e">upk_create_repl_preamble</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, uint32_t best_version);
+<a name="l00469"></a>00469 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gac4d30dd77c618f7dc65c109ed287537d">upk_create_req_preamble</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *client_name);
 <a name="l00470"></a>00470 
-<a name="l00471"></a>00471 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae9d46060f2534d41022301bb466eed79">upk_create_repl_seq_start</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> seq_type,
-<a name="l00472"></a>00472                                                   uint32_t count);
-<a name="l00473"></a>00473 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga1192852b5ba479b3fc75a98f6518c480">upk_create_repl_seq_end</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">bool</span> commit);
+<a name="l00471"></a>00471 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae7bcaac788e23b97a8888570ccce6f45">upk_create_req_seq_start</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> seq_type,
+<a name="l00472"></a>00472                                                  uint32_t count);
+<a name="l00473"></a>00473 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gad49d09abb4fc1e5aef6d088f5455c90c">upk_create_req_seq_end</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">bool</span> commit);
 <a name="l00474"></a>00474 
-<a name="l00475"></a>00475 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gab9819a3a46c2c5c962bbe5a363c8df00">upk_create_repl_result</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *msg, <span class="keywordtype">bool</span> successful);
-<a name="l00476"></a>00476 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gace883045af180111f98ac411f8f256fb">upk_create_repl_listing</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id);
-<a name="l00477"></a>00477 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga7f1f94e26874ff1f2fb7188243bbe2a6">upk_create_repl_svcinfo</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <a class="code" href="struct__upk__svcinfo.html" title="see definition in *protocol_fields.h.">upk_svcinfo_t</a> * svcinfo);
-<a name="l00478"></a>00478 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gadfff2845832ab613c057539d7912b514">upk_create_repl_ack</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
-<a name="l00479"></a>00479 
-<a name="l00480"></a>00480 <span class="comment">/* FIXME: should probably use upk_error_t enum instead of char *errmsg */</span>
-<a name="l00481"></a>00481 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga5523678045bfbadd33d88bed25a22180">upk_create_repl_error</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <a class="code" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> uerrno,
-<a name="l00482"></a>00482                                               <span class="keywordtype">char</span> *errmsg, <a class="code" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a> errlvl);
-<a name="l00483"></a>00483 
+<a name="l00475"></a>00475 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4a223dc1789d567857d4027864c96a38">upk_create_req_action</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">char</span> *action);
+<a name="l00476"></a>00476 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gab73fb097863d0233bd52ea933e25e481">upk_create_req_signal</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id,
+<a name="l00477"></a>00477                                               <a class="code" href="upk__types_8h.html#a5d95f9080cfb23be1dc92324fbd4f505" title="signal names.">upk_signal_t</a> signal, <span class="keywordtype">bool</span> signal_sid, <span class="keywordtype">bool</span> signal_pgrp);
+<a name="l00478"></a>00478 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga539525025ae3769acfcad9447fb70697">upk_create_req_list</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
+<a name="l00479"></a>00479 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gac3e4dcc149e6fcc7cd43772beede7563">upk_create_req_status</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id);
+<a name="l00480"></a>00480 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gaa0e2537f813b322269c31230f3fbd813">upk_create_req_subscribe</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">bool</span> all_svcs);
+<a name="l00481"></a>00481 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga4d9387ead342167aedab47b8ffaaba6a">upk_create_req_unsubscribe</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id,
+<a name="l00482"></a>00482                                                    <span class="keywordtype">bool</span> all_svcs);
+<a name="l00483"></a>00483 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae0326e499d4821a8e2c5b0d52a456155">upk_create_req_disconnect</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
 <a name="l00484"></a>00484 
-<a name="l00485"></a>00485 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00486"></a>00486 <span class="comment">   convenience functions for pubmsg&#39;s, because, why not...</span>
-<a name="l00487"></a>00487 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00488"></a>00488 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga002986cfdd3e4c4e7a66d1f27316ccf6">upk_create_pub_publication</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
-<a name="l00489"></a>00489 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga7bfaf178f1b11124211d19bc96be4358">upk_create_pub_cancelation</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
+<a name="l00485"></a>00485 
+<a name="l00486"></a>00486 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00487"></a>00487 <span class="comment">   convenience functions for replies, when its easier than building the structs yourself</span>
+<a name="l00488"></a>00488 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00489"></a>00489 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga8783766294f8c67dd8390b90f26f046e">upk_create_repl_preamble</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, uint32_t best_version);
 <a name="l00490"></a>00490 
-<a name="l00491"></a>00491 
-<a name="l00492"></a>00492 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00493"></a>00493 <span class="comment">   housekeeping</span>
-<a name="l00494"></a>00494 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00495"></a>00495 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__client__protocol.html#gab7efe972a36f4f23cb9b811892cf142c">upk_pkt_free</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
-<a name="l00496"></a>00496 
-<a name="l00497"></a>00497 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00498"></a>00498 <span class="comment">   msgtype utilities</span>
-<a name="l00499"></a>00499 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00500"></a>00500 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>    <a class="code" href="group__client__protocol.html#ga5339221ed534f0fcc851c6f1ea5f64d8">upk_get_msgtype</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
-<a name="l00501"></a>00501 <span class="keyword">extern</span> <span class="keywordtype">size_t</span>           <a class="code" href="group__client__protocol.html#ga5cb9fea02ec780b31324509f4a7d4cc7">upk_get_msgsize</a>(<a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> type);
-<a name="l00502"></a>00502 
-<a name="l00503"></a>00503 <span class="comment">/* *******************************************************************************************************************</span>
-<a name="l00504"></a>00504 <span class="comment">   packet encapsulation</span>
-<a name="l00505"></a>00505 <span class="comment">   ****************************************************************************************************************** */</span>
-<a name="l00506"></a>00506 <span class="preprocessor">#endif</span>
-<a name="l00507"></a>00507 <span class="preprocessor"></span>
+<a name="l00491"></a>00491 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gae9d46060f2534d41022301bb466eed79">upk_create_repl_seq_start</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> seq_type,
+<a name="l00492"></a>00492                                                   uint32_t count);
+<a name="l00493"></a>00493 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga1192852b5ba479b3fc75a98f6518c480">upk_create_repl_seq_end</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">bool</span> commit);
+<a name="l00494"></a>00494 
+<a name="l00495"></a>00495 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gab9819a3a46c2c5c962bbe5a363c8df00">upk_create_repl_result</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *msg, <span class="keywordtype">bool</span> successful);
+<a name="l00496"></a>00496 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gace883045af180111f98ac411f8f256fb">upk_create_repl_listing</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id);
+<a name="l00497"></a>00497 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga7f1f94e26874ff1f2fb7188243bbe2a6">upk_create_repl_svcinfo</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id,
+<a name="l00498"></a>00498                                                 <a class="code" href="struct__upk__svcinfo.html" title="see definition in *protocol_fields.h.">upk_svcinfo_t</a> * svcinfo);
+<a name="l00499"></a>00499 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#gadfff2845832ab613c057539d7912b514">upk_create_repl_ack</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
+<a name="l00500"></a>00500 
+<a name="l00501"></a>00501 <span class="comment">/* FIXME: should probably use upk_error_t enum instead of char *errmsg */</span>
+<a name="l00502"></a>00502 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga5523678045bfbadd33d88bed25a22180">upk_create_repl_error</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle, <span class="keywordtype">char</span> *svc_id,
+<a name="l00503"></a>00503                                               <a class="code" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> uerrno, <span class="keywordtype">char</span> *errmsg, <a class="code" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a> errlvl);
+<a name="l00504"></a>00504 
+<a name="l00505"></a>00505 
+<a name="l00506"></a>00506 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00507"></a>00507 <span class="comment">   convenience functions for pubmsg&#39;s, because, why not...</span>
+<a name="l00508"></a>00508 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00509"></a>00509 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga002986cfdd3e4c4e7a66d1f27316ccf6">upk_create_pub_publication</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
+<a name="l00510"></a>00510 <span class="keyword">extern</span> <a class="code" href="structupk__packet__t.html">upk_packet_t</a>    *<a class="code" href="group__client__protocol.html#ga7bfaf178f1b11124211d19bc96be4358">upk_create_pub_cancelation</a>(<a class="code" href="struct__upk__conn__handle.html">upk_protocol_handle_t</a> * handle);
+<a name="l00511"></a>00511 
+<a name="l00512"></a>00512 
+<a name="l00513"></a>00513 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00514"></a>00514 <span class="comment">   housekeeping</span>
+<a name="l00515"></a>00515 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00516"></a>00516 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__client__protocol.html#gab7efe972a36f4f23cb9b811892cf142c">upk_pkt_free</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
+<a name="l00517"></a>00517 
+<a name="l00518"></a>00518 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00519"></a>00519 <span class="comment">   msgtype utilities</span>
+<a name="l00520"></a>00520 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00521"></a>00521 <span class="keyword">extern</span> <a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a>    <a class="code" href="group__client__protocol.html#ga5339221ed534f0fcc851c6f1ea5f64d8">upk_get_msgtype</a>(<a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
+<a name="l00522"></a>00522 <span class="keyword">extern</span> <span class="keywordtype">size_t</span>           <a class="code" href="group__client__protocol.html#ga5cb9fea02ec780b31324509f4a7d4cc7">upk_get_msgsize</a>(<a class="code" href="group__client__protocol.html#gae8601e305aeb87ddf70b14f2fb357952" title="message type.">upk_msgtype_t</a> type);
+<a name="l00523"></a>00523 
+<a name="l00524"></a>00524 <span class="comment">/* *******************************************************************************************************************</span>
+<a name="l00525"></a>00525 <span class="comment">   packet encapsulation</span>
+<a name="l00526"></a>00526 <span class="comment">   ****************************************************************************************************************** */</span>
+<a name="l00527"></a>00527 <span class="preprocessor">#endif</span>
+<a name="l00528"></a>00528 <span class="preprocessor"></span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Wed Sep 14 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

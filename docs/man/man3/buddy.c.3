@@ -1,4 +1,4 @@
-.TH "controller/buddy.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "controller/buddy.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -228,7 +228,7 @@ controller/buddy.c \-
 .RI "static struct timeval \fBtimeout\fP = {.tv_sec = BUDDY_SELECT_TIMEOUT_SEC,.tv_usec = BUDDY_SELECT_TIMEOUT_USEC }"
 .br
 .ti -1c
-.RI "static struct timespec \fBnanotimeout\fP = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec = BUDDY_RETRY_TIMEOUT_NSEC }"
+.RI "static struct timespec \fBnanotimeout\fP"
 .br
 .ti -1c
 .RI "static size_t \fBncount\fP = 0"
@@ -345,7 +345,7 @@ References buddy_ctrlfd, buddy_path(), buddy_sockaddr, buddy_sockaddr_len, buddy
 Referenced by phone_home_if_appropriate().
 .SS "static void buddy_record_state (void)\fC [inline, static]\fP"
 .PP
-References buddy_zero_info(), _buddy_info::command, desired_state, _buddy_info::desired_state, last_command, _buddy_info::populated, proc_pid, ringbuffer_pending, ringbuffer_size, _buddy_info::service_pid, _buddy_info::timestamp, and upk_debug1.
+References buddy_uuid, buddy_zero_info(), _buddy_info::command, desired_state, _buddy_info::desired_state, last_command, _buddy_info::populated, proc_pid, ringbuffer_pending, ringbuffer_size, _buddy_info::service_pid, _buddy_info::timestamp, upk_debug1, and _buddy_info::uuid.
 .PP
 Referenced by buddy_start_proc(), and sa_sigaction_func().
 .SS "static void buddy_reload_proc (void)\fC [inline, static]\fP"
@@ -448,7 +448,7 @@ Referenced by buddy_accept(), buddy_build_fd_set(), buddy_event_loop(), buddy_in
 Referenced by buddy_exec_action(), buddy_path(), buddy_phone_home(), and resolve_symlink().
 .SS "\fBupk_uuid_t\fP \fBbuddy_uuid\fP"
 .PP
-Referenced by opt_parse().
+Referenced by buddy_record_state(), and opt_parse().
 .SS "bool \fBchld_terminated\fP = false\fC [static]\fP"
 .PP
 Referenced by buddy_handle_flags(), and sa_sigaction_func().
@@ -467,7 +467,12 @@ Referenced by buddy_flush_ringbuffer().
 .SS "\fBbuddy_cmnd_t\fP \fBlast_command\fP = UPK_CTRL_NONE\fC [static]\fP"
 .PP
 Referenced by buddy_handle_command(), and buddy_record_state().
-.SS "struct timespec \fBnanotimeout\fP = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec = BUDDY_RETRY_TIMEOUT_NSEC }\fC [static]\fP"
+.SS "struct timespec \fBnanotimeout\fP\fC [static]\fP"\fBInitial value:\fP
+.PP
+.nf
+ {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec =
+        BUDDY_RETRY_TIMEOUT_NSEC }
+.fi
 .PP
 Referenced by buddy_stop_proc(), and phone_home_if_appropriate().
 .SS "size_t \fBncount\fP = 0\fC [static]\fP"

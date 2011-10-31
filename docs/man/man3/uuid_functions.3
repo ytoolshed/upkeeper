@@ -1,4 +1,4 @@
-.TH "Uuid_functions" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "Uuid_functions" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -27,7 +27,7 @@ Uuid_functions \-
 .br
 .RI "\fItest if a given string is a valid uuid string. \fP"
 .ti -1c
-.RI "void \fBupk_string_to_uuid\fP (const char *string, \fBupk_uuid_t\fP *uuid)"
+.RI "void \fBupk_string_to_uuid\fP (\fBupk_uuid_t\fP *uuid, const char *string)"
 .br
 .RI "\fIconvert uuid string into uuid structure. \fP"
 .in -1c
@@ -61,7 +61,7 @@ collect and/or generate 16 bytes of random data. *******************************
 References _upk_uuid::clk_seq_high, _upk_uuid::time_high_and_version, UPK_UUID_LEN, and upk_uuid_open_random().
 .PP
 Referenced by START_TEST().
-.SS "void upk_string_to_uuid (const char *string, \fBupk_uuid_t\fP *uuid)"
+.SS "void upk_string_to_uuid (\fBupk_uuid_t\fP *uuid, const char *string)"
 .PP
 convert uuid string into uuid structure. ****************************************************************************************************************** 
 .PP

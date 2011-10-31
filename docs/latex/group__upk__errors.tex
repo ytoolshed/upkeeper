@@ -118,9 +118,9 @@ static const char {\bf upk\_\-diag\_\-label\_\-idx} [$\,$][16]
 \item 
 static const char {\bf \_\-\_\-upk\_\-errors} [$\,$][128]
 \item 
-static const {\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type} = 0
-\item 
 static const char {\bf \_\-\_\-upk\_\-err\_\-buf} [4096] = \char`\"{}\char`\"{}
+\item 
+static const {\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type} = 0
 \item 
 int32\_\-t {\bf upk\_\-diag\_\-verbosity}
 \item 
@@ -198,7 +198,7 @@ Referenced by buddy\_\-exec\_\-action(), buddy\_\-init\_\-socket(), buddy\_\-rea
 )~\_\-upk\_\-debug1(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga13c310d9d7c7ebe0eca8b4a6690af032}
 
 
-Referenced by buddy\_\-accept(), buddy\_\-disconnect(), buddy\_\-event\_\-loop(), buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-readstate(), buddy\_\-record\_\-state(), buddy\_\-zero\_\-info(), commit\_\-buddycide(), controller\_\-packet\_\-callback(), event\_\-loop(), main(), sa\_\-sigaction\_\-func(), upk\_\-clnet\_\-req\_\-disconnect(), upk\_\-load\_\-runtime\_\-services(), and upk\_\-read\_\-packets().
+Referenced by buddy\_\-accept(), buddy\_\-disconnect(), buddy\_\-event\_\-loop(), buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-readstate(), buddy\_\-record\_\-state(), buddy\_\-zero\_\-info(), commit\_\-buddycide(), controller\_\-packet\_\-callback(), event\_\-loop(), sa\_\-sigaction\_\-func(), upk\_\-clnet\_\-req\_\-disconnect(), upk\_\-load\_\-runtime\_\-services(), and upk\_\-read\_\-packets().
 
 \index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-INIT@{UPK\_\-ERR\_\-INIT}}
 \index{UPK\_\-ERR\_\-INIT@{UPK\_\-ERR\_\-INIT}!Upk_errors@{Upk\_\-errors}}
@@ -227,7 +227,7 @@ Referenced by upk\_\-clnet\_\-req\_\-action(), and upk\_\-read\_\-packets().
 )~\_\-upk\_\-fatal(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gab9c146049fed5ed1b55496ee9dd5136b}
 
 
-Referenced by buddy\_\-init\_\-paths(), main(), spawn\_\-buddy(), upk\_\-clnet\_\-req\_\-preamble(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-db\_\-path().
+Referenced by buddy\_\-init\_\-paths(), main(), spawn\_\-buddy(), upk\_\-clnet\_\-req\_\-preamble(), upk\_\-ctrl\_\-init\_\-db(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-db\_\-path().
 
 \index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-FUNC\_\-ASSERT@{UPK\_\-FUNC\_\-ASSERT}}
 \index{UPK\_\-FUNC\_\-ASSERT@{UPK\_\-FUNC\_\-ASSERT}!Upk_errors@{Upk\_\-errors}}
@@ -274,7 +274,7 @@ Referenced by upk\_\-load\_\-runtime\_\-services().
 )~\_\-upk\_\-notice(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga0a5a9b9dcc79caca6fe5d22c8d81580c}
 
 
-Referenced by buddy\_\-exec\_\-action(), buddy\_\-handle\_\-flags(), buddy\_\-init(), buddy\_\-start\_\-proc(), main(), received\_\-packet\_\-callback(), upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-preamble(), and upk\_\-config\_\-loadfile().
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-handle\_\-flags(), buddy\_\-init(), buddy\_\-start\_\-proc(), received\_\-packet\_\-callback(), upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-preamble(), and upk\_\-config\_\-loadfile().
 
 \index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-verbose@{upk\_\-verbose}}
 \index{upk\_\-verbose@{upk\_\-verbose}!Upk_errors@{Upk\_\-errors}}
@@ -296,7 +296,7 @@ Referenced by buddy\_\-handle\_\-command(), buddy\_\-init(), create\_\-buddy\_\-
 )~\_\-upk\_\-warn(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gab79b47b21f3a7a5e54120d7dbc64e187}
 
 
-Referenced by buddy\_\-init().
+Referenced by buddy\_\-init(), and upk\_\-clnet\_\-req\_\-action().
 
 
 
@@ -737,5 +737,5 @@ Referenced by \_\-upk\_\-diagnostic().
 \subsubsection[{upk\_\-diag\_\-verbosity}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf upk\_\-diag\_\-verbosity}}\label{group__upk__errors_gad9883b6b44bf3fa3e1abac4266ca1b65}
 
 
-Referenced by \_\-upk\_\-default\_\-diag\_\-output(), \_\-upk\_\-diagnostic(), buddy\_\-diag\_\-handler(), main(), opt\_\-parse(), and upk\_\-load\_\-runtime\_\-services().
+Referenced by \_\-upk\_\-default\_\-diag\_\-output(), \_\-upk\_\-diagnostic(), buddy\_\-diag\_\-handler(), main(), opt\_\-parse(), upk\_\-clnet\_\-req\_\-action(), and upk\_\-load\_\-runtime\_\-services().
 

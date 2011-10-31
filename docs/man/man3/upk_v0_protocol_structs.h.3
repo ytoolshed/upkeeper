@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_v0_protocol_structs.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_v0_protocol_structs.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -113,10 +113,10 @@ upk_msgtype_t           msgtype; \
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]; \
-    uint32_t                action_len; \
-    char                    action[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]; \
+    uint32_t            action_len; \
+    char                action[UPK_MAX_STRING_LEN]
 .fi
 .SS "#define UPK_V0_REQ_DISCON_T_FIELDS   \fBupk_msgtype_t\fP       msgtype"
 .SS "#define UPK_V0_REQ_LIST_T_FIELDS   \fBupk_msgtype_t\fP       msgtype"
@@ -124,35 +124,35 @@ upk_msgtype_t       msgtype; \
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    upk_signal_t       signal; \
-    bool                    signal_sid; \
-    bool                    signal_pgrp; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    upk_signal_t        signal; \
+    bool                signal_sid; \
+    bool                signal_pgrp; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 .fi
 .SS "#define UPK_V0_REQ_STATUS_T_FIELDS"\fBValue:\fP
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 .fi
 .SS "#define UPK_V0_REQ_SUBSCR_T_FIELDS"\fBValue:\fP
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    bool                    all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
+    bool                all_svcs;                     /* send a req with all=true to subscribe to everything in */ \
                                                           /* one shot; svc_id will be ignored, and should have len 0 */ \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 .fi
 .SS "#define UPK_V0_REQ_UNSUBS_T_FIELDS"\fBValue:\fP
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    bool                    all_svcs; \
-    uint32_t                svc_id_len; \
-    char                    svc_id[UPK_MAX_STRING_LEN]
+    bool                all_svcs; \
+    uint32_t            svc_id_len; \
+    char                svc_id[UPK_MAX_STRING_LEN]
 .fi
 .SS "#define UPK_V0_SVCINFO_T_FIELDS"\fBValue:\fP
 .PP
@@ -186,14 +186,14 @@ upk_msgtype_t      msgtype; \
 .PP
 .nf
 upk_msgtype_t       msgtype; \
-    bool                    commit                         /* if false, the preceding sequence of requests since the */ \
+    bool                commit                         /* if false, the preceding sequence of requests since the */ \
 .fi
 .SS "#define UPK_V0_UPK_REQ_SEQ_START_T_FIELDS"\fBValue:\fP
 .PP
 .nf
 upk_msgtype_t       msgtype; \
     upk_msgtype_t       msg_seq_type; \
-    uint32_t                msg_seq_count
+    uint32_t            msg_seq_count
 .fi
 .SH "Author"
 .PP 

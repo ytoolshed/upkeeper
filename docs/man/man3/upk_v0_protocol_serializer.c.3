@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_v0_protocol_serializer.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_v0_protocol_serializer.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -408,8 +408,8 @@ Referenced by v0_deserialize_payload().
 .PP
 .nf
  {
-    [UPK_PUB_PUBLICATION-UPK_PUB_ORIGIN] = deserial_pub_pub,
-    [UPK_PUB_CANCELATION-UPK_PUB_ORIGIN] = deserial_pub_cancel,
+    [UPK_PUB_PUBLICATION - UPK_PUB_ORIGIN] = deserial_pub_pub,
+    [UPK_PUB_CANCELATION - UPK_PUB_ORIGIN] = deserial_pub_cancel,
 }
 .fi
 .PP
@@ -418,14 +418,14 @@ Referenced by deserialize_pub_payload().
 .PP
 .nf
  {
-    [UPK_REPL_PREAMBLE-UPK_REPL_ORIGIN] = upk_deserialize_repl_preamble,
-    [UPK_REPL_SEQ_START-UPK_REPL_ORIGIN] = deserial_repl_seq_start,
-    [UPK_REPL_SEQ_END-UPK_REPL_ORIGIN] = deserial_repl_seq_end,
-    [UPK_REPL_RESULT-UPK_REPL_ORIGIN] = deserial_repl_result,
-    [UPK_REPL_LISTING-UPK_REPL_ORIGIN] = deserial_repl_listing,
-    [UPK_REPL_SVCINFO-UPK_REPL_ORIGIN] = deserial_repl_svcinfo,
-    [UPK_REPL_ACK-UPK_REPL_ORIGIN] = deserial_repl_ack,
-    [UPK_REPL_ERROR-UPK_REPL_ORIGIN] = deserial_repl_err,
+    [UPK_REPL_PREAMBLE - UPK_REPL_ORIGIN] = upk_deserialize_repl_preamble,
+    [UPK_REPL_SEQ_START - UPK_REPL_ORIGIN] = deserial_repl_seq_start,
+    [UPK_REPL_SEQ_END - UPK_REPL_ORIGIN] = deserial_repl_seq_end,
+    [UPK_REPL_RESULT - UPK_REPL_ORIGIN] = deserial_repl_result,
+    [UPK_REPL_LISTING - UPK_REPL_ORIGIN] = deserial_repl_listing,
+    [UPK_REPL_SVCINFO - UPK_REPL_ORIGIN] = deserial_repl_svcinfo,
+    [UPK_REPL_ACK - UPK_REPL_ORIGIN] = deserial_repl_ack,
+    [UPK_REPL_ERROR - UPK_REPL_ORIGIN] = deserial_repl_err,
 }
 .fi
 .PP
@@ -434,16 +434,16 @@ Referenced by deserialize_repl_payload().
 .PP
 .nf
  {
-    [UPK_REQ_PREAMBLE-UPK_REQ_ORIGIN] = upk_deserialize_req_preamble,
-    [UPK_REQ_SEQ_START-UPK_REQ_ORIGIN] = deserial_req_seq_start,
-    [UPK_REQ_SEQ_END-UPK_REQ_ORIGIN] = deserial_req_seq_end,
-    [UPK_REQ_ACTION-UPK_REQ_ORIGIN] = deserial_req_action,
-    [UPK_REQ_SIGNAL-UPK_REQ_ORIGIN] = deserial_req_signal,
-    [UPK_REQ_LIST-UPK_REQ_ORIGIN] = deserial_req_list,
-    [UPK_REQ_STATUS-UPK_REQ_ORIGIN] = deserial_req_status,
-    [UPK_REQ_SUBSCRIBE-UPK_REQ_ORIGIN] = deserial_req_subscribe,
-    [UPK_REQ_UNSUBSCRIBE-UPK_REQ_ORIGIN] = deserial_req_unsub,
-    [UPK_REQ_DISCONNECT-UPK_REQ_ORIGIN] = deserial_req_disconnect,
+    [UPK_REQ_PREAMBLE - UPK_REQ_ORIGIN] = upk_deserialize_req_preamble,
+    [UPK_REQ_SEQ_START - UPK_REQ_ORIGIN] = deserial_req_seq_start,
+    [UPK_REQ_SEQ_END - UPK_REQ_ORIGIN] = deserial_req_seq_end,
+    [UPK_REQ_ACTION - UPK_REQ_ORIGIN] = deserial_req_action,
+    [UPK_REQ_SIGNAL - UPK_REQ_ORIGIN] = deserial_req_signal,
+    [UPK_REQ_LIST - UPK_REQ_ORIGIN] = deserial_req_list,
+    [UPK_REQ_STATUS - UPK_REQ_ORIGIN] = deserial_req_status,
+    [UPK_REQ_SUBSCRIBE - UPK_REQ_ORIGIN] = deserial_req_subscribe,
+    [UPK_REQ_UNSUBSCRIBE - UPK_REQ_ORIGIN] = deserial_req_unsub,
+    [UPK_REQ_DISCONNECT - UPK_REQ_ORIGIN] = deserial_req_disconnect,
 }
 .fi
 .PP

@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_client.c" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_client.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,6 +14,11 @@ public client API.
 
 .SS "Functions"
 
+.PP
+.RI "\fB\fP"
+.br
+
+.in +1c
 .in +1c
 .ti -1c
 .RI "char * \fBupk_clientid\fP (void)"
@@ -23,6 +28,7 @@ public client API.
 .RI "bool \fBupk_client_event_hook\fP (void)"
 .br
 .RI "\fIthe body of the client event-loop; so you can call it once per pass of your own eventloop if you prefer. \fP"
+.in -1c
 .in -1c
 .SH "Detailed Description"
 .PP 
@@ -36,7 +42,9 @@ public client API.
 the body of the client event-loop; so you can call it once per pass of your own eventloop if you prefer. 
 .SS "char* upk_clientid (void)"
 .PP
-fill buf with the client_id string. \fBParameters:\fP
+fill buf with the client_id string. API 
+.PP
+\fBParameters:\fP
 .RS 4
 \fIbuf\fP allocated buffer to write clientid into 
 .RE

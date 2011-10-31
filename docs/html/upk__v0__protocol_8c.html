@@ -36,15 +36,13 @@
   </div>
 </div>
 <div class="header">
-  <div class="summary">
-<a href="#define-members">Defines</a> &#124;
-<a href="#typedef-members">Typedefs</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">libupkeeper/upkeeper/upk_v0_protocol.c File Reference</div>  </div>
 </div>
 <div class="contents">
+
+<p>version 0 of the protocol between clients and controlelr  protocol  
+<a href="#details">More...</a></p>
 <div class="textblock"><code>#include &quot;<a class="el" href="upk__v0__protocol_8h_source.html">upk_v0_protocol.h</a>&quot;</code><br/>
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for upk_v0_protocol.c:</div>
@@ -54,8 +52,6 @@ Include dependency graph for upk_v0_protocol.c:</div>
 <area shape="rect" id="node3" href="upk__v0__protocol_8h.html" title="upk_v0_protocol.h" alt="" coords="1307,85,1435,117"/><area shape="rect" id="node5" href="upk__protocol_8h.html" title="UPK networking protocol." alt="" coords="1167,165,1273,197"/><area shape="rect" id="node65" href="upk__v0__protocol__structs_8h.html" title="upk_v0_protocol_structs.h" alt="" coords="1291,325,1464,357"/><area shape="rect" id="node7" href="upk__error_8h.html" title="handle errors and single&#45;exit&#45;point semantics." alt="" coords="973,245,1059,277"/><area shape="rect" id="node9" href="upk__std__include_8h.html" title="upk_std_include.h" alt="" coords="1059,405,1184,437"/><area shape="rect" id="node62" href="upk__types_8h.html" title="types common throughout libupkeeper." alt="" coords="1133,245,1224,277"/><area shape="rect" id="node72" href="upk__network__types_8h.html" title="upk_network_types.h" alt="" coords="1299,245,1443,277"/><area shape="rect" id="node11" href="upk__compat_8h.html" title="upk_compat.h" alt="" coords="60,485,164,517"/><area shape="rect" id="node67" href="upk__uuid_8h.html" title="definition of upk uuid implementation." alt="" coords="1184,325,1267,357"/></map>
 </div>
 </div><table class="memberdecls">
-<tr><td colspan="2"><h2><a name="define-members"></a>
-Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a277f7abca2044f354abe265252cb9252">PROTOCOL_VERSION</a>&#160;&#160;&#160;0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a4a05db4636b9b59b54981e1d4fab373d">UPK_INIT_HELPER</a>(TYPE, MSGTYPE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a7d2df78f21cdedb62f4e85947beed93d">UPK_HELPER_UINT32_EXPLICIT</a>(DEST, SRC)</td></tr>
@@ -70,11 +66,10 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a70eeb772afe31c1debe539ee1d5f14e0">UPK_HELPER_ANSISTRING</a>(DEST, SRC)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a19949767cfba264d965628a28412d2c8">UPK_HELPER_STRING</a>(MEMB)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#af4bd92408245edaba2754f023d8b6f39">UPK_END_HELPER</a>(PKT_TYPE)&#160;&#160;&#160;return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)</td></tr>
-<tr><td colspan="2"><h2><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a> )(void *)</td></tr>
-<tr><td colspan="2"><h2><a name="func-members"></a>
-Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a089e008a6188d8b5335062e1bb7e3bfc">free_pkt_dispatch</a> []</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#adf63201067ce0b80294fe667e57cb8b0">free_req_dispatch</a> []</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a1abf93e0a342eb204459fbad7ba034f0">free_repl_dispatch</a> []</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#ad3457b45952f5b9eca5ad1dd4198dca5">v0_free_repl_payload</a> (void *UPK_DATA_PTR)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a2e9c4981447ab0ff5c2640a8814fdc3c">v0_free_req_payload</a> (void *UPK_DATA_PTR)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#ab5cfa619e4f879bb6de7ba9c2c37e91e">v0_free_payload</a> (<a class="el" href="structupk__packet__t.html">upk_packet_t</a> *pkt)</td></tr>
@@ -97,13 +92,10 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structupk__packet__t.html">upk_packet_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a986a285e81efea956fe9c1ff796ea7a3">v0_create_repl_error</a> (char *svc_id, <a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> uerrno, char *msg, <a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a> errlevel)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structupk__packet__t.html">upk_packet_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#afbb65a90d304e976b3f2ada90c0fe672">v0_create_pub_publication</a> (void)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structupk__packet__t.html">upk_packet_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a63a357d3b2b2d5e48d1d3083ef02eaae">v0_create_pub_cancelation</a> (void)</td></tr>
-<tr><td colspan="2"><h2><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a089e008a6188d8b5335062e1bb7e3bfc">free_pkt_dispatch</a> []</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#adf63201067ce0b80294fe667e57cb8b0">free_req_dispatch</a> []</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="upk__v0__protocol_8c.html#aee72a2b10ae9a483f44bf88859ad5134">free_data_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="upk__v0__protocol_8c.html#a1abf93e0a342eb204459fbad7ba034f0">free_repl_dispatch</a> []</td></tr>
 </table>
-<hr/><h2>Define Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>version 0 of the protocol between clients and controlelr  protocol </p>
+</div><hr/><h2>Define Documentation</h2>
 <a class="anchor" id="a277f7abca2044f354abe265252cb9252"></a><!-- doxytag: member="upk_v0_protocol.c::PROTOCOL_VERSION" ref="a277f7abca2044f354abe265252cb9252" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -160,7 +152,7 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">UPK_STRING_LENGTH</a> = <a class="code" href="strnlen_8c.html#a0862027ba42b443d4ce8ff4a0d9b6459">strnlen</a>(SRC, <a class="code" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402" title="longest allowable string (other than paths).">UPK_MAX_STRING_LEN</a>); \
+<b>Value:</b><div class="fragment"><pre class="fragment"><a class="code" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">UPK_STRING_LENGTH</a> = <a class="code" href="upk__compat_8c.html#a46f2e73d24c7ab8289f978f80647478c">strnlen</a>(SRC, <a class="code" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402" title="longest allowable string (other than paths).">UPK_MAX_STRING_LEN</a>); \
     <a class="code" href="upk__v0__protocol_8c.html#add39e3db19c59d1a74ba953179346c7d">UPK_HELPER_BUF</a>(DEST, SRC, <a class="code" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">UPK_STRING_LENGTH</a> + 1); \
     <a class="code" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>--
 </pre></div>
@@ -790,7 +782,7 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__v0__protocol_8c.html#a0ce71b8c460b8bceaf3d1264382a23ed">get_svcinfo_len()</a>, <a class="el" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">PKT_REPLY</a>, <a class="el" href="strnlen_8c.html#a0862027ba42b443d4ce8ff4a0d9b6459">strnlen()</a>, <a class="el" href="group__client__protocol.html#ga3c63e3d81e8528b3300170bb020ef84b">UPK_DATA</a>, <a class="el" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>, <a class="el" href="upk__v0__protocol_8c.html#af4bd92408245edaba2754f023d8b6f39">UPK_END_HELPER</a>, <a class="el" href="upk__v0__protocol_8c.html#a19949767cfba264d965628a28412d2c8">UPK_HELPER_STRING</a>, <a class="el" href="upk__v0__protocol_8c.html#a7d2df78f21cdedb62f4e85947beed93d">UPK_HELPER_UINT32_EXPLICIT</a>, <a class="el" href="upk__v0__protocol_8c.html#a4a05db4636b9b59b54981e1d4fab373d">UPK_INIT_HELPER</a>, <a class="el" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402">UPK_MAX_STRING_LEN</a>, <a class="el" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>, and <a class="el" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">UPK_STRING_LENGTH</a>.</p>
+<p>References <a class="el" href="upk__v0__protocol_8c.html#a0ce71b8c460b8bceaf3d1264382a23ed">get_svcinfo_len()</a>, <a class="el" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">PKT_REPLY</a>, <a class="el" href="upk__compat_8c.html#a46f2e73d24c7ab8289f978f80647478c">strnlen()</a>, <a class="el" href="group__client__protocol.html#ga3c63e3d81e8528b3300170bb020ef84b">UPK_DATA</a>, <a class="el" href="group__client__protocol.html#ga838601628956e1c6bb1455484e147e6e">UPK_DATA_LEN</a>, <a class="el" href="upk__v0__protocol_8c.html#af4bd92408245edaba2754f023d8b6f39">UPK_END_HELPER</a>, <a class="el" href="upk__v0__protocol_8c.html#a19949767cfba264d965628a28412d2c8">UPK_HELPER_STRING</a>, <a class="el" href="upk__v0__protocol_8c.html#a7d2df78f21cdedb62f4e85947beed93d">UPK_HELPER_UINT32_EXPLICIT</a>, <a class="el" href="upk__v0__protocol_8c.html#a4a05db4636b9b59b54981e1d4fab373d">UPK_INIT_HELPER</a>, <a class="el" href="upk__types_8h.html#a7ab2c8ba7f13eac616288982bad10402">UPK_MAX_STRING_LEN</a>, <a class="el" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>, and <a class="el" href="group__client__protocol.html#ga28583106fa016b484942d95c904a209a">UPK_STRING_LENGTH</a>.</p>
 
 <p>Referenced by <a class="el" href="group__client__protocol.html#ga7f1f94e26874ff1f2fb7188243bbe2a6">upk_create_repl_svcinfo()</a>.</p>
 
@@ -799,7 +791,7 @@ Here is the call graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="upk__v0__protocol_8c_afc9c9d85a29171d60257260de499a277_cgraph.png" border="0" usemap="#upk__v0__protocol_8c_afc9c9d85a29171d60257260de499a277_cgraph" alt=""/></div>
 <map name="upk__v0__protocol_8c_afc9c9d85a29171d60257260de499a277_cgraph" id="upk__v0__protocol_8c_afc9c9d85a29171d60257260de499a277_cgraph">
-<area shape="rect" id="node3" href="upk__v0__protocol_8c.html#a0ce71b8c460b8bceaf3d1264382a23ed" title="get_svcinfo_len" alt="" coords="211,5,323,37"/><area shape="rect" id="node5" href="strnlen_8c.html#a0862027ba42b443d4ce8ff4a0d9b6459" title="strnlen" alt="" coords="237,61,296,93"/></map>
+<area shape="rect" id="node3" href="upk__v0__protocol_8c.html#a0ce71b8c460b8bceaf3d1264382a23ed" title="get_svcinfo_len" alt="" coords="211,5,323,37"/><area shape="rect" id="node5" href="upk__compat_8c.html#a46f2e73d24c7ab8289f978f80647478c" title="strnlen" alt="" coords="237,61,296,93"/></map>
 </div>
 </p>
 
@@ -848,7 +840,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="upk__v0__protocol_8c_a9e280445e3d21b22b52cd7e8aac2ebde_icgraph.png" border="0" usemap="#upk__v0__protocol_8c_a9e280445e3d21b22b52cd7e8aac2ebde_icgraph" alt=""/></div>
 <map name="upk__v0__protocol_8c_a9e280445e3d21b22b52cd7e8aac2ebde_icgraph" id="upk__v0__protocol_8c_a9e280445e3d21b22b52cd7e8aac2ebde_icgraph">
-<area shape="rect" id="node3" href="group__client__protocol.html#ga4a223dc1789d567857d4027864c96a38" title="upk_create_req_action" alt="" coords="200,33,352,65"/><area shape="rect" id="node5" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="448,5,496,37"/><area shape="rect" id="node7" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52" title="upk_clnet_req_action" alt="" coords="400,61,544,93"/><area shape="rect" id="node9" href="upk__start_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="593,61,641,93"/></map>
+<area shape="rect" id="node3" href="group__client__protocol.html#ga4a223dc1789d567857d4027864c96a38" title="upk_create_req_action" alt="" coords="200,33,352,65"/><area shape="rect" id="node5" href="upk__start_8b_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="448,5,496,37"/><area shape="rect" id="node7" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52" title="upk_clnet_req_action" alt="" coords="400,61,544,93"/><area shape="rect" id="node9" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="593,61,641,93"/></map>
 </div>
 </p>
 
@@ -878,7 +870,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="upk__v0__protocol_8c_afa1259e66b357b013a93238d6422d2d5_icgraph.png" border="0" usemap="#upk__v0__protocol_8c_afa1259e66b357b013a93238d6422d2d5_icgraph" alt=""/></div>
 <map name="upk__v0__protocol_8c_afa1259e66b357b013a93238d6422d2d5_icgraph" id="upk__v0__protocol_8c_afa1259e66b357b013a93238d6422d2d5_icgraph">
-<area shape="rect" id="node3" href="group__client__protocol.html#gae0326e499d4821a8e2c5b0d52a456155" title="upk_create_req_disconnect" alt="" coords="228,33,407,65"/><area shape="rect" id="node5" href="ctrl__eventloop_8c.html#a741093d702f88c44f02aa5fbbd20f3b7" title="controller_packet_callback" alt="" coords="456,5,632,37"/><area shape="rect" id="node13" href="upk__client__net_8h.html#af573b85764e9dc557daed0b1b2ee0bf6" title="upk_clnet_req_disconnect" alt="" coords="459,61,629,93"/><area shape="rect" id="node7" href="ctrl__eventloop_8c.html#a18b56a5bfd7cf9021f97306a90c82387" title="accept_conn" alt="" coords="719,5,815,37"/><area shape="rect" id="node9" href="ctrl__eventloop_8c.html#afcb5edca8881b0c26ccbc120775ed38b" title="event_loop" alt="" coords="903,5,985,37"/><area shape="rect" id="node11" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1036,5,1084,37"/><area shape="rect" id="node15" href="upk__client__net_8h.html#a8d7e372cd6428f266cfb371189a291c9" title="upk_clnet_ctrl_disconnect" alt="" coords="681,61,852,93"/><area shape="rect" id="node17" href="upk__start_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="920,61,968,93"/></map>
+<area shape="rect" id="node3" href="group__client__protocol.html#gae0326e499d4821a8e2c5b0d52a456155" title="upk_create_req_disconnect" alt="" coords="228,33,407,65"/><area shape="rect" id="node5" href="ctrl__eventloop_8c.html#a741093d702f88c44f02aa5fbbd20f3b7" title="controller_packet_callback" alt="" coords="456,5,632,37"/><area shape="rect" id="node13" href="upk__client__net_8h.html#af573b85764e9dc557daed0b1b2ee0bf6" title="upk_clnet_req_disconnect" alt="" coords="459,61,629,93"/><area shape="rect" id="node7" href="ctrl__eventloop_8c.html#a18b56a5bfd7cf9021f97306a90c82387" title="accept_conn" alt="" coords="719,5,815,37"/><area shape="rect" id="node9" href="ctrl__eventloop_8c.html#afcb5edca8881b0c26ccbc120775ed38b" title="event_loop" alt="" coords="903,5,985,37"/><area shape="rect" id="node11" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1036,5,1084,37"/><area shape="rect" id="node15" href="upk__client__net_8h.html#a8d7e372cd6428f266cfb371189a291c9" title="upk_clnet_ctrl_disconnect" alt="" coords="681,61,852,93"/><area shape="rect" id="node17" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="920,61,968,93"/></map>
 </div>
 </p>
 
@@ -1170,7 +1162,7 @@ Here is the caller graph for this function:</div>
 <div class="dyncontent">
 <div class="center"><img src="upk__v0__protocol_8c_ab5cfa619e4f879bb6de7ba9c2c37e91e_icgraph.png" border="0" usemap="#upk__v0__protocol_8c_ab5cfa619e4f879bb6de7ba9c2c37e91e_icgraph" alt=""/></div>
 <map name="upk__v0__protocol_8c_ab5cfa619e4f879bb6de7ba9c2c37e91e_icgraph" id="upk__v0__protocol_8c_ab5cfa619e4f879bb6de7ba9c2c37e91e_icgraph">
-<area shape="rect" id="node3" href="upk__protocol_8c.html#a4bf94cc8e7458fd891a91dde470be196" title="upk_free_payload" alt="" coords="172,138,295,170"/><area shape="rect" id="node5" href="group__client__protocol.html#gab7efe972a36f4f23cb9b811892cf142c" title="upk_pkt_free" alt="" coords="344,138,440,170"/><area shape="rect" id="node7" href="ctrl__eventloop_8c.html#a741093d702f88c44f02aa5fbbd20f3b7" title="controller_packet_callback" alt="" coords="488,110,664,142"/><area shape="rect" id="node15" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="552,54,600,86"/><area shape="rect" id="node17" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52" title="upk_clnet_req_action" alt="" coords="1377,133,1521,165"/><area shape="rect" id="node21" href="upk__client__net_8h.html#af573b85764e9dc557daed0b1b2ee0bf6" title="upk_clnet_req_disconnect" alt="" coords="1364,189,1535,221"/><area shape="rect" id="node26" href="upk__client__net_8h.html#a3c8470569c64aa14552d455bdadc9ae5" title="upk_clnet_req_preamble" alt="" coords="1368,245,1531,277"/><area shape="rect" id="node31" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6" title="retry socket connection, pausing between each retry." alt="" coords="512,166,640,198"/><area shape="rect" id="node9" href="ctrl__eventloop_8c.html#a18b56a5bfd7cf9021f97306a90c82387" title="accept_conn" alt="" coords="751,82,847,114"/><area shape="rect" id="node11" href="ctrl__eventloop_8c.html#afcb5edca8881b0c26ccbc120775ed38b" title="event_loop" alt="" coords="976,54,1059,86"/><area shape="rect" id="node13" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1208,54,1256,86"/><area shape="rect" id="node19" href="upk__start_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1807,189,1855,221"/><area shape="rect" id="node23" href="upk__client__net_8h.html#a8d7e372cd6428f266cfb371189a291c9" title="upk_clnet_ctrl_disconnect" alt="" coords="1585,189,1756,221"/><area shape="rect" id="node28" href="upk__client__net_8h.html#adc9b54f471b3390b4740f62e85a9a324" title="upk_clnet_ctrl_connect" alt="" coords="1593,245,1748,277"/><area shape="rect" id="node33" href="group__upk__network.html#ga903e995b09efa15de0a8088a0005c42b" title="upk_net_event_dispatcher" alt="" coords="712,153,885,185"/><area shape="rect" id="node36" href="upk__start_8b_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="993,166,1041,198"/><area shape="rect" id="node38" href="group__upk__network.html#ga27367182816f28b924783233304a7abd" title="upk_net_block_until_msg" alt="" coords="933,110,1101,142"/><area shape="rect" id="node40" href="upk__client__net_8h.html#a49ae58fb782583a8f9543aab27cc2fd8" title="upk_clnet_serial_request" alt="" coords="1149,137,1315,169"/></map>
+<area shape="rect" id="node3" href="upk__protocol_8c.html#a4bf94cc8e7458fd891a91dde470be196" title="upk_free_payload" alt="" coords="172,139,295,171"/><area shape="rect" id="node5" href="group__client__protocol.html#gab7efe972a36f4f23cb9b811892cf142c" title="upk_pkt_free" alt="" coords="344,139,440,171"/><area shape="rect" id="node7" href="ctrl__eventloop_8c.html#a741093d702f88c44f02aa5fbbd20f3b7" title="controller_packet_callback" alt="" coords="488,55,664,87"/><area shape="rect" id="node15" href="upk__start_8b_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="993,165,1041,197"/><area shape="rect" id="node17" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52" title="upk_clnet_req_action" alt="" coords="1377,132,1521,164"/><area shape="rect" id="node21" href="upk__client__net_8h.html#af573b85764e9dc557daed0b1b2ee0bf6" title="upk_clnet_req_disconnect" alt="" coords="1364,188,1535,220"/><area shape="rect" id="node26" href="upk__client__net_8h.html#a3c8470569c64aa14552d455bdadc9ae5" title="upk_clnet_req_preamble" alt="" coords="1368,244,1531,276"/><area shape="rect" id="node31" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6" title="retry socket connection, pausing between each retry." alt="" coords="512,112,640,144"/><area shape="rect" id="node9" href="ctrl__eventloop_8c.html#a18b56a5bfd7cf9021f97306a90c82387" title="accept_conn" alt="" coords="751,55,847,87"/><area shape="rect" id="node11" href="ctrl__eventloop_8c.html#afcb5edca8881b0c26ccbc120775ed38b" title="event_loop" alt="" coords="976,53,1059,85"/><area shape="rect" id="node13" href="controller__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1208,53,1256,85"/><area shape="rect" id="node19" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="1807,188,1855,220"/><area shape="rect" id="node23" href="upk__client__net_8h.html#a8d7e372cd6428f266cfb371189a291c9" title="upk_clnet_ctrl_disconnect" alt="" coords="1585,188,1756,220"/><area shape="rect" id="node28" href="upk__client__net_8h.html#adc9b54f471b3390b4740f62e85a9a324" title="upk_clnet_ctrl_connect" alt="" coords="1593,244,1748,276"/><area shape="rect" id="node33" href="group__upk__network.html#ga903e995b09efa15de0a8088a0005c42b" title="upk_net_event_dispatcher" alt="" coords="712,112,885,144"/><area shape="rect" id="node37" href="group__upk__network.html#ga27367182816f28b924783233304a7abd" title="upk_net_block_until_msg" alt="" coords="933,109,1101,141"/><area shape="rect" id="node39" href="upk__client__net_8h.html#a49ae58fb782583a8f9543aab27cc2fd8" title="upk_clnet_serial_request" alt="" coords="1149,136,1315,168"/></map>
 </div>
 </p>
 
@@ -1227,9 +1219,7 @@ Here is the caller graph for this function:</div>
 <div class="memdoc">
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
     [<a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0">PKT_REQUEST</a>] = <a class="code" href="upk__v0__protocol_8c.html#a2e9c4981447ab0ff5c2640a8814fdc3c">v0_free_req_payload</a>,
-    
     [<a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f">PKT_REPLY</a>] = <a class="code" href="upk__v0__protocol_8c.html#ad3457b45952f5b9eca5ad1dd4198dca5">v0_free_repl_payload</a>,
-    
     [<a class="code" href="group__client__protocol.html#gga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6">PKT_PUBMSG</a>] = NULL,
 }
 </pre></div>
@@ -1250,14 +1240,14 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d">UPK_REPL_SEQ_START</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2">UPK_REPL_SEQ_END</a>] = NULL,
-    
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">UPK_REPL_RESULT</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c">UPK_REPL_RESULT</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">UPK_REPL_LISTING</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f">UPK_REPL_LISTING</a>] = NULL,
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37">UPK_REPL_SVCINFO</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d">UPK_REPL_ACK</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">UPK_REPL_ERROR</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d">UPK_REPL_ERROR</a>] = NULL,
 }
 </pre></div>
@@ -1278,16 +1268,16 @@ Here is the caller graph for this function:</div>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c">UPK_REQ_SEQ_START</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b">UPK_REQ_SEQ_END</a>] = NULL,
-    
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">UPK_REQ_ACTION</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809">UPK_REQ_ACTION</a>] = NULL,
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">UPK_REQ_SIGNAL</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54">UPK_REQ_SIGNAL</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc">UPK_REQ_LIST</a>] = NULL,
-    
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">UPK_REQ_STATUS</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2">UPK_REQ_STATUS</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">UPK_REQ_SUBSCRIBE</a>] = NULL,
-    
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9">UPK_REQ_SUBSCRIBE</a>] = NULL,
+    [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">UPK_REQ_UNSUBSCRIBE</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975">UPK_REQ_UNSUBSCRIBE</a>] = NULL,
     [<a class="code" href="group__client__protocol.html#ggab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07">UPK_REQ_DISCONNECT</a>] = NULL,
 }
@@ -1297,7 +1287,7 @@ Here is the caller graph for this function:</div>
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Wed Sep 14 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>
