@@ -63,13 +63,17 @@ AC_DEFUN([AX_SET_EXTLIB],[dnl
                  
 AC_DEFUN([AX_CHECK_EXT_LIB],
          [AC_REQUIRE([AC_CHECK_LIB])
-           AC_REQUIRE([AX_WITH_EXT_LIB])
+          AC_REQUIRE([AX_WITH_EXT_LIB])
           AC_REQUIRE([AX_SETUP_EXT_LIB])
           AX_WITH_EXT_LIB([$1])
           AX_SETUP_EXT_LIB([$1])
           AS_VAR_SET([tmp_LDFLAGS],["$LDFLAGS"])
           AS_VAR_SET([LDFLAGS], ["$LDFLAGS m4_toupper([$$1_LDFLAGS])"])
-          AC_CHECK_LIB([$1],[$2],[AX_SET_EXTLIB($3,$1)], [$4])
+          AC_CHECK_LIB([$1],[$2],[AX_SET_EXTLIB($3,$1)], [dnl
+			AS_VAR_SET([m4_toupper([$1_LIBS])], [-l$1])
+			m4_map([ax_make_tmpvars], [[[$2],[LIBS]]])
+			$4
+		  ])
           AS_VAR_SET([LDFLAGS],["$tmp_LDFLAGS"])
          ])
 

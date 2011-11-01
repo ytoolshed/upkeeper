@@ -33,13 +33,12 @@
 #endif
 
 #ifdef HAVE_GETPROGNAME
-#define upk_getprogname getprogname()
+# define upk_getprogname getprogname()
 #elif defined HAVE_GETEXECNAME
-#define upk_getprogname getexecname()
+# define upk_getprogname getexecname()
 #elif defined HAVE___PROGNAME
 extern const char      *__progname;
-
-#define upk_getprogname __progname
+# define upk_getprogname __progname
 #endif
 
 #ifndef HAVE_STRNLEN

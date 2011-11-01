@@ -61,7 +61,7 @@ upk_buddy_DEPENDENCIES =  \
 	$(top_builddir)/libupkeeper/libupkeeper_util.la
 upk_buddy_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(upk_buddy_CFLAGS) \
-	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+	$(CFLAGS) $(upk_buddy_LDFLAGS) $(LDFLAGS) -o $@
 am_upk_controller_OBJECTS = controller.$(OBJEXT) \
 	controller_main.$(OBJEXT) ctrl_protocol.$(OBJEXT) \
 	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT)
@@ -96,7 +96,7 @@ AUTOMAKE = @AUTOMAKE@
 AWK = @AWK@
 CC = @CC@
 CCDEPMODE = @CCDEPMODE@
-CFLAGS = 
+CFLAGS = @CFLAGS@
 CHECK_CFLAGS = @CHECK_CFLAGS@
 CHECK_LIBS = @CHECK_LIBS@
 CPP = @CPP@
@@ -121,14 +121,16 @@ INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
 JSON_CPPFLAGS = @JSON_CPPFLAGS@
 JSON_LDFLAGS = @JSON_LDFLAGS@
 JSON_LIBS = @JSON_LIBS@
+JSON_TOKENER_PARSE_LIBS = @JSON_TOKENER_PARSE_LIBS@
 LD = @LD@
-LDFLAGS = 
+LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
-LIBS = 
+LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+MAIN_LIBS = @MAIN_LIBS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
 NCURSES_CPPFLAGS = @NCURSES_CPPFLAGS@
@@ -155,6 +157,7 @@ SHELL = @SHELL@
 SQLITE3_CPPFLAGS = @SQLITE3_CPPFLAGS@
 SQLITE3_LDFLAGS = @SQLITE3_LDFLAGS@
 SQLITE3_LIBS = @SQLITE3_LIBS@
+SQLITE3_OPEN_LIBS = @SQLITE3_OPEN_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -209,15 +212,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+AM_CPPFLAGS_G := $(CPPFLAGS) -I$(top_builddir)/libupkeeper
+AM_LDFLAGS_G := $(LDFLAGS)
+AM_CPPFLAGS = @SQLITE3_CPPFLAGS@ @JSON_CPPFLAGS@ $(AM_CPPFLAGS_G)
+AM_LDFLAGS = @SQLITE3_LDFLAGS@ @SQLITE3_LIBS@ @JSON_LDFLAGS@ @JSON_LIBS@ $(AM_LDFLAGS_G)
 upk_controller_SOURCES = controller.c controller_main.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
 upk_controller_LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
-
-#### upk_controller_LIBS = -ljson -lsqlite3 -lupkeeper
-AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
-AM_LDFLAGS = -static
-LDADD = 
-LD_RUN_PATH = 
 upk_buddy_CFLAGS = -DUPK_STATIC_ERR_DECL 
+upk_buddy_LDFLAGS = -static
 upk_buddy_LDADD = $(top_builddir)/libupkeeper/libupkeeper_util.la
 upk_buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h 
 all: all-am

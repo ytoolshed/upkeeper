@@ -756,6 +756,12 @@ fi
 
 
 
+
+
+
+
+
+
 exec 7<&0 </dev/null 6>&1
 
 # Name of the host.
@@ -825,12 +831,15 @@ am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
 ALLOCA
+JSON_TOKENER_PARSE_LIBS
 JSON_CPPFLAGS
 JSON_LDFLAGS
 JSON_LIBS
+SQLITE3_OPEN_LIBS
 SQLITE3_CPPFLAGS
 SQLITE3_LDFLAGS
 SQLITE3_LIBS
+MAIN_LIBS
 NCURSES_CPPFLAGS
 NCURSES_LDFLAGS
 NCURSES_LIBS
@@ -4470,13 +4479,13 @@ if test "${lt_cv_nm_interface+set}" = set; then
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4473: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:4482: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4476: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:4485: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4479: output\"" >&5)
+  (eval echo "\"\$as_me:4488: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -5681,7 +5690,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5684 "configure"' > conftest.$ac_ext
+  echo '#line 5693 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7050,11 +7059,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7053: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7062: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7057: \$? = $ac_status" >&5
+   echo "$as_me:7066: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7389,11 +7398,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7392: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7401: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7396: \$? = $ac_status" >&5
+   echo "$as_me:7405: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7494,11 +7503,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7497: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7506: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7501: \$? = $ac_status" >&5
+   echo "$as_me:7510: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7549,11 +7558,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7552: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7561: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7556: \$? = $ac_status" >&5
+   echo "$as_me:7565: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -10352,7 +10361,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10355 "configure"
+#line 10364 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10448,7 +10457,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10451 "configure"
+#line 10460 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -12575,9 +12584,22 @@ fi
 
 
 else
-  { { $as_echo "$as_me:$LINENO: error: ncurses is required" >&5
+  			NCURSES_LIBS=-lncurses
+			                       if test "${MAIN_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking main flags MAIN_LIBS" >&5
+$as_echo_n "checking main flags MAIN_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$MAIN_LIBS\" 	" >&5
+$as_echo "					\"$MAIN_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: ncurses is required" >&5
 $as_echo "$as_me: error: ncurses is required" >&2;}
    { (exit 1); exit 1; }; }
+
 fi
 
           LDFLAGS="$tmp_LDFLAGS"
@@ -12741,9 +12763,22 @@ fi
 
 
 else
-  { { $as_echo "$as_me:$LINENO: error: sqlite is required" >&5
+  			SQLITE3_LIBS=-lsqlite3
+			                       if test "${SQLITE3_OPEN_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3_open flags SQLITE3_OPEN_LIBS" >&5
+$as_echo_n "checking sqlite3_open flags SQLITE3_OPEN_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_OPEN_LIBS\" 	" >&5
+$as_echo "					\"$SQLITE3_OPEN_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: sqlite is required" >&5
 $as_echo "$as_me: error: sqlite is required" >&2;}
    { (exit 1); exit 1; }; }
+
 fi
 
           LDFLAGS="$tmp_LDFLAGS"
@@ -12907,9 +12942,22 @@ fi
 
 
 else
-  { { $as_echo "$as_me:$LINENO: error: json-c is required" >&5
+  			JSON_LIBS=-ljson
+			                       if test "${JSON_TOKENER_PARSE_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking json_tokener_parse flags JSON_TOKENER_PARSE_LIBS" >&5
+$as_echo_n "checking json_tokener_parse flags JSON_TOKENER_PARSE_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_TOKENER_PARSE_LIBS\" 	" >&5
+$as_echo "					\"$JSON_TOKENER_PARSE_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: json-c is required" >&5
 $as_echo "$as_me: error: json-c is required" >&2;}
    { (exit 1); exit 1; }; }
+
 fi
 
           LDFLAGS="$tmp_LDFLAGS"
