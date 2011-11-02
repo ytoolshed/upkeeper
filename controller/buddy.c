@@ -662,7 +662,8 @@ buddy_stop_proc(void)
            be in buddy_cleanup? */
 
         /* give child time to terminate normally */
-        /* FIXME: should be configurable duration to wait for a child to exit cleanly - JB */
+        /* FIXME: should be configurable duration to wait for a child to exit cleanly - JB
+         There is already configuration parameters for this, just need to implement in controller and here */
         while(proc_pid && n++ < 10)
             nanosleep(&nanotimeout, NULL);
 

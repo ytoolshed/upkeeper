@@ -129,7 +129,6 @@ event_loop(int32_t listen_sock)
     fd_set                  lfds;
     double                  sel_ival = upk_runtime_configuration.BuddyPollingInterval / 2;
     struct timeval          timeout, timeoutv = { 0, 0 };
-    int                     n = 0;
 
 #ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
     int                     connections = 0;

@@ -119,15 +119,15 @@ struct _upk_svc_desc {
                                                               buddy; (-1 for indefinate) */
 
 
-    char                    ExecStart[UPK_MAX_PATH_LEN];   /*!< command to exec for start. Default: 'kill',
-                                                              see "StartScript" */
+    char                    ExecStart[UPK_MAX_PATH_LEN];   /*!< command to exec for start, see "StartScript" 
+                                                            */
 
     char                   *StartScript;                   /*!< script to run to start the monitored
                                                               process; replaces the default of 'exec
                                                               %(ExecStart)' */
 
-    char                    ExecStop[UPK_MAX_PATH_LEN];    /*!< executable to exec for stop. see
-                                                              "StopScript" */
+    char                    ExecStop[UPK_MAX_PATH_LEN];    /*!< executable to exec for stop. Default:
+                                                              'kill', see "StopScript" */
 
     char                   *StopScript;                    /*!< replace the default stop script of 'exec
                                                               %(EXEC_STOP) $1'; argv[1] == pid of monitored
@@ -170,15 +170,13 @@ struct _upk_svc_desc {
                                                               behavior is to ignore file removal, and require 
                                                               explicit manual removal of configured services */
 
-    int8_t                  PreferBuddyStateForStopped;    /*!< if the controller starts/restartindent:
-                                                              Standard input:189: Error:Stmt nesting error.
-                                                              s, and buddy has a service state set to
-                                                              "stopped", but controller's data-store believes 
-                                                              the service should be running, prefer buddy's
-                                                              world view, and update the data-store to
-                                                              reflect the stopped state (the default is to
-                                                              trust the data-store; which would cause the
-                                                              service to be started */
+    int8_t                  PreferBuddyStateForStopped;    /*!< if the controller starts/restarts, and buddy
+                                                              has a service state set to "stopped", but
+                                                              controller's data-store believes the service
+                                                              should be running, prefer buddy's world view,
+                                                              and update the data-store to reflect the stopped 
+                                                              state (the default is to trust the data-store;
+                                                              which would cause the service to be started */
 
     int8_t                  PreferBuddyStateForRunning;    /*!< if the controller starts/restarts, and buddy 
                                                               has a service state set to "running", but
@@ -243,7 +241,7 @@ typedef struct _upk_controller_config {
 
 /* upk_config.c */
 extern char             upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
-extern const char       upk_default_configuration_vec[];
+extern const char       upk_default_configuration_str[];
 extern upk_controller_config_t upk_default_configuration;
 extern upk_controller_config_t upk_file_configuration;
 extern upk_controller_config_t upk_runtime_configuration;

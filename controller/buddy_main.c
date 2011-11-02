@@ -83,7 +83,7 @@ numeric_string(const char *string, long *num)
 static int
 opt_parse(int argc, char **argv, char **envp)
 {
-    int                     c = 0, n = 0, option_index = 0;
+    int                     c = 0, option_index = 0;
     char                    cbuf[3] = "-";
     const char             *p, pbuf[1] = "";
     long                    num = 0;

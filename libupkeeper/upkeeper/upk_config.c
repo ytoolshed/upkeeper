@@ -58,7 +58,7 @@ stringify(CONF_SYSCONFDIR) "/upkeeper.conf";
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 /* *INDENT-OFF* */
-const char upk_default_configuration_vec[] = 
+const char upk_default_configuration_str[] = 
     "{\n" 
 	"    // StateDir\n" 
 	"    // Path to variable state-dir for controller and buddies\n" 
@@ -80,37 +80,117 @@ const char upk_default_configuration_vec[] =
     "    \"BuddyPollingInterval\": 0.5,\n"
     "\n"
     "    // ServiceDefaults:\n" 
-    "    \"ServiceDefaults\": {\n" 
-    "        \"Provides\": Null,\n" 
-    "        \"UUID\": Null,\n" 
-    "        \"ShortDescription\": Null,\n" 
-    "        \"LongDescription\": Null,\n" 
-    "        \"Prerequisites\": Null,\n" 
-    "        \"StartPriority\": 0,\n" 
-    "        \"BuddyShutdownTimeout\": -1,\n" 
-    "        \"KillTimeout\": 60,\n" 
-    "        \"UserMaxRestarts\": Null,\n" 
+    "    \"ServiceDefaults\": {\n"
+    "        // An array of strings describing what this service provides. These are then used in ordering service\n"
+    "        // startup via prerequisites. Service name and UUID are implicitely added to the list of Provides.\n"
+    "        \"Provides\": Null,\n"
+    "\n"
+    "        // A valid UUID for the service, will be automatically generated if not provided.\n"
+    "        \"UUID\": Null,\n"
+    "\n"
+    "        // A brief description of the service\n"
+    "        \"ShortDescription\": Null,\n"
+    "\n"
+    "        // A longer and more complete description of the service\n"
+    "        \"LongDescription\": Null,\n"
+    "\n"
+    "        // What must already be running (as named in 'Provides') before this service should start\n"
+    "        \"Prerequisites\": Null,\n"
+    "\n"
+    "        // Numeric start priority, used in lieu of, or in conjunction with Provides/Prerequisites to determine start order\n"
+    "        \"StartPriority\": 0,\n"
+    "\n"
+    "        // Shutdown timeout before resorting to SIGKILL, Values < 0 will never SIGKILL\n" 
+    "        \"KillTimeout\": 60,\n"
+    "\n"
+    "        // Maximum number of times a process may fail in-a-row before its state is changed to down\n"
+    "        // a negative value indicates to restart forever (and is the default)\n"
+    "        \"MaxConsecutiveFailures\": -1,\n"
+    "\n"
+    "        // user-defined max number of restarts within restart window\n"
+    "        \"UserMaxRestarts\": Null,\n"
+    "\n"
+    "        // User-defined restart window, in seconds\n"
     "        \"UserRestartWindow\": Null,\n" 
+    "\n"
+    "        // duration, in seconds, to wait between respawn attempts\n"
     "        \"UserRateLimit\": Null,\n" 
+    "\n"
+    "        // a flag to enable/disable adding a randomized jitter to the user_ratelimit\n"
     "        \"RandomizeRateLimit\": false,\n" 
+    "\n"
+    "        // if controller and/or buddy is run euid root; which uid to run the service as\n"
     "        \"SetUID\": 0,\n" 
+    "\n"
+    "        // if controller and/or buddy is run euid root; which gid to run the service as\n"
     "        \"SetGID\": 0,\n" 
+    "\n"
+    "        // size of the ringbuffer to maintain in the buddy\n"
     "        \"RingbufferSize\": 64,\n" 
+    "\n"
+    "        // number of times to retry connections to the controler when emergent actions\n"
+    "        // occur in the buddy; (-1 for indefinate)\n"
     "        \"ReconnectRetries\": 10,\n" 
+    "\n"
+    "        // command to exec for start, see 'StartScript'\n"
     "        \"ExecStart\": Null,\n" 
+    "\n"
+    "        // script to start the monitored process; The default is 'exec %(EXEC_START)'\n"
     "        \"StartScript\": \"#!/bin/sh\\nexec %(EXEC_START)\\n\",\n" 
+    "\n"
+    "        // command to exec for stop. Default: 'kill', see 'StopScript'\n"
     "        \"ExecStop\": \"kill\",\n" 
+    "\n"
+    "        // Script to stop the monitored process. The default is 'exec %(EXEC_STOP) $1'; where $1 passed\n"
+    "        // to it will be the pid of monitored process (and also the pgrp, and sid, unless the monitored process changed them\n"
     "        \"StopScript\": \"#!/bin/sh\\nexec %(EXEC_STOP) $1\\n\",\n" 
+    "\n"
+    "        // command to exec for reload. Default: 'kill -HUP', see 'ReloadScript'\n"
     "        \"ExecReload\": \"kill -HUP\",\n" 
+    "\n"
+    "        // Script to reload the monitored process. The default is 'exec %(EXEC_RELOAD) $1'; where $1 passed\n"
+    "        // to it will be the pid of monitored process (and also the pgrp, and sid, unless the monitored process changed them\n"
     "        \"ReloadScript\": \"#!/bin/sh\\nexec %(EXEC_RELOAD) $1\\n\",\n" 
+    "\n"
+    "        // A collection of key/value (JSON Object: {\"foo\":\"bar\"}) pairs where the key is the name of the action, and\n"
+    "        // the value is the contents of a script script to run for that action\n"
     "        \"CustomActions\": Null,\n" 
+    "\n"
+    "        // optional script to pipe stdout to. For example: 'exec logger -p local0.notice'\n"
     "        \"PipeStdoutScript\": Null,\n" 
+    "\n"
+    "        // optional script to pipe stderr to. For example: 'exec logger -p local0.warn'\n"
     "        \"PipeStderrScript\": Null,\n" 
+    "\n"
+    "        // optional place to direct stdout.\n"
+    "        // Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints\n"
+    "        // to stdout itself\n"
     "        \"RedirectStdout\": Null,\n" 
+    "\n"
+    "        // optional place to direct stderr.\n"
+    "        // Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints\n"
+    "        // to stderr itself\n"
     "        \"RedirectStderr\": Null,\n" 
+    "\n"
+    "        // state the service should be set to initially. this is used only when a service is first configured.\n"
     "        \"InitialState\": \"stopped\",\n" 
+    "\n"
+    "        // May be used by a package to instruct the controler to remove a configured service\n"
+    "        // if the file defining that service ever disappears. Possibly useful in packaging\n"
+    "        // to cleanup the controller on package removal. The default behavior is to ignore\n"
+    "        // file removal, and require explicit manual removal of configured services\n"
     "        \"UnconfigureOnFileRemoval\": false,\n" 
+    "\n"
+    "        // If the controller starts/restarts, and buddy has a service state set to 'stopped',\n"
+    "        // but controller's data-store believes the service should be running, prefer\n"
+    "        // buddy's world view, and update the data-store to reflect the stopped state.\n"
+    "        // The default is to trust the data-store; which would cause the service to be started\n"
     "        \"PreferBuddyStateForStopped\": false,\n" 
+    "\n"
+    "        // if the controller starts/restarts, and buddy has a service state set to 'running',\n"
+    "        // but controller's data-store believes the service should be stopped, prefer\n"
+    "        // buddy's world view, and update the data-store to reflect the running state.\n"
+    "        // The default is to trust the buddy, which would leave the service running\n"
     "        \"PreferBuddyStateForRunning\": true,\n"
     "    },\n"
     "}\n"
@@ -180,21 +260,65 @@ upk_ctrl_free_config(void)
     upk_ctrlconf_free(&upk_runtime_configuration);
 }
 
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static void
+upk_svcconf_provides_array_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    return;
+}
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static inline void
+upk_svcconf_setup_provides_array_handlers(upk_json_handlers_t * handlers)
+{
+    upk_json_handler_t     *restrict json_null = &handlers->json_null;
+    upk_json_handler_t     *restrict json_bool = &handlers->json_bool;
+    upk_json_handler_t     *restrict json_double = &handlers->json_double;
+    upk_json_handler_t     *restrict json_int = &handlers->json_int;
+    upk_json_handler_t     *restrict json_string = &handlers->json_string;
+    upk_json_handler_t     *restrict json_object = &handlers->json_object;
+    upk_json_handler_t     *restrict json_array = &handlers->json_array;
+    upk_json_handler_t     *restrict after_json_obj_pop = &handlers->after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_pop = &handlers->after_json_array_pop;
+
+    *json_null = NULL;
+    *json_bool = upk_conf_error_handler;
+    *json_double = upk_conf_error_handler;
+    *json_int = upk_conf_error_handler;
+    *json_string = upk_svcconf_provides_array_handler;
+    *json_array = upk_conf_error_handler;
+    *json_object = upk_conf_error_handler;
+    *after_json_obj_pop = upk_conf_error_handler;
+    *after_json_array_pop = upk_conf_error_handler;
+}
+
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static inline void
 upk_svcconf_setup_handlers(upk_json_handlers_t * handlers)
 {
-    handlers->json_null = NULL;
-    handlers->json_bool = upk_svcconf_bool_handler;
-    handlers->json_double = upk_conf_error_handler;
-    handlers->json_int = upk_svcconf_int_handler;
-    handlers->json_string = upk_svcconf_string_handler;
-    handlers->json_array = NULL;                           /* XXX: unimplemented, and needs to be!! */
-    handlers->json_object = NULL;                          /* XXX: unimplemented, and needs to be!! */
-    handlers->after_json_obj_pop = NULL;
-    handlers->after_json_array_pop = NULL;
+    upk_json_handler_t     *restrict json_null = &handlers->json_null;
+    upk_json_handler_t     *restrict json_bool = &handlers->json_bool;
+    upk_json_handler_t     *restrict json_double = &handlers->json_double;
+    upk_json_handler_t     *restrict json_int = &handlers->json_int;
+    upk_json_handler_t     *restrict json_string = &handlers->json_string;
+    upk_json_handler_t     *restrict json_object = &handlers->json_object;
+    upk_json_handler_t     *restrict json_array = &handlers->json_array;
+    upk_json_handler_t     *restrict after_json_obj_pop = &handlers->after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_pop = &handlers->after_json_array_pop;
+
+    *json_null = NULL;
+    *json_bool = upk_svcconf_bool_handler;
+    *json_double = upk_conf_error_handler;
+    *json_int = upk_svcconf_int_handler;
+    *json_string = upk_svcconf_string_handler;
+    *json_array = NULL;                                    /* XXX: unimplemented, and needs to be!! */
+    *json_object = NULL;                                   /* XXX: unimplemented, and needs to be!! */
+    *after_json_obj_pop = NULL;
+    *after_json_array_pop = NULL;
 }
 
 
@@ -414,8 +538,7 @@ upk_svcconf_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk
 
     if((strcasecmp(key, "StartPriority") == 0))
         d->StartPriority = v.val.i;
-    else if(strcasecmp(key, "BuddyShutdownTimeout") == 0)
-        d->BuddyShutdownTimeout = v.val.i;
+    /* else if(strcasecmp(key, "BuddyShutdownTimeout") == 0) d->BuddyShutdownTimeout = v.val.i; */
     else if(strcasecmp(key, "KillTimeout") == 0)
         d->KillTimeout = v.val.i;
     else if(strcasecmp(key, "UserMaxRestarts") == 0)
@@ -541,7 +664,7 @@ upk_ctrl_load_config(void)
     char                   *json;
 
     upk_svc_desc_clear(&upk_default_configuration.ServiceDefaults);
-    upk_ctrlconf_pack(&upk_default_configuration, upk_default_configuration_vec);
+    upk_ctrlconf_pack(&upk_default_configuration, upk_default_configuration_str);
 
     strncpy(upk_default_configuration.controller_socket, upk_default_configuration.StateDir,
             UPK_MAX_STRING_LEN - 1);
@@ -574,7 +697,7 @@ upk_svc_desc_clear(upk_svc_desc_t * svc)
 {
     upk_svc_desc_t          empty = {
         .StartPriority = INT32_MIN,
-        .BuddyShutdownTimeout = INT32_MIN,
+        /* .BuddyShutdownTimeout = INT32_MIN, */
         .KillTimeout = INT32_MIN,
         .MaxConsecutiveFailures = INT32_MIN,
         .UserMaxRestarts = INT32_MIN,
@@ -742,7 +865,7 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
     _joa(obj, "Prerequisites", upk_json_serialize_or_null(jt_array, p));
 
     _joa(obj, "StartPriority", upk_json_serialize_or_null(jt_int, &svc->StartPriority));
-    _joa(obj, "BuddyShutdownTimeout", upk_json_serialize_or_null(jt_int, &svc->BuddyShutdownTimeout));
+    /* _joa(obj, "BuddyShutdownTimeout", upk_json_serialize_or_null(jt_int, &svc->BuddyShutdownTimeout)); */
     _joa(obj, "KillTimeout", upk_json_serialize_or_null(jt_int, &svc->KillTimeout));
     _joa(obj, "MaxConsecutiveFailures", upk_json_serialize_or_null(jt_int, &svc->MaxConsecutiveFailures));
     _joa(obj, "UserMaxRestarts", upk_json_serialize_or_null(jt_int, &svc->UserMaxRestarts));
@@ -869,8 +992,7 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
         }
     }
 
-    if(high->BuddyShutdownTimeout != INT32_MIN)
-        dest->BuddyShutdownTimeout = high->BuddyShutdownTimeout;
+    /* if(high->BuddyShutdownTimeout != INT32_MIN) dest->BuddyShutdownTimeout = high->BuddyShutdownTimeout; */
 
     if(high->KillTimeout != INT32_MIN)
         dest->KillTimeout = high->KillTimeout;
@@ -1041,7 +1163,8 @@ void
 upk_finalize_svc_desc(upk_svc_desc_t * dest, upk_svc_desc_t * orig)
 {
     upk_overlay_svcconf_values(dest, &upk_runtime_configuration.ServiceDefaults);
-    upk_overlay_svcconf_values(dest, orig);
+    if(orig)
+        upk_overlay_svcconf_values(dest, orig);
 
     if(dest->StartScript)
         upk_replace_string(&dest->StartScript, "%(EXEC_START)", dest->ExecStart);

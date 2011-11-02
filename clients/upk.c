@@ -66,10 +66,12 @@ main(int argc, char ** argv, char ** envp)
     int option_index = 0;
     upk_json_data_output_opts_t opts = { .pad = " ", .indent = "    ", .sep = "\n", .suppress_null_values = false };
     upk_svc_desc_t svc = { 0 };
+    upk_svc_desc_t dest = { 0 };
 
     upk_svc_desc_clear(&svc);
+    upk_svc_desc_clear(&dest);
 
-    while((c = getopt_long(argc, argv, "sch", longopts, &option_index)) >= 0) {
+    while((c = getopt_long(argc, argv, "fsch", longopts, &option_index)) >= 0) {
         *(cbuf + 1) = (option_index) ? '-' : c;
         p = (option_index) ? longopts[option_index].name : pbuf;
         switch(c) {
@@ -198,16 +200,11 @@ main(int argc, char ** argv, char ** envp)
         }
     }
 
-    /*
-    if(finalize)
-        UPKLIST_FOREACH(cfg.svclist) {
-            UPKLIST_APPEND(svclist);
-            upk_svc_desc_clear(svclist->thisp);
-                                        upk_finalize_svc_desc(svclist->thisp, cfg.svclist->thisp);
-                                            }
-    */
+    if(finalize) {
+        upk_finalize_svc_desc(&dest, &svc);
+    }
 
-    cp = upk_json_serialize_svc_config(&svc, opts);
+    cp = upk_json_serialize_svc_config(&dest, opts);
     printf("%s", cp);
     free(cp);
 }
