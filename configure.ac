@@ -31,7 +31,7 @@ AC_PROG_MAKE_SET
 
 
 # Checks for libraries.
-PKG_CHECK_MODULES([CHECK], [check >= 0.9.4]) dnl [AC_MSG_WARN([The "check" C unit testing library was not found! you will not be able to run "make check"])])
+#PKG_CHECK_MODULES([CHECK], [check >= 0.9.4]) dnl [AC_MSG_WARN([The "check" C unit testing library was not found! you will not be able to run "make check"])])
 AX_CHECK_EXT_LIB([ncurses],[main],[],[AC_MSG_ERROR([ncurses is required])])
 AX_CHECK_EXT_LIB([sqlite3],[sqlite3_open],[],[AC_MSG_ERROR([sqlite is required])])
 AX_CHECK_EXT_LIB([json],[json_tokener_parse],[],[AC_MSG_ERROR([json-c is required])])
