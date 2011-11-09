@@ -31,7 +31,22 @@ AC_PROG_MAKE_SET
 
 
 # Checks for libraries.
-#PKG_CHECK_MODULES([CHECK], [check >= 0.9.4]) dnl [AC_MSG_WARN([The "check" C unit testing library was not found! you will not be able to run "make check"])])
+
+AC_ARG_ENABLE([rpath],[AS_HELP_STRING([--enable-rpath=PATH],[Add linker option to add PATH to the runpath])],[dnl
+			   AS_IF([test "x$enableval" != "x"],[LDFLAGS="-Wl,-rpath,\"$enableval\" $LDFLAGS"])])
+
+AC_MSG_CHECKING([check])
+PKG_CHECK_EXISTS([check >= 0.9.4],[dnl
+   _PKG_CONFIG([check][_CFLAGS], [cflags], [check])
+   _PKG_CONFIG([check][_LIBS], [libs], [check])
+   AC_SUBST([CHECK_CFLAGS],[$pkg_cv_check_CFLAGS])
+   AC_SUBST([CHECK_LIBS],[$pkg_cv_check_LIBS])
+   AC_MSG_RESULT([yes])
+   ], [dnl
+   AC_MSG_RESULT([no])
+   AC_MSG_WARN([The "check" C unit testing library was not found! you will not be able to run "make check"])dnl
+])
+
 AX_CHECK_EXT_LIB([ncurses],[main],[],[AC_MSG_ERROR([ncurses is required])])
 AX_CHECK_EXT_LIB([sqlite3],[sqlite3_open],[],[AC_MSG_ERROR([sqlite is required])])
 AX_CHECK_EXT_LIB([json],[json_tokener_parse],[],[AC_MSG_ERROR([json-c is required])])

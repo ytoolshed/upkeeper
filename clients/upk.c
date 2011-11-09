@@ -200,9 +200,10 @@ main(int argc, char ** argv, char ** envp)
         }
     }
 
-    if(finalize) {
+    if(finalize)
         upk_finalize_svc_desc(&dest, &svc);
-    }
+    else
+        dest = svc;
 
     cp = upk_json_serialize_svc_config(&dest, opts);
     printf("%s", cp);
