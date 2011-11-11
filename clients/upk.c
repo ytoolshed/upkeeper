@@ -24,7 +24,6 @@ static struct option longopts[] = {
     {"long_description", 1, 0, 0},
     {"prerequisites", 1, 0, 0},
     {"start_priority", 1, 0, 0},
-    {"buddy_shutdown_timeout", 1, 0, 0},
     {"kill_timeout", 1, 0, 0},
     {"max_consecutive_failures", 1, 0, 0},
     {"user_max_restarts", 1, 0, 0},
@@ -71,7 +70,7 @@ main(int argc, char ** argv, char ** envp)
     upk_svc_desc_clear(&svc);
     upk_svc_desc_clear(&dest);
 
-    while((c = getopt_long(argc, argv, "fsch", longopts, &option_index)) >= 0) {
+    while((c = getopt_long(argc, argv, "dfsch", longopts, &option_index)) >= 0) {
         *(cbuf + 1) = (option_index) ? '-' : c;
         p = (option_index) ? longopts[option_index].name : pbuf;
         switch(c) {
@@ -96,10 +95,6 @@ main(int argc, char ** argv, char ** envp)
                 else if(strcmp(longopts[option_index].name, "start_priority") == 0) {
                     upk_numeric_string(optarg, &nbuf);
                     svc.StartPriority = nbuf;
-                }
-                else if(strcmp(longopts[option_index].name, "buddy_shutdown_timeout") == 0) {
-                    upk_numeric_string(optarg, &nbuf);
-                    svc.BuddyShutdownTimeout = nbuf;
                 }
                 else if(strcmp(longopts[option_index].name, "kill_timeout") == 0) {
                     upk_numeric_string(optarg, &nbuf);
@@ -191,6 +186,9 @@ main(int argc, char ** argv, char ** envp)
                 opts.indent = "",
                 opts.sep = "";
                 break;
+            case 'd':
+                printf("%s\n", upk_default_configuration_str);
+                exit(0);
             case 's':
                 opts.suppress_null_values = true;
                 break;
@@ -200,14 +198,24 @@ main(int argc, char ** argv, char ** envp)
         }
     }
 
-    if(finalize)
+    upk_ctrl_load_config();
+
+    if(finalize) {
         upk_finalize_svc_desc(&dest, &svc);
-    else
+        upk_svc_desc_free(&svc);
+    }
+    else {
         dest = svc;
+    }
 
     cp = upk_json_serialize_svc_config(&dest, opts);
+    upk_svc_desc_free(&dest);
+    upk_ctrl_free_config();
+
     printf("%s", cp);
     free(cp);
+
+    return 0;
 }
 
 

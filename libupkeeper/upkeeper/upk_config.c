@@ -27,16 +27,35 @@
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 
-#define _stringify(A) #A
-#define stringify(A) _stringify(A)
+typedef enum {
+    SVCID_APPENDER = 0,
+    ACTION_APPENDER,
+} appender_type_t;
 
 /* upkeeper/upk_config.c */
+static void             upk_svcconf_svcid_array_appender(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                         upk_json_val_t v);
+static inline void      upk_svcconf_setup_array_handlers(upk_json_handlers_t * handlers);
+static void             upk_svcconf_array_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                  upk_json_val_t v);
+static void             upk_svcconf_customaction_array_appender(upk_json_stack_meta_t * meta, void *data,
+                                                                char *key, upk_json_val_t v);
+static inline void      upk_svcconf_setup_object_handlers(upk_json_handlers_t * handlers);
+static void             upk_svcconf_nested_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                          upk_json_val_t v);
+static inline void      upk_svcconf_setup_handlers(upk_json_handlers_t * handlers);
+static void             upk_ctrlconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                    upk_json_val_t v);
 static void             upk_ctrlconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key,
                                                     upk_json_val_t v);
 static void             upk_ctrlconf_double_handler(upk_json_stack_meta_t * meta, void *data, char *key,
                                                     upk_json_val_t v);
-static void             upk_ctrlconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
-                                                    upk_json_val_t v);
+static void             upk_ctrlconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                upk_json_val_t v);
+static void             upk_svcconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                                   upk_json_val_t v);
+static void             upk_svcconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key,
+                                               upk_json_val_t v);
 static void             upk_ctrlconf_pack(upk_controller_config_t * cfg, const char *json_string);
 static void             upk_svcconf_bool_handler(upk_json_stack_meta_t * meta, void *data, char *key,
                                                  upk_json_val_t v);
@@ -47,7 +66,6 @@ static void             upk_svcconf_string_handler(upk_json_stack_meta_t * meta,
 static void             upk_conf_error_handler(upk_json_stack_meta_t * meta, void *data, char *key,
                                                upk_json_val_t v);
 static char            *upk_config_loadfile(const char *filename);
-
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -81,9 +99,9 @@ const char upk_default_configuration_str[] =
     "\n"
     "    // ServiceDefaults:\n" 
     "    \"ServiceDefaults\": {\n"
-    "        // An array of strings describing what this service provides. These are then used in ordering service\n"
-    "        // startup via prerequisites. Service name and UUID are implicitely added to the list of Provides.\n"
-    "        \"Provides\": Null,\n"
+    "        // An array of strings (['foo','bar']) describing what this service provides. These are then used in ordering service\n"
+    "        // startup via prerequisites. Service name, package, and UUID are implicitely added to the list of Provides.\n"
+    "        \"Provides\": [],\n"
     "\n"
     "        // A valid UUID for the service, will be automatically generated if not provided.\n"
     "        \"UUID\": Null,\n"
@@ -94,8 +112,10 @@ const char upk_default_configuration_str[] =
     "        // A longer and more complete description of the service\n"
     "        \"LongDescription\": Null,\n"
     "\n"
-    "        // What must already be running (as named in 'Provides') before this service should start\n"
-    "        \"Prerequisites\": Null,\n"
+    "        // An array of strings (['foo','uuid#<...>']) of what must already be running (as named in 'Provides')\n"
+    "        // before this service should start. The syntax <package-name>:<service-name> may be used to specify a service from\n"
+    "        // a specific package. The syntax 'uuid#<uuid-string>' can be used to specify an explicit UUID.\n"
+    "        \"Prerequisites\": [],\n"
     "\n"
     "        // Numeric start priority, used in lieu of, or in conjunction with Provides/Prerequisites to determine start order\n"
     "        \"StartPriority\": 0,\n"
@@ -154,7 +174,7 @@ const char upk_default_configuration_str[] =
     "\n"
     "        // A collection of key/value (JSON Object: {\"foo\":\"bar\"}) pairs where the key is the name of the action, and\n"
     "        // the value is the contents of a script script to run for that action\n"
-    "        \"CustomActions\": Null,\n" 
+    "        \"CustomActions\": {},\n" 
     "\n"
     "        // optional script to pipe stdout to. For example: 'exec logger -p local0.notice'\n"
     "        \"PipeStdoutScript\": Null,\n" 
@@ -199,26 +219,35 @@ const char upk_default_configuration_str[] =
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
+/* FIXME: this could lead to thread safety issues; need to do this more cleanly */
 upk_controller_config_t upk_default_configuration;
 upk_controller_config_t upk_file_configuration;
 upk_controller_config_t upk_runtime_configuration;
-
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 void
 upk_svc_desc_free(upk_svc_desc_t * svc)
 {
+    if(svc->Provides)
+        UPKLIST_FREE(svc->Provides);
     if(svc->LongDescription)
         free(svc->LongDescription);
+    if(svc->Prerequisites)
+        UPKLIST_FREE(svc->Prerequisites);
     if(svc->StartScript)
         free(svc->StartScript);
     if(svc->StopScript)
         free(svc->StopScript);
     if(svc->ReloadScript)
         free(svc->ReloadScript);
-    if(svc->custom_action_scripts)
-        UPKLIST_FREE(svc->custom_action_scripts);
+    if(svc->CustomActions) {
+        UPKLIST_FOREACH(svc->CustomActions) {
+            free(svc->CustomActions->thisp->script);
+            UPKLIST_UNLINK(svc->CustomActions);
+        }
+        free(svc->CustomActions);
+    }
     if(svc->PipeStdoutScript)
         free(svc->PipeStdoutScript);
     if(svc->PipeStderrScript)
@@ -263,15 +292,29 @@ upk_ctrl_free_config(void)
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
-upk_svcconf_provides_array_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+upk_svcconf_svcid_array_appender(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
-    return;
+    upk_svcid_meta_t       *d = data;
+    char                   *p = 0;
+
+    UPKLIST_APPEND(d);
+
+    if((p = index(v.val.str.c_str, ':'))) {
+        if((p - v.val.str.c_str) < UPK_MAX_STRING_LEN) {
+            strncpy(d->thisp->pkg, v.val.str.c_str, (p - v.val.str.c_str));
+            strncpy(d->thisp->name, p + 1, UPK_MAX_STRING_LEN - 1);
+        }
+    } else if(strncasecmp(v.val.str.c_str, "uuid#", 5) == 0) {
+        strncpy(d->thisp->pkg, v.val.str.c_str + 5, UPK_MAX_STRING_LEN - 1);
+    } else {
+        strncpy(d->thisp->name, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
+    }
 }
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static inline void
-upk_svcconf_setup_provides_array_handlers(upk_json_handlers_t * handlers)
+upk_svcconf_setup_array_handlers(upk_json_handlers_t * handlers)
 {
     upk_json_handler_t     *restrict json_null = &handlers->json_null;
     upk_json_handler_t     *restrict json_bool = &handlers->json_bool;
@@ -287,11 +330,97 @@ upk_svcconf_setup_provides_array_handlers(upk_json_handlers_t * handlers)
     *json_bool = upk_conf_error_handler;
     *json_double = upk_conf_error_handler;
     *json_int = upk_conf_error_handler;
-    *json_string = upk_svcconf_provides_array_handler;
+    *json_string = upk_svcconf_svcid_array_appender;
     *json_array = upk_conf_error_handler;
     *json_object = upk_conf_error_handler;
-    *after_json_obj_pop = upk_conf_error_handler;
-    *after_json_array_pop = upk_conf_error_handler;
+    *after_json_obj_pop = NULL;
+    *after_json_array_pop = NULL;
+}
+
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static void
+upk_svcconf_array_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_svc_desc_t         *d = data;
+    upk_json_stack_node_t   service_array_node = { 0 };
+
+    if(strcasecmp(key, "Provides") == 0) {
+        if(!d->Provides)
+            d->Provides = calloc(1, sizeof(*d->Provides));
+        service_array_node.data = d->Provides;
+        upk_svcconf_setup_array_handlers(&service_array_node.handlers);
+        upk_json_stack_push(meta, &service_array_node);
+    } else if(strcasecmp(key, "Prerequisites") == 0) {
+        if(!d->Prerequisites)
+            d->Prerequisites = calloc(1, sizeof(*d->Prerequisites));
+        service_array_node.data = d->Prerequisites;
+        upk_svcconf_setup_array_handlers(&service_array_node.handlers);
+        upk_json_stack_push(meta, &service_array_node);
+    }
+    return;
+}
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static void
+upk_svcconf_customaction_array_appender(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_cust_actscr_meta_t *d = data;
+
+    UPKLIST_APPEND(d);
+
+    strncpy(d->thisp->name, key, UPK_MAX_STRING_LEN - 1);
+    d->thisp->script = calloc(1, strlen(v.val.str.c_str) + 1);
+    strcpy(d->thisp->script, v.val.str.c_str);
+    return;
+}
+
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static inline void
+upk_svcconf_setup_object_handlers(upk_json_handlers_t * handlers)
+{
+    upk_json_handler_t     *restrict json_null = &handlers->json_null;
+    upk_json_handler_t     *restrict json_bool = &handlers->json_bool;
+    upk_json_handler_t     *restrict json_double = &handlers->json_double;
+    upk_json_handler_t     *restrict json_int = &handlers->json_int;
+    upk_json_handler_t     *restrict json_string = &handlers->json_string;
+    upk_json_handler_t     *restrict json_object = &handlers->json_object;
+    upk_json_handler_t     *restrict json_array = &handlers->json_array;
+    upk_json_handler_t     *restrict after_json_obj_pop = &handlers->after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_pop = &handlers->after_json_array_pop;
+
+    *json_null = NULL;
+    *json_bool = upk_conf_error_handler;
+    *json_double = upk_conf_error_handler;
+    *json_int = upk_conf_error_handler;
+    *json_string = upk_svcconf_customaction_array_appender;
+    *json_array = upk_conf_error_handler;
+    *json_object = upk_conf_error_handler;
+    *after_json_obj_pop = NULL;
+    *after_json_array_pop = NULL;
+}
+
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static void
+upk_svcconf_nested_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_svc_desc_t         *d = data;
+    upk_json_stack_node_t   service_array_node = { 0 };
+
+    if(strcasecmp(key, "CustomActions") == 0) {
+        if(!d->CustomActions)
+            d->CustomActions = calloc(1, sizeof(*d->CustomActions));
+        service_array_node.data = d->CustomActions;
+        upk_svcconf_setup_object_handlers(&service_array_node.handlers);
+        upk_json_stack_push(meta, &service_array_node);
+    }
+    return;
 }
 
 
@@ -315,8 +444,8 @@ upk_svcconf_setup_handlers(upk_json_handlers_t * handlers)
     *json_double = upk_conf_error_handler;
     *json_int = upk_svcconf_int_handler;
     *json_string = upk_svcconf_string_handler;
-    *json_array = NULL;                                    /* XXX: unimplemented, and needs to be!! */
-    *json_object = NULL;                                   /* XXX: unimplemented, and needs to be!! */
+    *json_array = upk_svcconf_array_handler;
+    *json_object = upk_svcconf_nested_object_handler;
     *after_json_obj_pop = NULL;
     *after_json_array_pop = NULL;
 }
@@ -377,25 +506,39 @@ upk_ctrlconf_double_handler(upk_json_stack_meta_t * meta, void *data, char *key,
     }
 }
 
-
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
 upk_ctrlconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
-    upk_json_stack_node_t   ctrl_node = {
-        .data = data,
-        .handlers.json_null = upk_conf_error_handler,
-        .handlers.json_bool = upk_conf_error_handler,
-        .handlers.json_double = upk_ctrlconf_double_handler,
-        .handlers.json_int = upk_ctrlconf_double_handler,
-        .handlers.json_string = upk_ctrlconf_string_handler,
-        .handlers.json_array = upk_conf_error_handler,
-        .handlers.json_object = upk_ctrlconf_object_handler,
-    };
+    upk_json_stack_node_t   ctrl_node = {.data = data };
+
+    upk_json_handler_t     *restrict json_null = &ctrl_node.handlers.json_null;
+    upk_json_handler_t     *restrict json_bool = &ctrl_node.handlers.json_bool;
+    upk_json_handler_t     *restrict json_double = &ctrl_node.handlers.json_double;
+    upk_json_handler_t     *restrict json_int = &ctrl_node.handlers.json_int;
+    upk_json_handler_t     *restrict json_string = &ctrl_node.handlers.json_string;
+    upk_json_handler_t     *restrict json_object = &ctrl_node.handlers.json_object;
+    upk_json_handler_t     *restrict json_array = &ctrl_node.handlers.json_array;
+    upk_json_handler_t     *restrict after_json_obj_pop = &ctrl_node.handlers.after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_pop = &ctrl_node.handlers.after_json_array_pop;
+
+    *json_null = upk_conf_error_handler;
+    *json_bool = upk_conf_error_handler;
+    *json_double = upk_ctrlconf_double_handler;
+    *json_int = upk_ctrlconf_double_handler;               /* upk_ctrlconf_double_handler does double duty
+                                                              for ints and doubles since there is only a
+                                                              single field that takes a numeric value in the
+                                                              controller conf */
+    *json_string = upk_ctrlconf_string_handler;
+    *json_array = upk_conf_error_handler;
+    *json_object = upk_ctrlconf_object_handler;
+    *after_json_obj_pop = NULL;
+    *after_json_array_pop = NULL;
 
     upk_json_stack_push(meta, &ctrl_node);
 }
+
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -420,26 +563,35 @@ upk_svcconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
     return;
 }
 
-
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
 upk_svcconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
-    upk_json_stack_node_t   svc_node = {
-        .data = data,
-        .handlers.json_null = upk_conf_error_handler,
-        .handlers.json_bool = upk_conf_error_handler,
-        .handlers.json_double = upk_conf_error_handler,
-        .handlers.json_int = upk_conf_error_handler,
-        .handlers.json_string = upk_conf_error_handler,
-        .handlers.json_array = upk_conf_error_handler,
-        .handlers.json_object = upk_svcconf_object_handler,
-    };
+    upk_json_stack_node_t   svc_node = {.data = data };
+
+    upk_json_handler_t     *restrict json_null = &svc_node.handlers.json_null;
+    upk_json_handler_t     *restrict json_bool = &svc_node.handlers.json_bool;
+    upk_json_handler_t     *restrict json_double = &svc_node.handlers.json_double;
+    upk_json_handler_t     *restrict json_int = &svc_node.handlers.json_int;
+    upk_json_handler_t     *restrict json_string = &svc_node.handlers.json_string;
+    upk_json_handler_t     *restrict json_object = &svc_node.handlers.json_object;
+    upk_json_handler_t     *restrict json_array = &svc_node.handlers.json_array;
+    upk_json_handler_t     *restrict after_json_obj_pop = &svc_node.handlers.after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_pop = &svc_node.handlers.after_json_array_pop;
+
+    *json_null = upk_conf_error_handler;
+    *json_bool = upk_conf_error_handler;
+    *json_double = upk_conf_error_handler;
+    *json_int = upk_conf_error_handler;
+    *json_string = upk_conf_error_handler;
+    *json_array = upk_conf_error_handler;
+    *json_object = upk_svcconf_object_handler;
+    *after_json_obj_pop = NULL;
+    *after_json_array_pop = NULL;
 
     upk_json_stack_push(meta, &svc_node);
 }
-
 
 
 /* ******************************************************************************************************************
@@ -448,18 +600,27 @@ static void
 upk_ctrlconf_pack(upk_controller_config_t * cfg, const char *json_string)
 {
     struct json_object     *obj = NULL;
-    upk_json_stack_node_t   init_node = {
-        .data = cfg,
-        .handlers.json_null = upk_conf_error_handler,
-        .handlers.json_bool = upk_conf_error_handler,
-        .handlers.json_double = upk_conf_error_handler,
-        .handlers.json_int = upk_conf_error_handler,
-        .handlers.json_string = upk_conf_error_handler,
-        .handlers.json_array = upk_conf_error_handler,
-        .handlers.json_object = upk_ctrlconf_toplvl_obj,
-    };
-
+    upk_json_stack_node_t   init_node = {.data = cfg };
+    upk_json_handler_t     *restrict json_nullh = &init_node.handlers.json_null;
+    upk_json_handler_t     *restrict json_boolh = &init_node.handlers.json_bool;
+    upk_json_handler_t     *restrict json_doubleh = &init_node.handlers.json_double;
+    upk_json_handler_t     *restrict json_inth = &init_node.handlers.json_int;
+    upk_json_handler_t     *restrict json_stringh = &init_node.handlers.json_string;
+    upk_json_handler_t     *restrict json_objecth = &init_node.handlers.json_object;
+    upk_json_handler_t     *restrict json_arrayh = &init_node.handlers.json_array;
+    upk_json_handler_t     *restrict after_json_obj_poph = &init_node.handlers.after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_poph = &init_node.handlers.after_json_array_pop;
     upk_json_stack_meta_t  *meta = calloc(1, sizeof(*meta));
+
+    *json_nullh = upk_conf_error_handler;
+    *json_boolh = upk_conf_error_handler;
+    *json_doubleh = upk_conf_error_handler;
+    *json_inth = upk_conf_error_handler;
+    *json_stringh = upk_conf_error_handler;
+    *json_arrayh = upk_conf_error_handler;
+    *json_objecth = upk_ctrlconf_toplvl_obj;
+    *after_json_obj_poph = NULL;
+    *after_json_array_poph = NULL;
 
     upk_json_stack_push(meta, &init_node);
 
@@ -480,16 +641,26 @@ void
 upk_svcconf_pack(upk_controller_config_t * cfg, const char *json_string)
 {
     struct json_object     *obj = NULL;
-    upk_json_stack_node_t   init_node = {
-        .data = cfg,
-        .handlers.json_null = upk_conf_error_handler,
-        .handlers.json_bool = upk_conf_error_handler,
-        .handlers.json_double = upk_conf_error_handler,
-        .handlers.json_int = upk_conf_error_handler,
-        .handlers.json_string = upk_conf_error_handler,
-        .handlers.json_array = upk_conf_error_handler,
-        .handlers.json_object = upk_svcconf_toplvl_obj,
-    };
+    upk_json_stack_node_t   init_node = {.data = cfg };
+    upk_json_handler_t     *restrict json_nullh = &init_node.handlers.json_null;
+    upk_json_handler_t     *restrict json_boolh = &init_node.handlers.json_bool;
+    upk_json_handler_t     *restrict json_doubleh = &init_node.handlers.json_double;
+    upk_json_handler_t     *restrict json_inth = &init_node.handlers.json_int;
+    upk_json_handler_t     *restrict json_stringh = &init_node.handlers.json_string;
+    upk_json_handler_t     *restrict json_objecth = &init_node.handlers.json_object;
+    upk_json_handler_t     *restrict json_arrayh = &init_node.handlers.json_array;
+    upk_json_handler_t     *restrict after_json_obj_poph = &init_node.handlers.after_json_obj_pop;
+    upk_json_handler_t     *restrict after_json_array_poph = &init_node.handlers.after_json_array_pop;
+
+    *json_nullh = upk_conf_error_handler;
+    *json_boolh = upk_conf_error_handler;
+    *json_doubleh = upk_conf_error_handler;
+    *json_inth = upk_conf_error_handler;
+    *json_stringh = upk_conf_error_handler;
+    *json_arrayh = upk_conf_error_handler;
+    *json_objecth = upk_svcconf_toplvl_obj;
+    *after_json_obj_poph = NULL;
+    *after_json_array_poph = NULL;
 
     upk_json_stack_meta_t  *meta = calloc(1, sizeof(*meta));
 
@@ -538,9 +709,10 @@ upk_svcconf_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk
 
     if((strcasecmp(key, "StartPriority") == 0))
         d->StartPriority = v.val.i;
-    /* else if(strcasecmp(key, "BuddyShutdownTimeout") == 0) d->BuddyShutdownTimeout = v.val.i; */
     else if(strcasecmp(key, "KillTimeout") == 0)
         d->KillTimeout = v.val.i;
+    else if(strcasecmp(key, "MaxConsecutiveFailures") == 0)
+        d->MaxConsecutiveFailures = v.val.i;
     else if(strcasecmp(key, "UserMaxRestarts") == 0)
         d->UserMaxRestarts = v.val.i;
     else if(strcasecmp(key, "UserRestartWindow") == 0)
@@ -571,8 +743,6 @@ upk_svcconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
         strncpy(d->Package, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
     } else if(strcasecmp(key, "Name") == 0) {
         strncpy(d->Name, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
-    } else if(strcasecmp(key, "Provides") == 0) {
-        strncpy(d->Provides, v.val.str.c_str, UPK_MAX_STRING_LEN - 1);
     } else if(strcasecmp(key, "UUID") == 0) {
         upk_string_to_uuid(&d->UUID, v.val.str.c_str);
     } else if(strcasecmp(key, "ShortDescription") == 0) {
@@ -697,7 +867,6 @@ upk_svc_desc_clear(upk_svc_desc_t * svc)
 {
     upk_svc_desc_t          empty = {
         .StartPriority = INT32_MIN,
-        /* .BuddyShutdownTimeout = INT32_MIN, */
         .KillTimeout = INT32_MIN,
         .MaxConsecutiveFailures = INT32_MIN,
         .UserMaxRestarts = INT32_MIN,
@@ -845,11 +1014,17 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
 
     obj = json_object_new_object();
 
-    /* 
-       json_object_object_add(obj, "Name", json_object_new_string(svc->Name)); json_object_object_add(obj,
-       "Package", upk_json_serialize_or_null(jt_string, svc->Package)); */
+    json_object_object_add(obj, "Package", upk_json_serialize_or_null(jt_string, svc->Package));
 
-    _joa(obj, "Provides", upk_json_serialize_or_null(jt_string, svc->Provides));
+    p = json_object_new_array();
+    if(svc->Provides) {
+        UPKLIST_FOREACH(svc->Provides) {
+            upk_concat_svcid(svc_id_buf, svc->Provides->thisp->pkg, svc->Provides->thisp->name);
+            json_object_array_add(p, json_object_new_string(svc_id_buf));
+        }
+    }
+    _joa(obj, "Provides", upk_json_serialize_or_null(jt_array, p));
+
     upk_string_to_uuid(&svc->UUID, uuid_buf);
     _joa(obj, "UUID", upk_json_serialize_or_null(jt_string, uuid_buf));
     _joa(obj, "ShortDescription", upk_json_serialize_or_null(jt_string, svc->ShortDescription));
@@ -865,7 +1040,6 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
     _joa(obj, "Prerequisites", upk_json_serialize_or_null(jt_array, p));
 
     _joa(obj, "StartPriority", upk_json_serialize_or_null(jt_int, &svc->StartPriority));
-    /* _joa(obj, "BuddyShutdownTimeout", upk_json_serialize_or_null(jt_int, &svc->BuddyShutdownTimeout)); */
     _joa(obj, "KillTimeout", upk_json_serialize_or_null(jt_int, &svc->KillTimeout));
     _joa(obj, "MaxConsecutiveFailures", upk_json_serialize_or_null(jt_int, &svc->MaxConsecutiveFailures));
     _joa(obj, "UserMaxRestarts", upk_json_serialize_or_null(jt_int, &svc->UserMaxRestarts));
@@ -884,10 +1058,10 @@ upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)
     _joa(obj, "ReloadScript", upk_json_serialize_or_null(jt_string, svc->ReloadScript));
 
     p = json_object_new_object();
-    if(svc->custom_action_scripts) {
-        UPKLIST_FOREACH(svc->custom_action_scripts) {
-            _joa(p, svc->custom_action_scripts->thisp->name,
-                 json_object_new_string(svc->custom_action_scripts->thisp->script));
+    if(svc->CustomActions) {
+        UPKLIST_FOREACH(svc->CustomActions) {
+            _joa(p, svc->CustomActions->thisp->name,
+                 json_object_new_string(svc->CustomActions->thisp->script));
         }
     }
     _joa(obj, "CustomActions", upk_json_serialize_or_null(json_type_object, p));
@@ -959,9 +1133,15 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
         strncpy(dest->Package, high->Package, sizeof(dest->Package) - 1);
     }
 
-    if(strlen(high->Provides) > 0) {
-        memset(dest->Provides, 0, sizeof(dest->Provides));
-        strncpy(dest->Provides, high->Provides, sizeof(dest->Provides) - 1);
+    if(high->Provides && high->Provides->count > 0) {
+        if(!dest->Provides)
+            dest->Provides = calloc(1, sizeof(*dest->Provides));
+
+        UPKLIST_FOREACH(high->Provides) {
+            UPKLIST_APPEND(dest->Provides);
+            memcpy(dest->Provides->thisp, high->Provides->thisp,
+                   sizeof(*dest->Provides->thisp) - sizeof(dest->Provides->thisp->next));
+        }
     }
 
     if(high->UUID.time_low || high->UUID.time_mid || high->UUID.time_high_and_version
@@ -976,14 +1156,13 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->LongDescription && strlen(high->LongDescription) > 0) {
-        dest->LongDescription = realloc(dest->LongDescription, strlen(high->LongDescription) + 1);
+        dest->LongDescription = calloc(1, strlen(high->LongDescription) + 1);
         strcpy(dest->LongDescription, high->LongDescription);
     }
 
     if(high->Prerequisites && high->Prerequisites->count > 0) {
-        if(dest->Prerequisites)
-            UPKLIST_FREE(dest->Prerequisites);
-        dest->Prerequisites = calloc(1, sizeof(*dest->Prerequisites));
+        if(!dest->Prerequisites)
+            dest->Prerequisites = calloc(1, sizeof(*dest->Prerequisites));
 
         UPKLIST_FOREACH(high->Prerequisites) {
             UPKLIST_APPEND(dest->Prerequisites);
@@ -991,8 +1170,6 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
                    sizeof(*dest->Prerequisites->thisp) - sizeof(dest->Prerequisites->thisp->next));
         }
     }
-
-    /* if(high->BuddyShutdownTimeout != INT32_MIN) dest->BuddyShutdownTimeout = high->BuddyShutdownTimeout; */
 
     if(high->KillTimeout != INT32_MIN)
         dest->KillTimeout = high->KillTimeout;
@@ -1030,7 +1207,7 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->StartScript && strlen(high->StartScript) > 0) {
-        dest->StartScript = realloc(dest->StartScript, strlen(high->StartScript) + 1);
+        dest->StartScript = calloc(1, strlen(high->StartScript) + 1);
         strcpy(dest->StartScript, high->StartScript);
     }
 
@@ -1040,7 +1217,7 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->StopScript && strlen(high->StopScript) > 0) {
-        dest->StopScript = realloc(dest->StopScript, strlen(high->StopScript) + 1);
+        dest->StopScript = calloc(1, strlen(high->StopScript) + 1);
         strcpy(dest->StopScript, high->StopScript);
     }
 
@@ -1050,30 +1227,29 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->ReloadScript && strlen(high->ReloadScript) > 0) {
-        dest->ReloadScript = realloc(dest->ReloadScript, strlen(high->ReloadScript) + 1);
+        dest->ReloadScript = calloc(1, strlen(high->ReloadScript) + 1);
         strcpy(dest->ReloadScript, high->ReloadScript);
     }
 
-    if(high->custom_action_scripts && high->custom_action_scripts->count > 0) {
-        if(dest->custom_action_scripts)
-            UPKLIST_FREE(dest->custom_action_scripts);
-        dest->custom_action_scripts = calloc(1, sizeof(*dest->custom_action_scripts));
+    if(high->CustomActions && high->CustomActions->count > 0) {
+        if(dest->CustomActions)
+            UPKLIST_FREE(dest->CustomActions);
+        dest->CustomActions = calloc(1, sizeof(*dest->CustomActions));
 
-        UPKLIST_FOREACH(high->custom_action_scripts) {
-            UPKLIST_APPEND(dest->custom_action_scripts);
-            memcpy(dest->custom_action_scripts->thisp, high->custom_action_scripts->thisp,
-                   sizeof(*dest->custom_action_scripts->thisp) -
-                   sizeof(dest->custom_action_scripts->thisp->next));
+        UPKLIST_FOREACH(high->CustomActions) {
+            UPKLIST_APPEND(dest->CustomActions);
+            memcpy(dest->CustomActions->thisp, high->CustomActions->thisp,
+                   sizeof(*dest->CustomActions->thisp) - sizeof(dest->CustomActions->thisp->next));
         }
     }
 
     if(high->PipeStdoutScript && strlen(high->PipeStdoutScript) > 0) {
-        dest->PipeStdoutScript = realloc(dest->PipeStdoutScript, strlen(high->PipeStdoutScript) + 1);
+        dest->PipeStdoutScript = calloc(1, strlen(high->PipeStdoutScript) + 1);
         strcpy(dest->PipeStdoutScript, high->PipeStdoutScript);
     }
 
     if(high->PipeStderrScript && strlen(high->PipeStderrScript) > 0) {
-        dest->PipeStderrScript = realloc(dest->PipeStderrScript, strlen(high->PipeStderrScript) + 1);
+        dest->PipeStderrScript = calloc(1, strlen(high->PipeStderrScript) + 1);
         strcpy(dest->PipeStderrScript, high->PipeStderrScript);
     }
 

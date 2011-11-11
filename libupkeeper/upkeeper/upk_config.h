@@ -53,15 +53,7 @@ struct _upk_svc_desc {
     char                    Package[UPK_MAX_STRING_LEN];   /*!< an optional prefix to be preppended to the
                                                               service name */
 
-    /* FIXME: this should be a list */
-    char                    Provides[UPK_MAX_STRING_LEN];  /*!< a string describing the function of this
-                                                              service. this can be used in prerequisite
-                                                              constraints upon other services. i.e. a
-                                                              prerequisite might be "entropy-service", and
-                                                              any service providing "entropy-service" would
-                                                              then satisfy that prerequisite [vaguely
-                                                              remeniscent of the debian "alternatives"
-                                                              system] */
+    upk_svcid_meta_t       *Provides;
 
     upk_uuid_t              UUID;                          /*!< a uuid for a service; dynamically generated
                                                               at service creation in most cases */
@@ -140,7 +132,7 @@ struct _upk_svc_desc {
                                                               kill -HUP $1'; argv[1] == pid of monitored
                                                               process */
 
-    upk_cust_actscr_meta_t *custom_action_scripts;         /*!< linked list of custom actions */
+    upk_cust_actscr_meta_t *CustomActions;                 /*!< linked list of custom actions */
 
     char                   *PipeStdoutScript;              /*!< optional script to pipe stdout to. for
                                                               instance: 'exec logger -p local0.notice' */
@@ -237,16 +229,14 @@ typedef struct _upk_controller_config {
   @{
   */
 
-/* upkeeper/upk_config.c */
-
-/* upk_config.c */
-extern char             upk_ctrl_configuration_file[UPK_MAX_PATH_LEN];
-extern const char       upk_default_configuration_str[];
+/* libupkeeper/upkeeper/upk_config.c */
+extern char upk_ctrl_configuration_file[8192];
+extern const char upk_default_configuration_str[];
 extern upk_controller_config_t upk_default_configuration;
 extern upk_controller_config_t upk_file_configuration;
 extern upk_controller_config_t upk_runtime_configuration;
 
-/* upkeeper/upk_config.c */
+/* libupkeeper/upkeeper/upk_config.c */
 extern void             upk_svc_desc_free(upk_svc_desc_t * svc);
 extern void             upk_svclist_free(upk_svc_desc_meta_t * svclist);
 extern void             upk_ctrlconf_free(upk_controller_config_t * cfg);
