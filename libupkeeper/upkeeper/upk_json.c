@@ -464,6 +464,7 @@ upk_json_parse_string(const char *string)
             json_object_put(jobj);
         jobj = NULL;
     }
+    tok->err = json_tokener_success; /* for some reason, this doesn't clear between parsings */
     json_tokener_free(tok);
 
     return jobj;

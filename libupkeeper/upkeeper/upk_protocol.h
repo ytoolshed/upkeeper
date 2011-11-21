@@ -476,7 +476,7 @@ extern upk_packet_t    *upk_create_req_action(upk_protocol_handle_t * handle, ch
 extern upk_packet_t    *upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id,
                                               upk_signal_t signal, bool signal_sid, bool signal_pgrp);
 extern upk_packet_t    *upk_create_req_list(upk_protocol_handle_t * handle);
-extern upk_packet_t    *upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id);
+extern upk_packet_t    *upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id, uint32_t restart_window_seconds);
 extern upk_packet_t    *upk_create_req_subscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs);
 extern upk_packet_t    *upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id,
                                                    bool all_svcs);

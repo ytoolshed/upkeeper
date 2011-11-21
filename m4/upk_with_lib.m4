@@ -24,10 +24,10 @@ AC_DEFUN([AX_SETUP_EXT_LIB],[dnl
                 AS_VAR_SET([m4_toupper([$1_LDFLAGS])],["-L${ax_tmp_with}/lib"])
             ])
             AS_IF([test -d "${ax_tmp_with}/lib64"],[dnl
-				AS_IF([test x`echo $target | grep 64 | head -1` != x],[
+				AS_IF([test 0`echo $target | grep -c 64` -gt 0],[
                     AS_VAR_SET([m4_toupper([$1_LDFLAGS])],["-L${ax_tmp_with}/lib64"])
 				],[dnl 
-					AS_IF([test x`echo $build | grep 64 | head -1` != x],[
+					AS_IF([test 0`echo $build | grep -c 64` -gt 0 ],[
 						AS_VAR_SET([m4_toupper([$1_LDFLAGS])],["-L${ax_tmp_with}/lib64"])
 					])
 				])

@@ -204,6 +204,8 @@ typedef struct _upk_controller_config {
     char                    UpkBuddyPath[UPK_MAX_PATH_LEN]; /*!< path to upk_buddy executable, usually
                                                                ${libexecdir}/upk_buddy */
 
+    uint32_t                BuddyVerbosity;                /*!< level of verbosity to run buddy at */
+
     double                  BuddyPollingInterval;          /*!< duration in seconds, or fractions of
                                                               seconds, to wait between polling buddy sockets
                                                               for updates; note that for longer durations,

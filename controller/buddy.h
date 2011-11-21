@@ -97,7 +97,4 @@ extern int32_t          buddy_event_loop(void);
 extern void             buddy_cleanup(void);
 
 
-/* FIXME: this needs to be specified via ./configure (at _least_ prefix aware) */
-#define DEFAULT_BUDDY_ROOT "/var/run/upkeeper/buddy"
-
 #endif

@@ -14,8 +14,8 @@
 
 #include "upk_include.h"
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 upk_payload_t          *
 upk_clnet_serial_request(upk_conn_handle_meta_t * ctrl, upk_packet_t * pkt)
 {
@@ -35,8 +35,8 @@ upk_clnet_serial_request(upk_conn_handle_meta_t * ctrl, upk_packet_t * pkt)
     return pl;
 }
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 void
 upk_clnet_req_preamble(upk_conn_handle_meta_t * ctrl)
 {
@@ -59,8 +59,8 @@ upk_clnet_req_preamble(upk_conn_handle_meta_t * ctrl)
 }
 
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 upk_conn_handle_meta_t *
 upk_clnet_ctrl_connect(void)
 {
@@ -80,8 +80,8 @@ upk_clnet_ctrl_connect(void)
     return ctrl;
 }
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 void
 upk_clnet_req_disconnect(upk_conn_handle_meta_t * ctrl)
 {
@@ -105,8 +105,8 @@ upk_clnet_req_disconnect(upk_conn_handle_meta_t * ctrl)
 }
 
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 void
 upk_clnet_ctrl_disconnect(upk_conn_handle_meta_t * ctrl)
 {
@@ -114,8 +114,8 @@ upk_clnet_ctrl_disconnect(upk_conn_handle_meta_t * ctrl)
     UPKLIST_FREE(ctrl);
 }
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
 bool
 upk_clnet_req_action(upk_conn_handle_meta_t * ctrl, char *svc_id, char *action)
 {
@@ -140,4 +140,61 @@ upk_clnet_req_action(upk_conn_handle_meta_t * ctrl, char *svc_id, char *action)
     upk_pkt_free(req);
     free(pl);
     return success;
+}
+
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
+bool
+upk_clnet_req_signal(upk_conn_handle_meta_t * ctrl, char *svc_id, upk_signal_t signal, bool should_signal_sid,
+                     bool should_signal_pgrp)
+{
+    upk_packet_t           *req = NULL;
+    upk_payload_t          *pl = NULL;
+    bool                    success = false;
+
+    req = upk_create_req_signal(ctrl->head, svc_id, signal, should_signal_sid, should_signal_pgrp);
+    pl = upk_clnet_serial_request(ctrl, req);
+
+    switch (pl->type) {
+    case UPK_REPL_RESULT:
+        upk_notice("%s\n", pl->payload.repl_result.msg);
+        success = pl->payload.repl_result.successful;
+        break;
+    case UPK_REPL_ERROR:
+        if(pl->payload.repl_error.errlevel > upk_diag_verbosity)
+            upk_warn("Controller encountered the following error: %s\n", pl->payload.repl_error.msg);
+    default:
+        upk_error("unexpected reply\n");
+    }
+    upk_pkt_free(req);
+    free(pl);
+    return success;
+}
+
+/*******************************************************************************************************************
+ *******************************************************************************************************************/
+upk_svcinfo_t          *
+upk_clnet_req_status(upk_conn_handle_meta_t * ctrl, char *svc_id, uint32_t restart_window_seconds)
+{
+    upk_packet_t           *req = NULL;
+    upk_payload_t          *pl = NULL;
+    upk_svcinfo_t          *svcinfo = calloc(1, sizeof(*svcinfo));
+
+    req = upk_create_req_status(ctrl->head, svc_id, restart_window_seconds);
+    pl = upk_clnet_serial_request(ctrl, req);
+
+    switch (pl->type) {
+    case UPK_REPL_SVCINFO:
+        *svcinfo = pl->payload.repl_svcinfo.svcinfo;
+        break;
+    case UPK_REPL_ERROR:
+        if(pl->payload.repl_error.errlevel > upk_diag_verbosity)
+            upk_warn("Controller encountered the following error: %s\n", pl->payload.repl_error.msg);
+    default:
+        upk_error("unexpected reply\n");
+    }
+    upk_pkt_free(req);
+    free(pl);
+
+    return svcinfo;
 }

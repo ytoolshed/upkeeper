@@ -93,6 +93,9 @@ const char upk_default_configuration_str[] =
     "    // Path to the buddy executable\n"
     "    \"UpkBuddyPath\": \"" stringify(CONF_LIBEXECDIR) "/upk_buddy\",\n"
     "\n"
+    "    // The verbosity for spawned buddy. An integer value between 0 and 7\n"
+    "    \"BuddyVerbosity\": 1,\n"
+    "\n"
     "    // How frequently buddy sockets should be polled for events\n"
     "    // in seconds and fractions of a second\n"
     "    \"BuddyPollingInterval\": 0.5,\n"
@@ -492,15 +495,29 @@ upk_ctrlconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key,
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
+upk_ctrlconf_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+{
+    upk_controller_config_t *d = data;
+
+    if(strcasecmp(key, "BuddyVerbosity") == 0)
+        d->BuddyVerbosity = v.val.i;
+    else if(strcasecmp(key, "BuddyPollingInterval") == 0) 
+        d->BuddyPollingInterval = v.val.i;
+    else
+        upk_fatal("invalid Configuration: %s\n", key);
+}
+
+
+
+/* ******************************************************************************************************************
+   ****************************************************************************************************************** */
+static void
 upk_ctrlconf_double_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
     upk_controller_config_t *d = data;
 
     if(strcasecmp(key, "BuddyPollingInterval") == 0) {
-        if(v.type == json_type_double)
-            d->BuddyPollingInterval = v.val.dbl;
-        else if(v.type == json_type_int)
-            d->BuddyPollingInterval = v.val.i;
+        d->BuddyPollingInterval = v.val.dbl;
     } else {
         upk_fatal("Invalid configuration: %s\n", key);
     }
@@ -526,10 +543,7 @@ upk_ctrlconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key, upk
     *json_null = upk_conf_error_handler;
     *json_bool = upk_conf_error_handler;
     *json_double = upk_ctrlconf_double_handler;
-    *json_int = upk_ctrlconf_double_handler;               /* upk_ctrlconf_double_handler does double duty
-                                                              for ints and doubles since there is only a
-                                                              single field that takes a numeric value in the
-                                                              controller conf */
+    *json_int = upk_ctrlconf_int_handler;
     *json_string = upk_ctrlconf_string_handler;
     *json_array = upk_conf_error_handler;
     *json_object = upk_ctrlconf_object_handler;

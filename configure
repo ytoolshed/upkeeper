@@ -12458,12 +12458,12 @@ esac
 fi
 
             if test -d "${ax_with_ncurses}/lib64"; then
-  				if test x`echo $target | grep 64 | head -1` != x; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
 
                     NCURSES_LDFLAGS="-L${ax_with_ncurses}/lib64"
 
 else
-  					if test x`echo $build | grep 64 | head -1` != x; then
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
 
 						NCURSES_LDFLAGS="-L${ax_with_ncurses}/lib64"
 
@@ -12644,12 +12644,12 @@ esac
 fi
 
             if test -d "${ax_with_sqlite3}/lib64"; then
-  				if test x`echo $target | grep 64 | head -1` != x; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
 
                     SQLITE3_LDFLAGS="-L${ax_with_sqlite3}/lib64"
 
 else
-  					if test x`echo $build | grep 64 | head -1` != x; then
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
 
 						SQLITE3_LDFLAGS="-L${ax_with_sqlite3}/lib64"
 
@@ -12836,12 +12836,12 @@ esac
 fi
 
             if test -d "${ax_with_json}/lib64"; then
-  				if test x`echo $target | grep 64 | head -1` != x; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
 
                     JSON_LDFLAGS="-L${ax_with_json}/lib64"
 
 else
-  					if test x`echo $build | grep 64 | head -1` != x; then
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
 
 						JSON_LDFLAGS="-L${ax_with_json}/lib64"
 

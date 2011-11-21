@@ -15,10 +15,14 @@
 #include <stdio.h>
 #include <errno.h>
 
+
+static ctrl_sigqueue_meta_t *ctrl_signal_queue;
+static upk_conn_handle_meta_t *clients_list_for_cleanup;
+
 void                    controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t *);
 
-/* *******************************************************************************************************************
-   ****************************************************************************************************************** */
+/********************************************************************************************************************
+ *********************************************************************************************************************/
 static void
 accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
 {
@@ -31,8 +35,8 @@ accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
         upk_net_add_socket_handle(clients, conn_fd, controller_packet_callback);
 }
 
-/* *******************************************************************************************************************
-   ******************************************************************************************************************* */
+/********************************************************************************************************************
+ *********************************************************************************************************************/
 void
 controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
 {
@@ -42,10 +46,9 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
 
     switch (msg->type) {
     case UPK_REQ_ACTION:
-        upk_debug1("action request received for service %s, type: %s\n", msg->payload.req_action.svc_id,
-                   msg->payload.req_action.action);
+        upk_debug1("action request received for service %s, type: %s\n", msg->payload.req_action.svc_id, msg->payload.req_action.action);
 
-        /* FIXME: should have a hash table for more efficient service lookup */
+        /* FIXME: should have a hash table/dictionary for more efficient service lookup */
         UPKLIST_FOREACH(svclist) {
             if(strncmp(svclist->thisp->Name, msg->payload.req_action.svc_id, UPK_MAX_STRING_LEN) == 0) {
                 if(strncasecmp(msg->payload.req_action.action, "start", UPK_MAX_STRING_LEN) == 0) {
@@ -120,8 +123,71 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
     return;
 }
 
-/* *******************************************************************************************************************
-   ****************************************************************************************************************** */
+
+
+/********************************************************************************************************************
+  @brief place received signals into a queue to handle later.
+  
+  Because most signal handling will have fairly significant work to do, all signal handling is done via queuing the
+  receipt to the 'ctrl_signal_queue', and processing is deferred to the event loop; specifically the "handle_signals"
+  function called first in the event loop.
+ ********************************************************************************************************************/
+void
+sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
+{
+    UPKLIST_APPEND(ctrl_signal_queue);
+    ctrl_signal_queue->thisp->siginfo = *siginfo;
+    ctrl_signal_queue->thisp->signal = signal;
+}
+
+/********************************************************************************************************************
+  @brief cleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues 
+ ********************************************************************************************************************/
+void
+ctrl_exit_cleanup(void)
+{
+    UPKLIST_FREE(ctrl_signal_queue);
+    UPKLIST_FREE(clients_list_for_cleanup);
+}
+
+
+/********************************************************************************************************************
+  @brief setup signal handlers 
+ ********************************************************************************************************************/
+static inline void
+ctrl_setup_sighandlers(void)
+{
+    struct sigaction        sigact = {
+        .sa_flags = SA_NOCLDSTOP | SA_RESTART | SA_SIGINFO,
+        .sa_sigaction = sa_sigaction_func
+    };
+
+    sigfillset(&sigact.sa_mask);
+
+    errno = 0;
+    if(sigaction(SIGCHLD, &sigact, NULL) != 0)
+        upk_fatal("sigchld handler registration failed: %s", strerror(errno));
+    errno = 0;
+    if(sigaction(SIGTERM, &sigact, NULL) != 0)
+        upk_fatal("sigterm handler registration failed: %s", strerror(errno));
+    errno = 0;
+    if(sigaction(SIGINT, &sigact, NULL) != 0)
+        upk_fatal("sigint handler registration failed: %s", strerror(errno));
+
+    /* ignore sigpipe, so socket writes don't abort */
+    memset(&sigact, 0, sizeof(sigact));
+    sigemptyset(&sigact.sa_mask);
+    sigact.sa_flags = 0;
+    sigact.sa_handler = SIG_IGN;
+
+    sigaction(SIGPIPE, &sigact, NULL);
+}
+
+/********************************************************************************************************************
+  @brief the main event loop.
+
+  This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets.
+ ********************************************************************************************************************/
 void
 event_loop(int32_t listen_sock)
 {
@@ -134,8 +200,13 @@ event_loop(int32_t listen_sock)
     int                     connections = 0;
 #endif
 
+    ctrl_signal_queue = calloc(1, sizeof(*ctrl_signal_queue));
+    ctrl_setup_sighandlers();
 
     clients = upk_net_conn_handle_init(NULL, NULL);
+    clients_list_for_cleanup = clients;
+    atexit(ctrl_exit_cleanup);
+
 
     while(1) {
         handle_signals();
@@ -162,12 +233,12 @@ event_loop(int32_t listen_sock)
             break;
 #endif
     }
-    UPKLIST_FREE(clients);
 }
 
 
-/* *******************************************************************************************************************
-   ****************************************************************************************************************** */
+/********************************************************************************************************************
+  @brief setup controller's socket
+ *********************************************************************************************************************/
 int32_t
 ctrl_sock_setup()
 {
@@ -175,9 +246,6 @@ ctrl_sock_setup()
     int32_t                 sock_fd = -1;
 
     // int32_t sockopts = SO_PASSCRED;
-
-    UPK_ERR_INIT;
-
 
     (void) unlink((const char *) upk_runtime_configuration.controller_socket);
     strncpy(sa.sun_path, (const char *) upk_runtime_configuration.controller_socket, sizeof(sa.sun_path) - 1);
@@ -187,11 +255,14 @@ ctrl_sock_setup()
     UPK_FUNC_ASSERT(sock_fd >= 0, UPK_SOCKET_FAILURE);
     UPK_FUNC_ASSERT(fcntl(sock_fd, F_GETFL) >= 0, UPK_SOCKET_FAILURE);
 
-    /* setsockopt(sock_fd, SOL_SOCKET, SO_PASSCRED, &sockopts, sizeof(sockopts)); */
+    /* FIXME: abstract the code for the socket a connection is coming from away from here so that platform-dependent methods for read-only, 
+       and read-write access can be provided (i.e. on linux, use SO_PASSCRED to determine if the client has permission to write/update
+       services, or just read state, or none of the above. On other platforms, SO_PEERCRED and getpeereid can be used for this purpose; and 
+       on hosts not supporting credential passing via any mechanism, two distinct sockets should be used, and secured via directory and/or
+       file permissions */
 
-    UPK_FUNC_ASSERT_MSG(bind(sock_fd, (struct sockaddr *) &sa, sizeof(sa)) == 0, UPK_SOCKET_FAILURE,
-                        "could not bind: %s: %s", upk_runtime_configuration.controller_socket,
-                        strerror(errno));
+    UPK_FUNC_ASSERT_MSG(bind(sock_fd, (struct sockaddr *) &sa, sizeof(sa)) == 0, UPK_SOCKET_FAILURE, "could not bind: %s: %s",
+                        upk_runtime_configuration.controller_socket, strerror(errno));
     UPK_FUNC_ASSERT_MSG(listen(sock_fd, SOMAXCONN) == 0, UPK_SOCKET_FAILURE, "could not listen: %s: %s",
                         upk_runtime_configuration.controller_socket, strerror(errno));
 
@@ -202,10 +273,41 @@ ctrl_sock_setup()
     return sock_fd;
 }
 
-/* *******************************************************************************************************************
-   ****************************************************************************************************************** */
+/********************************************************************************************************************
+  @brief deal with signals pending action in signal_queue.
+
+  Block all signals during copy to avoid annoying race conditions.
+ ********************************************************************************************************************/
 void
 handle_signals(void)
 {
-    return;
+    sigset_t                sigset, oldset;
+    int                     waitstatus;
+    ctrl_sigqueue_t         signal_node;
+
+    while(ctrl_signal_queue->count > 0) {
+        /* block signals, copy and remove the current element, and then unblock signals; this allows other signals to be enqueued
+           while we deal with the current signal */
+
+        sigfillset(&sigset);
+        sigprocmask(SIG_BLOCK, &sigset, &oldset);
+
+        UPKLIST_HEAD(ctrl_signal_queue);
+        signal_node = *ctrl_signal_queue->thisp;
+        UPKLIST_UNLINK(ctrl_signal_queue);
+
+        sigprocmask(SIG_SETMASK, &oldset, NULL);
+
+        switch (signal_node.signal) {
+        case SIGCHLD:
+            waitpid(signal_node.siginfo.si_pid, &waitstatus, 0);
+            /* FIXME: update data-store with rumors of buddy's death (do not exaggerate) */
+            break;
+        case SIGINT:
+        case SIGTERM:
+            /* FIXME: defer exit until all other signals are handles do data-store is updated for any known buddy-exits */
+            exit(0);
+        }
+    }
+
 }

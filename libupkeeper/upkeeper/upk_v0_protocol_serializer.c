@@ -360,6 +360,7 @@ deserial_req_status(upk_pkt_buf_t * UPK_BUF)
 
     UPK_FETCH_UINT32(svc_id_len);
     UPK_FETCH_STRING(svc_id);
+    UPK_FETCH_UINT32(restart_window_seconds);
 
     return UPK_DATA;
 }
@@ -481,6 +482,7 @@ deserial_svcinfo_data(upk_pkt_buf_t * UPK_BUF)
     UPK_FETCH_UINT32(proc_pid);
     UPK_FETCH_ENUM(upk_state_t, current_state);
     UPK_FETCH_ENUM(upk_state_t, prior_state);
+    UPK_FETCH_UINT32(n_recorded_restarts);
 
     return UPK_DATA;
 }
@@ -649,6 +651,7 @@ serial_req_status(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)
 
     UPK_PUT_UINT32(svc_id_len);
     UPK_PUT_STRING(svc_id);
+    UPK_PUT_UINT32(restart_window_seconds);
 
     return UPK_BUF;
 }
@@ -767,6 +770,7 @@ serial_svcinfo_data(v0_svcinfo_t * UPK_DATA_PTR, size_t UPK_DATA_LEN)
     UPK_PUT_UINT32(proc_pid);
     UPK_PUT_ENUM(current_state);
     UPK_PUT_ENUM(prior_state);
+    UPK_PUT_UINT32(n_recorded_restarts);
 
     return UPK_BUF;
 }

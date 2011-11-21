@@ -1,3 +1,4 @@
+
 /****************************************************************************
  * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
  * Apache License, Version 2.0 (the "License"); you may not use this file
@@ -16,8 +17,20 @@
 #include <upkeeper.h>
 #include <stdio.h>
 #include <ctrl_protocol.h>
+#include <sqlite3.h>
 
 #define UPK_CTRL_MAX_CLIENTS FD_SETSIZE
+
+typedef struct _ctrl_sigqueue ctrl_sigqueue_t;
+struct _ctrl_sigqueue {
+    siginfo_t               siginfo;
+    int                     signal;
+    ctrl_sigqueue_t          *next;
+};
+
+typedef                 UPKLIST_METANODE(ctrl_sigqueue_t, ctrl_sigqueue_meta_p), ctrl_sigqueue_meta_t;
+
+extern sqlite3 * ctrl_dbh;
 
 extern int              socket_setup(const char *sock_path);
 extern void             handle_signals(void);
@@ -27,19 +40,19 @@ extern void             handle_buddies(void);
 extern int32_t          ctrl_sock_setup(void);
 extern void             event_loop(int32_t listen_sock);
 
-extern int upk_ctrl_init(void);
+extern int              upk_ctrl_init(void);
 
 
 /* ctrl_buddy.c */
-extern void create_buddy(upk_svc_desc_t *buddy);
-extern void remove_buddy(upk_svc_desc_t *buddy);
-extern int buddy_connect(const char *sockpath);
-buddy_info_t * buddy_readstate(int fd);
-extern void handle_buddies(void);
-extern bool kill_buddy(upk_svc_desc_t *buddy);
-extern bool start_buddy_svc(upk_svc_desc_t *buddy);
-extern bool stop_buddy_svc(upk_svc_desc_t *buddy);
-extern bool reload_buddy_svc(upk_svc_desc_t *buddy);
+extern void             create_buddy(upk_svc_desc_t * buddy);
+extern void             remove_buddy(upk_svc_desc_t * buddy);
+extern int              buddy_connect(const char *sockpath);
+buddy_info_t           *buddy_readstate(int fd);
+extern void             handle_buddies(void);
+extern bool             kill_buddy(upk_svc_desc_t * buddy);
+extern bool             start_buddy_svc(upk_svc_desc_t * buddy);
+extern bool             stop_buddy_svc(upk_svc_desc_t * buddy);
+extern bool             reload_buddy_svc(upk_svc_desc_t * buddy);
 
 
 

@@ -69,7 +69,8 @@
 #define UPK_V0_REQ_STATUS_T_FIELDS \
     upk_msgtype_t       msgtype; \
     uint32_t            svc_id_len; \
-    char                svc_id[UPK_MAX_STRING_LEN]
+    char                svc_id[UPK_MAX_STRING_LEN]; \
+    uint32_t            restart_window_seconds
 
 /* 
  * XXX: All bool types will be typecast to uint8_t when serialized (they probably are already on your platform anyway)
@@ -153,7 +154,8 @@
     uint32_t                buddy_pid; \
     uint32_t                proc_pid; \
     upk_state_t             current_state; \
-    upk_state_t             prior_state
+    upk_state_t             prior_state; \
+    uint32_t                n_recorded_restarts
 
 /* *******************************************************************************************************************
    |----|<svcinfo ...>|----|<svc_id...|

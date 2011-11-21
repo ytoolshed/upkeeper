@@ -18,6 +18,7 @@ extern bool             upk_numeric_string(const char *string, long *num);
 extern bool             upk_boolean_string(const char *string, bool * val);
 extern void             upk_replace_string(char **haystack, const char *needle, const char *repl);
 extern struct timeval   upk_double_to_timeval(long double rational);
+int                     upk_rm_rf(char *start_path);
 
 #define _stringify(A) #A
 #define stringify(A) _stringify(A)

@@ -15,6 +15,8 @@
 #include "controller.h"
 #include <sqlite3.h>
 
+sqlite3 * ctrl_dbh;
+
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
 static void
@@ -43,6 +45,15 @@ upk_ctrl_init_db(const char *db_path)
     return dbh;
 }
 
+void
+upk_ctrl_exit(void)
+{
+    if(ctrl_dbh)
+        sqlite3_close(ctrl_dbh);
+    upk_ctrl_free_config();
+}
+
+
 
 /* ******************************************************************************************************************
    ****************************************************************************************************************** */
@@ -56,7 +67,8 @@ upk_ctrl_init(void)
     upk_ctrl_load_config();
     upk_db_path(&p);
 
-    upk_ctrl_init_db(ctrl_db_path);
+    atexit(upk_ctrl_exit);
+    ctrl_dbh = upk_ctrl_init_db(ctrl_db_path);
     upk_load_runtime_services();
     return 0;
 }

@@ -27,16 +27,16 @@
 #include "upk_std_include.h"
 #include <stdarg.h>
 
-/* FIXME: Refactor most of this, ideally getting rid of the custom callback; and maybe just using the diag
-   callback for everything */
-
 #define UPK_ERR_INIT
 
+#define CLEAR_UPK_ERROR \
+    __upk_errno_type = 0
+
 #define UPK_FUNC_ASSERT(A,B) \
-    do { if(! (A)) { *((upk_errno_t *) &__upk_errno_type) = B; goto __upk_err_label; } } while(0)
+    do { CLEAR_UPK_ERROR; if(! (A)) { *((upk_errno_t *) &__upk_errno_type) = B; goto __upk_err_label; } } while(0)
 
 #define UPK_FUNC_ASSERT_MSG(A,B,...) \
-    do { if(! (A)) { *((upk_errno_t *) &__upk_errno_type) = B; memset((char *) __upk_err_buf,0,sizeof(__upk_err_buf)); snprintf((char *)__upk_err_buf, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)
+    do { CLEAR_UPK_ERROR; if(! (A)) { *((upk_errno_t *) &__upk_errno_type) = B; memset((char *) __upk_err_buf,0,sizeof(__upk_err_buf)); snprintf((char *)__upk_err_buf, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)
 
 
 #define IF_UPK_ERROR \
@@ -44,13 +44,6 @@
     if(__upk_errno_type) upk_error("%s: %s\n", upk_strerror(__upk_errno_type), (*__upk_err_buf) ? (__upk_err_buf) : ""); \
     if(__upk_errno_type)
 
-
-
-
-/* 
-   #define IF_UPK_ERROR \ __upk_err: \ if(*UPK_ERRMSG && __upk_errno_type)
-   upk_report_error_msg(__upk_errno_type, (char *) UPK_ERRMSG); \ else if(__upk_errno_type)
-   upk_report_error(__upk_errno_type); \ if(__upk_errno_type) */
 
 
 typedef enum {
@@ -117,8 +110,8 @@ static const char       __upk_errors[][128] = {
     "JSON parser error",
 };
 
-static const char       __upk_err_buf[4096] = "";
-static const upk_errno_t __upk_errno_type = 0;
+extern char       __upk_err_buf[4096]; // = "";
+extern upk_errno_t __upk_errno_type; // = 0;
 
 typedef void            (*err_rpt_callback_t) (upk_errno_t);
 typedef void            (*err_rpt_msg_callback_t) (upk_errno_t, const char *);

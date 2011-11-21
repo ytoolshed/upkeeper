@@ -140,14 +140,15 @@ END_TEST;
 
 START_TEST(test_proto_req_status)
 {
-    TEST_SETUP(req_status, "some other service");
+    TEST_SETUP(req_status, "some other service", 60);
 
     fail_unless(t.msgtype == UPK_REQ_STATUS, "msgtype");
     fail_unless(t.svc_id_len == strlen("some other service"), "svc_id_len");
     fail_unless(strcmp(t.svc_id, "some other service") == 0, "svc_id");
+    fail_unless(t.restart_window_seconds, 60, "restart_window_seconds: was %d, expected %d", t.restart_window_seconds, 60);
 
     fail_unless(pkt->pkttype == PKT_REQUEST, "pkttype");
-    fail_unless(pkt->payload_len == (4 + 4 + strlen("some other service")), "payload_len");
+    fail_unless(pkt->payload_len == (4 + 4 + strlen("some other service") + 4), "payload_len");
 
     TEST_TEARDOWN;
 }
@@ -283,6 +284,7 @@ START_TEST(test_proto_repl_svcinfo)
         .proc_pid = 1733,
         .current_state = UPK_STATE_RUNNING,
         .prior_state = UPK_STATE_SHUTDOWN,
+        .n_recorded_restarts = 25,
     };
     uint32_t                svcinfo_length = 0;
 
@@ -301,6 +303,7 @@ START_TEST(test_proto_repl_svcinfo)
     svcinfo_length += 4;                                   /* .proc_pid = 1733, */
     svcinfo_length += 4;                                   /* .current_state = UPK_STATE_RUNNING, */
     svcinfo_length += 4;                                   /* .prior_state = UPK_STATE_DOWN, */
+    svcinfo_length += 4;                                   /* .n_recorded_restarts = 25 */
 
     fail_unless(t.svcinfo_len == svcinfo_length, "t.svcinfo_len");
     fail_unless(t.svcinfo.last_action_time == 12345678, "svcinfo.last_action_time");
@@ -314,6 +317,7 @@ START_TEST(test_proto_repl_svcinfo)
     fail_unless(t.svcinfo.proc_pid == 1733, "t.svcinfo.proc_pid");
     fail_unless(t.svcinfo.current_state == UPK_STATE_RUNNING, "t.svcinfo.current_state");
     fail_unless(t.svcinfo.prior_state == UPK_STATE_SHUTDOWN, "t.svcinfo.prior_state");
+    fail_unless(t.svcinfo.n_recorded_restarts == 25, "t.svcinfo.recorded_restarts: was %d, expected 25", t.svcinfo.n_recorded_restarts);
 
     fail_unless(t.svc_id_len == strlen(service_name), "svc_id_len");
     fail_unless(strcmp(t.svc_id, service_name) == 0, "svc_id");

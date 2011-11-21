@@ -16,6 +16,7 @@
 @SET_MAKE@
 
 
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
@@ -35,6 +36,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
+bin_PROGRAMS = t$(EXEEXT) json$(EXEEXT) s$(EXEEXT) rmrf$(EXEEXT)
 subdir = libupkeeper
 DIST_COMMON = $(libupkeeper_la_include_HEADERS) \
 	$(nobase_libupkeeper_client_la_include_HEADERS) \
@@ -78,7 +80,7 @@ am__nobase_list = $(am__nobase_strip_setup); \
 am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;$$!N;s/\n/ /g' | \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
-am__installdirs = "$(DESTDIR)$(libdir)" \
+am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" \
 	"$(DESTDIR)$(libupkeeper_la_includedir)" \
 	"$(DESTDIR)$(libupkeeper_client_la_includedir)" \
 	"$(DESTDIR)$(libupkeeper_core_la_includedir)" \
@@ -99,7 +101,9 @@ am__dirstamp = $(am__leading_dot)dirstamp
 am_libupkeeper_client_la_OBJECTS = upkeeper/upk_client.lo \
 	upkeeper/upk_client_net.lo
 libupkeeper_client_la_OBJECTS = $(am_libupkeeper_client_la_OBJECTS)
-libupkeeper_core_la_LIBADD =
+am__DEPENDENCIES_1 =
+am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
+libupkeeper_core_la_DEPENDENCIES = $(am__DEPENDENCIES_2)
 am_libupkeeper_core_la_OBJECTS = upkeeper/upk_config.lo \
 	upkeeper/upk_json.lo upkeeper/upk_error.lo
 libupkeeper_core_la_OBJECTS = $(am_libupkeeper_core_la_OBJECTS)
@@ -109,17 +113,23 @@ am_libupkeeper_proto_la_OBJECTS = upkeeper/upk_protocol.lo \
 	upkeeper/upk_protocol_serializer.lo \
 	upkeeper/upk_v0_protocol.lo upkeeper/upk_network.lo
 libupkeeper_proto_la_OBJECTS = $(am_libupkeeper_proto_la_OBJECTS)
-am__DEPENDENCIES_1 =
-am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
-libupkeeper_util_la_DEPENDENCIES = $(am__DEPENDENCIES_2)
-am_libupkeeper_util_la_OBJECTS =  \
-	upkeeper/libupkeeper_util_la-upk_crc32.lo \
-	upkeeper/libupkeeper_util_la-uuid.lo \
-	upkeeper/libupkeeper_util_la-upk_util.lo
+libupkeeper_util_la_LIBADD =
+am_libupkeeper_util_la_OBJECTS = upkeeper/upk_crc32.lo \
+	upkeeper/uuid.lo upkeeper/upk_util.lo
 libupkeeper_util_la_OBJECTS = $(am_libupkeeper_util_la_OBJECTS)
-libupkeeper_util_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(libupkeeper_util_la_LDFLAGS) $(LDFLAGS) -o $@
+PROGRAMS = $(bin_PROGRAMS)
+json_SOURCES = json.c
+json_OBJECTS = json.$(OBJEXT)
+json_DEPENDENCIES = libupkeeper.la
+rmrf_SOURCES = rmrf.c
+rmrf_OBJECTS = rmrf.$(OBJEXT)
+rmrf_DEPENDENCIES = libupkeeper.la
+s_SOURCES = s.c
+s_OBJECTS = s.$(OBJEXT)
+s_DEPENDENCIES = libupkeeper.la
+t_SOURCES = t.c
+t_OBJECTS = t.$(OBJEXT)
+t_DEPENDENCIES = libupkeeper.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -135,11 +145,11 @@ LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	$(LDFLAGS) -o $@
 SOURCES = $(libupkeeper_la_SOURCES) $(libupkeeper_client_la_SOURCES) \
 	$(libupkeeper_core_la_SOURCES) $(libupkeeper_proto_la_SOURCES) \
-	$(libupkeeper_util_la_SOURCES)
+	$(libupkeeper_util_la_SOURCES) json.c rmrf.c s.c t.c
 DIST_SOURCES = $(libupkeeper_la_SOURCES) \
 	$(libupkeeper_client_la_SOURCES) \
 	$(libupkeeper_core_la_SOURCES) $(libupkeeper_proto_la_SOURCES) \
-	$(libupkeeper_util_la_SOURCES)
+	$(libupkeeper_util_la_SOURCES) json.c rmrf.c s.c t.c
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
 	html-recursive info-recursive install-data-recursive \
 	install-dvi-recursive install-exec-recursive \
@@ -325,15 +335,16 @@ AM_LDFLAGS = @JSON_LDFLAGS@  $(AM_LDFLAGS_G)
 AM_LIBADD = @JSON_LIBS@     $(AM_LIBADD_G)
 lib_LTLIBRARIES = libupkeeper.la
 noinst_LTLIBRARIES = libupkeeper_proto.la libupkeeper_util.la libupkeeper_client.la libupkeeper_core.la
-libupkeeper_util_la_SOURCES = upkeeper/upk_crc32.c upkeeper/uuid.c  upkeeper/upk_util.c
-libupkeeper_util_la_CPPFLAGS = $(AM_CPPFLAGS)
-libupkeeper_util_la_LDFLAGS = $(AM_LDFLAGS)
-libupkeeper_util_la_LIBADD = $(AM_LIBADD)
-libupkeeper_core_la_SOURCES = upkeeper/upk_config.c upkeeper/upk_json.c upkeeper/upk_error.c
+libupkeeper_util_la_SOURCES = upkeeper/upk_crc32.c upkeeper/uuid.c  upkeeper/upk_util.c $(top_builddir)/upkeeper_config.h
+#libupkeeper_util_la_CPPFLAGS = $(AM_CPPFLAGS)
+#libupkeeper_util_la_LDFLAGS = $(AM_LDFLAGS)
+libupkeeper_core_la_SOURCES = upkeeper/upk_config.c upkeeper/upk_json.c upkeeper/upk_error.c $(top_builddir)/upkeeper_config.h
+libupkeeper_core_la_LIBADD = $(AM_LIBADD)
 libupkeeper_proto_la_SOURCES = upkeeper/upk_protocol.c upkeeper/upk_v0_protocol_serializer.c \
-							   upkeeper/upk_protocol_serializer.c upkeeper/upk_v0_protocol.c upkeeper/upk_network.c
+							   upkeeper/upk_protocol_serializer.c upkeeper/upk_v0_protocol.c upkeeper/upk_network.c \
+							   $(top_builddir)/upkeeper_config.h 
 
-libupkeeper_client_la_SOURCES = upkeeper/upk_client.c upkeeper/upk_client_net.c
+libupkeeper_client_la_SOURCES = upkeeper/upk_client.c upkeeper/upk_client_net.c $(top_builddir)/upkeeper_config.h 
 libupkeeper_la_SOURCES = 
 libupkeeper_la_LDFLAGS = -version-info $(UPK_LIBRARY_VERSION)
 libupkeeper_la_LIBADD = libupkeeper_util.la libupkeeper_proto.la libupkeeper_core.la libupkeeper_client.la
@@ -350,6 +361,10 @@ nobase_libupkeeper_la_include_HEADERS =
 libupkeeper_la_include_HEADERS = upkeeper.h
 libupkeeper_la_libincludedir = $(libdir)/upkeeper-1.0/include/
 nodist_libupkeeper_la_libinclude_HEADERS = $(top_builddir)/upkeeper_config.h
+t_LDADD = libupkeeper.la
+rmrf_LDADD = libupkeeper.la
+json_LDADD = libupkeeper.la
+s_LDADD = libupkeeper.la
 all: all-recursive
 
 .SUFFIXES:
@@ -458,29 +473,80 @@ upkeeper/upk_network.lo: upkeeper/$(am__dirstamp) \
 	upkeeper/$(DEPDIR)/$(am__dirstamp)
 libupkeeper_proto.la: $(libupkeeper_proto_la_OBJECTS) $(libupkeeper_proto_la_DEPENDENCIES) 
 	$(LINK)  $(libupkeeper_proto_la_OBJECTS) $(libupkeeper_proto_la_LIBADD) $(LIBS)
-upkeeper/libupkeeper_util_la-upk_crc32.lo: upkeeper/$(am__dirstamp) \
+upkeeper/upk_crc32.lo: upkeeper/$(am__dirstamp) \
 	upkeeper/$(DEPDIR)/$(am__dirstamp)
-upkeeper/libupkeeper_util_la-uuid.lo: upkeeper/$(am__dirstamp) \
+upkeeper/uuid.lo: upkeeper/$(am__dirstamp) \
 	upkeeper/$(DEPDIR)/$(am__dirstamp)
-upkeeper/libupkeeper_util_la-upk_util.lo: upkeeper/$(am__dirstamp) \
+upkeeper/upk_util.lo: upkeeper/$(am__dirstamp) \
 	upkeeper/$(DEPDIR)/$(am__dirstamp)
 libupkeeper_util.la: $(libupkeeper_util_la_OBJECTS) $(libupkeeper_util_la_DEPENDENCIES) 
-	$(libupkeeper_util_la_LINK)  $(libupkeeper_util_la_OBJECTS) $(libupkeeper_util_la_LIBADD) $(LIBS)
+	$(LINK)  $(libupkeeper_util_la_OBJECTS) $(libupkeeper_util_la_LIBADD) $(LIBS)
+install-binPROGRAMS: $(bin_PROGRAMS)
+	@$(NORMAL_INSTALL)
+	test -z "$(bindir)" || $(MKDIR_P) "$(DESTDIR)$(bindir)"
+	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
+	for p in $$list; do echo "$$p $$p"; done | \
+	sed 's/$(EXEEXT)$$//' | \
+	while read p p1; do if test -f $$p || test -f $$p1; \
+	  then echo "$$p"; echo "$$p"; else :; fi; \
+	done | \
+	sed -e 'p;s,.*/,,;n;h' -e 's|.*|.|' \
+	    -e 'p;x;s,.*/,,;s/$(EXEEXT)$$//;$(transform);s/$$/$(EXEEXT)/' | \
+	sed 'N;N;N;s,\n, ,g' | \
+	$(AWK) 'BEGIN { files["."] = ""; dirs["."] = 1 } \
+	  { d=$$3; if (dirs[d] != 1) { print "d", d; dirs[d] = 1 } \
+	    if ($$2 == $$4) files[d] = files[d] " " $$1; \
+	    else { print "f", $$3 "/" $$4, $$1; } } \
+	  END { for (d in files) print "f", d, files[d] }' | \
+	while read type dir files; do \
+	    if test "$$dir" = .; then dir=; else dir=/$$dir; fi; \
+	    test -z "$$files" || { \
+	    echo " $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files '$(DESTDIR)$(bindir)$$dir'"; \
+	    $(INSTALL_PROGRAM_ENV) $(LIBTOOL) $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=install $(INSTALL_PROGRAM) $$files "$(DESTDIR)$(bindir)$$dir" || exit $$?; \
+	    } \
+	; done
+
+uninstall-binPROGRAMS:
+	@$(NORMAL_UNINSTALL)
+	@list='$(bin_PROGRAMS)'; test -n "$(bindir)" || list=; \
+	files=`for p in $$list; do echo "$$p"; done | \
+	  sed -e 'h;s,^.*/,,;s/$(EXEEXT)$$//;$(transform)' \
+	      -e 's/$$/$(EXEEXT)/' `; \
+	test -n "$$list" || exit 0; \
+	echo " ( cd '$(DESTDIR)$(bindir)' && rm -f" $$files ")"; \
+	cd "$(DESTDIR)$(bindir)" && rm -f $$files
+
+clean-binPROGRAMS:
+	@list='$(bin_PROGRAMS)'; test -n "$$list" || exit 0; \
+	echo " rm -f" $$list; \
+	rm -f $$list || exit $$?; \
+	test -n "$(EXEEXT)" || exit 0; \
+	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
+	echo " rm -f" $$list; \
+	rm -f $$list
+json$(EXEEXT): $(json_OBJECTS) $(json_DEPENDENCIES) 
+	@rm -f json$(EXEEXT)
+	$(LINK) $(json_OBJECTS) $(json_LDADD) $(LIBS)
+rmrf$(EXEEXT): $(rmrf_OBJECTS) $(rmrf_DEPENDENCIES) 
+	@rm -f rmrf$(EXEEXT)
+	$(LINK) $(rmrf_OBJECTS) $(rmrf_LDADD) $(LIBS)
+s$(EXEEXT): $(s_OBJECTS) $(s_DEPENDENCIES) 
+	@rm -f s$(EXEEXT)
+	$(LINK) $(s_OBJECTS) $(s_LDADD) $(LIBS)
+t$(EXEEXT): $(t_OBJECTS) $(t_DEPENDENCIES) 
+	@rm -f t$(EXEEXT)
+	$(LINK) $(t_OBJECTS) $(t_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
-	-rm -f upkeeper/libupkeeper_util_la-upk_crc32.$(OBJEXT)
-	-rm -f upkeeper/libupkeeper_util_la-upk_crc32.lo
-	-rm -f upkeeper/libupkeeper_util_la-upk_util.$(OBJEXT)
-	-rm -f upkeeper/libupkeeper_util_la-upk_util.lo
-	-rm -f upkeeper/libupkeeper_util_la-uuid.$(OBJEXT)
-	-rm -f upkeeper/libupkeeper_util_la-uuid.lo
 	-rm -f upkeeper/upk_client.$(OBJEXT)
 	-rm -f upkeeper/upk_client.lo
 	-rm -f upkeeper/upk_client_net.$(OBJEXT)
 	-rm -f upkeeper/upk_client_net.lo
 	-rm -f upkeeper/upk_config.$(OBJEXT)
 	-rm -f upkeeper/upk_config.lo
+	-rm -f upkeeper/upk_crc32.$(OBJEXT)
+	-rm -f upkeeper/upk_crc32.lo
 	-rm -f upkeeper/upk_error.$(OBJEXT)
 	-rm -f upkeeper/upk_error.lo
 	-rm -f upkeeper/upk_json.$(OBJEXT)
@@ -491,27 +557,35 @@ mostlyclean-compile:
 	-rm -f upkeeper/upk_protocol.lo
 	-rm -f upkeeper/upk_protocol_serializer.$(OBJEXT)
 	-rm -f upkeeper/upk_protocol_serializer.lo
+	-rm -f upkeeper/upk_util.$(OBJEXT)
+	-rm -f upkeeper/upk_util.lo
 	-rm -f upkeeper/upk_v0_protocol.$(OBJEXT)
 	-rm -f upkeeper/upk_v0_protocol.lo
 	-rm -f upkeeper/upk_v0_protocol_serializer.$(OBJEXT)
 	-rm -f upkeeper/upk_v0_protocol_serializer.lo
+	-rm -f upkeeper/uuid.$(OBJEXT)
+	-rm -f upkeeper/uuid.lo
 
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_crc32.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_util.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/libupkeeper_util_la-uuid.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/json.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rmrf.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/s.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_client.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_client_net.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_config.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_crc32.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_error.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_json.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_network.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_protocol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_protocol_serializer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_util.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_v0_protocol.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/upk_v0_protocol_serializer.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@upkeeper/$(DEPDIR)/uuid.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	depbase=`echo $@ | sed 's|[^/]*$$|$(DEPDIR)/&|;s|\.o$$||'`;\
@@ -536,27 +610,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	source='$<' object='$@' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(LTCOMPILE) -c -o $@ $<
-
-upkeeper/libupkeeper_util_la-upk_crc32.lo: upkeeper/upk_crc32.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT upkeeper/libupkeeper_util_la-upk_crc32.lo -MD -MP -MF upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_crc32.Tpo -c -o upkeeper/libupkeeper_util_la-upk_crc32.lo `test -f 'upkeeper/upk_crc32.c' || echo '$(srcdir)/'`upkeeper/upk_crc32.c
-@am__fastdepCC_TRUE@	$(am__mv) upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_crc32.Tpo upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_crc32.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='upkeeper/upk_crc32.c' object='upkeeper/libupkeeper_util_la-upk_crc32.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o upkeeper/libupkeeper_util_la-upk_crc32.lo `test -f 'upkeeper/upk_crc32.c' || echo '$(srcdir)/'`upkeeper/upk_crc32.c
-
-upkeeper/libupkeeper_util_la-uuid.lo: upkeeper/uuid.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT upkeeper/libupkeeper_util_la-uuid.lo -MD -MP -MF upkeeper/$(DEPDIR)/libupkeeper_util_la-uuid.Tpo -c -o upkeeper/libupkeeper_util_la-uuid.lo `test -f 'upkeeper/uuid.c' || echo '$(srcdir)/'`upkeeper/uuid.c
-@am__fastdepCC_TRUE@	$(am__mv) upkeeper/$(DEPDIR)/libupkeeper_util_la-uuid.Tpo upkeeper/$(DEPDIR)/libupkeeper_util_la-uuid.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='upkeeper/uuid.c' object='upkeeper/libupkeeper_util_la-uuid.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o upkeeper/libupkeeper_util_la-uuid.lo `test -f 'upkeeper/uuid.c' || echo '$(srcdir)/'`upkeeper/uuid.c
-
-upkeeper/libupkeeper_util_la-upk_util.lo: upkeeper/upk_util.c
-@am__fastdepCC_TRUE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -MT upkeeper/libupkeeper_util_la-upk_util.lo -MD -MP -MF upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_util.Tpo -c -o upkeeper/libupkeeper_util_la-upk_util.lo `test -f 'upkeeper/upk_util.c' || echo '$(srcdir)/'`upkeeper/upk_util.c
-@am__fastdepCC_TRUE@	$(am__mv) upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_util.Tpo upkeeper/$(DEPDIR)/libupkeeper_util_la-upk_util.Plo
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	source='upkeeper/upk_util.c' object='upkeeper/libupkeeper_util_la-upk_util.lo' libtool=yes @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(LIBTOOL)  --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libupkeeper_util_la_CPPFLAGS) $(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS) -c -o upkeeper/libupkeeper_util_la-upk_util.lo `test -f 'upkeeper/upk_util.c' || echo '$(srcdir)/'`upkeeper/upk_util.c
 
 mostlyclean-libtool:
 	-rm -f *.lo
@@ -915,10 +968,12 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-recursive
-all-am: Makefile $(LTLIBRARIES) $(HEADERS)
+all-am: Makefile $(LTLIBRARIES) $(PROGRAMS) $(HEADERS)
+install-binPROGRAMS: install-libLTLIBRARIES
+
 installdirs: installdirs-recursive
 installdirs-am:
-	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(libupkeeper_la_includedir)" "$(DESTDIR)$(libupkeeper_client_la_includedir)" "$(DESTDIR)$(libupkeeper_core_la_includedir)" "$(DESTDIR)$(libupkeeper_la_includedir)" "$(DESTDIR)$(libupkeeper_proto_la_includedir)" "$(DESTDIR)$(libupkeeper_util_la_includedir)" "$(DESTDIR)$(libupkeeper_la_libincludedir)"; do \
+	for dir in "$(DESTDIR)$(libdir)" "$(DESTDIR)$(bindir)" "$(DESTDIR)$(libupkeeper_la_includedir)" "$(DESTDIR)$(libupkeeper_client_la_includedir)" "$(DESTDIR)$(libupkeeper_core_la_includedir)" "$(DESTDIR)$(libupkeeper_la_includedir)" "$(DESTDIR)$(libupkeeper_proto_la_includedir)" "$(DESTDIR)$(libupkeeper_util_la_includedir)" "$(DESTDIR)$(libupkeeper_la_libincludedir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
 install: install-recursive
@@ -950,11 +1005,11 @@ maintainer-clean-generic:
 	@echo "it deletes files that may require special tools to rebuild."
 clean: clean-recursive
 
-clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
-	clean-noinstLTLIBRARIES mostlyclean-am
+clean-am: clean-binPROGRAMS clean-generic clean-libLTLIBRARIES \
+	clean-libtool clean-noinstLTLIBRARIES mostlyclean-am
 
 distclean: distclean-recursive
-	-rm -rf upkeeper/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) upkeeper/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -983,7 +1038,7 @@ install-dvi: install-dvi-recursive
 
 install-dvi-am:
 
-install-exec-am: install-libLTLIBRARIES
+install-exec-am: install-binPROGRAMS install-libLTLIBRARIES
 
 install-html: install-html-recursive
 
@@ -1006,7 +1061,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-recursive
-	-rm -rf upkeeper/$(DEPDIR)
+	-rm -rf ./$(DEPDIR) upkeeper/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -1023,7 +1078,7 @@ ps: ps-recursive
 
 ps-am:
 
-uninstall-am: uninstall-libLTLIBRARIES \
+uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	uninstall-libupkeeper_la_includeHEADERS \
 	uninstall-nobase_libupkeeper_client_la_includeHEADERS \
 	uninstall-nobase_libupkeeper_core_la_includeHEADERS \
@@ -1036,14 +1091,15 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	install-am install-strip tags-recursive
 
 .PHONY: $(RECURSIVE_CLEAN_TARGETS) $(RECURSIVE_TARGETS) CTAGS GTAGS \
-	all all-am check check-am clean clean-generic \
-	clean-libLTLIBRARIES clean-libtool clean-noinstLTLIBRARIES \
-	ctags ctags-recursive distclean distclean-compile \
-	distclean-generic distclean-libtool distclean-tags distdir dvi \
-	dvi-am html html-am info info-am install install-am \
-	install-data install-data-am install-dvi install-dvi-am \
-	install-exec install-exec-am install-html install-html-am \
-	install-info install-info-am install-libLTLIBRARIES \
+	all all-am check check-am clean clean-binPROGRAMS \
+	clean-generic clean-libLTLIBRARIES clean-libtool \
+	clean-noinstLTLIBRARIES ctags ctags-recursive distclean \
+	distclean-compile distclean-generic distclean-libtool \
+	distclean-tags distdir dvi dvi-am html html-am info info-am \
+	install install-am install-binPROGRAMS install-data \
+	install-data-am install-dvi install-dvi-am install-exec \
+	install-exec-am install-html install-html-am install-info \
+	install-info-am install-libLTLIBRARIES \
 	install-libupkeeper_la_includeHEADERS install-man \
 	install-nobase_libupkeeper_client_la_includeHEADERS \
 	install-nobase_libupkeeper_core_la_includeHEADERS \
@@ -1056,7 +1112,7 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	maintainer-clean maintainer-clean-generic mostlyclean \
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags tags-recursive uninstall uninstall-am \
-	uninstall-libLTLIBRARIES \
+	uninstall-binPROGRAMS uninstall-libLTLIBRARIES \
 	uninstall-libupkeeper_la_includeHEADERS \
 	uninstall-nobase_libupkeeper_client_la_includeHEADERS \
 	uninstall-nobase_libupkeeper_core_la_includeHEADERS \
@@ -1065,11 +1121,6 @@ uninstall-am: uninstall-libLTLIBRARIES \
 	uninstall-nobase_libupkeeper_util_la_includeHEADERS \
 	uninstall-nodist_libupkeeper_la_libincludeHEADERS
 
-
-#bin_PROGRAMS = t json s
-#t_LDADD = libupkeeper.la
-#json_LDADD = libupkeeper.la
-#s_LDADD = libupkeeper.la
 
 valgrind: 
 	(cd tests; make valgrind)

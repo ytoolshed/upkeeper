@@ -33,7 +33,7 @@
 // char buddy_uuid[37] = "";
 upk_uuid_t              buddy_uuid;
 char                   *buddy_service_name = NULL;
-char                    buddy_root_path[BUDDY_MAX_PATH_LEN] = DEFAULT_BUDDY_ROOT;
+char                    buddy_root_path[BUDDY_MAX_PATH_LEN] = "";
 uid_t                   buddy_setuid;
 gid_t                   buddy_setgid;
 size_t                  ringbuffer_size = 32;
@@ -116,6 +116,7 @@ sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
     static int              proc_waitstatus = 0;
 
     pid = 0;
+    proc_waitstatus = 0;
 
     switch (signal) {
     case SIGCHLD:
@@ -224,6 +225,8 @@ buddy_init(diag_output_callback_t logger)
 
     chdir("/");
     fclose(stdin);
+    freopen(buddy_path("log/buddyout"), "a", stdout);
+    freopen(buddy_path("log/buddyerr"), "a", stderr);
 
     buddy_ctrlfd = -1;
     buddy_sockfd = -1;
@@ -652,7 +655,8 @@ buddy_stop_proc(void)
     static uint8_t          n = 0;
 
     nanotimeout.tv_sec = 0;
-    nanotimeout.tv_nsec = 5000000;                         // 100000000L; /* 1/10th a second; */
+    nanotimeout.tv_nsec = 5000000L;                         /* 5/1000th a second; */
+                                                                 
 
     if(proc_pid != 0) {
         buddy_path("actions/stop");

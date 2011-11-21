@@ -115,7 +115,7 @@ extern upk_packet_t    *v0_create_req_action(char *svc_id, char *action);
 extern upk_packet_t    *v0_create_req_signal(char *svc_id, upk_signal_t signal, bool signal_sid,
                                              bool signal_pgrp);
 extern upk_packet_t    *v0_create_req_list(void);
-extern upk_packet_t    *v0_create_req_status(char *svc_id);
+extern upk_packet_t    *v0_create_req_status(char *svc_id, uint32_t restart_window_seconds);
 extern upk_packet_t    *v0_create_req_subscribe(char *svc_id, bool all_svcs);
 extern upk_packet_t    *v0_create_req_unsubscribe(char *svc_id, bool all_svcs);
 extern upk_packet_t    *v0_create_req_disconnect(void);

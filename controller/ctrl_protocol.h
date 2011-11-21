@@ -151,9 +151,6 @@ struct _buddy_info {
     buddy_info_t           *next;                          /*!< pointer to next member in ringbuffer */
 };
 
-/* FIXME: switch this over to use the runtime_configuration item */
-#define DEFAULT_BUDDY_ROOT "/var/run/upkeeper/buddy"
-
 /**
   @}
   */

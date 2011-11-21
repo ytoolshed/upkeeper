@@ -100,11 +100,56 @@ upk_replace_string(char **haystack, const char *needle, const char *repl)
     }
 }
 
-/* ***************************************************************************
-   ************************************************************************* */
+/****************************************************************************
+ ****************************************************************************/
 struct timeval
 upk_double_to_timeval(long double r)
 {
     struct timeval          val = { ((int) r), ((int) ((r - (long double) ((int) r)) * 1000000)) };
     return val;
+}
+
+
+/****************************************************************************
+ ****************************************************************************/
+int
+upk_rm_rf(char *start_path)
+{
+    DIR                    *dir;
+    char                    fpath[UPK_MAX_PATH_LEN] = "";
+    char                   *fpathp = NULL;
+    struct dirent          *ent;
+    struct stat             s;
+    long                    count = 0;
+
+    if(start_path && strlen(start_path) > 0) {
+        strcpy(fpath, start_path);
+        strcat(fpath, "/");
+        fpathp = fpath + strlen(fpath);
+        dir = opendir(fpath);
+        if(dir) {
+            while((ent = readdir(dir))) {
+                if(strcmp(ent->d_name, ".") == 0 || strcmp(ent->d_name, "..") == 0)
+                    continue;
+                strcpy(fpathp, ent->d_name);
+                stat(fpath, &s);
+                if(S_ISDIR(s.st_mode)) {
+                    count += upk_rm_rf(fpath);
+                } else {
+                    errno = 0;
+                    if(unlink(fpath) == 0)
+                        count++;
+                    else
+                        upk_warn("cannot remove file: %s: %s\n", fpath, strerror(errno));
+                }
+            }
+            closedir(dir);
+            errno = 0;
+            if(rmdir(start_path) == 0)
+                count++;
+            else
+                upk_warn("cannot remove directory: %s: %s\n", start_path, strerror(errno));
+        }
+    }
+    return count;
 }
