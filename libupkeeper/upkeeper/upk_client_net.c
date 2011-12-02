@@ -23,7 +23,7 @@ upk_clnet_serial_request(upk_conn_handle_meta_t * ctrl, upk_packet_t * pkt)
     struct timeval          timeout = { 30, 0 };
 
     UPKLIST_HEAD(ctrl);
-    upk_queue_packet(ctrl->head, pkt, NULL, NULL);
+    upk_queue_packet(ctrl, ctrl->head, pkt, NULL, NULL);
     UPKLIST_HEAD(ctrl);
     upk_net_block_until_msg(ctrl, 0.1, &timeout);
 
@@ -67,7 +67,7 @@ upk_clnet_ctrl_connect(void)
     upk_conn_handle_meta_t *ctrl = NULL;
     int                     fd;
 
-    ctrl = upk_net_conn_handle_init(NULL, NULL);
+    ctrl = upk_net_conn_handles_init(NULL, NULL);
     fd = upk_domain_socket_connect(upk_runtime_configuration.controller_socket);
 
     if(fd >= 0) {

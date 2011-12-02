@@ -32,5 +32,6 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <grp.h>
 
 #endif

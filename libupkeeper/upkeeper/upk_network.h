@@ -57,7 +57,7 @@ extern void             upk_read_packets(upk_conn_handle_meta_t * handles);
 
   Queue a packet for a handle
   */
-extern void             upk_queue_packet(upk_conn_handle_t * handle, upk_packet_t * pkt,
+extern void             upk_queue_packet(upk_conn_handle_meta_t * handles, upk_conn_handle_t * handle, upk_packet_t * pkt,
                                          upk_net_callback_t after_write_callback,
                                          upk_net_callback_t set_after_read_callback);
 
@@ -71,13 +71,14 @@ extern void             upk_write_packets(upk_conn_handle_meta_t * handles);
   */
 extern void             upk_disconnect_handle(upk_conn_handle_meta_t * handles);
 
-extern void             upk_net_add_socket_handle(upk_conn_handle_meta_t * handles, int fd,
+extern bool             upk_net_add_socket_handle(upk_conn_handle_meta_t * handles, int fd,
                                                   upk_net_callback_t pkt_callback);
 extern void             upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double poll_ival);
 extern void             upk_net_flush_closed_sockets(upk_conn_handle_meta_t * handles);
 extern int              upk_net_block_until_msg(upk_conn_handle_meta_t * handles, double poll_ival,
                                                 struct timeval *timeout);
-extern upk_conn_handle_meta_t *upk_net_conn_handle_init(void *userdata, void (*userdata_free_func) (void *ptr));
+//extern void upk_net_conn_handle_init(upk_conn_handle_meta_t *handles, void (*userdata_free_func) (void *ptr));
+extern upk_conn_handle_meta_t *upk_net_conn_handles_init(void *userdata, void (*userdata_free_func) (void *ptr));
 extern void             upk_net_shutdown_callback(upk_conn_handle_meta_t * handles, upk_payload_t * msg);
 
 

@@ -73,7 +73,7 @@ AC_FUNC_FORK
 AC_FUNC_MALLOC
 AC_FUNC_STRNLEN
 AC_FUNC_REALLOC
-AC_CHECK_FUNCS([dup2 memset select socket strdup strerror memchr strtol strcasecmp atexit mkdir gettimeofday strtoul strncasecmp strchr strstr strnlen])
+AC_CHECK_FUNCS([dup2 memset select socket strdup strerror memchr strtol strcasecmp atexit mkdir gettimeofday strtoul strncasecmp strchr strstr strnlen rmdir initgroups setgroups])
 AC_FUNC_LSTAT_FOLLOWS_SLASHED_SYMLINK
 
 ## Check whether or not symbol '__progname' is defined

@@ -38,5 +38,6 @@
 #include <dirent.h>
 #include <libgen.h>
 #include <stdio.h>
+#include <pwd.h>
 
 #endif

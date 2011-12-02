@@ -9,7 +9,7 @@
  * KIND, either express or implied. See the License for the specific language
  * governing permissions and limitations under the License.
  * See accompanying LICENSE file. 
- ************************************************************************** */
+ ****************************************************************************/
 
 #ifndef _UPK_COMPAT_H
 #define _UPK_COMPAT_H
@@ -38,11 +38,12 @@
 # define upk_getprogname getexecname()
 #elif defined HAVE___PROGNAME
 extern const char      *__progname;
+
 # define upk_getprogname __progname
 #endif
 
 #ifndef HAVE_STRNLEN
-extern size_t           strnlen(const char *restrict string, size_t maxlen);
+extern size_t           strnlen(const char *restrict s, size_t maxlen);
 #endif
 
 

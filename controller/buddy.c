@@ -40,6 +40,8 @@ size_t                  ringbuffer_size = 32;
 char                  **proc_envp = NULL;
 long                    reconnect_retries = 5;
 bool                    randomize_ratelimit = false;
+bool                    initialize_supplemental_groups = false;
+bool                    clear_supplemental_groups = false;
 uint32_t                user_ratelimit = 0;
 
 void                    buddy_init(diag_output_callback_t logger);
@@ -521,9 +523,29 @@ buddy_build_fd_set(fd_set * socks, bool listen_sock)
     return (buddy_sockfd > buddy_ctrlfd) ? buddy_sockfd : buddy_ctrlfd;
 }
 
+/*********************************************************************************************************************
+ @brief initgroups/setgroups support 
+ *********************************************************************************************************************/
+static inline void
+buddy_supp_groups(void)
+{
+    struct passwd * pw = getpwuid(buddy_setuid);  
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+#ifdef HAVE_SETGROUPS
+    if(clear_supplemental_groups)
+        setgroups(0, (const gid_t *) NULL);
+#endif
+    if(pw) {
+#ifdef HAVE_INITGROUPS
+        if(initialize_supplemental_groups && buddy_setuid)
+            initgroups(pw->pw_name,pw->pw_gid);
+#endif
+    }
+} 
+
+
+/*********************************************************************************************************************
+ *********************************************************************************************************************/
 static                  pid_t
 buddy_exec_action(void)
 {
@@ -562,8 +584,8 @@ buddy_exec_action(void)
 
         /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting
            ulimits */
-        // assert((pathp = calloc(1, strlen(path_buf) + 1)));
-        // strcpy(pathp, path_buf);
+
+        buddy_supp_groups();
 
         buddy_setreguid();
 
@@ -583,7 +605,7 @@ buddy_exec_action(void)
            service stopped, or perhaps more interesting things */
 
         setsid();
-        setpgid(0, 0);
+        setpgid(0, 0); /* should have already happened via setsid */
 
         /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid
            above, but in a way that cannot be abandoned by the monitored process; can then use the cgroup

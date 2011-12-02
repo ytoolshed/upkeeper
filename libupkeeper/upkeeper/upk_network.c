@@ -13,6 +13,7 @@
 
 
 #include "upk_include.h"
+static void             upk_call_received_packet_callbacks(upk_conn_handle_meta_t * handles, upk_packet_t * pkt);
 
 /********************************************************************************************************************
  ********************************************************************************************************************/
@@ -46,26 +47,31 @@ upk_partitioned_userdata_free(void *ptr)
     if(!data)
         return;
 
-    if(data->userdata && data->userdata_free_func)
-        data->userdata_free_func(data->userdata);
+    if(data->global_userdata && data->userdata_free_func)
+        data->userdata_free_func(data->global_userdata);
 
-    UPKLIST_FREE(data->gstate->callback_stack);
+    UPKLIST_FREE(data->global_state->callback_stack);
 
-    free(data->gstate);
+    free(data->global_state);
     free(ptr);
 }
+
+/********************************************************************************************************************
+ ********************************************************************************************************************/
+/* void upk_net_conn_handle_init(upk_conn_handle_meta_t * handles, void (*userdata_free_func) (void *ptr)) { */
 
 
 /********************************************************************************************************************
  ********************************************************************************************************************/
 upk_conn_handle_meta_t *
-upk_net_conn_handle_init(void *userdata, void (*userdata_free_func) (void *ptr))
+upk_net_conn_handles_init(void *userdata, void (*userdata_free_func) (void *ptr))
 {
     upk_conn_handle_meta_t *handles = calloc(1, sizeof(*handles));
     upklist_userdata_state_partition_t *data = calloc(1, sizeof(*data));
 
-    data->gstate = calloc(1, sizeof(*data->gstate));
-    data->userdata = userdata;
+    data->global_state = calloc(1, sizeof(*data->global_state));
+    data->global_state->callback_stack = calloc(1,sizeof(*data->global_state->callback_stack));
+    data->global_userdata = userdata;
     data->userdata_free_func = userdata_free_func;
 
     handles->userdata = data;
@@ -75,42 +81,56 @@ upk_net_conn_handle_init(void *userdata, void (*userdata_free_func) (void *ptr))
 
 /********************************************************************************************************************
  ********************************************************************************************************************/
-upk_net_gstate_t       *
-upk_net_get_gstate(upk_conn_handle_meta_t * handles)
+upk_net_state_t        *
+upk_net_get_global_state(upk_conn_handle_meta_t * handles)
 {
     upklist_userdata_state_partition_t *data = handles->userdata;
 
-    return data->gstate;
+    return data->global_state;
 }
 
 /********************************************************************************************************************
  ********************************************************************************************************************/
 void                   *
-upk_net_get_userdata(upk_conn_handle_meta_t * handles)
+upk_net_get_global_userdata(upk_conn_handle_meta_t * handles)
 {
     upklist_userdata_state_partition_t *data = handles->userdata;
 
-    return data->userdata;
+    return data->global_userdata;
 }
 
 
 /********************************************************************************************************************
  ********************************************************************************************************************/
-void
+bool
 upk_net_add_socket_handle(upk_conn_handle_meta_t * handles, int fd, upk_net_callback_t pkt_callback)
 {
     int                     sockopts = 0;
+    upk_net_state_t        *global_state = upk_net_get_global_state(handles);
 
     if(fd > 0 && (sockopts = fcntl(fd, F_GETFL))) {
         fcntl(fd, F_SETFL, sockopts | O_NONBLOCK);
         fcntl(fd, F_SETFD, FD_CLOEXEC);
 
         UPKLIST_APPEND(handles);
-        handles->thisp->userdata = upk_net_get_userdata(handles);
-        handles->thisp->gstate = upk_net_get_gstate(handles);
+        handles->thisp->userdata = upk_net_get_global_userdata(handles);
+        handles->thisp->state = calloc(1, sizeof(*handles->thisp->state));
+        handles->thisp->state->callback_stack = calloc(1, sizeof(*handles->thisp->state->callback_stack));
+
+        /* deep copy initialize this items state with the global state (which serves as initial state) */
+        UPKLIST_APPEND(handles->thisp->state->callback_stack);
+        /* FIXME: this shouldn't be necessary; ensure that this is always initialized prior to calling */
+        if(global_state->callback_stack->head) {
+            memcpy(handles->thisp->state->callback_stack->thisp, global_state->callback_stack->head,
+                   sizeof(*global_state->callback_stack->head) - sizeof(global_state->callback_stack->head->next));
+        }
+
+
         handles->thisp->fd = fd;
         handles->thisp->after_read_callback = pkt_callback;
+        return true;
     }
+    return false;
 }
 
 /********************************************************************************************************************
@@ -120,6 +140,11 @@ upk_net_flush_closed_sockets(upk_conn_handle_meta_t * handles)
 {
     UPKLIST_FOREACH(handles) {
         if(handles->thisp->fd < 0) {
+            if(handles->thisp->userdata)
+                if(handles->thisp->state) {
+                    UPKLIST_FREE(handles->thisp->state->callback_stack);
+                    free(handles->thisp->state);
+                }
             UPKLIST_UNLINK(handles);
         }
     }
@@ -133,15 +158,18 @@ upk_net_event_dispatcher(upk_conn_handle_meta_t * handles, double sel_ival)
     fd_set                  readfds, writefds, exceptfds, *writefds_p = NULL;
     int                     nfds, ready;
     sigset_t                origmask, sigmask;
-    upk_net_gstate_t       *gstate = upk_net_get_gstate(handles);
-    upk_net_cb_stk_meta_t  *callbacks = gstate->callback_stack;
+    upk_net_state_t        *global_state = upk_net_get_global_state(handles);
+    upk_net_cb_stk_meta_t  *callbacks = NULL;
     struct timeval          timeout = upk_double_to_timeval(sel_ival);
+
+    if(handles && handles->thisp && handles->thisp->state)
+        callbacks = handles->thisp->state->callback_stack;
 
     if(callbacks && callbacks->head && callbacks->head->net_dispatch_pre)
         callbacks->head->net_dispatch_pre(handles, NULL);
 
     nfds = upk_build_fd_sets(&readfds, &writefds, &exceptfds, handles);
-    writefds_p = (gstate->pending_writeq > 0) ? &writefds : NULL;
+    writefds_p = (global_state->pending_writeq > 0) ? &writefds : NULL;
 
     sigfillset(&sigmask);
     sigprocmask(SIG_SETMASK, &sigmask, &origmask);
@@ -203,11 +231,15 @@ upk_call_received_packet_callbacks(upk_conn_handle_meta_t * handles, upk_packet_
 {
     upk_payload_t          *data = NULL;
     upk_conn_handle_t      *handle = NULL;
-    upk_net_gstate_t       *gstate = upk_net_get_gstate(handles);
-    upk_net_cb_stk_meta_t  *callbacks = gstate->callback_stack;
+
+    // upk_net_state_t *global_state = upk_net_get_global_state(handles);
+    upk_net_cb_stk_meta_t  *callbacks = NULL;
 
     if(!handles || (handles && !handles->thisp))
         return;
+
+    if(handles->thisp->state)
+        callbacks = handles->thisp->state->callback_stack;
 
     handle = handles->thisp;
     data = &handle->last_pkt_data;
@@ -246,15 +278,15 @@ upk_net_shutdown_callback(upk_conn_handle_meta_t * handles, upk_payload_t * msg)
 /********************************************************************************************************************
  *********************************************************************************************************************/
 void
-upk_queue_packet(upk_conn_handle_t * handle, upk_packet_t * pkt, upk_net_callback_t after_write_callback,
+upk_queue_packet(upk_conn_handle_meta_t * handles, upk_conn_handle_t * handle, upk_packet_t * pkt, upk_net_callback_t after_write_callback,
                  upk_net_callback_t set_after_read_callback)
 {
     upk_pkt_buf_t          *bufp = NULL;
     upk_netmsg_queue_t     *msgp = NULL;
-    upk_net_gstate_t       *gstate = handle->gstate;
+    upk_net_state_t        *global_state = upk_net_get_global_state(handles);
 
     UPKLIST_APPEND((&handle->writeq));
-    gstate->pending_writeq++;
+    global_state->pending_writeq++;
     msgp = handle->writeq.thisp;
 
     msgp->after_write_callback = after_write_callback;
@@ -276,7 +308,7 @@ upk_write_packets(upk_conn_handle_meta_t * handles)
     size_t                  n_write = 0;
     upk_netmsg_queue_t     *msgp = NULL;
     upk_conn_handle_t      *handle = handles->thisp;
-    upk_net_gstate_t       *gstate = upk_net_get_gstate(handles);
+    upk_net_state_t        *global_state = upk_net_get_global_state(handles);
 
     if(handle->fd < 0)
         return;
@@ -303,7 +335,7 @@ upk_write_packets(upk_conn_handle_meta_t * handles)
             if(msgp->set_after_read_callback)
                 handle->after_read_callback = msgp->set_after_read_callback;
             UPKLIST_UNLINK((&handle->writeq));
-            gstate->pending_writeq--;
+            global_state->pending_writeq--;
         }
     }
 }
@@ -326,8 +358,7 @@ upk_read_packets(upk_conn_handle_meta_t * handles)
     if(handle->fd < 0)
         return;
 
-    /* read the 16 header bytes, non-blocking to prevent a rogue handle from stopping up the works, so we have to
-       nibble */
+    /* read the 16 header bytes, non-blocking to prevent a rogue handle from stopping up the works, so we have to nibble */
 
     if(handle->n_remaining_read == 0 && handle->n_hdr_bytes_read < UPK_PACKET_HEADER_LEN) {
         errno = 0;

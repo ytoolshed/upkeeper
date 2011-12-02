@@ -50,7 +50,8 @@ struct _upk_netmsg_queue {
     size_t                  msg_len;                       /*!< length of msg to write */
     size_t                  n_bytes_written;               /*!< remaining bytes in message to write ; used to advance ptr */
     upk_net_callback_t      after_write_callback;          /*!< call this after writing this msg; may be NULL */
-    upk_net_callback_t      set_after_read_callback;       /*!< will set the handle's "after_read_callback" to this function after this message is written; may be NULL */
+    upk_net_callback_t      set_after_read_callback;       /*!< will set the handle's "after_read_callback" to this function after this
+                                                              message is written; may be NULL */
     upk_netmsg_queue_t     *next;                          /*!< next */
 };
 
@@ -76,6 +77,7 @@ struct _upk_net_cb_stk {
     upk_net_callback_t      net_dispatch_post;             /*!< run this after dispatching to a handler */
     upk_net_cb_stk_t       *next;                          /*!< next */
 };
+
 /**
   @brief metanode for the callback stack
   */
@@ -84,8 +86,8 @@ typedef                 UPKLIST_METANODE(upk_net_cb_stk_t, upk_net_cb_stk_meta_p
 /**
   @brief global state data for this client/connection
   */
-typedef struct _upk_net_gstate upk_net_gstate_t;
-struct _upk_net_gstate {
+typedef struct _upk_net_state upk_net_state_t;
+struct _upk_net_state {
     size_t                  pending_writeq;                /*!< how many messages are waiting to be sent, used to determine if select on
                                                               write is necessary */
     upk_net_cb_stk_meta_t  *callback_stack;                /*!< the callback stack, who's current head is at this point in the
@@ -96,12 +98,13 @@ struct _upk_net_gstate {
   @brief a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about.
   */
 typedef struct _upklist_userdata_state_partition upklist_userdata_state_partition_t;
+
 /**
   @brief a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about.
   */
 struct _upklist_userdata_state_partition {
-    void                   *userdata;                      /*!< generic place to stuff data you might need */
-    upk_net_gstate_t       *gstate;                        /*!< global state data for this handle */
+    void                   *global_userdata;             /*!< generic place to stuff data you might need */
+    upk_net_state_t        *global_state;                  /*!< global state data for this handle */
     void                    (*userdata_free_func) (void *); /*!< function to free your userdata */
 };
 
@@ -115,7 +118,7 @@ struct _upk_conn_handle {
     upk_net_callback_t      after_read_callback;           /*!< after an entire packet read, call this callback */
     upk_netmsg_queue_meta_t writeq;                        /*!< write queue linked list */
     upk_payload_t           last_pkt_data;                 /*!< Last received packet data */
-    upk_net_gstate_t       *gstate;                        /*!< instance state data, maintained in list metanode */
+    upk_net_state_t        *state;                         /*!< instance state data, maintained in list metanode */
     void                   *userdata;                      /*!< any user-data you might need too pass around */
     upk_conn_handle_t      *next;                          /*!< next */
 };

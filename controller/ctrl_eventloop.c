@@ -22,9 +22,21 @@ static upk_conn_handle_meta_t *clients_list_for_cleanup;
 void                    controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t *);
 
 /********************************************************************************************************************
- *********************************************************************************************************************/
+ ********************************************************************************************************************/
+/*
 static void
-accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
+ctrl_init_callback_handlers(upk_conn_handle_meta_t * clients)
+{
+    upk_net_state_t        *global_state = upk_net_get_global_state(clients);
+    global_state->callback_stack[UPK_MSGTYPE_IDX(UPK_REQ_ACTION)]
+}
+*/
+
+
+/********************************************************************************************************************
+ ********************************************************************************************************************/
+static void
+ctrl_accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
 {
     int32_t                 conn_fd = -1;
     struct sockaddr_un      c_sa = { 0 };
@@ -36,7 +48,7 @@ accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
 }
 
 /********************************************************************************************************************
- *********************************************************************************************************************/
+ ********************************************************************************************************************/
 void
 controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
 {
@@ -77,7 +89,7 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
                      */
                 }
 
-                upk_queue_packet(handle, reply, NULL, NULL);
+                upk_queue_packet(clients, handle, reply, NULL, NULL);
                 upk_pkt_free(reply);
                 break;
             }
@@ -105,14 +117,14 @@ controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg
 
         strncpy(handle->cl_name, msg->payload.req_preamble.client_name, UPK_MAX_STRING_LEN - 1);
 
-        upk_queue_packet(handle, reply, NULL, NULL);
+        upk_queue_packet(clients, handle, reply, NULL, NULL);
         upk_pkt_free(reply);
         break;
     case UPK_REQ_DISCONNECT:
         upk_debug1("disconnecting client: `%s'\n", handle->cl_name);
 
         reply = upk_create_req_disconnect(handle);
-        upk_queue_packet(handle, reply, upk_net_shutdown_callback, NULL);
+        upk_queue_packet(clients, handle, reply, upk_net_shutdown_callback, NULL);
         upk_pkt_free(reply);
 
         break;
@@ -203,7 +215,7 @@ event_loop(int32_t listen_sock)
     ctrl_signal_queue = calloc(1, sizeof(*ctrl_signal_queue));
     ctrl_setup_sighandlers();
 
-    clients = upk_net_conn_handle_init(NULL, NULL);
+    clients = upk_net_conn_handles_init(NULL, NULL);
     clients_list_for_cleanup = clients;
     atexit(ctrl_exit_cleanup);
 
@@ -219,7 +231,7 @@ event_loop(int32_t listen_sock)
         if(select(listen_sock + 1, &lfds, NULL, NULL, &timeout) > 0) {
             if(FD_ISSET(listen_sock, &lfds)) {
                 upk_debug1("Accepting connection\n");
-                accept_conn(listen_sock, clients);
+                ctrl_accept_conn(listen_sock, clients);
 #ifdef UPK_CONTROLLER_TERMINATE_FOR_TESTING_AFTER_N
                 connections++;
 #endif

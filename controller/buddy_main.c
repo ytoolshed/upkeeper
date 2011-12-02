@@ -32,6 +32,10 @@ buddy_usage(char *progname)
         "     setuid",
         "  -g GID, --setgid",
         "     setgid",
+        "  -i, --init_sup_groups, --initialize_supplemental_groups",
+        "     On exec, set supplemental groups to those belonging to the running UID (if running setuid)",
+        "  -c, --clear_sup_groups, --clear_supplemental_groups",
+        "     Clear supplemental groups to an empty list",
         "  -q, --quite",
         "     Decrease verbosity",
         "  -v, --verbose",
@@ -42,8 +46,8 @@ buddy_usage(char *progname)
     };
     size_t                  n = 0;
 
-    printf("Usage: %s [ -R NUM | --ringbuffer_size=NUM ] [ -r NUM | --retries=NUM ] \n\
-           [ -u | --setuid UID ] [-g | --setgid ] \n\
+    printf("Usage: %s [ -R NUM | --ringbuffer_size=NUM ] [ -r NUM | --retries=NUM ]\n\
+           [ -u | --setuid UID [-i | --init_sup_groups ] ] [-g | --setgid ] [ -c | --clear_sup_groups ]\n\
            [ -q | --quite] [-v | --verbose] [ -V | --version ] \n\
            service-name\n\n", progname);
     for(n = 0; n < sizeof(usage_txt) / 128; n++) {
@@ -94,12 +98,19 @@ opt_parse(int argc, char **argv, char **envp)
         {"verbose", 0, 0, 'v'},
         {"version", 0, 0, 'V'},
         {"help", 0, 0, 'h'},
-        {"ringbuffer_size", 1, 0, 'R'},
+        {"ringbuffer_size", 1, 0, 'R'},                    /*!< ringbuffer size */
+        {"rb_size", 1, 0, 'R'},                            /*!< ringbuffer size */
         {"retries", 1, 0, 'r'},
         {"setuid", 1, 0, 'u'},
         {"setgid", 1, 0, 'g'},
         {"buddy_path", 1, 0, 0},
         {"buddy_uuid", 1, 0, 0},
+        {"initialize_supplemental_groups", 0, 0, 'i'},     /*!< initialize supplemental groups */
+        {"init_sup_groups", 0, 0, 'i'},                    /*!< initialize supplemental groups */
+        {"isg", 0, 0, 'i'},                                /*!< initialize supplemental groups */
+        {"clear_supplemental_groups", 0, 0, 'c'},          /*!< clear supplemental groups */
+        {"clear_sup_groups", 0, 0, 'c'},                   /*!< clear supplemental groups */
+        {"csg", 0, 0, 'c'},                                /*!< clear supplemental groups */
         {0, 0, 0, 0}
     };
 
@@ -153,6 +164,12 @@ opt_parse(int argc, char **argv, char **envp)
         case ':':
             printf("%s: option `%s' requires an argument\n", argv[0], argv[optind - 1]);
             valid = false;
+            break;
+        case 'i':
+            initialize_supplemental_groups = true;
+            break;
+        case 'c':
+            clear_supplemental_groups = true;
             break;
         default:
             valid = false;
