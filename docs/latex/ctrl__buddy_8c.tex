@@ -32,6 +32,8 @@ int {\bf buddy\_\-connect} (const char $\ast$sockpath)
 \item 
 {\bf buddy\_\-info\_\-t} $\ast$ {\bf buddy\_\-readstate} (int fd)
 \item 
+{\bf upk\_\-svc\_\-desc\_\-t} $\ast$ {\bf lookup\_\-buddy\_\-from\_\-path} (char $\ast$buddy\_\-path)
+\item 
 void {\bf handle\_\-buddies} (void)
 \item 
 bool {\bf start\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
@@ -52,7 +54,7 @@ bool {\bf reload\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
 )}\label{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c}
 
 
-References upk\_\-alert.
+References connect(), SOCK\_\-STREAM, socket(), sockaddr\_\-un::sun\_\-family, sockaddr\_\-un::sun\_\-path, and upk\_\-alert.
 
 
 
@@ -60,11 +62,24 @@ Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), st
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c_icgraph}
+\includegraphics[width=214pt]{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c_icgraph}
 \end{center}
 \end{figure}
 
@@ -78,7 +93,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01}
 
 
-References \_\-buddy\_\-info::command, \_\-buddy\_\-info::desired\_\-state, \_\-buddy\_\-info::remaining, \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, UPK\_\-CTRL\_\-ACK, upk\_\-debug0, upk\_\-debug1, upk\_\-uuid\_\-to\_\-string(), \_\-buddy\_\-info::uuid, \_\-buddy\_\-info::wait\_\-pid, and \_\-buddy\_\-info::wait\_\-status.
+References \_\-buddy\_\-info::command, \_\-buddy\_\-info::desired\_\-state, \_\-buddy\_\-info::remaining, select(), \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, timeval::tv\_\-sec, timeval::tv\_\-usec, UPK\_\-CTRL\_\-ACK, upk\_\-debug0, upk\_\-debug1, upk\_\-uuid\_\-to\_\-string(), \_\-buddy\_\-info::uuid, \_\-buddy\_\-info::wait\_\-pid, and \_\-buddy\_\-info::wait\_\-status.
 
 
 
@@ -86,7 +101,8 @@ Referenced by send\_\-buddy\_\-cmd().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -97,11 +113,12 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
+\includegraphics[width=394pt]{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
 \end{center}
 \end{figure}
 
@@ -116,7 +133,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{ctrl__buddy_8c_a3167c192e6ed5cd46f95d1a5d8848e7c}
 
 
-References DEFAULT\_\-BUDDY\_\-ROOT, \_\-upk\_\-svc\_\-desc::Name, and UPK\_\-MAX\_\-PATH\_\-LEN.
+References \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::SvcRunPath, UPK\_\-MAX\_\-PATH\_\-LEN, and upk\_\-runtime\_\-configuration.
 
 
 
@@ -124,11 +141,12 @@ Referenced by create\_\-buddy(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), star
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a3167c192e6ed5cd46f95d1a5d8848e7c_icgraph}
+\includegraphics[width=270pt]{ctrl__buddy_8c_a3167c192e6ed5cd46f95d1a5d8848e7c_icgraph}
 \end{center}
 \end{figure}
 
@@ -142,7 +160,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3}
 
 
-References buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), spawn\_\-buddy(), and UPK\_\-MAX\_\-PATH\_\-LEN.
+References buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), spawn\_\-buddy(), stat::st\_\-mode, stat(), and UPK\_\-MAX\_\-PATH\_\-LEN.
 
 
 
@@ -150,11 +168,12 @@ Referenced by main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=268pt]{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3_cgraph}
+\includegraphics[width=400pt]{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3_cgraph}
 \end{center}
 \end{figure}
 
@@ -179,7 +198,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a0e91992d43a88269609df40068714512}
 
 
-References \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts, DEFAULT\_\-BUDDY\_\-ROOT, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, upk\_\-verbose, and UPKLIST\_\-FOREACH.
+References \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, \_\-upk\_\-svc\_\-desc::CustomActions, fchmod(), \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-controller\_\-config::SvcRunPath, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, upk\_\-verbose, and UPKLIST\_\-FOREACH.
 
 
 
@@ -187,11 +206,24 @@ Referenced by create\_\-buddy().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=342pt]{ctrl__buddy_8c_a0e91992d43a88269609df40068714512_icgraph}
+\includegraphics[width=240pt]{ctrl__buddy_8c_a0e91992d43a88269609df40068714512_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{ctrl__buddy_8c_a0e91992d43a88269609df40068714512_icgraph}
 \end{center}
 \end{figure}
 
@@ -205,7 +237,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8}
 
 
-References buddy\_\-connect(), DEFAULT\_\-BUDDY\_\-ROOT, send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-STATUS\_\-REQ, and UPK\_\-MAX\_\-PATH\_\-LEN.
+References buddy\_\-connect(), closedir(), lookup\_\-buddy\_\-from\_\-path(), opendir(), readdir(), remove\_\-buddy(), send\_\-buddy\_\-cmd(), \_\-upk\_\-controller\_\-config::SvcRunPath, UPK\_\-CTRL\_\-STATUS\_\-REQ, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-rm\_\-rf(), and upk\_\-runtime\_\-configuration.
 
 
 
@@ -213,7 +245,8 @@ Referenced by event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -224,11 +257,12 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=302pt]{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
+\includegraphics[width=228pt]{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
 \end{center}
 \end{figure}
 
@@ -250,22 +284,51 @@ Referenced by remove\_\-buddy().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a_cgraph}
+\includegraphics[width=358pt]{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=220pt]{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!lookup\_\-buddy\_\-from\_\-path@{lookup\_\-buddy\_\-from\_\-path}}
+\index{lookup\_\-buddy\_\-from\_\-path@{lookup\_\-buddy\_\-from\_\-path}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{lookup\_\-buddy\_\-from\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-t}$\ast$ lookup\_\-buddy\_\-from\_\-path (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buddy\_\-path}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a5bb1452ac49e63b88f834fe2588f3850}
+
+
+References \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::svclist, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by handle\_\-buddies().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{ctrl__buddy_8c_a5bb1452ac49e63b88f834fe2588f3850_icgraph}
 \end{center}
 \end{figure}
 
@@ -283,22 +346,24 @@ References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), 
 
 
 
-Referenced by controller\_\-packet\_\-callback().
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a732e458dbb31507c5d6e25fe8051c526_cgraph}
+\includegraphics[width=394pt]{ctrl__buddy_8c_a732e458dbb31507c5d6e25fe8051c526_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -320,11 +385,28 @@ References kill\_\-buddy(), and remove\_\-buddy\_\-statedir().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Referenced by handle\_\-buddies().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1_cgraph}
+\includegraphics[width=374pt]{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1_icgraph}
 \end{center}
 \end{figure}
 
@@ -338,11 +420,28 @@ Here is the call graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a61bbd1a5bc18012f8087f8a9764ef409}
 
 
+References closedir(), \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-svc\_\-desc::CustomActions, \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-svc\_\-desc::Name, opendir(), readdir(), \_\-upk\_\-controller\_\-config::SvcRunPath, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-rm\_\-rf(), upk\_\-runtime\_\-configuration, upk\_\-verbose, and UPKLIST\_\-FOREACH.
+
+
+
 Referenced by remove\_\-buddy().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{ctrl__buddy_8c_a61bbd1a5bc18012f8087f8a9764ef409_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -361,7 +460,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e}
 
 
-References buddy\_\-readstate().
+References buddy\_\-readstate(), select(), SHUT\_\-RDWR, shutdown(), and timeval::tv\_\-sec.
 
 
 
@@ -369,22 +468,24 @@ Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), st
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=396pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_cgraph}
+\includegraphics[width=262pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_icgraph}
+\includegraphics[width=270pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_icgraph}
 \end{center}
 \end{figure}
 
@@ -398,7 +499,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47}
 
 
-References \_\-upk\_\-svc\_\-desc::Name, and upk\_\-fatal.
+References buddy\_\-path(), buddy\_\-uuid, \_\-upk\_\-controller\_\-config::BuddyVerbosity, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::SvcRunPath, timespec::tv\_\-sec, upk\_\-fatal, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, UPK\_\-UUID\_\-STRING\_\-LEN, upk\_\-uuid\_\-to\_\-string(), upk\_\-verbose, \_\-upk\_\-controller\_\-config::UpkBuddyPath, and \_\-upk\_\-svc\_\-desc::UUID.
 
 
 
@@ -406,11 +507,24 @@ Referenced by create\_\-buddy().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=306pt]{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47_icgraph}
+\includegraphics[width=254pt]{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47_icgraph}
 \end{center}
 \end{figure}
 
@@ -428,22 +542,24 @@ References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), 
 
 
 
-Referenced by controller\_\-packet\_\-callback().
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_abac768e7b1b76398ad7e25e651f776ea_cgraph}
+\includegraphics[width=386pt]{ctrl__buddy_8c_abac768e7b1b76398ad7e25e651f776ea_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -465,22 +581,24 @@ References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), 
 
 
 
-Referenced by controller\_\-packet\_\-callback().
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{ctrl__buddy_8c_af36be3e8ca1253b0d412f404dcde2629_cgraph}
+\includegraphics[width=386pt]{ctrl__buddy_8c_af36be3e8ca1253b0d412f404dcde2629_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

@@ -57,22 +57,22 @@
 <a name="l00016"></a>00016 <span class="preprocessor"></span>
 <a name="l00017"></a>00017 <span class="preprocessor">#include &quot;<a class="code" href="upk__types_8h.html" title="types common throughout libupkeeper.">upk_types.h</a>&quot;</span>
 <a name="l00018"></a>00018 
-<a name="l00019"></a>00019 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="upk__client_8h.html#a250433c65616f4b1f841ce73a9f3dae1">upkeeper_action_request</a>(<span class="keywordtype">char</span> *service_id, <span class="keywordtype">char</span> *action_name);
-<a name="l00020"></a>00020 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="upk__client_8h.html#a938d9c5e808a5c577ef018a0b2abc570">upkeeper_signal_request</a>(<span class="keywordtype">char</span> *service_id, <a class="code" href="upk__types_8h.html#a5d95f9080cfb23be1dc92324fbd4f505" title="signal names.">upk_signal_t</a> signal);
-<a name="l00021"></a>00021 <span class="keyword">extern</span> <a class="code" href="struct__upk__svcid.html" title="linked list of service identifiers.">upk_svcid_t</a>     *<a class="code" href="upk__client_8h.html#a0707357b7d13aab81e38059faf87168c">upkeeper_list_services</a>(<span class="keywordtype">void</span>);
+<a name="l00019"></a>00019 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="controller_2tp_8c.html#abecffd3bd98f8ae8e34d033a62d2af3e">upkeeper_action_request</a>(<span class="keywordtype">char</span> *service_id, <span class="keywordtype">char</span> *action_name);
+<a name="l00020"></a>00020 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="controller_2tp_8c.html#a0f7d16ac5a525875de9e9f967b2e1dc8">upkeeper_signal_request</a>(<span class="keywordtype">char</span> *service_id, <a class="code" href="controller_2tp_8c.html#a5d95f9080cfb23be1dc92324fbd4f505">upk_signal_t</a> signal);
+<a name="l00021"></a>00021 <span class="keyword">extern</span> <a class="code" href="struct__upk__svcid.html" title="linked list of service identifiers.">upk_svcid_t</a>     *<a class="code" href="controller_2tp_8c.html#a0707357b7d13aab81e38059faf87168c">upkeeper_list_services</a>(<span class="keywordtype">void</span>);
 <a name="l00022"></a>00022 
-<a name="l00023"></a>00023 <span class="keyword">extern</span> <a class="code" href="struct__upk__svcinfo.html" title="see definition in *protocol_fields.h.">upk_svcinfo_t</a>    <a class="code" href="upk__client_8h.html#affc36784551fd662bf27a91865609050">upkeeper_get_status</a>(<span class="keywordtype">char</span> *service_id);
+<a name="l00023"></a>00023 <span class="keyword">extern</span> <a class="code" href="struct__upk__svcinfo.html" title="see definition in *protocol_fields.h.">upk_svcinfo_t</a>    <a class="code" href="controller_2tp_8c.html#affc36784551fd662bf27a91865609050">upkeeper_get_status</a>(<span class="keywordtype">char</span> *service_id);
 <a name="l00024"></a>00024 
-<a name="l00025"></a>00025 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="upk__client_8h.html#a1e1079edd595549502f50014566525a5">upkeeper_subscribe</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *svc_id);
-<a name="l00026"></a>00026 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="upk__client_8h.html#ac304e12e9d72017276ad98b1effd8207">upkeeper_subscribe_all</a>(<span class="keywordtype">void</span>);
+<a name="l00025"></a>00025 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="controller_2tp_8c.html#a31a19b98c73518419301bfa350abe3fb">upkeeper_subscribe</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *svc_id);
+<a name="l00026"></a>00026 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="controller_2tp_8c.html#a19699533c6f397f6158aad4482360a75">upkeeper_subscribe_all</a>(<span class="keywordtype">void</span>);
 <a name="l00027"></a>00027 
-<a name="l00028"></a>00028 <span class="keyword">extern</span> <span class="keywordtype">char</span>            *<a class="code" href="upk__client_8c.html#ad5bda55978d99b1f4cfd3b7236d594cf" title="fill buf with the client_id string.">upk_clientid</a>(<span class="keywordtype">void</span>);
+<a name="l00028"></a>00028 <span class="keyword">extern</span> <span class="keywordtype">char</span>            *<a class="code" href="group__API.html#gad5bda55978d99b1f4cfd3b7236d594cf">upk_clientid</a>(<span class="keywordtype">void</span>);
 <a name="l00029"></a>00029 
 <a name="l00030"></a>00030 
 <a name="l00031"></a>00031 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

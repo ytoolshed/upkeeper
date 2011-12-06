@@ -1,4 +1,4 @@
-.TH "controller/ctrl_buddy.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "controller/ctrl_buddy.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -45,6 +45,9 @@ controller/ctrl_buddy.c \-
 .RI "\fBbuddy_info_t\fP * \fBbuddy_readstate\fP (int fd)"
 .br
 .ti -1c
+.RI "\fBupk_svc_desc_t\fP * \fBlookup_buddy_from_path\fP (char *buddy_path)"
+.br
+.ti -1c
 .RI "void \fBhandle_buddies\fP (void)"
 .br
 .ti -1c
@@ -61,32 +64,32 @@ controller/ctrl_buddy.c \-
 .PP 
 .SS "int buddy_connect (const char *sockpath)"
 .PP
-References upk_alert.
+References connect(), SOCK_STREAM, socket(), sockaddr_un::sun_family, sockaddr_un::sun_path, and upk_alert.
 .PP
 Referenced by handle_buddies(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), and stop_buddy_svc().
 .SS "\fBbuddy_info_t\fP* buddy_readstate (intfd)"
 .PP
-References _buddy_info::command, _buddy_info::desired_state, _buddy_info::remaining, _buddy_info::service_pid, _buddy_info::timestamp, UPK_CTRL_ACK, upk_debug0, upk_debug1, upk_uuid_to_string(), _buddy_info::uuid, _buddy_info::wait_pid, and _buddy_info::wait_status.
+References _buddy_info::command, _buddy_info::desired_state, _buddy_info::remaining, select(), _buddy_info::service_pid, _buddy_info::timestamp, timeval::tv_sec, timeval::tv_usec, UPK_CTRL_ACK, upk_debug0, upk_debug1, upk_uuid_to_string(), _buddy_info::uuid, _buddy_info::wait_pid, and _buddy_info::wait_status.
 .PP
 Referenced by send_buddy_cmd().
 .SS "static char* buddy_sock_path (\fBupk_svc_desc_t\fP *buddy, char *pathbuf)\fC [inline, static]\fP"
 .PP
-References DEFAULT_BUDDY_ROOT, _upk_svc_desc::Name, and UPK_MAX_PATH_LEN.
+References _upk_svc_desc::Name, _upk_controller_config::SvcRunPath, UPK_MAX_PATH_LEN, and upk_runtime_configuration.
 .PP
 Referenced by create_buddy(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), and stop_buddy_svc().
 .SS "void create_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_sock_path(), create_buddy_statedir(), spawn_buddy(), and UPK_MAX_PATH_LEN.
+References buddy_sock_path(), create_buddy_statedir(), spawn_buddy(), stat::st_mode, stat(), and UPK_MAX_PATH_LEN.
 .PP
 Referenced by main().
 .SS "static bool create_buddy_statedir (\fBupk_svc_desc_t\fP *buddy)\fC [static]\fP"
 .PP
-References _upk_controller_config::controller_buddy_sock, _upk_svc_desc::custom_action_scripts, DEFAULT_BUDDY_ROOT, _upk_svc_desc::Name, _upk_svc_desc::ReloadScript, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, UPK_MAX_PATH_LEN, upk_runtime_configuration, upk_verbose, and UPKLIST_FOREACH.
+References _upk_controller_config::controller_buddy_sock, _upk_controller_config::controller_socket, _upk_svc_desc::CustomActions, fchmod(), _upk_cust_actscr_list::name, _upk_svc_desc::Name, _upk_svc_desc::ReloadScript, _upk_cust_actscr_list::script, _upk_svc_desc::StartScript, _upk_svc_desc::StopScript, _upk_controller_config::SvcRunPath, _upk_cust_actscr_meta_p::thisp, UPK_MAX_PATH_LEN, upk_runtime_configuration, upk_verbose, and UPKLIST_FOREACH.
 .PP
 Referenced by create_buddy().
 .SS "void handle_buddies (void)"
 .PP
-References buddy_connect(), DEFAULT_BUDDY_ROOT, send_buddy_cmd(), UPK_CTRL_STATUS_REQ, and UPK_MAX_PATH_LEN.
+References buddy_connect(), closedir(), lookup_buddy_from_path(), opendir(), readdir(), remove_buddy(), send_buddy_cmd(), _upk_controller_config::SvcRunPath, UPK_CTRL_STATUS_REQ, UPK_MAX_PATH_LEN, upk_rm_rf(), and upk_runtime_configuration.
 .PP
 Referenced by event_loop().
 .SS "bool kill_buddy (\fBupk_svc_desc_t\fP *buddy)"
@@ -94,37 +97,46 @@ Referenced by event_loop().
 References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_SHUTDOWN, and UPK_MAX_PATH_LEN.
 .PP
 Referenced by remove_buddy().
+.SS "\fBupk_svc_desc_t\fP* lookup_buddy_from_path (char *buddy_path)"
+.PP
+References _upk_svc_desc::Name, _upk_controller_config::svclist, upk_svc_desc_meta_p::thisp, UPK_MAX_PATH_LEN, upk_runtime_configuration, and UPKLIST_FOREACH.
+.PP
+Referenced by handle_buddies().
 .SS "bool reload_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
 References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_RELOAD, and UPK_MAX_PATH_LEN.
 .PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SS "void remove_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
 References kill_buddy(), and remove_buddy_statedir().
+.PP
+Referenced by handle_buddies().
 .SS "static bool remove_buddy_statedir (\fBupk_svc_desc_t\fP *buddy)\fC [static]\fP"
+.PP
+References closedir(), _upk_controller_config::controller_buddy_sock, _upk_svc_desc::CustomActions, _upk_cust_actscr_list::name, _upk_svc_desc::Name, opendir(), readdir(), _upk_controller_config::SvcRunPath, _upk_cust_actscr_meta_p::thisp, UPK_MAX_PATH_LEN, upk_rm_rf(), upk_runtime_configuration, upk_verbose, and UPKLIST_FOREACH.
 .PP
 Referenced by remove_buddy().
 .SS "static bool send_buddy_cmd (intfd, \fBbuddy_cmnd_t\fPcmd)\fC [static]\fP"
 .PP
-References buddy_readstate().
+References buddy_readstate(), select(), SHUT_RDWR, shutdown(), and timeval::tv_sec.
 .PP
 Referenced by handle_buddies(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), and stop_buddy_svc().
 .SS "bool spawn_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References _upk_svc_desc::Name, and upk_fatal.
+References buddy_path(), buddy_uuid, _upk_controller_config::BuddyVerbosity, _upk_svc_desc::Name, _upk_controller_config::SvcRunPath, timespec::tv_sec, upk_fatal, UPK_MAX_PATH_LEN, upk_runtime_configuration, UPK_UUID_STRING_LEN, upk_uuid_to_string(), upk_verbose, _upk_controller_config::UpkBuddyPath, and _upk_svc_desc::UUID.
 .PP
 Referenced by create_buddy().
 .SS "bool start_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
 References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_START, and UPK_MAX_PATH_LEN.
 .PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SS "bool stop_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
 References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_STOP, and UPK_MAX_PATH_LEN.
 .PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

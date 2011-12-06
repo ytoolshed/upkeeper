@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_config.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_config.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -18,12 +18,6 @@ configuration defaults, and implementation
 
 .in +1c
 .ti -1c
-.RI "#define \fB_stringify\fP(A)   #A"
-.br
-.ti -1c
-.RI "#define \fBstringify\fP(A)   _stringify(A)"
-.br
-.ti -1c
 .RI "#define \fB_joa\fP   json_object_object_add"
 .br
 .ti -1c
@@ -39,9 +33,40 @@ configuration defaults, and implementation
 .RI "#define \fBjt_array\fP   json_type_array"
 .br
 .in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBappender_type_t\fP { \fBSVCID_APPENDER\fP =  0, \fBACTION_APPENDER\fP }"
+.br
+.in -1c
 .SS "Functions"
 
 .in +1c
+.ti -1c
+.RI "static void \fBupk_svcconf_svcid_array_appender\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_setup_array_handlers\fP (\fBupk_json_handlers_t\fP *handlers)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_array_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_customaction_array_appender\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_setup_object_handlers\fP (\fBupk_json_handlers_t\fP *handlers)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_nested_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_setup_handlers\fP (\fBupk_json_handlers_t\fP *handlers)"
+.br
+.ti -1c
+.RI "static void \fBupk_ctrlconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
 .ti -1c
 .RI "static void \fBupk_ctrlconf_string_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
 .br
@@ -49,7 +74,13 @@ configuration defaults, and implementation
 .RI "static void \fBupk_ctrlconf_double_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
 .br
 .ti -1c
-.RI "static void \fBupk_ctrlconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.RI "static void \fBupk_ctrlconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_svcconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
 .br
 .ti -1c
 .RI "static void \fBupk_ctrlconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
@@ -82,16 +113,7 @@ configuration defaults, and implementation
 .RI "void \fBupk_ctrl_free_config\fP (void)"
 .br
 .ti -1c
-.RI "static void \fBupk_svcconf_setup_handlers\fP (\fBupk_json_handlers_t\fP *handlers)"
-.br
-.ti -1c
-.RI "static void \fBupk_ctrlconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
-.br
-.ti -1c
-.RI "static void \fBupk_svcconf_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
-.br
-.ti -1c
-.RI "static void \fBupk_svcconf_toplvl_obj\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.RI "static void \fBupk_ctrlconf_int_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
 .br
 .ti -1c
 .RI "void \fBupk_svcconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
@@ -146,7 +168,7 @@ configuration defaults, and implementation
 .RI "char \fBupk_ctrl_configuration_file\fP [UPK_MAX_PATH_LEN] = '/upkeeper.conf'"
 .br
 .ti -1c
-.RI "const char \fBupk_default_configuration_vec\fP [] = '}\\n'"
+.RI "const char \fBupk_default_configuration_str\fP [] = '}\\n'"
 .br
 .ti -1c
 .RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"

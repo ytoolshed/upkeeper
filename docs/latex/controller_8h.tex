@@ -3,6 +3,7 @@
 {\ttfamily \#include $<$upkeeper.h$>$}\par
 {\ttfamily \#include $<$stdio.h$>$}\par
 {\ttfamily \#include $<$ctrl\_\-protocol.h$>$}\par
+{\ttfamily \#include $<$sqlite3.h$>$}\par
 Include dependency graph for controller.h:\nopagebreak
 \begin{figure}[H]
 \begin{center}
@@ -10,31 +11,44 @@ Include dependency graph for controller.h:\nopagebreak
 \includegraphics[width=400pt]{controller_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file:\nopagebreak
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{controller_8h__dep__incl}
 \end{center}
 \end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-ctrl\_\-sigqueue}
+\end{DoxyCompactItemize}
 \subsection*{Defines}
 \begin{DoxyCompactItemize}
 \item 
 \#define {\bf UPK\_\-CTRL\_\-MAX\_\-CLIENTS}~FD\_\-SETSIZE
 \end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-ctrl\_\-sigqueue} {\bf ctrl\_\-sigqueue\_\-t}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf ctrl\_\-sigqueue\_\-t}, {\bf ctrl\_\-sigqueue\_\-meta\_\-p})
 \item 
 int {\bf socket\_\-setup} (const char $\ast$sock\_\-path)
 \item 
 void {\bf handle\_\-signals} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em deal with signals pending action in signal\_\-queue. \end{DoxyCompactList}\item 
 void {\bf handle\_\-buddies} (void)
 \item 
 int32\_\-t {\bf ctrl\_\-sock\_\-setup} (void)
-\item 
+\begin{DoxyCompactList}\small\item\em setup controller's socket \end{DoxyCompactList}\item 
 void {\bf event\_\-loop} (int32\_\-t listen\_\-sock)
-\item 
+\begin{DoxyCompactList}\small\item\em the main event loop. \end{DoxyCompactList}\item 
 int {\bf upk\_\-ctrl\_\-init} (void)
 \item 
 void {\bf create\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
@@ -53,12 +67,25 @@ bool {\bf stop\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
 \item 
 bool {\bf reload\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
 \end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf ctrl\_\-sigqueue\_\-meta\_\-t}
+\item 
+{\bf sqlite3} $\ast$ {\bf ctrl\_\-dbh}
+\end{DoxyCompactItemize}
 
 
 \subsection{Define Documentation}
 \index{controller.h@{controller.h}!UPK\_\-CTRL\_\-MAX\_\-CLIENTS@{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}}
 \index{UPK\_\-CTRL\_\-MAX\_\-CLIENTS@{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}!controller.h@{controller.h}}
 \subsubsection[{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-CTRL\_\-MAX\_\-CLIENTS~FD\_\-SETSIZE}\label{controller_8h_a0b5b90624855687b6a19e350ff11bf83}
+
+
+\subsection{Typedef Documentation}
+\index{controller.h@{controller.h}!ctrl\_\-sigqueue\_\-t@{ctrl\_\-sigqueue\_\-t}}
+\index{ctrl\_\-sigqueue\_\-t@{ctrl\_\-sigqueue\_\-t}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-sigqueue\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-ctrl\_\-sigqueue} {\bf ctrl\_\-sigqueue\_\-t}}\label{controller_8h_a2e5900687be90a901d406b81bc6624c3}
 
 
 \subsection{Function Documentation}
@@ -71,19 +98,16 @@ bool {\bf reload\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
 )}\label{controller_8h_a702a0c4cef2ab68a8567086357066d3c}
 
 
-References upk\_\-alert.
-
-
-
 Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), start\_\-buddy\_\-svc(), and stop\_\-buddy\_\-svc().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{controller_8h_a702a0c4cef2ab68a8567086357066d3c_icgraph}
+\includegraphics[width=258pt]{controller_8h_a702a0c4cef2ab68a8567086357066d3c_icgraph}
 \end{center}
 \end{figure}
 
@@ -97,30 +121,16 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_a7bd4c4275367b7d6c5e5950928968c01}
 
 
-References \_\-buddy\_\-info::command, \_\-buddy\_\-info::desired\_\-state, \_\-buddy\_\-info::remaining, \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, UPK\_\-CTRL\_\-ACK, upk\_\-debug0, upk\_\-debug1, upk\_\-uuid\_\-to\_\-string(), \_\-buddy\_\-info::uuid, \_\-buddy\_\-info::wait\_\-pid, and \_\-buddy\_\-info::wait\_\-status.
-
-
-
 Referenced by send\_\-buddy\_\-cmd().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=266pt]{controller_8h_a7bd4c4275367b7d6c5e5950928968c01_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
+\includegraphics[width=394pt]{controller_8h_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
 \end{center}
 \end{figure}
 
@@ -134,22 +144,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_ab5645904078d1ac29f24cf8f6f9f95b3}
 
 
-References buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), spawn\_\-buddy(), and UPK\_\-MAX\_\-PATH\_\-LEN.
-
-
-
 Referenced by main().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=268pt]{controller_8h_ab5645904078d1ac29f24cf8f6f9f95b3_cgraph}
-\end{center}
-\end{figure}
-
 
 
 
@@ -171,9 +166,9 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_ad055a2a21d52bb93290db5ecee7b62b5}
 
 
-References \_\-upk\_\-controller\_\-config::controller\_\-socket, IF\_\-UPK\_\-ERROR, UPK\_\-ERR\_\-INIT, UPK\_\-FUNC\_\-ASSERT, UPK\_\-FUNC\_\-ASSERT\_\-MSG, upk\_\-runtime\_\-configuration, and UPK\_\-SOCKET\_\-FAILURE.
+setup controller's socket 
 
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
 Referenced by main().
 
@@ -197,22 +192,11 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_afcb5edca8881b0c26ccbc120775ed38b}
 
 
-References accept\_\-conn(), \_\-upk\_\-controller\_\-config::BuddyPollingInterval, handle\_\-buddies(), handle\_\-signals(), upk\_\-conn\_\-handle\_\-meta\_\-t, upk\_\-debug1, upk\_\-net\_\-conn\_\-handle\_\-init(), upk\_\-net\_\-event\_\-dispatcher(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-runtime\_\-configuration, and UPKLIST\_\-FREE.
+the main event loop. 
 
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
 
 Referenced by main().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_afcb5edca8881b0c26ccbc120775ed38b_cgraph}
-\end{center}
-\end{figure}
-
 
 
 
@@ -234,30 +218,16 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8}
 
 
-References buddy\_\-connect(), DEFAULT\_\-BUDDY\_\-ROOT, send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-STATUS\_\-REQ, and UPK\_\-MAX\_\-PATH\_\-LEN.
-
-
-
 Referenced by event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=302pt]{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
+\includegraphics[width=228pt]{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
 \end{center}
 \end{figure}
 
@@ -271,15 +241,20 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_ad90d54275c3f302332ac0724037f3371}
 
 
+deal with signals pending action in signal\_\-queue. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Block all signals during copy to avoid annoying race conditions. 
+
 Referenced by event\_\-loop().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=300pt]{controller_8h_ad90d54275c3f302332ac0724037f3371_icgraph}
+\includegraphics[width=226pt]{controller_8h_ad90d54275c3f302332ac0724037f3371_icgraph}
 \end{center}
 \end{figure}
 
@@ -293,26 +268,12 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_ac08a0cf9a291c08c1d7d25bab3fb789a}
 
 
-References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-SHUTDOWN, and UPK\_\-MAX\_\-PATH\_\-LEN.
-
-
-
 Referenced by remove\_\-buddy().
 
 
 
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_ac08a0cf9a291c08c1d7d25bab3fb789a_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -330,26 +291,12 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_a732e458dbb31507c5d6e25fe8051c526}
 
 
-References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-RELOAD, and UPK\_\-MAX\_\-PATH\_\-LEN.
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Referenced by controller\_\-packet\_\-callback().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_a732e458dbb31507c5d6e25fe8051c526_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -367,15 +314,16 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_a885b8908c44426b410c5849bbf7ab9b1}
 
 
-References kill\_\-buddy(), and remove\_\-buddy\_\-statedir().
+Referenced by handle\_\-buddies().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{controller_8h_a885b8908c44426b410c5849bbf7ab9b1_cgraph}
+\includegraphics[width=244pt]{controller_8h_a885b8908c44426b410c5849bbf7ab9b1_icgraph}
 \end{center}
 \end{figure}
 
@@ -396,26 +344,12 @@ Here is the call graph for this function:\nopagebreak
 )}\label{controller_8h_abac768e7b1b76398ad7e25e651f776ea}
 
 
-References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-START, and UPK\_\-MAX\_\-PATH\_\-LEN.
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Referenced by controller\_\-packet\_\-callback().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_abac768e7b1b76398ad7e25e651f776ea_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -433,26 +367,12 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{controller_8h_af36be3e8ca1253b0d412f404dcde2629}
 
 
-References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-STOP, and UPK\_\-MAX\_\-PATH\_\-LEN.
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 
 
-Referenced by controller\_\-packet\_\-callback().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_af36be3e8ca1253b0d412f404dcde2629_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -468,34 +388,20 @@ Here is the caller graph for this function:\nopagebreak
 \item[{void}]{}
 \end{DoxyParamCaption}
 )}\label{controller_8h_a253734ff940e671ba2bd35fc159a9471}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \index{controller.h@{controller.h}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!controller.h@{controller.h}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf ctrl\_\-sigqueue\_\-t}}]{, }
+\item[{{\bf ctrl\_\-sigqueue\_\-meta\_\-p}}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a0b5475aae35992f577c165a6af3f74ac}
 
 
-References upk\_\-ctrl\_\-init\_\-db(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-db\_\-path(), upk\_\-load\_\-runtime\_\-services(), and UPK\_\-MAX\_\-PATH\_\-LEN.
-
-
-
-Referenced by main().
-
-
-
-Here is the call graph for this function:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{controller_8h_a253734ff940e671ba2bd35fc159a9471_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=188pt]{controller_8h_a253734ff940e671ba2bd35fc159a9471_icgraph}
-\end{center}
-\end{figure}
-
-
+\subsection{Variable Documentation}
+\index{controller.h@{controller.h}!ctrl\_\-dbh@{ctrl\_\-dbh}}
+\index{ctrl\_\-dbh@{ctrl\_\-dbh}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-dbh}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sqlite3}$\ast$ {\bf ctrl\_\-dbh}}\label{controller_8h_ab907e74d7ad6a0a44e7c050fdad06b33}
+\index{controller.h@{controller.h}!ctrl\_\-sigqueue\_\-meta\_\-t@{ctrl\_\-sigqueue\_\-meta\_\-t}}
+\index{ctrl\_\-sigqueue\_\-meta\_\-t@{ctrl\_\-sigqueue\_\-meta\_\-t}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-sigqueue\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf ctrl\_\-sigqueue\_\-meta\_\-t}}\label{controller_8h_a6ef378243e5a3a8c5874ffc519e33922}

@@ -65,14 +65,14 @@
 <a name="l00024"></a>00024 } <a class="code" href="upk__json_8h.html#a8737ac348e369b457e5c471458f601ad">upk_json_string_t</a>;
 <a name="l00025"></a>00025 
 <a name="l00026"></a><a class="code" href="struct__upk__json__type.html">00026</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__json__type.html">_upk_json_type</a> {
-<a name="l00027"></a><a class="code" href="struct__upk__json__type.html#a05591e8d4aab13a955e11c7f8b70d291">00027</a>     uint8_t                 <a class="code" href="struct__upk__json__type.html#a05591e8d4aab13a955e11c7f8b70d291">type</a>;
+<a name="l00027"></a><a class="code" href="struct__upk__json__type.html#a05591e8d4aab13a955e11c7f8b70d291">00027</a>     <a class="code" href="controller_2tp_8c.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>                 <a class="code" href="struct__upk__json__type.html#a05591e8d4aab13a955e11c7f8b70d291">type</a>;
 <a name="l00028"></a>00028     <span class="keyword">union </span>{
 <a name="l00029"></a><a class="code" href="struct__upk__json__type.html#aad607b1d4759fe0fa7525789592e18f2">00029</a>         <span class="keywordtype">bool</span>                    <a class="code" href="struct__upk__json__type.html#aad607b1d4759fe0fa7525789592e18f2">bl</a>;
 <a name="l00030"></a><a class="code" href="struct__upk__json__type.html#ac4e041911e770d955fd0318fe8e9ef1e">00030</a>         <span class="keywordtype">double</span>                  <a class="code" href="struct__upk__json__type.html#ac4e041911e770d955fd0318fe8e9ef1e">dbl</a>;
 <a name="l00031"></a><a class="code" href="struct__upk__json__type.html#a461839ba2cd1bf2127121bda9c362a06">00031</a>         <span class="keywordtype">int</span>                     <a class="code" href="struct__upk__json__type.html#a461839ba2cd1bf2127121bda9c362a06">i</a>;
 <a name="l00032"></a><a class="code" href="struct__upk__json__type.html#a1defbbfede6d554468f8882ecb0596bb">00032</a>         <a class="code" href="struct__upk__json__string.html">upk_json_string_t</a>       <a class="code" href="struct__upk__json__type.html#a1defbbfede6d554468f8882ecb0596bb">str</a>;
 <a name="l00033"></a><a class="code" href="struct__upk__json__type.html#a465bb44c188f1e4b85840cd9ba933a91">00033</a>         <span class="keyword">struct </span>json_object     *<a class="code" href="struct__upk__json__type.html#a465bb44c188f1e4b85840cd9ba933a91">obj</a>;
-<a name="l00034"></a>00034     } <a class="code" href="struct__upk__json__type.html#ad5efc0c2526553500e6bc65af469e084">val</a>;
+<a name="l00034"></a>00034     } <a class="code" href="struct__upk__json__type.html#a49660263d1f0e5f765469c372e0ccc29">val</a>;
 <a name="l00035"></a>00035 } <a class="code" href="upk__json_8h.html#a6eb2d509b12e3e9594d2fbeab6a00a03">upk_json_val_t</a>;
 <a name="l00036"></a>00036 
 <a name="l00037"></a><a class="code" href="upk__json_8h.html#a6e073cd5f1db80010f3eefe7e50e8817">00037</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__json__stack__node.html">_upk_json_stack_node</a> <a class="code" href="struct__upk__json__stack__node.html">upk_json_stack_node_t</a>;
@@ -108,13 +108,13 @@
 <a name="l00067"></a>00067                                             <span class="keyword">struct</span> json_object *jobj);
 <a name="l00068"></a>00068 <span class="keyword">extern</span> <span class="keyword">struct </span>json_object *<a class="code" href="upk__json_8c.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keywordtype">string</span>);
 <a name="l00069"></a>00069 <span class="keyword">extern</span> <span class="keywordtype">char</span>            *<a class="code" href="upk__json_8c.html#a40b01bf12283a69e42e025934ef029b0">upk_json_obj_to_string</a>(<span class="keyword">struct</span> json_object *obj, <a class="code" href="struct__upk__json__data__output__options.html">upk_json_data_output_opts_t</a> opts);
-<a name="l00070"></a>00070 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="upk__json_8c.html#a95a5c8d27288affe2621f3521975483c">upk_json_obj_to_stream</a>(<span class="keyword">struct</span> json_object *obj, FILE * stream,
+<a name="l00070"></a>00070 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="upk__json_8c.html#a95a5c8d27288affe2621f3521975483c">upk_json_obj_to_stream</a>(<span class="keyword">struct</span> json_object *obj, <a class="code" href="struct__IO__FILE.html">FILE</a> * stream,
 <a name="l00071"></a>00071                                                <a class="code" href="struct__upk__json__data__output__options.html">upk_json_data_output_opts_t</a> opts);
 <a name="l00072"></a>00072 
 <a name="l00073"></a>00073 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

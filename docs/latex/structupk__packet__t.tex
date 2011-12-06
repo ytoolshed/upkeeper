@@ -7,17 +7,17 @@
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-uint32\_\-t {\bf payload\_\-len}
+{\bf uint32\_\-t} {\bf payload\_\-len}
 \item 
-uint32\_\-t {\bf version\_\-id}
+{\bf uint32\_\-t} {\bf version\_\-id}
 \item 
-uint32\_\-t {\bf seq\_\-num}
+{\bf uint32\_\-t} {\bf seq\_\-num}
 \item 
 {\bf upk\_\-pkttype\_\-t} {\bf pkttype}
 \item 
 void $\ast$ {\bf payload}
 \item 
-uint32\_\-t {\bf crc32}
+{\bf uint32\_\-t} {\bf crc32}
 \end{DoxyCompactItemize}
 
 
@@ -27,21 +27,21 @@ $\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\
 \subsection{Field Documentation}
 \index{upk\_\-packet\_\-t@{upk\_\-packet\_\-t}!crc32@{crc32}}
 \index{crc32@{crc32}!upk_packet_t@{upk\_\-packet\_\-t}}
-\subsubsection[{crc32}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf upk\_\-packet\_\-t::crc32}}\label{structupk__packet__t_a440fa8d8947e7f5c17997d51f12d4cee}
+\subsubsection[{crc32}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf upk\_\-packet\_\-t::crc32}}\label{structupk__packet__t_a440fa8d8947e7f5c17997d51f12d4cee}
 
 
 Referenced by upk\_\-create\_\-pkt().
 
 \index{upk\_\-packet\_\-t@{upk\_\-packet\_\-t}!payload@{payload}}
 \index{payload@{payload}!upk_packet_t@{upk\_\-packet\_\-t}}
-\subsubsection[{payload}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ {\bf upk\_\-packet\_\-t::payload}}\label{structupk__packet__t_aeae9f273821e5bb68fd6957cbde86a14}
+\subsubsection[{payload}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ {\bf upk\_\-packet\_\-t::payload}}\label{structupk__packet__t_a37753733200c7b887d8616f7528e15a6}
 the payload 
 
-Referenced by controller\_\-packet\_\-callback(), upk\_\-call\_\-received\_\-packet\_\-callbacks(), upk\_\-create\_\-pkt(), upk\_\-free\_\-payload(), upk\_\-get\_\-msgtype(), v0\_\-free\_\-payload(), and v0\_\-serialize\_\-payload().
+Referenced by ctrl\_\-req\_\-preamble\_\-handler(), upk\_\-call\_\-received\_\-packet\_\-callbacks(), upk\_\-create\_\-pkt(), upk\_\-free\_\-payload(), upk\_\-get\_\-msgtype(), and v0\_\-serialize\_\-payload().
 
 \index{upk\_\-packet\_\-t@{upk\_\-packet\_\-t}!payload\_\-len@{payload\_\-len}}
 \index{payload\_\-len@{payload\_\-len}!upk_packet_t@{upk\_\-packet\_\-t}}
-\subsubsection[{payload\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf upk\_\-packet\_\-t::payload\_\-len}}\label{structupk__packet__t_a4763ca6853e27fe3eb7e2b3ec45deeb5}
+\subsubsection[{payload\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf upk\_\-packet\_\-t::payload\_\-len}}\label{structupk__packet__t_a4763ca6853e27fe3eb7e2b3ec45deeb5}
 not size\_\-t, because this would force the arch of the client to match the server; and even on localhost, that cannot be guaranteed 
 
 Referenced by upk\_\-create\_\-pkt(), upk\_\-queue\_\-packet(), and v0\_\-serialize\_\-payload().
@@ -51,24 +51,26 @@ Referenced by upk\_\-create\_\-pkt(), upk\_\-queue\_\-packet(), and v0\_\-serial
 \subsubsection[{pkttype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkttype\_\-t} {\bf upk\_\-packet\_\-t::pkttype}}\label{structupk__packet__t_a90897befc1fe65ebb2c18748a5881d83}
 will be forced into a uint32\_\-t; even on 64bit 
 
-Referenced by upk\_\-create\_\-pkt(), v0\_\-free\_\-payload(), and v0\_\-serialize\_\-payload().
+Referenced by upk\_\-create\_\-pkt(), and v0\_\-serialize\_\-payload().
 
 \index{upk\_\-packet\_\-t@{upk\_\-packet\_\-t}!seq\_\-num@{seq\_\-num}}
 \index{seq\_\-num@{seq\_\-num}!upk_packet_t@{upk\_\-packet\_\-t}}
-\subsubsection[{seq\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf upk\_\-packet\_\-t::seq\_\-num}}\label{structupk__packet__t_a80fc00b3c474ce2364b738c0cc2eefa2}
+\subsubsection[{seq\_\-num}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf upk\_\-packet\_\-t::seq\_\-num}}\label{structupk__packet__t_a80fc00b3c474ce2364b738c0cc2eefa2}
 not used at this time 
 
 Referenced by upk\_\-create\_\-pkt().
 
 \index{upk\_\-packet\_\-t@{upk\_\-packet\_\-t}!version\_\-id@{version\_\-id}}
 \index{version\_\-id@{version\_\-id}!upk_packet_t@{upk\_\-packet\_\-t}}
-\subsubsection[{version\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf upk\_\-packet\_\-t::version\_\-id}}\label{structupk__packet__t_a7af5bfe76852db8538b31fe06418c9d4}
+\subsubsection[{version\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf upk\_\-packet\_\-t::version\_\-id}}\label{structupk__packet__t_a7af5bfe76852db8538b31fe06418c9d4}
 this packet's version 
 
 Referenced by upk\_\-create\_\-pkt(), and upk\_\-serialize\_\-payload().
 
 
 
-The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-protocol.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-protocol.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

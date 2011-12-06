@@ -11,29 +11,36 @@ controller configuration.
 
 
 
-Collaboration diagram for \_\-upk\_\-controller\_\-config:\nopagebreak
+Collaboration diagram for \_\-upk\_\-controller\_\-config:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=180pt]{struct__upk__controller__config__coll__graph}
+\includegraphics[height=600pt]{struct__upk__controller__config__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-char {\bf StateDir} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf StateDir} [8192]
 \item 
-char {\bf SvcConfigPath} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf SvcConfigPath} [8192]
 \item 
-char {\bf SvcRunPath} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf SvcRunPath} [8192]
 \item 
-char {\bf UpkBuddyPath} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf UpkBuddyPath} [8192]
+\item 
+int32\_\-t {\bf AuditMaxAge}
+\item 
+int32\_\-t {\bf AuditMaxRecords}
+\item 
+{\bf uint32\_\-t} {\bf BuddyVerbosity}
 \item 
 double {\bf BuddyPollingInterval}
 \item 
-char {\bf controller\_\-socket} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf controller\_\-socket} [8192]
 \item 
-char {\bf controller\_\-buddy\_\-sock} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf controller\_\-buddy\_\-sock} [8192]
 \item 
 {\bf upk\_\-svc\_\-desc\_\-t} {\bf ServiceDefaults}
 \item 
@@ -45,26 +52,39 @@ char {\bf controller\_\-buddy\_\-sock} [UPK\_\-MAX\_\-PATH\_\-LEN]
 controller configuration. 
 
 \subsection{Field Documentation}
-\index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!BuddyPollingInterval@{BuddyPollingInterval}}
+\index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!AuditMaxAge@{AuditMaxAge}}
+\index{AuditMaxAge@{AuditMaxAge}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
+\subsubsection[{AuditMaxAge}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-controller\_\-config::AuditMaxAge}}\label{struct__upk__controller__config_a90f914caf4184f50f8f2679ed92eb78f}
+specified in seconds, the longest duration to keep audit records for, or a value $<$= 0 if they should be kept forever \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!AuditMaxRecords@{AuditMaxRecords}}
+\index{AuditMaxRecords@{AuditMaxRecords}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
+\subsubsection[{AuditMaxRecords}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-controller\_\-config::AuditMaxRecords}}\label{struct__upk__controller__config_a0fbc43b5b43df3c7d127bc326efeb367}
+maximum number of audit records to keep. In addition to MaxAge, this provides a way to ensure audit records to not exhaust disk space and/or grow excessively \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!BuddyPollingInterval@{BuddyPollingInterval}}
 \index{BuddyPollingInterval@{BuddyPollingInterval}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
 \subsubsection[{BuddyPollingInterval}]{\setlength{\rightskip}{0pt plus 5cm}double {\bf \_\-upk\_\-controller\_\-config::BuddyPollingInterval}}\label{struct__upk__controller__config_ae7689d54900beb4a7a07839bca6e044e}
 duration in seconds, or fractions of seconds, to wait between polling buddy sockets for updates; note that for longer durations, larger buddy ringbuffers should be prescribed 
 
-Referenced by event\_\-loop(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-ctrlconf\_\-double\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by event\_\-loop(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-int\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+
+\index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!BuddyVerbosity@{BuddyVerbosity}}
+\index{BuddyVerbosity@{BuddyVerbosity}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
+\subsubsection[{BuddyVerbosity}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf \_\-upk\_\-controller\_\-config::BuddyVerbosity}}\label{struct__upk__controller__config_a650392bc370a2a53ec1f7d556b77e69b}
+level of verbosity to run buddy at 
+
+Referenced by spawn\_\-buddy(), and upk\_\-ctrlconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!controller\_\-buddy\_\-sock@{controller\_\-buddy\_\-sock}}
 \index{controller\_\-buddy\_\-sock@{controller\_\-buddy\_\-sock}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{controller\_\-buddy\_\-sock}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_adff47b2ee40217837feb28913d51299e}
+\subsubsection[{controller\_\-buddy\_\-sock}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock}}\label{struct__upk__controller__config_aec104fe1f03fe934e2e2f2628b75a4b9}
 path to buddy socket; used internally 
 
-Referenced by create\_\-buddy\_\-statedir(), upk\_\-ctrl\_\-load\_\-config(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by create\_\-buddy\_\-statedir(), remove\_\-buddy\_\-statedir(), upk\_\-ctrl\_\-load\_\-config(), and upk\_\-overlay\_\-ctrlconf\_\-values().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!controller\_\-socket@{controller\_\-socket}}
 \index{controller\_\-socket@{controller\_\-socket}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{controller\_\-socket}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::controller\_\-socket}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_aed6d21d38958b21cd9ccfbc4815395fd}
+\subsubsection[{controller\_\-socket}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::controller\_\-socket}}\label{struct__upk__controller__config_ae66e6cd298ca71d88bfedd0d565de3f0}
 path to the controller socket, used internally 
 
-Referenced by ctrl\_\-sock\_\-setup(), main(), upk\_\-clnet\_\-ctrl\_\-connect(), upk\_\-ctrl\_\-load\_\-config(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by create\_\-buddy\_\-statedir(), ctrl\_\-sock\_\-setup(), upk\_\-clnet\_\-ctrl\_\-connect(), upk\_\-ctrl\_\-load\_\-config(), and upk\_\-overlay\_\-ctrlconf\_\-values().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!ServiceDefaults@{ServiceDefaults}}
 \index{ServiceDefaults@{ServiceDefaults}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
@@ -75,41 +95,43 @@ Referenced by upk\_\-ctrl\_\-load\_\-config(), upk\_\-ctrlconf\_\-free(), upk\_\
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!StateDir@{StateDir}}
 \index{StateDir@{StateDir}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{StateDir}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::StateDir}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_a68ab17a9f788bbdc19c1c575426a564e}
+\subsubsection[{StateDir}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::StateDir}}\label{struct__upk__controller__config_ad9c761f3f6b5af96983212c3c39a9cf3}
 path to variable state-\/dir for controller and buddies 
 
-Referenced by upk\_\-ctrl\_\-load\_\-config(), upk\_\-ctrlconf\_\-string\_\-handler(), upk\_\-db\_\-path(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by upk\_\-ctrl\_\-load\_\-config(), upk\_\-ctrlconf\_\-string\_\-handler(), upk\_\-db\_\-path(), upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-state\_\-init().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!SvcConfigPath@{SvcConfigPath}}
 \index{SvcConfigPath@{SvcConfigPath}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{SvcConfigPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::SvcConfigPath}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_a6c1ae3807800dc927debc9b7132bf5a8}
+\subsubsection[{SvcConfigPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::SvcConfigPath}}\label{struct__upk__controller__config_a6b31731067b25f92c5ac81b6ef12b4af}
 path to service configuration files 
 
 Referenced by upk\_\-ctrlconf\_\-string\_\-handler(), upk\_\-load\_\-runtime\_\-services(), and upk\_\-overlay\_\-ctrlconf\_\-values().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!svclist@{svclist}}
 \index{svclist@{svclist}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{svclist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-meta\_\-t}$\ast$ {\bf \_\-upk\_\-controller\_\-config::svclist}}\label{struct__upk__controller__config_a731925a4f4f2a7c1118e8f90405adcfe}
+\subsubsection[{svclist}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-controller\_\-config::svclist}}\label{struct__upk__controller__config_a57ba77b4bf24c5b27d41fe1f2d5fbea3}
 meta-\/pointer to list of service descriptions 
 
-Referenced by controller\_\-packet\_\-callback(), main(), upk\_\-ctrlconf\_\-free(), upk\_\-load\_\-runtime\_\-services(), upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-svcconf\_\-object\_\-handler().
+Referenced by ctrl\_\-req\_\-action\_\-handler(), lookup\_\-buddy\_\-from\_\-path(), main(), upk\_\-ctrl\_\-init(), upk\_\-ctrlconf\_\-free(), upk\_\-load\_\-runtime\_\-services(), upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-svcconf\_\-object\_\-handler().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!SvcRunPath@{SvcRunPath}}
 \index{SvcRunPath@{SvcRunPath}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{SvcRunPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::SvcRunPath}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_a7c3a09139aea23e02631c2c6c226a678}
+\subsubsection[{SvcRunPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::SvcRunPath}}\label{struct__upk__controller__config_a46d18b02c6a37c6408b006fbcec3a459}
 path where buddy's will be created and run, usually \$\{statedir\}/buddies 
 
-Referenced by upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), handle\_\-buddies(), remove\_\-buddy\_\-statedir(), spawn\_\-buddy(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
 
 \index{\_\-upk\_\-controller\_\-config@{\_\-upk\_\-controller\_\-config}!UpkBuddyPath@{UpkBuddyPath}}
 \index{UpkBuddyPath@{UpkBuddyPath}!_upk_controller_config@{\_\-upk\_\-controller\_\-config}}
-\subsubsection[{UpkBuddyPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::UpkBuddyPath}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__controller__config_a5ced0218af661e5e0886cf2035ad0b84}
+\subsubsection[{UpkBuddyPath}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-controller\_\-config::UpkBuddyPath}}\label{struct__upk__controller__config_ae75c315649537bf9813bd7fe8cca3b4c}
 path to upk\_\-buddy executable, usually \$\{libexecdir\}/upk\_\-buddy 
 
-Referenced by upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
+Referenced by spawn\_\-buddy(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-overlay\_\-ctrlconf\_\-values().
 
 
 
-The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-config.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-config.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

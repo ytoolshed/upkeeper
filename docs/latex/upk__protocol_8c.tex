@@ -12,19 +12,19 @@ Include dependency graph for upk\_\-protocol.c:\nopagebreak
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, uint32\_\-t payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, uint32\_\-t proto\_\-ver)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, {\bf uint32\_\-t} payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, {\bf uint32\_\-t} proto\_\-ver)
 \item 
-static uint32\_\-t {\bf req\_\-preamble\_\-len} ({\bf upk\_\-req\_\-preamble\_\-t} $\ast$preamble)
+static {\bf uint32\_\-t} {\bf req\_\-preamble\_\-len} ({\bf upk\_\-req\_\-preamble\_\-t} $\ast$preamble)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$client\_\-name)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, uint32\_\-t best\_\-version)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf uint32\_\-t} best\_\-version)
 \item 
 static void {\bf upk\_\-free\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
 void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
 \item 
@@ -34,7 +34,7 @@ void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-list} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-subscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
 \item 
@@ -42,7 +42,7 @@ void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-disconnect} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
 \item 
@@ -62,73 +62,5 @@ void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
 {\bf upk\_\-msgtype\_\-t} {\bf upk\_\-get\_\-msgtype} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
-size\_\-t {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
+{\bf size\_\-t} {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
 \end{DoxyCompactItemize}
-
-
-\subsection{Function Documentation}
-\index{upk\_\-protocol.c@{upk\_\-protocol.c}!req\_\-preamble\_\-len@{req\_\-preamble\_\-len}}
-\index{req\_\-preamble\_\-len@{req\_\-preamble\_\-len}!upk_protocol.c@{upk\_\-protocol.c}}
-\subsubsection[{req\_\-preamble\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}static uint32\_\-t req\_\-preamble\_\-len (
-\begin{DoxyParamCaption}
-\item[{{\bf upk\_\-req\_\-preamble\_\-t} $\ast$}]{preamble}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__protocol_8c_a2d57fdeb20bbd31f2ca85f9301e21a43}
-
-
-References upk\_\-req\_\-preamble\_\-t::client\_\-name, and upk\_\-req\_\-preamble\_\-t::client\_\-name\_\-len.
-
-
-
-Referenced by upk\_\-create\_\-req\_\-preamble().
-
-
-
-Here is the caller graph for this function:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{upk__protocol_8c_a2d57fdeb20bbd31f2ca85f9301e21a43_icgraph}
-\end{center}
-\end{figure}
-
-
-\index{upk\_\-protocol.c@{upk\_\-protocol.c}!upk\_\-free\_\-payload@{upk\_\-free\_\-payload}}
-\index{upk\_\-free\_\-payload@{upk\_\-free\_\-payload}!upk_protocol.c@{upk\_\-protocol.c}}
-\subsubsection[{upk\_\-free\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-free\_\-payload (
-\begin{DoxyParamCaption}
-\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__protocol_8c_a4bf94cc8e7458fd891a91dde470be196}
-
-
-References upk\_\-packet\_\-t::payload, and v0\_\-free\_\-payload().
-
-
-
-Referenced by upk\_\-pkt\_\-free().
-
-
-
-Here is the call graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=262pt]{upk__protocol_8c_a4bf94cc8e7458fd891a91dde470be196_cgraph}
-\end{center}
-\end{figure}
-
-
-
-
-Here is the caller graph for this function:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=400pt]{upk__protocol_8c_a4bf94cc8e7458fd891a91dde470be196_icgraph}
-\end{center}
-\end{figure}
-
-

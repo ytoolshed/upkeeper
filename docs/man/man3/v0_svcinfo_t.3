@@ -1,4 +1,4 @@
-.TH "v0_svcinfo_t" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "v0_svcinfo_t" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,11 +12,69 @@ v0_svcinfo_t \-
 
 .in +1c
 .ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_time\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_status\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_name_len\fP"
+.br
+.ti -1c
+.RI "char \fBlast_action_name\fP [2048]"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_signal_time\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_signal_status\fP"
+.br
+.ti -1c
+.RI "\fBupk_signal_t\fP \fBlast_signal_name\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBbuddy_pid\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBproc_pid\fP"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBcurrent_state\fP"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBprior_state\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBn_recorded_restarts\fP"
+.br
+.ti -1c
 .RI "\fBUPK_V0_SVCINFO_T_FIELDS\fP"
 .br
 .in -1c
 .SH "Field Documentation"
 .PP 
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::buddy_pid\fP"
+.SS "\fBupk_state_t\fP \fBv0_svcinfo_t::current_state\fP"
+.PP
+Referenced by get_svcinfo_len().
+.SS "char \fBv0_svcinfo_t::last_action_name\fP"
+.PP
+Referenced by get_svcinfo_len(), and v0_create_repl_svcinfo().
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::last_action_name_len\fP"
+.PP
+Referenced by get_svcinfo_len(), and v0_create_repl_svcinfo().
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::last_action_status\fP"
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::last_action_time\fP"
+.PP
+Referenced by START_TEST().
+.SS "\fBupk_signal_t\fP \fBv0_svcinfo_t::last_signal_name\fP"
+.PP
+Referenced by get_svcinfo_len().
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::last_signal_status\fP"
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::last_signal_time\fP"
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::n_recorded_restarts\fP"
+.SS "\fBupk_state_t\fP \fBv0_svcinfo_t::prior_state\fP"
+.SS "\fBuint32_t\fP \fBv0_svcinfo_t::proc_pid\fP"
 .SS "\fBv0_svcinfo_t::UPK_V0_SVCINFO_T_FIELDS\fP"
 
 .SH "Author"

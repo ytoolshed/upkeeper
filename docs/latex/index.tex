@@ -76,36 +76,118 @@ Whereas a read-\/only process, such as subscribing to, and receiving events over
 
     // ServiceDefaults:
     "ServiceDefaults": {
-        "Provides": Null,
+        // An array of strings (['foo','bar']) describing what this service provides. These are then used in ordering service
+        // startup via prerequisites. Service name, package, and UUID are implicitely added to the list of Provides.
+        "Provides": [],
+
+        // A valid UUID for the service, will be automatically generated if not provided.
         "UUID": Null,
+
+        // A brief description of the service
         "ShortDescription": Null,
+
+        // A longer and more complete description of the service
         "LongDescription": Null,
-        "Prerequisites": Null,
+
+        // An array of strings (['foo','uuid#<...>']) of what must already be running (as named in 'Provides')
+        // before this service should start. The syntax <package-name>:<service-name> may be used to specify a service from
+        // a specific package. The syntax 'uuid#<uuid-string>' can be used to specify an explicit UUID.
+        "Prerequisites": [],
+
+        // Numeric start priority, used in lieu of, or in conjunction with Provides/Prerequisites to determine start order
         "StartPriority": 0,
-        "BuddyShutdownTimeout": -1,
+
+        // Shutdown timeout before resorting to SIGKILL, Values < 0 will never SIGKILL
         "KillTimeout": 60,
+
+        // Maximum number of times a process may fail in-a-row before its state is changed to down
+        // a negative value indicates to restart forever (and is the default)
+        "MaxConsecutiveFailures": -1,
+
+        // user-defined max number of restarts within restart window
         "UserMaxRestarts": Null,
+
+        // User-defined restart window, in seconds
         "UserRestartWindow": Null,
+
+        // duration, in seconds, to wait between respawn attempts
         "UserRateLimit": Null,
+
+        // a flag to enable/disable adding a randomized jitter to the user_ratelimit
         "RandomizeRateLimit": false,
+
+        // if controller and/or buddy is run euid root; which uid to run the service as
         "SetUID": 0,
+
+        // if controller and/or buddy is run euid root; which gid to run the service as
         "SetGID": 0,
+
+        // size of the ringbuffer to maintain in the buddy
         "RingbufferSize": 64,
+
+        // number of times to retry connections to the controler when emergent actions
+        // occur in the buddy; (-1 for indefinate)
         "ReconnectRetries": 10,
+
+        // command to exec for start, see 'StartScript'
         "ExecStart": Null,
+
+        // script to start the monitored process; The default is 'exec %(EXEC_START)'
         "StartScript": "#!/bin/sh\nexec %(EXEC_START)\n",
+
+        // command to exec for stop. Default: 'kill', see 'StopScript'
         "ExecStop": "kill",
+
+        // Script to stop the monitored process. The default is 'exec %(EXEC_STOP) $1'; where $1 passed
+        // to it will be the pid of monitored process (and also the pgrp, and sid, unless the monitored process changed them
         "StopScript": "#!/bin/sh\nexec %(EXEC_STOP) $1\n",
+
+        // command to exec for reload. Default: 'kill -HUP', see 'ReloadScript'
         "ExecReload": "kill -HUP",
+
+        // Script to reload the monitored process. The default is 'exec %(EXEC_RELOAD) $1'; where $1 passed
+        // to it will be the pid of monitored process (and also the pgrp, and sid, unless the monitored process changed them
         "ReloadScript": "#!/bin/sh\nexec %(EXEC_RELOAD) $1\n",
-        "CustomActions": Null,
+
+        // A collection of key/value (JSON Object: {"foo":"bar"}) pairs where the key is the name of the action, and
+        // the value is the contents of a script script to run for that action
+        "CustomActions": {},
+
+        // optional script to pipe stdout to. For example: 'exec logger -p local0.notice'
         "PipeStdoutScript": Null,
+
+        // optional script to pipe stderr to. For example: 'exec logger -p local0.warn'
         "PipeStderrScript": Null,
+
+        // optional place to direct stdout.
+        // Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints
+        // to stdout itself
         "RedirectStdout": Null,
+
+        // optional place to direct stderr.
+        // Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints
+        // to stderr itself
         "RedirectStderr": Null,
+
+        // state the service should be set to initially. this is used only when a service is first configured.
         "InitialState": "stopped",
+
+        // May be used by a package to instruct the controler to remove a configured service
+        // if the file defining that service ever disappears. Possibly useful in packaging
+        // to cleanup the controller on package removal. The default behavior is to ignore
+        // file removal, and require explicit manual removal of configured services
         "UnconfigureOnFileRemoval": false,
+
+        // If the controller starts/restarts, and buddy has a service state set to 'stopped',
+        // but controller's data-store believes the service should be running, prefer
+        // buddy's world view, and update the data-store to reflect the stopped state.
+        // The default is to trust the data-store; which would cause the service to be started
         "PreferBuddyStateForStopped": false,
+
+        // if the controller starts/restarts, and buddy has a service state set to 'running',
+        // but controller's data-store believes the service should be stopped, prefer
+        // buddy's world view, and update the data-store to reflect the running state.
+        // The default is to trust the buddy, which would leave the service running
         "PreferBuddyStateForRunning": true,
     },
 }

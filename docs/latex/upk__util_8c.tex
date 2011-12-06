@@ -18,8 +18,12 @@ bool {\bf upk\_\-boolean\_\-string} (const char $\ast$string, bool $\ast$val)
 \item 
 void {\bf upk\_\-replace\_\-string} (char $\ast$$\ast$haystack, const char $\ast$needle, const char $\ast$repl)
 \item 
-struct timeval {\bf upk\_\-double\_\-to\_\-timeval} (long double r)
-\end{DoxyCompactItemize}
+struct {\bf timeval} {\bf upk\_\-double\_\-to\_\-timeval} (long double r)
+\item 
+int {\bf upk\_\-rm\_\-rf} (char $\ast$start\_\-path)
+\item 
+int {\bf upk\_\-mkdir\_\-p} (const char $\ast$path)
+\begin{DoxyCompactList}\small\item\em create a directory and any path components leading up to it. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
@@ -31,17 +35,14 @@ struct timeval {\bf upk\_\-double\_\-to\_\-timeval} (long double r)
 \item[{bool $\ast$}]{val}
 \end{DoxyParamCaption}
 )}\label{upk__util_8c_a9b91732d9c4b0c3f43908520440e1326}
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
 References upk\_\-numeric\_\-string().
 
 
 
-Referenced by main().
-
-
-
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -50,25 +51,14 @@ Here is the call graph for this function:\nopagebreak
 \end{figure}
 
 
-
-
-Here is the caller graph for this function:\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=218pt]{upk__util_8c_a9b91732d9c4b0c3f43908520440e1326_icgraph}
-\end{center}
-\end{figure}
-
-
 \index{upk\_\-util.c@{upk\_\-util.c}!upk\_\-double\_\-to\_\-timeval@{upk\_\-double\_\-to\_\-timeval}}
 \index{upk\_\-double\_\-to\_\-timeval@{upk\_\-double\_\-to\_\-timeval}!upk_util.c@{upk\_\-util.c}}
-\subsubsection[{upk\_\-double\_\-to\_\-timeval}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval upk\_\-double\_\-to\_\-timeval (
+\subsubsection[{upk\_\-double\_\-to\_\-timeval}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf timeval} upk\_\-double\_\-to\_\-timeval (
 \begin{DoxyParamCaption}
 \item[{long double}]{r}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [read]}}\label{upk__util_8c_a48651b15870de70bcf13409977bbbe37}
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
 Referenced by upk\_\-net\_\-event\_\-dispatcher().
 
@@ -79,7 +69,58 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__util_8c_a48651b15870de70bcf13409977bbbe37_icgraph}
+\includegraphics[width=326pt]{upk__util_8c_a48651b15870de70bcf13409977bbbe37_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-util.c@{upk\_\-util.c}!upk\_\-mkdir\_\-p@{upk\_\-mkdir\_\-p}}
+\index{upk\_\-mkdir\_\-p@{upk\_\-mkdir\_\-p}!upk_util.c@{upk\_\-util.c}}
+\subsubsection[{upk\_\-mkdir\_\-p}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-mkdir\_\-p (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{path}
+\end{DoxyParamCaption}
+)}\label{upk__util_8c_ae3be04286bae383b2a1bf3c5c8221a33}
+
+
+create a directory and any path components leading up to it. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em path} & directory to create.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of directories successfully created. 
+\end{DoxyReturn}
+
+
+References calloc(), dirname(), stat(), \_\-upk\_\-stringlist::string, \_\-upk\_\-stringlist\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-warn, UPKLIST\_\-FOREACH, UPKLIST\_\-FREE, and UPKLIST\_\-PREPEND.
+
+
+
+Referenced by upk\_\-state\_\-init().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{upk__util_8c_ae3be04286bae383b2a1bf3c5c8221a33_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__util_8c_ae3be04286bae383b2a1bf3c5c8221a33_icgraph}
 \end{center}
 \end{figure}
 
@@ -92,17 +133,18 @@ Here is the caller graph for this function:
 \item[{long $\ast$}]{num}
 \end{DoxyParamCaption}
 )}\label{upk__util_8c_a7b3be027e64541238710e1821152a1a6}
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
 Referenced by main(), and upk\_\-boolean\_\-string().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=356pt]{upk__util_8c_a7b3be027e64541238710e1821152a1a6_icgraph}
+\includegraphics[width=282pt]{upk__util_8c_a7b3be027e64541238710e1821152a1a6_icgraph}
 \end{center}
 \end{figure}
 
@@ -116,17 +158,73 @@ Here is the caller graph for this function:\nopagebreak
 \item[{const char $\ast$}]{repl}
 \end{DoxyParamCaption}
 )}\label{upk__util_8c_afa8ca0c65fa02bf5725772ca74a83afd}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References realloc().
+
 
 
 Referenced by START\_\-TEST(), and upk\_\-finalize\_\-svc\_\-desc().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__util_8c_afa8ca0c65fa02bf5725772ca74a83afd_icgraph}
+\includegraphics[width=224pt]{upk__util_8c_afa8ca0c65fa02bf5725772ca74a83afd_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=294pt]{upk__util_8c_afa8ca0c65fa02bf5725772ca74a83afd_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-util.c@{upk\_\-util.c}!upk\_\-rm\_\-rf@{upk\_\-rm\_\-rf}}
+\index{upk\_\-rm\_\-rf@{upk\_\-rm\_\-rf}!upk_util.c@{upk\_\-util.c}}
+\subsubsection[{upk\_\-rm\_\-rf}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-rm\_\-rf (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{start\_\-path}
+\end{DoxyParamCaption}
+)}\label{upk__util_8c_ab9358b45d3e4e93d49e080a04a414b1a}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References closedir(), opendir(), readdir(), stat::st\_\-mode, stat(), UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-rm\_\-rf(), and upk\_\-warn.
+
+
+
+Referenced by handle\_\-buddies(), main(), remove\_\-buddy\_\-statedir(), and upk\_\-rm\_\-rf().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=200pt]{upk__util_8c_ab9358b45d3e4e93d49e080a04a414b1a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=374pt]{upk__util_8c_ab9358b45d3e4e93d49e080a04a414b1a_icgraph}
 \end{center}
 \end{figure}
 

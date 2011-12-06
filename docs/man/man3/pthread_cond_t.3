@@ -1,0 +1,96 @@
+.TH "pthread_cond_t" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+pthread_cond_t \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   int \fB__lock\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__futex\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__total_seq\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__wakeup_seq\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__woken_seq\fP"
+.br
+.ti -1c
+.RI "   void * \fB__mutex\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__nwaiters\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__broadcast_seq\fP"
+.br
+.ti -1c
+.RI "} \fB__data\fP"
+.br
+.ti -1c
+.RI "char \fB__size\fP [48]"
+.br
+.ti -1c
+.RI "__extension__ long long int \fB__align\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   int \fB__lock\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__futex\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__total_seq\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__wakeup_seq\fP"
+.br
+.ti -1c
+.RI "   __extension__ unsigned long long int \fB__woken_seq\fP"
+.br
+.ti -1c
+.RI "   void * \fB__mutex\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__nwaiters\fP"
+.br
+.ti -1c
+.RI "   unsigned int \fB__broadcast_seq\fP"
+.br
+.ti -1c
+.RI "} \fB__data\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "__extension__ long long int \fBpthread_cond_t::__align\fP"
+.SS "unsigned int \fBpthread_cond_t::__broadcast_seq\fP"
+.SS "struct { ... }   \fBpthread_cond_t::__data\fP"
+.SS "struct { ... }   \fBpthread_cond_t::__data\fP"
+.SS "unsigned int \fBpthread_cond_t::__futex\fP"
+.SS "int \fBpthread_cond_t::__lock\fP"
+.SS "void* \fBpthread_cond_t::__mutex\fP"
+.SS "unsigned int \fBpthread_cond_t::__nwaiters\fP"
+.SS "char \fBpthread_cond_t::__size\fP"
+.SS "__extension__ unsigned long long int \fBpthread_cond_t::__total_seq\fP"
+.SS "__extension__ unsigned long long int \fBpthread_cond_t::__wakeup_seq\fP"
+.SS "__extension__ unsigned long long int \fBpthread_cond_t::__woken_seq\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

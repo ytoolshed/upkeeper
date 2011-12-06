@@ -44,8 +44,9 @@
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga1b43ad263f5d7e61e7ad7befa1b98ea2">UPK_ERR_INIT</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gab40957c9fa173393a490b924f97ea17e">UPK_FUNC_ASSERT</a>(A, B)&#160;&#160;&#160;do { if(! (A)) { *((<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>) = B; goto __upk_err_label; } } while(0)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga691ea7a49d632dc0d129e6c80cb1e817">UPK_FUNC_ASSERT_MSG</a>(A, B,...)&#160;&#160;&#160;do { if(! (A)) { *((<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>) = B; memset((char *) <a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>,0,sizeof(<a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>)); snprintf((char *)<a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga564509085d4eef0bebc6f155fc047796">CLEAR_UPK_ERROR</a>&#160;&#160;&#160;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a> = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gab40957c9fa173393a490b924f97ea17e">UPK_FUNC_ASSERT</a>(A, B)&#160;&#160;&#160;do { CLEAR_UPK_ERROR; if(! (A)) { *((<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>) = B; goto __upk_err_label; } } while(0)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga691ea7a49d632dc0d129e6c80cb1e817">UPK_FUNC_ASSERT_MSG</a>(A, B,...)&#160;&#160;&#160;do { CLEAR_UPK_ERROR; if(! (A)) { *((<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>) = B; memset((char *) <a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>,0,sizeof(<a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>)); snprintf((char *)<a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga4508c0711c4f98ebbef1ab10d8cb4bc5">IF_UPK_ERROR</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga180b6e204db6cbaad95075f6be4f2bd3">_UPK_AS_STRING</a>(A)&#160;&#160;&#160;#A</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gac6d905e0fd783709186efa413a000882">UPK_AS_STRING</a>(A)&#160;&#160;&#160;_UPK_AS_STRING(A)</td></tr>
@@ -62,45 +63,92 @@ Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga13c310d9d7c7ebe0eca8b4a6690af032">upk_debug1</a>(...)&#160;&#160;&#160;_upk_debug1(_UPK_DIAG_LOCATION, __VA_ARGS__)</td></tr>
 <tr><td colspan="2"><h2><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> )(<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> )(<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>, const char *)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> )(<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a> diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> )(<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> )(<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>, const char *)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">typedef void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> )(<a class="el" href="controller_2tp_8c.html#a69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a> diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)</td></tr>
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a> { <br/>
-&#160;&#160;<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a> =  0, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>, 
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a> =  0, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>, 
 <br/>
-&#160;&#160;<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>, 
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>, 
 <br/>
-&#160;&#160;<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>, 
-<a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a> =  0, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a> =  0, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>, 
+<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>
 <br/>
  }</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a> { <a class="el" href="group__upk__errors.html#gga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79">UPK_ERRLVL_ERROR</a>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a> { <a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79">UPK_ERRLVL_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79">UPK_ERRLVL_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79">UPK_ERRLVL_ERROR</a>
  }</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> { <br/>
-&#160;&#160;<a class="el" href="group__upk__errors.html#gga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c">UPK_ERR_UNKNOWN</a> =  0, 
-<a class="el" href="group__upk__errors.html#gga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619">UPK_ERR_UNSUP</a>, 
-<a class="el" href="group__upk__errors.html#gga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab">UPK_ERR_INVALID_PKT</a>, 
-<a class="el" href="group__upk__errors.html#gga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9">UPK_SOCKET_FAILURE</a>, 
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c">UPK_ERR_UNKNOWN</a> =  0, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619">UPK_ERR_UNSUP</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab">UPK_ERR_INVALID_PKT</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9">UPK_SOCKET_FAILURE</a>, 
 <br/>
-&#160;&#160;<a class="el" href="group__upk__errors.html#gga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9">UPK_JSON_PARSE_ERROR</a>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9">UPK_JSON_PARSE_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999">UPK_SQL_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1">UPK_CONF_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c">UPK_ERR_UNKNOWN</a> =  0, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619">UPK_ERR_UNSUP</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab">UPK_ERR_INVALID_PKT</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9">UPK_SOCKET_FAILURE</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9">UPK_JSON_PARSE_ERROR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999">UPK_SQL_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1">UPK_CONF_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c">UPK_ERR_UNKNOWN</a> =  0, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619">UPK_ERR_UNSUP</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab">UPK_ERR_INVALID_PKT</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9">UPK_SOCKET_FAILURE</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9">UPK_JSON_PARSE_ERROR</a>, 
+<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999">UPK_SQL_ERROR</a>, 
+<br/>
+&#160;&#160;<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1">UPK_CONF_ERROR</a>
 <br/>
  }</td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gad357577e479d0ef889ce0d51ec45c4a3">upk_strerror</a> (<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga91dbcf14e12a59b6adfe78b40aa7e336">upk_report_error</a> (<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga18dffab91240a91111ba6eb6c685da04">upk_report_error_msg</a> (<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err, const char *msg)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaf60458d478570367a81c90081cbbfab1">upk_reg_error_callback</a> (<a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> func)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga74efddd6a209a08d895b71a3a5821d94">upk_reg_err_msg_callback</a> (<a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> func)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gac9a242755fb6967d2803f71c24f919fb">upk_reg_diag_callback</a> (<a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> func)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gad357577e479d0ef889ce0d51ec45c4a3">upk_strerror</a> (<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga91dbcf14e12a59b6adfe78b40aa7e336">upk_report_error</a> (<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga18dffab91240a91111ba6eb6c685da04">upk_report_error_msg</a> (<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> err, const char *msg)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="tp_8c.html#a288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaf60458d478570367a81c90081cbbfab1">upk_reg_error_callback</a> (<a class="el" href="tp_8c.html#a288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> func)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="tp_8c.html#aaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga74efddd6a209a08d895b71a3a5821d94">upk_reg_err_msg_callback</a> (<a class="el" href="tp_8c.html#aaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> func)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gac9a242755fb6967d2803f71c24f919fb">upk_reg_diag_callback</a> (<a class="el" href="tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> func)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaccd0f0f9c125762bdc053b8afe1add61">_upk_fatal</a> (const char *loc, const char *fmt,...)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga14fbd0376694a618a0e98bb862da66cf">_upk_alert</a> (const char *loc, const char *fmt,...)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga830899129eb356f088c66417cbbead5d">_upk_crit</a> (const char *loc, const char *fmt,...)</td></tr>
@@ -115,8 +163,8 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gae422812b612ba3ecf5f411f023416c38">upk_diag_label_idx</a> [][16]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gacefe2af45cf41d39ec20663163ad444b">__upk_errors</a> [][128]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a> [4096] = &quot;&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a> = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a> [4096]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#gad9883b6b44bf3fa3e1abac4266ca1b65">upk_diag_verbosity</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__upk__errors.html#ga9d2bce202c2ba97f9c8c02d46857552a">label_idx</a> [][16]</td></tr>
 </table>
@@ -151,6 +199,19 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ga564509085d4eef0bebc6f155fc047796"></a><!-- doxytag: member="upk_error.h::CLEAR_UPK_ERROR" ref="ga564509085d4eef0bebc6f155fc047796" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define CLEAR_UPK_ERROR&#160;&#160;&#160;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a> = 0</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="ga4508c0711c4f98ebbef1ab10d8cb4bc5"></a><!-- doxytag: member="upk_error.h::IF_UPK_ERROR" ref="ga4508c0711c4f98ebbef1ab10d8cb4bc5" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -162,10 +223,10 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <b>Value:</b><div class="fragment"><pre class="fragment">__upk_err_label: \
-    <span class="keywordflow">if</span>(<a class="code" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>) <a class="code" href="group__upk__errors.html#ga80aab179a6b3e0e9996c66d669339c85">upk_error</a>(<span class="stringliteral">&quot;%s: %s\n&quot;</span>, <a class="code" href="group__upk__errors.html#gad357577e479d0ef889ce0d51ec45c4a3">upk_strerror</a>(<a class="code" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>), (*<a class="code" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>) ? (<a class="code" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>) : <span class="stringliteral">&quot;&quot;</span>); \
-    <span class="keywordflow">if</span>(<a class="code" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>)
+    <span class="keywordflow">if</span>(<a class="code" href="controller_2tp_8c.html#a5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>) <a class="code" href="group__upk__errors.html#ga80aab179a6b3e0e9996c66d669339c85">upk_error</a>(<span class="stringliteral">&quot;%s: %s\n&quot;</span>, <a class="code" href="controller_2tp_8c.html#ad357577e479d0ef889ce0d51ec45c4a3">upk_strerror</a>(<a class="code" href="controller_2tp_8c.html#a5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>), (*<a class="code" href="controller_2tp_8c.html#a18589e292a0da22fe88d249892682072">__upk_err_buf</a>) ? (<a class="code" href="controller_2tp_8c.html#a18589e292a0da22fe88d249892682072">__upk_err_buf</a>) : <span class="stringliteral">&quot;&quot;</span>); \
+    <span class="keywordflow">if</span>(<a class="code" href="controller_2tp_8c.html#a5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>)
 </pre></div>
-<p>Referenced by <a class="el" href="ctrl__eventloop_8c.html#a99ec2dc98ec87d268558702166162e9d">ctrl_sock_setup()</a>, <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
+<p>Referenced by <a class="el" href="tp_8c.html#ad055a2a21d52bb93290db5ecee7b62b5">ctrl_sock_setup()</a>, <a class="el" href="group__controller.html#ga0318a327e86bc26c8e54517c340961a3">upk_db_add_new_service()</a>, <a class="el" href="group__controller.html#ga45be83d9a25c55ef1e6c52ce17ee0079">upk_db_get_single_text()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#ga134b3dca14e8ce64bc851612f8411458">upk_db_try_insert()</a>, <a class="el" href="group__controller.html#ga53ec64d322d09e9d36a48d706db3b1c0">upk_db_try_update()</a>, <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
 
 </div>
 </div>
@@ -184,7 +245,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a702a0c4cef2ab68a8567086357066d3c">buddy_connect()</a>, <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="group__config__impl.html#gadcd7b5da5ab2a52883bddee085d3acea">upk_conf_error_handler()</a>, <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>, <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="tp_8c.html#a702a0c4cef2ab68a8567086357066d3c">buddy_connect()</a>, <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="group__config__impl.html#gadcd7b5da5ab2a52883bddee085d3acea">upk_conf_error_handler()</a>, <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>, <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -237,7 +298,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="buddy_8c.html#aade6680250d2295a4480120419f1f9c1">buddy_init_socket()</a>, <a class="el" href="ctrl__buddy_8c.html#a7bd4c4275367b7d6c5e5950928968c01">buddy_readstate()</a>, and <a class="el" href="buddy_8c.html#a27de7f520d62139c1daa635cbb19be37">buddy_start_proc()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="buddy_8c.html#aade6680250d2295a4480120419f1f9c1">buddy_init_socket()</a>, <a class="el" href="tp_8c.html#a7bd4c4275367b7d6c5e5950928968c01">buddy_readstate()</a>, and <a class="el" href="buddy_8c.html#a27de7f520d62139c1daa635cbb19be37">buddy_start_proc()</a>.</p>
 
 </div>
 </div>
@@ -256,7 +317,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8c.html#a212050d7ce21747a29bdd07717001c53">buddy_accept()</a>, <a class="el" href="buddy_8c.html#ab07b428fcfd43a52fc80958d41187719">buddy_disconnect()</a>, <a class="el" href="buddy_8h.html#ae6ccfa70197441b53a9e94023ee4671c">buddy_event_loop()</a>, <a class="el" href="buddy_8c.html#a5e3970ccafb2d792b81686ac35a60c54">buddy_flush_ringbuffer()</a>, <a class="el" href="buddy_8c.html#ae672a6a926e25316b74eaed203ca26ec">buddy_handle_command()</a>, <a class="el" href="ctrl__buddy_8c.html#a7bd4c4275367b7d6c5e5950928968c01">buddy_readstate()</a>, <a class="el" href="buddy_8c.html#af17b00432a66198a2d8a4c322813d194">buddy_record_state()</a>, <a class="el" href="buddy_8c.html#abc4198ffc0ecb66ec9eb56b2f3ff07d1">buddy_zero_info()</a>, <a class="el" href="buddy_8c.html#ab7a98a53dac20e00f111f46389698b1d">commit_buddycide()</a>, <a class="el" href="ctrl__eventloop_8c.html#a741093d702f88c44f02aa5fbbd20f3b7">controller_packet_callback()</a>, <a class="el" href="ctrl__eventloop_8c.html#afcb5edca8881b0c26ccbc120775ed38b">event_loop()</a>, <a class="el" href="buddy_8c.html#ae8769e19667f1be2fc6e8b1a0eef4371">sa_sigaction_func()</a>, <a class="el" href="upk__client__net_8h.html#af573b85764e9dc557daed0b1b2ee0bf6">upk_clnet_req_disconnect()</a>, <a class="el" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9">upk_load_runtime_services()</a>, and <a class="el" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6">upk_read_packets()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8c.html#a212050d7ce21747a29bdd07717001c53">buddy_accept()</a>, <a class="el" href="buddy_8c.html#ab07b428fcfd43a52fc80958d41187719">buddy_disconnect()</a>, <a class="el" href="buddy_8h.html#ae6ccfa70197441b53a9e94023ee4671c">buddy_event_loop()</a>, <a class="el" href="buddy_8c.html#a5e3970ccafb2d792b81686ac35a60c54">buddy_flush_ringbuffer()</a>, <a class="el" href="buddy_8c.html#ae672a6a926e25316b74eaed203ca26ec">buddy_handle_command()</a>, <a class="el" href="tp_8c.html#a7bd4c4275367b7d6c5e5950928968c01">buddy_readstate()</a>, <a class="el" href="buddy_8c.html#af17b00432a66198a2d8a4c322813d194">buddy_record_state()</a>, <a class="el" href="buddy_8c.html#abc4198ffc0ecb66ec9eb56b2f3ff07d1">buddy_zero_info()</a>, <a class="el" href="buddy_8h.html#ab7a98a53dac20e00f111f46389698b1d">commit_buddycide()</a>, <a class="el" href="ctrl__eventloop_8c.html#a5112d1e28056ffe613e005caf9066db3">ctrl_req_action_handler()</a>, <a class="el" href="ctrl__eventloop_8c.html#a4f1536d3d1e98d423cf2127594f407e8">ctrl_req_disconnect_handler()</a>, <a class="el" href="ctrl__eventloop_8c.html#abe67c79dacfd5a3938a3eea359bbc293">ctrl_req_preamble_handler()</a>, <a class="el" href="tp_8c.html#afcb5edca8881b0c26ccbc120775ed38b">event_loop()</a>, <a class="el" href="buddy_8c.html#ae8769e19667f1be2fc6e8b1a0eef4371">sa_sigaction_func()</a>, <a class="el" href="tp_8c.html#af573b85764e9dc557daed0b1b2ee0bf6">upk_clnet_req_disconnect()</a>, <a class="el" href="group__config__impl.html#gadb1b4dc0c724b6c347fbecd16a8db684">upk_config_loadfile()</a>, <a class="el" href="group__controller.html#ga45be83d9a25c55ef1e6c52ce17ee0079">upk_db_get_single_text()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#ga134b3dca14e8ce64bc851612f8411458">upk_db_try_insert()</a>, <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaad96df378fe382df9bb37e2f21b62ee9">upk_load_runtime_services()</a>, and <a class="el" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6">upk_read_packets()</a>.</p>
 
 </div>
 </div>
@@ -271,7 +332,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="ctrl__eventloop_8c.html#a99ec2dc98ec87d268558702166162e9d">ctrl_sock_setup()</a>, <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
+<p>Referenced by <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
 
 </div>
 </div>
@@ -290,7 +351,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, and <a class="el" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6">upk_read_packets()</a>.</p>
+<p>Referenced by <a class="el" href="tp_8c.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, <a class="el" href="upk__client__net_8c.html#a0e1c05ab07e8db991b82f91e30bf2925">upk_clnet_req_signal()</a>, <a class="el" href="upk__client__net_8c.html#a222200fea80f3367f682ac816f8cd62b">upk_clnet_req_status()</a>, <a class="el" href="group__controller.html#ga45be83d9a25c55ef1e6c52ce17ee0079">upk_db_get_single_text()</a>, <a class="el" href="group__controller.html#ga134b3dca14e8ce64bc851612f8411458">upk_db_try_insert()</a>, <a class="el" href="group__controller.html#ga53ec64d322d09e9d36a48d706db3b1c0">upk_db_try_update()</a>, and <a class="el" href="group__upk__network.html#ga4768b12de031d8bc532886acc6e5f7c6">upk_read_packets()</a>.</p>
 
 </div>
 </div>
@@ -309,7 +370,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8c.html#a4a7fcd2ac2132565a71110b97aef09c9">buddy_init_paths()</a>, <a class="el" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, <a class="el" href="upk__client__net_8h.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble()</a>, <a class="el" href="controller_2controller_8c.html#a671ee65096a35adb7126676c69d249ae">upk_ctrl_init_db()</a>, <a class="el" href="group__config__impl.html#gab2d022caebe210d616ddef45e3a5bdae">upk_ctrlconf_double_handler()</a>, <a class="el" href="group__config__impl.html#ga9fa9e7535bf980ea5d54be6129d66580">upk_ctrlconf_string_handler()</a>, and <a class="el" href="controller_2controller_8c.html#a773907c597ba81a1650f505cfa77a4ec">upk_db_path()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8c.html#a4a7fcd2ac2132565a71110b97aef09c9">buddy_init_paths()</a>, <a class="el" href="ctrl__eventloop_8c.html#a7dd0909c839d869fe05e1cf8d4af19e2">ctrl_setup_sighandlers()</a>, <a class="el" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, <a class="el" href="tp_8c.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble()</a>, <a class="el" href="controller_2controller_8c.html#af64418b734764eef9a950ece3c55a6f3">upk_ctrl_attach_db()</a>, <a class="el" href="controller_2controller_8c.html#a0d1e1cb13e7ca220914dac2997e78ffc">upk_ctrl_init_db()</a>, <a class="el" href="group__config__impl.html#gab2d022caebe210d616ddef45e3a5bdae">upk_ctrlconf_double_handler()</a>, <a class="el" href="group__config__impl.html#ga0f9cf5052a1ee60c5e403428ae721b6b">upk_ctrlconf_int_handler()</a>, <a class="el" href="group__config__impl.html#ga9fa9e7535bf980ea5d54be6129d66580">upk_ctrlconf_string_handler()</a>, <a class="el" href="controller_2controller_8c.html#a773907c597ba81a1650f505cfa77a4ec">upk_db_path()</a>, and <a class="el" href="controller_2controller_8c.html#aaf41ef9b8673a7296600046af83c2787">upk_state_init()</a>.</p>
 
 </div>
 </div>
@@ -332,13 +393,13 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;do { if(! (A)) { *((<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>) = B; goto __upk_err_label; } } while(0)</td>
+          <td></td><td>&#160;&#160;&#160;do { CLEAR_UPK_ERROR; if(! (A)) { *((<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>) = B; goto __upk_err_label; } } while(0)</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="ctrl__eventloop_8c.html#a99ec2dc98ec87d268558702166162e9d">ctrl_sock_setup()</a>, and <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>.</p>
+<p>Referenced by <a class="el" href="tp_8c.html#ad055a2a21d52bb93290db5ecee7b62b5">ctrl_sock_setup()</a>, and <a class="el" href="group__client__protocol.html#gad663abc34c20639fbc173d9f7584bd9c">upk_deserialize_packet()</a>.</p>
 
 </div>
 </div>
@@ -367,13 +428,13 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;do { if(! (A)) { *((<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a>) = B; memset((char *) <a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>,0,sizeof(<a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>)); snprintf((char *)<a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)</td>
+          <td></td><td>&#160;&#160;&#160;do { CLEAR_UPK_ERROR; if(! (A)) { *((<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> *) &amp;<a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a>) = B; memset((char *) <a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>,0,sizeof(<a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>)); snprintf((char *)<a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)</td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="ctrl__eventloop_8c.html#a99ec2dc98ec87d268558702166162e9d">ctrl_sock_setup()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
+<p>Referenced by <a class="el" href="tp_8c.html#ad055a2a21d52bb93290db5ecee7b62b5">ctrl_sock_setup()</a>, <a class="el" href="group__controller.html#ga0318a327e86bc26c8e54517c340961a3">upk_db_add_new_service()</a>, <a class="el" href="group__controller.html#ga45be83d9a25c55ef1e6c52ce17ee0079">upk_db_get_single_text()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#ga134b3dca14e8ce64bc851612f8411458">upk_db_try_insert()</a>, <a class="el" href="group__controller.html#ga53ec64d322d09e9d36a48d706db3b1c0">upk_db_try_update()</a>, and <a class="el" href="upk__json_8h.html#a2537c9031342aede9398e0c0e3ecf826">upk_json_parse_string()</a>.</p>
 
 </div>
 </div>
@@ -392,7 +453,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9">upk_load_runtime_services()</a>.</p>
+<p>Referenced by <a class="el" href="group__config__impl.html#gaad96df378fe382df9bb37e2f21b62ee9">upk_load_runtime_services()</a>.</p>
 
 </div>
 </div>
@@ -411,7 +472,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="buddy_8c.html#ad3f4ce4d64270a87c808b915f47b5ce2">buddy_handle_flags()</a>, <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, <a class="el" href="buddy_8c.html#a27de7f520d62139c1daa635cbb19be37">buddy_start_proc()</a>, <a class="el" href="upk__start_8b_8c.html#ae50a9d24cdfdce38f685f32c13ca4b0d">received_packet_callback()</a>, <a class="el" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, <a class="el" href="upk__client__net_8h.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble()</a>, and <a class="el" href="group__config__impl.html#gadb1b4dc0c724b6c347fbecd16a8db684">upk_config_loadfile()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8c.html#a3e61e516f17cf6184731f66b065a0b69">buddy_exec_action()</a>, <a class="el" href="buddy_8c.html#ad3f4ce4d64270a87c808b915f47b5ce2">buddy_handle_flags()</a>, <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, <a class="el" href="buddy_8c.html#a27de7f520d62139c1daa635cbb19be37">buddy_start_proc()</a>, <a class="el" href="tp_8c.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, <a class="el" href="tp_8c.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble()</a>, and <a class="el" href="upk__client__net_8c.html#a0e1c05ab07e8db991b82f91e30bf2925">upk_clnet_req_signal()</a>.</p>
 
 </div>
 </div>
@@ -430,7 +491,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8c.html#ae672a6a926e25316b74eaed203ca26ec">buddy_handle_command()</a>, <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk__start_8b_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, and <a class="el" href="buddy_8c.html#afc058b3e7bf5b8dfe5f43a8f83808a90">phone_home_if_appropriate()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8c.html#ae672a6a926e25316b74eaed203ca26ec">buddy_handle_command()</a>, <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="buddy_8c.html#afc058b3e7bf5b8dfe5f43a8f83808a90">phone_home_if_appropriate()</a>, <a class="el" href="ctrl__buddy_8c.html#a61bbd1a5bc18012f8087f8a9764ef409">remove_buddy_statedir()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, and <a class="el" href="group__controller.html#gafa2642c4954efe2d168a80703fa45c39">upk_db_upsert()</a>.</p>
 
 </div>
 </div>
@@ -449,7 +510,7 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, and <a class="el" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>.</p>
+<p>Referenced by <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>, <a class="el" href="tp_8c.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, <a class="el" href="upk__client__net_8c.html#a0e1c05ab07e8db991b82f91e30bf2925">upk_clnet_req_signal()</a>, <a class="el" href="upk__client__net_8c.html#a222200fea80f3367f682ac816f8cd62b">upk_clnet_req_status()</a>, <a class="el" href="group__config__impl.html#gadb1b4dc0c724b6c347fbecd16a8db684">upk_config_loadfile()</a>, <a class="el" href="tp_8c.html#ae3be04286bae383b2a1bf3c5c8221a33">upk_mkdir_p()</a>, and <a class="el" href="tp_8c.html#ab9358b45d3e4e93d49e080a04a414b1a">upk_rm_rf()</a>.</p>
 
 </div>
 </div>
@@ -459,7 +520,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* <a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>)(<a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a> diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)</td>
+          <td class="memname">typedef void(* <a class="el" href="tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>)(<a class="el" href="controller_2tp_8c.html#a69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a> diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)</td>
         </tr>
       </table>
 </div>
@@ -472,7 +533,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* <a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>)(<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>)</td>
+          <td class="memname">typedef void(* <a class="el" href="tp_8c.html#a288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>)(<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>)</td>
         </tr>
       </table>
 </div>
@@ -485,7 +546,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">typedef void(* <a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>)(<a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>, const char *)</td>
+          <td class="memname">typedef void(* <a class="el" href="tp_8c.html#aaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>)(<a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>, const char *)</td>
         </tr>
       </table>
 </div>
@@ -499,41 +560,81 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a></td>
+          <td class="memname">enum <a class="el" href="controller_2tp_8c.html#a69a581dfd708ad2e18688e01cbcc0ff8">upk_diaglvl_t</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95"></a><!-- doxytag: member="UPK_DIAGLVL_FATAL" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95" args="" -->UPK_DIAGLVL_FATAL</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95"></a><!-- doxytag: member="UPK_DIAGLVL_FATAL" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95" args="" -->UPK_DIAGLVL_FATAL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb"></a><!-- doxytag: member="UPK_DIAGLVL_ALERT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb" args="" -->UPK_DIAGLVL_ALERT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1"></a><!-- doxytag: member="UPK_DIAGLVL_CRIT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1" args="" -->UPK_DIAGLVL_CRIT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2"></a><!-- doxytag: member="UPK_DIAGLVL_ERROR" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2" args="" -->UPK_DIAGLVL_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168"></a><!-- doxytag: member="UPK_DIAGLVL_WARN" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168" args="" -->UPK_DIAGLVL_WARN</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558"></a><!-- doxytag: member="UPK_DIAGLVL_NOTICE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558" args="" -->UPK_DIAGLVL_NOTICE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888"></a><!-- doxytag: member="UPK_DIAGLVL_VERBOSE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888" args="" -->UPK_DIAGLVL_VERBOSE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8"></a><!-- doxytag: member="UPK_DIAGLVL_INFO" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8" args="" -->UPK_DIAGLVL_INFO</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG0" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39" args="" -->UPK_DIAGLVL_DEBUG0</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG1" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530" args="" -->UPK_DIAGLVL_DEBUG1</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95"></a><!-- doxytag: member="UPK_DIAGLVL_FATAL" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95" args="" -->UPK_DIAGLVL_FATAL</em>&nbsp;</td><td>
 <p>fatal error, operation cannot continue </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb"></a><!-- doxytag: member="UPK_DIAGLVL_ALERT" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb" args="" -->UPK_DIAGLVL_ALERT</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb"></a><!-- doxytag: member="UPK_DIAGLVL_ALERT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb" args="" -->UPK_DIAGLVL_ALERT</em>&nbsp;</td><td>
 <p>alert; something really bad happened, but we believe we can continue </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1"></a><!-- doxytag: member="UPK_DIAGLVL_CRIT" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1" args="" -->UPK_DIAGLVL_CRIT</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1"></a><!-- doxytag: member="UPK_DIAGLVL_CRIT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1" args="" -->UPK_DIAGLVL_CRIT</em>&nbsp;</td><td>
 <p>critical; something really bad happened, that probably shouldn't happen; we can continue </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2"></a><!-- doxytag: member="UPK_DIAGLVL_ERROR" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2" args="" -->UPK_DIAGLVL_ERROR</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2"></a><!-- doxytag: member="UPK_DIAGLVL_ERROR" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2" args="" -->UPK_DIAGLVL_ERROR</em>&nbsp;</td><td>
 <p>An error occurred. </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168"></a><!-- doxytag: member="UPK_DIAGLVL_WARN" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168" args="" -->UPK_DIAGLVL_WARN</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168"></a><!-- doxytag: member="UPK_DIAGLVL_WARN" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168" args="" -->UPK_DIAGLVL_WARN</em>&nbsp;</td><td>
 <p>A warning, serious, but not too serious </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558"></a><!-- doxytag: member="UPK_DIAGLVL_NOTICE" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558" args="" -->UPK_DIAGLVL_NOTICE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558"></a><!-- doxytag: member="UPK_DIAGLVL_NOTICE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558" args="" -->UPK_DIAGLVL_NOTICE</em>&nbsp;</td><td>
 <p>Something you might want to notice; possibly normal operation </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888"></a><!-- doxytag: member="UPK_DIAGLVL_VERBOSE" ref="gga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888" args="" -->UPK_DIAGLVL_VERBOSE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888"></a><!-- doxytag: member="UPK_DIAGLVL_VERBOSE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888" args="" -->UPK_DIAGLVL_VERBOSE</em>&nbsp;</td><td>
 <p>verbose, probably normal operation </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8"></a><!-- doxytag: member="UPK_DIAGLVL_INFO" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8" args="" -->UPK_DIAGLVL_INFO</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8"></a><!-- doxytag: member="UPK_DIAGLVL_INFO" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8" args="" -->UPK_DIAGLVL_INFO</em>&nbsp;</td><td>
 <p>information, definitely normal operation, intended to aid in troubleshooting user-configurable things </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG0" ref="gga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39" args="" -->UPK_DIAGLVL_DEBUG0</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG0" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39" args="" -->UPK_DIAGLVL_DEBUG0</em>&nbsp;</td><td>
 <p>debug0, intended to help find bugs in the program; but may also help in finding configuration or environment problems </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG1" ref="gga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530" args="" -->UPK_DIAGLVL_DEBUG1</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG1" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530" args="" -->UPK_DIAGLVL_DEBUG1</em>&nbsp;</td><td>
 <p>debug1, useful in finding and demonstrating bugs in the program (you should probably be using gdb by this point) </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95"></a><!-- doxytag: member="UPK_DIAGLVL_FATAL" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95" args="" -->UPK_DIAGLVL_FATAL</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb"></a><!-- doxytag: member="UPK_DIAGLVL_ALERT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb" args="" -->UPK_DIAGLVL_ALERT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1"></a><!-- doxytag: member="UPK_DIAGLVL_CRIT" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1" args="" -->UPK_DIAGLVL_CRIT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2"></a><!-- doxytag: member="UPK_DIAGLVL_ERROR" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2" args="" -->UPK_DIAGLVL_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168"></a><!-- doxytag: member="UPK_DIAGLVL_WARN" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168" args="" -->UPK_DIAGLVL_WARN</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558"></a><!-- doxytag: member="UPK_DIAGLVL_NOTICE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558" args="" -->UPK_DIAGLVL_NOTICE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888"></a><!-- doxytag: member="UPK_DIAGLVL_VERBOSE" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888" args="" -->UPK_DIAGLVL_VERBOSE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8"></a><!-- doxytag: member="UPK_DIAGLVL_INFO" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8" args="" -->UPK_DIAGLVL_INFO</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG0" ref="ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39" args="" -->UPK_DIAGLVL_DEBUG0</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530"></a><!-- doxytag: member="UPK_DIAGLVL_DEBUG1" ref="ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530" args="" -->UPK_DIAGLVL_DEBUG1</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -546,14 +647,18 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="group__upk__errors.html#ga179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a></td>
+          <td class="memname">enum <a class="el" href="controller_2tp_8c.html#a179a7b997b68dd92bc7cd4602b8aa4db">upk_errlevel_t</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79"></a><!-- doxytag: member="UPK_ERRLVL_ERROR" ref="gga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79" args="" -->UPK_ERRLVL_ERROR</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79"></a><!-- doxytag: member="UPK_ERRLVL_ERROR" ref="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79" args="" -->UPK_ERRLVL_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79"></a><!-- doxytag: member="UPK_ERRLVL_ERROR" ref="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79" args="" -->UPK_ERRLVL_ERROR</em>&nbsp;</td><td>
 <p>semantically similar to diaglvl; but for error-reporting; may become purely protocol </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79"></a><!-- doxytag: member="UPK_ERRLVL_ERROR" ref="ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79" args="" -->UPK_ERRLVL_ERROR</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -566,26 +671,60 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">enum <a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a></td>
+          <td class="memname">enum <a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" id="gga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c"></a><!-- doxytag: member="UPK_ERR_UNKNOWN" ref="gga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c" args="" -->UPK_ERR_UNKNOWN</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c"></a><!-- doxytag: member="UPK_ERR_UNKNOWN" ref="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c" args="" -->UPK_ERR_UNKNOWN</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619"></a><!-- doxytag: member="UPK_ERR_UNSUP" ref="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619" args="" -->UPK_ERR_UNSUP</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab"></a><!-- doxytag: member="UPK_ERR_INVALID_PKT" ref="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab" args="" -->UPK_ERR_INVALID_PKT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9"></a><!-- doxytag: member="UPK_SOCKET_FAILURE" ref="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9" args="" -->UPK_SOCKET_FAILURE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9"></a><!-- doxytag: member="UPK_JSON_PARSE_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9" args="" -->UPK_JSON_PARSE_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999"></a><!-- doxytag: member="UPK_SQL_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999" args="" -->UPK_SQL_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1"></a><!-- doxytag: member="UPK_CONF_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1" args="" -->UPK_CONF_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c"></a><!-- doxytag: member="UPK_ERR_UNKNOWN" ref="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c" args="" -->UPK_ERR_UNKNOWN</em>&nbsp;</td><td>
 <p>unknown error </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619"></a><!-- doxytag: member="UPK_ERR_UNSUP" ref="gga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619" args="" -->UPK_ERR_UNSUP</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619"></a><!-- doxytag: member="UPK_ERR_UNSUP" ref="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619" args="" -->UPK_ERR_UNSUP</em>&nbsp;</td><td>
 <p>unsupported </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab"></a><!-- doxytag: member="UPK_ERR_INVALID_PKT" ref="gga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab" args="" -->UPK_ERR_INVALID_PKT</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab"></a><!-- doxytag: member="UPK_ERR_INVALID_PKT" ref="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab" args="" -->UPK_ERR_INVALID_PKT</em>&nbsp;</td><td>
 <p>invalid packet, possibly invalid protocol, packet dimensions, or checksum </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9"></a><!-- doxytag: member="UPK_SOCKET_FAILURE" ref="gga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9" args="" -->UPK_SOCKET_FAILURE</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9"></a><!-- doxytag: member="UPK_SOCKET_FAILURE" ref="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9" args="" -->UPK_SOCKET_FAILURE</em>&nbsp;</td><td>
 <p>unable to bind/connect/accept/listen on a socket </p>
 </td></tr>
-<tr><td valign="top"><em><a class="anchor" id="gga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9"></a><!-- doxytag: member="UPK_JSON_PARSE_ERROR" ref="gga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9" args="" -->UPK_JSON_PARSE_ERROR</em>&nbsp;</td><td>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9"></a><!-- doxytag: member="UPK_JSON_PARSE_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9" args="" -->UPK_JSON_PARSE_ERROR</em>&nbsp;</td><td>
 <p>json parse error; additional information should also be provided </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999"></a><!-- doxytag: member="UPK_SQL_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999" args="" -->UPK_SQL_ERROR</em>&nbsp;</td><td>
+<p>SQLite Error </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1"></a><!-- doxytag: member="UPK_CONF_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1" args="" -->UPK_CONF_ERROR</em>&nbsp;</td><td>
+<p>Configuration error </p>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c"></a><!-- doxytag: member="UPK_ERR_UNKNOWN" ref="ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c" args="" -->UPK_ERR_UNKNOWN</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619"></a><!-- doxytag: member="UPK_ERR_UNSUP" ref="ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619" args="" -->UPK_ERR_UNSUP</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab"></a><!-- doxytag: member="UPK_ERR_INVALID_PKT" ref="ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab" args="" -->UPK_ERR_INVALID_PKT</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9"></a><!-- doxytag: member="UPK_SOCKET_FAILURE" ref="ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9" args="" -->UPK_SOCKET_FAILURE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9"></a><!-- doxytag: member="UPK_JSON_PARSE_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9" args="" -->UPK_JSON_PARSE_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999"></a><!-- doxytag: member="UPK_SQL_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999" args="" -->UPK_SQL_ERROR</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1"></a><!-- doxytag: member="UPK_CONF_ERROR" ref="ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1" args="" -->UPK_CONF_ERROR</em>&nbsp;</td><td>
 </td></tr>
 </table>
 </dd>
@@ -625,17 +764,6 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga14fbd0376694a618a0e98bb862da66cf_cgraph.png" border="0" usemap="#group__upk__errors_ga14fbd0376694a618a0e98bb862da66cf_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga14fbd0376694a618a0e98bb862da66cf_cgraph" id="group__upk__errors_ga14fbd0376694a618a0e98bb862da66cf_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="137,5,252,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ga830899129eb356f088c66417cbbead5d"></a><!-- doxytag: member="upk_error.h::_upk_crit" ref="ga830899129eb356f088c66417cbbead5d" args="(const char *loc, const char *fmt,...)" -->
@@ -668,17 +796,6 @@ Here is the call graph for this function:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga830899129eb356f088c66417cbbead5d_cgraph.png" border="0" usemap="#group__upk__errors_ga830899129eb356f088c66417cbbead5d_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga830899129eb356f088c66417cbbead5d_cgraph" id="group__upk__errors_ga830899129eb356f088c66417cbbead5d_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="129,5,244,37"/></map>
-</div>
-</p>
 
 </div>
 </div>
@@ -713,17 +830,6 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_gab05f454cac6e59e119a4ff0cfdc892c3_cgraph.png" border="0" usemap="#group__upk__errors_gab05f454cac6e59e119a4ff0cfdc892c3_cgraph" alt=""/></div>
-<map name="group__upk__errors_gab05f454cac6e59e119a4ff0cfdc892c3_cgraph" id="group__upk__errors_gab05f454cac6e59e119a4ff0cfdc892c3_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="153,5,268,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ga0da64f3c069edb277f7c963b56c8c8fe"></a><!-- doxytag: member="upk_error.h::_upk_debug1" ref="ga0da64f3c069edb277f7c963b56c8c8fe" args="(const char *loc, const char *fmt,...)" -->
@@ -756,17 +862,6 @@ Here is the call graph for this function:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga0da64f3c069edb277f7c963b56c8c8fe_cgraph.png" border="0" usemap="#group__upk__errors_ga0da64f3c069edb277f7c963b56c8c8fe_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga0da64f3c069edb277f7c963b56c8c8fe_cgraph" id="group__upk__errors_ga0da64f3c069edb277f7c963b56c8c8fe_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="153,5,268,37"/></map>
-</div>
-</p>
 
 </div>
 </div>
@@ -801,17 +896,6 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_gae2a2e8001ef8b39d8ee0ff0051a41afc_cgraph.png" border="0" usemap="#group__upk__errors_gae2a2e8001ef8b39d8ee0ff0051a41afc_cgraph" alt=""/></div>
-<map name="group__upk__errors_gae2a2e8001ef8b39d8ee0ff0051a41afc_cgraph" id="group__upk__errors_gae2a2e8001ef8b39d8ee0ff0051a41afc_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="137,5,252,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="gaccd0f0f9c125762bdc053b8afe1add61"></a><!-- doxytag: member="upk_error.h::_upk_fatal" ref="gaccd0f0f9c125762bdc053b8afe1add61" args="(const char *loc, const char *fmt,...)" -->
@@ -844,17 +928,6 @@ Here is the call graph for this function:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_gaccd0f0f9c125762bdc053b8afe1add61_cgraph.png" border="0" usemap="#group__upk__errors_gaccd0f0f9c125762bdc053b8afe1add61_cgraph" alt=""/></div>
-<map name="group__upk__errors_gaccd0f0f9c125762bdc053b8afe1add61_cgraph" id="group__upk__errors_gaccd0f0f9c125762bdc053b8afe1add61_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="137,5,252,37"/></map>
-</div>
-</p>
 
 </div>
 </div>
@@ -889,17 +962,6 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga5b2c9995df403c620ffbd6d7cfbb35ef_cgraph.png" border="0" usemap="#group__upk__errors_ga5b2c9995df403c620ffbd6d7cfbb35ef_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga5b2c9995df403c620ffbd6d7cfbb35ef_cgraph" id="group__upk__errors_ga5b2c9995df403c620ffbd6d7cfbb35ef_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="132,5,247,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ga6679b1df8a52310e0bde67fcba85e423"></a><!-- doxytag: member="upk_error.h::_upk_notice" ref="ga6679b1df8a52310e0bde67fcba85e423" args="(const char *loc, const char *fmt,...)" -->
@@ -932,17 +994,6 @@ Here is the call graph for this function:</div>
       </table>
 </div>
 <div class="memdoc">
-
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga6679b1df8a52310e0bde67fcba85e423_cgraph.png" border="0" usemap="#group__upk__errors_ga6679b1df8a52310e0bde67fcba85e423_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga6679b1df8a52310e0bde67fcba85e423_cgraph" id="group__upk__errors_ga6679b1df8a52310e0bde67fcba85e423_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="148,5,263,37"/></map>
-</div>
-</p>
 
 </div>
 </div>
@@ -977,17 +1028,6 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_gaac96aeafac9fa5757997f6e1f17008cd_cgraph.png" border="0" usemap="#group__upk__errors_gaac96aeafac9fa5757997f6e1f17008cd_cgraph" alt=""/></div>
-<map name="group__upk__errors_gaac96aeafac9fa5757997f6e1f17008cd_cgraph" id="group__upk__errors_gaac96aeafac9fa5757997f6e1f17008cd_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="159,5,273,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="ga0a4edf34d171f279337dfd0b16e58b4c"></a><!-- doxytag: member="upk_error.h::_upk_warn" ref="ga0a4edf34d171f279337dfd0b16e58b4c" args="(const char *loc, const char *fmt,...)" -->
@@ -1021,17 +1061,6 @@ Here is the call graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>, and <a class="el" href="upk__error_8c.html#ae10462bb9dc587860c9f9b5793cd5144">UPK_STATIC_ERR_DECL</a>.</p>
-
-<p><div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_ga0a4edf34d171f279337dfd0b16e58b4c_cgraph.png" border="0" usemap="#group__upk__errors_ga0a4edf34d171f279337dfd0b16e58b4c_cgraph" alt=""/></div>
-<map name="group__upk__errors_ga0a4edf34d171f279337dfd0b16e58b4c_cgraph" id="group__upk__errors_ga0a4edf34d171f279337dfd0b16e58b4c_cgraph">
-<area shape="rect" id="node3" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99" title="_upk_diagnostic" alt="" coords="140,5,255,37"/></map>
-</div>
-</p>
-
 </div>
 </div>
 <a class="anchor" id="gac9a242755fb6967d2803f71c24f919fb"></a><!-- doxytag: member="upk_error.h::upk_reg_diag_callback" ref="gac9a242755fb6967d2803f71c24f919fb" args="(diag_output_callback_t func)" -->
@@ -1039,28 +1068,15 @@ Here is the call graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> upk_reg_diag_callback </td>
+          <td class="memname"><a class="el" href="tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> upk_reg_diag_callback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a>&#160;</td>
           <td class="paramname"><em>func</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>References <a class="el" href="upk__error_8c.html#aedd920cbf73e5ed62af50ee77ac71c56">__upk_diag_output_callback</a>.</p>
-
-<p>Referenced by <a class="el" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init()</a>.</p>
-
-<p><div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><img src="group__upk__errors_gac9a242755fb6967d2803f71c24f919fb_icgraph.png" border="0" usemap="#group__upk__errors_gac9a242755fb6967d2803f71c24f919fb_icgraph" alt=""/></div>
-<map name="group__upk__errors_gac9a242755fb6967d2803f71c24f919fb_icgraph" id="group__upk__errors_gac9a242755fb6967d2803f71c24f919fb_icgraph">
-<area shape="rect" id="node3" href="buddy_8h.html#a8243634d0b4e7fe2b2ece3c97bbbd060" title="buddy_init" alt="" coords="208,5,288,37"/><area shape="rect" id="node5" href="buddy__main_8c.html#a647f21a28344e1d9c643f4115516d7c9" title="main" alt="" coords="337,5,385,37"/></map>
-</div>
-</p>
 
 </div>
 </div>
@@ -1069,9 +1085,9 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> upk_reg_err_msg_callback </td>
+          <td class="memname"><a class="el" href="tp_8c.html#aaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a> upk_reg_err_msg_callback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#gaaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="tp_8c.html#aaacf9b7f9daf89c473706185f68ff493">err_rpt_msg_callback_t</a>&#160;</td>
           <td class="paramname"><em>func</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1086,9 +1102,9 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> upk_reg_error_callback </td>
+          <td class="memname"><a class="el" href="tp_8c.html#a288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a> upk_reg_error_callback </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#ga288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="tp_8c.html#a288518a849f000cbab3a64b181b667c0">err_rpt_callback_t</a>&#160;</td>
           <td class="paramname"><em>func</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1105,7 +1121,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void upk_report_error </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
           <td class="paramname"><em>err</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1122,7 +1138,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">void upk_report_error_msg </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
           <td class="paramname"><em>err</em>, </td>
         </tr>
         <tr>
@@ -1149,7 +1165,7 @@ Here is the caller graph for this function:</div>
         <tr>
           <td class="memname">const char* upk_strerror </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
+          <td class="paramtype"><a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a>&#160;</td>
           <td class="paramname"><em>err</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1157,17 +1173,15 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>References <a class="el" href="group__upk__errors.html#gacefe2af45cf41d39ec20663163ad444b">__upk_errors</a>.</p>
-
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
-<a class="anchor" id="gaf8fb4ab727a4538af0420b5af7292944"></a><!-- doxytag: member="upk_error.h::__upk_err_buf" ref="gaf8fb4ab727a4538af0420b5af7292944" args="[4096]" -->
+<a class="anchor" id="ga18589e292a0da22fe88d249892682072"></a><!-- doxytag: member="upk_error.h::__upk_err_buf" ref="ga18589e292a0da22fe88d249892682072" args="[4096]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char <a class="el" href="group__upk__errors.html#gaf8fb4ab727a4538af0420b5af7292944">__upk_err_buf</a>[4096] = &quot;&quot;<code> [static]</code></td>
+          <td class="memname">char <a class="el" href="group__upk__errors.html#ga18589e292a0da22fe88d249892682072">__upk_err_buf</a>[4096]</td>
         </tr>
       </table>
 </div>
@@ -1175,12 +1189,12 @@ Here is the caller graph for this function:</div>
 
 </div>
 </div>
-<a class="anchor" id="ga17e76b1633222242515ff1e3d7e50de1"></a><!-- doxytag: member="upk_error.h::__upk_errno_type" ref="ga17e76b1633222242515ff1e3d7e50de1" args="" -->
+<a class="anchor" id="ga5fdc1cd196465282d0afed92c091ac81"></a><!-- doxytag: member="upk_error.h::__upk_errno_type" ref="ga5fdc1cd196465282d0afed92c091ac81" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="group__upk__errors.html#ga0abba5d980180c5f12823c366a12020a">upk_errno_t</a> <a class="el" href="group__upk__errors.html#ga17e76b1633222242515ff1e3d7e50de1">__upk_errno_type</a> = 0<code> [static]</code></td>
+          <td class="memname"><a class="el" href="controller_2tp_8c.html#a0abba5d980180c5f12823c366a12020a">upk_errno_t</a> <a class="el" href="group__upk__errors.html#ga5fdc1cd196465282d0afed92c091ac81">__upk_errno_type</a></td>
         </tr>
       </table>
 </div>
@@ -1193,7 +1207,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char <a class="el" href="group__upk__errors.html#gacefe2af45cf41d39ec20663163ad444b">__upk_errors</a>[][128]<code> [static]</code></td>
+          <td class="memname">const char <a class="el" href="tp_8c.html#acefe2af45cf41d39ec20663163ad444b">__upk_errors</a>[][128]<code> [static]</code></td>
         </tr>
       </table>
 </div>
@@ -1204,10 +1218,10 @@ Here is the caller graph for this function:</div>
     <span class="stringliteral">&quot;invalid packet&quot;</span>,
     <span class="stringliteral">&quot;socket failure&quot;</span>,
     <span class="stringliteral">&quot;JSON parser error&quot;</span>,
+    <span class="stringliteral">&quot;SQlite Error&quot;</span>,
+    <span class="stringliteral">&quot;Configuration Error&quot;</span>,
 }
 </pre></div>
-<p>Referenced by <a class="el" href="group__upk__errors.html#gad357577e479d0ef889ce0d51ec45c4a3">upk_strerror()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="ga9d2bce202c2ba97f9c8c02d46857552a"></a><!-- doxytag: member="upk_error.h::label_idx" ref="ga9d2bce202c2ba97f9c8c02d46857552a" args="[][16]" -->
@@ -1215,7 +1229,7 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="group__upk__errors.html#ga9d2bce202c2ba97f9c8c02d46857552a">label_idx</a>[][16]</td>
+          <td class="memname">char <a class="el" href="tp_8c.html#a9d2bce202c2ba97f9c8c02d46857552a">label_idx</a>[][16]</td>
         </tr>
       </table>
 </div>
@@ -1228,26 +1242,24 @@ Here is the caller graph for this function:</div>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const char <a class="el" href="group__upk__errors.html#gae422812b612ba3ecf5f411f023416c38">upk_diag_label_idx</a>[][16]<code> [static]</code></td>
+          <td class="memname">const char <a class="el" href="tp_8c.html#ae422812b612ba3ecf5f411f023416c38">upk_diag_label_idx</a>[][16]<code> [static]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a>] = <span class="stringliteral">&quot;FATAL&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>] = <span class="stringliteral">&quot;ALERT&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>] = <span class="stringliteral">&quot;CRITICAL&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>] = <span class="stringliteral">&quot;ERROR&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>] = <span class="stringliteral">&quot;WARNING&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>] = <span class="stringliteral">&quot;NOTICE&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>] = <span class="stringliteral">&quot;VERBOSE&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>] = <span class="stringliteral">&quot;INFO&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>] = <span class="stringliteral">&quot;DEBUG0&quot;</span>,
-    [<a class="code" href="group__upk__errors.html#gga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>] = <span class="stringliteral">&quot;DEBUG1&quot;</span>
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95">UPK_DIAGLVL_FATAL</a>] = <span class="stringliteral">&quot;FATAL&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb">UPK_DIAGLVL_ALERT</a>] = <span class="stringliteral">&quot;ALERT&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1">UPK_DIAGLVL_CRIT</a>] = <span class="stringliteral">&quot;CRITICAL&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2">UPK_DIAGLVL_ERROR</a>] = <span class="stringliteral">&quot;ERROR&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168">UPK_DIAGLVL_WARN</a>] = <span class="stringliteral">&quot;WARNING&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558">UPK_DIAGLVL_NOTICE</a>] = <span class="stringliteral">&quot;NOTICE&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888">UPK_DIAGLVL_VERBOSE</a>] = <span class="stringliteral">&quot;VERBOSE&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8">UPK_DIAGLVL_INFO</a>] = <span class="stringliteral">&quot;INFO&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39">UPK_DIAGLVL_DEBUG0</a>] = <span class="stringliteral">&quot;DEBUG0&quot;</span>,
+    [<a class="code" href="group__upk__errors.html#ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530">UPK_DIAGLVL_DEBUG1</a>] = <span class="stringliteral">&quot;DEBUG1&quot;</span>
 }
 </pre></div>
-<p>Referenced by <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>.</p>
-
 </div>
 </div>
 <a class="anchor" id="gad9883b6b44bf3fa3e1abac4266ca1b65"></a><!-- doxytag: member="upk_error.h::upk_diag_verbosity" ref="gad9883b6b44bf3fa3e1abac4266ca1b65" args="" -->
@@ -1261,12 +1273,10 @@ Here is the caller graph for this function:</div>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="upk__error_8c.html#a5d2d98f10ed28c8b4dd84a013b5fa0d7">_upk_default_diag_output()</a>, <a class="el" href="upk__error_8c.html#ad14e81d375393c4706c348edabd52a99">_upk_diagnostic()</a>, <a class="el" href="buddy__main_8c.html#a6c820af1e7aabaed92d4a53e9ea251e7">buddy_diag_handler()</a>, <a class="el" href="upk__reload_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="buddy__main_8c.html#adbe704e27f14c47d6f5fbe8689e140d0">opt_parse()</a>, <a class="el" href="upk__client__net_8h.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action()</a>, and <a class="el" href="group__functions.html#gaad96df378fe382df9bb37e2f21b62ee9">upk_load_runtime_services()</a>.</p>
-
 </div>
 </div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

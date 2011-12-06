@@ -58,93 +58,87 @@
 <a name="l00017"></a>00017 <span class="comment"></span>
 <a name="l00018"></a>00018 <span class="comment">   @mainpage Buddy</span>
 <a name="l00019"></a>00019 <span class="comment"></span>
-<a name="l00020"></a>00020 <span class="comment">   &quot;buddy&quot; is the servicer-restarter component of upkeeper. It has 3 primary design goals:</span>
+<a name="l00020"></a>00020 <span class="comment">   &quot;buddy&quot; is the service-restarter component of upkeeper. It has 3 primary design goals:</span>
 <a name="l00021"></a>00021 <span class="comment"></span>
-<a name="l00022"></a>00022 <span class="comment">   1) Reliability - a buddy should never abort or otherwise fail after having been properly initialized. It</span>
-<a name="l00023"></a>00023 <span class="comment">   is being relied upon to restart other services when they fail, and so what it does, and how it does it</span>
-<a name="l00024"></a>00024 <span class="comment">   must be kept as simple, and as safe as possible. For instance, there is no runtime heap allocation, and</span>
-<a name="l00025"></a>00025 <span class="comment">   runtime stack allocation is kept to a minimum, so even with restrictive ulimits, a buddy should not fail</span>
-<a name="l00026"></a>00026 <span class="comment">   after initialization.</span>
-<a name="l00027"></a>00027 <span class="comment"></span>
-<a name="l00028"></a>00028 <span class="comment">   2) Audit - buddy implements a fixed ringbuffer, which it uses to queue events it has monitored, and report </span>
-<a name="l00029"></a>00029 <span class="comment">   those back to the controller daemon if/when the controller is available. To that end, buddy will send the</span>
-<a name="l00030"></a>00030 <span class="comment">   entire-contents of its ringbuffer to a controller when it connects to buddy. However, two circumstances</span>
-<a name="l00031"></a>00031 <span class="comment">   exist where the buddy may need to actively connect the controller, rather than passively waiting for one</span>
-<a name="l00032"></a>00032 <span class="comment">   to come by; they are a) when the ringbuffer has exceeded 3/4 fullness and b) when a buddy is terminated in </span>
-<a name="l00033"></a>00033 <span class="comment">   a mannor other than a controller shutting it down.</span>
-<a name="l00034"></a>00034 <span class="comment"></span>
-<a name="l00035"></a>00035 <span class="comment">   3) Flexibility - While buddy must remain somewhat limited in what it can do itself, it has been designed</span>
-<a name="l00036"></a>00036 <span class="comment">   specifically to remain flexible in how it is used, and amenable to the use of adjuncts to extend and</span>
-<a name="l00037"></a>00037 <span class="comment">   enhance its own functionality. In essence, buddy will avoid any behavior that might prevent you from</span>
-<a name="l00038"></a>00038 <span class="comment">   doing whatever you need to do.</span>
+<a name="l00022"></a>00022 <span class="comment">   1) Reliability - a buddy should never abort or otherwise fail after having been properly initialized. It is being relied upon to restart </span>
+<a name="l00023"></a>00023 <span class="comment">   other services when they fail, and so what it does, and how it does it must be kept as simple, and as safe as possible. For instance,</span>
+<a name="l00024"></a>00024 <span class="comment">   there is no runtime heap allocation, and runtime stack allocation is kept to a minimum, so even with restrictive ulimits, a buddy should </span>
+<a name="l00025"></a>00025 <span class="comment">   not fail after initialization.</span>
+<a name="l00026"></a>00026 <span class="comment"></span>
+<a name="l00027"></a>00027 <span class="comment">   2) Audit - buddy implements a fixed ringbuffer, which it uses to queue events it has monitored, and report those back to the controller</span>
+<a name="l00028"></a>00028 <span class="comment">   daemon if/when the controller is available. To that end, buddy will send the entire-contents of its ringbuffer to a controller when it</span>
+<a name="l00029"></a>00029 <span class="comment">   connects to buddy. However, two circumstances exist where the buddy may need to actively connect the controller, rather than passively</span>
+<a name="l00030"></a>00030 <span class="comment">   waiting for one to come by; they are a) when the ringbuffer has exceeded 3/4 fullness and b) when a buddy is terminated in a mannor other </span>
+<a name="l00031"></a>00031 <span class="comment">   than a controller shutting it down.</span>
+<a name="l00032"></a>00032 <span class="comment"></span>
+<a name="l00033"></a>00033 <span class="comment">   3) Flexibility - While buddy must remain somewhat limited in what it can do itself, it has been designed specifically to remain flexible</span>
+<a name="l00034"></a>00034 <span class="comment">   in how it is used, and amenable to the use of adjuncts to extend and enhance its own functionality. In essence, buddy will avoid any</span>
+<a name="l00035"></a>00035 <span class="comment">   behavior that might prevent you from doing whatever you need to do.</span>
+<a name="l00036"></a>00036 <span class="comment"></span>
+<a name="l00037"></a>00037 <span class="comment"></span>
+<a name="l00038"></a>00038 <span class="comment">   Buddy operates like this:</span>
 <a name="l00039"></a>00039 <span class="comment"></span>
-<a name="l00040"></a>00040 <span class="comment"></span>
-<a name="l00041"></a>00041 <span class="comment">   Buddy operates like this:</span>
-<a name="l00042"></a>00042 <span class="comment"></span>
-<a name="l00043"></a>00043 <span class="comment">   * buddy starts</span>
-<a name="l00044"></a>00044 <span class="comment"></span>
-<a name="l00045"></a>00045 <span class="comment">   * buddy initializes its ringbuffer, some string buffers, and a creates a domain socket to listen for</span>
-<a name="l00046"></a>00046 <span class="comment">   controllers.</span>
+<a name="l00040"></a>00040 <span class="comment">   * buddy starts</span>
+<a name="l00041"></a>00041 <span class="comment"></span>
+<a name="l00042"></a>00042 <span class="comment">   * buddy initializes its ringbuffer, some string buffers, and a creates a domain socket to listen for controllers.</span>
+<a name="l00043"></a>00043 <span class="comment"></span>
+<a name="l00044"></a>00044 <span class="comment">   * buddy registers a signal handler for CHLD which sets a flag to restart its managed process.</span>
+<a name="l00045"></a>00045 <span class="comment"></span>
+<a name="l00046"></a>00046 <span class="comment">   * buddy goes into an eventloop where it sits and waits for a controller to tell it what to do.</span>
 <a name="l00047"></a>00047 <span class="comment"></span>
-<a name="l00048"></a>00048 <span class="comment">   * buddy registers a signal handler for CHLD which sets a flag to restart its managed process.</span>
+<a name="l00048"></a>00048 <span class="comment">   * (xyzzy: nothing happens)</span>
 <a name="l00049"></a>00049 <span class="comment"></span>
-<a name="l00050"></a>00050 <span class="comment">   * buddy goes into an eventloop where it sits and waits for a controller to tell it what to do.</span>
+<a name="l00050"></a>00050 <span class="comment">   * sometime later, a controller connects to the buddy, and issues a command, eg, start, or runonce, etc.</span>
 <a name="l00051"></a>00051 <span class="comment"></span>
-<a name="l00052"></a>00052 <span class="comment">   * (xyzzy: nothing happens)</span>
-<a name="l00053"></a>00053 <span class="comment"></span>
-<a name="l00054"></a>00054 <span class="comment">   * sometime later, a controller connects to the buddy, and issues a command, eg, start, or runonce, etc.</span>
+<a name="l00052"></a>00052 <span class="comment">   * buddy performs the action associated with whatever command it received, and reports back to the controller everything in its ringbuffer, </span>
+<a name="l00053"></a>00053 <span class="comment">   the last item being the state of the buddy after completing the last action (but not necessarily the result of that last action; the</span>
+<a name="l00054"></a>00054 <span class="comment">   controller may not obtain a result until some future poll)</span>
 <a name="l00055"></a>00055 <span class="comment"></span>
-<a name="l00056"></a>00056 <span class="comment">   * buddy performs the action associated with whatever command it received, and reports back to the</span>
-<a name="l00057"></a>00057 <span class="comment">   controller everything in its ringbuffer, the last item being the state of the buddy after completing the</span>
-<a name="l00058"></a>00058 <span class="comment">   last action (but not necessarily the result of that last action; the controller may not obtain a result</span>
-<a name="l00059"></a>00059 <span class="comment">   until some future poll)</span>
-<a name="l00060"></a>00060 <span class="comment"></span>
-<a name="l00061"></a>00061 <span class="comment">   * the &#39;start&#39; action is the only action that will be monitored. The script associated with the start</span>
-<a name="l00062"></a>00062 <span class="comment">   action is what buddy will monitor; hence, that script should usually &#39;exec /path/to/yourservice&#39; after</span>
-<a name="l00063"></a>00063 <span class="comment">   performing any initialization you may require.</span>
-<a name="l00064"></a>00064 <span class="comment"></span>
-<a name="l00065"></a>00065 <span class="comment">   * buddy supports up to 32 user-defined actions, which can be named anything you like, and can do anything</span>
-<a name="l00066"></a>00066 <span class="comment">   you want; They receive the pid (and subsequently, the pgrp and sid) of the managed process as their first</span>
-<a name="l00067"></a>00067 <span class="comment">   (and currently, only) argument. [note that buddy calls these user-defined actions by number, and not by</span>
-<a name="l00068"></a>00068 <span class="comment">   name, as it simplifies the protocol, and keeps buddy from having to perform (or potentially failing to</span>
-<a name="l00069"></a>00069 <span class="comment">   perform) bounds-checking for string operations]</span>
-<a name="l00070"></a>00070 <span class="comment"></span>
-<a name="l00071"></a>00071 <span class="comment">   If a the monitored child dies during its lifetime, buddy will restart it. If that child is respawning too</span>
-<a name="l00072"></a>00072 <span class="comment">   quickly, it will be delayed, to help ensure the controller has time to collect information on the</span>
-<a name="l00073"></a>00073 <span class="comment">   failures, and to help prevent the respawn to negatively impact the system. */</span>
-<a name="l00074"></a>00074 
+<a name="l00056"></a>00056 <span class="comment">   * the &#39;start&#39; action is the only action that will be monitored. The script associated with the start action is what buddy will monitor;</span>
+<a name="l00057"></a>00057 <span class="comment">   hence, that script should usually &#39;exec /path/to/yourservice&#39; after performing any initialization you may require.</span>
+<a name="l00058"></a>00058 <span class="comment"></span>
+<a name="l00059"></a>00059 <span class="comment">   * buddy supports up to 32 user-defined actions, which can be named anything you like, and can do anything you want; They receive the pid</span>
+<a name="l00060"></a>00060 <span class="comment">   (and subsequently, the pgrp and sid) of the managed process as their first (and currently, only) argument. [note that buddy calls these</span>
+<a name="l00061"></a>00061 <span class="comment">   user-defined actions by number, and not by name, as it simplifies the protocol, and keeps buddy from having to perform (or potentially</span>
+<a name="l00062"></a>00062 <span class="comment">   failing to perform) bounds-checking for string operations]</span>
+<a name="l00063"></a>00063 <span class="comment"></span>
+<a name="l00064"></a>00064 <span class="comment">   If a the monitored child dies during its lifetime, buddy will restart it. If that child is respawning too quickly, it will be delayed, to</span>
+<a name="l00065"></a>00065 <span class="comment">   help ensure the controller has time to collect information on the failures, and to help prevent the respawn to negatively impact the</span>
+<a name="l00066"></a>00066 <span class="comment">   system. */</span>
+<a name="l00067"></a>00067 
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069 
+<a name="l00070"></a>00070 <span class="preprocessor">#include &quot;<a class="code" href="buddyinc_8h.html">buddyinc.h</a>&quot;</span>
+<a name="l00071"></a>00071 <span class="preprocessor">#include &quot;<a class="code" href="ctrl__protocol_8h.html" title="types used to communicate with buddy.">ctrl_protocol.h</a>&quot;</span>
+<a name="l00072"></a>00072 <span class="preprocessor">#include &lt;<a class="code" href="upk__error_8h.html" title="handle errors and single-exit-point semantics.">upkeeper/upk_error.h</a>&gt;</span>
+<a name="l00073"></a>00073 <span class="preprocessor">#include &lt;<a class="code" href="upk__uuid_8h.html" title="definition of upk uuid implementation.">upkeeper/upk_uuid.h</a>&gt;</span>
+<a name="l00074"></a>00074 <span class="preprocessor">#include &lt;<a class="code" href="upk__types_8h.html" title="types common throughout libupkeeper.">upkeeper/upk_types.h</a>&gt;</span>
 <a name="l00075"></a>00075 
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077 <span class="preprocessor">#include &quot;<a class="code" href="buddyinc_8h.html">buddyinc.h</a>&quot;</span>
-<a name="l00078"></a>00078 <span class="preprocessor">#include &quot;<a class="code" href="ctrl__protocol_8h.html" title="types used to communicate with buddy.">ctrl_protocol.h</a>&quot;</span>
-<a name="l00079"></a>00079 <span class="preprocessor">#include &lt;<a class="code" href="upk__error_8h.html" title="handle errors and single-exit-point semantics.">upkeeper/upk_error.h</a>&gt;</span>
-<a name="l00080"></a>00080 <span class="preprocessor">#include &lt;<a class="code" href="upk__uuid_8h.html" title="definition of upk uuid implementation.">upkeeper/upk_uuid.h</a>&gt;</span>
-<a name="l00081"></a>00081 <span class="preprocessor">#include &lt;<a class="code" href="upk__types_8h.html" title="types common throughout libupkeeper.">upkeeper/upk_types.h</a>&gt;</span>
-<a name="l00082"></a>00082 
-<a name="l00083"></a><a class="code" href="buddy_8h.html#a462995f5190216b7ba9802072b3c7b86">00083</a> <span class="preprocessor">#define BUDDY_MAX_STRING_LEN UPK_MAX_STRING_LEN</span>
-<a name="l00084"></a><a class="code" href="buddy_8h.html#a64b79a6c5e830efc3d0064b7d084988c">00084</a> <span class="preprocessor"></span><span class="preprocessor">#define BUDDY_MAX_PATH_LEN UPK_MAX_PATH_LEN</span>
-<a name="l00085"></a>00085 <span class="preprocessor"></span>
-<a name="l00086"></a>00086 <span class="keyword">extern</span> <a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a>       <a class="code" href="buddy_8c.html#a3e9321d881ca257289c65b5022b693c8">buddy_uuid</a>;
-<a name="l00087"></a>00087 <span class="keyword">extern</span> <span class="keywordtype">char</span>            *<a class="code" href="buddy_8c.html#a46bdaaaea058028488e4a2fa4abcf80b">buddy_service_name</a>;
-<a name="l00088"></a>00088 <span class="keyword">extern</span> <span class="keywordtype">char</span>             <a class="code" href="buddy_8c.html#a9715b970fd956abacde0cff8a337e0c4">buddy_root_path</a>[<a class="code" href="buddy_8h.html#a64b79a6c5e830efc3d0064b7d084988c">BUDDY_MAX_PATH_LEN</a>];
-<a name="l00089"></a>00089 <span class="keyword">extern</span> int32_t          <a class="code" href="buddy_8h.html#ae58239b03e562b412748d74dece0fcc8">verbosity</a>;
-<a name="l00090"></a>00090 <span class="keyword">extern</span> uid_t            <a class="code" href="buddy_8c.html#a2ef8d11cc4ac2862fbe8ce2112e2e4fb">buddy_setuid</a>;
-<a name="l00091"></a>00091 <span class="keyword">extern</span> gid_t            <a class="code" href="buddy_8c.html#a94f0c0963c51ae59585d090bd146267c">buddy_setgid</a>;
-<a name="l00092"></a>00092 <span class="keyword">extern</span> <span class="keywordtype">size_t</span>           <a class="code" href="buddy_8c.html#aaf0b4e8526897974d594cc330ece0b5c">ringbuffer_size</a>;
-<a name="l00093"></a>00093 <span class="keyword">extern</span> <span class="keywordtype">long</span>             <a class="code" href="buddy_8c.html#a5d96c4625ef6fb62b61353fd2766b0d9">reconnect_retries</a>;
-<a name="l00094"></a>00094 <span class="keyword">extern</span> <span class="keywordtype">char</span>           **<a class="code" href="buddy_8c.html#adcfeefdfcc71ba2dc2cddac18f4dcb4d">proc_envp</a>;
-<a name="l00095"></a>00095 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="buddy_8c.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init</a>(<a class="code" href="group__upk__errors.html#ga87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> logger);
-<a name="l00096"></a>00096 <span class="keyword">extern</span> int32_t          <a class="code" href="buddy_8c.html#ae6ccfa70197441b53a9e94023ee4671c">buddy_event_loop</a>(<span class="keywordtype">void</span>);
-<a name="l00097"></a>00097 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="buddy_8c.html#ae71e6bfc3369a9182bd124873f3c4c54">buddy_cleanup</a>(<span class="keywordtype">void</span>);
-<a name="l00098"></a>00098 
-<a name="l00099"></a>00099 
-<a name="l00100"></a>00100 <span class="comment">/* FIXME: this needs to be specified via ./configure (at _least_ prefix aware) */</span>
-<a name="l00101"></a><a class="code" href="buddy_8h.html#adf9d49ebd81d139698cb46d0c68bbaa7">00101</a> <span class="preprocessor">#define DEFAULT_BUDDY_ROOT &quot;/var/run/upkeeper/buddy&quot;</span>
-<a name="l00102"></a>00102 <span class="preprocessor"></span>
-<a name="l00103"></a>00103 <span class="preprocessor">#endif</span>
+<a name="l00076"></a><a class="code" href="buddy_8h.html#a462995f5190216b7ba9802072b3c7b86">00076</a> <span class="preprocessor">#define BUDDY_MAX_STRING_LEN UPK_MAX_STRING_LEN</span>
+<a name="l00077"></a><a class="code" href="buddy_8h.html#a64b79a6c5e830efc3d0064b7d084988c">00077</a> <span class="preprocessor"></span><span class="preprocessor">#define BUDDY_MAX_PATH_LEN UPK_MAX_PATH_LEN</span>
+<a name="l00078"></a>00078 <span class="preprocessor"></span>
+<a name="l00079"></a>00079 <span class="comment">/* buddy.c */</span>
+<a name="l00080"></a>00080 <span class="keyword">extern</span> <a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a>       <a class="code" href="buddy_8c.html#a3e9321d881ca257289c65b5022b693c8">buddy_uuid</a>;
+<a name="l00081"></a>00081 <span class="keyword">extern</span> <span class="keywordtype">char</span>            *<a class="code" href="buddy_8c.html#a46bdaaaea058028488e4a2fa4abcf80b">buddy_service_name</a>;
+<a name="l00082"></a>00082 <span class="keyword">extern</span> <span class="keywordtype">char</span>             <a class="code" href="buddy_8c.html#a9715b970fd956abacde0cff8a337e0c4">buddy_root_path</a>[8192];
+<a name="l00083"></a>00083 <span class="keyword">extern</span> <a class="code" href="controller_2tp_8c.html#a1844226d778badcda0a21b28310830ea">uid_t</a>            <a class="code" href="buddy_8c.html#a2ef8d11cc4ac2862fbe8ce2112e2e4fb">buddy_setuid</a>;
+<a name="l00084"></a>00084 <span class="keyword">extern</span> <a class="code" href="controller_2tp_8c.html#a9520fe38856d436aa8c5850ff21839ec">gid_t</a>            <a class="code" href="buddy_8c.html#a94f0c0963c51ae59585d090bd146267c">buddy_setgid</a>;
+<a name="l00085"></a>00085 <span class="keyword">extern</span> <span class="keywordtype">size_t</span>           <a class="code" href="buddy_8c.html#aaf0b4e8526897974d594cc330ece0b5c">ringbuffer_size</a>;
+<a name="l00086"></a>00086 <span class="keyword">extern</span> <span class="keywordtype">char</span>           **<a class="code" href="buddy_8c.html#adcfeefdfcc71ba2dc2cddac18f4dcb4d">proc_envp</a>;
+<a name="l00087"></a>00087 <span class="keyword">extern</span> <span class="keywordtype">long</span>             <a class="code" href="buddy_8c.html#a5d96c4625ef6fb62b61353fd2766b0d9">reconnect_retries</a>;
+<a name="l00088"></a>00088 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="buddy_8c.html#ac77b45e275dcc4a554fd495516deaa04">randomize_ratelimit</a>;
+<a name="l00089"></a>00089 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="buddy_8c.html#ab0872a08f4362ca27dba55fcef64c24f">initialize_supplemental_groups</a>;
+<a name="l00090"></a>00090 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="buddy_8c.html#a535a3bdf28e5f018da53680703092e1b">clear_supplemental_groups</a>;
+<a name="l00091"></a>00091 <span class="keyword">extern</span> <a class="code" href="controller_2tp_8c.html#a435d1572bf3f880d55459d9805097f62">uint32_t</a>         <a class="code" href="buddy_8c.html#ae27137b4c4b5c8be0a91356bfab19ee1">user_ratelimit</a>;
+<a name="l00092"></a>00092 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="buddy_8c.html#a8243634d0b4e7fe2b2ece3c97bbbd060">buddy_init</a>(<a class="code" href="controller_2tp_8c.html#a87fb65c6a60c48ba64273c389d1fba1f">diag_output_callback_t</a> logger);
+<a name="l00093"></a>00093 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="buddy_8c.html#ab7a98a53dac20e00f111f46389698b1d">commit_buddycide</a>(int32_t signum);
+<a name="l00094"></a>00094 <span class="keyword">extern</span> int32_t          <a class="code" href="buddy_8c.html#ae6ccfa70197441b53a9e94023ee4671c">buddy_event_loop</a>(<span class="keywordtype">void</span>);
+<a name="l00095"></a>00095 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="buddy_8c.html#ae71e6bfc3369a9182bd124873f3c4c54">buddy_cleanup</a>(<span class="keywordtype">void</span>);
+<a name="l00096"></a>00096 
+<a name="l00097"></a>00097 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

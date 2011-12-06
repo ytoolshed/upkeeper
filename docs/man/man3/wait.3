@@ -1,0 +1,98 @@
+.TH "wait" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+wait \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBint\fP \fBw_status\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_termsig\fP:7"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_coredump\fP:1"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_retcode\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP:16"
+.br
+.ti -1c
+.RI "} \fB__wait_terminated\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_stopval\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_stopsig\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP:16"
+.br
+.ti -1c
+.RI "} \fB__wait_stopped\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_termsig\fP:7"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_coredump\fP:1"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_retcode\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP: 16"
+.br
+.ti -1c
+.RI "} \fB__wait_terminated\fP"
+.br
+.ti -1c
+.RI "struct {"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_stopval\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP \fB__w_stopsig\fP:8"
+.br
+.ti -1c
+.RI "   unsigned \fBint\fP: 16"
+.br
+.ti -1c
+.RI "} \fB__wait_stopped\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "unsigned \fBint\fP \fBwait::__w_coredump\fP"
+.SS "unsigned \fBint\fP \fBwait::__w_retcode\fP"
+.SS "unsigned \fBint\fP \fBwait::__w_stopsig\fP"
+.SS "unsigned \fBint\fP \fBwait::__w_stopval\fP"
+.SS "unsigned \fBint\fP \fBwait::__w_termsig\fP"
+.SS "struct { ... }   \fBwait::__wait_stopped\fP"
+.SS "struct { ... }   \fBwait::__wait_stopped\fP"
+.SS "struct { ... }   \fBwait::__wait_terminated\fP"
+.SS "struct { ... }   \fBwait::__wait_terminated\fP"
+.SS "unsigned \fBwait::int\fP"
+.SS "\fBint\fP \fBwait::w_status\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

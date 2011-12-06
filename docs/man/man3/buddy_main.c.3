@@ -1,4 +1,4 @@
-.TH "controller/buddy_main.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "controller/buddy_main.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -52,7 +52,23 @@ References buddy_cleanup(), buddy_diag_handler(), buddy_event_loop(), buddy_init
 Referenced by opt_parse().
 .SS "static int opt_parse (intargc, char **argv, char **envp)\fC [static]\fP"
 .PP
-References BUDDY_MAX_STRING_LEN, buddy_root_path, buddy_service_name, buddy_setgid, buddy_setuid, buddy_usage(), buddy_uuid, is_valid_upk_uuid_string(), numeric_string(), reconnect_retries, ringbuffer_size, strnlen(), upk_diag_verbosity, and upk_string_to_uuid().
+< ringbuffer size
+.PP
+< ringbuffer size
+.PP
+< initialize supplemental groups
+.PP
+< initialize supplemental groups
+.PP
+< initialize supplemental groups
+.PP
+< clear supplemental groups
+.PP
+< clear supplemental groups
+.PP
+< clear supplemental groups 
+.PP
+References BUDDY_MAX_STRING_LEN, buddy_root_path, buddy_service_name, buddy_setgid, buddy_setuid, buddy_usage(), buddy_uuid, calloc(), clear_supplemental_groups, initialize_supplemental_groups, is_valid_upk_uuid_string(), numeric_string(), reconnect_retries, ringbuffer_size, strnlen(), upk_diag_verbosity, and upk_string_to_uuid().
 .PP
 Referenced by main().
 .SH "Author"

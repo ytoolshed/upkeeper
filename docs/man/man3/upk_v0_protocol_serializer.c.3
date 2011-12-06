@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_v0_protocol_serializer.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_v0_protocol_serializer.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -45,20 +45,20 @@ libupkeeper/upkeeper/upk_v0_protocol_serializer.c \-
 .RI "typedef void *(* \fBdeserialize_payload_t\fP )(\fBupk_pkt_buf_t\fP *)"
 .br
 .ti -1c
-.RI "typedef \fBupk_pkt_buf_t\fP *(* \fBserialize_payload_t\fP )(void *, size_t)"
+.RI "typedef \fBupk_pkt_buf_t\fP *(* \fBserialize_payload_t\fP )(void *, \fBsize_t\fP)"
 .br
 .in -1c
 .SS "Functions"
 
 .in +1c
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_req_payload\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_req_payload\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_repl_payload\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_repl_payload\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_pub_payload\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserialize_pub_payload\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
 .RI "static void * \fBdeserialize_req_payload\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
@@ -127,61 +127,61 @@ libupkeeper/upkeeper/upk_v0_protocol_serializer.c \-
 .RI "static void * \fBdeserial_pub_cancel\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_seq_start\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_seq_start\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_seq_end\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_seq_end\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_action\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_action\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_signal\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_signal\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_list\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_list\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_status\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_status\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_subscribe\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_subscribe\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_unsub\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_unsub\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_disconnect\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_req_disconnect\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_seq_start\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_seq_start\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_seq_end\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_seq_end\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_result\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_result\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_listing\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_listing\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_svcinfo_data\fP (\fBv0_svcinfo_t\fP *data, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_svcinfo_data\fP (\fBv0_svcinfo_t\fP *data, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_svcinfo\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_svcinfo\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_ack\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_ack\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_err\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_repl_err\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_pub_pub\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_pub_pub\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static \fBupk_pkt_buf_t\fP * \fBserial_pub_cancel\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "static \fBupk_pkt_buf_t\fP * \fBserial_pub_cancel\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
 .RI "void * \fBv0_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fP pkttype)"
@@ -242,7 +242,7 @@ libupkeeper/upkeeper/upk_v0_protocol_serializer.c \-
 .SH "Typedef Documentation"
 .PP 
 .SS "typedef void*(* \fBdeserialize_payload_t\fP)(\fBupk_pkt_buf_t\fP *)"
-.SS "typedef \fBupk_pkt_buf_t\fP*(* \fBserialize_payload_t\fP)(void *, size_t)"
+.SS "typedef \fBupk_pkt_buf_t\fP*(* \fBserialize_payload_t\fP)(void *, \fBsize_t\fP)"
 .SH "Function Documentation"
 .PP 
 .SS "static void * deserial_pub_cancel (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
@@ -271,7 +271,7 @@ References UPK_DATA, UPK_FETCH_BOOL, and UPK_INIT_DESERIALIZE_MSG.
 References UPK_DATA, UPK_FETCH_ENUM, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
 .SS "static void * deserial_repl_svcinfo (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
 .PP
-References deserial_svcinfo_data(), UPK_DATA, UPK_FETCH_DATA_TO_BUF, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
+References deserial_svcinfo_data(), free(), UPK_DATA, UPK_FETCH_DATA_TO_BUF, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
 .SS "static void * deserial_req_action (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
 .PP
 References UPK_DATA, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
@@ -301,84 +301,84 @@ References UPK_DATA, UPK_FETCH_BOOL, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK
 References UPK_DATA, UPK_FETCH_BOOL, UPK_FETCH_STRING, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE_MSG.
 .SS "static \fBv0_svcinfo_t\fP * deserial_svcinfo_data (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [inline, static]\fP"
 .PP
-References proc_pid, UPK_DATA, UPK_FETCH_ARRAY, UPK_FETCH_ENUM, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE.
+References calloc(), proc_pid, UPK_DATA, UPK_FETCH_ARRAY, UPK_FETCH_ENUM, UPK_FETCH_UINT32, and UPK_INIT_DESERIALIZE.
 .PP
 Referenced by deserial_repl_svcinfo().
 .SS "static void * deserialize_pub_payload (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
 .PP
-References deserial_pub_dispatch, UPK_BUF, and UPK_PUB_ORIGIN.
+References deserial_pub_dispatch, ntohl(), UPK_BUF, and UPK_PUB_ORIGIN.
 .SS "static void * deserialize_repl_payload (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
 .PP
-References deserial_repl_dispatch, UPK_BUF, and UPK_REPL_ORIGIN.
+References deserial_repl_dispatch, ntohl(), UPK_BUF, and UPK_REPL_ORIGIN.
 .SS "static void * deserialize_req_payload (\fBupk_pkt_buf_t\fP *UPK_BUF)\fC [static]\fP"
 .PP
-References deserial_req_dispatch, UPK_BUF, and UPK_REQ_ORIGIN.
-.SS "static \fBupk_pkt_buf_t\fP * serial_pub_cancel (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+References deserial_req_dispatch, ntohl(), UPK_BUF, and UPK_REQ_ORIGIN.
+.SS "static \fBupk_pkt_buf_t\fP * serial_pub_cancel (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, and UPK_INIT_SERIALIZE_MSG.
-.SS "static \fBupk_pkt_buf_t\fP * serial_pub_pub (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_pub_pub (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, and UPK_INIT_SERIALIZE_MSG.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_ack (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_ack (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, and UPK_INIT_SERIALIZE_MSG.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_err (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_err (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_ENUM, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_listing (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_listing (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_result (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_result (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_BOOL, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_seq_end (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_seq_end (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, and UPK_PUT_BOOL.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_seq_start (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_seq_start (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_ENUM, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_repl_svcinfo (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_repl_svcinfo (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
-References serial_svcinfo_data(), UPK_BUF, UPK_DATA, UPK_INIT_SERIALIZE_MSG, UPK_PUT_DATA_FROM_BUF, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_action (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+References free(), serial_svcinfo_data(), UPK_BUF, UPK_DATA, UPK_INIT_SERIALIZE_MSG, UPK_PUT_DATA_FROM_BUF, UPK_PUT_STRING, and UPK_PUT_UINT32.
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_action (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_disconnect (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_disconnect (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, and UPK_INIT_SERIALIZE_MSG.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_list (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_list (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, and UPK_INIT_SERIALIZE_MSG.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_seq_end (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_seq_end (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, and UPK_PUT_BOOL.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_seq_start (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_seq_start (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_ENUM, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_signal (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_signal (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_BOOL, UPK_PUT_ENUM, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_status (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_status (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_subscribe (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_subscribe (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_BOOL, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_req_unsub (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_req_unsub (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References UPK_BUF, UPK_INIT_SERIALIZE_MSG, UPK_PUT_BOOL, UPK_PUT_STRING, and UPK_PUT_UINT32.
-.SS "static \fBupk_pkt_buf_t\fP * serial_svcinfo_data (\fBv0_svcinfo_t\fP *data, size_tUPK_DATA_LEN)\fC [inline, static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serial_svcinfo_data (\fBv0_svcinfo_t\fP *data, \fBsize_t\fPUPK_DATA_LEN)\fC [inline, static]\fP"
 .PP
 References proc_pid, UPK_BUF, UPK_DATA, UPK_INIT_SERIALIZE_BUF, UPK_PUT_ARRAY, UPK_PUT_ENUM, and UPK_PUT_UINT32.
 .PP
 Referenced by serial_repl_svcinfo().
-.SS "static \fBupk_pkt_buf_t\fP * serialize_pub_payload (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serialize_pub_payload (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References upk_generic_msg_t::msgtype, serial_pub_dispatch, UPK_DATA_LEN, UPK_DATA_PTR, and UPK_PUB_ORIGIN.
-.SS "static \fBupk_pkt_buf_t\fP * serialize_repl_payload (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serialize_repl_payload (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References upk_generic_msg_t::msgtype, serial_repl_dispatch, UPK_DATA_LEN, UPK_DATA_PTR, and UPK_REPL_ORIGIN.
-.SS "static \fBupk_pkt_buf_t\fP * serialize_req_payload (void *UPK_DATA_PTR, size_tUPK_DATA_LEN)\fC [static]\fP"
+.SS "static \fBupk_pkt_buf_t\fP * serialize_req_payload (void *UPK_DATA_PTR, \fBsize_t\fPUPK_DATA_LEN)\fC [static]\fP"
 .PP
 References upk_generic_msg_t::msgtype, serial_req_dispatch, UPK_DATA_LEN, UPK_DATA_PTR, and UPK_REQ_ORIGIN.
 .SS "void* v0_deserialize_payload (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fPpkttype)"

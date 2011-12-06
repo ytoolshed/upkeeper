@@ -22,6 +22,10 @@ void {\bf upk\_\-clnet\_\-req\_\-disconnect} ({\bf upk\_\-conn\_\-handle\_\-meta
 void {\bf upk\_\-clnet\_\-ctrl\_\-disconnect} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl)
 \item 
 bool {\bf upk\_\-clnet\_\-req\_\-action} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl, char $\ast$svc\_\-id, char $\ast$action)
+\item 
+bool {\bf upk\_\-clnet\_\-req\_\-signal} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl, char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool should\_\-signal\_\-sid, bool should\_\-signal\_\-pgrp)
+\item 
+{\bf upk\_\-svcinfo\_\-t} $\ast$ {\bf upk\_\-clnet\_\-req\_\-status} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ctrl, char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
 \end{DoxyCompactItemize}
 
 
@@ -33,9 +37,9 @@ bool {\bf upk\_\-clnet\_\-req\_\-action} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-
 \item[{void}]{}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_adc9b54f471b3390b4740f62e85a9a324}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
-
-References \_\-upk\_\-controller\_\-config::controller\_\-socket, upk\_\-clnet\_\-req\_\-preamble(), upk\_\-conn\_\-handle\_\-meta\_\-t, upk\_\-domain\_\-socket\_\-connect(), upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-conn\_\-handle\_\-init(), upk\_\-runtime\_\-configuration, and UPKLIST\_\-HEAD.
+References \_\-upk\_\-controller\_\-config::controller\_\-socket, upk\_\-clnet\_\-req\_\-preamble(), upk\_\-domain\_\-socket\_\-connect(), upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-conn\_\-handles\_\-init(), upk\_\-runtime\_\-configuration, and UPKLIST\_\-HEAD.
 
 
 
@@ -48,15 +52,14 @@ Here is the call graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_adc9b54f471b3390b4740f62e85a9a324_cgraph}
+\includegraphics[width=342pt]{upk__client__net_8c_adc9b54f471b3390b4740f62e85a9a324_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -72,7 +75,7 @@ Here is the caller graph for this function:
 \item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_a8d7e372cd6428f266cfb371189a291c9}
-
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
 References upk\_\-clnet\_\-req\_\-disconnect(), and UPKLIST\_\-FREE.
 
@@ -82,19 +85,19 @@ Referenced by main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_a8d7e372cd6428f266cfb371189a291c9_cgraph}
+\includegraphics[width=340pt]{upk__client__net_8c_a8d7e372cd6428f266cfb371189a291c9_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -112,9 +115,9 @@ Here is the caller graph for this function:
 \item[{char $\ast$}]{action}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_a096afa26e30a200e490ebae8a7a1e405}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
-
-References \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-error, \_\-upk\_\-payload\_\-types::repl\_\-result, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-action(), upk\_\-diag\_\-verbosity, upk\_\-error, upk\_\-notice, upk\_\-pkt\_\-free(), UPK\_\-REPL\_\-ERROR, UPK\_\-REPL\_\-RESULT, and upk\_\-warn.
+References upk\_\-repl\_\-error\_\-t::errlevel, free(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, upk\_\-repl\_\-error\_\-t::msg, upk\_\-repl\_\-result\_\-t::msg, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-error, \_\-upk\_\-payload\_\-types::repl\_\-result, upk\_\-repl\_\-result\_\-t::successful, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-action(), upk\_\-diag\_\-verbosity, upk\_\-error, upk\_\-notice, upk\_\-pkt\_\-free(), UPK\_\-REPL\_\-ERROR, UPK\_\-REPL\_\-RESULT, and upk\_\-warn.
 
 
 
@@ -122,19 +125,19 @@ Referenced by main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_a096afa26e30a200e490ebae8a7a1e405_cgraph}
+\includegraphics[width=312pt]{upk__client__net_8c_a096afa26e30a200e490ebae8a7a1e405_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:
-\nopagebreak
+Here is the caller graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -150,9 +153,9 @@ Here is the caller graph for this function:
 \item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_af573b85764e9dc557daed0b1b2ee0bf6}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
-
-References \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-disconnect(), upk\_\-debug1, upk\_\-disconnect\_\-handle(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-pkt\_\-free(), UPK\_\-REQ\_\-DISCONNECT, and UPKLIST\_\-HEAD.
+References free(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-disconnect(), upk\_\-debug1, upk\_\-disconnect\_\-handle(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-pkt\_\-free(), UPK\_\-REQ\_\-DISCONNECT, and UPKLIST\_\-HEAD.
 
 
 
@@ -160,11 +163,12 @@ Referenced by upk\_\-clnet\_\-ctrl\_\-disconnect().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_af573b85764e9dc557daed0b1b2ee0bf6_cgraph}
+\includegraphics[width=360pt]{upk__client__net_8c_af573b85764e9dc557daed0b1b2ee0bf6_cgraph}
 \end{center}
 \end{figure}
 
@@ -176,7 +180,7 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_af573b85764e9dc557daed0b1b2ee0bf6_icgraph}
+\includegraphics[width=340pt]{upk__client__net_8c_af573b85764e9dc557daed0b1b2ee0bf6_icgraph}
 \end{center}
 \end{figure}
 
@@ -188,9 +192,9 @@ Here is the caller graph for this function:
 \item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_a3c8470569c64aa14552d455bdadc9ae5}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
-
-References \_\-upk\_\-payload::type, upk\_\-clientid(), upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-preamble(), upk\_\-fatal, upk\_\-notice, upk\_\-pkt\_\-free(), and UPK\_\-REPL\_\-PREAMBLE.
+References upk\_\-repl\_\-preamble\_\-t::best\_\-version, free(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, \_\-upk\_\-conn\_\-handle::last\_\-pkt\_\-data, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-preamble, \_\-upk\_\-payload::type, upk\_\-clientid(), upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-preamble(), upk\_\-fatal, upk\_\-notice, upk\_\-pkt\_\-free(), UPK\_\-REPL\_\-PREAMBLE, and \_\-upk\_\-conn\_\-handle::version\_\-id.
 
 
 
@@ -203,7 +207,7 @@ Here is the call graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_a3c8470569c64aa14552d455bdadc9ae5_cgraph}
+\includegraphics[width=330pt]{upk__client__net_8c_a3c8470569c64aa14552d455bdadc9ae5_cgraph}
 \end{center}
 \end{figure}
 
@@ -215,7 +219,59 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=394pt]{upk__client__net_8c_a3c8470569c64aa14552d455bdadc9ae5_icgraph}
+\includegraphics[width=320pt]{upk__client__net_8c_a3c8470569c64aa14552d455bdadc9ae5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.c@{upk\_\-client\_\-net.c}!upk\_\-clnet\_\-req\_\-signal@{upk\_\-clnet\_\-req\_\-signal}}
+\index{upk\_\-clnet\_\-req\_\-signal@{upk\_\-clnet\_\-req\_\-signal}!upk_client_net.c@{upk\_\-client\_\-net.c}}
+\subsubsection[{upk\_\-clnet\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}bool upk\_\-clnet\_\-req\_\-signal (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-signal\_\-t}}]{signal, }
+\item[{bool}]{should\_\-signal\_\-sid, }
+\item[{bool}]{should\_\-signal\_\-pgrp}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8c_a0e1c05ab07e8db991b82f91e30bf2925}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References upk\_\-repl\_\-error\_\-t::errlevel, free(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, upk\_\-repl\_\-error\_\-t::msg, upk\_\-repl\_\-result\_\-t::msg, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-error, \_\-upk\_\-payload\_\-types::repl\_\-result, upk\_\-repl\_\-result\_\-t::successful, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-signal(), upk\_\-diag\_\-verbosity, upk\_\-error, upk\_\-notice, upk\_\-pkt\_\-free(), UPK\_\-REPL\_\-ERROR, UPK\_\-REPL\_\-RESULT, and upk\_\-warn.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{upk__client__net_8c_a0e1c05ab07e8db991b82f91e30bf2925_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-client\_\-net.c@{upk\_\-client\_\-net.c}!upk\_\-clnet\_\-req\_\-status@{upk\_\-clnet\_\-req\_\-status}}
+\index{upk\_\-clnet\_\-req\_\-status@{upk\_\-clnet\_\-req\_\-status}!upk_client_net.c@{upk\_\-client\_\-net.c}}
+\subsubsection[{upk\_\-clnet\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcinfo\_\-t}$\ast$ upk\_\-clnet\_\-req\_\-status (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{ctrl, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf uint32\_\-t}}]{restart\_\-window\_\-seconds}
+\end{DoxyParamCaption}
+)}\label{upk__client__net_8c_a222200fea80f3367f682ac816f8cd62b}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References calloc(), upk\_\-repl\_\-error\_\-t::errlevel, free(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, upk\_\-repl\_\-error\_\-t::msg, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-error, \_\-upk\_\-payload\_\-types::repl\_\-svcinfo, upk\_\-repl\_\-svcinfo\_\-t::svcinfo, \_\-upk\_\-payload::type, upk\_\-clnet\_\-serial\_\-request(), upk\_\-create\_\-req\_\-status(), upk\_\-diag\_\-verbosity, upk\_\-error, upk\_\-pkt\_\-free(), UPK\_\-REPL\_\-ERROR, UPK\_\-REPL\_\-SVCINFO, and upk\_\-warn.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=314pt]{upk__client__net_8c_a222200fea80f3367f682ac816f8cd62b_cgraph}
 \end{center}
 \end{figure}
 
@@ -228,21 +284,22 @@ Here is the caller graph for this function:
 \item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
 \end{DoxyParamCaption}
 )}\label{upk__client__net_8c_a49ae58fb782583a8f9543aab27cc2fd8}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
 
-
-References upk\_\-net\_\-block\_\-until\_\-msg(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-queue\_\-packet(), and UPKLIST\_\-HEAD.
-
-
-
-Referenced by upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-disconnect(), and upk\_\-clnet\_\-req\_\-preamble().
+References calloc(), upk\_\-conn\_\-handle\_\-meta\_\-p::head, \_\-upk\_\-conn\_\-handle::last\_\-pkt\_\-data, upk\_\-net\_\-block\_\-until\_\-msg(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), upk\_\-queue\_\-packet(), and UPKLIST\_\-HEAD.
 
 
 
-Here is the call graph for this function:\nopagebreak
+Referenced by upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-disconnect(), upk\_\-clnet\_\-req\_\-preamble(), upk\_\-clnet\_\-req\_\-signal(), and upk\_\-clnet\_\-req\_\-status().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_a49ae58fb782583a8f9543aab27cc2fd8_cgraph}
+\includegraphics[width=354pt]{upk__client__net_8c_a49ae58fb782583a8f9543aab27cc2fd8_cgraph}
 \end{center}
 \end{figure}
 
@@ -254,7 +311,7 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__client__net_8c_a49ae58fb782583a8f9543aab27cc2fd8_icgraph}
+\includegraphics[width=334pt]{upk__client__net_8c_a49ae58fb782583a8f9543aab27cc2fd8_icgraph}
 \end{center}
 \end{figure}
 

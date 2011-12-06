@@ -119,15 +119,15 @@ struct {\bf \_\-upk\_\-payload}
 \item 
 \#define {\bf UPK\_\-FETCH\_\-UINT32\_\-T}(TYPE, MEMB)
 \item 
-\#define {\bf UPK\_\-FETCH\_\-UINT32}(MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T(uint32\_\-t, MEMB)
+\#define {\bf UPK\_\-FETCH\_\-UINT32}(MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T({\bf uint32\_\-t}, MEMB)
 \item 
 \#define {\bf UPK\_\-FETCH\_\-UINT16\_\-T}(TYPE, MEMB)
 \item 
-\#define {\bf UPK\_\-FETCH\_\-UINT16}(MEMB)~UPK\_\-FETCH\_\-UINT16\_\-T(uint16\_\-t, MEMB)
+\#define {\bf UPK\_\-FETCH\_\-UINT16}(MEMB)~UPK\_\-FETCH\_\-UINT16\_\-T({\bf uint16\_\-t}, MEMB)
 \item 
 \#define {\bf UPK\_\-FETCH\_\-UINT8\_\-T}(TYPE, MEMB)
 \item 
-\#define {\bf UPK\_\-FETCH\_\-UINT8}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T(uint8\_\-t, MEMB)
+\#define {\bf UPK\_\-FETCH\_\-UINT8}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T({\bf uint8\_\-t}, MEMB)
 \item 
 \#define {\bf UPK\_\-FETCH\_\-BOOL}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T(bool, MEMB)
 \item 
@@ -197,7 +197,18 @@ typedef {\bf upk\_\-conn\_\-handle\_\-t} {\bf upk\_\-protocol\_\-handle\_\-t}
 \subsection*{Enumerations}
 \begin{DoxyCompactItemize}
 \item 
-enum {\bf upk\_\-pkttype\_\-t} \{ {\bf PKT\_\-REQUEST} =  1, 
+enum {\bf upk\_\-pkttype\_\-t} \{ \par
+{\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf PKT\_\-REQUEST} =  1, 
 {\bf PKT\_\-REPLY}, 
 {\bf PKT\_\-PUBMSG}, 
 {\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}
@@ -239,6 +250,78 @@ enum {\bf \_\-upk\_\-msgtype} \{ \par
 {\bf UPK\_\-PUB\_\-CANCELATION}, 
 {\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
 \par
+{\bf UPK\_\-PUB\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+\par
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+{\bf UPK\_\-REQ\_\-LIST}, 
+\par
+{\bf UPK\_\-REQ\_\-STATUS}, 
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+\par
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+\par
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+{\bf UPK\_\-REPL\_\-LISTING}, 
+\par
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+\par
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+\par
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+\par
+{\bf UPK\_\-REQ\_\-LIST}, 
+{\bf UPK\_\-REQ\_\-STATUS}, 
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+\par
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+\par
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+\par
+{\bf UPK\_\-REPL\_\-LISTING}, 
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+\par
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+\par
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
 {\bf UPK\_\-PUB\_\-LIMIT}
  \}
 \begin{DoxyCompactList}\small\item\em message type. \end{DoxyCompactList}\end{DoxyCompactItemize}
@@ -251,17 +334,17 @@ enum {\bf \_\-upk\_\-msgtype} \{ \par
 \item 
 void $\ast$ {\bf upk\_\-deserialize\_\-req\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
 \item 
-{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-req\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-req\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
 void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
 \item 
-{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-repl\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-repl\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, uint32\_\-t payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, uint32\_\-t proto\_\-ver)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, {\bf uint32\_\-t} payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, {\bf uint32\_\-t} proto\_\-ver)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$client\_\-name)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
 \item 
@@ -271,7 +354,7 @@ void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-list} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-subscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
 \item 
@@ -279,9 +362,9 @@ void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-disconnect} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, uint32\_\-t best\_\-version)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf uint32\_\-t} best\_\-version)
 \item 
-{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, uint32\_\-t count)
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
 \item 
 {\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
 \item 
@@ -303,7 +386,7 @@ void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
 {\bf upk\_\-msgtype\_\-t} {\bf upk\_\-get\_\-msgtype} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
 \item 
-size\_\-t {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
+{\bf size\_\-t} {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
 \end{DoxyCompactItemize}
 
 

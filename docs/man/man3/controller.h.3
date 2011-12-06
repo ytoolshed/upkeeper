@@ -1,4 +1,4 @@
-.TH "controller/controller.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "controller/controller.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,16 @@ controller/controller.h \-
 .br
 \fC#include <ctrl_protocol.h>\fP
 .br
+\fC#include <sqlite3.h>\fP
+.br
 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_ctrl_sigqueue\fP"
+.br
+.in -1c
 .SS "Defines"
 
 .in +1c
@@ -20,24 +29,37 @@ controller/controller.h \-
 .RI "#define \fBUPK_CTRL_MAX_CLIENTS\fP   FD_SETSIZE"
 .br
 .in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_ctrl_sigqueue\fP \fBctrl_sigqueue_t\fP"
+.br
+.in -1c
 .SS "Functions"
 
 .in +1c
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBctrl_sigqueue_t\fP, \fBctrl_sigqueue_meta_p\fP)"
+.br
 .ti -1c
 .RI "int \fBsocket_setup\fP (const char *sock_path)"
 .br
 .ti -1c
 .RI "void \fBhandle_signals\fP (void)"
 .br
+.RI "\fIdeal with signals pending action in signal_queue. \fP"
 .ti -1c
 .RI "void \fBhandle_buddies\fP (void)"
 .br
 .ti -1c
 .RI "int32_t \fBctrl_sock_setup\fP (void)"
 .br
+.RI "\fIsetup controller's socket \fP"
 .ti -1c
 .RI "void \fBevent_loop\fP (int32_t listen_sock)"
 .br
+.RI "\fIthe main event loop. \fP"
 .ti -1c
 .RI "int \fBupk_ctrl_init\fP (void)"
 .br
@@ -66,73 +88,73 @@ controller/controller.h \-
 .RI "bool \fBreload_buddy_svc\fP (\fBupk_svc_desc_t\fP *buddy)"
 .br
 .in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBctrl_sigqueue_meta_t\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBctrl_dbh\fP"
+.br
+.in -1c
 .SH "Define Documentation"
 .PP 
 .SS "#define UPK_CTRL_MAX_CLIENTS   FD_SETSIZE"
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_ctrl_sigqueue\fP \fBctrl_sigqueue_t\fP"
 .SH "Function Documentation"
 .PP 
 .SS "int buddy_connect (const char *sockpath)"
 .PP
-References upk_alert.
-.PP
 Referenced by handle_buddies(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), and stop_buddy_svc().
 .SS "\fBbuddy_info_t\fP* buddy_readstate (intfd)"
-.PP
-References _buddy_info::command, _buddy_info::desired_state, _buddy_info::remaining, _buddy_info::service_pid, _buddy_info::timestamp, UPK_CTRL_ACK, upk_debug0, upk_debug1, upk_uuid_to_string(), _buddy_info::uuid, _buddy_info::wait_pid, and _buddy_info::wait_status.
 .PP
 Referenced by send_buddy_cmd().
 .SS "void create_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_sock_path(), create_buddy_statedir(), spawn_buddy(), and UPK_MAX_PATH_LEN.
-.PP
 Referenced by main().
 .SS "int32_t ctrl_sock_setup (void)"
 .PP
-References _upk_controller_config::controller_socket, IF_UPK_ERROR, UPK_ERR_INIT, UPK_FUNC_ASSERT, UPK_FUNC_ASSERT_MSG, upk_runtime_configuration, and UPK_SOCKET_FAILURE.
+setup controller's socket ***************************************************************************************************************** 
 .PP
 Referenced by main().
 .SS "void event_loop (int32_tlisten_sock)"
 .PP
-References accept_conn(), _upk_controller_config::BuddyPollingInterval, handle_buddies(), handle_signals(), upk_conn_handle_meta_t, upk_debug1, upk_net_conn_handle_init(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), upk_runtime_configuration, and UPKLIST_FREE.
+the main event loop. ***************************************************************************************************************** This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
 .PP
 Referenced by main().
 .SS "void handle_buddies (void)"
 .PP
-References buddy_connect(), DEFAULT_BUDDY_ROOT, send_buddy_cmd(), UPK_CTRL_STATUS_REQ, and UPK_MAX_PATH_LEN.
-.PP
 Referenced by event_loop().
 .SS "void handle_signals (void)"
+.PP
+deal with signals pending action in signal_queue. ***************************************************************************************************************** Block all signals during copy to avoid annoying race conditions. 
 .PP
 Referenced by event_loop().
 .SS "bool kill_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_SHUTDOWN, and UPK_MAX_PATH_LEN.
-.PP
 Referenced by remove_buddy().
 .SS "bool reload_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_RELOAD, and UPK_MAX_PATH_LEN.
-.PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SS "void remove_buddy (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References kill_buddy(), and remove_buddy_statedir().
+Referenced by handle_buddies().
 .SS "int socket_setup (const char *sock_path)"
 .SS "bool start_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_START, and UPK_MAX_PATH_LEN.
-.PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SS "bool stop_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
 .PP
-References buddy_connect(), buddy_sock_path(), send_buddy_cmd(), UPK_CTRL_ACTION_STOP, and UPK_MAX_PATH_LEN.
-.PP
-Referenced by controller_packet_callback().
-.SS "int upk_ctrl_init (void)"
-.PP
-References upk_ctrl_init_db(), upk_ctrl_load_config(), upk_db_path(), upk_load_runtime_services(), and UPK_MAX_PATH_LEN.
-.PP
-Referenced by main().
+Referenced by ctrl_req_action_handler().
+.SS "int upk_ctrl_init (void)"****************************************************************************************************************** 
+.SS "typedef UPKLIST_METANODE (\fBctrl_sigqueue_t\fP, \fBctrl_sigqueue_meta_p\fP)"
+.SH "Variable Documentation"
+.PP 
+.SS "\fBsqlite3\fP* \fBctrl_dbh\fP"
+.SS "typedef \fBctrl_sigqueue_meta_t\fP"
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

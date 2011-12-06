@@ -1,4 +1,4 @@
-.TH "Uuid_functions" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "Uuid_functions" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -43,10 +43,6 @@ test if a given string is a valid uuid string. *********************************
 .RE
 .PP
 
-.PP
-References c_isxdigit.
-.PP
-Referenced by opt_parse(), START_TEST(), and upk_string_to_uuid().
 .SS "void upk_gen_uuid_bytes (\fBupk_uuid_t\fP *buf)"
 .PP
 collect and/or generate 16 bytes of random data. ****************************************************************************************************************** pack the structure you passed; also sets version correctly on structure to conform with spec
@@ -57,10 +53,6 @@ collect and/or generate 16 bytes of random data. *******************************
 .RE
 .PP
 
-.PP
-References _upk_uuid::clk_seq_high, _upk_uuid::time_high_and_version, UPK_UUID_LEN, and upk_uuid_open_random().
-.PP
-Referenced by START_TEST().
 .SS "void upk_string_to_uuid (\fBupk_uuid_t\fP *uuid, const char *string)"
 .PP
 convert uuid string into uuid structure. ****************************************************************************************************************** 
@@ -73,10 +65,6 @@ convert uuid string into uuid structure. ***************************************
 .RE
 .PP
 
-.PP
-References _upk_uuid::clk_seq_high, _upk_uuid::clk_seq_low, is_valid_upk_uuid_string(), _upk_uuid::node, _upk_uuid::time_high_and_version, _upk_uuid::time_low, and _upk_uuid::time_mid.
-.PP
-Referenced by main(), opt_parse(), START_TEST(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
 .SS "int upk_uuid_open_random (void)"
 .PP
 open random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable. ****************************************************************************************************************** 
@@ -89,8 +77,6 @@ fd of opened device
 .RE
 .PP
 
-.PP
-Referenced by upk_gen_uuid_bytes().
 .SS "void upk_uuid_seed_random (void)"
 .PP
 seed random number pool used by upk_gen_uuid_bytes. ***************************************************************************************************************** Only necessary if /dev/urandom and /dev/random are unavailable; for instance, check upk_uuid_open_random to see if you get a valid fd; if not, call this (unless you have already seeded random elsewhere, in whatever manner you prefer 
@@ -106,10 +92,6 @@ convert uuid to string and place in buf. ***************************************
 .RE
 .PP
 
-.PP
-References _upk_uuid::clk_seq_high, _upk_uuid::clk_seq_low, _upk_uuid::node, _upk_uuid::time_high_and_version, _upk_uuid::time_low, _upk_uuid::time_mid, and UPK_UUID_STRING_LEN.
-.PP
-Referenced by buddy_readstate(), and START_TEST().
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

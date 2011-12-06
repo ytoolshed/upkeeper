@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_error.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_error.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -21,10 +21,13 @@ handle errors and single-exit-point semantics.
 .RI "#define \fBUPK_ERR_INIT\fP"
 .br
 .ti -1c
-.RI "#define \fBUPK_FUNC_ASSERT\fP(A, B)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+.RI "#define \fBCLEAR_UPK_ERROR\fP   \fB__upk_errno_type\fP = 0"
 .br
 .ti -1c
-.RI "#define \fBUPK_FUNC_ASSERT_MSG\fP(A, B,...)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
+.RI "#define \fBUPK_FUNC_ASSERT\fP(A, B)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FUNC_ASSERT_MSG\fP(A, B,...)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
 .br
 .ti -1c
 .RI "#define \fBIF_UPK_ERROR\fP"
@@ -86,13 +89,13 @@ handle errors and single-exit-point semantics.
 
 .in +1c
 .ti -1c
-.RI "enum \fBupk_diaglvl_t\fP { \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP }"
+.RI "enum \fBupk_diaglvl_t\fP { \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP, \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP, \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP }"
 .br
 .ti -1c
-.RI "enum \fBupk_errlevel_t\fP { \fBUPK_ERRLVL_ERROR\fP }"
+.RI "enum \fBupk_errlevel_t\fP { \fBUPK_ERRLVL_ERROR\fP, \fBUPK_ERRLVL_ERROR\fP, \fBUPK_ERRLVL_ERROR\fP }"
 .br
 .ti -1c
-.RI "enum \fBupk_errno_t\fP { \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP }"
+.RI "enum \fBupk_errno_t\fP { \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP, \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP, \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP }"
 .br
 .in -1c
 .SS "Functions"
@@ -157,10 +160,10 @@ handle errors and single-exit-point semantics.
 .RI "static const char \fB__upk_errors\fP [][128]"
 .br
 .ti -1c
-.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
+.RI "char \fB__upk_err_buf\fP [4096]"
 .br
 .ti -1c
-.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
+.RI "\fBupk_errno_t\fP \fB__upk_errno_type\fP"
 .br
 .ti -1c
 .RI "int32_t \fBupk_diag_verbosity\fP"

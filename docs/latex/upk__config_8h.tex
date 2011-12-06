@@ -38,7 +38,7 @@ typedef struct {\bf \_\-upk\_\-controller\_\-config} {\bf upk\_\-controller\_\-c
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-svc\_\-desc\_\-t}, upk\_\-svc\_\-desc\_\-meta\_\-p)
+typedef {\bf UPKLIST\_\-METANODE} ({\bf upk\_\-svc\_\-desc\_\-t}, {\bf upk\_\-svc\_\-desc\_\-meta\_\-p})
 \item 
 void {\bf upk\_\-svc\_\-desc\_\-free} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
 \item 
@@ -81,9 +81,9 @@ void {\bf upk\_\-load\_\-runtime\_\-services} (void)
 \item 
 typedef {\bf upk\_\-svc\_\-desc\_\-meta\_\-t}
 \item 
-char {\bf upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf upk\_\-ctrl\_\-configuration\_\-file} [8192]
 \item 
-const char {\bf upk\_\-default\_\-configuration\_\-vec} [$\,$]
+const char {\bf upk\_\-default\_\-configuration\_\-str} [$\,$]
 \item 
 {\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}
 \item 

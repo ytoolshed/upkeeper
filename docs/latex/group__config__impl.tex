@@ -19,10 +19,6 @@ Collaboration diagram for Config\_\-impl:\nopagebreak
 \subsection*{Defines}
 \begin{DoxyCompactItemize}
 \item 
-\#define {\bf \_\-stringify}(A)~\#A
-\item 
-\#define {\bf stringify}(A)~\_\-stringify(A)
-\item 
 \#define {\bf \_\-joa}~json\_\-object\_\-object\_\-add
 \item 
 \#define {\bf jt\_\-string}~json\_\-type\_\-string
@@ -33,14 +29,41 @@ Collaboration diagram for Config\_\-impl:\nopagebreak
 \item 
 \#define {\bf jt\_\-array}~json\_\-type\_\-array
 \end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf appender\_\-type\_\-t} \{ {\bf SVCID\_\-APPENDER} =  0, 
+{\bf ACTION\_\-APPENDER}
+ \}
+\end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
+\item 
+static void {\bf upk\_\-svcconf\_\-svcid\_\-array\_\-appender} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-setup\_\-array\_\-handlers} ({\bf upk\_\-json\_\-handlers\_\-t} $\ast$handlers)
+\item 
+static void {\bf upk\_\-svcconf\_\-array\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-customaction\_\-array\_\-appender} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-setup\_\-object\_\-handlers} ({\bf upk\_\-json\_\-handlers\_\-t} $\ast$handlers)
+\item 
+static void {\bf upk\_\-svcconf\_\-nested\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-setup\_\-handlers} ({\bf upk\_\-json\_\-handlers\_\-t} $\ast$handlers)
+\item 
+static void {\bf upk\_\-ctrlconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
 \item 
 static void {\bf upk\_\-ctrlconf\_\-string\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
 \item 
 static void {\bf upk\_\-ctrlconf\_\-double\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
 \item 
-static void {\bf upk\_\-ctrlconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+static void {\bf upk\_\-ctrlconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-svcconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
 \item 
 static void {\bf upk\_\-ctrlconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
 \item 
@@ -62,13 +85,7 @@ void {\bf upk\_\-ctrlconf\_\-free} ({\bf upk\_\-controller\_\-config\_\-t} $\ast
 \item 
 void {\bf upk\_\-ctrl\_\-free\_\-config} (void)
 \item 
-static void {\bf upk\_\-svcconf\_\-setup\_\-handlers} ({\bf upk\_\-json\_\-handlers\_\-t} $\ast$handlers)
-\item 
-static void {\bf upk\_\-ctrlconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
-\item 
-static void {\bf upk\_\-svcconf\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
-\item 
-static void {\bf upk\_\-svcconf\_\-toplvl\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+static void {\bf upk\_\-ctrlconf\_\-int\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
 \item 
 void {\bf upk\_\-svcconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
 \item 
@@ -105,7 +122,7 @@ void {\bf upk\_\-load\_\-runtime\_\-services} (void)
 \item 
 char {\bf upk\_\-ctrl\_\-configuration\_\-file} [UPK\_\-MAX\_\-PATH\_\-LEN] = \char`\"{}/upkeeper.conf\char`\"{}
 \item 
-const char {\bf upk\_\-default\_\-configuration\_\-vec} [$\,$] = \char`\"{}\}$\backslash$n\char`\"{}
+const char {\bf upk\_\-default\_\-configuration\_\-str} [$\,$] = \char`\"{}\}$\backslash$n\char`\"{}
 \item 
 {\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}
 \item 
@@ -123,13 +140,6 @@ const char {\bf upk\_\-default\_\-configuration\_\-vec} [$\,$] = \char`\"{}\}$\b
 
 Referenced by upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svclist\_\-to\_\-json\_\-obj().
 
-\index{Config\_\-impl@{Config\_\-impl}!\_\-stringify@{\_\-stringify}}
-\index{\_\-stringify@{\_\-stringify}!Config_impl@{Config\_\-impl}}
-\subsubsection[{\_\-stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-stringify(
-\begin{DoxyParamCaption}
-\item[{}]{A}
-\end{DoxyParamCaption}
-)~\#A}\label{group__config__impl_gae4d04a6a08a5c5b96aca2e1fd83c4282}
 \index{Config\_\-impl@{Config\_\-impl}!jt\_\-array@{jt\_\-array}}
 \index{jt\_\-array@{jt\_\-array}!Config_impl@{Config\_\-impl}}
 \subsubsection[{jt\_\-array}]{\setlength{\rightskip}{0pt plus 5cm}\#define jt\_\-array~json\_\-type\_\-array}\label{group__config__impl_ga9180255338c47b6269f08158ba6574c2}
@@ -158,13 +168,22 @@ Referenced by upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
 
 Referenced by upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
 
-\index{Config\_\-impl@{Config\_\-impl}!stringify@{stringify}}
-\index{stringify@{stringify}!Config_impl@{Config\_\-impl}}
-\subsubsection[{stringify}]{\setlength{\rightskip}{0pt plus 5cm}\#define stringify(
-\begin{DoxyParamCaption}
-\item[{}]{A}
-\end{DoxyParamCaption}
-)~\_\-stringify(A)}\label{group__config__impl_gae8d098a30085240ed6a6ca1d48218828}
+
+
+\subsection{Enumeration Type Documentation}
+\index{Config\_\-impl@{Config\_\-impl}!appender\_\-type\_\-t@{appender\_\-type\_\-t}}
+\index{appender\_\-type\_\-t@{appender\_\-type\_\-t}!Config_impl@{Config\_\-impl}}
+\subsubsection[{appender\_\-type\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf appender\_\-type\_\-t}}\label{group__config__impl_ga9f4a3300bb80a1678b3eef21eedf723a}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{SVCID\_\-APPENDER@{SVCID\_\-APPENDER}!Config\_\-impl@{Config\_\-impl}}\index{Config\_\-impl@{Config\_\-impl}!SVCID\_\-APPENDER@{SVCID\_\-APPENDER}}\item[{\em 
+SVCID\_\-APPENDER\label{group__config__impl_gga9f4a3300bb80a1678b3eef21eedf723aa0dc54f8f88a18fafe29c58ac49e6ca8b}
+}]\index{ACTION\_\-APPENDER@{ACTION\_\-APPENDER}!Config\_\-impl@{Config\_\-impl}}\index{Config\_\-impl@{Config\_\-impl}!ACTION\_\-APPENDER@{ACTION\_\-APPENDER}}\item[{\em 
+ACTION\_\-APPENDER\label{group__config__impl_gga9f4a3300bb80a1678b3eef21eedf723aab9100e38f00e9baba41192fc6725f47e}
+}]\end{description}
+\end{Desc}
+
 
 
 \subsection{Function Documentation}
@@ -183,11 +202,12 @@ References UPK\_\-MAX\_\-STRING\_\-LEN.
 
 
 
-Referenced by upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svc\_\-id().
+Referenced by upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-upsert(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svc\_\-id().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -212,11 +232,12 @@ References upk\_\-alert.
 
 
 
-Referenced by upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-svcconf\_\-pack(), upk\_\-svcconf\_\-setup\_\-handlers(), and upk\_\-svcconf\_\-toplvl\_\-obj().
+Referenced by upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-svcconf\_\-pack(), upk\_\-svcconf\_\-setup\_\-array\_\-handlers(), upk\_\-svcconf\_\-setup\_\-handlers(), upk\_\-svcconf\_\-setup\_\-object\_\-handlers(), and upk\_\-svcconf\_\-toplvl\_\-obj().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -234,7 +255,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_gadb1b4dc0c724b6c347fbecd16a8db684}
 
 
-References strnlen(), UPK\_\-MAX\_\-STRING\_\-LEN, and upk\_\-notice.
+References calloc(), realloc(), strnlen(), upk\_\-debug1, upk\_\-default\_\-configuration\_\-str, UPK\_\-MAX\_\-STRING\_\-LEN, and upk\_\-warn.
 
 
 
@@ -254,11 +275,12 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_gadb1b4dc0c724b6c347fbecd16a8db684_icgraph}
+\includegraphics[width=316pt]{group__config__impl_gadb1b4dc0c724b6c347fbecd16a8db684_icgraph}
 \end{center}
 \end{figure}
 
@@ -276,15 +298,16 @@ References upk\_\-ctrlconf\_\-free().
 
 
 
-Referenced by main().
+Referenced by main(), and upk\_\-ctrl\_\-exit().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga386ddb0964c89347dbf6a2807ed1800e_cgraph}
+\includegraphics[width=276pt]{group__config__impl_ga386ddb0964c89347dbf6a2807ed1800e_cgraph}
 \end{center}
 \end{figure}
 
@@ -296,7 +319,7 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=222pt]{group__config__impl_ga386ddb0964c89347dbf6a2807ed1800e_icgraph}
+\includegraphics[width=400pt]{group__config__impl_ga386ddb0964c89347dbf6a2807ed1800e_icgraph}
 \end{center}
 \end{figure}
 
@@ -310,7 +333,7 @@ Here is the caller graph for this function:
 )}\label{group__config__impl_ga11c5a55e854fb56c864a12ef5d314798}
 
 
-References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, \_\-upk\_\-controller\_\-config::ServiceDefaults, \_\-upk\_\-controller\_\-config::StateDir, upk\_\-config\_\-loadfile(), upk\_\-ctrl\_\-configuration\_\-file, upk\_\-ctrlconf\_\-pack(), upk\_\-default\_\-configuration\_\-vec, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-svc\_\-desc\_\-clear().
+References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, free(), \_\-upk\_\-controller\_\-config::ServiceDefaults, \_\-upk\_\-controller\_\-config::StateDir, upk\_\-config\_\-loadfile(), upk\_\-ctrl\_\-configuration\_\-file, upk\_\-ctrlconf\_\-pack(), upk\_\-default\_\-configuration\_\-str, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-svc\_\-desc\_\-clear().
 
 
 
@@ -330,7 +353,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -351,7 +375,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_gab2d022caebe210d616ddef45e3a5bdae}
 
 
-References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-json\_\-type::dbl, \_\-upk\_\-json\_\-type::i, \_\-upk\_\-json\_\-type::type, upk\_\-fatal, and \_\-upk\_\-json\_\-type::val.
+References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-json\_\-type::dbl, upk\_\-fatal, and \_\-upk\_\-json\_\-type::val.
 
 
 
@@ -359,7 +383,8 @@ Referenced by upk\_\-ctrlconf\_\-toplvl\_\-obj().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -385,11 +410,12 @@ Referenced by upk\_\-ctrl\_\-free\_\-config().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=398pt]{group__config__impl_ga2aa4766451425bf4662449117b2f8e63_cgraph}
+\includegraphics[width=274pt]{group__config__impl_ga2aa4766451425bf4662449117b2f8e63_cgraph}
 \end{center}
 \end{figure}
 
@@ -401,7 +427,37 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{group__config__impl_ga2aa4766451425bf4662449117b2f8e63_icgraph}
+\includegraphics[width=276pt]{group__config__impl_ga2aa4766451425bf4662449117b2f8e63_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-ctrlconf\_\-int\_\-handler@{upk\_\-ctrlconf\_\-int\_\-handler}}
+\index{upk\_\-ctrlconf\_\-int\_\-handler@{upk\_\-ctrlconf\_\-int\_\-handler}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-ctrlconf\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-ctrlconf\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga0f9cf5052a1ee60c5e403428ae721b6b}
+
+
+References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-controller\_\-config::BuddyVerbosity, \_\-upk\_\-json\_\-type::i, upk\_\-fatal, and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-ctrlconf\_\-toplvl\_\-obj().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga0f9cf5052a1ee60c5e403428ae721b6b_icgraph}
 \end{center}
 \end{figure}
 
@@ -438,7 +494,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -457,7 +514,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga141b988b89261c395ef928630abd7492}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-conf\_\-error\_\-handler(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-parse\_\-string(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), and UPKLIST\_\-FREE.
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-parse\_\-string(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), and UPKLIST\_\-FREE.
 
 
 
@@ -477,11 +534,12 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga141b988b89261c395ef928630abd7492_icgraph}
+\includegraphics[width=282pt]{group__config__impl_ga141b988b89261c395ef928630abd7492_icgraph}
 \end{center}
 \end{figure}
 
@@ -506,7 +564,8 @@ Referenced by upk\_\-ctrlconf\_\-toplvl\_\-obj().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -527,7 +586,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_gab9fcf0078a632239eeca0eba28d9d467}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-conf\_\-error\_\-handler(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-json\_\-stack\_\-push().
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-int\_\-handler(), upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-string\_\-handler(), and upk\_\-json\_\-stack\_\-push().
 
 
 
@@ -547,7 +606,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -570,11 +630,12 @@ References \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart
 
 
 
-Referenced by upk\_\-load\_\-runtime\_\-services().
+Referenced by main(), and upk\_\-load\_\-runtime\_\-services().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -585,11 +646,12 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_gafef3f55911da038eb9f8d82bba48222e_icgraph}
+\includegraphics[width=332pt]{group__config__impl_gafef3f55911da038eb9f8d82bba48222e_icgraph}
 \end{center}
 \end{figure}
 
@@ -608,11 +670,12 @@ Referenced by upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga3f5141868527ac40542f9b46a366f80d_icgraph}
+\includegraphics[width=344pt]{group__config__impl_ga3f5141868527ac40542f9b46a366f80d_icgraph}
 \end{center}
 \end{figure}
 
@@ -627,7 +690,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_ga19d2bc0bd2e96a937820f26f4e56b2d9}
 
 
-References \_\-upk\_\-svc\_\-desc::next, upk\_\-json\_\-obj\_\-to\_\-string(), upk\_\-svc\_\-desc\_\-meta\_\-t, upk\_\-svclist\_\-to\_\-json\_\-obj(), UPKLIST\_\-APPEND, and UPKLIST\_\-FREE.
+References calloc(), \_\-upk\_\-svc\_\-desc::next, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-json\_\-obj\_\-to\_\-string(), upk\_\-svclist\_\-to\_\-json\_\-obj(), UPKLIST\_\-APPEND, and UPKLIST\_\-FREE.
 
 
 
@@ -647,11 +710,12 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga19d2bc0bd2e96a937820f26f4e56b2d9_icgraph}
+\includegraphics[width=366pt]{group__config__impl_ga19d2bc0bd2e96a937820f26f4e56b2d9_icgraph}
 \end{center}
 \end{figure}
 
@@ -672,7 +736,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_gaad96df378fe382df9bb37e2f21b62ee9}
 
 
-References \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, strnlen(), \_\-upk\_\-controller\_\-config::SvcConfigPath, \_\-upk\_\-controller\_\-config::svclist, upk\_\-config\_\-loadfile(), upk\_\-debug1, upk\_\-diag\_\-verbosity, UPK\_\-DIAGLVL\_\-DEBUG1, upk\_\-finalize\_\-svc\_\-desc(), upk\_\-info, upk\_\-json\_\-serialize\_\-svc\_\-config(), UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-svc\_\-desc\_\-clear(), upk\_\-svcconf\_\-pack(), UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
+References calloc(), closedir(), free(), opendir(), readdir(), \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, strnlen(), \_\-upk\_\-controller\_\-config::SvcConfigPath, \_\-upk\_\-controller\_\-config::svclist, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-config\_\-loadfile(), upk\_\-debug1, upk\_\-diag\_\-verbosity, UPK\_\-DIAGLVL\_\-DEBUG1, upk\_\-finalize\_\-svc\_\-desc(), upk\_\-info, upk\_\-json\_\-serialize\_\-svc\_\-config(), UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-svc\_\-desc\_\-clear(), upk\_\-svcconf\_\-pack(), UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
 
 
 
@@ -692,7 +756,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -711,7 +776,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_ga431d962e0b29ea6f54f88d6d1505b2d0}
 
 
-References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::ServiceDefaults, \_\-upk\_\-controller\_\-config::StateDir, \_\-upk\_\-controller\_\-config::SvcConfigPath, \_\-upk\_\-controller\_\-config::svclist, \_\-upk\_\-controller\_\-config::SvcRunPath, upk\_\-overlay\_\-svcconf\_\-values(), \_\-upk\_\-controller\_\-config::UpkBuddyPath, UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
+References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, calloc(), \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, upk\_\-svc\_\-desc\_\-meta\_\-p::count, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::next, \_\-upk\_\-controller\_\-config::ServiceDefaults, \_\-upk\_\-controller\_\-config::StateDir, \_\-upk\_\-controller\_\-config::SvcConfigPath, \_\-upk\_\-controller\_\-config::svclist, \_\-upk\_\-controller\_\-config::SvcRunPath, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-overlay\_\-svcconf\_\-values(), \_\-upk\_\-controller\_\-config::UpkBuddyPath, UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
 
 
 
@@ -719,7 +784,8 @@ Referenced by upk\_\-ctrl\_\-load\_\-config().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -730,11 +796,12 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga431d962e0b29ea6f54f88d6d1505b2d0_icgraph}
+\includegraphics[width=326pt]{group__config__impl_ga431d962e0b29ea6f54f88d6d1505b2d0_icgraph}
 \end{center}
 \end{figure}
 
@@ -749,7 +816,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_gaab28dbb04c28f723b90b0baba926408f}
 
 
-References \_\-upk\_\-svc\_\-desc::BuddyShutdownTimeout, \_\-upk\_\-uuid::clk\_\-seq\_\-high, \_\-upk\_\-uuid::clk\_\-seq\_\-low, \_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts, \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, \_\-upk\_\-svc\_\-desc::InitialState, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-uuid::node, \_\-upk\_\-svc\_\-desc::Package, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForRunning, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForStopped, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::RandomizeRateLimit, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartPriority, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version, \_\-upk\_\-uuid::time\_\-low, \_\-upk\_\-uuid::time\_\-mid, \_\-upk\_\-svc\_\-desc::UnconfigureOnFileRemoval, UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, UPKLIST\_\-FREE, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-svc\_\-desc::UUID.
+References calloc(), \_\-upk\_\-uuid::clk\_\-seq\_\-high, \_\-upk\_\-uuid::clk\_\-seq\_\-low, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::count, \_\-upk\_\-svcid\_\-meta\_\-p::count, \_\-upk\_\-svc\_\-desc::CustomActions, \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, free(), \_\-upk\_\-svc\_\-desc::InitialState, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-cust\_\-actscr\_\-list::next, \_\-upk\_\-svcid::next, \_\-upk\_\-uuid::node, \_\-upk\_\-svc\_\-desc::Package, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForRunning, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForStopped, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::RandomizeRateLimit, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartPriority, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, \_\-upk\_\-svcid\_\-meta\_\-p::thisp, \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version, \_\-upk\_\-uuid::time\_\-low, \_\-upk\_\-uuid::time\_\-mid, \_\-upk\_\-svc\_\-desc::UnconfigureOnFileRemoval, UPKLIST\_\-APPEND, UPKLIST\_\-FOREACH, UPKLIST\_\-UNLINK, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-svc\_\-desc::UUID.
 
 
 
@@ -757,11 +824,24 @@ Referenced by upk\_\-finalize\_\-svc\_\-desc(), and upk\_\-overlay\_\-ctrlconf\_
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_gaab28dbb04c28f723b90b0baba926408f_icgraph}
+\includegraphics[width=264pt]{group__config__impl_gaab28dbb04c28f723b90b0baba926408f_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=362pt]{group__config__impl_gaab28dbb04c28f723b90b0baba926408f_icgraph}
 \end{center}
 \end{figure}
 
@@ -784,7 +864,8 @@ Referenced by upk\_\-ctrlconf\_\-object\_\-handler(), and upk\_\-svcconf\_\-obje
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -810,7 +891,8 @@ Referenced by main(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-load\_\-runtime\_\
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -828,11 +910,23 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_ga6ca9879f5d370291faf16c2c15ac10bc}
 
 
-References \_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, and UPKLIST\_\-FREE.
+References \_\-upk\_\-svc\_\-desc::CustomActions, free(), \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPKLIST\_\-FOREACH, UPKLIST\_\-FREE, and UPKLIST\_\-UNLINK.
 
 
 
-Referenced by upk\_\-ctrlconf\_\-free(), and upk\_\-svclist\_\-free().
+Referenced by main(), upk\_\-ctrlconf\_\-free(), and upk\_\-svclist\_\-free().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=216pt]{group__config__impl_ga6ca9879f5d370291faf16c2c15ac10bc_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -841,7 +935,7 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga6ca9879f5d370291faf16c2c15ac10bc_icgraph}
+\includegraphics[width=274pt]{group__config__impl_ga6ca9879f5d370291faf16c2c15ac10bc_icgraph}
 \end{center}
 \end{figure}
 
@@ -855,7 +949,7 @@ Here is the caller graph for this function:
 )\hspace{0.3cm}{\ttfamily  [read]}}\label{group__config__impl_ga02e5b971c150fa74691e14f94b6ee291}
 
 
-References \_\-joa, \_\-upk\_\-svc\_\-desc::BuddyShutdownTimeout, \_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts, \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, \_\-upk\_\-svc\_\-desc::InitialState, jt\_\-array, jt\_\-boolean, jt\_\-int, jt\_\-string, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForRunning, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForStopped, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::RandomizeRateLimit, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartPriority, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-svc\_\-desc::UnconfigureOnFileRemoval, upk\_\-concat\_\-svcid(), upk\_\-json\_\-serialize\_\-or\_\-null(), UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-STATE\_\-RUNNING, UPK\_\-STATE\_\-STOPPED, upk\_\-string\_\-to\_\-uuid(), UPKLIST\_\-FOREACH, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-svc\_\-desc::UUID.
+References \_\-joa, \_\-upk\_\-svc\_\-desc::CustomActions, \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, \_\-upk\_\-svc\_\-desc::InitialState, jt\_\-array, jt\_\-boolean, jt\_\-int, jt\_\-string, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures, \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-svcid::name, \_\-upk\_\-svc\_\-desc::Package, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svcid::pkg, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForRunning, \_\-upk\_\-svc\_\-desc::PreferBuddyStateForStopped, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::RandomizeRateLimit, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartPriority, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, \_\-upk\_\-svcid\_\-meta\_\-p::thisp, \_\-upk\_\-svc\_\-desc::UnconfigureOnFileRemoval, upk\_\-concat\_\-svcid(), upk\_\-json\_\-serialize\_\-or\_\-null(), UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-STATE\_\-RUNNING, UPK\_\-STATE\_\-STOPPED, upk\_\-string\_\-to\_\-uuid(), UPKLIST\_\-FOREACH, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-svc\_\-desc::UUID.
 
 
 
@@ -868,18 +962,19 @@ Here is the call graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga02e5b971c150fa74691e14f94b6ee291_cgraph}
+\includegraphics[width=344pt]{group__config__impl_ga02e5b971c150fa74691e14f94b6ee291_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga02e5b971c150fa74691e14f94b6ee291_icgraph}
+\includegraphics[width=334pt]{group__config__impl_ga02e5b971c150fa74691e14f94b6ee291_icgraph}
 \end{center}
 \end{figure}
 
@@ -913,11 +1008,54 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga74c0ebb6d5f4b890205dfba4fea7b730_icgraph}
+\includegraphics[width=266pt]{group__config__impl_ga74c0ebb6d5f4b890205dfba4fea7b730_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-array\_\-handler@{upk\_\-svcconf\_\-array\_\-handler}}
+\index{upk\_\-svcconf\_\-array\_\-handler@{upk\_\-svcconf\_\-array\_\-handler}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-array\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-array\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga9ae6ec4edd6a67abc22b670755842ff7}
+
+
+References calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-svc\_\-desc::Prerequisites, \_\-upk\_\-svc\_\-desc::Provides, upk\_\-json\_\-stack\_\-push(), and upk\_\-svcconf\_\-setup\_\-array\_\-handlers().
+
+
+
+Referenced by upk\_\-svcconf\_\-setup\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga9ae6ec4edd6a67abc22b670755842ff7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga9ae6ec4edd6a67abc22b670755842ff7_icgraph}
 \end{center}
 \end{figure}
 
@@ -942,11 +1080,54 @@ Referenced by upk\_\-svcconf\_\-setup\_\-handlers().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{group__config__impl_ga9beda73bf422366a770f7062fbda7fe8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-customaction\_\-array\_\-appender@{upk\_\-svcconf\_\-customaction\_\-array\_\-appender}}
+\index{upk\_\-svcconf\_\-customaction\_\-array\_\-appender@{upk\_\-svcconf\_\-customaction\_\-array\_\-appender}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-customaction\_\-array\_\-appender}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-customaction\_\-array\_\-appender (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga754e7f3e2be11a91d8f806f5fd1732e8}
+
+
+References \_\-upk\_\-json\_\-string::c\_\-str, calloc(), \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-json\_\-type::str, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-STRING\_\-LEN, UPKLIST\_\-APPEND, and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-svcconf\_\-setup\_\-object\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{group__config__impl_ga754e7f3e2be11a91d8f806f5fd1732e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga754e7f3e2be11a91d8f806f5fd1732e8_icgraph}
 \end{center}
 \end{figure}
 
@@ -963,7 +1144,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga5771789fb975ff22da6ad83a5a639fb1}
 
 
-References \_\-upk\_\-svc\_\-desc::BuddyShutdownTimeout, \_\-upk\_\-json\_\-type::i, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::StartPriority, upk\_\-alert, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-json\_\-type::val.
+References \_\-upk\_\-json\_\-type::i, \_\-upk\_\-svc\_\-desc::KillTimeout, \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures, \_\-upk\_\-svc\_\-desc::ReconnectRetries, \_\-upk\_\-svc\_\-desc::RingbufferSize, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::StartPriority, upk\_\-alert, \_\-upk\_\-svc\_\-desc::UserMaxRestarts, \_\-upk\_\-svc\_\-desc::UserRateLimit, \_\-upk\_\-svc\_\-desc::UserRestartWindow, and \_\-upk\_\-json\_\-type::val.
 
 
 
@@ -971,11 +1152,54 @@ Referenced by upk\_\-svcconf\_\-setup\_\-handlers().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{group__config__impl_ga5771789fb975ff22da6ad83a5a639fb1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-nested\_\-object\_\-handler@{upk\_\-svcconf\_\-nested\_\-object\_\-handler}}
+\index{upk\_\-svcconf\_\-nested\_\-object\_\-handler@{upk\_\-svcconf\_\-nested\_\-object\_\-handler}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-nested\_\-object\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-nested\_\-object\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga92b7ce66bee3b5476996ce54bb395454}
+
+
+References calloc(), \_\-upk\_\-svc\_\-desc::CustomActions, \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, upk\_\-json\_\-stack\_\-push(), and upk\_\-svcconf\_\-setup\_\-object\_\-handlers().
+
+
+
+Referenced by upk\_\-svcconf\_\-setup\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga92b7ce66bee3b5476996ce54bb395454_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga92b7ce66bee3b5476996ce54bb395454_icgraph}
 \end{center}
 \end{figure}
 
@@ -992,7 +1216,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga8753074ecae15841a5f5c3a28e31b58a}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-controller\_\-config::svclist, upk\_\-json\_\-stack\_\-push(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-desc\_\-clear(), upk\_\-svcconf\_\-setup\_\-handlers(), and UPKLIST\_\-APPEND.
+References calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-controller\_\-config::svclist, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-json\_\-stack\_\-push(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-desc\_\-clear(), upk\_\-svcconf\_\-setup\_\-handlers(), and UPKLIST\_\-APPEND.
 
 
 
@@ -1012,7 +1236,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1031,7 +1256,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_gaef8b858931337dfe742cae5815857dec}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-conf\_\-error\_\-handler(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-parse\_\-string(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), upk\_\-svcconf\_\-toplvl\_\-obj(), and UPKLIST\_\-FREE.
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-parse\_\-string(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), upk\_\-svcconf\_\-toplvl\_\-obj(), and UPKLIST\_\-FREE.
 
 
 
@@ -1051,11 +1276,50 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_gaef8b858931337dfe742cae5815857dec_icgraph}
+\includegraphics[width=314pt]{group__config__impl_gaef8b858931337dfe742cae5815857dec_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-setup\_\-array\_\-handlers@{upk\_\-svcconf\_\-setup\_\-array\_\-handlers}}
+\index{upk\_\-svcconf\_\-setup\_\-array\_\-handlers@{upk\_\-svcconf\_\-setup\_\-array\_\-handlers}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-setup\_\-array\_\-handlers}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-setup\_\-array\_\-handlers (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-handlers\_\-t} $\ast$}]{handlers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{group__config__impl_gaf5f51c2fe67a8dcdffbfefd5697efc09}
+
+
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), and upk\_\-svcconf\_\-svcid\_\-array\_\-appender().
+
+
+
+Referenced by upk\_\-svcconf\_\-array\_\-handler().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_gaf5f51c2fe67a8dcdffbfefd5697efc09_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_gaf5f51c2fe67a8dcdffbfefd5697efc09_icgraph}
 \end{center}
 \end{figure}
 
@@ -1069,7 +1333,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{group__config__impl_ga91a20d1386c12a7ca48670777f2a13b6}
 
 
-References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, upk\_\-conf\_\-error\_\-handler(), upk\_\-svcconf\_\-bool\_\-handler(), upk\_\-svcconf\_\-int\_\-handler(), and upk\_\-svcconf\_\-string\_\-handler().
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), upk\_\-svcconf\_\-array\_\-handler(), upk\_\-svcconf\_\-bool\_\-handler(), upk\_\-svcconf\_\-int\_\-handler(), upk\_\-svcconf\_\-nested\_\-object\_\-handler(), and upk\_\-svcconf\_\-string\_\-handler().
 
 
 
@@ -1089,11 +1353,51 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{group__config__impl_ga91a20d1386c12a7ca48670777f2a13b6_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-setup\_\-object\_\-handlers@{upk\_\-svcconf\_\-setup\_\-object\_\-handlers}}
+\index{upk\_\-svcconf\_\-setup\_\-object\_\-handlers@{upk\_\-svcconf\_\-setup\_\-object\_\-handlers}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-setup\_\-object\_\-handlers}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-setup\_\-object\_\-handlers (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-handlers\_\-t} $\ast$}]{handlers}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{group__config__impl_ga59ca5690cb0cffe92edb07888036d4ec}
+
+
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), and upk\_\-svcconf\_\-customaction\_\-array\_\-appender().
+
+
+
+Referenced by upk\_\-svcconf\_\-nested\_\-object\_\-handler().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga59ca5690cb0cffe92edb07888036d4ec_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga59ca5690cb0cffe92edb07888036d4ec_icgraph}
 \end{center}
 \end{figure}
 
@@ -1110,7 +1414,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga8821dad50c00a183fb1fdbb1f950ebe0}
 
 
-References \_\-upk\_\-json\_\-string::c\_\-str, \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, \_\-upk\_\-svc\_\-desc::InitialState, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::Package, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::Provides, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-json\_\-type::str, strnlen(), upk\_\-alert, UPK\_\-MAX\_\-PATH\_\-LEN, UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-STATE\_\-RUNNING, UPK\_\-STATE\_\-SHUTDOWN, upk\_\-string\_\-to\_\-uuid(), \_\-upk\_\-svc\_\-desc::UUID, and \_\-upk\_\-json\_\-type::val.
+References \_\-SC\_\-GETPW\_\-R\_\-SIZE\_\-MAX, \_\-upk\_\-json\_\-string::c\_\-str, calloc(), \_\-upk\_\-svc\_\-desc::ExecReload, \_\-upk\_\-svc\_\-desc::ExecStart, \_\-upk\_\-svc\_\-desc::ExecStop, free(), getpwnam\_\-r(), \_\-upk\_\-svc\_\-desc::InitialState, \_\-upk\_\-svc\_\-desc::LongDescription, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::Package, \_\-upk\_\-svc\_\-desc::PipeStderrScript, \_\-upk\_\-svc\_\-desc::PipeStdoutScript, \_\-upk\_\-svc\_\-desc::RedirectStderr, \_\-upk\_\-svc\_\-desc::RedirectStdout, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-svc\_\-desc::SetGID, \_\-upk\_\-svc\_\-desc::SetUID, \_\-upk\_\-svc\_\-desc::ShortDescription, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-json\_\-type::str, strnlen(), sysconf(), upk\_\-alert, UPK\_\-MAX\_\-PATH\_\-LEN, UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-STATE\_\-RUNNING, UPK\_\-STATE\_\-SHUTDOWN, upk\_\-string\_\-to\_\-uuid(), \_\-upk\_\-svc\_\-desc::UUID, and \_\-upk\_\-json\_\-type::val.
 
 
 
@@ -1123,18 +1427,49 @@ Here is the call graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga8821dad50c00a183fb1fdbb1f950ebe0_cgraph}
+\includegraphics[width=316pt]{group__config__impl_ga8821dad50c00a183fb1fdbb1f950ebe0_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{group__config__impl_ga8821dad50c00a183fb1fdbb1f950ebe0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-svcconf\_\-svcid\_\-array\_\-appender@{upk\_\-svcconf\_\-svcid\_\-array\_\-appender}}
+\index{upk\_\-svcconf\_\-svcid\_\-array\_\-appender@{upk\_\-svcconf\_\-svcid\_\-array\_\-appender}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-svcconf\_\-svcid\_\-array\_\-appender}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-svcconf\_\-svcid\_\-array\_\-appender (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga9fa35d8083bbdada877c0fb1d1a3826b}
+
+
+References \_\-upk\_\-json\_\-string::c\_\-str, \_\-upk\_\-svcid::name, \_\-upk\_\-svcid::pkg, \_\-upk\_\-json\_\-type::str, \_\-upk\_\-svcid\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-STRING\_\-LEN, UPKLIST\_\-APPEND, and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-svcconf\_\-setup\_\-array\_\-handlers().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{group__config__impl_ga9fa35d8083bbdada877c0fb1d1a3826b_icgraph}
 \end{center}
 \end{figure}
 
@@ -1151,7 +1486,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{group__config__impl_ga79e7ae10de877eae2a7c297af5e3a2e1}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-conf\_\-error\_\-handler(), upk\_\-json\_\-stack\_\-push(), and upk\_\-svcconf\_\-object\_\-handler().
+References \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-array\_\-pop, \_\-upk\_\-json\_\-stack\_\-handlers::after\_\-json\_\-obj\_\-pop, \_\-upk\_\-json\_\-stack\_\-node::data, \_\-upk\_\-json\_\-stack\_\-node::handlers, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-array, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-bool, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-double, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-int, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-null, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-object, \_\-upk\_\-json\_\-stack\_\-handlers::json\_\-string, restrict, upk\_\-conf\_\-error\_\-handler(), upk\_\-json\_\-stack\_\-push(), and upk\_\-svcconf\_\-object\_\-handler().
 
 
 
@@ -1171,11 +1506,12 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga79e7ae10de877eae2a7c297af5e3a2e1_icgraph}
+\includegraphics[width=296pt]{group__config__impl_ga79e7ae10de877eae2a7c297af5e3a2e1_icgraph}
 \end{center}
 \end{figure}
 
@@ -1189,7 +1525,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{group__config__impl_ga6d49c10e8747af4aa6387ef8388bcd24}
 
 
-References upk\_\-svc\_\-desc\_\-free(), UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
+References upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-svc\_\-desc\_\-free(), UPKLIST\_\-FOREACH, and UPKLIST\_\-FREE.
 
 
 
@@ -1213,7 +1549,7 @@ Here is the caller graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga6d49c10e8747af4aa6387ef8388bcd24_icgraph}
+\includegraphics[width=260pt]{group__config__impl_ga6d49c10e8747af4aa6387ef8388bcd24_icgraph}
 \end{center}
 \end{figure}
 
@@ -1227,7 +1563,7 @@ Here is the caller graph for this function:
 )\hspace{0.3cm}{\ttfamily  [read]}}\label{group__config__impl_ga82376799c5e86edd919376c308139d8b}
 
 
-References \_\-joa, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), upk\_\-svc\_\-id(), and UPKLIST\_\-FOREACH.
+References \_\-joa, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), upk\_\-svc\_\-id(), and UPKLIST\_\-FOREACH.
 
 
 
@@ -1240,18 +1576,19 @@ Here is the call graph for this function:
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga82376799c5e86edd919376c308139d8b_cgraph}
+\includegraphics[width=334pt]{group__config__impl_ga82376799c5e86edd919376c308139d8b_cgraph}
 \end{center}
 \end{figure}
 
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{group__config__impl_ga82376799c5e86edd919376c308139d8b_icgraph}
+\includegraphics[width=350pt]{group__config__impl_ga82376799c5e86edd919376c308139d8b_icgraph}
 \end{center}
 \end{figure}
 
@@ -1269,20 +1606,24 @@ Referenced by upk\_\-ctrl\_\-load\_\-config().
 \index{Config\_\-impl@{Config\_\-impl}!upk\_\-default\_\-configuration@{upk\_\-default\_\-configuration}}
 \index{upk\_\-default\_\-configuration@{upk\_\-default\_\-configuration}!Config_impl@{Config\_\-impl}}
 \subsubsection[{upk\_\-default\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}}\label{group__config__impl_gaefda54e715b67195adc6ee3b56671e56}
-\index{Config\_\-impl@{Config\_\-impl}!upk\_\-default\_\-configuration\_\-vec@{upk\_\-default\_\-configuration\_\-vec}}
-\index{upk\_\-default\_\-configuration\_\-vec@{upk\_\-default\_\-configuration\_\-vec}!Config_impl@{Config\_\-impl}}
-\subsubsection[{upk\_\-default\_\-configuration\_\-vec}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf upk\_\-default\_\-configuration\_\-vec}[$\,$] = \char`\"{}\}$\backslash$n\char`\"{}}\label{group__config__impl_ga3f4f40d56f2c3f75a25d5d62e238a362}
+\index{Config\_\-impl@{Config\_\-impl}!upk\_\-default\_\-configuration\_\-str@{upk\_\-default\_\-configuration\_\-str}}
+\index{upk\_\-default\_\-configuration\_\-str@{upk\_\-default\_\-configuration\_\-str}!Config_impl@{Config\_\-impl}}
+\subsubsection[{upk\_\-default\_\-configuration\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf upk\_\-default\_\-configuration\_\-str}[$\,$] = \char`\"{}\}$\backslash$n\char`\"{}}\label{group__config__impl_ga295298f54e6d77eee6df85c725e3465a}
 
 
-Referenced by upk\_\-ctrl\_\-load\_\-config().
+Referenced by main(), upk\_\-config\_\-loadfile(), and upk\_\-ctrl\_\-load\_\-config().
 
 \index{Config\_\-impl@{Config\_\-impl}!upk\_\-file\_\-configuration@{upk\_\-file\_\-configuration}}
 \index{upk\_\-file\_\-configuration@{upk\_\-file\_\-configuration}!Config_impl@{Config\_\-impl}}
 \subsubsection[{upk\_\-file\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-file\_\-configuration}}\label{group__config__impl_ga63e376b66da63c0b37258f999eff12f8}
+
+
+Referenced by upk\_\-ctrl\_\-init().
+
 \index{Config\_\-impl@{Config\_\-impl}!upk\_\-runtime\_\-configuration@{upk\_\-runtime\_\-configuration}}
 \index{upk\_\-runtime\_\-configuration@{upk\_\-runtime\_\-configuration}!Config_impl@{Config\_\-impl}}
 \subsubsection[{upk\_\-runtime\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-runtime\_\-configuration}}\label{group__config__impl_gaf7638ba77297c6ad954805d92fa33c13}
 
 
-Referenced by controller\_\-packet\_\-callback(), create\_\-buddy\_\-statedir(), ctrl\_\-sock\_\-setup(), event\_\-loop(), main(), upk\_\-clnet\_\-ctrl\_\-connect(), and upk\_\-db\_\-path().
+Referenced by buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), ctrl\_\-req\_\-action\_\-handler(), ctrl\_\-sock\_\-setup(), event\_\-loop(), handle\_\-buddies(), lookup\_\-buddy\_\-from\_\-path(), main(), remove\_\-buddy\_\-statedir(), spawn\_\-buddy(), upk\_\-clnet\_\-ctrl\_\-connect(), upk\_\-db\_\-path(), and upk\_\-state\_\-init().
 

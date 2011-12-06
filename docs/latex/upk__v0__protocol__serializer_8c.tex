@@ -32,16 +32,16 @@ Include dependency graph for upk\_\-v0\_\-protocol\_\-serializer.c:\nopagebreak
 \item 
 typedef void $\ast$($\ast$ {\bf deserialize\_\-payload\_\-t} )({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$)
 \item 
-typedef {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$($\ast$ {\bf serialize\_\-payload\_\-t} )(void $\ast$, size\_\-t)
+typedef {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$($\ast$ {\bf serialize\_\-payload\_\-t} )(void $\ast$, {\bf size\_\-t})
 \end{DoxyCompactItemize}
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-req\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-req\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-repl\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-repl\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-pub\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-pub\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
 static void $\ast$ {\bf deserialize\_\-req\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
 \item 
@@ -87,43 +87,43 @@ static void $\ast$ {\bf deserial\_\-pub\_\-pub} ({\bf upk\_\-pkt\_\-buf\_\-t} $\
 \item 
 static void $\ast$ {\bf deserial\_\-pub\_\-cancel} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-action} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-action} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-signal} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-signal} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-list} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-list} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-status} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-status} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-subscribe} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-subscribe} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-unsub} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-unsub} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-disconnect} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-disconnect} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-result} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-result} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-listing} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-listing} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-svcinfo\_\-data} ({\bf v0\_\-svcinfo\_\-t} $\ast$data, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-svcinfo\_\-data} ({\bf v0\_\-svcinfo\_\-t} $\ast$data, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-svcinfo} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-svcinfo} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-ack} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-ack} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-err} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-err} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-pub} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-pub} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
-static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-cancel} (void $\ast$UPK\_\-DATA\_\-PTR, size\_\-t UPK\_\-DATA\_\-LEN)
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-cancel} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
 \item 
 void $\ast$ {\bf v0\_\-deserialize\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF, {\bf upk\_\-pkttype\_\-t} pkttype)
 \item 
@@ -188,7 +188,7 @@ static {\bf serialize\_\-payload\_\-t} {\bf serial\_\-pub\_\-dispatch} [$\,$]
 \subsubsection[{deserialize\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void$\ast$($\ast$ {\bf deserialize\_\-payload\_\-t})({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$)}\label{upk__v0__protocol__serializer_8c_a30c8d18ab54ab167db699212122a1e72}
 \index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize\_\-payload\_\-t@{serialize\_\-payload\_\-t}}
 \index{serialize\_\-payload\_\-t@{serialize\_\-payload\_\-t}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
-\subsubsection[{serialize\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-pkt\_\-buf\_\-t}$\ast$($\ast$ {\bf serialize\_\-payload\_\-t})(void $\ast$, size\_\-t)}\label{upk__v0__protocol__serializer_8c_a863c6f51e7f5a7bf644629730de75189}
+\subsubsection[{serialize\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-pkt\_\-buf\_\-t}$\ast$($\ast$ {\bf serialize\_\-payload\_\-t})(void $\ast$, {\bf size\_\-t})}\label{upk__v0__protocol__serializer_8c_a863c6f51e7f5a7bf644629730de75189}
 
 
 \subsection{Function Documentation}
@@ -289,15 +289,16 @@ References UPK\_\-DATA, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a49e5e421a6a81d4cc33981c9e41d1a7a}
 
 
-References deserial\_\-svcinfo\_\-data(), UPK\_\-DATA, UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+References deserial\_\-svcinfo\_\-data(), free(), UPK\_\-DATA, UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=300pt]{upk__v0__protocol__serializer_8c_a49e5e421a6a81d4cc33981c9e41d1a7a_cgraph}
+\includegraphics[width=378pt]{upk__v0__protocol__serializer_8c_a49e5e421a6a81d4cc33981c9e41d1a7a_cgraph}
 \end{center}
 \end{figure}
 
@@ -410,11 +411,23 @@ References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, UPK\_\-FETCH\_\-STRING, UPK\_\-FET
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__v0__protocol__serializer_8c_a6e9fd786326406d3284b87b110c769dc}
 
 
-References proc\_\-pid, UPK\_\-DATA, UPK\_\-FETCH\_\-ARRAY, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE.
+References calloc(), proc\_\-pid, UPK\_\-DATA, UPK\_\-FETCH\_\-ARRAY, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE.
 
 
 
 Referenced by deserial\_\-repl\_\-svcinfo().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{upk__v0__protocol__serializer_8c_a6e9fd786326406d3284b87b110c769dc_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -436,7 +449,19 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_aa4e86ea82db539799ff0b9bd6776199c}
 
 
-References deserial\_\-pub\_\-dispatch, UPK\_\-BUF, and UPK\_\-PUB\_\-ORIGIN.
+References deserial\_\-pub\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-PUB\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{upk__v0__protocol__serializer_8c_aa4e86ea82db539799ff0b9bd6776199c_cgraph}
+\end{center}
+\end{figure}
+
 
 \index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-repl\_\-payload@{deserialize\_\-repl\_\-payload}}
 \index{deserialize\_\-repl\_\-payload@{deserialize\_\-repl\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
@@ -447,7 +472,19 @@ References deserial\_\-pub\_\-dispatch, UPK\_\-BUF, and UPK\_\-PUB\_\-ORIGIN.
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a381061a0878337fbd4ac022897b6527e}
 
 
-References deserial\_\-repl\_\-dispatch, UPK\_\-BUF, and UPK\_\-REPL\_\-ORIGIN.
+References deserial\_\-repl\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-REPL\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{upk__v0__protocol__serializer_8c_a381061a0878337fbd4ac022897b6527e_cgraph}
+\end{center}
+\end{figure}
+
 
 \index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-req\_\-payload@{deserialize\_\-req\_\-payload}}
 \index{deserialize\_\-req\_\-payload@{deserialize\_\-req\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
@@ -458,14 +495,26 @@ References deserial\_\-repl\_\-dispatch, UPK\_\-BUF, and UPK\_\-REPL\_\-ORIGIN.
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae6e8cfee60933cc6520c32092a992956}
 
 
-References deserial\_\-req\_\-dispatch, UPK\_\-BUF, and UPK\_\-REQ\_\-ORIGIN.
+References deserial\_\-req\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-REQ\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{upk__v0__protocol__serializer_8c_ae6e8cfee60933cc6520c32092a992956_cgraph}
+\end{center}
+\end{figure}
+
 
 \index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-pub\_\-cancel@{serial\_\-pub\_\-cancel}}
 \index{serial\_\-pub\_\-cancel@{serial\_\-pub\_\-cancel}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
 \subsubsection[{serial\_\-pub\_\-cancel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-cancel (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a7e3b1db573953ff9cc1ac270f27240a5}
 
@@ -477,7 +526,7 @@ References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
 \subsubsection[{serial\_\-pub\_\-pub}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-pub (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_acc83c28819178e7bed7deb95fd1cc431}
 
@@ -489,7 +538,7 @@ References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
 \subsubsection[{serial\_\-repl\_\-ack}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-ack (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a030fbd0f4115a0059cef2f5664ccc477}
 
@@ -501,7 +550,7 @@ References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
 \subsubsection[{serial\_\-repl\_\-err}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-err (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a2ae33e0de73d13c81ace087901cc3722}
 
@@ -513,7 +562,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, UPK\
 \subsubsection[{serial\_\-repl\_\-listing}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-listing (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a21b40510948c3dc3e76ca32edd9ec64e}
 
@@ -525,7 +574,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, an
 \subsubsection[{serial\_\-repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-result (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a245d2d408d763b7e5c2db5f071c2c5a9}
 
@@ -537,7 +586,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\
 \subsubsection[{serial\_\-repl\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-end (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_abfffa9f6059fb78d2b0d2f68b1842128}
 
@@ -549,7 +598,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, and UPK\_\-PUT\_\-BOOL.
 \subsubsection[{serial\_\-repl\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-start (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae55b43f34c3465f49fff1b8565da09b5}
 
@@ -561,16 +610,17 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, and 
 \subsubsection[{serial\_\-repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-svcinfo (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a377d6e80f5b80a02f7c9e9416f8db715}
 
 
-References serial\_\-svcinfo\_\-data(), UPK\_\-BUF, UPK\_\-DATA, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+References free(), serial\_\-svcinfo\_\-data(), UPK\_\-BUF, UPK\_\-DATA, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -584,7 +634,7 @@ Here is the call graph for this function:\nopagebreak
 \subsubsection[{serial\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-action (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a79c54f8183aab98df0cd4ad2851df6ac}
 
@@ -596,7 +646,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, an
 \subsubsection[{serial\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-disconnect (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a931fea96e7fd5f9cba816e96b7b7dcef}
 
@@ -608,7 +658,7 @@ References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
 \subsubsection[{serial\_\-req\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-list (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a49513fce7c0acf97dc9422c3e44b8646}
 
@@ -620,7 +670,7 @@ References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
 \subsubsection[{serial\_\-req\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-end (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_add8393b0c9392de61d1663f33b3cbc71}
 
@@ -632,7 +682,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, and UPK\_\-PUT\_\-BOOL.
 \subsubsection[{serial\_\-req\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-start (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a9d5b02532183b02dfe988f4487c8c44b}
 
@@ -644,7 +694,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, and 
 \subsubsection[{serial\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-signal (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a5c5b295095a0b95a2fae4f1fdd79e127}
 
@@ -656,7 +706,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\
 \subsubsection[{serial\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-status (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a0cdcde35f662d2f3492f5433c608bc5a}
 
@@ -668,7 +718,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, an
 \subsubsection[{serial\_\-req\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-subscribe (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_acb68dda242509bb87928dd149438f6cc}
 
@@ -680,7 +730,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\
 \subsubsection[{serial\_\-req\_\-unsub}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-unsub (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a57653a96e534c72aba3b92e823f2c531}
 
@@ -692,7 +742,7 @@ References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\
 \subsubsection[{serial\_\-svcinfo\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-svcinfo\_\-data (
 \begin{DoxyParamCaption}
 \item[{{\bf v0\_\-svcinfo\_\-t} $\ast$}]{data, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__v0__protocol__serializer_8c_a2f75c16dc4c834198e6063930ea1a0a9}
 
@@ -719,7 +769,7 @@ Here is the caller graph for this function:\nopagebreak
 \subsubsection[{serialize\_\-pub\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-pub\_\-payload (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a20067f4f8f9c72a662b2200917a82981}
 
@@ -731,7 +781,7 @@ References upk\_\-generic\_\-msg\_\-t::msgtype, serial\_\-pub\_\-dispatch, UPK\_
 \subsubsection[{serialize\_\-repl\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-repl\_\-payload (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a1cf56afb5c22768589b2f2b77ca80e0b}
 
@@ -743,7 +793,7 @@ References upk\_\-generic\_\-msg\_\-t::msgtype, serial\_\-repl\_\-dispatch, UPK\
 \subsubsection[{serialize\_\-req\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-req\_\-payload (
 \begin{DoxyParamCaption}
 \item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
-\item[{size\_\-t}]{UPK\_\-DATA\_\-LEN}
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ada92418b0e2ec39810cc967cc4ec79fa}
 

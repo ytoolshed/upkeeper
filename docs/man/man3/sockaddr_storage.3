@@ -1,0 +1,30 @@
+.TH "sockaddr_storage" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sockaddr_storage \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsa_family_t\fP \fBss_family\fP"
+.br
+.ti -1c
+.RI "\fB__uint64_t\fP \fB__ss_align\fP"
+.br
+.ti -1c
+.RI "char \fB__ss_padding\fP [(128-(2 *sizeof(\fB__uint64_t\fP)))]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fB__uint64_t\fP \fBsockaddr_storage::__ss_align\fP"
+.SS "char \fBsockaddr_storage::__ss_padding\fP"
+.SS "\fBsa_family_t\fP \fBsockaddr_storage::ss_family\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

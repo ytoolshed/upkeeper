@@ -1,4 +1,4 @@
-.TH "_upk_json_type" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "_upk_json_type" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,7 +12,7 @@ _upk_json_type \-
 
 .in +1c
 .ti -1c
-.RI "uint8_t \fBtype\fP"
+.RI "\fBuint8_t\fP \fBtype\fP"
 .br
 .ti -1c
 .RI "union {"
@@ -46,19 +46,19 @@ Referenced by upk_json_output_bool_handler(), upk_json_value(), and upk_svcconf_
 Referenced by upk_ctrlconf_double_handler(), upk_json_output_double_handler(), and upk_json_value().
 .SS "int \fB_upk_json_type::i\fP"
 .PP
-Referenced by upk_ctrlconf_double_handler(), upk_json_output_int_handler(), upk_json_value(), and upk_svcconf_int_handler().
+Referenced by upk_ctrlconf_int_handler(), upk_json_output_int_handler(), upk_json_value(), and upk_svcconf_int_handler().
 .SS "struct json_object* \fB_upk_json_type::obj\fP"
 .PP
 Referenced by _upk_json_parse_node(), and upk_json_value().
 .SS "\fBupk_json_string_t\fP \fB_upk_json_type::str\fP"
 .PP
-Referenced by upk_ctrlconf_string_handler(), upk_json_output_string_handler(), upk_json_value(), and upk_svcconf_string_handler().
-.SS "uint8_t \fB_upk_json_type::type\fP"
+Referenced by upk_ctrlconf_string_handler(), upk_json_output_string_handler(), upk_json_value(), upk_svcconf_customaction_array_appender(), upk_svcconf_string_handler(), and upk_svcconf_svcid_array_appender().
+.SS "\fBuint8_t\fP \fB_upk_json_type::type\fP"
 .PP
-Referenced by _upk_json_parse_node(), upk_ctrlconf_double_handler(), and upk_json_value().
+Referenced by _upk_json_parse_node(), and upk_json_value().
 .SS "union { ... }   \fB_upk_json_type::val\fP"
 .PP
-Referenced by _upk_json_parse_node(), upk_ctrlconf_double_handler(), upk_ctrlconf_string_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_string_handler(), upk_json_value(), upk_svcconf_bool_handler(), upk_svcconf_int_handler(), and upk_svcconf_string_handler().
+Referenced by _upk_json_parse_node(), upk_ctrlconf_double_handler(), upk_ctrlconf_int_handler(), upk_ctrlconf_string_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_string_handler(), upk_json_value(), upk_svcconf_bool_handler(), upk_svcconf_customaction_array_appender(), upk_svcconf_int_handler(), upk_svcconf_string_handler(), and upk_svcconf_svcid_array_appender().
 
 .SH "Author"
 .PP 

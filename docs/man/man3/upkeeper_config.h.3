@@ -1,4 +1,4 @@
-.TH "upkeeper_config.h" 3 "Wed Sep 14 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "upkeeper_config.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -9,6 +9,69 @@ upkeeper_config.h \-
 .SS "Defines"
 
 .in +1c
+.ti -1c
+.RI "#define \fBCONF_BINDIR\fP   /usr/bin"
+.br
+.ti -1c
+.RI "#define \fBCONF_DATADIR\fP   /usr/share"
+.br
+.ti -1c
+.RI "#define \fBCONF_DATAROOTDIR\fP   /usr/share"
+.br
+.ti -1c
+.RI "#define \fBCONF_DOCDIR\fP   /usr/share/doc/upkeeper"
+.br
+.ti -1c
+.RI "#define \fBCONF_DVIDIR\fP   /usr/share/doc/upkeeper"
+.br
+.ti -1c
+.RI "#define \fBCONF_EXEC_PREFIX\fP   /usr"
+.br
+.ti -1c
+.RI "#define \fBCONF_HTMLDIR\fP   /usr/share/doc/upkeeper"
+.br
+.ti -1c
+.RI "#define \fBCONF_INCLUDEDIR\fP   /usr/include"
+.br
+.ti -1c
+.RI "#define \fBCONF_INFODIR\fP   /usr/share/info"
+.br
+.ti -1c
+.RI "#define \fBCONF_LIBDIR\fP   /usr/lib"
+.br
+.ti -1c
+.RI "#define \fBCONF_LIBEXECDIR\fP   /usr/libexec"
+.br
+.ti -1c
+.RI "#define \fBCONF_LOCALEDIR\fP   /usr/share/locale"
+.br
+.ti -1c
+.RI "#define \fBCONF_LOCALSTATEDIR\fP   /usr/var"
+.br
+.ti -1c
+.RI "#define \fBCONF_MANDIR\fP   /usr/share/man"
+.br
+.ti -1c
+.RI "#define \fBCONF_OLDINCLUDEDIR\fP   /usr/include"
+.br
+.ti -1c
+.RI "#define \fBCONF_PDFDIR\fP   /usr/share/doc/upkeeper"
+.br
+.ti -1c
+.RI "#define \fBCONF_PREFIX\fP   /usr"
+.br
+.ti -1c
+.RI "#define \fBCONF_PSDIR\fP   /usr/share/doc/upkeeper"
+.br
+.ti -1c
+.RI "#define \fBCONF_SBINDIR\fP   /usr/sbin"
+.br
+.ti -1c
+.RI "#define \fBCONF_SHAREDSTATEDIR\fP   /usr/com"
+.br
+.ti -1c
+.RI "#define \fBCONF_SYSCONFDIR\fP   /usr/etc"
+.br
 .ti -1c
 .RI "#define \fBHAVE_ALLOCA\fP   1"
 .br
@@ -40,7 +103,19 @@ upkeeper_config.h \-
 .RI "#define \fBHAVE_GETTIMEOFDAY\fP   1"
 .br
 .ti -1c
+.RI "#define \fBHAVE_INITGROUPS\fP   1"
+.br
+.ti -1c
 .RI "#define \fBHAVE_INTTYPES_H\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_LIBJSON\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_LIBNCURSES\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_LIBSQLITE3\fP   1"
 .br
 .ti -1c
 .RI "#define \fBHAVE_MALLOC\fP   1"
@@ -58,7 +133,13 @@ upkeeper_config.h \-
 .RI "#define \fBHAVE_REALLOC\fP   1"
 .br
 .ti -1c
+.RI "#define \fBHAVE_RMDIR\fP   1"
+.br
+.ti -1c
 .RI "#define \fBHAVE_SELECT\fP   1"
+.br
+.ti -1c
+.RI "#define \fBHAVE_SETGROUPS\fP   1"
 .br
 .ti -1c
 .RI "#define \fBHAVE_SOCKET\fP   1"
@@ -159,6 +240,27 @@ upkeeper_config.h \-
 .in -1c
 .SH "Define Documentation"
 .PP 
+.SS "#define CONF_BINDIR   /usr/bin"
+.SS "#define CONF_DATADIR   /usr/share"
+.SS "#define CONF_DATAROOTDIR   /usr/share"
+.SS "#define CONF_DOCDIR   /usr/share/doc/upkeeper"
+.SS "#define CONF_DVIDIR   /usr/share/doc/upkeeper"
+.SS "#define CONF_EXEC_PREFIX   /usr"
+.SS "#define CONF_HTMLDIR   /usr/share/doc/upkeeper"
+.SS "#define CONF_INCLUDEDIR   /usr/include"
+.SS "#define CONF_INFODIR   /usr/share/info"
+.SS "#define CONF_LIBDIR   /usr/lib"
+.SS "#define CONF_LIBEXECDIR   /usr/libexec"
+.SS "#define CONF_LOCALEDIR   /usr/share/locale"
+.SS "#define CONF_LOCALSTATEDIR   /usr/var"
+.SS "#define CONF_MANDIR   /usr/share/man"
+.SS "#define CONF_OLDINCLUDEDIR   /usr/include"
+.SS "#define CONF_PDFDIR   /usr/share/doc/upkeeper"
+.SS "#define CONF_PREFIX   /usr"
+.SS "#define CONF_PSDIR   /usr/share/doc/upkeeper"
+.SS "#define CONF_SBINDIR   /usr/sbin"
+.SS "#define CONF_SHAREDSTATEDIR   /usr/com"
+.SS "#define CONF_SYSCONFDIR   /usr/etc"
 .SS "#define HAVE___PROGNAME   1"
 .SS "#define HAVE__BOOL   1"
 .SS "#define HAVE_ALLOCA   1"
@@ -171,13 +273,19 @@ upkeeper_config.h \-
 .SS "#define HAVE_FCNTL_H   1"
 .SS "#define HAVE_FLOAT_H   1"
 .SS "#define HAVE_GETTIMEOFDAY   1"
+.SS "#define HAVE_INITGROUPS   1"
 .SS "#define HAVE_INTTYPES_H   1"
+.SS "#define HAVE_LIBJSON   1"
+.SS "#define HAVE_LIBNCURSES   1"
+.SS "#define HAVE_LIBSQLITE3   1"
 .SS "#define HAVE_MALLOC   1"
 .SS "#define HAVE_MEMCHR   1"
 .SS "#define HAVE_MEMORY_H   1"
 .SS "#define HAVE_MKDIR   1"
 .SS "#define HAVE_REALLOC   1"
+.SS "#define HAVE_RMDIR   1"
 .SS "#define HAVE_SELECT   1"
+.SS "#define HAVE_SETGROUPS   1"
 .SS "#define HAVE_SOCKET   1"
 .SS "#define HAVE_STDBOOL_H   1"
 .SS "#define HAVE_STDDEF_H   1"
@@ -206,6 +314,8 @@ upkeeper_config.h \-
 .SS "#define PACKAGE_TARNAME   'upkeeper'"
 .SS "#define PACKAGE_VERSION   '1.0'"
 .SS "#define restrict   __restrict"
+.PP
+Referenced by upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_svcconf_pack(), upk_svcconf_setup_array_handlers(), upk_svcconf_setup_handlers(), upk_svcconf_setup_object_handlers(), and upk_svcconf_toplvl_obj().
 .SS "#define STDC_HEADERS   1"
 .SS "#define VERSION   '1.0'"
 .SH "Author"

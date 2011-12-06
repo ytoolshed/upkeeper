@@ -1,0 +1,47 @@
+\section{\_\-upk\_\-net\_\-state Struct Reference}
+\label{struct__upk__net__state}\index{\_\-upk\_\-net\_\-state@{\_\-upk\_\-net\_\-state}}
+
+
+{\ttfamily \#include $<$upk\_\-network\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-net\_\-state:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{struct__upk__net__state__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+{\bf size\_\-t} {\bf pending\_\-writeq}
+\item 
+{\bf upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t} $\ast$ {\bf callback\_\-stack}
+\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-net\_\-state@{\_\-upk\_\-net\_\-state}!callback\_\-stack@{callback\_\-stack}}
+\index{callback\_\-stack@{callback\_\-stack}!_upk_net_state@{\_\-upk\_\-net\_\-state}}
+\subsubsection[{callback\_\-stack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-cb\_\-stk\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-net\_\-state::callback\_\-stack}}\label{struct__upk__net__state_ac33759fbf7a7b4cf6efbbe9ee169e590}
+the callback stack, who's current head is at this point in the conversation 
+
+Referenced by init\_\-callback\_\-handlers(), upk\_\-call\_\-received\_\-packet\_\-callbacks(), upk\_\-callback\_\-stack\_\-pop(), upk\_\-callback\_\-stack\_\-push(), upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-conn\_\-handles\_\-init(), upk\_\-net\_\-event\_\-dispatcher(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), and upk\_\-partitioned\_\-userdata\_\-free().
+
+\index{\_\-upk\_\-net\_\-state@{\_\-upk\_\-net\_\-state}!pending\_\-writeq@{pending\_\-writeq}}
+\index{pending\_\-writeq@{pending\_\-writeq}!_upk_net_state@{\_\-upk\_\-net\_\-state}}
+\subsubsection[{pending\_\-writeq}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-upk\_\-net\_\-state::pending\_\-writeq}}\label{struct__upk__net__state_a99cc33993d971dcd86f14f9dcf1736d2}
+how many messages are waiting to be sent, used to determine if select on write is necessary 
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher(), upk\_\-queue\_\-packet(), and upk\_\-write\_\-packets().
+
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-network\_\-types.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

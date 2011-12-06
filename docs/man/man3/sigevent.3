@@ -1,0 +1,86 @@
+.TH "sigevent" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sigevent \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsigval_t\fP \fBsigev_value\fP"
+.br
+.ti -1c
+.RI "int \fBsigev_signo\fP"
+.br
+.ti -1c
+.RI "int \fBsigev_notify\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fB_pad\fP [((64/sizeof(int))-4)]"
+.br
+.ti -1c
+.RI "   \fB__pid_t\fP \fB_tid\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      void(* \fB_function\fP )(\fBsigval_t\fP)"
+.br
+.ti -1c
+.RI "      void * \fB_attribute\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigev_thread\fP"
+.br
+.ti -1c
+.RI "} \fB_sigev_un\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fB_pad\fP [((64/sizeof(int))-4)]"
+.br
+.ti -1c
+.RI "   \fB__pid_t\fP \fB_tid\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      void(* \fB_function\fP )(\fBsigval_t\fP)"
+.br
+.ti -1c
+.RI "      void * \fB_attribute\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigev_thread\fP"
+.br
+.ti -1c
+.RI "} \fB_sigev_un\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "void* \fBsigevent::_attribute\fP"
+.SS "void(* \fBsigevent::_function\fP)(\fBsigval_t\fP)"
+.SS "int \fBsigevent::_pad\fP[((64/sizeof(int))-4)]"
+.SS "struct { ... }   \fBsigevent::_sigev_thread\fP"
+.SS "struct { ... }   \fBsigevent::_sigev_thread\fP"
+.SS "union { ... }   \fBsigevent::_sigev_un\fP"
+.SS "union { ... }   \fBsigevent::_sigev_un\fP"
+.SS "\fB__pid_t\fP \fBsigevent::_tid\fP"
+.SS "int \fBsigevent::sigev_notify\fP"
+.SS "int \fBsigevent::sigev_signo\fP"
+.SS "\fBsigval_t\fP \fBsigevent::sigev_value\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

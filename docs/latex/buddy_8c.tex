@@ -55,7 +55,7 @@ static void {\bf buddy\_\-free\_\-ringbuffer} (void)
 \item 
 static void {\bf buddy\_\-accept} (void)
 \item 
-static int {\bf buddy\_\-build\_\-fd\_\-set} (fd\_\-set $\ast$socks, bool listen\_\-sock)
+static int {\bf buddy\_\-build\_\-fd\_\-set} ({\bf fd\_\-set} $\ast$socks, bool listen\_\-sock)
 \item 
 static bool {\bf buddy\_\-handle\_\-flags} (void)
 \item 
@@ -63,7 +63,7 @@ static void {\bf buddy\_\-stop\_\-proc} (void)
 \item 
 static void {\bf buddy\_\-reload\_\-proc} (void)
 \item 
-static void {\bf buddy\_\-cust\_\-action} (uint32\_\-t act\_\-num)
+static void {\bf buddy\_\-cust\_\-action} ({\bf uint32\_\-t} act\_\-num)
 \item 
 static void {\bf buddy\_\-handle\_\-command} (void)
 \item 
@@ -75,7 +75,7 @@ static int32\_\-t {\bf read\_\-ctrl} ({\bf buddy\_\-cmnd\_\-t} $\ast$buf)
 \item 
 static int32\_\-t {\bf write\_\-ctrl} ({\bf buddy\_\-info\_\-t} $\ast$buf)
 \item 
-static pid\_\-t {\bf buddy\_\-exec\_\-action} (void)
+static {\bf pid\_\-t} {\bf buddy\_\-exec\_\-action} (void)
 \item 
 static bool {\bf buddy\_\-start\_\-proc} (void)
 \item 
@@ -83,11 +83,13 @@ static void {\bf resolve\_\-symlink} (void)
 \item 
 static void {\bf buddy\_\-flush\_\-ringbuffer} (void)
 \item 
-static void {\bf sa\_\-sigaction\_\-func} (int signal, siginfo\_\-t $\ast$siginfo, void $\ast$ucontext)
+static void {\bf sa\_\-sigaction\_\-func} (int signal, {\bf siginfo\_\-t} $\ast${\bf siginfo}, void $\ast${\bf ucontext})
 \item 
 void {\bf commit\_\-buddycide} (int32\_\-t signum)
 \item 
-static bool {\bf buddy\_\-disconnect} (size\_\-t count)
+static bool {\bf buddy\_\-disconnect} ({\bf size\_\-t} count)
+\item 
+static void {\bf buddy\_\-supp\_\-groups} (void)
 \item 
 static void {\bf phone\_\-home\_\-if\_\-appropriate} (void)
 \end{DoxyCompactItemize}
@@ -98,13 +100,13 @@ static void {\bf phone\_\-home\_\-if\_\-appropriate} (void)
 \item 
 char $\ast$ {\bf buddy\_\-service\_\-name} = NULL
 \item 
-char {\bf buddy\_\-root\_\-path} [BUDDY\_\-MAX\_\-PATH\_\-LEN] = DEFAULT\_\-BUDDY\_\-ROOT
+char {\bf buddy\_\-root\_\-path} [BUDDY\_\-MAX\_\-PATH\_\-LEN] = \char`\"{}\char`\"{}
 \item 
-uid\_\-t {\bf buddy\_\-setuid}
+{\bf uid\_\-t} {\bf buddy\_\-setuid}
 \item 
-gid\_\-t {\bf buddy\_\-setgid}
+{\bf gid\_\-t} {\bf buddy\_\-setgid}
 \item 
-size\_\-t {\bf ringbuffer\_\-size} = 32
+{\bf size\_\-t} {\bf ringbuffer\_\-size} = 32
 \item 
 char $\ast$$\ast$ {\bf proc\_\-envp} = NULL
 \item 
@@ -112,19 +114,23 @@ long {\bf reconnect\_\-retries} = 5
 \item 
 bool {\bf randomize\_\-ratelimit} = false
 \item 
-uint32\_\-t {\bf user\_\-ratelimit} = 0
+bool {\bf initialize\_\-supplemental\_\-groups} = false
 \item 
-static time\_\-t {\bf respawn\_\-timestamp} = 0
+bool {\bf clear\_\-supplemental\_\-groups} = false
 \item 
-static uint32\_\-t {\bf rapid\_\-respawn\_\-count} = 0
+{\bf uint32\_\-t} {\bf user\_\-ratelimit} = 0
+\item 
+static {\bf time\_\-t} {\bf respawn\_\-timestamp} = 0
+\item 
+static {\bf uint32\_\-t} {\bf rapid\_\-respawn\_\-count} = 0
 \item 
 static bool {\bf force\_\-ratelimit} = false
 \item 
-static size\_\-t {\bf ringbuffer\_\-pending} = 0
+static {\bf size\_\-t} {\bf ringbuffer\_\-pending} = 0
 \item 
 static bool {\bf chld\_\-terminated} = false
 \item 
-static pid\_\-t {\bf proc\_\-pid} = 0
+static {\bf pid\_\-t} {\bf proc\_\-pid} = 0
 \item 
 static {\bf buddy\_\-cmnd\_\-t} {\bf last\_\-command} = UPK\_\-CTRL\_\-NONE
 \item 
@@ -144,7 +150,7 @@ static char {\bf buddy\_\-path\_\-prefix} [BUDDY\_\-MAX\_\-PATH\_\-LEN] = \char`
 \item 
 static char {\bf buddy\_\-string\_\-buf} [BUDDY\_\-MAX\_\-PATH\_\-LEN] = \char`\"{}\char`\"{}
 \item 
-static struct sockaddr\_\-un {\bf buddy\_\-sockaddr} = \{ 0 \}
+static struct {\bf sockaddr\_\-un} {\bf buddy\_\-sockaddr} = \{ 0 \}
 \item 
 static socklen\_\-t {\bf buddy\_\-sockaddr\_\-len} = 0
 \item 
@@ -152,11 +158,11 @@ static int {\bf sockopts} = 0
 \item 
 static int {\bf highest\_\-fd} = 0
 \item 
-static struct timeval {\bf timeout} = \{.tv\_\-sec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC,.tv\_\-usec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC \}
+static struct {\bf timeval} {\bf timeout} = \{.tv\_\-sec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC,.tv\_\-usec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC \}
 \item 
-static struct timespec {\bf nanotimeout}
+static struct {\bf timespec} {\bf nanotimeout}
 \item 
-static size\_\-t {\bf ncount} = 0
+static {\bf size\_\-t} {\bf ncount} = 0
 \item 
 static {\bf buddy\_\-runstate\_\-t} {\bf desired\_\-state} = BUDDY\_\-STOPPED
 \end{DoxyCompactItemize}
@@ -216,11 +222,23 @@ Referenced by buddy\_\-start\_\-proc().
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a212050d7ce21747a29bdd07717001c53}
 
 
-References buddy\_\-ctrlfd, buddy\_\-sockaddr, buddy\_\-sockaddr\_\-len, buddy\_\-sockfd, sockopts, and upk\_\-debug1.
+References accept(), buddy\_\-ctrlfd, buddy\_\-sockaddr\_\-len, buddy\_\-sockfd, fcntl(), sockopts, and upk\_\-debug1.
 
 
 
 Referenced by buddy\_\-event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{buddy_8c_a212050d7ce21747a29bdd07717001c53_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -237,7 +255,7 @@ Here is the caller graph for this function:\nopagebreak
 \index{buddy\_\-build\_\-fd\_\-set@{buddy\_\-build\_\-fd\_\-set}!buddy.c@{buddy.c}}
 \subsubsection[{buddy\_\-build\_\-fd\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}static int buddy\_\-build\_\-fd\_\-set (
 \begin{DoxyParamCaption}
-\item[{fd\_\-set $\ast$}]{socks, }
+\item[{{\bf fd\_\-set} $\ast$}]{socks, }
 \item[{bool}]{listen\_\-sock}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a5a989c286d3d193c6c9784b0f66e18f9}
@@ -269,7 +287,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{buddy_8c_ae71e6bfc3369a9182bd124873f3c4c54}
 
 
-References buddy\_\-flush\_\-ringbuffer(), buddy\_\-free\_\-ringbuffer(), buddy\_\-path(), buddy\_\-service\_\-name, buddy\_\-stop\_\-proc(), and proc\_\-pid.
+References buddy\_\-flush\_\-ringbuffer(), buddy\_\-free\_\-ringbuffer(), buddy\_\-path(), buddy\_\-service\_\-name, buddy\_\-stop\_\-proc(), free(), and proc\_\-pid.
 
 
 
@@ -277,7 +295,8 @@ Referenced by buddy\_\-init(), commit\_\-buddycide(), and main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -301,7 +320,7 @@ Here is the caller graph for this function:\nopagebreak
 \index{buddy\_\-cust\_\-action@{buddy\_\-cust\_\-action}!buddy.c@{buddy.c}}
 \subsubsection[{buddy\_\-cust\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static void buddy\_\-cust\_\-action (
 \begin{DoxyParamCaption}
-\item[{uint32\_\-t}]{act\_\-num}
+\item[{{\bf uint32\_\-t}}]{act\_\-num}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a40221714c58d6dd4fe07c42dd70f3ef8}
 
@@ -314,7 +333,8 @@ Referenced by buddy\_\-handle\_\-command().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -338,16 +358,28 @@ Here is the caller graph for this function:\nopagebreak
 \index{buddy\_\-disconnect@{buddy\_\-disconnect}!buddy.c@{buddy.c}}
 \subsubsection[{buddy\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}static bool buddy\_\-disconnect (
 \begin{DoxyParamCaption}
-\item[{size\_\-t}]{count}
+\item[{{\bf size\_\-t}}]{count}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_ab07b428fcfd43a52fc80958d41187719}
 
 
-References buddy\_\-ctrlfd, and upk\_\-debug1.
+References buddy\_\-ctrlfd, SHUT\_\-RDWR, shutdown(), and upk\_\-debug1.
 
 
 
 Referenced by buddy\_\-flush\_\-ringbuffer(), read\_\-ctrl(), and write\_\-ctrl().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{buddy_8c_ab07b428fcfd43a52fc80958d41187719_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -369,7 +401,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{buddy_8c_ae6ccfa70197441b53a9e94023ee4671c}
 
 
-References buddy\_\-accept(), buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-handle\_\-flags(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, buddy\_\-shutdown, buddy\_\-sockfd, commit\_\-buddycide(), highest\_\-fd, read\_\-ctrl(), this\_\-command, timeout, and upk\_\-debug1.
+References buddy\_\-accept(), buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-handle\_\-flags(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, buddy\_\-shutdown, buddy\_\-sockfd, commit\_\-buddycide(), highest\_\-fd, read\_\-ctrl(), select(), this\_\-command, timeval::tv\_\-sec, timeval::tv\_\-usec, and upk\_\-debug1.
 
 
 
@@ -377,7 +409,8 @@ Referenced by main().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -399,14 +432,14 @@ Here is the caller graph for this function:\nopagebreak
 
 \index{buddy.c@{buddy.c}!buddy\_\-exec\_\-action@{buddy\_\-exec\_\-action}}
 \index{buddy\_\-exec\_\-action@{buddy\_\-exec\_\-action}!buddy.c@{buddy.c}}
-\subsubsection[{buddy\_\-exec\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static pid\_\-t buddy\_\-exec\_\-action (
+\subsubsection[{buddy\_\-exec\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf pid\_\-t} buddy\_\-exec\_\-action (
 \begin{DoxyParamCaption}
 \item[{void}]{}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a3e61e516f17cf6184731f66b065a0b69}
 
 
-References BUDDY\_\-MAX\_\-PATH\_\-LEN, buddy\_\-path\_\-buf, buddy\_\-setreguid(), buddy\_\-setup\_\-fds(), buddy\_\-string\_\-buf, proc\_\-envp, proc\_\-pid, upk\_\-alert, upk\_\-debug0, and upk\_\-notice.
+References BUDDY\_\-MAX\_\-PATH\_\-LEN, buddy\_\-path\_\-buf, buddy\_\-setreguid(), buddy\_\-setup\_\-fds(), buddy\_\-string\_\-buf, buddy\_\-supp\_\-groups(), proc\_\-envp, proc\_\-pid, sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sigaction(), sigemptyset(), sigfillset(), sigprocmask(), sigset(), stat::st\_\-mode, stat(), upk\_\-alert, upk\_\-debug0, and upk\_\-notice.
 
 
 
@@ -414,11 +447,12 @@ Referenced by buddy\_\-cust\_\-action(), buddy\_\-reload\_\-proc(), buddy\_\-sta
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=372pt]{buddy_8c_a3e61e516f17cf6184731f66b065a0b69_cgraph}
+\includegraphics[width=386pt]{buddy_8c_a3e61e516f17cf6184731f66b065a0b69_cgraph}
 \end{center}
 \end{figure}
 
@@ -443,7 +477,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a5e3970ccafb2d792b81686ac35a60c54}
 
 
-References buddy\_\-ctrlfd, buddy\_\-disconnect(), buddy\_\-zero\_\-info(), info\_\-ringbuffer, \_\-buddy\_\-info::next, phone\_\-home\_\-if\_\-appropriate(), \_\-buddy\_\-info::populated, read\_\-ctrl(), \_\-buddy\_\-info::remaining, ringbuffer\_\-pending, this\_\-command, UPK\_\-CTRL\_\-ACK, upk\_\-debug1, and write\_\-ctrl().
+References buddy\_\-ctrlfd, buddy\_\-disconnect(), buddy\_\-zero\_\-info(), info\_\-ringbuffer, \_\-buddy\_\-info::next, phone\_\-home\_\-if\_\-appropriate(), \_\-buddy\_\-info::populated, read\_\-ctrl(), \_\-buddy\_\-info::remaining, ringbuffer\_\-pending, sigfillset(), sigprocmask(), sigset(), this\_\-command, UPK\_\-CTRL\_\-ACK, upk\_\-debug1, and write\_\-ctrl().
 
 
 
@@ -451,7 +485,8 @@ Referenced by buddy\_\-cleanup(), and buddy\_\-event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -480,11 +515,23 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a881775ce0d44afe1ddf0c9b7d345db51}
 
 
-References \_\-buddy\_\-info::next, and ringbuffer\_\-size.
+References free(), \_\-buddy\_\-info::next, and ringbuffer\_\-size.
 
 
 
 Referenced by buddy\_\-cleanup().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=224pt]{buddy_8c_a881775ce0d44afe1ddf0c9b7d345db51_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -514,7 +561,8 @@ Referenced by buddy\_\-event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -551,7 +599,8 @@ Referenced by buddy\_\-event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -580,7 +629,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{buddy_8c_a8243634d0b4e7fe2b2ece3c97bbbd060}
 
 
-References buddy\_\-cleanup(), buddy\_\-ctrlfd, buddy\_\-init\_\-paths(), buddy\_\-init\_\-ringbuffer(), buddy\_\-init\_\-socket(), buddy\_\-setgid, buddy\_\-setuid, buddy\_\-sockfd, sa\_\-sigaction\_\-func(), upk\_\-notice, upk\_\-reg\_\-diag\_\-callback(), upk\_\-verbose, and upk\_\-warn.
+References buddy\_\-cleanup(), buddy\_\-ctrlfd, buddy\_\-init\_\-paths(), buddy\_\-init\_\-ringbuffer(), buddy\_\-init\_\-socket(), buddy\_\-path(), buddy\_\-setgid, buddy\_\-setuid, buddy\_\-sockfd, sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sigaction::sa\_\-sigaction, sa\_\-sigaction\_\-func(), sigaction(), sigaddset(), sigemptyset(), sigfillset(), sigset(), upk\_\-notice, upk\_\-reg\_\-diag\_\-callback(), upk\_\-verbose, and upk\_\-warn.
 
 
 
@@ -626,8 +675,7 @@ Referenced by buddy\_\-init().
 
 
 
-Here is the call graph for this function:
-\nopagebreak
+Here is the call graph for this function:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -656,11 +704,23 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_ae52b66d6f890174e6aada3ec2be81da3}
 
 
-References \_\-buddy\_\-info::next, ringbuffer\_\-size, and \_\-buddy\_\-info::slot\_\-n.
+References calloc(), \_\-buddy\_\-info::next, ringbuffer\_\-size, and \_\-buddy\_\-info::slot\_\-n.
 
 
 
 Referenced by buddy\_\-init().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{buddy_8c_ae52b66d6f890174e6aada3ec2be81da3_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -682,7 +742,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_aade6680250d2295a4480120419f1f9c1}
 
 
-References buddy\_\-path(), buddy\_\-sockaddr, buddy\_\-sockaddr\_\-len, buddy\_\-sockfd, and upk\_\-debug0.
+References bind(), buddy\_\-path(), buddy\_\-sockaddr, buddy\_\-sockaddr\_\-len, buddy\_\-sockfd, fcntl(), listen(), SOCK\_\-STREAM, socket(), sockaddr\_\-un::sun\_\-family, sockaddr\_\-un::sun\_\-path, umask(), and upk\_\-debug0.
 
 
 
@@ -690,7 +750,8 @@ Referenced by buddy\_\-init().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -724,11 +785,12 @@ References buddy\_\-path\_\-buf, buddy\_\-path\_\-prefix, and buddy\_\-string\_\
 
 
 
-Referenced by buddy\_\-cleanup(), buddy\_\-cust\_\-action(), buddy\_\-init\_\-socket(), buddy\_\-phone\_\-home(), buddy\_\-reload\_\-proc(), buddy\_\-setup\_\-fds(), buddy\_\-start\_\-proc(), and buddy\_\-stop\_\-proc().
+Referenced by buddy\_\-cleanup(), buddy\_\-cust\_\-action(), buddy\_\-init(), buddy\_\-init\_\-socket(), buddy\_\-phone\_\-home(), buddy\_\-reload\_\-proc(), buddy\_\-setup\_\-fds(), buddy\_\-start\_\-proc(), buddy\_\-stop\_\-proc(), and spawn\_\-buddy().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -746,7 +808,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a664f7a6d18dea51b1260b106a38ebb24}
 
 
-References buddy\_\-ctrlfd, buddy\_\-path(), buddy\_\-sockaddr, buddy\_\-sockaddr\_\-len, buddy\_\-string\_\-buf, and resolve\_\-symlink().
+References buddy\_\-ctrlfd, buddy\_\-path(), buddy\_\-sockaddr\_\-len, buddy\_\-string\_\-buf, connect(), resolve\_\-symlink(), SOCK\_\-STREAM, socket(), sockaddr\_\-un::sun\_\-family, and sockaddr\_\-un::sun\_\-path.
 
 
 
@@ -754,11 +816,12 @@ Referenced by phone\_\-home\_\-if\_\-appropriate().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=272pt]{buddy_8c_a664f7a6d18dea51b1260b106a38ebb24_cgraph}
+\includegraphics[width=344pt]{buddy_8c_a664f7a6d18dea51b1260b106a38ebb24_cgraph}
 \end{center}
 \end{figure}
 
@@ -828,7 +891,8 @@ Referenced by buddy\_\-handle\_\-command().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -920,7 +984,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a27de7f520d62139c1daa635cbb19be37}
 
 
-References buddy\_\-exec\_\-action(), buddy\_\-path(), buddy\_\-record\_\-state(), buddy\_\-service\_\-name, force\_\-ratelimit, MAX\_\-RESPAWN\_\-COUNT, \_\-buddy\_\-info::next, proc\_\-pid, rapid\_\-respawn\_\-count, RESPAWN\_\-RATELIMIT, respawn\_\-timestamp, RESPAWN\_\-WINDOW, upk\_\-debug0, and upk\_\-notice.
+References buddy\_\-exec\_\-action(), buddy\_\-path(), buddy\_\-record\_\-state(), buddy\_\-service\_\-name, force\_\-ratelimit, MAX\_\-RESPAWN\_\-COUNT, \_\-buddy\_\-info::next, proc\_\-pid, rapid\_\-respawn\_\-count, RESPAWN\_\-RATELIMIT, respawn\_\-timestamp, RESPAWN\_\-WINDOW, sigaddset(), sigemptyset(), sigprocmask(), sigset(), upk\_\-debug0, and upk\_\-notice.
 
 
 
@@ -928,7 +992,8 @@ Referenced by buddy\_\-handle\_\-command(), and buddy\_\-handle\_\-flags().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -957,7 +1022,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a4b1edbdc726789da8ca825d76581b68f}
 
 
-References buddy\_\-exec\_\-action(), buddy\_\-path(), nanotimeout, and proc\_\-pid.
+References buddy\_\-exec\_\-action(), buddy\_\-path(), proc\_\-pid, timespec::tv\_\-nsec, and timespec::tv\_\-sec.
 
 
 
@@ -965,7 +1030,8 @@ Referenced by buddy\_\-cleanup(), and buddy\_\-handle\_\-command().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -981,6 +1047,44 @@ Here is the caller graph for this function:\nopagebreak
 \begin{center}
 \leavevmode
 \includegraphics[width=400pt]{buddy_8c_a4b1edbdc726789da8ca825d76581b68f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy.c@{buddy.c}!buddy\_\-supp\_\-groups@{buddy\_\-supp\_\-groups}}
+\index{buddy\_\-supp\_\-groups@{buddy\_\-supp\_\-groups}!buddy.c@{buddy.c}}
+\subsubsection[{buddy\_\-supp\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}static void buddy\_\-supp\_\-groups (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a996d3440ab95a25aaedbe25fde69705b}
+
+
+References buddy\_\-setuid, clear\_\-supplemental\_\-groups, getpwuid(), initgroups(), initialize\_\-supplemental\_\-groups, and setgroups().
+
+
+
+Referenced by buddy\_\-exec\_\-action().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{buddy_8c_a996d3440ab95a25aaedbe25fde69705b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8c_a996d3440ab95a25aaedbe25fde69705b_icgraph}
 \end{center}
 \end{figure}
 
@@ -1020,7 +1124,7 @@ Here is the caller graph for this function:\nopagebreak
 )}\label{buddy_8c_ab7a98a53dac20e00f111f46389698b1d}
 
 
-References buddy\_\-cleanup(), and upk\_\-debug1.
+References buddy\_\-cleanup(), getpid(), sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sigaction(), sigemptyset(), sigfillset(), sigprocmask(), sigset(), and upk\_\-debug1.
 
 
 
@@ -1028,7 +1132,8 @@ Referenced by buddy\_\-event\_\-loop().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1057,7 +1162,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_afc058b3e7bf5b8dfe5f43a8f83808a90}
 
 
-References buddy\_\-phone\_\-home(), buddy\_\-shutdown, nanotimeout, reconnect\_\-retries, ringbuffer\_\-pending, ringbuffer\_\-size, and upk\_\-verbose.
+References buddy\_\-phone\_\-home(), buddy\_\-shutdown, reconnect\_\-retries, ringbuffer\_\-pending, ringbuffer\_\-size, timespec::tv\_\-nsec, timespec::tv\_\-sec, and upk\_\-verbose.
 
 
 
@@ -1065,7 +1170,8 @@ Referenced by buddy\_\-flush\_\-ringbuffer().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1094,7 +1200,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a042568d6c2f703b98ba73eb6fc7e8edb}
 
 
-References buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-disconnect(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, highest\_\-fd, ncount, and timeout.
+References buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-disconnect(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, highest\_\-fd, ncount, select(), timeval::tv\_\-sec, and timeval::tv\_\-usec.
 
 
 
@@ -1102,11 +1208,12 @@ Referenced by buddy\_\-event\_\-loop(), and buddy\_\-flush\_\-ringbuffer().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=234pt]{buddy_8c_a042568d6c2f703b98ba73eb6fc7e8edb_cgraph}
+\includegraphics[width=328pt]{buddy_8c_a042568d6c2f703b98ba73eb6fc7e8edb_cgraph}
 \end{center}
 \end{figure}
 
@@ -1131,11 +1238,23 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_aca04c1736459e680420f762c4ca81e84}
 
 
-References buddy\_\-path\_\-buf, and buddy\_\-string\_\-buf.
+References buddy\_\-path\_\-buf, buddy\_\-string\_\-buf, lstat(), and stat::st\_\-mode.
 
 
 
 Referenced by buddy\_\-phone\_\-home().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{buddy_8c_aca04c1736459e680420f762c4ca81e84_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
@@ -1153,13 +1272,13 @@ Here is the caller graph for this function:\nopagebreak
 \subsubsection[{sa\_\-sigaction\_\-func}]{\setlength{\rightskip}{0pt plus 5cm}static void sa\_\-sigaction\_\-func (
 \begin{DoxyParamCaption}
 \item[{int}]{signal, }
-\item[{siginfo\_\-t $\ast$}]{siginfo, }
+\item[{{\bf siginfo\_\-t} $\ast$}]{siginfo, }
 \item[{void $\ast$}]{ucontext}
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_ae8769e19667f1be2fc6e8b1a0eef4371}
 
 
-References buddy\_\-record\_\-state(), buddy\_\-shutdown, chld\_\-terminated, \_\-buddy\_\-info::next, proc\_\-pid, \_\-buddy\_\-info::siginfo, upk\_\-debug1, \_\-buddy\_\-info::wait\_\-pid, and \_\-buddy\_\-info::wait\_\-status.
+References buddy\_\-record\_\-state(), buddy\_\-shutdown, chld\_\-terminated, \_\-buddy\_\-info::next, proc\_\-pid, \_\-buddy\_\-info::siginfo, upk\_\-debug1, \_\-buddy\_\-info::wait\_\-pid, \_\-buddy\_\-info::wait\_\-status, and waitpid().
 
 
 
@@ -1167,7 +1286,8 @@ Referenced by buddy\_\-init().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -1196,7 +1316,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{buddy_8c_a76b79c47442b30432c9f221b0b18c632}
 
 
-References buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-disconnect(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, highest\_\-fd, ncount, and timeout.
+References buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-disconnect(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, highest\_\-fd, ncount, select(), timeval::tv\_\-sec, and timeval::tv\_\-usec.
 
 
 
@@ -1204,11 +1324,12 @@ Referenced by buddy\_\-flush\_\-ringbuffer().
 
 
 
-Here is the call graph for this function:\nopagebreak
+Here is the call graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=236pt]{buddy_8c_a76b79c47442b30432c9f221b0b18c632_cgraph}
+\includegraphics[width=330pt]{buddy_8c_a76b79c47442b30432c9f221b0b18c632_cgraph}
 \end{center}
 \end{figure}
 
@@ -1250,7 +1371,7 @@ Referenced by buddy\_\-init\_\-paths(), and buddy\_\-path().
 
 \index{buddy.c@{buddy.c}!buddy\_\-root\_\-path@{buddy\_\-root\_\-path}}
 \index{buddy\_\-root\_\-path@{buddy\_\-root\_\-path}!buddy.c@{buddy.c}}
-\subsubsection[{buddy\_\-root\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf buddy\_\-root\_\-path}[BUDDY\_\-MAX\_\-PATH\_\-LEN] = DEFAULT\_\-BUDDY\_\-ROOT}\label{buddy_8c_a9715b970fd956abacde0cff8a337e0c4}
+\subsubsection[{buddy\_\-root\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf buddy\_\-root\_\-path}[BUDDY\_\-MAX\_\-PATH\_\-LEN] = \char`\"{}\char`\"{}}\label{buddy_8c_a9715b970fd956abacde0cff8a337e0c4}
 
 
 Referenced by buddy\_\-init\_\-paths(), and opt\_\-parse().
@@ -1264,17 +1385,17 @@ Referenced by buddy\_\-cleanup(), buddy\_\-init\_\-paths(), buddy\_\-start\_\-pr
 
 \index{buddy.c@{buddy.c}!buddy\_\-setgid@{buddy\_\-setgid}}
 \index{buddy\_\-setgid@{buddy\_\-setgid}!buddy.c@{buddy.c}}
-\subsubsection[{buddy\_\-setgid}]{\setlength{\rightskip}{0pt plus 5cm}gid\_\-t {\bf buddy\_\-setgid}}\label{buddy_8c_a94f0c0963c51ae59585d090bd146267c}
+\subsubsection[{buddy\_\-setgid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gid\_\-t} {\bf buddy\_\-setgid}}\label{buddy_8c_a94f0c0963c51ae59585d090bd146267c}
 
 
 Referenced by buddy\_\-init(), buddy\_\-setreguid(), and opt\_\-parse().
 
 \index{buddy.c@{buddy.c}!buddy\_\-setuid@{buddy\_\-setuid}}
 \index{buddy\_\-setuid@{buddy\_\-setuid}!buddy.c@{buddy.c}}
-\subsubsection[{buddy\_\-setuid}]{\setlength{\rightskip}{0pt plus 5cm}uid\_\-t {\bf buddy\_\-setuid}}\label{buddy_8c_a2ef8d11cc4ac2862fbe8ce2112e2e4fb}
+\subsubsection[{buddy\_\-setuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uid\_\-t} {\bf buddy\_\-setuid}}\label{buddy_8c_a2ef8d11cc4ac2862fbe8ce2112e2e4fb}
 
 
-Referenced by buddy\_\-init(), buddy\_\-setreguid(), and opt\_\-parse().
+Referenced by buddy\_\-init(), buddy\_\-setreguid(), buddy\_\-supp\_\-groups(), and opt\_\-parse().
 
 \index{buddy.c@{buddy.c}!buddy\_\-shutdown@{buddy\_\-shutdown}}
 \index{buddy\_\-shutdown@{buddy\_\-shutdown}!buddy.c@{buddy.c}}
@@ -1285,10 +1406,10 @@ Referenced by buddy\_\-event\_\-loop(), buddy\_\-handle\_\-command(), buddy\_\-h
 
 \index{buddy.c@{buddy.c}!buddy\_\-sockaddr@{buddy\_\-sockaddr}}
 \index{buddy\_\-sockaddr@{buddy\_\-sockaddr}!buddy.c@{buddy.c}}
-\subsubsection[{buddy\_\-sockaddr}]{\setlength{\rightskip}{0pt plus 5cm}struct sockaddr\_\-un {\bf buddy\_\-sockaddr} = \{ 0 \}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_ac6fd0c340d369754b0ba41080c21377d}
+\subsubsection[{buddy\_\-sockaddr}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf sockaddr\_\-un} {\bf buddy\_\-sockaddr} = \{ 0 \}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_ac6fd0c340d369754b0ba41080c21377d}
 
 
-Referenced by buddy\_\-accept(), buddy\_\-init\_\-socket(), and buddy\_\-phone\_\-home().
+Referenced by buddy\_\-init\_\-socket().
 
 \index{buddy.c@{buddy.c}!buddy\_\-sockaddr\_\-len@{buddy\_\-sockaddr\_\-len}}
 \index{buddy\_\-sockaddr\_\-len@{buddy\_\-sockaddr\_\-len}!buddy.c@{buddy.c}}
@@ -1316,7 +1437,7 @@ Referenced by buddy\_\-exec\_\-action(), buddy\_\-path(), buddy\_\-phone\_\-home
 \subsubsection[{buddy\_\-uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf buddy\_\-uuid}}\label{buddy_8c_a3e9321d881ca257289c65b5022b693c8}
 
 
-Referenced by buddy\_\-record\_\-state(), and opt\_\-parse().
+Referenced by buddy\_\-record\_\-state(), opt\_\-parse(), and spawn\_\-buddy().
 
 \index{buddy.c@{buddy.c}!chld\_\-terminated@{chld\_\-terminated}}
 \index{chld\_\-terminated@{chld\_\-terminated}!buddy.c@{buddy.c}}
@@ -1324,6 +1445,13 @@ Referenced by buddy\_\-record\_\-state(), and opt\_\-parse().
 
 
 Referenced by buddy\_\-handle\_\-flags(), and sa\_\-sigaction\_\-func().
+
+\index{buddy.c@{buddy.c}!clear\_\-supplemental\_\-groups@{clear\_\-supplemental\_\-groups}}
+\index{clear\_\-supplemental\_\-groups@{clear\_\-supplemental\_\-groups}!buddy.c@{buddy.c}}
+\subsubsection[{clear\_\-supplemental\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf clear\_\-supplemental\_\-groups} = false}\label{buddy_8c_a535a3bdf28e5f018da53680703092e1b}
+
+
+Referenced by buddy\_\-supp\_\-groups(), and opt\_\-parse().
 
 \index{buddy.c@{buddy.c}!desired\_\-state@{desired\_\-state}}
 \index{desired\_\-state@{desired\_\-state}!buddy.c@{buddy.c}}
@@ -1353,6 +1481,13 @@ Referenced by buddy\_\-event\_\-loop(), read\_\-ctrl(), and write\_\-ctrl().
 
 Referenced by buddy\_\-flush\_\-ringbuffer().
 
+\index{buddy.c@{buddy.c}!initialize\_\-supplemental\_\-groups@{initialize\_\-supplemental\_\-groups}}
+\index{initialize\_\-supplemental\_\-groups@{initialize\_\-supplemental\_\-groups}!buddy.c@{buddy.c}}
+\subsubsection[{initialize\_\-supplemental\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf initialize\_\-supplemental\_\-groups} = false}\label{buddy_8c_ab0872a08f4362ca27dba55fcef64c24f}
+
+
+Referenced by buddy\_\-supp\_\-groups(), and opt\_\-parse().
+
 \index{buddy.c@{buddy.c}!last\_\-command@{last\_\-command}}
 \index{last\_\-command@{last\_\-command}!buddy.c@{buddy.c}}
 \subsubsection[{last\_\-command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-cmnd\_\-t} {\bf last\_\-command} = UPK\_\-CTRL\_\-NONE\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_afac02348ed45a2ad675379a8ca104518}
@@ -1362,19 +1497,15 @@ Referenced by buddy\_\-handle\_\-command(), and buddy\_\-record\_\-state().
 
 \index{buddy.c@{buddy.c}!nanotimeout@{nanotimeout}}
 \index{nanotimeout@{nanotimeout}!buddy.c@{buddy.c}}
-\subsubsection[{nanotimeout}]{\setlength{\rightskip}{0pt plus 5cm}struct timespec {\bf nanotimeout}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a0aa2ef11dabd8b068b1725e8a94c92cb}
+\subsubsection[{nanotimeout}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf timespec} {\bf nanotimeout}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a0aa2ef11dabd8b068b1725e8a94c92cb}
 {\bfseries Initial value:}
 \begin{DoxyCode}
  {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec =
         BUDDY_RETRY_TIMEOUT_NSEC }
 \end{DoxyCode}
-
-
-Referenced by buddy\_\-stop\_\-proc(), and phone\_\-home\_\-if\_\-appropriate().
-
 \index{buddy.c@{buddy.c}!ncount@{ncount}}
 \index{ncount@{ncount}!buddy.c@{buddy.c}}
-\subsubsection[{ncount}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf ncount} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_af750bbadf6e7e222f8d8b062e8696dd0}
+\subsubsection[{ncount}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf ncount} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_af750bbadf6e7e222f8d8b062e8696dd0}
 
 
 Referenced by read\_\-ctrl(), and write\_\-ctrl().
@@ -1388,7 +1519,7 @@ Referenced by buddy\_\-exec\_\-action(), and main().
 
 \index{buddy.c@{buddy.c}!proc\_\-pid@{proc\_\-pid}}
 \index{proc\_\-pid@{proc\_\-pid}!buddy.c@{buddy.c}}
-\subsubsection[{proc\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}pid\_\-t {\bf proc\_\-pid} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_aa13c9951e918940d6f11d8ea9c2f4546}
+\subsubsection[{proc\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pid\_\-t} {\bf proc\_\-pid} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_aa13c9951e918940d6f11d8ea9c2f4546}
 
 
 Referenced by buddy\_\-cleanup(), buddy\_\-exec\_\-action(), buddy\_\-handle\_\-command(), buddy\_\-record\_\-state(), buddy\_\-reload\_\-proc(), buddy\_\-start\_\-proc(), buddy\_\-stop\_\-proc(), deserial\_\-svcinfo\_\-data(), sa\_\-sigaction\_\-func(), and serial\_\-svcinfo\_\-data().
@@ -1398,7 +1529,7 @@ Referenced by buddy\_\-cleanup(), buddy\_\-exec\_\-action(), buddy\_\-handle\_\-
 \subsubsection[{randomize\_\-ratelimit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf randomize\_\-ratelimit} = false}\label{buddy_8c_ac77b45e275dcc4a554fd495516deaa04}
 \index{buddy.c@{buddy.c}!rapid\_\-respawn\_\-count@{rapid\_\-respawn\_\-count}}
 \index{rapid\_\-respawn\_\-count@{rapid\_\-respawn\_\-count}!buddy.c@{buddy.c}}
-\subsubsection[{rapid\_\-respawn\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf rapid\_\-respawn\_\-count} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_ae618973dea04a018a21366805669ca73}
+\subsubsection[{rapid\_\-respawn\_\-count}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf rapid\_\-respawn\_\-count} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_ae618973dea04a018a21366805669ca73}
 
 
 Referenced by buddy\_\-start\_\-proc().
@@ -1412,21 +1543,21 @@ Referenced by opt\_\-parse(), and phone\_\-home\_\-if\_\-appropriate().
 
 \index{buddy.c@{buddy.c}!respawn\_\-timestamp@{respawn\_\-timestamp}}
 \index{respawn\_\-timestamp@{respawn\_\-timestamp}!buddy.c@{buddy.c}}
-\subsubsection[{respawn\_\-timestamp}]{\setlength{\rightskip}{0pt plus 5cm}time\_\-t {\bf respawn\_\-timestamp} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a585a8d637b449525b158a160771fb4b1}
+\subsubsection[{respawn\_\-timestamp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf time\_\-t} {\bf respawn\_\-timestamp} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a585a8d637b449525b158a160771fb4b1}
 
 
 Referenced by buddy\_\-handle\_\-flags(), and buddy\_\-start\_\-proc().
 
 \index{buddy.c@{buddy.c}!ringbuffer\_\-pending@{ringbuffer\_\-pending}}
 \index{ringbuffer\_\-pending@{ringbuffer\_\-pending}!buddy.c@{buddy.c}}
-\subsubsection[{ringbuffer\_\-pending}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf ringbuffer\_\-pending} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_af9029329735214e89a6493415ea518d8}
+\subsubsection[{ringbuffer\_\-pending}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf ringbuffer\_\-pending} = 0\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_af9029329735214e89a6493415ea518d8}
 
 
 Referenced by buddy\_\-flush\_\-ringbuffer(), buddy\_\-record\_\-state(), buddy\_\-zero\_\-info(), and phone\_\-home\_\-if\_\-appropriate().
 
 \index{buddy.c@{buddy.c}!ringbuffer\_\-size@{ringbuffer\_\-size}}
 \index{ringbuffer\_\-size@{ringbuffer\_\-size}!buddy.c@{buddy.c}}
-\subsubsection[{ringbuffer\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf ringbuffer\_\-size} = 32}\label{buddy_8c_aaf0b4e8526897974d594cc330ece0b5c}
+\subsubsection[{ringbuffer\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf ringbuffer\_\-size} = 32}\label{buddy_8c_aaf0b4e8526897974d594cc330ece0b5c}
 
 
 Referenced by buddy\_\-free\_\-ringbuffer(), buddy\_\-init\_\-ringbuffer(), buddy\_\-record\_\-state(), main(), opt\_\-parse(), and phone\_\-home\_\-if\_\-appropriate().
@@ -1447,11 +1578,7 @@ Referenced by buddy\_\-event\_\-loop(), buddy\_\-flush\_\-ringbuffer(), and budd
 
 \index{buddy.c@{buddy.c}!timeout@{timeout}}
 \index{timeout@{timeout}!buddy.c@{buddy.c}}
-\subsubsection[{timeout}]{\setlength{\rightskip}{0pt plus 5cm}struct timeval {\bf timeout} = \{.tv\_\-sec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC,.tv\_\-usec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC \}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a03a5df464f7f59f8fe9f8da62642ce06}
-
-
-Referenced by buddy\_\-event\_\-loop(), read\_\-ctrl(), and write\_\-ctrl().
-
+\subsubsection[{timeout}]{\setlength{\rightskip}{0pt plus 5cm}struct {\bf timeval} {\bf timeout} = \{.tv\_\-sec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC,.tv\_\-usec = BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC \}\hspace{0.3cm}{\ttfamily  [static]}}\label{buddy_8c_a03a5df464f7f59f8fe9f8da62642ce06}
 \index{buddy.c@{buddy.c}!user\_\-ratelimit@{user\_\-ratelimit}}
 \index{user\_\-ratelimit@{user\_\-ratelimit}!buddy.c@{buddy.c}}
-\subsubsection[{user\_\-ratelimit}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf user\_\-ratelimit} = 0}\label{buddy_8c_ae27137b4c4b5c8be0a91356bfab19ee1}
+\subsubsection[{user\_\-ratelimit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf user\_\-ratelimit} = 0}\label{buddy_8c_ae27137b4c4b5c8be0a91356bfab19ee1}

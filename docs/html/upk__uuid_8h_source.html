@@ -57,34 +57,34 @@
 <a name="l00016"></a>00016 <span class="preprocessor"></span>
 <a name="l00023"></a>00023 <span class="preprocessor">#include &quot;<a class="code" href="upk__std__include_8h.html">upk_std_include.h</a>&quot;</span>
 <a name="l00024"></a>00024 
-<a name="l00037"></a><a class="code" href="struct__upk__uuid.html">00037</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">_upk_uuid</a> {
-<a name="l00038"></a><a class="code" href="struct__upk__uuid.html#aeefcd7db5971c45ca97b83f724501ca9">00038</a>     uint32_t                <a class="code" href="struct__upk__uuid.html#aeefcd7db5971c45ca97b83f724501ca9">time_low</a>;                      
-<a name="l00040"></a><a class="code" href="struct__upk__uuid.html#a8f552d485307182b23619be222cd4fc8">00040</a>     uint16_t                <a class="code" href="struct__upk__uuid.html#a8f552d485307182b23619be222cd4fc8">time_mid</a>;                      
-<a name="l00041"></a><a class="code" href="struct__upk__uuid.html#abd1232f0887919e662a772b94b465670">00041</a>     uint16_t                <a class="code" href="struct__upk__uuid.html#abd1232f0887919e662a772b94b465670">time_high_and_version</a>;         
-<a name="l00043"></a><a class="code" href="struct__upk__uuid.html#a9381639878467a2c59e90271b7a6525f">00043</a>     uint8_t                 <a class="code" href="struct__upk__uuid.html#a9381639878467a2c59e90271b7a6525f">clk_seq_high</a>;                  
-<a name="l00044"></a><a class="code" href="struct__upk__uuid.html#a0cdb0fa230c786e2ae9994ce31df60fd">00044</a>     uint8_t                 <a class="code" href="struct__upk__uuid.html#a0cdb0fa230c786e2ae9994ce31df60fd">clk_seq_low</a>;                   
-<a name="l00045"></a><a class="code" href="struct__upk__uuid.html#ab13ebc728fe2ee9b46d44a65fe3dd640">00045</a>     uint8_t                 <a class="code" href="struct__upk__uuid.html#ab13ebc728fe2ee9b46d44a65fe3dd640">node</a>[6];                       
-<a name="l00046"></a>00046 } <a class="code" href="group__uuid.html#gad592133cddb5acf4c36149653d128496" title="structure for holding 16 byte UUID.">upk_uuid_t</a>;
+<a name="l00037"></a>00037 <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">_upk_uuid</a> {
+<a name="l00038"></a>00038     <a class="code" href="controller_2tp_8c.html#a435d1572bf3f880d55459d9805097f62">uint32_t</a>                <a class="code" href="struct__upk__uuid.html#aeefcd7db5971c45ca97b83f724501ca9">time_low</a>;                      
+<a name="l00040"></a>00040     <a class="code" href="controller_2tp_8c.html#adf4d876453337156dde61095e1f20223">uint16_t</a>                <a class="code" href="struct__upk__uuid.html#a8f552d485307182b23619be222cd4fc8">time_mid</a>;                      
+<a name="l00041"></a>00041     <a class="code" href="controller_2tp_8c.html#adf4d876453337156dde61095e1f20223">uint16_t</a>                <a class="code" href="struct__upk__uuid.html#abd1232f0887919e662a772b94b465670">time_high_and_version</a>;         
+<a name="l00043"></a>00043     <a class="code" href="controller_2tp_8c.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>                 <a class="code" href="struct__upk__uuid.html#a9381639878467a2c59e90271b7a6525f">clk_seq_high</a>;                  
+<a name="l00044"></a>00044     <a class="code" href="controller_2tp_8c.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>                 <a class="code" href="struct__upk__uuid.html#a0cdb0fa230c786e2ae9994ce31df60fd">clk_seq_low</a>;                   
+<a name="l00045"></a>00045     <a class="code" href="controller_2tp_8c.html#aba7bc1797add20fe3efdf37ced1182c5">uint8_t</a>                 <a class="code" href="struct__upk__uuid.html#afe8efc1a9931d9469bbfb692d8db729a">node</a>[6];                       
+<a name="l00046"></a>00046 } <a class="code" href="controller_2tp_8c.html#ad592133cddb5acf4c36149653d128496">upk_uuid_t</a>;
 <a name="l00047"></a>00047 
 <a name="l00048"></a><a class="code" href="group__uuid.html#ga5c492b948c7c6a74289b75ef6dee5f8b">00048</a> <span class="preprocessor">#define UPK_UUID_LEN sizeof(upk_uuid_t)                    </span>
 <a name="l00049"></a><a class="code" href="group__uuid.html#ga4e7d198c8257d81f92ec7d4c1d6e7cb5">00049</a> <span class="preprocessor">#define UPK_UUID_STRING_LEN 36</span>
 <a name="l00050"></a>00050 <span class="preprocessor"></span>
-<a name="l00063"></a>00063 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__uuid__functions.html#ga9a500d34b25fc295c623bc87ac04b2a1" title="seed random number pool used by upk_gen_uuid_bytes.">upk_uuid_seed_random</a>(<span class="keywordtype">void</span>);
+<a name="l00063"></a>00063 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#a9a500d34b25fc295c623bc87ac04b2a1">upk_uuid_seed_random</a>(<span class="keywordtype">void</span>);
 <a name="l00064"></a>00064 
-<a name="l00070"></a>00070 <span class="keyword">extern</span> <span class="keywordtype">int</span>              <a class="code" href="group__uuid__functions.html#ga2634678a70f7c9a1f89d2784666f0a64" title="open random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable...">upk_uuid_open_random</a>(<span class="keywordtype">void</span>);
+<a name="l00070"></a>00070 <span class="keyword">extern</span> <span class="keywordtype">int</span>              <a class="code" href="controller_2tp_8c.html#a2634678a70f7c9a1f89d2784666f0a64">upk_uuid_open_random</a>(<span class="keywordtype">void</span>);
 <a name="l00071"></a>00071 
-<a name="l00079"></a>00079 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__uuid__functions.html#gadcafb43a269de38ca6b24ed2fdfe48c0" title="collect and/or generate 16 bytes of random data.">upk_gen_uuid_bytes</a>(<a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * buf);
+<a name="l00079"></a>00079 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#adcafb43a269de38ca6b24ed2fdfe48c0">upk_gen_uuid_bytes</a>(<a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * buf);
 <a name="l00080"></a>00080 
-<a name="l00088"></a>00088 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__uuid__functions.html#ga531ded5ea8455b772e093cf15147bea6" title="convert uuid to string and place in buf.">upk_uuid_to_string</a>(<span class="keywordtype">char</span> *buf, <span class="keyword">const</span> <a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * uuid);
+<a name="l00088"></a>00088 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#a531ded5ea8455b772e093cf15147bea6">upk_uuid_to_string</a>(<span class="keywordtype">char</span> *buf, <span class="keyword">const</span> <a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * uuid);
 <a name="l00089"></a>00089 
-<a name="l00097"></a>00097 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="group__uuid__functions.html#gac7166422edb32c235fcda2f7215cb16c" title="test if a given string is a valid uuid string.">is_valid_upk_uuid_string</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keywordtype">string</span>);
+<a name="l00097"></a>00097 <span class="keyword">extern</span> <span class="keywordtype">bool</span>             <a class="code" href="controller_2tp_8c.html#ae2ca811198864f7d44ec3776328c3b18">is_valid_upk_uuid_string</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keywordtype">string</span>);
 <a name="l00098"></a>00098 
-<a name="l00106"></a>00106 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="group__uuid__functions.html#ga96de704424fa69212eea81582a57c28d" title="convert uuid string into uuid structure.">upk_string_to_uuid</a>(<a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * uuid, <span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keywordtype">string</span>);
+<a name="l00106"></a>00106 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#a96de704424fa69212eea81582a57c28d">upk_string_to_uuid</a>(<a class="code" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID.">upk_uuid_t</a> * uuid, <span class="keyword">const</span> <span class="keywordtype">char</span> *<span class="keywordtype">string</span>);
 <a name="l00107"></a>00107 
 <a name="l00114"></a>00114 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

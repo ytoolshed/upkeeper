@@ -1,4 +1,4 @@
-.TH "upk_req_preamble_t" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "upk_req_preamble_t" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,32 +15,32 @@ upk_req_preamble_t \-
 .RI "\fBupk_msgtype_t\fP \fBmsgtype\fP"
 .br
 .ti -1c
-.RI "uint32_t \fBmin_supported_ver\fP"
+.RI "\fBuint32_t\fP \fBmin_supported_ver\fP"
 .br
 .ti -1c
-.RI "uint32_t \fBmax_supported_ver\fP"
+.RI "\fBuint32_t\fP \fBmax_supported_ver\fP"
 .br
 .ti -1c
-.RI "uint32_t \fBclient_name_len\fP"
+.RI "\fBuint32_t\fP \fBclient_name_len\fP"
 .br
 .ti -1c
-.RI "char \fBclient_name\fP [UPK_MAX_STRING_LEN]"
+.RI "char \fBclient_name\fP [2048]"
 .br
 .in -1c
 .SH "Field Documentation"
 .PP 
-.SS "char \fBupk_req_preamble_t::client_name\fP[UPK_MAX_STRING_LEN]"
+.SS "char \fBupk_req_preamble_t::client_name\fP"
 .PP
-Referenced by controller_packet_callback(), req_preamble_len(), and upk_create_req_preamble().
-.SS "uint32_t \fBupk_req_preamble_t::client_name_len\fP"
+Referenced by ctrl_req_preamble_handler(), main(), req_preamble_len(), and upk_create_req_preamble().
+.SS "\fBuint32_t\fP \fBupk_req_preamble_t::client_name_len\fP"
 .PP
 Referenced by req_preamble_len(), and upk_create_req_preamble().
-.SS "uint32_t \fBupk_req_preamble_t::max_supported_ver\fP"
+.SS "\fBuint32_t\fP \fBupk_req_preamble_t::max_supported_ver\fP"
 .PP
-Referenced by controller_packet_callback(), and upk_create_req_preamble().
-.SS "uint32_t \fBupk_req_preamble_t::min_supported_ver\fP"
+Referenced by ctrl_req_preamble_handler(), and upk_create_req_preamble().
+.SS "\fBuint32_t\fP \fBupk_req_preamble_t::min_supported_ver\fP"
 .PP
-Referenced by controller_packet_callback(), and upk_create_req_preamble().
+Referenced by ctrl_req_preamble_handler(), and upk_create_req_preamble().
 .SS "\fBupk_msgtype_t\fP \fBupk_req_preamble_t::msgtype\fP"
 .PP
 Referenced by upk_create_req_preamble().

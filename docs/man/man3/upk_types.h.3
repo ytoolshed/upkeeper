@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_types.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_types.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -28,6 +28,9 @@ types common throughout libupkeeper.
 .br
 .RI "\fIlinked list of custom action scripts. \fP"
 .ti -1c
+.RI "struct \fB_upk_stringlist\fP"
+.br
+.ti -1c
 .RI "struct \fB_upk_svcinfo\fP"
 .br
 .RI "\fIsee definition in *protocol_fields.h. \fP"
@@ -44,7 +47,7 @@ types common throughout libupkeeper.
 .br
 .RI "\fIlongest allowable path. \fP"
 .ti -1c
-.RI "#define \fBUPKLIST_METANODE\fP(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
+.RI "#define \fBUPKLIST_METANODE\fP(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; \fBuint32_t\fP count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
 .br
 .RI "\fIdefinition of metanode for a given type. \fP"
 .ti -1c
@@ -90,7 +93,7 @@ types common throughout libupkeeper.
 .RI "#define \fBUPKLIST_FREE\fP(NAME)"
 .br
 .ti -1c
-.RI "#define \fBUPKDLIST_METANODE\fP(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
+.RI "#define \fBUPKDLIST_METANODE\fP(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; \fBuint32_t\fP count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
 .br
 .ti -1c
 .RI "#define \fB_UPKDLIST_NEWNODE\fP(NAME)   NAME->tempp = calloc(1,sizeof(*(NAME->tempp)))"
@@ -162,6 +165,10 @@ types common throughout libupkeeper.
 .br
 .RI "\fIlinked list of custom action scripts. \fP"
 .ti -1c
+.RI "typedef struct \fB_upk_stringlist\fP \fBupk_stringlist_t\fP"
+.br
+.RI "\fIdoubly linked list of strings. For generic things. \fP"
+.ti -1c
 .RI "typedef struct \fB_upk_svcinfo\fP \fBupk_svcinfo_t\fP"
 .br
 .RI "\fIsee definition in *protocol_fields.h. \fP"
@@ -170,11 +177,11 @@ types common throughout libupkeeper.
 
 .in +1c
 .ti -1c
-.RI "enum \fBupk_state_t\fP { \fBUPK_STATE_UNDEFINED\fP, \fBUPK_STATE_RUNNING\fP, \fBUPK_STATE_STOPPED\fP, \fBUPK_STATE_SHUTDOWN\fP }"
+.RI "enum \fBupk_state_t\fP { \fBUPK_STATE_UNDEFINED\fP, \fBUPK_STATE_RUNNING\fP, \fBUPK_STATE_STOPPED\fP, \fBUPK_STATE_SHUTDOWN\fP, \fBUPK_STATE_UNDEFINED\fP, \fBUPK_STATE_RUNNING\fP, \fBUPK_STATE_STOPPED\fP, \fBUPK_STATE_SHUTDOWN\fP, \fBUPK_STATE_UNDEFINED\fP, \fBUPK_STATE_RUNNING\fP, \fBUPK_STATE_STOPPED\fP, \fBUPK_STATE_SHUTDOWN\fP }"
 .br
 .RI "\fIrun states to report to clients. \fP"
 .ti -1c
-.RI "enum \fBupk_signal_t\fP { \fBUPK_SIG_HUP\fP =  1, \fBUPK_SIG_INT\fP =  2, \fBUPK_SIG_QUIT\fP =  3, \fBUPK_SIG_ILL\fP =  4, \fBUPK_SIG_TRAP\fP =  5, \fBUPK_SIG_ABRT\fP =  6, \fBUPK_SIG_BUS\fP =  7, \fBUPK_SIG_FPE\fP =  8, \fBUPK_SIG_KILL\fP =  9, \fBUPK_SIG_USR1\fP =  10, \fBUPK_SIG_SEGV\fP =  11, \fBUPK_SIG_USR2\fP =  12, \fBUPK_SIG_PIPE\fP =  13, \fBUPK_SIG_ALRM\fP =  14, \fBUPK_SIG_TERM\fP =  15, \fBUPK_SIG_STKFLT\fP =  16, \fBUPK_SIG_CHLD\fP =  17, \fBUPK_SIG_CONT\fP =  18, \fBUPK_SIG_STOP\fP =  19, \fBUPK_SIG_TSTP\fP =  20, \fBUPK_SIG_TTIN\fP =  21, \fBUPK_SIG_TTOU\fP =  22, \fBUPK_SIG_URG\fP =  23, \fBUPK_SIG_XCPU\fP =  24, \fBUPK_SIG_XFSZ\fP =  25, \fBUPK_SIG_VTALRM\fP =  26, \fBUPK_SIG_PROF\fP =  27, \fBUPK_SIG_WINCH\fP =  28, \fBUPK_SIG_IO\fP =  29, \fBUPK_SIG_PWR\fP =  30, \fBUPK_SIG_SYS\fP =  31 }"
+.RI "enum \fBupk_signal_t\fP { \fBUPK_SIG_HUP\fP =  1, \fBUPK_SIG_INT\fP =  2, \fBUPK_SIG_QUIT\fP =  3, \fBUPK_SIG_ILL\fP =  4, \fBUPK_SIG_TRAP\fP =  5, \fBUPK_SIG_ABRT\fP =  6, \fBUPK_SIG_BUS\fP =  7, \fBUPK_SIG_FPE\fP =  8, \fBUPK_SIG_KILL\fP =  9, \fBUPK_SIG_USR1\fP =  10, \fBUPK_SIG_SEGV\fP =  11, \fBUPK_SIG_USR2\fP =  12, \fBUPK_SIG_PIPE\fP =  13, \fBUPK_SIG_ALRM\fP =  14, \fBUPK_SIG_TERM\fP =  15, \fBUPK_SIG_STKFLT\fP =  16, \fBUPK_SIG_CHLD\fP =  17, \fBUPK_SIG_CONT\fP =  18, \fBUPK_SIG_STOP\fP =  19, \fBUPK_SIG_TSTP\fP =  20, \fBUPK_SIG_TTIN\fP =  21, \fBUPK_SIG_TTOU\fP =  22, \fBUPK_SIG_URG\fP =  23, \fBUPK_SIG_XCPU\fP =  24, \fBUPK_SIG_XFSZ\fP =  25, \fBUPK_SIG_VTALRM\fP =  26, \fBUPK_SIG_PROF\fP =  27, \fBUPK_SIG_WINCH\fP =  28, \fBUPK_SIG_IO\fP =  29, \fBUPK_SIG_PWR\fP =  30, \fBUPK_SIG_SYS\fP =  31, \fBUPK_SIG_HUP\fP =  1, \fBUPK_SIG_INT\fP =  2, \fBUPK_SIG_QUIT\fP =  3, \fBUPK_SIG_ILL\fP =  4, \fBUPK_SIG_TRAP\fP =  5, \fBUPK_SIG_ABRT\fP =  6, \fBUPK_SIG_BUS\fP =  7, \fBUPK_SIG_FPE\fP =  8, \fBUPK_SIG_KILL\fP =  9, \fBUPK_SIG_USR1\fP =  10, \fBUPK_SIG_SEGV\fP =  11, \fBUPK_SIG_USR2\fP =  12, \fBUPK_SIG_PIPE\fP =  13, \fBUPK_SIG_ALRM\fP =  14, \fBUPK_SIG_TERM\fP =  15, \fBUPK_SIG_STKFLT\fP =  16, \fBUPK_SIG_CHLD\fP =  17, \fBUPK_SIG_CONT\fP =  18, \fBUPK_SIG_STOP\fP =  19, \fBUPK_SIG_TSTP\fP =  20, \fBUPK_SIG_TTIN\fP =  21, \fBUPK_SIG_TTOU\fP =  22, \fBUPK_SIG_URG\fP =  23, \fBUPK_SIG_XCPU\fP =  24, \fBUPK_SIG_XFSZ\fP =  25, \fBUPK_SIG_VTALRM\fP =  26, \fBUPK_SIG_PROF\fP =  27, \fBUPK_SIG_WINCH\fP =  28, \fBUPK_SIG_IO\fP =  29, \fBUPK_SIG_PWR\fP =  30, \fBUPK_SIG_SYS\fP =  31, \fBUPK_SIG_HUP\fP =  1, \fBUPK_SIG_INT\fP =  2, \fBUPK_SIG_QUIT\fP =  3, \fBUPK_SIG_ILL\fP =  4, \fBUPK_SIG_TRAP\fP =  5, \fBUPK_SIG_ABRT\fP =  6, \fBUPK_SIG_BUS\fP =  7, \fBUPK_SIG_FPE\fP =  8, \fBUPK_SIG_KILL\fP =  9, \fBUPK_SIG_USR1\fP =  10, \fBUPK_SIG_SEGV\fP =  11, \fBUPK_SIG_USR2\fP =  12, \fBUPK_SIG_PIPE\fP =  13, \fBUPK_SIG_ALRM\fP =  14, \fBUPK_SIG_TERM\fP =  15, \fBUPK_SIG_STKFLT\fP =  16, \fBUPK_SIG_CHLD\fP =  17, \fBUPK_SIG_CONT\fP =  18, \fBUPK_SIG_STOP\fP =  19, \fBUPK_SIG_TSTP\fP =  20, \fBUPK_SIG_TTIN\fP =  21, \fBUPK_SIG_TTOU\fP =  22, \fBUPK_SIG_URG\fP =  23, \fBUPK_SIG_XCPU\fP =  24, \fBUPK_SIG_XFSZ\fP =  25, \fBUPK_SIG_VTALRM\fP =  26, \fBUPK_SIG_PROF\fP =  27, \fBUPK_SIG_WINCH\fP =  28, \fBUPK_SIG_IO\fP =  29, \fBUPK_SIG_PWR\fP =  30, \fBUPK_SIG_SYS\fP =  31 }"
 .br
 .RI "\fIsignal names. \fP"
 .in -1c
@@ -182,10 +189,13 @@ types common throughout libupkeeper.
 
 .in +1c
 .ti -1c
-.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_svcid_t\fP, _upk_svcid_meta_p)"
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_svcid_t\fP, \fB_upk_svcid_meta_p\fP)"
 .br
 .ti -1c
-.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_cust_actscr_list_t\fP, _upk_cust_actscr_meta_p)"
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_cust_actscr_list_t\fP, \fB_upk_cust_actscr_meta_p\fP)"
+.br
+.ti -1c
+.RI "typedef \fBUPKDLIST_METANODE\fP (\fBupk_stringlist_t\fP, \fB_upk_stringlist_meta_p\fP)"
 .br
 .in -1c
 .SS "Variables"
@@ -196,6 +206,9 @@ types common throughout libupkeeper.
 .br
 .ti -1c
 .RI "typedef \fBupk_cust_actscr_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_stringlist_meta_t\fP"
 .br
 .in -1c
 .SH "Detailed Description"
@@ -230,12 +243,12 @@ NAME->tempp = NULL, NAME->nextp = NAME->thisp, NAME->thisp = NAME->prevp, \
 .PP
 longest allowable path. 
 .PP
-Referenced by buddy_sock_path(), create_buddy(), create_buddy_statedir(), handle_buddies(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), stop_buddy_svc(), upk_ctrl_init(), upk_load_runtime_services(), and upk_svcconf_string_handler().
+Referenced by buddy_sock_path(), create_buddy(), create_buddy_statedir(), handle_buddies(), kill_buddy(), lookup_buddy_from_path(), reload_buddy_svc(), remove_buddy_statedir(), spawn_buddy(), start_buddy_svc(), stop_buddy_svc(), upk_ctrl_attach_db(), upk_ctrl_init(), upk_ctrl_init_db(), upk_load_runtime_services(), upk_rm_rf(), and upk_svcconf_string_handler().
 .SS "#define UPK_MAX_STRING_LEN   2048"
 .PP
 longest allowable string (other than paths). 
 .PP
-Referenced by buddy_init_paths(), controller_packet_callback(), upk_clientid(), upk_concat_svcid(), upk_config_loadfile(), upk_create_req_preamble(), upk_ctrl_load_config(), upk_ctrlconf_string_handler(), upk_json_append_string(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_output_json_string(), upk_svc_desc_to_json_obj(), upk_svcconf_string_handler(), upk_svclist_to_json_obj(), and v0_create_repl_svcinfo().
+Referenced by buddy_init_paths(), ctrl_req_action_handler(), ctrl_req_preamble_handler(), upk_clientid(), upk_concat_svcid(), upk_config_loadfile(), upk_create_req_preamble(), upk_ctrl_attach_db(), upk_ctrl_load_config(), upk_ctrlconf_string_handler(), upk_db_add_new_service(), upk_db_gen_uuid(), upk_db_get_single_text(), upk_db_get_table_id(), upk_db_insert_cfg(), upk_db_svc_uuid_lookup(), upk_db_try_insert(), upk_db_try_update(), upk_db_upsert(), upk_db_upsert_options(), upk_json_append_string(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_mkdir_p(), upk_output_json_string(), upk_svc_desc_to_json_obj(), upk_svcconf_customaction_array_appender(), upk_svcconf_string_handler(), upk_svcconf_svcid_array_appender(), upk_svclist_to_json_obj(), and v0_create_repl_svcinfo().
 .SS "#define UPKDLIST_APPEND(NAME)"\fBValue:\fP
 .PP
 .nf
@@ -288,7 +301,7 @@ UPKDLIST_METANODE(TYPE, NAME) = NULL; \
 .fi
 .PP
 Referenced by START_TEST().
-.SS "#define UPKDLIST_METANODE(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
+.SS "#define UPKDLIST_METANODE(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; \fBuint32_t\fP count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
 .SS "#define UPKDLIST_PREPEND(NAME)"\fBValue:\fP
 .PP
 .nf
@@ -349,7 +362,7 @@ NAME->thisp = NAME->tail; \
     NAME->prevp = NULL
 .fi
 .PP
-Referenced by START_TEST(), upk_json_serialize_svc_config(), upk_load_runtime_services(), upk_net_add_socket_handle(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_queue_packet(), and upk_svcconf_object_handler().
+Referenced by sa_sigaction_func(), START_TEST(), upk_json_serialize_svc_config(), upk_load_runtime_services(), upk_net_add_socket_handle(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_queue_packet(), upk_svcconf_customaction_array_appender(), upk_svcconf_object_handler(), and upk_svcconf_svcid_array_appender().
 .SS "#define UPKLIST_APPEND_THIS(NAME)"\fBValue:\fP
 .PP
 .nf
@@ -365,7 +378,7 @@ _UPKLIST_NEWNODE(NAME); \
 Referenced by START_TEST().
 .SS "#define UPKLIST_FOREACH(NAME)   for( _UPKLIST_FOREACH_INIT(NAME); NAME->thisp != NULL; _UPKLIST_FOREACH_CONTINUE(NAME) )"
 .PP
-Referenced by controller_packet_callback(), create_buddy_statedir(), main(), START_TEST(), upk_build_fd_sets(), upk_json_stack_pop(), upk_load_runtime_services(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), upk_svclist_free(), and upk_svclist_to_json_obj().
+Referenced by create_buddy_statedir(), ctrl_req_action_handler(), lookup_buddy_from_path(), main(), remove_buddy_statedir(), START_TEST(), upk_build_fd_sets(), upk_ctrl_init(), upk_db_upsert_options(), upk_json_stack_pop(), upk_load_runtime_services(), upk_mkdir_p(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), upk_svclist_free(), and upk_svclist_to_json_obj().
 .SS "#define UPKLIST_FREE(NAME)"\fBValue:\fP
 .PP
 .nf
@@ -380,10 +393,10 @@ do { \
     } while(0)
 .fi
 .PP
-Referenced by event_loop(), START_TEST(), upk_clnet_ctrl_disconnect(), upk_ctrlconf_pack(), upk_json_obj_serializer(), upk_json_serialize_svc_config(), upk_load_runtime_services(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_partitioned_userdata_free(), upk_svc_desc_free(), upk_svcconf_pack(), and upk_svclist_free().
+Referenced by ctrl_exit_cleanup(), START_TEST(), upk_clnet_ctrl_disconnect(), upk_ctrlconf_pack(), upk_json_obj_serializer(), upk_json_serialize_svc_config(), upk_load_runtime_services(), upk_mkdir_p(), upk_net_flush_closed_sockets(), upk_overlay_ctrlconf_values(), upk_partitioned_userdata_free(), upk_svc_desc_free(), upk_svcconf_pack(), and upk_svclist_free().
 .SS "#define UPKLIST_HEAD(NAME)   do { UPKLIST_FOREACH(NAME) { break; } } while(0)"
 .PP
-Referenced by upk_clnet_ctrl_connect(), upk_clnet_req_disconnect(), and upk_clnet_serial_request().
+Referenced by handle_signals(), upk_callback_stack_pop(), upk_clnet_ctrl_connect(), upk_clnet_req_disconnect(), and upk_clnet_serial_request().
 .SS "#define UPKLIST_INIT(TYPE, NAME)"\fBValue:\fP
 .PP
 .nf
@@ -392,7 +405,7 @@ UPKLIST_METANODE(TYPE, NAME) = NULL; \
 .fi
 .PP
 Referenced by START_TEST().
-.SS "#define UPKLIST_METANODE(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
+.SS "#define UPKLIST_METANODE(TYPE, NAME)   struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; \fBuint32_t\fP count; void *userdata; void (*userdata_free_func)(void *); } * NAME"
 .PP
 definition of metanode for a given type. this macro contains a pionter; so if you want to use it to create a typedef, it would look something like:
 .PP
@@ -407,7 +420,7 @@ NAME->prevp = NULL; \
     UPKLIST_PREPEND_THIS(NAME)
 .fi
 .PP
-Referenced by START_TEST(), and upk_json_stack_push().
+Referenced by init_callback_handlers(), START_TEST(), upk_callback_stack_push(), upk_json_stack_push(), and upk_mkdir_p().
 .SS "#define UPKLIST_PREPEND_THIS(NAME)"\fBValue:\fP
 .PP
 .nf
@@ -444,12 +457,15 @@ do { \
     } while(0)
 .fi
 .PP
-Referenced by START_TEST(), upk_json_stack_pop(), upk_net_flush_closed_sockets(), and upk_write_packets().
+Referenced by handle_signals(), START_TEST(), upk_callback_stack_pop(), upk_json_stack_pop(), upk_net_flush_closed_sockets(), upk_overlay_svcconf_values(), upk_svc_desc_free(), and upk_write_packets().
 .SH "Typedef Documentation"
 .PP 
 .SS "typedef struct \fB_upk_cust_actscr_list\fP \fBupk_cust_actscr_list_t\fP"
 .PP
 linked list of custom action scripts. 
+.SS "typedef struct \fB_upk_stringlist\fP \fBupk_stringlist_t\fP"
+.PP
+doubly linked list of strings. For generic things. 
 .SS "typedef struct \fB_upk_svcid\fP \fBupk_svcid_t\fP"
 .PP
 linked list of service identifiers. 
@@ -464,6 +480,68 @@ signal names. List of signal names, so that the platform's signal numbering is n
 .PP
 \fBEnumerator: \fP
 .in +1c
+.TP
+\fB\fIUPK_SIG_HUP \fP\fP
+.TP
+\fB\fIUPK_SIG_INT \fP\fP
+.TP
+\fB\fIUPK_SIG_QUIT \fP\fP
+.TP
+\fB\fIUPK_SIG_ILL \fP\fP
+.TP
+\fB\fIUPK_SIG_TRAP \fP\fP
+.TP
+\fB\fIUPK_SIG_ABRT \fP\fP
+.TP
+\fB\fIUPK_SIG_BUS \fP\fP
+.TP
+\fB\fIUPK_SIG_FPE \fP\fP
+.TP
+\fB\fIUPK_SIG_KILL \fP\fP
+.TP
+\fB\fIUPK_SIG_USR1 \fP\fP
+.TP
+\fB\fIUPK_SIG_SEGV \fP\fP
+.TP
+\fB\fIUPK_SIG_USR2 \fP\fP
+.TP
+\fB\fIUPK_SIG_PIPE \fP\fP
+.TP
+\fB\fIUPK_SIG_ALRM \fP\fP
+.TP
+\fB\fIUPK_SIG_TERM \fP\fP
+.TP
+\fB\fIUPK_SIG_STKFLT \fP\fP
+.TP
+\fB\fIUPK_SIG_CHLD \fP\fP
+.TP
+\fB\fIUPK_SIG_CONT \fP\fP
+.TP
+\fB\fIUPK_SIG_STOP \fP\fP
+.TP
+\fB\fIUPK_SIG_TSTP \fP\fP
+.TP
+\fB\fIUPK_SIG_TTIN \fP\fP
+.TP
+\fB\fIUPK_SIG_TTOU \fP\fP
+.TP
+\fB\fIUPK_SIG_URG \fP\fP
+.TP
+\fB\fIUPK_SIG_XCPU \fP\fP
+.TP
+\fB\fIUPK_SIG_XFSZ \fP\fP
+.TP
+\fB\fIUPK_SIG_VTALRM \fP\fP
+.TP
+\fB\fIUPK_SIG_PROF \fP\fP
+.TP
+\fB\fIUPK_SIG_WINCH \fP\fP
+.TP
+\fB\fIUPK_SIG_IO \fP\fP
+.TP
+\fB\fIUPK_SIG_PWR \fP\fP
+.TP
+\fB\fIUPK_SIG_SYS \fP\fP
 .TP
 \fB\fIUPK_SIG_HUP \fP\fP
 hup 
@@ -557,12 +635,83 @@ pwr
 .TP
 \fB\fIUPK_SIG_SYS \fP\fP
 sys 
+.TP
+\fB\fIUPK_SIG_HUP \fP\fP
+.TP
+\fB\fIUPK_SIG_INT \fP\fP
+.TP
+\fB\fIUPK_SIG_QUIT \fP\fP
+.TP
+\fB\fIUPK_SIG_ILL \fP\fP
+.TP
+\fB\fIUPK_SIG_TRAP \fP\fP
+.TP
+\fB\fIUPK_SIG_ABRT \fP\fP
+.TP
+\fB\fIUPK_SIG_BUS \fP\fP
+.TP
+\fB\fIUPK_SIG_FPE \fP\fP
+.TP
+\fB\fIUPK_SIG_KILL \fP\fP
+.TP
+\fB\fIUPK_SIG_USR1 \fP\fP
+.TP
+\fB\fIUPK_SIG_SEGV \fP\fP
+.TP
+\fB\fIUPK_SIG_USR2 \fP\fP
+.TP
+\fB\fIUPK_SIG_PIPE \fP\fP
+.TP
+\fB\fIUPK_SIG_ALRM \fP\fP
+.TP
+\fB\fIUPK_SIG_TERM \fP\fP
+.TP
+\fB\fIUPK_SIG_STKFLT \fP\fP
+.TP
+\fB\fIUPK_SIG_CHLD \fP\fP
+.TP
+\fB\fIUPK_SIG_CONT \fP\fP
+.TP
+\fB\fIUPK_SIG_STOP \fP\fP
+.TP
+\fB\fIUPK_SIG_TSTP \fP\fP
+.TP
+\fB\fIUPK_SIG_TTIN \fP\fP
+.TP
+\fB\fIUPK_SIG_TTOU \fP\fP
+.TP
+\fB\fIUPK_SIG_URG \fP\fP
+.TP
+\fB\fIUPK_SIG_XCPU \fP\fP
+.TP
+\fB\fIUPK_SIG_XFSZ \fP\fP
+.TP
+\fB\fIUPK_SIG_VTALRM \fP\fP
+.TP
+\fB\fIUPK_SIG_PROF \fP\fP
+.TP
+\fB\fIUPK_SIG_WINCH \fP\fP
+.TP
+\fB\fIUPK_SIG_IO \fP\fP
+.TP
+\fB\fIUPK_SIG_PWR \fP\fP
+.TP
+\fB\fIUPK_SIG_SYS \fP\fP
+
 .SS "enum \fBupk_state_t\fP"
 .PP
 run states to report to clients. The current state of a monitored service 
 .PP
 \fBEnumerator: \fP
 .in +1c
+.TP
+\fB\fIUPK_STATE_UNDEFINED \fP\fP
+.TP
+\fB\fIUPK_STATE_RUNNING \fP\fP
+.TP
+\fB\fIUPK_STATE_STOPPED \fP\fP
+.TP
+\fB\fIUPK_STATE_SHUTDOWN \fP\fP
 .TP
 \fB\fIUPK_STATE_UNDEFINED \fP\fP
 unknown/undefined; probably an error 
@@ -575,13 +724,24 @@ the service is stopped
 .TP
 \fB\fIUPK_STATE_SHUTDOWN \fP\fP
 the service is stopped, and its buddy is not running 
+.TP
+\fB\fIUPK_STATE_UNDEFINED \fP\fP
+.TP
+\fB\fIUPK_STATE_RUNNING \fP\fP
+.TP
+\fB\fIUPK_STATE_STOPPED \fP\fP
+.TP
+\fB\fIUPK_STATE_SHUTDOWN \fP\fP
+
 .SH "Function Documentation"
 .PP 
-.SS "typedef UPKLIST_METANODE (\fBupk_svcid_t\fP, _upk_svcid_meta_p)"
-.SS "typedef UPKLIST_METANODE (\fBupk_cust_actscr_list_t\fP, _upk_cust_actscr_meta_p)"
+.SS "typedef UPKDLIST_METANODE (\fBupk_stringlist_t\fP, \fB_upk_stringlist_meta_p\fP)"
+.SS "typedef UPKLIST_METANODE (\fBupk_svcid_t\fP, \fB_upk_svcid_meta_p\fP)"
+.SS "typedef UPKLIST_METANODE (\fBupk_cust_actscr_list_t\fP, \fB_upk_cust_actscr_meta_p\fP)"
 .SH "Variable Documentation"
 .PP 
 .SS "typedef \fBupk_cust_actscr_meta_t\fP"
+.SS "typedef \fBupk_stringlist_meta_t\fP"
 .SS "typedef \fBupk_svcid_meta_t\fP"
 .SH "Author"
 .PP 

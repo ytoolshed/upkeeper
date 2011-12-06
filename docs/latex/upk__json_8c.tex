@@ -83,7 +83,7 @@ static void {\bf upk\_\-json\_\-obj\_\-serializer} (struct json\_\-object $\ast$
 \item 
 char $\ast$ {\bf upk\_\-json\_\-obj\_\-to\_\-string} (struct json\_\-object $\ast$obj, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
 \item 
-void {\bf upk\_\-json\_\-obj\_\-to\_\-stream} (struct json\_\-object $\ast$obj, FILE $\ast$stream, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+void {\bf upk\_\-json\_\-obj\_\-to\_\-stream} (struct json\_\-object $\ast$obj, {\bf FILE} $\ast$stream, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
 \end{DoxyCompactItemize}
 
 
@@ -146,7 +146,8 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -165,7 +166,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a6da16344cd521702f884eaa92f5dfdbf}
 
 
-References \_\-upk\_\-json\_\-output\_\-data::d, \_\-upk\_\-stream\_\-string::len, \_\-upk\_\-stream\_\-string::p, \_\-upk\_\-stream\_\-string::str, strnlen(), and UPK\_\-MAX\_\-STRING\_\-LEN.
+References calloc(), \_\-upk\_\-json\_\-output\_\-data::d, \_\-upk\_\-stream\_\-string::len, \_\-upk\_\-stream\_\-string::p, realloc(), \_\-upk\_\-stream\_\-string::str, strnlen(), and UPK\_\-MAX\_\-STRING\_\-LEN.
 
 
 
@@ -185,7 +186,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -204,7 +206,7 @@ Here is the caller graph for this function:\nopagebreak
 )\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_af1db52886c19222aa7efc1217809d8a3}
 
 
-References \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-bool\_\-handler(), upk\_\-json\_\-output\_\-double\_\-handler(), upk\_\-json\_\-output\_\-int\_\-handler(), upk\_\-json\_\-output\_\-null\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-json\_\-output\_\-string\_\-handler(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), and UPKLIST\_\-FREE.
+References calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-bool\_\-handler(), upk\_\-json\_\-output\_\-double\_\-handler(), upk\_\-json\_\-output\_\-int\_\-handler(), upk\_\-json\_\-output\_\-null\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-json\_\-output\_\-string\_\-handler(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), and UPKLIST\_\-FREE.
 
 
 
@@ -224,7 +226,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -238,7 +241,7 @@ Here is the caller graph for this function:\nopagebreak
 \subsubsection[{upk\_\-json\_\-obj\_\-to\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-obj\_\-to\_\-stream (
 \begin{DoxyParamCaption}
 \item[{struct json\_\-object $\ast$}]{obj, }
-\item[{FILE $\ast$}]{stream, }
+\item[{{\bf FILE} $\ast$}]{stream, }
 \item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
 \end{DoxyParamCaption}
 )}\label{upk__json_8c_a95a5c8d27288affe2621f3521975483c}
@@ -288,11 +291,12 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=400pt]{upk__json_8c_a40b01bf12283a69e42e025934ef029b0_icgraph}
+\includegraphics[width=346pt]{upk__json_8c_a40b01bf12283a69e42e025934ef029b0_icgraph}
 \end{center}
 \end{figure}
 
@@ -329,7 +333,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -370,7 +375,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -411,7 +417,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -452,7 +459,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -493,7 +501,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -534,7 +543,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -575,7 +585,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -616,7 +627,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -657,7 +669,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -696,7 +709,8 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -735,7 +749,8 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -774,7 +789,8 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -800,7 +816,8 @@ Referenced by main(), upk\_\-ctrlconf\_\-pack(), and upk\_\-svcconf\_\-pack().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -839,7 +856,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -865,7 +883,8 @@ Referenced by \_\-upk\_\-json\_\-parse\_\-node().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -888,11 +907,12 @@ References UPKLIST\_\-PREPEND.
 
 
 
-Referenced by upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-obj\_\-serializer(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-svcconf\_\-object\_\-handler(), upk\_\-svcconf\_\-pack(), and upk\_\-svcconf\_\-toplvl\_\-obj().
+Referenced by upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-obj\_\-serializer(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-svcconf\_\-array\_\-handler(), upk\_\-svcconf\_\-nested\_\-object\_\-handler(), upk\_\-svcconf\_\-object\_\-handler(), upk\_\-svcconf\_\-pack(), and upk\_\-svcconf\_\-toplvl\_\-obj().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -914,7 +934,8 @@ Referenced by upk\_\-json\_\-value().
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -953,7 +974,8 @@ Here is the call graph for this function:\nopagebreak
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -993,7 +1015,8 @@ Here is the call graph for this function:
 
 
 
-Here is the caller graph for this function:\nopagebreak
+Here is the caller graph for this function:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode

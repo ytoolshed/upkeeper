@@ -1,4 +1,4 @@
-.TH "Upk_errors" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "Upk_errors" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -10,10 +10,13 @@ Upk_errors \-
 .RI "#define \fBUPK_ERR_INIT\fP"
 .br
 .ti -1c
-.RI "#define \fBUPK_FUNC_ASSERT\fP(A, B)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+.RI "#define \fBCLEAR_UPK_ERROR\fP   \fB__upk_errno_type\fP = 0"
 .br
 .ti -1c
-.RI "#define \fBUPK_FUNC_ASSERT_MSG\fP(A, B,...)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
+.RI "#define \fBUPK_FUNC_ASSERT\fP(A, B)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+.br
+.ti -1c
+.RI "#define \fBUPK_FUNC_ASSERT_MSG\fP(A, B,...)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
 .br
 .ti -1c
 .RI "#define \fBIF_UPK_ERROR\fP"
@@ -75,13 +78,13 @@ Upk_errors \-
 
 .in +1c
 .ti -1c
-.RI "enum \fBupk_diaglvl_t\fP { \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP }"
+.RI "enum \fBupk_diaglvl_t\fP { \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP, \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP, \fBUPK_DIAGLVL_FATAL\fP =  0, \fBUPK_DIAGLVL_ALERT\fP, \fBUPK_DIAGLVL_CRIT\fP, \fBUPK_DIAGLVL_ERROR\fP, \fBUPK_DIAGLVL_WARN\fP, \fBUPK_DIAGLVL_NOTICE\fP, \fBUPK_DIAGLVL_VERBOSE\fP, \fBUPK_DIAGLVL_INFO\fP, \fBUPK_DIAGLVL_DEBUG0\fP, \fBUPK_DIAGLVL_DEBUG1\fP }"
 .br
 .ti -1c
-.RI "enum \fBupk_errlevel_t\fP { \fBUPK_ERRLVL_ERROR\fP }"
+.RI "enum \fBupk_errlevel_t\fP { \fBUPK_ERRLVL_ERROR\fP, \fBUPK_ERRLVL_ERROR\fP, \fBUPK_ERRLVL_ERROR\fP }"
 .br
 .ti -1c
-.RI "enum \fBupk_errno_t\fP { \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP }"
+.RI "enum \fBupk_errno_t\fP { \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP, \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP, \fBUPK_ERR_UNKNOWN\fP =  0, \fBUPK_ERR_UNSUP\fP, \fBUPK_ERR_INVALID_PKT\fP, \fBUPK_SOCKET_FAILURE\fP, \fBUPK_JSON_PARSE_ERROR\fP, \fBUPK_SQL_ERROR\fP, \fBUPK_CONF_ERROR\fP }"
 .br
 .in -1c
 .SS "Functions"
@@ -146,10 +149,10 @@ Upk_errors \-
 .RI "static const char \fB__upk_errors\fP [][128]"
 .br
 .ti -1c
-.RI "static const char \fB__upk_err_buf\fP [4096] = ''"
+.RI "char \fB__upk_err_buf\fP [4096]"
 .br
 .ti -1c
-.RI "static const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
+.RI "\fBupk_errno_t\fP \fB__upk_errno_type\fP"
 .br
 .ti -1c
 .RI "int32_t \fBupk_diag_verbosity\fP"
@@ -162,6 +165,7 @@ Upk_errors \-
 .PP 
 .SS "#define _UPK_AS_STRING(A)   #A"
 .SS "#define _UPK_DIAG_LOCATION   __FILE__ ':' UPK_AS_STRING(__LINE__)"
+.SS "#define CLEAR_UPK_ERROR   \fB__upk_errno_type\fP = 0"
 .SS "#define IF_UPK_ERROR"\fBValue:\fP
 .PP
 .nf
@@ -170,7 +174,7 @@ __upk_err_label: \
     if(__upk_errno_type)
 .fi
 .PP
-Referenced by ctrl_sock_setup(), upk_deserialize_packet(), and upk_json_parse_string().
+Referenced by ctrl_sock_setup(), upk_db_add_new_service(), upk_db_get_single_text(), upk_db_insert_cfg(), upk_db_try_insert(), upk_db_try_update(), upk_deserialize_packet(), and upk_json_parse_string().
 .SS "#define upk_alert(...)   _upk_alert(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
 Referenced by buddy_connect(), buddy_exec_action(), upk_conf_error_handler(), upk_svcconf_bool_handler(), upk_svcconf_int_handler(), and upk_svcconf_string_handler().
@@ -181,34 +185,34 @@ Referenced by buddy_connect(), buddy_exec_action(), upk_conf_error_handler(), up
 Referenced by buddy_exec_action(), buddy_init_socket(), buddy_readstate(), and buddy_start_proc().
 .SS "#define upk_debug1(...)   _upk_debug1(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_accept(), buddy_disconnect(), buddy_event_loop(), buddy_flush_ringbuffer(), buddy_handle_command(), buddy_readstate(), buddy_record_state(), buddy_zero_info(), commit_buddycide(), controller_packet_callback(), event_loop(), sa_sigaction_func(), upk_clnet_req_disconnect(), upk_load_runtime_services(), and upk_read_packets().
+Referenced by buddy_accept(), buddy_disconnect(), buddy_event_loop(), buddy_flush_ringbuffer(), buddy_handle_command(), buddy_readstate(), buddy_record_state(), buddy_zero_info(), commit_buddycide(), ctrl_req_action_handler(), ctrl_req_disconnect_handler(), ctrl_req_preamble_handler(), event_loop(), sa_sigaction_func(), upk_clnet_req_disconnect(), upk_config_loadfile(), upk_db_get_single_text(), upk_db_insert_cfg(), upk_db_try_insert(), upk_db_upsert_options(), upk_load_runtime_services(), and upk_read_packets().
 .SS "#define UPK_ERR_INIT"
 .PP
-Referenced by ctrl_sock_setup(), upk_deserialize_packet(), and upk_json_parse_string().
+Referenced by upk_deserialize_packet(), and upk_json_parse_string().
 .SS "#define upk_error(...)   _upk_error(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by upk_clnet_req_action(), and upk_read_packets().
+Referenced by upk_clnet_req_action(), upk_clnet_req_signal(), upk_clnet_req_status(), upk_db_get_single_text(), upk_db_try_insert(), upk_db_try_update(), and upk_read_packets().
 .SS "#define upk_fatal(...)   _upk_fatal(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_init_paths(), main(), spawn_buddy(), upk_clnet_req_preamble(), upk_ctrl_init_db(), upk_ctrlconf_double_handler(), upk_ctrlconf_string_handler(), and upk_db_path().
-.SS "#define UPK_FUNC_ASSERT(A, B)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
+Referenced by buddy_init_paths(), ctrl_setup_sighandlers(), main(), spawn_buddy(), upk_clnet_req_preamble(), upk_ctrl_attach_db(), upk_ctrl_init_db(), upk_ctrlconf_double_handler(), upk_ctrlconf_int_handler(), upk_ctrlconf_string_handler(), upk_db_path(), and upk_state_init().
+.SS "#define UPK_FUNC_ASSERT(A, B)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; goto __upk_err_label; } } while(0)"
 .PP
 Referenced by ctrl_sock_setup(), and upk_deserialize_packet().
-.SS "#define UPK_FUNC_ASSERT_MSG(A, B, ...)   do { if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
+.SS "#define UPK_FUNC_ASSERT_MSG(A, B, ...)   do { CLEAR_UPK_ERROR; if(! (A)) { *((\fBupk_errno_t\fP *) &\fB__upk_errno_type\fP) = B; memset((char *) \fB__upk_err_buf\fP,0,sizeof(\fB__upk_err_buf\fP)); snprintf((char *)\fB__upk_err_buf\fP, UPK_MAX_STRING_LEN - 1, __VA_ARGS__); goto __upk_err_label; } } while(0)"
 .PP
-Referenced by ctrl_sock_setup(), and upk_json_parse_string().
+Referenced by ctrl_sock_setup(), upk_db_add_new_service(), upk_db_get_single_text(), upk_db_insert_cfg(), upk_db_try_insert(), upk_db_try_update(), and upk_json_parse_string().
 .SS "#define upk_info(...)   _upk_info(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
 Referenced by upk_load_runtime_services().
 .SS "#define upk_notice(...)   _upk_notice(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_exec_action(), buddy_handle_flags(), buddy_init(), buddy_start_proc(), received_packet_callback(), upk_clnet_req_action(), upk_clnet_req_preamble(), and upk_config_loadfile().
+Referenced by buddy_exec_action(), buddy_handle_flags(), buddy_init(), buddy_start_proc(), upk_clnet_req_action(), upk_clnet_req_preamble(), and upk_clnet_req_signal().
 .SS "#define upk_verbose(...)   _upk_verbose(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_handle_command(), buddy_init(), create_buddy_statedir(), main(), and phone_home_if_appropriate().
+Referenced by buddy_handle_command(), buddy_init(), create_buddy_statedir(), phone_home_if_appropriate(), remove_buddy_statedir(), spawn_buddy(), and upk_db_upsert().
 .SS "#define upk_warn(...)   _upk_warn(_UPK_DIAG_LOCATION, __VA_ARGS__)"
 .PP
-Referenced by buddy_init(), and upk_clnet_req_action().
+Referenced by buddy_init(), upk_clnet_req_action(), upk_clnet_req_signal(), upk_clnet_req_status(), upk_config_loadfile(), upk_mkdir_p(), and upk_rm_rf().
 .SH "Typedef Documentation"
 .PP 
 .SS "typedef void(* \fBdiag_output_callback_t\fP)(\fBupk_diaglvl_t\fP diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)"
@@ -220,6 +224,26 @@ Referenced by buddy_init(), and upk_clnet_req_action().
 .PP
 \fBEnumerator: \fP
 .in +1c
+.TP
+\fB\fIUPK_DIAGLVL_FATAL \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_ALERT \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_CRIT \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_ERROR \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_WARN \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_NOTICE \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_VERBOSE \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_INFO \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_DEBUG0 \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_DEBUG1 \fP\fP
 .TP
 \fB\fIUPK_DIAGLVL_FATAL \fP\fP
 fatal error, operation cannot continue 
@@ -250,17 +274,57 @@ debug0, intended to help find bugs in the program; but may also help in finding 
 .TP
 \fB\fIUPK_DIAGLVL_DEBUG1 \fP\fP
 debug1, useful in finding and demonstrating bugs in the program (you should probably be using gdb by this point) 
+.TP
+\fB\fIUPK_DIAGLVL_FATAL \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_ALERT \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_CRIT \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_ERROR \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_WARN \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_NOTICE \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_VERBOSE \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_INFO \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_DEBUG0 \fP\fP
+.TP
+\fB\fIUPK_DIAGLVL_DEBUG1 \fP\fP
+
 .SS "enum \fBupk_errlevel_t\fP"
 .PP
 \fBEnumerator: \fP
 .in +1c
 .TP
 \fB\fIUPK_ERRLVL_ERROR \fP\fP
+.TP
+\fB\fIUPK_ERRLVL_ERROR \fP\fP
 semantically similar to diaglvl; but for error-reporting; may become purely protocol 
+.TP
+\fB\fIUPK_ERRLVL_ERROR \fP\fP
+
 .SS "enum \fBupk_errno_t\fP"
 .PP
 \fBEnumerator: \fP
 .in +1c
+.TP
+\fB\fIUPK_ERR_UNKNOWN \fP\fP
+.TP
+\fB\fIUPK_ERR_UNSUP \fP\fP
+.TP
+\fB\fIUPK_ERR_INVALID_PKT \fP\fP
+.TP
+\fB\fIUPK_SOCKET_FAILURE \fP\fP
+.TP
+\fB\fIUPK_JSON_PARSE_ERROR \fP\fP
+.TP
+\fB\fIUPK_SQL_ERROR \fP\fP
+.TP
+\fB\fIUPK_CONF_ERROR \fP\fP
 .TP
 \fB\fIUPK_ERR_UNKNOWN \fP\fP
 unknown error 
@@ -276,54 +340,49 @@ unable to bind/connect/accept/listen on a socket
 .TP
 \fB\fIUPK_JSON_PARSE_ERROR \fP\fP
 json parse error; additional information should also be provided 
+.TP
+\fB\fIUPK_SQL_ERROR \fP\fP
+SQLite Error 
+.TP
+\fB\fIUPK_CONF_ERROR \fP\fP
+Configuration error 
+.TP
+\fB\fIUPK_ERR_UNKNOWN \fP\fP
+.TP
+\fB\fIUPK_ERR_UNSUP \fP\fP
+.TP
+\fB\fIUPK_ERR_INVALID_PKT \fP\fP
+.TP
+\fB\fIUPK_SOCKET_FAILURE \fP\fP
+.TP
+\fB\fIUPK_JSON_PARSE_ERROR \fP\fP
+.TP
+\fB\fIUPK_SQL_ERROR \fP\fP
+.TP
+\fB\fIUPK_CONF_ERROR \fP\fP
+
 .SH "Function Documentation"
 .PP 
 .SS "int32_t _upk_alert (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_ALERT, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_crit (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_CRIT, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_debug0 (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_DEBUG0, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_debug1 (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_DEBUG1, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_error (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_ERROR, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_fatal (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_FATAL, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_info (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_INFO, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_notice (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_NOTICE, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_verbose (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_VERBOSE, and UPK_STATIC_ERR_DECL.
 .SS "int32_t _upk_warn (const char *loc, const char *fmt, ...)"
-.PP
-References _upk_diagnostic(), UPK_DIAGLVL_WARN, and UPK_STATIC_ERR_DECL.
 .SS "\fBdiag_output_callback_t\fP upk_reg_diag_callback (\fBdiag_output_callback_t\fPfunc)"
-.PP
-References __upk_diag_output_callback.
-.PP
-Referenced by buddy_init().
 .SS "\fBerr_rpt_msg_callback_t\fP upk_reg_err_msg_callback (\fBerr_rpt_msg_callback_t\fPfunc)"
 .SS "\fBerr_rpt_callback_t\fP upk_reg_error_callback (\fBerr_rpt_callback_t\fPfunc)"
 .SS "void upk_report_error (\fBupk_errno_t\fPerr)"
 .SS "void upk_report_error_msg (\fBupk_errno_t\fPerr, const char *msg)"
 .SS "const char* upk_strerror (\fBupk_errno_t\fPerr)"
-.PP
-References __upk_errors.
 .SH "Variable Documentation"
 .PP 
-.SS "const char \fB__upk_err_buf\fP[4096] = ''\fC [static]\fP"
-.SS "const \fBupk_errno_t\fP \fB__upk_errno_type\fP = 0\fC [static]\fP"
+.SS "char \fB__upk_err_buf\fP[4096]"
+.SS "\fBupk_errno_t\fP \fB__upk_errno_type\fP"
 .SS "const char \fB__upk_errors\fP[][128]\fC [static]\fP"\fBInitial value:\fP
 .PP
 .nf
@@ -333,10 +392,10 @@ References __upk_errors.
     'invalid packet',
     'socket failure',
     'JSON parser error',
+    'SQlite Error',
+    'Configuration Error',
 }
 .fi
-.PP
-Referenced by upk_strerror().
 .SS "char \fBlabel_idx\fP[][16]"
 .SS "const char \fBupk_diag_label_idx\fP[][16]\fC [static]\fP"\fBInitial value:\fP
 .PP
@@ -354,11 +413,7 @@ Referenced by upk_strerror().
     [UPK_DIAGLVL_DEBUG1] = 'DEBUG1'
 }
 .fi
-.PP
-Referenced by _upk_diagnostic().
 .SS "int32_t \fBupk_diag_verbosity\fP"
-.PP
-Referenced by _upk_default_diag_output(), _upk_diagnostic(), buddy_diag_handler(), main(), opt_parse(), upk_clnet_req_action(), and upk_load_runtime_services().
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

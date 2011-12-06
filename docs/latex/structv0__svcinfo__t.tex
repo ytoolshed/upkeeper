@@ -7,16 +7,98 @@
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
+{\bf uint32\_\-t} {\bf last\_\-action\_\-time}
+\item 
+{\bf uint32\_\-t} {\bf last\_\-action\_\-status}
+\item 
+{\bf uint32\_\-t} {\bf last\_\-action\_\-name\_\-len}
+\item 
+char {\bf last\_\-action\_\-name} [2048]
+\item 
+{\bf uint32\_\-t} {\bf last\_\-signal\_\-time}
+\item 
+{\bf uint32\_\-t} {\bf last\_\-signal\_\-status}
+\item 
+{\bf upk\_\-signal\_\-t} {\bf last\_\-signal\_\-name}
+\item 
+{\bf uint32\_\-t} {\bf buddy\_\-pid}
+\item 
+{\bf uint32\_\-t} {\bf proc\_\-pid}
+\item 
+{\bf upk\_\-state\_\-t} {\bf current\_\-state}
+\item 
+{\bf upk\_\-state\_\-t} {\bf prior\_\-state}
+\item 
+{\bf uint32\_\-t} {\bf n\_\-recorded\_\-restarts}
+\item 
 {\bf UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}
 \end{DoxyCompactItemize}
 
 
 \subsection{Field Documentation}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!buddy\_\-pid@{buddy\_\-pid}}
+\index{buddy\_\-pid@{buddy\_\-pid}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{buddy\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::buddy\_\-pid}}\label{structv0__svcinfo__t_a8d992c54dc414d0b521c7c0deada9ad7}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!current\_\-state@{current\_\-state}}
+\index{current\_\-state@{current\_\-state}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{current\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-state\_\-t} {\bf v0\_\-svcinfo\_\-t::current\_\-state}}\label{structv0__svcinfo__t_a2521ff07318c6e9e7d4c369a5ccab41e}
+
+
+Referenced by get\_\-svcinfo\_\-len().
+
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-action\_\-name@{last\_\-action\_\-name}}
+\index{last\_\-action\_\-name@{last\_\-action\_\-name}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-action\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf v0\_\-svcinfo\_\-t::last\_\-action\_\-name}}\label{structv0__svcinfo__t_a08004ca2adac7044b99e0ecd1002378c}
+
+
+Referenced by get\_\-svcinfo\_\-len(), and v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-action\_\-name\_\-len@{last\_\-action\_\-name\_\-len}}
+\index{last\_\-action\_\-name\_\-len@{last\_\-action\_\-name\_\-len}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-action\_\-name\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-action\_\-name\_\-len}}\label{structv0__svcinfo__t_a867bcc57c0d5c58b3ccd1acc981a7e49}
+
+
+Referenced by get\_\-svcinfo\_\-len(), and v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-action\_\-status@{last\_\-action\_\-status}}
+\index{last\_\-action\_\-status@{last\_\-action\_\-status}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-action\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-action\_\-status}}\label{structv0__svcinfo__t_a6a0df25808de33b0fe6ee54faf8a724d}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-action\_\-time@{last\_\-action\_\-time}}
+\index{last\_\-action\_\-time@{last\_\-action\_\-time}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-action\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-action\_\-time}}\label{structv0__svcinfo__t_a69a9b8feb0fadb45cbefcbddeb806d5c}
+
+
+Referenced by START\_\-TEST().
+
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-signal\_\-name@{last\_\-signal\_\-name}}
+\index{last\_\-signal\_\-name@{last\_\-signal\_\-name}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-signal\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-signal\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-signal\_\-name}}\label{structv0__svcinfo__t_ad941c0becfc970951a6c611174a4d001}
+
+
+Referenced by get\_\-svcinfo\_\-len().
+
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-signal\_\-status@{last\_\-signal\_\-status}}
+\index{last\_\-signal\_\-status@{last\_\-signal\_\-status}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-signal\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-signal\_\-status}}\label{structv0__svcinfo__t_a3143c3a1348059524e13f48ef9f4f32c}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!last\_\-signal\_\-time@{last\_\-signal\_\-time}}
+\index{last\_\-signal\_\-time@{last\_\-signal\_\-time}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{last\_\-signal\_\-time}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::last\_\-signal\_\-time}}\label{structv0__svcinfo__t_aa03a7073f8cdfaddc88ff2eeaa0e2fa6}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!n\_\-recorded\_\-restarts@{n\_\-recorded\_\-restarts}}
+\index{n\_\-recorded\_\-restarts@{n\_\-recorded\_\-restarts}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{n\_\-recorded\_\-restarts}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::n\_\-recorded\_\-restarts}}\label{structv0__svcinfo__t_aa6c0ffe43d218592500bec26c0428939}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!prior\_\-state@{prior\_\-state}}
+\index{prior\_\-state@{prior\_\-state}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{prior\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-state\_\-t} {\bf v0\_\-svcinfo\_\-t::prior\_\-state}}\label{structv0__svcinfo__t_aefa11803cfd46f501e2b8bec66b145f6}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!proc\_\-pid@{proc\_\-pid}}
+\index{proc\_\-pid@{proc\_\-pid}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
+\subsubsection[{proc\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf v0\_\-svcinfo\_\-t::proc\_\-pid}}\label{structv0__svcinfo__t_a0ad827b2b64c718f86e74281395d7d0c}
 \index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS@{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS@{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}!v0_svcinfo_t@{v0\_\-svcinfo\_\-t}}
 \subsubsection[{UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}]{\setlength{\rightskip}{0pt plus 5cm}{\bf v0\_\-svcinfo\_\-t::UPK\_\-V0\_\-SVCINFO\_\-T\_\-FIELDS}}\label{structv0__svcinfo__t_a9dcbd16f49c76e2ec3bb8a89784060d1}
 
 
-The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-v0\_\-protocol.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-v0\_\-protocol.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

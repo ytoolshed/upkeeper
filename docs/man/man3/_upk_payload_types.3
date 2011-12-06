@@ -1,4 +1,4 @@
-.TH "_upk_payload_types" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "_upk_payload_types" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -79,23 +79,27 @@ _upk_payload_types \-
 .SS "\fBupk_repl_ack_t\fP \fB_upk_payload_types::repl_ack\fP"
 .SS "\fBupk_repl_error_t\fP \fB_upk_payload_types::repl_error\fP"
 .PP
-Referenced by upk_clnet_req_action().
+Referenced by upk_clnet_req_action(), upk_clnet_req_signal(), and upk_clnet_req_status().
 .SS "\fBupk_repl_listing_t\fP \fB_upk_payload_types::repl_listing\fP"
 .SS "\fBupk_repl_preamble_t\fP \fB_upk_payload_types::repl_preamble\fP"
+.PP
+Referenced by upk_clnet_req_preamble().
 .SS "\fBupk_repl_result_t\fP \fB_upk_payload_types::repl_result\fP"
 .PP
-Referenced by received_packet_callback(), and upk_clnet_req_action().
+Referenced by upk_clnet_req_action(), and upk_clnet_req_signal().
 .SS "\fBupk_repl_seq_end_t\fP \fB_upk_payload_types::repl_seq_end\fP"
 .SS "\fBupk_repl_seq_start_t\fP \fB_upk_payload_types::repl_seq_start\fP"
 .SS "\fBupk_repl_svcinfo_t\fP \fB_upk_payload_types::repl_svcinfo\fP"
+.PP
+Referenced by upk_clnet_req_status().
 .SS "\fBupk_req_action_t\fP \fB_upk_payload_types::req_action\fP"
 .PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_action_handler().
 .SS "\fBupk_req_disconnect_t\fP \fB_upk_payload_types::req_disconnect\fP"
 .SS "\fBupk_req_list_t\fP \fB_upk_payload_types::req_list\fP"
 .SS "\fBupk_req_preamble_t\fP \fB_upk_payload_types::req_preamble\fP"
 .PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_preamble_handler(), and main().
 .SS "\fBupk_req_seq_end_t\fP \fB_upk_payload_types::req_seq_end\fP"
 .SS "\fBupk_req_seq_start_t\fP \fB_upk_payload_types::req_seq_start\fP"
 .SS "\fBupk_req_signal_t\fP \fB_upk_payload_types::req_signal\fP"

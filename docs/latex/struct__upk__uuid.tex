@@ -12,17 +12,17 @@ structure for holding 16 byte UUID.
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-uint32\_\-t {\bf time\_\-low}
+{\bf uint32\_\-t} {\bf time\_\-low}
 \item 
-uint16\_\-t {\bf time\_\-mid}
+{\bf uint16\_\-t} {\bf time\_\-mid}
 \item 
-uint16\_\-t {\bf time\_\-high\_\-and\_\-version}
+{\bf uint16\_\-t} {\bf time\_\-high\_\-and\_\-version}
 \item 
-uint8\_\-t {\bf clk\_\-seq\_\-high}
+{\bf uint8\_\-t} {\bf clk\_\-seq\_\-high}
 \item 
-uint8\_\-t {\bf clk\_\-seq\_\-low}
+{\bf uint8\_\-t} {\bf clk\_\-seq\_\-low}
 \item 
-uint8\_\-t {\bf node} [6]
+{\bf uint8\_\-t} {\bf node} [6]
 \end{DoxyCompactItemize}
 
 
@@ -34,48 +34,50 @@ Despite only using v4 uuids, field labels chosen to reflect convention but All b
 \subsection{Field Documentation}
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!clk\_\-seq\_\-high@{clk\_\-seq\_\-high}}
 \index{clk\_\-seq\_\-high@{clk\_\-seq\_\-high}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{clk\_\-seq\_\-high}]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t {\bf \_\-upk\_\-uuid::clk\_\-seq\_\-high}}\label{struct__upk__uuid_a9381639878467a2c59e90271b7a6525f}
+\subsubsection[{clk\_\-seq\_\-high}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\_\-t} {\bf \_\-upk\_\-uuid::clk\_\-seq\_\-high}}\label{struct__upk__uuid_a9381639878467a2c59e90271b7a6525f}
 clock sequence high bits (0x80 -\/ 0xB0 in this impl) 
 
 Referenced by START\_\-TEST(), upk\_\-gen\_\-uuid\_\-bytes(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!clk\_\-seq\_\-low@{clk\_\-seq\_\-low}}
 \index{clk\_\-seq\_\-low@{clk\_\-seq\_\-low}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{clk\_\-seq\_\-low}]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t {\bf \_\-upk\_\-uuid::clk\_\-seq\_\-low}}\label{struct__upk__uuid_a0cdb0fa230c786e2ae9994ce31df60fd}
+\subsubsection[{clk\_\-seq\_\-low}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\_\-t} {\bf \_\-upk\_\-uuid::clk\_\-seq\_\-low}}\label{struct__upk__uuid_a0cdb0fa230c786e2ae9994ce31df60fd}
 clock sequence low bits (random in this impl) 
 
 Referenced by START\_\-TEST(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!node@{node}}
 \index{node@{node}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{node}]{\setlength{\rightskip}{0pt plus 5cm}uint8\_\-t {\bf \_\-upk\_\-uuid::node}[6]}\label{struct__upk__uuid_ab13ebc728fe2ee9b46d44a65fe3dd640}
+\subsubsection[{node}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint8\_\-t} {\bf \_\-upk\_\-uuid::node}}\label{struct__upk__uuid_afe8efc1a9931d9469bbfb692d8db729a}
 unique, usually random number (random in this impl) 
 
 Referenced by START\_\-TEST(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!time\_\-high\_\-and\_\-version@{time\_\-high\_\-and\_\-version}}
 \index{time\_\-high\_\-and\_\-version@{time\_\-high\_\-and\_\-version}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{time\_\-high\_\-and\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}uint16\_\-t {\bf \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version}}\label{struct__upk__uuid_abd1232f0887919e662a772b94b465670}
+\subsubsection[{time\_\-high\_\-and\_\-version}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint16\_\-t} {\bf \_\-upk\_\-uuid::time\_\-high\_\-and\_\-version}}\label{struct__upk__uuid_abd1232f0887919e662a772b94b465670}
 high-\/resolution bits, and the version id of the uuid (time\_\-high is random in this impl; version is 0x40) 
 
 Referenced by START\_\-TEST(), upk\_\-gen\_\-uuid\_\-bytes(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!time\_\-low@{time\_\-low}}
 \index{time\_\-low@{time\_\-low}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{time\_\-low}]{\setlength{\rightskip}{0pt plus 5cm}uint32\_\-t {\bf \_\-upk\_\-uuid::time\_\-low}}\label{struct__upk__uuid_aeefcd7db5971c45ca97b83f724501ca9}
+\subsubsection[{time\_\-low}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf \_\-upk\_\-uuid::time\_\-low}}\label{struct__upk__uuid_aeefcd7db5971c45ca97b83f724501ca9}
 low resolution bits, usually seconds since epoch (random in this impl) 
 
 Referenced by START\_\-TEST(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 \index{\_\-upk\_\-uuid@{\_\-upk\_\-uuid}!time\_\-mid@{time\_\-mid}}
 \index{time\_\-mid@{time\_\-mid}!_upk_uuid@{\_\-upk\_\-uuid}}
-\subsubsection[{time\_\-mid}]{\setlength{\rightskip}{0pt plus 5cm}uint16\_\-t {\bf \_\-upk\_\-uuid::time\_\-mid}}\label{struct__upk__uuid_a8f552d485307182b23619be222cd4fc8}
+\subsubsection[{time\_\-mid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint16\_\-t} {\bf \_\-upk\_\-uuid::time\_\-mid}}\label{struct__upk__uuid_a8f552d485307182b23619be222cd4fc8}
 mid resolution bits (random in this impl) 
 
 Referenced by START\_\-TEST(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-string\_\-to\_\-uuid(), and upk\_\-uuid\_\-to\_\-string().
 
 
 
-The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-uuid.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-uuid.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

@@ -52,127 +52,117 @@ Collaboration diagram for _upk_svc_desc:</div>
 <div class="dyncontent">
 <div class="center"><img src="struct__upk__svc__desc__coll__graph.png" border="0" usemap="#__upk__svc__desc_coll__map" alt="Collaboration graph"/></div>
 <map name="__upk__svc__desc_coll__map" id="__upk__svc__desc_coll__map">
-<area shape="rect" id="node3" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID." alt="" coords="21,5,101,37"/></map>
+<area shape="rect" id="node3" href="struct__upk__cust__actscr__meta__p.html" title="_upk_cust_actscr_meta_p" alt="" coords="11,307,184,339"/><area shape="rect" id="node5" href="struct__upk__cust__actscr__list.html" title="linked list of custom action scripts." alt="" coords="5,107,152,139"/><area shape="rect" id="node8" href="struct__upk__svcid__meta__p.html" title="_upk_svcid_meta_p" alt="" coords="276,307,412,339"/><area shape="rect" id="node10" href="struct__upk__svcid.html" title="linked list of service identifiers." alt="" coords="281,107,369,139"/><area shape="rect" id="node13" href="struct__upk__uuid.html" title="structure for holding 16 byte UUID." alt="" coords="231,5,311,37"/></map>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a9eb636044a78073721e6f021067f5581">StartPriority</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a0f2c20e3e43d5677567d53b20dcc368f">Name</a> [UPK_MAX_STRING_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a4e5d439c6426919b8d9270915fe7620a">Package</a> [UPK_MAX_STRING_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a3dde85561c4db5277109a1c4336737e9">Provides</a> [UPK_MAX_STRING_LEN]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a7a769827b6422551922ac2f8e5e61564">Name</a> [2048]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a219ae29a1ebf4a2bf6c1451c9855a85b">Package</a> [2048]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a5b62fecb7d7a0d76b797c3bbc3051414">Provides</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__uuid.html">upk_uuid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a8f7f1940251c598ea87a72c6ca1fd5cd">UUID</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aca08055b4360de3e87e49efa82437086">ShortDescription</a> [UPK_MAX_STRING_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#accc7f57b9fd49138d83e1fb9def41bcb">LongDescription</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="upk__types_8h.html#ae9f5e025901afb0c980737ce3a43c366">upk_svcid_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad95e655e903c314415642d05ebfdba5b">Prerequisites</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ab23ddf0afd126034c447f7766f8b5588">BuddyShutdownTimeout</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a46361838fe014ea4b6f35f09d6767511">ShortDescription</a> [2048]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ae9bc3da5c1ea58b417a088b9523b04c7">LongDescription</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#afaf102d348fd0a9520a92a1ec1dcdca1">Prerequisites</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aec61cf2cc28a439589b70740e33e862a">StartAfter</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">_Bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aabc2349bcc6ff2a8da04dcd9d91a88c3">RestartAllDependencies</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">_Bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a553d46011a5fea45c19339d35286e61f">RestartOnPrerequisiteRestart</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad4daf67092063aa01aea982230ca281a">RestartOnNamedPrereqRestart</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad1af978bc37d07566232e0d48427a7cb">KillTimeout</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a57ad4b1eedd3d25d29ea79de58c3c003">StartupDelay</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aed98c59b98a6d65c435f7482fdcf7f48">MaxConsecutiveFailures</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#adc59ece6c494206a03d7e4a032e7eb34">UserMaxRestarts</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aa821e5cd2987061ed057f52fb61538a7">UserRestartWindow</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#afe1ca494932eb02304d2f0d4753eda33">UserRateLimit</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#af203541b3c86af36abe8f91e4a1df8bf">RandomizeRateLimit</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">uid_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ace144bc7dcf20f17774b1d106e16ab21">SetUID</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">gid_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a7887cae5324acc83464be8abac504f94">SetGID</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a94b3cfd4efaec9179155f1acf97c415e">RingbufferSize</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="controller_2tp_8c.html#a1844226d778badcda0a21b28310830ea">uid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ace144bc7dcf20f17774b1d106e16ab21">SetUID</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="controller_2tp_8c.html#a9520fe38856d436aa8c5850ff21839ec">gid_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a7887cae5324acc83464be8abac504f94">SetGID</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="controller_2tp_8c.html#a222d67ef9d7959e65735150c95b7eee3">size_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a94b3cfd4efaec9179155f1acf97c415e">RingbufferSize</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a60cd2b44fbc61ec4d657e896fd9de6e8">ReconnectRetries</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a1ec7b5c0c440bc0a7011fba7ff45edec">ExecStart</a> [UPK_MAX_PATH_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a73b69e8c9ad7d2d52999d6efcbb818fe">StartScript</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ab50cb8805f521274c6a47be718b71c1b">ExecStop</a> [UPK_MAX_PATH_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a229ce0ff9aaf9e89552c53a71e7a6181">StopScript</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a3759e27a023610aecef765eec3c84dda">ExecReload</a> [UPK_MAX_PATH_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#afa1e0a64af10238755e4c6716814be96">ReloadScript</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="upk__types_8h.html#abd8107c7cce0cfa38c4d9ac49545c9fb">upk_cust_actscr_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#abbf41417e2cc90644f9a7a035d551dcf">custom_action_scripts</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad9ce631bde035ea74c5f0e98e8dcc90e">PipeStdoutScript</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a218ac0c3018977cb3d1e6a6e2ac9b2b4">PipeStderrScript</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a2bfed4f3da2a85d7af160f64a70056dc">RedirectStdout</a> [UPK_MAX_PATH_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aac20b2e862d46edd03dd2efc4b469ad6">RedirectStderr</a> [UPK_MAX_PATH_LEN]</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="upk__types_8h.html#a3a4d9c1ea04e15544dd09f327c804f59">upk_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a49b38ed1095da250a2eb392d0cbc663d">InitialState</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ae013728670cf1af65a371dd8d84529ca">ExecStart</a> [8192]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a5a86dbf48976bcf166dacd9dc22a29ce">StartScript</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad302f492adb3d64ad3314810035ed6f0">ExecStop</a> [8192]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a2c15fb5318f018e3b6128062158d86f2">StopScript</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ad078cbde8e1f25af15c90270f9a82cfd">ExecReload</a> [8192]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#ac632cbb663bc36b4357ac7eb967904b1">ReloadScript</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__cust__actscr__meta__p.html">upk_cust_actscr_meta_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a46d3e259b4edf2d7e502f30eed6d93ae">CustomActions</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a2f4ec4892314d72d390a37f3391e9336">PipeStdoutScript</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a10e6db4c4a683259d4bf402f76389376">PipeStderrScript</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a5d47b845d73d56050bd158fb5f632bb2">RedirectStdout</a> [8192]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a786f850296d5348861c07d14f149f830">RedirectStderr</a> [8192]</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="controller_2tp_8c.html#a3a4d9c1ea04e15544dd09f327c804f59">upk_state_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a49b38ed1095da250a2eb392d0cbc663d">InitialState</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a16219aee7c0f81d81eaa8a6899e38714">UnconfigureOnFileRemoval</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a7122c24ad2843e92e8375826884c117e">PreferBuddyStateForStopped</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a73d367dc1b45f564243e23297bc39831">PreferBuddyStateForRunning</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svc__desc.html">upk_svc_desc_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#adcccb3111f5b02ff78cda29d39c827fc">next</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct__upk__svc__desc.html">upk_svc_desc_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a31fedb1a34746057adad52eb06d14d6b">next</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#aa324ad1e1dd417328d3b686187b4d536">RestartAllDependencies</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__upk__svc__desc.html#a6a7cc3922b9344f4cd98b724dc5172d4">RestartOnPrerequisiteRestart</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>service configuration. </p>
 </div><hr/><h2>Field Documentation</h2>
-<a class="anchor" id="ab23ddf0afd126034c447f7766f8b5588"></a><!-- doxytag: member="_upk_svc_desc::BuddyShutdownTimeout" ref="ab23ddf0afd126034c447f7766f8b5588" args="" -->
+<a class="anchor" id="a46d3e259b4edf2d7e502f30eed6d93ae"></a><!-- doxytag: member="_upk_svc_desc::CustomActions" ref="a46d3e259b4edf2d7e502f30eed6d93ae" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int32_t <a class="el" href="struct__upk__svc__desc.html#ab23ddf0afd126034c447f7766f8b5588">_upk_svc_desc::BuddyShutdownTimeout</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>when a service is stopped; how many seconds to wait before shutting the buddy down to conserve resources. a value &lt; 0 means to leave the buddy running indefinately </p>
-
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="abbf41417e2cc90644f9a7a035d551dcf"></a><!-- doxytag: member="_upk_svc_desc::custom_action_scripts" ref="abbf41417e2cc90644f9a7a035d551dcf" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="upk__types_8h.html#abd8107c7cce0cfa38c4d9ac49545c9fb">upk_cust_actscr_meta_t</a>* <a class="el" href="struct__upk__svc__desc.html#abbf41417e2cc90644f9a7a035d551dcf">_upk_svc_desc::custom_action_scripts</a></td>
+          <td class="memname"><a class="el" href="struct__upk__cust__actscr__meta__p.html">upk_cust_actscr_meta_t</a> * <a class="el" href="struct__upk__svc__desc.html#a46d3e259b4edf2d7e502f30eed6d93ae">_upk_svc_desc::CustomActions</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>linked list of custom actions </p>
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, and <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>.</p>
+<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="ctrl__buddy_8c.html#a61bbd1a5bc18012f8087f8a9764ef409">remove_buddy_statedir()</a>, <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga92b7ce66bee3b5476996ce54bb395454">upk_svcconf_nested_object_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3759e27a023610aecef765eec3c84dda"></a><!-- doxytag: member="_upk_svc_desc::ExecReload" ref="a3759e27a023610aecef765eec3c84dda" args="[UPK_MAX_PATH_LEN]" -->
+<a class="anchor" id="ad078cbde8e1f25af15c90270f9a82cfd"></a><!-- doxytag: member="_upk_svc_desc::ExecReload" ref="ad078cbde8e1f25af15c90270f9a82cfd" args="[8192]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a3759e27a023610aecef765eec3c84dda">_upk_svc_desc::ExecReload</a>[UPK_MAX_PATH_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#ad078cbde8e1f25af15c90270f9a82cfd">_upk_svc_desc::ExecReload</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>command to exec for reload. Default: 'kill -HUP', see "ReloadScript" </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a1ec7b5c0c440bc0a7011fba7ff45edec"></a><!-- doxytag: member="_upk_svc_desc::ExecStart" ref="a1ec7b5c0c440bc0a7011fba7ff45edec" args="[UPK_MAX_PATH_LEN]" -->
+<a class="anchor" id="ae013728670cf1af65a371dd8d84529ca"></a><!-- doxytag: member="_upk_svc_desc::ExecStart" ref="ae013728670cf1af65a371dd8d84529ca" args="[8192]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a1ec7b5c0c440bc0a7011fba7ff45edec">_upk_svc_desc::ExecStart</a>[UPK_MAX_PATH_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#ae013728670cf1af65a371dd8d84529ca">_upk_svc_desc::ExecStart</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>command to exec for start. Default: 'kill', see "StartScript" </p>
+<p>command to exec for start, see "StartScript" </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ab50cb8805f521274c6a47be718b71c1b"></a><!-- doxytag: member="_upk_svc_desc::ExecStop" ref="ab50cb8805f521274c6a47be718b71c1b" args="[UPK_MAX_PATH_LEN]" -->
+<a class="anchor" id="ad302f492adb3d64ad3314810035ed6f0"></a><!-- doxytag: member="_upk_svc_desc::ExecStop" ref="ad302f492adb3d64ad3314810035ed6f0" args="[8192]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#ab50cb8805f521274c6a47be718b71c1b">_upk_svc_desc::ExecStop</a>[UPK_MAX_PATH_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#ad302f492adb3d64ad3314810035ed6f0">_upk_svc_desc::ExecStop</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>executable to exec for stop. see "StopScript" </p>
+<p>executable to exec for stop. Default: 'kill', see "StopScript" </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -181,14 +171,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="upk__types_8h.html#a3a4d9c1ea04e15544dd09f327c804f59">upk_state_t</a> <a class="el" href="struct__upk__svc__desc.html#a49b38ed1095da250a2eb392d0cbc663d">_upk_svc_desc::InitialState</a></td>
+          <td class="memname"><a class="el" href="controller_2tp_8c.html#a3a4d9c1ea04e15544dd09f327c804f59">upk_state_t</a> <a class="el" href="struct__upk__svc__desc.html#a49b38ed1095da250a2eb392d0cbc663d">_upk_svc_desc::InitialState</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>state the service should be set to initially; this is used only when a service is first configured </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -204,23 +194,23 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>how long to wait for a service to stop before issuing TERM and, if necessary, KILL signals to bring it down. A negative value means to wait indefiniately for a stopped process to terminate </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="accc7f57b9fd49138d83e1fb9def41bcb"></a><!-- doxytag: member="_upk_svc_desc::LongDescription" ref="accc7f57b9fd49138d83e1fb9def41bcb" args="" -->
+<a class="anchor" id="ae9bc3da5c1ea58b417a088b9523b04c7"></a><!-- doxytag: member="_upk_svc_desc::LongDescription" ref="ae9bc3da5c1ea58b417a088b9523b04c7" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#accc7f57b9fd49138d83e1fb9def41bcb">_upk_svc_desc::LongDescription</a></td>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#ae9bc3da5c1ea58b417a088b9523b04c7">_upk_svc_desc::LongDescription</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>a brief description of the service an arbitrary length description of the service </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -236,87 +226,87 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>Maximum number of times a process may fail in-a-row before its state is changed to down; a negative value indicates to restart forever (and is the default) </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, and <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a0f2c20e3e43d5677567d53b20dcc368f"></a><!-- doxytag: member="_upk_svc_desc::Name" ref="a0f2c20e3e43d5677567d53b20dcc368f" args="[UPK_MAX_STRING_LEN]" -->
+<a class="anchor" id="a7a769827b6422551922ac2f8e5e61564"></a><!-- doxytag: member="_upk_svc_desc::Name" ref="a7a769827b6422551922ac2f8e5e61564" args="[2048]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a0f2c20e3e43d5677567d53b20dcc368f">_upk_svc_desc::Name</a>[UPK_MAX_STRING_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a7a769827b6422551922ac2f8e5e61564">_upk_svc_desc::Name</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>service name. if pkg is used, the concatination of &lt;pkg&gt;::&lt;name&gt; must be unique; otherwise this name must be unique </p>
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a3167c192e6ed5cd46f95d1a5d8848e7c">buddy_sock_path()</a>, <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, <a class="el" href="group__functions.html#ga431d962e0b29ea6f54f88d6d1505b2d0">upk_overlay_ctrlconf_values()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#gad985bf99864c933b1a60705b58fded9d">upk_parse_svc_id()</a>, <a class="el" href="group__functions.html#ga74c0ebb6d5f4b890205dfba4fea7b730">upk_svc_id()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a3167c192e6ed5cd46f95d1a5d8848e7c">buddy_sock_path()</a>, <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="ctrl__eventloop_8c.html#a5112d1e28056ffe613e005caf9066db3">ctrl_req_action_handler()</a>, <a class="el" href="ctrl__buddy_8c.html#a5bb1452ac49e63b88f834fe2588f3850">lookup_buddy_from_path()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="ctrl__buddy_8c.html#a61bbd1a5bc18012f8087f8a9764ef409">remove_buddy_statedir()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, <a class="el" href="group__controller.html#ga0318a327e86bc26c8e54517c340961a3">upk_db_add_new_service()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#gafa2642c4954efe2d168a80703fa45c39">upk_db_upsert()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#ga431d962e0b29ea6f54f88d6d1505b2d0">upk_overlay_ctrlconf_values()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#gad985bf99864c933b1a60705b58fded9d">upk_parse_svc_id()</a>, <a class="el" href="group__config__impl.html#ga74c0ebb6d5f4b890205dfba4fea7b730">upk_svc_id()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="adcccb3111f5b02ff78cda29d39c827fc"></a><!-- doxytag: member="_upk_svc_desc::next" ref="adcccb3111f5b02ff78cda29d39c827fc" args="" -->
+<a class="anchor" id="a31fedb1a34746057adad52eb06d14d6b"></a><!-- doxytag: member="_upk_svc_desc::next" ref="a31fedb1a34746057adad52eb06d14d6b" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="struct__upk__svc__desc.html">upk_svc_desc_t</a>* <a class="el" href="struct__upk__svc__desc.html#adcccb3111f5b02ff78cda29d39c827fc">_upk_svc_desc::next</a></td>
+          <td class="memname"><a class="el" href="struct__upk__svc__desc.html">upk_svc_desc_t</a> * <a class="el" href="struct__upk__svc__desc.html#a31fedb1a34746057adad52eb06d14d6b">_upk_svc_desc::next</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>for use in lists </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#ga19d2bc0bd2e96a937820f26f4e56b2d9">upk_json_serialize_svc_config()</a>, and <a class="el" href="group__functions.html#gad3c49ca389d2928e563ec9834942fb28">upk_svc_desc_clear()</a>.</p>
+<p>Referenced by <a class="el" href="group__config__impl.html#ga19d2bc0bd2e96a937820f26f4e56b2d9">upk_json_serialize_svc_config()</a>, <a class="el" href="group__config__impl.html#ga431d962e0b29ea6f54f88d6d1505b2d0">upk_overlay_ctrlconf_values()</a>, and <a class="el" href="group__config__impl.html#gad3c49ca389d2928e563ec9834942fb28">upk_svc_desc_clear()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a4e5d439c6426919b8d9270915fe7620a"></a><!-- doxytag: member="_upk_svc_desc::Package" ref="a4e5d439c6426919b8d9270915fe7620a" args="[UPK_MAX_STRING_LEN]" -->
+<a class="anchor" id="a219ae29a1ebf4a2bf6c1451c9855a85b"></a><!-- doxytag: member="_upk_svc_desc::Package" ref="a219ae29a1ebf4a2bf6c1451c9855a85b" args="[2048]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a4e5d439c6426919b8d9270915fe7620a">_upk_svc_desc::Package</a>[UPK_MAX_STRING_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a219ae29a1ebf4a2bf6c1451c9855a85b">_upk_svc_desc::Package</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>an optional prefix to be preppended to the service name </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#gad985bf99864c933b1a60705b58fded9d">upk_parse_svc_id()</a>, <a class="el" href="group__functions.html#ga74c0ebb6d5f4b890205dfba4fea7b730">upk_svc_id()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__controller.html#ga0318a327e86bc26c8e54517c340961a3">upk_db_add_new_service()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#gafa2642c4954efe2d168a80703fa45c39">upk_db_upsert()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#gad985bf99864c933b1a60705b58fded9d">upk_parse_svc_id()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, <a class="el" href="group__config__impl.html#ga74c0ebb6d5f4b890205dfba4fea7b730">upk_svc_id()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a218ac0c3018977cb3d1e6a6e2ac9b2b4"></a><!-- doxytag: member="_upk_svc_desc::PipeStderrScript" ref="a218ac0c3018977cb3d1e6a6e2ac9b2b4" args="" -->
+<a class="anchor" id="a10e6db4c4a683259d4bf402f76389376"></a><!-- doxytag: member="_upk_svc_desc::PipeStderrScript" ref="a10e6db4c4a683259d4bf402f76389376" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#a218ac0c3018977cb3d1e6a6e2ac9b2b4">_upk_svc_desc::PipeStderrScript</a></td>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#a10e6db4c4a683259d4bf402f76389376">_upk_svc_desc::PipeStderrScript</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>optional script to pipe stderr to. for instance: 'exec logger -p local0.warn' </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad9ce631bde035ea74c5f0e98e8dcc90e"></a><!-- doxytag: member="_upk_svc_desc::PipeStdoutScript" ref="ad9ce631bde035ea74c5f0e98e8dcc90e" args="" -->
+<a class="anchor" id="a2f4ec4892314d72d390a37f3391e9336"></a><!-- doxytag: member="_upk_svc_desc::PipeStdoutScript" ref="a2f4ec4892314d72d390a37f3391e9336" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#ad9ce631bde035ea74c5f0e98e8dcc90e">_upk_svc_desc::PipeStdoutScript</a></td>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#a2f4ec4892314d72d390a37f3391e9336">_upk_svc_desc::PipeStdoutScript</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>optional script to pipe stdout to. for instance: 'exec logger -p local0.notice' </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -332,7 +322,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>if the controller starts/restarts, and buddy has a service state set to "running", but controller's data-store believes the service should be stopped, prefer buddy's world view, and update the data-store to reflect the running state (the default is to trust the data-store, which would cause the service to be stopped </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
 
 </div>
 </div>
@@ -346,41 +336,40 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>if the controller starts/restartindent: Standard input:189: Error:Stmt nesting error. s, and buddy has a service state set to "stopped", but controller's data-store believes the service should be running, prefer buddy's world view, and update the data-store to reflect the stopped state (the default is to trust the data-store; which would cause the service to be started </p>
+<p>if the controller starts/restarts, and buddy has a service state set to "stopped", but controller's data-store believes the service should be running, prefer buddy's world view, and update the data-store to reflect the stopped state (the default is to trust the data-store; which would cause the service to be started </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="ad95e655e903c314415642d05ebfdba5b"></a><!-- doxytag: member="_upk_svc_desc::Prerequisites" ref="ad95e655e903c314415642d05ebfdba5b" args="" -->
+<a class="anchor" id="afaf102d348fd0a9520a92a1ec1dcdca1"></a><!-- doxytag: member="_upk_svc_desc::Prerequisites" ref="afaf102d348fd0a9520a92a1ec1dcdca1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="upk__types_8h.html#ae9f5e025901afb0c980737ce3a43c366">upk_svcid_meta_t</a>* <a class="el" href="struct__upk__svc__desc.html#ad95e655e903c314415642d05ebfdba5b">_upk_svc_desc::Prerequisites</a></td>
+          <td class="memname"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> * <a class="el" href="struct__upk__svc__desc.html#afaf102d348fd0a9520a92a1ec1dcdca1">_upk_svc_desc::Prerequisites</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>A list of prerequisite services that must be started prior to this service; either by name, pkg-prefix, or by what they provide </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, and <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>.</p>
+<p>Referenced by <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9ae6ec4edd6a67abc22b670755842ff7">upk_svcconf_array_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a3dde85561c4db5277109a1c4336737e9"></a><!-- doxytag: member="_upk_svc_desc::Provides" ref="a3dde85561c4db5277109a1c4336737e9" args="[UPK_MAX_STRING_LEN]" -->
+<a class="anchor" id="a5b62fecb7d7a0d76b797c3bbc3051414"></a><!-- doxytag: member="_upk_svc_desc::Provides" ref="a5b62fecb7d7a0d76b797c3bbc3051414" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a3dde85561c4db5277109a1c4336737e9">_upk_svc_desc::Provides</a>[UPK_MAX_STRING_LEN]</td>
+          <td class="memname"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> * <a class="el" href="struct__upk__svc__desc.html#a5b62fecb7d7a0d76b797c3bbc3051414">_upk_svc_desc::Provides</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>a string describing the function of this service. this can be used in prerequisite constraints upon other services. i.e. a prerequisite might be "entropy-service", and any service providing "entropy-service" would then satisfy that prerequisite [vaguely remeniscent of the debian "alternatives" system] </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9ae6ec4edd6a67abc22b670755842ff7">upk_svcconf_array_handler()</a>.</p>
 
 </div>
 </div>
@@ -396,7 +385,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>a flag to enable/disable adding a randomized "jitter" to the user_ratelimit </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
 
 </div>
 </div>
@@ -412,55 +401,129 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>number of times to retry connections to the controler when emergent actions occur in the buddy; (-1 for indefinate) </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aac20b2e862d46edd03dd2efc4b469ad6"></a><!-- doxytag: member="_upk_svc_desc::RedirectStderr" ref="aac20b2e862d46edd03dd2efc4b469ad6" args="[UPK_MAX_PATH_LEN]" -->
+<a class="anchor" id="a786f850296d5348861c07d14f149f830"></a><!-- doxytag: member="_upk_svc_desc::RedirectStderr" ref="a786f850296d5348861c07d14f149f830" args="[8192]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#aac20b2e862d46edd03dd2efc4b469ad6">_upk_svc_desc::RedirectStderr</a>[UPK_MAX_PATH_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a786f850296d5348861c07d14f149f830">_upk_svc_desc::RedirectStderr</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>optional place to direct stderr. Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints to stderr itself </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a2bfed4f3da2a85d7af160f64a70056dc"></a><!-- doxytag: member="_upk_svc_desc::RedirectStdout" ref="a2bfed4f3da2a85d7af160f64a70056dc" args="[UPK_MAX_PATH_LEN]" -->
+<a class="anchor" id="a5d47b845d73d56050bd158fb5f632bb2"></a><!-- doxytag: member="_upk_svc_desc::RedirectStdout" ref="a5d47b845d73d56050bd158fb5f632bb2" args="[8192]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a2bfed4f3da2a85d7af160f64a70056dc">_upk_svc_desc::RedirectStdout</a>[UPK_MAX_PATH_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a5d47b845d73d56050bd158fb5f632bb2">_upk_svc_desc::RedirectStdout</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>optional place to direct stdout. Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints to stdout itself </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="afa1e0a64af10238755e4c6716814be96"></a><!-- doxytag: member="_upk_svc_desc::ReloadScript" ref="afa1e0a64af10238755e4c6716814be96" args="" -->
+<a class="anchor" id="ac632cbb663bc36b4357ac7eb967904b1"></a><!-- doxytag: member="_upk_svc_desc::ReloadScript" ref="ac632cbb663bc36b4357ac7eb967904b1" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#afa1e0a64af10238755e4c6716814be96">_upk_svc_desc::ReloadScript</a></td>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#ac632cbb663bc36b4357ac7eb967904b1">_upk_svc_desc::ReloadScript</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>replace the default reload script of 'exec kill -HUP $1'; argv[1] == pid of monitored process </p>
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aa324ad1e1dd417328d3b686187b4d536"></a><!-- doxytag: member="_upk_svc_desc::RestartAllDependencies" ref="aa324ad1e1dd417328d3b686187b4d536" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="struct__upk__svc__desc.html#aabc2349bcc6ff2a8da04dcd9d91a88c3">_upk_svc_desc::RestartAllDependencies</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Force anything that depends on this service to be restarted if this service restarts </p>
+
+</div>
+</div>
+<a class="anchor" id="aabc2349bcc6ff2a8da04dcd9d91a88c3"></a><!-- doxytag: member="_upk_svc_desc::RestartAllDependencies" ref="aabc2349bcc6ff2a8da04dcd9d91a88c3" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_Bool <a class="el" href="struct__upk__svc__desc.html#aabc2349bcc6ff2a8da04dcd9d91a88c3">_upk_svc_desc::RestartAllDependencies</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ad4daf67092063aa01aea982230ca281a"></a><!-- doxytag: member="_upk_svc_desc::RestartOnNamedPrereqRestart" ref="ad4daf67092063aa01aea982230ca281a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> * <a class="el" href="struct__upk__svc__desc.html#ad4daf67092063aa01aea982230ca281a">_upk_svc_desc::RestartOnNamedPrereqRestart</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>A JSON array (e.g.: ["foo"]) containing the names of Prerequisite services that if they fail, should cause this service to be restarted (services listed here are implicitely added to the list of Prerequisites if not already present </p>
+
+<p>Referenced by <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6a7cc3922b9344f4cd98b724dc5172d4"></a><!-- doxytag: member="_upk_svc_desc::RestartOnPrerequisiteRestart" ref="a6a7cc3922b9344f4cd98b724dc5172d4" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="struct__upk__svc__desc.html#a553d46011a5fea45c19339d35286e61f">_upk_svc_desc::RestartOnPrerequisiteRestart</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>If any prerequisite service (in the 'Prerequisites' array above) fails, restart this service. </p>
+
+</div>
+</div>
+<a class="anchor" id="a553d46011a5fea45c19339d35286e61f"></a><!-- doxytag: member="_upk_svc_desc::RestartOnPrerequisiteRestart" ref="a553d46011a5fea45c19339d35286e61f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">_Bool <a class="el" href="struct__upk__svc__desc.html#a553d46011a5fea45c19339d35286e61f">_upk_svc_desc::RestartOnPrerequisiteRestart</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>.</p>
 
 </div>
 </div>
@@ -469,14 +532,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t <a class="el" href="struct__upk__svc__desc.html#a94b3cfd4efaec9179155f1acf97c415e">_upk_svc_desc::RingbufferSize</a></td>
+          <td class="memname"><a class="el" href="controller_2tp_8c.html#a222d67ef9d7959e65735150c95b7eee3">size_t</a> <a class="el" href="struct__upk__svc__desc.html#a94b3cfd4efaec9179155f1acf97c415e">_upk_svc_desc::RingbufferSize</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>size of the ringbuffer to maintain in the buddy </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
@@ -485,14 +548,14 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">gid_t <a class="el" href="struct__upk__svc__desc.html#a7887cae5324acc83464be8abac504f94">_upk_svc_desc::SetGID</a></td>
+          <td class="memname"><a class="el" href="controller_2tp_8c.html#a9520fe38856d436aa8c5850ff21839ec">gid_t</a> <a class="el" href="struct__upk__svc__desc.html#a7887cae5324acc83464be8abac504f94">_upk_svc_desc::SetGID</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>if controller and/or buddy is run euid root; which gid to run the service as </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -501,29 +564,45 @@ Data Fields</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">uid_t <a class="el" href="struct__upk__svc__desc.html#ace144bc7dcf20f17774b1d106e16ab21">_upk_svc_desc::SetUID</a></td>
+          <td class="memname"><a class="el" href="controller_2tp_8c.html#a1844226d778badcda0a21b28310830ea">uid_t</a> <a class="el" href="struct__upk__svc__desc.html#ace144bc7dcf20f17774b1d106e16ab21">_upk_svc_desc::SetUID</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>if controller and/or buddy is run euid root; which uid to run the service as </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aca08055b4360de3e87e49efa82437086"></a><!-- doxytag: member="_upk_svc_desc::ShortDescription" ref="aca08055b4360de3e87e49efa82437086" args="[UPK_MAX_STRING_LEN]" -->
+<a class="anchor" id="a46361838fe014ea4b6f35f09d6767511"></a><!-- doxytag: member="_upk_svc_desc::ShortDescription" ref="a46361838fe014ea4b6f35f09d6767511" args="[2048]" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#aca08055b4360de3e87e49efa82437086">_upk_svc_desc::ShortDescription</a>[UPK_MAX_STRING_LEN]</td>
+          <td class="memname">char <a class="el" href="struct__upk__svc__desc.html#a46361838fe014ea4b6f35f09d6767511">_upk_svc_desc::ShortDescription</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aec61cf2cc28a439589b70740e33e862a"></a><!-- doxytag: member="_upk_svc_desc::StartAfter" ref="aec61cf2cc28a439589b70740e33e862a" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__upk__svcid__meta__p.html">upk_svcid_meta_t</a> * <a class="el" href="struct__upk__svc__desc.html#aec61cf2cc28a439589b70740e33e862a">_upk_svc_desc::StartAfter</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>A list of services that must be started prior to this service; either by name, pkg-prefix, or by what they provide; this is distinct from Prerequisites in that if these items do not exist, the service will still start, but if they do exist, they will be started first </p>
+
+<p>Referenced by <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>.</p>
 
 </div>
 </div>
@@ -539,39 +618,55 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>similar to prerequisites, provide a fixed numeric start priority to indicate service startup order </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#gad3c49ca389d2928e563ec9834942fb28">upk_svc_desc_clear()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#gad3c49ca389d2928e563ec9834942fb28">upk_svc_desc_clear()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a73b69e8c9ad7d2d52999d6efcbb818fe"></a><!-- doxytag: member="_upk_svc_desc::StartScript" ref="a73b69e8c9ad7d2d52999d6efcbb818fe" args="" -->
+<a class="anchor" id="a5a86dbf48976bcf166dacd9dc22a29ce"></a><!-- doxytag: member="_upk_svc_desc::StartScript" ref="a5a86dbf48976bcf166dacd9dc22a29ce" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#a73b69e8c9ad7d2d52999d6efcbb818fe">_upk_svc_desc::StartScript</a></td>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#a5a86dbf48976bcf166dacd9dc22a29ce">_upk_svc_desc::StartScript</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>script to run to start the monitored process; replaces the default of 'exec %(ExecStart)' </p>
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="a229ce0ff9aaf9e89552c53a71e7a6181"></a><!-- doxytag: member="_upk_svc_desc::StopScript" ref="a229ce0ff9aaf9e89552c53a71e7a6181" args="" -->
+<a class="anchor" id="a57ad4b1eedd3d25d29ea79de58c3c003"></a><!-- doxytag: member="_upk_svc_desc::StartupDelay" ref="a57ad4b1eedd3d25d29ea79de58c3c003" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">char* <a class="el" href="struct__upk__svc__desc.html#a229ce0ff9aaf9e89552c53a71e7a6181">_upk_svc_desc::StopScript</a></td>
+          <td class="memname">int32_t <a class="el" href="struct__upk__svc__desc.html#a57ad4b1eedd3d25d29ea79de58c3c003">_upk_svc_desc::StartupDelay</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Specified in seconds, After successfully starting this service, pause for N seconds before starting services that depend on this one. Useful if a service can be relatively guaranteed to be 'ready' in a fixed number of seconds, however, for dependencies that require a particular capability to definitely be running before starting, you should probably instrument a relativistic test either as a custom-action of this service, and/or as a startup test of the dependent service </p>
+
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a2c15fb5318f018e3b6128062158d86f2"></a><!-- doxytag: member="_upk_svc_desc::StopScript" ref="a2c15fb5318f018e3b6128062158d86f2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char * <a class="el" href="struct__upk__svc__desc.html#a2c15fb5318f018e3b6128062158d86f2">_upk_svc_desc::StopScript</a></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 <p>replace the default stop script of 'exec %(EXEC_STOP) $1'; argv[1] == pid of monitored process </p>
 
-<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="ctrl__buddy_8c.html#a0e91992d43a88269609df40068714512">create_buddy_statedir()</a>, <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gafef3f55911da038eb9f8d82bba48222e">upk_finalize_svc_desc()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga6ca9879f5d370291faf16c2c15ac10bc">upk_svc_desc_free()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
@@ -587,7 +682,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>May be used by a package to instruct the controler to remove a configured service if the file defining that service ever disappears. possibly useful in packaging to cleanup the controller on package removal. The default behavior is to ignore file removal, and require explicit manual removal of configured services </p>
 
-<p>Referenced by <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
+<p>Referenced by <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga9beda73bf422366a770f7062fbda7fe8">upk_svcconf_bool_handler()</a>.</p>
 
 </div>
 </div>
@@ -603,7 +698,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>user-defined max number of restarts within restart window </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
@@ -619,7 +714,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>duration, in seconds, to wait between respawn attempts </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
@@ -635,7 +730,7 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>user-defined restart window, in seconds </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="controller_2tp_8c.html#a57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga5771789fb975ff22da6ad83a5a639fb1">upk_svcconf_int_handler()</a>.</p>
 
 </div>
 </div>
@@ -651,15 +746,17 @@ Data Fields</h2></td></tr>
 <div class="memdoc">
 <p>a uuid for a service; dynamically generated at service creation in most cases </p>
 
-<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="group__functions.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__functions.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
+<p>Referenced by <a class="el" href="upk_8c.html#a647f21a28344e1d9c643f4115516d7c9">main()</a>, <a class="el" href="ctrl__buddy_8c.html#ad0312ac0cbebe30134d47757bc97ea47">spawn_buddy()</a>, <a class="el" href="group__controller.html#ga0318a327e86bc26c8e54517c340961a3">upk_db_add_new_service()</a>, <a class="el" href="group__controller.html#ga633f0ecb9bce3ceaf5fdabfbd5229796">upk_db_insert_cfg()</a>, <a class="el" href="group__controller.html#ga134b3dca14e8ce64bc851612f8411458">upk_db_try_insert()</a>, <a class="el" href="group__controller.html#ga53ec64d322d09e9d36a48d706db3b1c0">upk_db_try_update()</a>, <a class="el" href="group__controller.html#gafa2642c4954efe2d168a80703fa45c39">upk_db_upsert()</a>, <a class="el" href="group__controller.html#ga57ebed6498916b4308d1f48be7ff62af">upk_db_upsert_options()</a>, <a class="el" href="group__config__impl.html#gaab28dbb04c28f723b90b0baba926408f">upk_overlay_svcconf_values()</a>, <a class="el" href="group__config__impl.html#ga02e5b971c150fa74691e14f94b6ee291">upk_svc_desc_to_json_obj()</a>, and <a class="el" href="group__config__impl.html#ga8821dad50c00a183fb1fdbb1f950ebe0">upk_svcconf_string_handler()</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>controller/<a class="el" href="controller_2tp_8c.html">tp.c</a></li>
 <li>libupkeeper/upkeeper/<a class="el" href="upk__config_8h_source.html">upk_config.h</a></li>
+<li><a class="el" href="tp_8c.html">tp.c</a></li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

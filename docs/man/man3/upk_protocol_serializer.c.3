@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_protocol_serializer.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_protocol_serializer.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -38,16 +38,16 @@ libupkeeper/upkeeper/upk_protocol_serializer.c \-
 .RI "void * \fBupk_deserialize_req_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
 .br
 .ti -1c
-.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_req_preamble\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_req_preamble\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
 .RI "void * \fBupk_deserialize_repl_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
 .br
 .ti -1c
-.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_repl_preamble\fP (void *UPK_DATA_PTR, size_t UPK_DATA_LEN)"
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_repl_preamble\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
 .br
 .ti -1c
-.RI "static void * \fBupk_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fP pkttype, uint32_t version_id)"
+.RI "static void * \fBupk_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fP pkttype, \fBuint32_t\fP version_id)"
 .br
 .ti -1c
 .RI "static \fBupk_pkt_buf_t\fP * \fBupk_serialize_payload\fP (\fBupk_packet_t\fP *pkt)"
@@ -83,7 +83,7 @@ libupkeeper/upkeeper/upk_protocol_serializer.c \-
 .SS "#define UPK_MSG_IDENTIFIER_TYPEDEF   \fBupk_msgtype_t\fP"
 .SH "Function Documentation"
 .PP 
-.SS "static void* upk_deserialize_payload (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fPpkttype, uint32_tversion_id)\fC [inline, static]\fP"
+.SS "static void* upk_deserialize_payload (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fPpkttype, \fBuint32_t\fPversion_id)\fC [inline, static]\fP"
 .PP
 References v0_deserialize_payload().
 .PP

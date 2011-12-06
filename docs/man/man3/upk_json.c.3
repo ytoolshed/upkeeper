@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_json.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_json.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -117,7 +117,7 @@ libupkeeper/upkeeper/upk_json.c \-
 .RI "char * \fBupk_json_obj_to_string\fP (struct json_object *obj, \fBupk_json_data_output_opts_t\fP opts)"
 .br
 .ti -1c
-.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, FILE *stream, \fBupk_json_data_output_opts_t\fP opts)"
+.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fP opts)"
 .br
 .in -1c
 .SH "Typedef Documentation"
@@ -145,15 +145,15 @@ References _upk_json_type::obj, _upk_json_type::type, upk_json_parse_array(), up
 Referenced by upk_json_parse_array(), upk_json_parse_node(), and upk_json_parse_obj().
 .SS "static void upk_json_append_string (\fBupk_json_output_data_t\fP *data, char *string)\fC [inline, static]\fP"
 .PP
-References _upk_json_output_data::d, _upk_stream_string::len, _upk_stream_string::p, _upk_stream_string::str, strnlen(), and UPK_MAX_STRING_LEN.
+References calloc(), _upk_json_output_data::d, _upk_stream_string::len, _upk_stream_string::p, realloc(), _upk_stream_string::str, strnlen(), and UPK_MAX_STRING_LEN.
 .PP
 Referenced by upk_output_json_string().
 .SS "static void upk_json_obj_serializer (struct json_object *obj, \fBupk_json_output_data_t\fP *data)\fC [static]\fP"
 .PP
-References _upk_json_stack_node::data, upk_json_output_after_json_array_pop_handler(), upk_json_output_after_json_obj_pop_handler(), upk_json_output_array_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_null_handler(), upk_json_output_object_handler(), upk_json_output_string_handler(), upk_json_parse_node(), upk_json_stack_meta_t, upk_json_stack_push(), and UPKLIST_FREE.
+References calloc(), _upk_json_stack_node::data, upk_json_output_after_json_array_pop_handler(), upk_json_output_after_json_obj_pop_handler(), upk_json_output_array_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_null_handler(), upk_json_output_object_handler(), upk_json_output_string_handler(), upk_json_parse_node(), upk_json_stack_meta_t, upk_json_stack_push(), and UPKLIST_FREE.
 .PP
 Referenced by upk_json_obj_to_stream(), and upk_json_obj_to_string().
-.SS "void upk_json_obj_to_stream (struct json_object *obj, FILE *stream, \fBupk_json_data_output_opts_t\fPopts)"
+.SS "void upk_json_obj_to_stream (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fPopts)"
 .PP
 References data_type_stream, _upk_json_output_data::type, and upk_json_obj_serializer().
 .SS "char* upk_json_obj_to_string (struct json_object *obj, \fBupk_json_data_output_opts_t\fPopts)"
@@ -240,7 +240,7 @@ Referenced by _upk_json_parse_node().
 .PP
 References UPKLIST_PREPEND.
 .PP
-Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
+Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_array_handler(), upk_svcconf_nested_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
 .SS "static char* upk_json_unescape_forwardslash (char *str)\fC [inline, static]\fP"
 .PP
 Referenced by upk_json_value().

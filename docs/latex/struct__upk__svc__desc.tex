@@ -11,11 +11,12 @@ service configuration.
 
 
 
-Collaboration diagram for \_\-upk\_\-svc\_\-desc:\nopagebreak
+Collaboration diagram for \_\-upk\_\-svc\_\-desc:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=165pt]{struct__upk__svc__desc__coll__graph}
+\includegraphics[width=400pt]{struct__upk__svc__desc__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Data Fields}
@@ -23,23 +24,31 @@ Collaboration diagram for \_\-upk\_\-svc\_\-desc:\nopagebreak
 \item 
 int32\_\-t {\bf StartPriority}
 \item 
-char {\bf Name} [UPK\_\-MAX\_\-STRING\_\-LEN]
+char {\bf Name} [2048]
 \item 
-char {\bf Package} [UPK\_\-MAX\_\-STRING\_\-LEN]
+char {\bf Package} [2048]
 \item 
-char {\bf Provides} [UPK\_\-MAX\_\-STRING\_\-LEN]
+{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf Provides}
 \item 
 {\bf upk\_\-uuid\_\-t} {\bf UUID}
 \item 
-char {\bf ShortDescription} [UPK\_\-MAX\_\-STRING\_\-LEN]
+char {\bf ShortDescription} [2048]
 \item 
 char $\ast$ {\bf LongDescription}
 \item 
 {\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf Prerequisites}
 \item 
-int32\_\-t {\bf BuddyShutdownTimeout}
+{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf StartAfter}
+\item 
+\_\-Bool {\bf RestartAllDependencies}
+\item 
+\_\-Bool {\bf RestartOnPrerequisiteRestart}
+\item 
+{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf RestartOnNamedPrereqRestart}
 \item 
 int32\_\-t {\bf KillTimeout}
+\item 
+int32\_\-t {\bf StartupDelay}
 \item 
 int32\_\-t {\bf MaxConsecutiveFailures}
 \item 
@@ -51,35 +60,35 @@ int32\_\-t {\bf UserRateLimit}
 \item 
 int8\_\-t {\bf RandomizeRateLimit}
 \item 
-uid\_\-t {\bf SetUID}
+{\bf uid\_\-t} {\bf SetUID}
 \item 
-gid\_\-t {\bf SetGID}
+{\bf gid\_\-t} {\bf SetGID}
 \item 
-size\_\-t {\bf RingbufferSize}
+{\bf size\_\-t} {\bf RingbufferSize}
 \item 
 int32\_\-t {\bf ReconnectRetries}
 \item 
-char {\bf ExecStart} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf ExecStart} [8192]
 \item 
 char $\ast$ {\bf StartScript}
 \item 
-char {\bf ExecStop} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf ExecStop} [8192]
 \item 
 char $\ast$ {\bf StopScript}
 \item 
-char {\bf ExecReload} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf ExecReload} [8192]
 \item 
 char $\ast$ {\bf ReloadScript}
 \item 
-{\bf upk\_\-cust\_\-actscr\_\-meta\_\-t} $\ast$ {\bf custom\_\-action\_\-scripts}
+{\bf upk\_\-cust\_\-actscr\_\-meta\_\-t} $\ast$ {\bf CustomActions}
 \item 
 char $\ast$ {\bf PipeStdoutScript}
 \item 
 char $\ast$ {\bf PipeStderrScript}
 \item 
-char {\bf RedirectStdout} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf RedirectStdout} [8192]
 \item 
-char {\bf RedirectStderr} [UPK\_\-MAX\_\-PATH\_\-LEN]
+char {\bf RedirectStderr} [8192]
 \item 
 {\bf upk\_\-state\_\-t} {\bf InitialState}
 \item 
@@ -90,6 +99,10 @@ int8\_\-t {\bf PreferBuddyStateForStopped}
 int8\_\-t {\bf PreferBuddyStateForRunning}
 \item 
 {\bf upk\_\-svc\_\-desc\_\-t} $\ast$ {\bf next}
+\item 
+bool {\bf RestartAllDependencies}
+\item 
+bool {\bf RestartOnPrerequisiteRestart}
 \end{DoxyCompactItemize}
 
 
@@ -97,253 +110,289 @@ int8\_\-t {\bf PreferBuddyStateForRunning}
 service configuration. 
 
 \subsection{Field Documentation}
-\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!BuddyShutdownTimeout@{BuddyShutdownTimeout}}
-\index{BuddyShutdownTimeout@{BuddyShutdownTimeout}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{BuddyShutdownTimeout}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::BuddyShutdownTimeout}}\label{struct__upk__svc__desc_ab23ddf0afd126034c447f7766f8b5588}
-when a service is stopped; how many seconds to wait before shutting the buddy down to conserve resources. a value $<$ 0 means to leave the buddy running indefinately 
-
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
-
-\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!custom\_\-action\_\-scripts@{custom\_\-action\_\-scripts}}
-\index{custom\_\-action\_\-scripts@{custom\_\-action\_\-scripts}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{custom\_\-action\_\-scripts}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-cust\_\-actscr\_\-meta\_\-t}$\ast$ {\bf \_\-upk\_\-svc\_\-desc::custom\_\-action\_\-scripts}}\label{struct__upk__svc__desc_abbf41417e2cc90644f9a7a035d551dcf}
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!CustomActions@{CustomActions}}
+\index{CustomActions@{CustomActions}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{CustomActions}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-cust\_\-actscr\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::CustomActions}}\label{struct__upk__svc__desc_a46d3e259b4edf2d7e502f30eed6d93ae}
 linked list of custom actions 
 
-Referenced by create\_\-buddy\_\-statedir(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), and upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
+Referenced by create\_\-buddy\_\-statedir(), remove\_\-buddy\_\-statedir(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-nested\_\-object\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ExecReload@{ExecReload}}
 \index{ExecReload@{ExecReload}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{ExecReload}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecReload}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__svc__desc_a3759e27a023610aecef765eec3c84dda}
+\subsubsection[{ExecReload}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecReload}}\label{struct__upk__svc__desc_ad078cbde8e1f25af15c90270f9a82cfd}
 command to exec for reload. Default: 'kill -\/HUP', see \char`\"{}ReloadScript\char`\"{} 
 
-Referenced by main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ExecStart@{ExecStart}}
 \index{ExecStart@{ExecStart}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{ExecStart}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecStart}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__svc__desc_a1ec7b5c0c440bc0a7011fba7ff45edec}
-command to exec for start. Default: 'kill', see \char`\"{}StartScript\char`\"{} 
+\subsubsection[{ExecStart}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecStart}}\label{struct__upk__svc__desc_ae013728670cf1af65a371dd8d84529ca}
+command to exec for start, see \char`\"{}StartScript\char`\"{} 
 
-Referenced by main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ExecStop@{ExecStop}}
 \index{ExecStop@{ExecStop}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{ExecStop}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecStop}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__svc__desc_ab50cb8805f521274c6a47be718b71c1b}
-executable to exec for stop. see \char`\"{}StopScript\char`\"{} 
+\subsubsection[{ExecStop}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ExecStop}}\label{struct__upk__svc__desc_ad302f492adb3d64ad3314810035ed6f0}
+executable to exec for stop. Default: 'kill', see \char`\"{}StopScript\char`\"{} 
 
-Referenced by main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!InitialState@{InitialState}}
 \index{InitialState@{InitialState}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{InitialState}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-state\_\-t} {\bf \_\-upk\_\-svc\_\-desc::InitialState}}\label{struct__upk__svc__desc_a49b38ed1095da250a2eb392d0cbc663d}
 state the service should be set to initially; this is used only when a service is first configured 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!KillTimeout@{KillTimeout}}
 \index{KillTimeout@{KillTimeout}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{KillTimeout}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::KillTimeout}}\label{struct__upk__svc__desc_ad1af978bc37d07566232e0d48427a7cb}
 how long to wait for a service to stop before issuing TERM and, if necessary, KILL signals to bring it down. A negative value means to wait indefiniately for a stopped process to terminate 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!LongDescription@{LongDescription}}
 \index{LongDescription@{LongDescription}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{LongDescription}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::LongDescription}}\label{struct__upk__svc__desc_accc7f57b9fd49138d83e1fb9def41bcb}
+\subsubsection[{LongDescription}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::LongDescription}}\label{struct__upk__svc__desc_ae9bc3da5c1ea58b417a088b9523b04c7}
 a brief description of the service an arbitrary length description of the service 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!MaxConsecutiveFailures@{MaxConsecutiveFailures}}
 \index{MaxConsecutiveFailures@{MaxConsecutiveFailures}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{MaxConsecutiveFailures}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::MaxConsecutiveFailures}}\label{struct__upk__svc__desc_aed98c59b98a6d65c435f7482fdcf7f48}
 Maximum number of times a process may fail in-\/a-\/row before its state is changed to down; a negative value indicates to restart forever (and is the default) 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), and upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!Name@{Name}}
 \index{Name@{Name}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{Name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::Name}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svc__desc_a0f2c20e3e43d5677567d53b20dcc368f}
+\subsubsection[{Name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::Name}}\label{struct__upk__svc__desc_a7a769827b6422551922ac2f8e5e61564}
 service name. if pkg is used, the concatination of $<$pkg$>$::$<$name$>$ must be unique; otherwise this name must be unique 
 
-Referenced by buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), main(), spawn\_\-buddy(), upk\_\-overlay\_\-ctrlconf\_\-values(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-id(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), ctrl\_\-req\_\-action\_\-handler(), lookup\_\-buddy\_\-from\_\-path(), main(), remove\_\-buddy\_\-statedir(), spawn\_\-buddy(), upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-upsert(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-ctrlconf\_\-values(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-id(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!next@{next}}
 \index{next@{next}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-t}$\ast$ {\bf \_\-upk\_\-svc\_\-desc::next}}\label{struct__upk__svc__desc_adcccb3111f5b02ff78cda29d39c827fc}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::next}}\label{struct__upk__svc__desc_a31fedb1a34746057adad52eb06d14d6b}
 for use in lists 
 
-Referenced by upk\_\-json\_\-serialize\_\-svc\_\-config(), and upk\_\-svc\_\-desc\_\-clear().
+Referenced by upk\_\-json\_\-serialize\_\-svc\_\-config(), upk\_\-overlay\_\-ctrlconf\_\-values(), and upk\_\-svc\_\-desc\_\-clear().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!Package@{Package}}
 \index{Package@{Package}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{Package}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::Package}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svc__desc_a4e5d439c6426919b8d9270915fe7620a}
+\subsubsection[{Package}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::Package}}\label{struct__upk__svc__desc_a219ae29a1ebf4a2bf6c1451c9855a85b}
 an optional prefix to be preppended to the service name 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-id(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-upsert(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-parse\_\-svc\_\-id(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), upk\_\-svc\_\-id(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!PipeStderrScript@{PipeStderrScript}}
 \index{PipeStderrScript@{PipeStderrScript}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{PipeStderrScript}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::PipeStderrScript}}\label{struct__upk__svc__desc_a218ac0c3018977cb3d1e6a6e2ac9b2b4}
+\subsubsection[{PipeStderrScript}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::PipeStderrScript}}\label{struct__upk__svc__desc_a10e6db4c4a683259d4bf402f76389376}
 optional script to pipe stderr to. for instance: 'exec logger -\/p local0.warn' 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!PipeStdoutScript@{PipeStdoutScript}}
 \index{PipeStdoutScript@{PipeStdoutScript}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{PipeStdoutScript}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::PipeStdoutScript}}\label{struct__upk__svc__desc_ad9ce631bde035ea74c5f0e98e8dcc90e}
+\subsubsection[{PipeStdoutScript}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::PipeStdoutScript}}\label{struct__upk__svc__desc_a2f4ec4892314d72d390a37f3391e9336}
 optional script to pipe stdout to. for instance: 'exec logger -\/p local0.notice' 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!PreferBuddyStateForRunning@{PreferBuddyStateForRunning}}
 \index{PreferBuddyStateForRunning@{PreferBuddyStateForRunning}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{PreferBuddyStateForRunning}]{\setlength{\rightskip}{0pt plus 5cm}int8\_\-t {\bf \_\-upk\_\-svc\_\-desc::PreferBuddyStateForRunning}}\label{struct__upk__svc__desc_a73d367dc1b45f564243e23297bc39831}
 if the controller starts/restarts, and buddy has a service state set to \char`\"{}running\char`\"{}, but controller's data-\/store believes the service should be stopped, prefer buddy's world view, and update the data-\/store to reflect the running state (the default is to trust the data-\/store, which would cause the service to be stopped 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!PreferBuddyStateForStopped@{PreferBuddyStateForStopped}}
 \index{PreferBuddyStateForStopped@{PreferBuddyStateForStopped}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{PreferBuddyStateForStopped}]{\setlength{\rightskip}{0pt plus 5cm}int8\_\-t {\bf \_\-upk\_\-svc\_\-desc::PreferBuddyStateForStopped}}\label{struct__upk__svc__desc_a7122c24ad2843e92e8375826884c117e}
-if the controller starts/restartindent: Standard input:189: Error:Stmt nesting error. s, and buddy has a service state set to \char`\"{}stopped\char`\"{}, but controller's data-\/store believes the service should be running, prefer buddy's world view, and update the data-\/store to reflect the stopped state (the default is to trust the data-\/store; which would cause the service to be started 
+if the controller starts/restarts, and buddy has a service state set to \char`\"{}stopped\char`\"{}, but controller's data-\/store believes the service should be running, prefer buddy's world view, and update the data-\/store to reflect the stopped state (the default is to trust the data-\/store; which would cause the service to be started 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!Prerequisites@{Prerequisites}}
 \index{Prerequisites@{Prerequisites}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{Prerequisites}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-meta\_\-t}$\ast$ {\bf \_\-upk\_\-svc\_\-desc::Prerequisites}}\label{struct__upk__svc__desc_ad95e655e903c314415642d05ebfdba5b}
+\subsubsection[{Prerequisites}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::Prerequisites}}\label{struct__upk__svc__desc_afaf102d348fd0a9520a92a1ec1dcdca1}
 A list of prerequisite services that must be started prior to this service; either by name, pkg-\/prefix, or by what they provide 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), and upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj().
+Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-array\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!Provides@{Provides}}
 \index{Provides@{Provides}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{Provides}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::Provides}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svc__desc_a3dde85561c4db5277109a1c4336737e9}
-a string describing the function of this service. this can be used in prerequisite constraints upon other services. i.e. a prerequisite might be \char`\"{}entropy-\/service\char`\"{}, and any service providing \char`\"{}entropy-\/service\char`\"{} would then satisfy that prerequisite [vaguely remeniscent of the debian \char`\"{}alternatives\char`\"{} system] 
+\subsubsection[{Provides}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::Provides}}\label{struct__upk__svc__desc_a5b62fecb7d7a0d76b797c3bbc3051414}
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-array\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RandomizeRateLimit@{RandomizeRateLimit}}
 \index{RandomizeRateLimit@{RandomizeRateLimit}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{RandomizeRateLimit}]{\setlength{\rightskip}{0pt plus 5cm}int8\_\-t {\bf \_\-upk\_\-svc\_\-desc::RandomizeRateLimit}}\label{struct__upk__svc__desc_af203541b3c86af36abe8f91e4a1df8bf}
 a flag to enable/disable adding a randomized \char`\"{}jitter\char`\"{} to the user\_\-ratelimit 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ReconnectRetries@{ReconnectRetries}}
 \index{ReconnectRetries@{ReconnectRetries}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{ReconnectRetries}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::ReconnectRetries}}\label{struct__upk__svc__desc_a60cd2b44fbc61ec4d657e896fd9de6e8}
 number of times to retry connections to the controler when emergent actions occur in the buddy; (-\/1 for indefinate) 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RedirectStderr@{RedirectStderr}}
 \index{RedirectStderr@{RedirectStderr}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{RedirectStderr}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::RedirectStderr}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__svc__desc_aac20b2e862d46edd03dd2efc4b469ad6}
+\subsubsection[{RedirectStderr}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::RedirectStderr}}\label{struct__upk__svc__desc_a786f850296d5348861c07d14f149f830}
 optional place to direct stderr. Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints to stderr itself 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RedirectStdout@{RedirectStdout}}
 \index{RedirectStdout@{RedirectStdout}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{RedirectStdout}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::RedirectStdout}[UPK\_\-MAX\_\-PATH\_\-LEN]}\label{struct__upk__svc__desc_a2bfed4f3da2a85d7af160f64a70056dc}
+\subsubsection[{RedirectStdout}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::RedirectStdout}}\label{struct__upk__svc__desc_a5d47b845d73d56050bd158fb5f632bb2}
 optional place to direct stdout. Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints to stdout itself 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ReloadScript@{ReloadScript}}
 \index{ReloadScript@{ReloadScript}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{ReloadScript}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::ReloadScript}}\label{struct__upk__svc__desc_afa1e0a64af10238755e4c6716814be96}
+\subsubsection[{ReloadScript}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::ReloadScript}}\label{struct__upk__svc__desc_ac632cbb663bc36b4357ac7eb967904b1}
 replace the default reload script of 'exec kill -\/HUP \$1'; argv[1] == pid of monitored process 
 
-Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RestartAllDependencies@{RestartAllDependencies}}
+\index{RestartAllDependencies@{RestartAllDependencies}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{RestartAllDependencies}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \_\-upk\_\-svc\_\-desc::RestartAllDependencies}}\label{struct__upk__svc__desc_aa324ad1e1dd417328d3b686187b4d536}
+Force anything that depends on this service to be restarted if this service restarts \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RestartAllDependencies@{RestartAllDependencies}}
+\index{RestartAllDependencies@{RestartAllDependencies}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{RestartAllDependencies}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool {\bf \_\-upk\_\-svc\_\-desc::RestartAllDependencies}}\label{struct__upk__svc__desc_aabc2349bcc6ff2a8da04dcd9d91a88c3}
+
+
+Referenced by upk\_\-db\_\-upsert\_\-options().
+
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RestartOnNamedPrereqRestart@{RestartOnNamedPrereqRestart}}
+\index{RestartOnNamedPrereqRestart@{RestartOnNamedPrereqRestart}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{RestartOnNamedPrereqRestart}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::RestartOnNamedPrereqRestart}}\label{struct__upk__svc__desc_ad4daf67092063aa01aea982230ca281a}
+A JSON array (e.g.: [\char`\"{}foo\char`\"{}]) containing the names of Prerequisite services that if they fail, should cause this service to be restarted (services listed here are implicitely added to the list of Prerequisites if not already present 
+
+Referenced by upk\_\-db\_\-upsert\_\-options().
+
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RestartOnPrerequisiteRestart@{RestartOnPrerequisiteRestart}}
+\index{RestartOnPrerequisiteRestart@{RestartOnPrerequisiteRestart}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{RestartOnPrerequisiteRestart}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf \_\-upk\_\-svc\_\-desc::RestartOnPrerequisiteRestart}}\label{struct__upk__svc__desc_a6a7cc3922b9344f4cd98b724dc5172d4}
+If any prerequisite service (in the 'Prerequisites' array above) fails, restart this service. \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RestartOnPrerequisiteRestart@{RestartOnPrerequisiteRestart}}
+\index{RestartOnPrerequisiteRestart@{RestartOnPrerequisiteRestart}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{RestartOnPrerequisiteRestart}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool {\bf \_\-upk\_\-svc\_\-desc::RestartOnPrerequisiteRestart}}\label{struct__upk__svc__desc_a553d46011a5fea45c19339d35286e61f}
+
+
+Referenced by upk\_\-db\_\-upsert\_\-options().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!RingbufferSize@{RingbufferSize}}
 \index{RingbufferSize@{RingbufferSize}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{RingbufferSize}]{\setlength{\rightskip}{0pt plus 5cm}size\_\-t {\bf \_\-upk\_\-svc\_\-desc::RingbufferSize}}\label{struct__upk__svc__desc_a94b3cfd4efaec9179155f1acf97c415e}
+\subsubsection[{RingbufferSize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-upk\_\-svc\_\-desc::RingbufferSize}}\label{struct__upk__svc__desc_a94b3cfd4efaec9179155f1acf97c415e}
 size of the ringbuffer to maintain in the buddy 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!SetGID@{SetGID}}
 \index{SetGID@{SetGID}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{SetGID}]{\setlength{\rightskip}{0pt plus 5cm}gid\_\-t {\bf \_\-upk\_\-svc\_\-desc::SetGID}}\label{struct__upk__svc__desc_a7887cae5324acc83464be8abac504f94}
+\subsubsection[{SetGID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gid\_\-t} {\bf \_\-upk\_\-svc\_\-desc::SetGID}}\label{struct__upk__svc__desc_a7887cae5324acc83464be8abac504f94}
 if controller and/or buddy is run euid root; which gid to run the service as 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), upk\_\-svcconf\_\-int\_\-handler(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!SetUID@{SetUID}}
 \index{SetUID@{SetUID}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{SetUID}]{\setlength{\rightskip}{0pt plus 5cm}uid\_\-t {\bf \_\-upk\_\-svc\_\-desc::SetUID}}\label{struct__upk__svc__desc_ace144bc7dcf20f17774b1d106e16ab21}
+\subsubsection[{SetUID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uid\_\-t} {\bf \_\-upk\_\-svc\_\-desc::SetUID}}\label{struct__upk__svc__desc_ace144bc7dcf20f17774b1d106e16ab21}
 if controller and/or buddy is run euid root; which uid to run the service as 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), upk\_\-svcconf\_\-int\_\-handler(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!ShortDescription@{ShortDescription}}
 \index{ShortDescription@{ShortDescription}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{ShortDescription}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ShortDescription}[UPK\_\-MAX\_\-STRING\_\-LEN]}\label{struct__upk__svc__desc_aca08055b4360de3e87e49efa82437086}
+\subsubsection[{ShortDescription}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svc\_\-desc::ShortDescription}}\label{struct__upk__svc__desc_a46361838fe014ea4b6f35f09d6767511}
 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!StartAfter@{StartAfter}}
+\index{StartAfter@{StartAfter}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{StartAfter}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-meta\_\-t} $\ast$ {\bf \_\-upk\_\-svc\_\-desc::StartAfter}}\label{struct__upk__svc__desc_aec61cf2cc28a439589b70740e33e862a}
+A list of services that must be started prior to this service; either by name, pkg-\/prefix, or by what they provide; this is distinct from Prerequisites in that if these items do not exist, the service will still start, but if they do exist, they will be started first 
+
+Referenced by upk\_\-db\_\-upsert\_\-options().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!StartPriority@{StartPriority}}
 \index{StartPriority@{StartPriority}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{StartPriority}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::StartPriority}}\label{struct__upk__svc__desc_a9eb636044a78073721e6f021067f5581}
 similar to prerequisites, provide a fixed numeric start priority to indicate service startup order 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-clear(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-clear(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!StartScript@{StartScript}}
 \index{StartScript@{StartScript}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{StartScript}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::StartScript}}\label{struct__upk__svc__desc_a73b69e8c9ad7d2d52999d6efcbb818fe}
+\subsubsection[{StartScript}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::StartScript}}\label{struct__upk__svc__desc_a5a86dbf48976bcf166dacd9dc22a29ce}
 script to run to start the monitored process; replaces the default of 'exec \%(ExecStart)' 
 
-Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+
+\index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!StartupDelay@{StartupDelay}}
+\index{StartupDelay@{StartupDelay}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
+\subsubsection[{StartupDelay}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::StartupDelay}}\label{struct__upk__svc__desc_a57ad4b1eedd3d25d29ea79de58c3c003}
+Specified in seconds, After successfully starting this service, pause for N seconds before starting services that depend on this one. Useful if a service can be relatively guaranteed to be 'ready' in a fixed number of seconds, however, for dependencies that require a particular capability to definitely be running before starting, you should probably instrument a relativistic test either as a custom-\/action of this service, and/or as a startup test of the dependent service 
+
+Referenced by upk\_\-db\_\-upsert\_\-options().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!StopScript@{StopScript}}
 \index{StopScript@{StopScript}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
-\subsubsection[{StopScript}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf \_\-upk\_\-svc\_\-desc::StopScript}}\label{struct__upk__svc__desc_a229ce0ff9aaf9e89552c53a71e7a6181}
+\subsubsection[{StopScript}]{\setlength{\rightskip}{0pt plus 5cm}char $\ast$ {\bf \_\-upk\_\-svc\_\-desc::StopScript}}\label{struct__upk__svc__desc_a2c15fb5318f018e3b6128062158d86f2}
 replace the default stop script of 'exec \%(EXEC\_\-STOP) \$1'; argv[1] == pid of monitored process 
 
-Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by create\_\-buddy\_\-statedir(), main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-finalize\_\-svc\_\-desc(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-free(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!UnconfigureOnFileRemoval@{UnconfigureOnFileRemoval}}
 \index{UnconfigureOnFileRemoval@{UnconfigureOnFileRemoval}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{UnconfigureOnFileRemoval}]{\setlength{\rightskip}{0pt plus 5cm}int8\_\-t {\bf \_\-upk\_\-svc\_\-desc::UnconfigureOnFileRemoval}}\label{struct__upk__svc__desc_a16219aee7c0f81d81eaa8a6899e38714}
 May be used by a package to instruct the controler to remove a configured service if the file defining that service ever disappears. possibly useful in packaging to cleanup the controller on package removal. The default behavior is to ignore file removal, and require explicit manual removal of configured services 
 
-Referenced by upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-bool\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!UserMaxRestarts@{UserMaxRestarts}}
 \index{UserMaxRestarts@{UserMaxRestarts}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{UserMaxRestarts}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::UserMaxRestarts}}\label{struct__upk__svc__desc_adc59ece6c494206a03d7e4a032e7eb34}
 user-\/defined max number of restarts within restart window 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!UserRateLimit@{UserRateLimit}}
 \index{UserRateLimit@{UserRateLimit}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{UserRateLimit}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::UserRateLimit}}\label{struct__upk__svc__desc_afe1ca494932eb02304d2f0d4753eda33}
 duration, in seconds, to wait between respawn attempts 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!UserRestartWindow@{UserRestartWindow}}
 \index{UserRestartWindow@{UserRestartWindow}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{UserRestartWindow}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf \_\-upk\_\-svc\_\-desc::UserRestartWindow}}\label{struct__upk__svc__desc_aa821e5cd2987061ed057f52fb61538a7}
 user-\/defined restart window, in seconds 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
+Referenced by main(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-int\_\-handler().
 
 \index{\_\-upk\_\-svc\_\-desc@{\_\-upk\_\-svc\_\-desc}!UUID@{UUID}}
 \index{UUID@{UUID}!_upk_svc_desc@{\_\-upk\_\-svc\_\-desc}}
 \subsubsection[{UUID}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf \_\-upk\_\-svc\_\-desc::UUID}}\label{struct__upk__svc__desc_a8f7f1940251c598ea87a72c6ca1fd5cd}
 a uuid for a service; dynamically generated at service creation in most cases 
 
-Referenced by main(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
+Referenced by main(), spawn\_\-buddy(), upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-try\_\-insert(), upk\_\-db\_\-try\_\-update(), upk\_\-db\_\-upsert(), upk\_\-db\_\-upsert\_\-options(), upk\_\-overlay\_\-svcconf\_\-values(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-string\_\-handler().
 
 
 
-The documentation for this struct was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-config.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-config.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

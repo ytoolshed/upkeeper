@@ -1,0 +1,34 @@
+.TH "sockaddr_in" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sockaddr_in \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsa_family_t\fP \fBsin_family\fP"
+.br
+.ti -1c
+.RI "\fBin_port_t\fP \fBsin_port\fP"
+.br
+.ti -1c
+.RI "struct \fBin_addr\fP \fBsin_addr\fP"
+.br
+.ti -1c
+.RI "unsigned char \fBsin_zero\fP [sizeof(struct \fBsockaddr\fP)-(sizeof(unsigned short int))-sizeof(\fBin_port_t\fP)-sizeof(struct \fBin_addr\fP)]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct \fBin_addr\fP \fBsockaddr_in::sin_addr\fP"
+.SS "\fBsa_family_t\fP \fBsockaddr_in::sin_family\fP"
+.SS "\fBin_port_t\fP \fBsockaddr_in::sin_port\fP"
+.SS "unsigned char \fBsockaddr_in::sin_zero\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

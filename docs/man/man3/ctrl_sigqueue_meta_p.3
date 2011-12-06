@@ -1,0 +1,58 @@
+.TH "ctrl_sigqueue_meta_p" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+ctrl_sigqueue_meta_p \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBhead\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBtail\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBprevp\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBnextp\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBtempp\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBthisp\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBcount\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fBctrl_sigqueue_meta_p::count\fP"
+.PP
+Referenced by handle_signals().
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::head\fP"
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::nextp\fP"
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::prevp\fP"
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::tail\fP"
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::tempp\fP"
+.SS "\fBctrl_sigqueue_t\fP * \fBctrl_sigqueue_meta_p::thisp\fP"
+.PP
+Referenced by handle_signals(), and sa_sigaction_func().
+.SS "void * \fBctrl_sigqueue_meta_p::userdata\fP"
+.SS "void(* \fBctrl_sigqueue_meta_p::userdata_free_func\fP)(void *)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

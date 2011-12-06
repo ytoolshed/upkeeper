@@ -27,9 +27,11 @@ This graph shows which files directly or indirectly include this file:
 \item 
 \#define {\bf UPK\_\-ERR\_\-INIT}
 \item 
-\#define {\bf UPK\_\-FUNC\_\-ASSERT}(A, B)~do \{ if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\#define {\bf CLEAR\_\-UPK\_\-ERROR}~{\bf \_\-\_\-upk\_\-errno\_\-type} = 0
 \item 
-\#define {\bf UPK\_\-FUNC\_\-ASSERT\_\-MSG}(A, B,...)~do \{ if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; memset((char $\ast$) {\bf \_\-\_\-upk\_\-err\_\-buf},0,sizeof({\bf \_\-\_\-upk\_\-err\_\-buf})); snprintf((char $\ast$){\bf \_\-\_\-upk\_\-err\_\-buf}, UPK\_\-MAX\_\-STRING\_\-LEN -\/ 1, \_\-\_\-VA\_\-ARGS\_\-\_\-); goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\#define {\bf UPK\_\-FUNC\_\-ASSERT}(A, B)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\item 
+\#define {\bf UPK\_\-FUNC\_\-ASSERT\_\-MSG}(A, B,...)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; memset((char $\ast$) {\bf \_\-\_\-upk\_\-err\_\-buf},0,sizeof({\bf \_\-\_\-upk\_\-err\_\-buf})); snprintf((char $\ast$){\bf \_\-\_\-upk\_\-err\_\-buf}, UPK\_\-MAX\_\-STRING\_\-LEN -\/ 1, \_\-\_\-VA\_\-ARGS\_\-\_\-); goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
 \item 
 \#define {\bf IF\_\-UPK\_\-ERROR}
 \item 
@@ -83,10 +85,37 @@ enum {\bf upk\_\-diaglvl\_\-t} \{ \par
 {\bf UPK\_\-DIAGLVL\_\-INFO}, 
 \par
 {\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}, 
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
 {\bf UPK\_\-DIAGLVL\_\-DEBUG1}
  \}
 \item 
-enum {\bf upk\_\-errlevel\_\-t} \{ {\bf UPK\_\-ERRLVL\_\-ERROR}
+enum {\bf upk\_\-errlevel\_\-t} \{ {\bf UPK\_\-ERRLVL\_\-ERROR}, 
+{\bf UPK\_\-ERRLVL\_\-ERROR}, 
+{\bf UPK\_\-ERRLVL\_\-ERROR}
  \}
 \item 
 enum {\bf upk\_\-errno\_\-t} \{ \par
@@ -95,7 +124,27 @@ enum {\bf upk\_\-errno\_\-t} \{ \par
 {\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
 {\bf UPK\_\-SOCKET\_\-FAILURE}, 
 \par
-{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+{\bf UPK\_\-SQL\_\-ERROR}, 
+{\bf UPK\_\-CONF\_\-ERROR}, 
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+\par
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+\par
+{\bf UPK\_\-SQL\_\-ERROR}, 
+{\bf UPK\_\-CONF\_\-ERROR}, 
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+\par
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+{\bf UPK\_\-SQL\_\-ERROR}, 
+\par
+{\bf UPK\_\-CONF\_\-ERROR}
  \}
 \end{DoxyCompactItemize}
 \subsection*{Functions}
@@ -140,9 +189,9 @@ static const char {\bf upk\_\-diag\_\-label\_\-idx} [$\,$][16]
 \item 
 static const char {\bf \_\-\_\-upk\_\-errors} [$\,$][128]
 \item 
-static const char {\bf \_\-\_\-upk\_\-err\_\-buf} [4096] = \char`\"{}\char`\"{}
+char {\bf \_\-\_\-upk\_\-err\_\-buf} [4096]
 \item 
-static const {\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type} = 0
+{\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type}
 \item 
 int32\_\-t {\bf upk\_\-diag\_\-verbosity}
 \item 

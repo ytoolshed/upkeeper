@@ -1,4 +1,4 @@
-.TH "_upk_svcid" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "_upk_svcid" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -15,10 +15,10 @@ linked list of service identifiers.
 
 .in +1c
 .ti -1c
-.RI "char \fBpkg\fP [UPK_MAX_STRING_LEN]"
+.RI "char \fBpkg\fP [2048]"
 .br
 .ti -1c
-.RI "char \fBname\fP [UPK_MAX_STRING_LEN]"
+.RI "char \fBname\fP [2048]"
 .br
 .ti -1c
 .RI "\fBupk_uuid_t\fP \fBuuid\fP"
@@ -32,9 +32,15 @@ linked list of service identifiers.
 linked list of service identifiers. 
 .SH "Field Documentation"
 .PP 
-.SS "char \fB_upk_svcid::name\fP[UPK_MAX_STRING_LEN]"service name 
-.SS "\fBupk_svcid_t\fP* \fB_upk_svcid::next\fP"next, for use in lists 
-.SS "char \fB_upk_svcid::pkg\fP[UPK_MAX_STRING_LEN]"service package-prefix 
+.SS "char \fB_upk_svcid::name\fP"service name 
+.PP
+Referenced by upk_db_upsert_options(), upk_svc_desc_to_json_obj(), and upk_svcconf_svcid_array_appender().
+.SS "\fBupk_svcid_t\fP * \fB_upk_svcid::next\fP"next, for use in lists 
+.PP
+Referenced by upk_db_upsert_options(), and upk_overlay_svcconf_values().
+.SS "char \fB_upk_svcid::pkg\fP"service package-prefix 
+.PP
+Referenced by upk_db_upsert_options(), upk_svc_desc_to_json_obj(), and upk_svcconf_svcid_array_appender().
 .SS "\fBupk_uuid_t\fP \fB_upk_svcid::uuid\fP"not sure I need this here; but just in case for now 
 
 .SH "Author"

@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_error.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_error.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -71,6 +71,12 @@ libupkeeper/upkeeper/upk_error.c \-
 .in +1c
 .ti -1c
 .RI "int32_t \fBupk_diag_verbosity\fP = UPK_DIAGLVL_NOTICE"
+.br
+.ti -1c
+.RI "char \fB__upk_err_buf\fP [4096] = ''"
+.br
+.ti -1c
+.RI "\fBupk_errno_t\fP \fB__upk_errno_type\fP = 0"
 .br
 .ti -1c
 .RI "\fBdiag_output_callback_t\fP \fB__upk_diag_output_callback\fP = _upk_default_diag_output"

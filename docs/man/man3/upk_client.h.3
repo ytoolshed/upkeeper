@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_client.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_client.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -33,24 +33,9 @@ libupkeeper/upkeeper/upk_client.h \-
 .ti -1c
 .RI "char * \fBupk_clientid\fP (void)"
 .br
-.RI "\fIfill buf with the client_id string. \fP"
 .in -1c
 .SH "Function Documentation"
 .PP 
-.SS "char* upk_clientid (void)"
-.PP
-fill buf with the client_id string. API 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIbuf\fP allocated buffer to write clientid into 
-.RE
-.PP
-
-.PP
-References UPK_MAX_STRING_LEN.
-.PP
-Referenced by main(), and upk_clnet_req_preamble().
 .SS "bool upkeeper_action_request (char *service_id, char *action_name)"
 .SS "\fBupk_svcinfo_t\fP upkeeper_get_status (char *service_id)"
 .SS "\fBupk_svcid_t\fP* upkeeper_list_services (void)"

@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_client.c" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_client.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -14,46 +14,19 @@ public client API.
 
 .SS "Functions"
 
-.PP
-.RI "\fB\fP"
-.br
-
-.in +1c
 .in +1c
 .ti -1c
 .RI "char * \fBupk_clientid\fP (void)"
 .br
-.RI "\fIfill buf with the client_id string. \fP"
 .ti -1c
 .RI "bool \fBupk_client_event_hook\fP (void)"
 .br
-.RI "\fIthe body of the client event-loop; so you can call it once per pass of your own eventloop if you prefer. \fP"
-.in -1c
 .in -1c
 .SH "Detailed Description"
 .PP 
 public client API. 
 
 
-.SH "Function Documentation"
-.PP 
-.SS "bool upk_client_event_hook (void)"
-.PP
-the body of the client event-loop; so you can call it once per pass of your own eventloop if you prefer. 
-.SS "char* upk_clientid (void)"
-.PP
-fill buf with the client_id string. API 
-.PP
-\fBParameters:\fP
-.RS 4
-\fIbuf\fP allocated buffer to write clientid into 
-.RE
-.PP
-
-.PP
-References UPK_MAX_STRING_LEN.
-.PP
-Referenced by main(), and upk_clnet_req_preamble().
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,4 +1,4 @@
-.TH "controller/buddy.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "controller/buddy.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -26,15 +26,15 @@ controller/buddy.h \-
 .ti -1c
 .RI "#define \fBBUDDY_MAX_PATH_LEN\fP   UPK_MAX_PATH_LEN"
 .br
-.ti -1c
-.RI "#define \fBDEFAULT_BUDDY_ROOT\fP   '/var/run/upkeeper/buddy'"
-.br
 .in -1c
 .SS "Functions"
 
 .in +1c
 .ti -1c
 .RI "void \fBbuddy_init\fP (\fBdiag_output_callback_t\fP logger)"
+.br
+.ti -1c
+.RI "void \fBcommit_buddycide\fP (int32_t signum)"
 .br
 .ti -1c
 .RI "int32_t \fBbuddy_event_loop\fP (void)"
@@ -53,25 +53,34 @@ controller/buddy.h \-
 .RI "char * \fBbuddy_service_name\fP"
 .br
 .ti -1c
-.RI "char \fBbuddy_root_path\fP [BUDDY_MAX_PATH_LEN]"
+.RI "char \fBbuddy_root_path\fP [8192]"
 .br
 .ti -1c
-.RI "int32_t \fBverbosity\fP"
+.RI "\fBuid_t\fP \fBbuddy_setuid\fP"
 .br
 .ti -1c
-.RI "uid_t \fBbuddy_setuid\fP"
+.RI "\fBgid_t\fP \fBbuddy_setgid\fP"
 .br
 .ti -1c
-.RI "gid_t \fBbuddy_setgid\fP"
+.RI "\fBsize_t\fP \fBringbuffer_size\fP"
 .br
 .ti -1c
-.RI "size_t \fBringbuffer_size\fP"
+.RI "char ** \fBproc_envp\fP"
 .br
 .ti -1c
 .RI "long \fBreconnect_retries\fP"
 .br
 .ti -1c
-.RI "char ** \fBproc_envp\fP"
+.RI "bool \fBrandomize_ratelimit\fP"
+.br
+.ti -1c
+.RI "bool \fBinitialize_supplemental_groups\fP"
+.br
+.ti -1c
+.RI "bool \fBclear_supplemental_groups\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBuser_ratelimit\fP"
 .br
 .in -1c
 .SH "Define Documentation"
@@ -82,53 +91,62 @@ Referenced by buddy_exec_action(), and buddy_init_paths().
 .SS "#define BUDDY_MAX_STRING_LEN   UPK_MAX_STRING_LEN"
 .PP
 Referenced by opt_parse().
-.SS "#define DEFAULT_BUDDY_ROOT   '/var/run/upkeeper/buddy'"
-.PP
-Referenced by buddy_sock_path(), create_buddy_statedir(), and handle_buddies().
 .SH "Function Documentation"
 .PP 
 .SS "void buddy_cleanup (void)"
 .PP
-References buddy_flush_ringbuffer(), buddy_free_ringbuffer(), buddy_path(), buddy_service_name, buddy_stop_proc(), and proc_pid.
+References buddy_flush_ringbuffer(), buddy_free_ringbuffer(), buddy_path(), buddy_service_name, buddy_stop_proc(), free(), and proc_pid.
 .PP
 Referenced by buddy_init(), commit_buddycide(), and main().
 .SS "int32_t buddy_event_loop (void)"
 .PP
-References buddy_accept(), buddy_build_fd_set(), buddy_ctrlfd, buddy_flush_ringbuffer(), buddy_handle_command(), buddy_handle_flags(), BUDDY_SELECT_TIMEOUT_SEC, BUDDY_SELECT_TIMEOUT_USEC, buddy_shutdown, buddy_sockfd, commit_buddycide(), highest_fd, read_ctrl(), this_command, timeout, and upk_debug1.
+References buddy_accept(), buddy_build_fd_set(), buddy_ctrlfd, buddy_flush_ringbuffer(), buddy_handle_command(), buddy_handle_flags(), BUDDY_SELECT_TIMEOUT_SEC, BUDDY_SELECT_TIMEOUT_USEC, buddy_shutdown, buddy_sockfd, commit_buddycide(), highest_fd, read_ctrl(), select(), this_command, timeval::tv_sec, timeval::tv_usec, and upk_debug1.
 .PP
 Referenced by main().
 .SS "void buddy_init (\fBdiag_output_callback_t\fPlogger)"
 .PP
-References buddy_cleanup(), buddy_ctrlfd, buddy_init_paths(), buddy_init_ringbuffer(), buddy_init_socket(), buddy_setgid, buddy_setuid, buddy_sockfd, sa_sigaction_func(), upk_notice, upk_reg_diag_callback(), upk_verbose, and upk_warn.
+References buddy_cleanup(), buddy_ctrlfd, buddy_init_paths(), buddy_init_ringbuffer(), buddy_init_socket(), buddy_path(), buddy_setgid, buddy_setuid, buddy_sockfd, sigaction::sa_flags, sigaction::sa_handler, sigaction::sa_mask, sigaction::sa_sigaction, sa_sigaction_func(), sigaction(), sigaddset(), sigemptyset(), sigfillset(), sigset(), upk_notice, upk_reg_diag_callback(), upk_verbose, and upk_warn.
 .PP
 Referenced by main().
+.SS "void commit_buddycide (int32_tsignum)"
+.PP
+References buddy_cleanup(), getpid(), sigaction::sa_flags, sigaction::sa_handler, sigaction::sa_mask, sigaction(), sigemptyset(), sigfillset(), sigprocmask(), sigset(), and upk_debug1.
+.PP
+Referenced by buddy_event_loop().
 .SH "Variable Documentation"
 .PP 
-.SS "char \fBbuddy_root_path\fP[BUDDY_MAX_PATH_LEN]"
+.SS "char \fBbuddy_root_path\fP[8192]"
 .PP
 Referenced by buddy_init_paths(), and opt_parse().
 .SS "char* \fBbuddy_service_name\fP"
 .PP
 Referenced by buddy_cleanup(), buddy_init_paths(), buddy_start_proc(), and opt_parse().
-.SS "gid_t \fBbuddy_setgid\fP"
+.SS "\fBgid_t\fP \fBbuddy_setgid\fP"
 .PP
 Referenced by buddy_init(), buddy_setreguid(), and opt_parse().
-.SS "uid_t \fBbuddy_setuid\fP"
+.SS "\fBuid_t\fP \fBbuddy_setuid\fP"
 .PP
-Referenced by buddy_init(), buddy_setreguid(), and opt_parse().
+Referenced by buddy_init(), buddy_setreguid(), buddy_supp_groups(), and opt_parse().
 .SS "\fBupk_uuid_t\fP \fBbuddy_uuid\fP"
 .PP
-Referenced by buddy_record_state(), and opt_parse().
+Referenced by buddy_record_state(), opt_parse(), and spawn_buddy().
+.SS "bool \fBclear_supplemental_groups\fP"
+.PP
+Referenced by buddy_supp_groups(), and opt_parse().
+.SS "bool \fBinitialize_supplemental_groups\fP"
+.PP
+Referenced by buddy_supp_groups(), and opt_parse().
 .SS "char** \fBproc_envp\fP"
 .PP
 Referenced by buddy_exec_action(), and main().
+.SS "bool \fBrandomize_ratelimit\fP"
 .SS "long \fBreconnect_retries\fP"
 .PP
 Referenced by opt_parse(), and phone_home_if_appropriate().
-.SS "size_t \fBringbuffer_size\fP"
+.SS "\fBsize_t\fP \fBringbuffer_size\fP"
 .PP
 Referenced by buddy_free_ringbuffer(), buddy_init_ringbuffer(), buddy_record_state(), main(), opt_parse(), and phone_home_if_appropriate().
-.SS "int32_t \fBverbosity\fP"
+.SS "\fBuint32_t\fP \fBuser_ratelimit\fP"
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

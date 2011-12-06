@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_config.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_config.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -40,7 +40,7 @@ configuration implementation for controller and services.
 
 .in +1c
 .ti -1c
-.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_svc_desc_t\fP, upk_svc_desc_meta_p)"
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_svc_desc_t\fP, \fBupk_svc_desc_meta_p\fP)"
 .br
 .ti -1c
 .RI "void \fBupk_svc_desc_free\fP (\fBupk_svc_desc_t\fP *svc)"
@@ -104,10 +104,10 @@ configuration implementation for controller and services.
 .RI "typedef \fBupk_svc_desc_meta_t\fP"
 .br
 .ti -1c
-.RI "char \fBupk_ctrl_configuration_file\fP [UPK_MAX_PATH_LEN]"
+.RI "char \fBupk_ctrl_configuration_file\fP [8192]"
 .br
 .ti -1c
-.RI "const char \fBupk_default_configuration_vec\fP []"
+.RI "const char \fBupk_default_configuration_str\fP []"
 .br
 .ti -1c
 .RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"

@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_compat.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_compat.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -20,12 +20,15 @@ libupkeeper/upkeeper/upk_compat.h \-
 .ti -1c
 .RI "#define \fBc_isxdigit\fP(c)   ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))"
 .br
+.ti -1c
+.RI "#define \fBupk_getprogname\fP   \fB__progname\fP"
+.br
 .in -1c
-.SS "Functions"
+.SS "Variables"
 
 .in +1c
 .ti -1c
-.RI "size_t \fBstrnlen\fP (const char *restrict string, size_t maxlen)"
+.RI "const char * \fB__progname\fP"
 .br
 .in -1c
 .SH "Define Documentation"
@@ -34,11 +37,12 @@ libupkeeper/upkeeper/upk_compat.h \-
 .SS "#define c_isxdigit(c)   ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))"
 .PP
 Referenced by is_valid_upk_uuid_string().
-.SH "Function Documentation"
-.PP 
-.SS "size_t strnlen (const char *restrictstring, size_tmaxlen)"
+.SS "#define upk_getprogname   \fB__progname\fP"
 .PP
-Referenced by buddy_init_paths(), opt_parse(), upk_config_loadfile(), upk_create_req_preamble(), upk_json_append_string(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_load_runtime_services(), upk_svcconf_string_handler(), and v0_create_repl_svcinfo().
+Referenced by upk_clientid().
+.SH "Variable Documentation"
+.PP 
+.SS "const char* \fB__progname\fP"
 .SH "Author"
 .PP 
 Generated automatically by Doxygen for upkeeper from the source code.

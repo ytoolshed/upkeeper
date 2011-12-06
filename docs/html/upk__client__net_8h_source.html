@@ -56,18 +56,18 @@
 <a name="l00015"></a>00015 <span class="preprocessor"></span><span class="preprocessor">#define _UPK_CLIENT_NET_H</span>
 <a name="l00016"></a>00016 <span class="preprocessor"></span>
 <a name="l00017"></a>00017 <span class="comment">/* upkeeper/upk_client_net.c */</span>
-<a name="l00018"></a>00018 <span class="keyword">extern</span> <a class="code" href="struct__upk__payload.html">upk_payload_t</a>   *<a class="code" href="upk__client__net_8c.html#a49ae58fb782583a8f9543aab27cc2fd8">upk_clnet_serial_request</a>(<a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> * ctrl, <a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
-<a name="l00019"></a>00019 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="upk__client__net_8c.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble</a>(<a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> * ctrl);
-<a name="l00020"></a>00020 <span class="keyword">extern</span> <a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> *<a class="code" href="upk__client__net_8c.html#adc9b54f471b3390b4740f62e85a9a324">upk_clnet_ctrl_connect</a>(<span class="keywordtype">void</span>);
-<a name="l00021"></a>00021 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="upk__client__net_8c.html#af573b85764e9dc557daed0b1b2ee0bf6">upk_clnet_req_disconnect</a>(<a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> * ctrl);
-<a name="l00022"></a>00022 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="upk__client__net_8c.html#a8d7e372cd6428f266cfb371189a291c9">upk_clnet_ctrl_disconnect</a>(<a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> * ctrl);
-<a name="l00023"></a>00023 <span class="keyword">extern</span> _Bool            <a class="code" href="upk__client__net_8c.html#a096afa26e30a200e490ebae8a7a1e405">upk_clnet_req_action</a>(<a class="code" href="group__upk__network.html#ga64ae05a2acaefbc2d0cb8106b209c981">upk_conn_handle_meta_t</a> * ctrl, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">char</span> *action);
+<a name="l00018"></a>00018 <span class="keyword">extern</span> <a class="code" href="struct__upk__payload.html">upk_payload_t</a>   *<a class="code" href="controller_2tp_8c.html#a49ae58fb782583a8f9543aab27cc2fd8">upk_clnet_serial_request</a>(<a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> * ctrl, <a class="code" href="structupk__packet__t.html">upk_packet_t</a> * pkt);
+<a name="l00019"></a>00019 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#a3c8470569c64aa14552d455bdadc9ae5">upk_clnet_req_preamble</a>(<a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> * ctrl);
+<a name="l00020"></a>00020 <span class="keyword">extern</span> <a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> *<a class="code" href="controller_2tp_8c.html#adc9b54f471b3390b4740f62e85a9a324">upk_clnet_ctrl_connect</a>(<span class="keywordtype">void</span>);
+<a name="l00021"></a>00021 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#af573b85764e9dc557daed0b1b2ee0bf6">upk_clnet_req_disconnect</a>(<a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> * ctrl);
+<a name="l00022"></a>00022 <span class="keyword">extern</span> <span class="keywordtype">void</span>             <a class="code" href="controller_2tp_8c.html#a8d7e372cd6428f266cfb371189a291c9">upk_clnet_ctrl_disconnect</a>(<a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> * ctrl);
+<a name="l00023"></a>00023 <span class="keyword">extern</span> _Bool            <a class="code" href="controller_2tp_8c.html#a3c6607b59d3bd0c769a71d813afe1b52">upk_clnet_req_action</a>(<a class="code" href="structupk__conn__handle__meta__p.html">upk_conn_handle_meta_t</a> * ctrl, <span class="keywordtype">char</span> *svc_id, <span class="keywordtype">char</span> *action);
 <a name="l00024"></a>00024 
 <a name="l00025"></a>00025 
 <a name="l00026"></a>00026 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Tue Nov 1 2011 for upkeeper by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Wed Dec 7 2011 for upkeeper by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.4 </small></address>
 </body>

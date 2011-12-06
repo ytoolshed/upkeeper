@@ -6,7 +6,8 @@
 
 
 
-Collaboration diagram for \_\-upk\_\-payload\_\-types:\nopagebreak
+Collaboration diagram for \_\-upk\_\-payload\_\-types:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -73,7 +74,7 @@ Collaboration diagram for \_\-upk\_\-payload\_\-types:\nopagebreak
 \subsubsection[{repl\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-repl\_\-error\_\-t} {\bf \_\-upk\_\-payload\_\-types::repl\_\-error}}\label{union__upk__payload__types_a234ea3f49e119dc43e7df00869340b12}
 
 
-Referenced by upk\_\-clnet\_\-req\_\-action().
+Referenced by upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-signal(), and upk\_\-clnet\_\-req\_\-status().
 
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!repl\_\-listing@{repl\_\-listing}}
 \index{repl\_\-listing@{repl\_\-listing}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
@@ -81,12 +82,16 @@ Referenced by upk\_\-clnet\_\-req\_\-action().
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!repl\_\-preamble@{repl\_\-preamble}}
 \index{repl\_\-preamble@{repl\_\-preamble}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
 \subsubsection[{repl\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-repl\_\-preamble\_\-t} {\bf \_\-upk\_\-payload\_\-types::repl\_\-preamble}}\label{union__upk__payload__types_a319993760ad216611e39b6b6178c0f6d}
+
+
+Referenced by upk\_\-clnet\_\-req\_\-preamble().
+
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!repl\_\-result@{repl\_\-result}}
 \index{repl\_\-result@{repl\_\-result}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
 \subsubsection[{repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-repl\_\-result\_\-t} {\bf \_\-upk\_\-payload\_\-types::repl\_\-result}}\label{union__upk__payload__types_aeca4b63aae1ce10365c8a9d3cee78c74}
 
 
-Referenced by received\_\-packet\_\-callback(), and upk\_\-clnet\_\-req\_\-action().
+Referenced by upk\_\-clnet\_\-req\_\-action(), and upk\_\-clnet\_\-req\_\-signal().
 
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!repl\_\-seq\_\-end@{repl\_\-seq\_\-end}}
 \index{repl\_\-seq\_\-end@{repl\_\-seq\_\-end}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
@@ -97,12 +102,16 @@ Referenced by received\_\-packet\_\-callback(), and upk\_\-clnet\_\-req\_\-actio
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!repl\_\-svcinfo@{repl\_\-svcinfo}}
 \index{repl\_\-svcinfo@{repl\_\-svcinfo}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
 \subsubsection[{repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-repl\_\-svcinfo\_\-t} {\bf \_\-upk\_\-payload\_\-types::repl\_\-svcinfo}}\label{union__upk__payload__types_ac6d06061ceed386d95971d6c3be8627d}
+
+
+Referenced by upk\_\-clnet\_\-req\_\-status().
+
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!req\_\-action@{req\_\-action}}
 \index{req\_\-action@{req\_\-action}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
 \subsubsection[{req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-req\_\-action\_\-t} {\bf \_\-upk\_\-payload\_\-types::req\_\-action}}\label{union__upk__payload__types_abc1bf3b102d683a0f031588df6bc97db}
 
 
-Referenced by controller\_\-packet\_\-callback().
+Referenced by ctrl\_\-req\_\-action\_\-handler().
 
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!req\_\-disconnect@{req\_\-disconnect}}
 \index{req\_\-disconnect@{req\_\-disconnect}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
@@ -115,7 +124,7 @@ Referenced by controller\_\-packet\_\-callback().
 \subsubsection[{req\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-req\_\-preamble\_\-t} {\bf \_\-upk\_\-payload\_\-types::req\_\-preamble}}\label{union__upk__payload__types_a238d495cdbd50f355dd2222ef55f3dcb}
 
 
-Referenced by controller\_\-packet\_\-callback().
+Referenced by ctrl\_\-req\_\-preamble\_\-handler(), and main().
 
 \index{\_\-upk\_\-payload\_\-types@{\_\-upk\_\-payload\_\-types}!req\_\-seq\_\-end@{req\_\-seq\_\-end}}
 \index{req\_\-seq\_\-end@{req\_\-seq\_\-end}!_upk_payload_types@{\_\-upk\_\-payload\_\-types}}
@@ -137,6 +146,8 @@ Referenced by controller\_\-packet\_\-callback().
 \subsubsection[{req\_\-unsubscribe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-req\_\-unsubscribe\_\-t} {\bf \_\-upk\_\-payload\_\-types::req\_\-unsubscribe}}\label{union__upk__payload__types_aa40a745f243b9efe2c32284a2e5c0707}
 
 
-The documentation for this union was generated from the following file:\begin{DoxyCompactItemize}
+The documentation for this union was generated from the following files:\begin{DoxyCompactItemize}
 \item 
-libupkeeper/upkeeper/{\bf upk\_\-protocol.h}\end{DoxyCompactItemize}
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-protocol.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

@@ -1,0 +1,53 @@
+\section{controller/ctrl\_\-data.c File Reference}
+\label{ctrl__data_8c}\index{controller/ctrl\_\-data.c@{controller/ctrl\_\-data.c}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include \char`\"{}controller.h\char`\"{}}\par
+{\ttfamily \#include $<$sqlite3.h$>$}\par
+Include dependency graph for ctrl\_\-data.c:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__data_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPSERT\_\-TEXT}(A)
+\begin{DoxyCompactList}\small\item\em insert or update a list option. \end{DoxyCompactList}\item 
+\#define {\bf UPSERT\_\-INT}(A, NMIN)
+\item 
+\#define {\bf LIST\_\-UPSERT\_\-TEXT}(A, B, C)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf upk\_\-db\_\-get\_\-single\_\-text} ({\bf sqlite3} $\ast$dbh, char $\ast$value, const char $\ast$sql,...)
+\begin{DoxyCompactList}\small\item\em lookup a table\_\-id from the schema table. \end{DoxyCompactList}\item 
+static int {\bf upk\_\-db\_\-get\_\-table\_\-id} ({\bf sqlite3} $\ast$dbh, const char $\ast$db, const char $\ast$table\_\-name, char $\ast$table\_\-id)
+\begin{DoxyCompactList}\small\item\em lookup a table\_\-id from the schema table. \end{DoxyCompactList}\item 
+int {\bf upk\_\-db\_\-get\_\-audit\_\-service\_\-table} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id)
+\begin{DoxyCompactList}\small\item\em lookup the table\_\-id for upk\_\-audit.service from the schema table. \end{DoxyCompactList}\item 
+int {\bf upk\_\-db\_\-get\_\-cfg\_\-services\_\-table} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id)
+\begin{DoxyCompactList}\small\item\em lookup the table\_\-id for upk\_\-cfg.services from the schema table. \end{DoxyCompactList}\item 
+int {\bf upk\_\-db\_\-get\_\-cfg\_\-svc\_\-options\_\-table} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id)
+\begin{DoxyCompactList}\small\item\em lookup the table\_\-id for upk\_\-cfg.svc\_\-optionsfrom the schema table. \end{DoxyCompactList}\item 
+int {\bf upk\_\-db\_\-get\_\-cfg\_\-svc\_\-list\_\-options\_\-table} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id)
+\begin{DoxyCompactList}\small\item\em lookup the table\_\-id for upk\_\-cfg.svc\_\-list\_\-options from the schema table. \end{DoxyCompactList}\item 
+char $\ast$ {\bf upk\_\-db\_\-svc\_\-uuid\_\-lookup} ({\bf sqlite3} $\ast$dbh, const char $\ast$svcid, const char $\ast$package)
+\begin{DoxyCompactList}\small\item\em lookup a service $<$package$>$-\/$<$name$>$ \end{DoxyCompactList}\item 
+char $\ast$ {\bf upk\_\-db\_\-gen\_\-uuid} ({\bf sqlite3} $\ast$dbh)
+\begin{DoxyCompactList}\small\item\em generate new unique service UUID. \end{DoxyCompactList}\item 
+bool {\bf upk\_\-db\_\-add\_\-new\_\-service} ({\bf sqlite3} $\ast$dbh, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\begin{DoxyCompactList}\small\item\em Create new service definition. \end{DoxyCompactList}\item 
+static int {\bf upk\_\-db\_\-try\_\-insert} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, int type, char $\ast$optkey, void $\ast$optval, {\bf size\_\-t} len, char $\ast$section, char $\ast$id)
+\begin{DoxyCompactList}\small\item\em try to insert an option \end{DoxyCompactList}\item 
+static int {\bf upk\_\-db\_\-try\_\-update} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, int type, char $\ast$optkey, void $\ast$optval, {\bf size\_\-t} len, char $\ast$section, char $\ast$id)
+\begin{DoxyCompactList}\small\item\em try to update an option \end{DoxyCompactList}\item 
+bool {\bf upk\_\-db\_\-upsert} ({\bf sqlite3} $\ast$dbh, char $\ast$table\_\-id, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, int type, char $\ast$optkey, void $\ast$optval, {\bf size\_\-t} len, char $\ast$section, char $\ast$id)
+\begin{DoxyCompactList}\small\item\em insert or update a option. \end{DoxyCompactList}\item 
+int32\_\-t {\bf upk\_\-db\_\-upsert\_\-options} ({\bf sqlite3} $\ast$dbh, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\begin{DoxyCompactList}\small\item\em Insert options into database;. \end{DoxyCompactList}\item 
+bool {\bf upk\_\-db\_\-insert\_\-cfg} ({\bf sqlite3} $\ast$dbh, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\begin{DoxyCompactList}\small\item\em Insert a configuration into the database. \end{DoxyCompactList}\end{DoxyCompactItemize}

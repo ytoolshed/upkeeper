@@ -1,4 +1,4 @@
-.TH "_upk_conn_handle" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "_upk_conn_handle" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -12,25 +12,22 @@ _upk_conn_handle \-
 
 .in +1c
 .ti -1c
-.RI "uint32_t \fBversion_id\fP"
+.RI "\fBuint32_t\fP \fBversion_id\fP"
 .br
 .ti -1c
 .RI "int \fBfd\fP"
 .br
 .ti -1c
-.RI "char \fBcl_name\fP [UPK_MAX_STRING_LEN]"
+.RI "char \fBcl_name\fP [2048]"
 .br
 .ti -1c
-.RI "\fBupk_pkt_buf_t\fP \fBreadbuf\fP [UPK_MAX_PACKET_SIZE]"
+.RI "\fBupk_pkt_buf_t\fP \fBreadbuf\fP [65536]"
 .br
 .ti -1c
-.RI "uint8_t \fBn_hdr_bytes_read\fP"
+.RI "\fBuint8_t\fP \fBn_hdr_bytes_read\fP"
 .br
 .ti -1c
-.RI "size_t \fBn_remaining_read\fP"
-.br
-.ti -1c
-.RI "\fBupk_net_callback_t\fP \fBafter_read_callback\fP"
+.RI "\fBsize_t\fP \fBn_remaining_read\fP"
 .br
 .ti -1c
 .RI "\fBupk_netmsg_queue_meta_t\fP \fBwriteq\fP"
@@ -39,10 +36,13 @@ _upk_conn_handle \-
 .RI "\fBupk_payload_t\fP \fBlast_pkt_data\fP"
 .br
 .ti -1c
-.RI "\fBupk_net_gstate_t\fP * \fBgstate\fP"
+.RI "\fBupk_net_state_t\fP * \fBstate\fP"
 .br
 .ti -1c
 .RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
 .br
 .ti -1c
 .RI "\fBupk_conn_handle_t\fP * \fBnext\fP"
@@ -50,35 +50,37 @@ _upk_conn_handle \-
 .in -1c
 .SH "Field Documentation"
 .PP 
-.SS "\fBupk_net_callback_t\fP \fB_upk_conn_handle::after_read_callback\fP"after an entire packet read, call this callback 
+.SS "char \fB_upk_conn_handle::cl_name\fP"name of associated client 
 .PP
-Referenced by upk_call_received_packet_callbacks(), and upk_write_packets().
-.SS "char \fB_upk_conn_handle::cl_name\fP[UPK_MAX_STRING_LEN]"name of associated client 
-.PP
-Referenced by controller_packet_callback().
+Referenced by ctrl_req_disconnect_handler(), and ctrl_req_preamble_handler().
 .SS "int \fB_upk_conn_handle::fd\fP"file descriptor 
 .PP
-Referenced by upk_net_block_until_msg(), upk_read_packets(), and upk_write_packets().
-.SS "\fBupk_net_gstate_t\fP* \fB_upk_conn_handle::gstate\fP"instance state data, maintained in list metanode 
-.PP
-Referenced by upk_queue_packet().
+Referenced by upk_build_fd_sets(), upk_disconnect_handle(), upk_net_add_socket_handle(), upk_net_block_until_msg(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), upk_read_packets(), and upk_write_packets().
 .SS "\fBupk_payload_t\fP \fB_upk_conn_handle::last_pkt_data\fP"Last received packet data 
 .PP
-Referenced by upk_call_received_packet_callbacks(), and upk_net_block_until_msg().
-.SS "uint8_t \fB_upk_conn_handle::n_hdr_bytes_read\fP"remaining header bytes for async read 
+Referenced by main(), upk_call_received_packet_callbacks(), upk_clnet_req_preamble(), upk_clnet_serial_request(), and upk_net_block_until_msg().
+.SS "\fBuint8_t\fP \fB_upk_conn_handle::n_hdr_bytes_read\fP"remaining header bytes for async read 
 .PP
 Referenced by upk_read_packets().
-.SS "size_t \fB_upk_conn_handle::n_remaining_read\fP"reamining bytes after header for async read 
+.SS "\fBsize_t\fP \fB_upk_conn_handle::n_remaining_read\fP"reamining bytes after header for async read 
 .PP
 Referenced by upk_read_packets().
-.SS "\fBupk_conn_handle_t\fP* \fB_upk_conn_handle::next\fP"next 
-.SS "\fBupk_pkt_buf_t\fP \fB_upk_conn_handle::readbuf\fP[UPK_MAX_PACKET_SIZE]"readbuffer used in async read 
+.SS "\fBupk_conn_handle_t\fP * \fB_upk_conn_handle::next\fP"next 
+.SS "\fBupk_pkt_buf_t\fP \fB_upk_conn_handle::readbuf\fP"readbuffer used in async read 
 .PP
 Referenced by upk_read_packets().
-.SS "void* \fB_upk_conn_handle::userdata\fP"any user-data you might need too pass around 
-.SS "uint32_t \fB_upk_conn_handle::version_id\fP"proto version for connection 
+.SS "\fBupk_net_state_t\fP * \fB_upk_conn_handle::state\fP"instance state data, maintained in list metanode 
 .PP
-Referenced by upk_create_pub_cancelation(), upk_create_pub_publication(), upk_create_repl_ack(), upk_create_repl_error(), upk_create_repl_listing(), upk_create_repl_result(), upk_create_repl_seq_end(), upk_create_repl_seq_start(), upk_create_repl_svcinfo(), upk_create_req_action(), upk_create_req_disconnect(), upk_create_req_list(), upk_create_req_seq_end(), upk_create_req_seq_start(), upk_create_req_signal(), upk_create_req_status(), upk_create_req_subscribe(), and upk_create_req_unsubscribe().
+Referenced by upk_call_received_packet_callbacks(), upk_callback_stack_pop(), upk_callback_stack_push(), upk_net_add_socket_handle(), upk_net_event_dispatcher(), and upk_net_flush_closed_sockets().
+.SS "void * \fB_upk_conn_handle::userdata\fP"any user-data you might need too pass around 
+.PP
+Referenced by upk_net_add_socket_handle(), and upk_net_flush_closed_sockets().
+.SS "void(* \fB_upk_conn_handle::userdata_free_func\fP)(void *)"function to free the userdata, for use if free(userdata) is insufficient 
+.PP
+Referenced by upk_net_flush_closed_sockets().
+.SS "\fBuint32_t\fP \fB_upk_conn_handle::version_id\fP"proto version for connection 
+.PP
+Referenced by upk_clnet_req_preamble(), upk_create_pub_cancelation(), upk_create_pub_publication(), upk_create_repl_ack(), upk_create_repl_error(), upk_create_repl_listing(), upk_create_repl_result(), upk_create_repl_seq_end(), upk_create_repl_seq_start(), upk_create_repl_svcinfo(), upk_create_req_action(), upk_create_req_disconnect(), upk_create_req_list(), upk_create_req_seq_end(), upk_create_req_seq_start(), upk_create_req_signal(), upk_create_req_status(), upk_create_req_subscribe(), and upk_create_req_unsubscribe().
 .SS "\fBupk_netmsg_queue_meta_t\fP \fB_upk_conn_handle::writeq\fP"write queue linked list 
 .PP
 Referenced by upk_queue_packet(), and upk_write_packets().

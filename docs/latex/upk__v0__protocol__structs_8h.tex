@@ -145,7 +145,8 @@ upk_msgtype_t       msgtype; \
 \begin{DoxyCode}
 upk_msgtype_t       msgtype; \
     uint32_t            svc_id_len; \
-    char                svc_id[UPK_MAX_STRING_LEN]
+    char                svc_id[UPK_MAX_STRING_LEN]; \
+    uint32_t            restart_window_seconds
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS@{UPK\_\-V0\_\-REQ\_\-SUBSCR\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}
@@ -185,7 +186,8 @@ uint32_t                last_action_time; \
     uint32_t                buddy_pid; \
     uint32_t                proc_pid; \
     upk_state_t             current_state; \
-    upk_state_t             prior_state
+    upk_state_t             prior_state; \
+    uint32_t                n_recorded_restarts
 \end{DoxyCode}
 \index{upk\_\-v0\_\-protocol\_\-structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}!UPK\_\-V0\_\-UPK\_\-REPL\_\-SEQ\_\-END\_\-T\_\-FIELDS@{UPK\_\-V0\_\-UPK\_\-REPL\_\-SEQ\_\-END\_\-T\_\-FIELDS}}
 \index{UPK\_\-V0\_\-UPK\_\-REPL\_\-SEQ\_\-END\_\-T\_\-FIELDS@{UPK\_\-V0\_\-UPK\_\-REPL\_\-SEQ\_\-END\_\-T\_\-FIELDS}!upk_v0_protocol_structs.h@{upk\_\-v0\_\-protocol\_\-structs.h}}

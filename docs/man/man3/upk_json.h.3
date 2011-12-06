@@ -1,4 +1,4 @@
-.TH "libupkeeper/upkeeper/upk_json.h" 3 "Tue Nov 1 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.TH "libupkeeper/upkeeper/upk_json.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
 .ad l
 .nh
 .SH NAME
@@ -70,7 +70,7 @@ libupkeeper/upkeeper/upk_json.h \-
 .RI "char * \fBupk_json_obj_to_string\fP (struct json_object *obj, \fBupk_json_data_output_opts_t\fP opts)"
 .br
 .ti -1c
-.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, FILE *stream, \fBupk_json_data_output_opts_t\fP opts)"
+.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fP opts)"
 .br
 .in -1c
 .SS "Variables"
@@ -89,7 +89,7 @@ libupkeeper/upkeeper/upk_json.h \-
 .SS "typedef struct \fB_upk_json_type\fP  \fBupk_json_val_t\fP"
 .SH "Function Documentation"
 .PP 
-.SS "void upk_json_obj_to_stream (struct json_object *obj, FILE *stream, \fBupk_json_data_output_opts_t\fPopts)"
+.SS "void upk_json_obj_to_stream (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fPopts)"
 .PP
 References data_type_stream, _upk_json_output_data::type, and upk_json_obj_serializer().
 .SS "char* upk_json_obj_to_string (struct json_object *obj, \fBupk_json_data_output_opts_t\fPopts)"
@@ -116,7 +116,7 @@ Referenced by _upk_json_parse_node().
 .PP
 References UPKLIST_PREPEND.
 .PP
-Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
+Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_array_handler(), upk_svcconf_nested_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
 .SS "typedef UPKLIST_METANODE (\fBupk_json_stack_node_t\fP, upk_json_stack_meta_p)"
 .SH "Variable Documentation"
 .PP 
