@@ -246,7 +246,10 @@ upk_svc_desc_free(upk_svc_desc_t * svc)
         free(svc->ReloadScript);
     if(svc->CustomActions) {
         UPKLIST_FOREACH(svc->CustomActions) {
-            free(svc->CustomActions->thisp->script);
+            if(svc->CustomActions->thisp->script) {
+                free(svc->CustomActions->thisp->script);
+                svc->CustomActions->thisp->script = NULL;
+            } 
             UPKLIST_UNLINK(svc->CustomActions);
         }
         free(svc->CustomActions);
@@ -756,11 +759,10 @@ upk_svcconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
     struct passwd          *pwbufp = &pwbuf;
 
 #ifdef _SC_GETPW_R_SIZE_MAX
-    char                   *buf = calloc(1, sysconf(_SC_GETPW_R_SIZE_MAX));
+    char                   *buf = NULL;
     size_t                  buflen = sysconf(_SC_GETPW_R_SIZE_MAX);
 #else
     char                    buf[2048] = "";
-
     size_t                  buflen = sizeof(buf);
 #endif
 
@@ -809,13 +811,25 @@ upk_svcconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, 
             d->InitialState = UPK_STATE_SHUTDOWN;
         }
     } else if(strcasecmp(key, "SetUID") == 0) {
+#ifdef _SC_GETPW_R_SIZE_MAX
+        buf = calloc(1, sysconf(_SC_GETPW_R_SIZE_MAX));
+#endif
         getpwnam_r(v.val.str.c_str, &pwbuf, buf, buflen, &pwbufp);
         if(pwbufp)
             d->SetUID = pwbuf.pw_uid;
+#ifdef _SC_GETPW_R_SIZE_MAX
+        free(buf);
+#endif
     } else if(strcasecmp(key, "SetGID") == 0) {
+#ifdef _SC_GETPW_R_SIZE_MAX
+        buf = calloc(1, sysconf(_SC_GETPW_R_SIZE_MAX));
+#endif
         getpwnam_r(v.val.str.c_str, &pwbuf, buf, buflen, &pwbufp);
         if(pwbufp)
             d->SetGID = pwbuf.pw_gid;
+#ifdef _SC_GETPW_R_SIZE_MAX
+        free(buf);
+#endif
     } else {
         upk_alert("invalid Configuration: %s", key);
     }
@@ -1258,14 +1272,26 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->CustomActions && high->CustomActions->count > 0) {
-        if(dest->CustomActions)
-            UPKLIST_FREE(dest->CustomActions);
-        dest->CustomActions = calloc(1, sizeof(*dest->CustomActions));
+        if(dest->CustomActions) {
+            UPKLIST_FOREACH(dest->CustomActions) {
+                if(dest->CustomActions->thisp->script) {
+                    free(dest->CustomActions->thisp->script);
+                    dest->CustomActions->thisp->script = NULL;
+                }
+                UPKLIST_UNLINK(dest->CustomActions);
+                //UPKLIST_FREE(dest->CustomActions);
+            }
+        }
+        dest->CustomActions = calloc(1, sizeof(*dest->CustomActions)); 
 
         UPKLIST_FOREACH(high->CustomActions) {
             UPKLIST_APPEND(dest->CustomActions);
             memcpy(dest->CustomActions->thisp, high->CustomActions->thisp,
                    sizeof(*dest->CustomActions->thisp) - sizeof(dest->CustomActions->thisp->next));
+            if(high->CustomActions->thisp->script) { 
+                dest->CustomActions->thisp->script = calloc(1, strlen(high->CustomActions->thisp->script) + 1);
+                strcpy(dest->CustomActions->thisp->script, high->CustomActions->thisp->script);
+            }
         }
     }
 

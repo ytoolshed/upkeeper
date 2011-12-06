@@ -14,8 +14,8 @@
 #include "upk_include.h"
 #include <stdio.h>
 
-/* ***************************************************************************
-   ************************************************************************* */
+/** ***************************************************************************
+ **************************************************************************** */
 bool
 upk_numeric_string(const char *string, long *num)
 {
@@ -38,8 +38,8 @@ upk_numeric_string(const char *string, long *num)
     return true;
 }
 
-/* ***************************************************************************
-   ************************************************************************* */
+/** ***************************************************************************
+ **************************************************************************** */
 bool
 upk_boolean_string(const char *string, bool * val)
 {
@@ -69,8 +69,8 @@ upk_boolean_string(const char *string, bool * val)
     return false;
 }
 
-/* ***************************************************************************
-   ************************************************************************* */
+/** ***************************************************************************
+ **************************************************************************** */
 void
 upk_replace_string(char **haystack, const char *needle, const char *repl)
 {
@@ -100,8 +100,8 @@ upk_replace_string(char **haystack, const char *needle, const char *repl)
     }
 }
 
-/****************************************************************************
- ****************************************************************************/
+/** ***************************************************************************
+ **************************************************************************** */
 struct timeval
 upk_double_to_timeval(long double r)
 {
@@ -110,8 +110,8 @@ upk_double_to_timeval(long double r)
 }
 
 
-/****************************************************************************
- ****************************************************************************/
+/** ***************************************************************************
+ **************************************************************************** */
 int
 upk_rm_rf(char *start_path)
 {
@@ -151,5 +151,50 @@ upk_rm_rf(char *start_path)
                 upk_warn("cannot remove directory: %s: %s\n", start_path, strerror(errno));
         }
     }
+    return count;
+}
+
+/** ***************************************************************************
+  @brief create a directory and any path components leading up to it.
+
+  @param[in] path                   directory to create.
+  
+  @return the number of directories successfully created. 
+ **************************************************************************** */
+int
+upk_mkdir_p(const char *path)
+{
+    upk_stringlist_meta_t  *pathlist = calloc(1, sizeof(*pathlist));
+    char                    buf[UPK_MAX_STRING_LEN] = "", *pdir = NULL;
+    int                     count = 0;
+    struct stat             st;
+
+    strncpy(buf, path, UPK_MAX_STRING_LEN - 1);                                          /* bad dirname's modify their argument */
+    UPKLIST_PREPEND(pathlist);
+    strncpy(pathlist->thisp->string, path, UPK_MAX_STRING_LEN - 1);
+
+    while((pdir = dirname(buf)) && (strncmp("/", pdir, 2) != 0) && (*pdir != '\0')) {
+        UPKLIST_PREPEND(pathlist);                                                       /* can use dlists as llists */
+        strncpy(pathlist->thisp->string, pdir, UPK_MAX_STRING_LEN - 1);
+    }
+
+    UPKLIST_FOREACH(pathlist) {
+        errno = 0;
+        if(stat(pathlist->thisp->string, &st) == 0)
+            continue;                                                                    /* some versions of mkdir will erroneously change
+                                                                                            the permissions of existing directories; this
+                                                                                            skips anything that exists */
+        errno = 0;
+        if(mkdir(pathlist->thisp->string, 0777) != 0) {
+            if(errno != EEXIST) {
+                upk_warn("cannot create directory: %s: %s\n", pathlist->thisp->string, strerror(errno));
+            }
+        } else {
+            count++;
+        }
+    }
+
+    UPKLIST_FREE(pathlist);
+
     return count;
 }

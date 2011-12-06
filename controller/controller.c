@@ -14,11 +14,33 @@
 #include <upkeeper.h>
 #include "controller.h"
 #include <sqlite3.h>
+#include "ctrl_sql.h"
+#include "ctrl_data.h"
 
-sqlite3 * ctrl_dbh;
+sqlite3                *ctrl_dbh;
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/** ******************************************************************************************************************
+  @brief controller state initialization.
+ ******************************************************************************************************************* */
+void
+upk_state_init(void)
+{
+    struct stat             st;
+    int                     errno_tmp;
+
+    errno = 0;
+    upk_mkdir_p(upk_runtime_configuration.StateDir);
+    errno = errno_tmp;
+    if((stat(upk_runtime_configuration.StateDir, &st) != 0)
+       || !S_ISDIR(st.st_mode)) {
+        upk_fatal("State directory doesn't exist and could not be created: %s: %s\n", upk_runtime_configuration.StateDir, errno_tmp);
+    }
+
+    return;
+}
+
+/** ******************************************************************************************************************
+ ******************************************************************************************************************* */
 static void
 upk_db_path(char **pathbuf)
 {
@@ -28,23 +50,63 @@ upk_db_path(char **pathbuf)
     errno = 0;
     if(mkdir(*pathbuf, 0700) != 0 && errno != EEXIST)
         upk_fatal("Cannot create database dir %s", *pathbuf);
-
-    strcat(*pathbuf, "/upkeeper.sqlite3");
 }
 
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/** ******************************************************************************************************************
+ ******************************************************************************************************************* */
+void
+upk_ctrl_attach_db(sqlite3 * dbh, char *db_path, char *db_name)
+{
+    char                   *sqlerr;
+    int                     rc = 0;
+    char                    attach_str[UPK_MAX_PATH_LEN] = "";
+
+    snprintf(attach_str, UPK_MAX_STRING_LEN, "ATTACH \"%s/%s.sqlite3\" AS \"%s\";", db_path, db_name, db_name);
+    rc = sqlite3_exec(dbh, attach_str, NULL, NULL, &sqlerr);
+    if(rc != SQLITE_OK) {
+        upk_fatal("failed to execute: %d: %s\n", rc, sqlerr);
+        sqlite3_free(sqlerr);
+    }
+}
+
+/** ******************************************************************************************************************
+ ******************************************************************************************************************* */
 sqlite3                *
-upk_ctrl_init_db(const char *db_path)
+upk_ctrl_init_db(char *db_path)
 {
     sqlite3                *dbh = NULL;
+    int                     rc = 0;
+    char                   *db_pathp = NULL;
+    char                   *sqlerr = NULL;
+    //char                    table_id[UPK_MAX_STRING_LEN] = "";
 
-    if(sqlite3_open(db_path, &dbh) != 0) {
-        upk_fatal("Cannot open database");
+    db_pathp = db_path + strnlen(db_path, UPK_MAX_PATH_LEN);
+
+    strcpy(db_pathp, "/upkeeper.sqlite3");
+    if((rc = sqlite3_open(db_path, &dbh)) != 0) {
+        upk_fatal("Cannot open database: %d\n", rc);
     }
+
+    *db_pathp = '\0';
+    upk_ctrl_attach_db(dbh, db_path, "upk_cfg");
+    upk_ctrl_attach_db(dbh, db_path, "upk_audit");
+
+    rc = sqlite3_exec(dbh, (char *) ctrl_create_audit_sql, NULL, NULL, &sqlerr);
+    if(rc != SQLITE_OK) {
+        upk_fatal("failed to execute: %d: %s\n", rc, sqlerr);
+        sqlite3_free(sqlerr);
+    }
+    rc = sqlite3_exec(dbh, (char *) ctrl_create_cfg_sql, NULL, NULL, &sqlerr);
+    if(rc != SQLITE_OK) {
+        upk_fatal("failed to execute: %d: %s\n", rc, sqlerr);
+        sqlite3_free(sqlerr);
+    }
+
     return dbh;
 }
 
+/** ******************************************************************************************************************
+ ******************************************************************************************************************* */
 void
 upk_ctrl_exit(void)
 {
@@ -53,10 +115,8 @@ upk_ctrl_exit(void)
     upk_ctrl_free_config();
 }
 
-
-
-/* ******************************************************************************************************************
-   ****************************************************************************************************************** */
+/** ******************************************************************************************************************
+ ******************************************************************************************************************* */
 int
 upk_ctrl_init(void)
 {
@@ -65,10 +125,15 @@ upk_ctrl_init(void)
     p = ctrl_db_path;
 
     upk_ctrl_load_config();
+    upk_state_init();
     upk_db_path(&p);
 
     atexit(upk_ctrl_exit);
     ctrl_dbh = upk_ctrl_init_db(ctrl_db_path);
     upk_load_runtime_services();
+
+    UPKLIST_FOREACH(upk_file_configuration.svclist) {
+        upk_db_insert_cfg(ctrl_dbh, upk_file_configuration.svclist->thisp);
+    }
     return 0;
 }

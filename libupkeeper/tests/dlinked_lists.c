@@ -17,8 +17,8 @@ typedef struct _test_foo test_foo_t;
 struct _test_foo {
     int32_t                 val;
     int32_t                 anotherval;
-    test_foo_t             *next;
     test_foo_t             *prev;
+    test_foo_t             *next;
 };
 
 START_TEST(test_swap)

@@ -21,19 +21,140 @@ static upk_conn_handle_meta_t *clients_list_for_cleanup;
 
 void                    controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t *);
 
-/********************************************************************************************************************
+void                    ctrl_req_action_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg);
+void                    ctrl_req_preamble_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg);
+void                    ctrl_req_disconnect_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg);
+
+/** *****************************************************************************************************************
+  @brief setup initial callback handlers
  ********************************************************************************************************************/
-/*
 static void
-ctrl_init_callback_handlers(upk_conn_handle_meta_t * clients)
+init_callback_handlers(upk_conn_handle_meta_t * clients)
 {
     upk_net_state_t        *global_state = upk_net_get_global_state(clients);
-    global_state->callback_stack[UPK_MSGTYPE_IDX(UPK_REQ_ACTION)]
+    upk_net_callback_t     *handlers = NULL;
+
+    UPKLIST_PREPEND(global_state->callback_stack);
+    handlers = global_state->callback_stack->head->msg_handlers;
+
+    handlers[UPK_MSGTYPE_IDX(UPK_REQ_ACTION)] = ctrl_req_action_handler;
+    handlers[UPK_MSGTYPE_IDX(UPK_REQ_PREAMBLE)] = ctrl_req_preamble_handler;
+    handlers[UPK_MSGTYPE_IDX(UPK_REQ_DISCONNECT)] = ctrl_req_disconnect_handler;
 }
-*/
+
+/** *****************************************************************************************************************
+  @brief Handler to call when an action request is received from a client, signature is of upk_net_callback_t, 
+
+  @param[in] clients                The llist of handles, and clients->thisp is the current handle.
+  @param[in] msg                    The action request message.
+ ********************************************************************************************************************/
+void
+ctrl_req_action_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
+{
+    upk_conn_handle_t      *handle = clients->thisp;
+    upk_svc_desc_meta_t    *svclist = upk_runtime_configuration.svclist;
+    upk_packet_t           *reply = NULL;
+
+    upk_debug1("action request received for service %s, type: %s\n", msg->payload.req_action.svc_id, msg->payload.req_action.action);
+
+    /* FIXME: should have a hash table/dictionary for more efficient service lookup */
+    UPKLIST_FOREACH(svclist) {
+        if(strncmp(svclist->thisp->Name, msg->payload.req_action.svc_id, UPK_MAX_STRING_LEN) == 0) {
+            if(strncasecmp(msg->payload.req_action.action, "start", UPK_MAX_STRING_LEN) == 0) {
+                upk_debug1("Sending start request to buddy\n");
+                if(start_buddy_svc(svclist->thisp))
+                    reply = upk_create_repl_result(handle, "success", true);
+                else
+                    reply = upk_create_repl_result(handle, "failed", false);
+            } else if(strncasecmp(msg->payload.req_action.action, "stop", UPK_MAX_STRING_LEN) == 0) {
+                upk_debug1("Sending stop request to buddy\n");
+                if(stop_buddy_svc(svclist->thisp))
+                    reply = upk_create_repl_result(handle, "success", true);
+                else
+                    reply = upk_create_repl_result(handle, "failed", false);
+            } else if(strncasecmp(msg->payload.req_action.action, "reload", UPK_MAX_STRING_LEN) == 0) {
+                upk_debug1("Sending reload request to buddy\n");
+                if(reload_buddy_svc(svclist->thisp))
+                    reply = upk_create_repl_result(handle, "success", true);
+                else
+                    reply = upk_create_repl_result(handle, "failed", false);
+            } else if(strncasecmp(msg->payload.req_action.action, "unconfigure", UPK_MAX_STRING_LEN) == 0) {
+                /* 
+                   if(upk_unconfigure_buddy_svc(svclist)) {
 
 
-/********************************************************************************************************************
+                 */
+            }
+
+            upk_queue_packet(clients, handle, reply, NULL);
+            upk_pkt_free(reply);
+            break;
+        }
+    }
+}
+
+/** *****************************************************************************************************************
+  @brief Handler to call when an preamble request is received from a client, signature is of upk_net_callback_t, 
+
+  @param[in] clients                The llist of handles, and clients->thisp is the current handle.
+  @param[in] msg                    The preamble request message.
+ ********************************************************************************************************************/
+void
+ctrl_req_preamble_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
+{
+    upk_conn_handle_t      *handle = clients->thisp;
+    upk_packet_t           *reply = NULL;
+    int32_t                 clmin, clmax, n, p;
+
+    upk_debug1("negotiating preamble\n");
+
+    clmin = msg->payload.req_preamble.min_supported_ver;
+    clmax = msg->payload.req_preamble.max_supported_ver;
+
+    if(clmin > UPK_MAX_SUPPORTED_PROTO || clmax < UPK_MIN_SUPPORTED_PROTO) {
+        upk_debug1("unsupported version range from client\n");
+        return;
+    }
+
+    for(n = clmax; (n >= clmin) && !reply; n--)
+        for(p = UPK_MAX_SUPPORTED_PROTO; p >= UPK_MIN_SUPPORTED_PROTO && !reply; p--)
+            if(n == p)
+                reply = upk_create_repl_preamble(handle, p);
+
+    upk_debug1("negotiated version: %d\n", ((upk_repl_preamble_t *) reply->payload)->best_version);
+    upk_debug1("setting clientid: %s\n", msg->payload.req_preamble.client_name);
+
+    strncpy(handle->cl_name, msg->payload.req_preamble.client_name, UPK_MAX_STRING_LEN - 1);
+
+    upk_queue_packet(clients, handle, reply, NULL);
+    upk_pkt_free(reply);
+}
+
+/** *****************************************************************************************************************
+  @brief Handler to call when an disconnect request is received from a client, signature is of upk_net_callback_t, 
+
+  @param[in] clients                The llist of handles, and clients->thisp is the current handle.
+  @param[in] msg                    The disconnect request message.
+ ********************************************************************************************************************/
+void
+ctrl_req_disconnect_handler(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
+{
+    upk_conn_handle_t      *handle = clients->thisp;
+    upk_packet_t           *reply = NULL;
+
+    upk_debug1("disconnecting client: `%s'\n", handle->cl_name);
+
+    reply = upk_create_req_disconnect(handle);
+    upk_queue_packet(clients, handle, reply, upk_net_shutdown_callback);
+    upk_pkt_free(reply);
+}
+
+
+/** *****************************************************************************************************************
+  @brief accept() and setup a handle for an incomming connection.
+
+  @param[in] listen_sock            The socket the request is coming in on.
+  @param[in,out] clients            The llist of clients, which will be modified if the connection is accepted.
  ********************************************************************************************************************/
 static void
 ctrl_accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
@@ -44,100 +165,11 @@ ctrl_accept_conn(int32_t listen_sock, upk_conn_handle_meta_t * clients)
 
     conn_fd = accept(listen_sock, (struct sockaddr *) &c_sa, &c_sa_len);
     if(conn_fd >= 0)
-        upk_net_add_socket_handle(clients, conn_fd, controller_packet_callback);
-}
-
-/********************************************************************************************************************
- ********************************************************************************************************************/
-void
-controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t * msg)
-{
-    upk_conn_handle_t      *handle = clients->thisp;
-    upk_svc_desc_meta_t    *svclist = upk_runtime_configuration.svclist;
-    upk_packet_t           *reply = NULL;
-
-    switch (msg->type) {
-    case UPK_REQ_ACTION:
-        upk_debug1("action request received for service %s, type: %s\n", msg->payload.req_action.svc_id, msg->payload.req_action.action);
-
-        /* FIXME: should have a hash table/dictionary for more efficient service lookup */
-        UPKLIST_FOREACH(svclist) {
-            if(strncmp(svclist->thisp->Name, msg->payload.req_action.svc_id, UPK_MAX_STRING_LEN) == 0) {
-                if(strncasecmp(msg->payload.req_action.action, "start", UPK_MAX_STRING_LEN) == 0) {
-                    upk_debug1("Sending start request to buddy\n");
-                    if(start_buddy_svc(svclist->thisp))
-                        reply = upk_create_repl_result(handle, "success", true);
-                    else
-                        reply = upk_create_repl_result(handle, "failed", false);
-                } else if(strncasecmp(msg->payload.req_action.action, "stop", UPK_MAX_STRING_LEN) == 0) {
-                    upk_debug1("Sending stop request to buddy\n");
-                    if(stop_buddy_svc(svclist->thisp))
-                        reply = upk_create_repl_result(handle, "success", true);
-                    else
-                        reply = upk_create_repl_result(handle, "failed", false);
-                } else if(strncasecmp(msg->payload.req_action.action, "reload", UPK_MAX_STRING_LEN) == 0) {
-                    upk_debug1("Sending reload request to buddy\n");
-                    if(reload_buddy_svc(svclist->thisp))
-                        reply = upk_create_repl_result(handle, "success", true);
-                    else
-                        reply = upk_create_repl_result(handle, "failed", false);
-                } else if(strncasecmp(msg->payload.req_action.action, "unconfigure", UPK_MAX_STRING_LEN) == 0) {
-                    /* 
-                       if(upk_unconfigure_buddy_svc(svclist)) {
-
-
-                     */
-                }
-
-                upk_queue_packet(clients, handle, reply, NULL, NULL);
-                upk_pkt_free(reply);
-                break;
-            }
-        }
-        break;
-    case UPK_REQ_PREAMBLE:
-        upk_debug1("negotiating preamble\n");
-        int32_t                 clmin, clmax, n, p;
-
-        clmin = msg->payload.req_preamble.min_supported_ver;
-        clmax = msg->payload.req_preamble.max_supported_ver;
-
-        if(clmin > UPK_MAX_SUPPORTED_PROTO || clmax < UPK_MIN_SUPPORTED_PROTO) {
-            upk_debug1("unsupported version range from client\n");
-            break;
-        }
-
-        for(n = clmax; (n >= clmin) && !reply; n--)
-            for(p = UPK_MAX_SUPPORTED_PROTO; p >= UPK_MIN_SUPPORTED_PROTO && !reply; p--)
-                if(n == p)
-                    reply = upk_create_repl_preamble(handle, p);
-
-        upk_debug1("negotiated version: %d\n", ((upk_repl_preamble_t *) reply->payload)->best_version);
-        upk_debug1("setting clientid: %s\n", msg->payload.req_preamble.client_name);
-
-        strncpy(handle->cl_name, msg->payload.req_preamble.client_name, UPK_MAX_STRING_LEN - 1);
-
-        upk_queue_packet(clients, handle, reply, NULL, NULL);
-        upk_pkt_free(reply);
-        break;
-    case UPK_REQ_DISCONNECT:
-        upk_debug1("disconnecting client: `%s'\n", handle->cl_name);
-
-        reply = upk_create_req_disconnect(handle);
-        upk_queue_packet(clients, handle, reply, upk_net_shutdown_callback, NULL);
-        upk_pkt_free(reply);
-
-        break;
-    default:
-        upk_debug1("request received for service %s, but unhandled\n");
-        break;
-    }
-    return;
+        upk_net_add_socket_handle(clients, conn_fd);
 }
 
 
-
-/********************************************************************************************************************
+/** *****************************************************************************************************************
   @brief place received signals into a queue to handle later.
   
   Because most signal handling will have fairly significant work to do, all signal handling is done via queuing the
@@ -152,7 +184,7 @@ sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
     ctrl_signal_queue->thisp->signal = signal;
 }
 
-/********************************************************************************************************************
+/** *****************************************************************************************************************
   @brief cleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues 
  ********************************************************************************************************************/
 void
@@ -163,7 +195,7 @@ ctrl_exit_cleanup(void)
 }
 
 
-/********************************************************************************************************************
+/** *****************************************************************************************************************
   @brief setup signal handlers 
  ********************************************************************************************************************/
 static inline void
@@ -195,7 +227,28 @@ ctrl_setup_sighandlers(void)
     sigaction(SIGPIPE, &sigact, NULL);
 }
 
-/********************************************************************************************************************
+/** *****************************************************************************************************************
+  @brief initialization before eventloop
+
+  This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets.
+ ********************************************************************************************************************/
+upk_conn_handle_meta_t *
+ctrl_init(void)
+{
+    upk_conn_handle_meta_t *clients = NULL;
+
+    ctrl_signal_queue = calloc(1, sizeof(*ctrl_signal_queue));
+    ctrl_setup_sighandlers();
+
+    clients = upk_net_conn_handles_init(NULL, NULL);
+    clients_list_for_cleanup = clients;
+    atexit(ctrl_exit_cleanup);
+    init_callback_handlers(clients);
+
+    return clients;
+}
+
+/** *****************************************************************************************************************
   @brief the main event loop.
 
   This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets.
@@ -212,13 +265,7 @@ event_loop(int32_t listen_sock)
     int                     connections = 0;
 #endif
 
-    ctrl_signal_queue = calloc(1, sizeof(*ctrl_signal_queue));
-    ctrl_setup_sighandlers();
-
-    clients = upk_net_conn_handles_init(NULL, NULL);
-    clients_list_for_cleanup = clients;
-    atexit(ctrl_exit_cleanup);
-
+    clients = ctrl_init();
 
     while(1) {
         handle_signals();
@@ -247,12 +294,11 @@ event_loop(int32_t listen_sock)
     }
 }
 
-
-/********************************************************************************************************************
+/** *****************************************************************************************************************
   @brief setup controller's socket
  *********************************************************************************************************************/
 int32_t
-ctrl_sock_setup()
+ctrl_sock_setup(void)
 {
     struct sockaddr_un      sa = { 0 };
     int32_t                 sock_fd = -1;
@@ -285,7 +331,7 @@ ctrl_sock_setup()
     return sock_fd;
 }
 
-/********************************************************************************************************************
+/** *****************************************************************************************************************
   @brief deal with signals pending action in signal_queue.
 
   Block all signals during copy to avoid annoying race conditions.
@@ -298,8 +344,8 @@ handle_signals(void)
     ctrl_sigqueue_t         signal_node;
 
     while(ctrl_signal_queue->count > 0) {
-        /* block signals, copy and remove the current element, and then unblock signals; this allows other signals to be enqueued
-           while we deal with the current signal */
+        /* block signals, copy and remove the current element, and then unblock signals; this allows other signals to be enqueued while we
+           deal with the current signal */
 
         sigfillset(&sigset);
         sigprocmask(SIG_BLOCK, &sigset, &oldset);
@@ -317,7 +363,7 @@ handle_signals(void)
             break;
         case SIGINT:
         case SIGTERM:
-            /* FIXME: defer exit until all other signals are handles do data-store is updated for any known buddy-exits */
+            /* FIXME: defer exit until all other signals are handles so that the data-store is updated for any known buddy-exits */
             exit(0);
         }
     }

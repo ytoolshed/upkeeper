@@ -20,7 +20,7 @@
   */
 
 /**
-  @add_to_section API
+  @addtogroup API
   @{
   */
 

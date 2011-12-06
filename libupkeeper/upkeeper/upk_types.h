@@ -109,6 +109,15 @@ struct _upk_cust_actscr_list {
     upk_cust_actscr_list_t *next;                          /*!< next, for use in lists */
 };
 
+/**
+  @brief doubly linked list of strings. For generic things.
+  */
+typedef struct _upk_stringlist upk_stringlist_t;
+struct _upk_stringlist {
+    char string[UPK_MAX_STRING_LEN];
+    upk_stringlist_t * prev;
+    upk_stringlist_t * next;
+};
 
 /**
   @brief see definition in *protocol_fields.h.
@@ -331,6 +340,7 @@ typedef struct _upk_svcinfo {
 
 typedef                 UPKLIST_METANODE(upk_svcid_t, _upk_svcid_meta_p), upk_svcid_meta_t;
 typedef                 UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_meta_p), upk_cust_actscr_meta_t;
+typedef                 UPKDLIST_METANODE(upk_stringlist_t, _upk_stringlist_meta_p), upk_stringlist_meta_t;
 
 
 #endif

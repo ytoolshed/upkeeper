@@ -14,7 +14,7 @@
 /**
   @file
   @brief version 0 of the protocol between clients and controlelr
-  @add_to_section protocol
+  @addtogroup protocol
   @{
   */
 

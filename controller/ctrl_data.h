@@ -11,18 +11,15 @@
  * See accompanying LICENSE file. 
  ************************************************************************** */
 
-#ifndef _UPK_UTIL_H
-#define _UPK_UTIL_H
-/* upkeeper/upk_util.c */
-extern bool             upk_numeric_string(const char *string, long *num);
-extern bool             upk_boolean_string(const char *string, bool * val);
-extern void             upk_replace_string(char **haystack, const char *needle, const char *repl);
-extern struct timeval   upk_double_to_timeval(long double rational);
-int                     upk_rm_rf(char *start_path);
-int                     upk_mkdir_p(const char *path);
+#ifndef _CTRL_DATA_H
+#define _CTRL_DATA_H
 
-#define _stringify(A) #A
-#define stringify(A) _stringify(A)
-
+/* ctrl_data.c */
+extern int upk_db_get_single_text(sqlite3 *dbh, char *value, const char *sql, ...);
+extern int upk_db_get_audit_service_table(sqlite3 *dbh, char *table_id);
+extern int upk_db_get_cfg_services_table(sqlite3 *dbh, char *table_id);
+extern int upk_db_get_cfg_svc_options_table(sqlite3 *dbh, char *table_id);
+extern char *upk_db_svc_uuid_lookup(sqlite3 *dbh, const char *svcid, const char *package);
+extern _Bool upk_db_insert_cfg(sqlite3 *dbh, upk_svc_desc_t *svc);
 
 #endif

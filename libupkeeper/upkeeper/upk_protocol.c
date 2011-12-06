@@ -22,11 +22,17 @@
 
 /********************************************************************************************************************
    @brief Create a packet.
+
+   @param[in] payload               The payload structure.
+   @param[in] payload_len           the size of the payload structure.
+   @param[in] pkttype               Type of packet, either PKT_REQUEST, PKT_REPLY, or PKT_PUBMSG.
+
+   @return the packet itself.
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint32_t proto_ver)
 {
-    upk_packet_t         *pkt = NULL;
+    upk_packet_t           *pkt = NULL;
 
     pkt = calloc(1, sizeof(*pkt));
     pkt->payload_len = payload_len;
@@ -34,15 +40,19 @@ upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint3
     pkt->seq_num = 0;
     pkt->pkttype = pkttype;
     pkt->payload = payload;
-    pkt->crc32 = 0;                                        /* populated/utilized by serialize/deserialize;
-                                                              which assert validity; everything else can
-                                                              assume packets are valid */
+    pkt->crc32 = 0;                                                                      /* populated/utilized by serialize/deserialize;
+                                                                                            which assert validity; everything else can
+                                                                                            assume packets are valid if they get them */
 
     return pkt;
 }
 
 /********************************************************************************************************************
    @brief size of a preamble payload.
+
+   @param[in] preamble              a preamble packet
+
+   @return the size of the packet itself with the client_name pointer dropped and client_name_len added.
  ********************************************************************************************************************/
 static inline           uint32_t
 req_preamble_len(upk_req_preamble_t * preamble)
@@ -53,11 +63,15 @@ req_preamble_len(upk_req_preamble_t * preamble)
 
 /********************************************************************************************************************
    @brief Create a preamble request packet.
+
+   @param[in] handle                A protocol handle, unused here, because we don't care about version for preamble.
+
+   @return a packet containing a preamble request message.
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_preamble(upk_protocol_handle_t * handle, char *client_name)
 {
-    upk_req_preamble_t   *preamble = NULL;
+    upk_req_preamble_t     *preamble = NULL;
 
     preamble = calloc(1, sizeof(*preamble));
 
@@ -72,11 +86,15 @@ upk_create_req_preamble(upk_protocol_handle_t * handle, char *client_name)
 
 /********************************************************************************************************************
   @brief create preamble reply packet
+
+  @param[in] handle                 A protocol handle, unused here, because we don't care about version for preamble.
+
+  @return a packet containing a preamble reply message.
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_preamble(upk_protocol_handle_t * handle, uint32_t best_version)
 {
-    upk_repl_preamble_t  *preamble = NULL;
+    upk_repl_preamble_t    *preamble = NULL;
 
     preamble = calloc(1, sizeof(*preamble));
 
@@ -90,6 +108,8 @@ upk_create_repl_preamble(upk_protocol_handle_t * handle, uint32_t best_version)
 
 /********************************************************************************************************************
   @brief free the payload of a packet
+  
+  @param[in] pkt                    the packet from which to free the payload.
  ********************************************************************************************************************/
 static inline void
 upk_free_payload(upk_packet_t * pkt)
@@ -103,6 +123,8 @@ upk_free_payload(upk_packet_t * pkt)
 
 /********************************************************************************************************************
   @brief free a packet
+
+  @param[in] pkt                    The packet to free.
  ********************************************************************************************************************/
 void
 upk_pkt_free(upk_packet_t * pkt)
@@ -122,7 +144,7 @@ upk_pkt_free(upk_packet_t * pkt)
 /********************************************************************************************************************
   @brief protocol wrapper for sequence start request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)
 {
     switch (handle->version_id) {
@@ -135,7 +157,7 @@ upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type,
 /********************************************************************************************************************
   @brief protocol wrapper for sequence end request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit)
 {
     switch (handle->version_id) {
@@ -148,7 +170,7 @@ upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit)
 /********************************************************************************************************************
   @brief protocol wrapper for action request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_action(upk_protocol_handle_t * handle, char *svc_id, char *action)
 {
     switch (handle->version_id) {
@@ -161,9 +183,8 @@ upk_create_req_action(upk_protocol_handle_t * handle, char *svc_id, char *action
 /********************************************************************************************************************
   @brief protocol wrapper for signal request
  ********************************************************************************************************************/
-upk_packet_t         *
-upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal, bool signal_sid,
-                      bool signal_pgrp)
+upk_packet_t           *
+upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp)
 {
     switch (handle->version_id) {
     case 0:
@@ -175,7 +196,7 @@ upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t
 /********************************************************************************************************************
   @brief protocol wrapper for list request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_list(upk_protocol_handle_t * handle)
 {
     switch (handle->version_id) {
@@ -188,7 +209,7 @@ upk_create_req_list(upk_protocol_handle_t * handle)
 /********************************************************************************************************************
   @brief protocol wrapper for status request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id, uint32_t restart_window_seconds)
 {
     switch (handle->version_id) {
@@ -201,7 +222,7 @@ upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id, uint32_t res
 /********************************************************************************************************************
   @brief protocol wrapper for subscription request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_subscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)
 {
     switch (handle->version_id) {
@@ -214,7 +235,7 @@ upk_create_req_subscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_
 /********************************************************************************************************************
   @brief protocol wrapper for unsubscription request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)
 {
     switch (handle->version_id) {
@@ -227,7 +248,7 @@ upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id, bool al
 /********************************************************************************************************************
   @brief protocol wrapper for disconnect request
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_req_disconnect(upk_protocol_handle_t * handle)
 {
     switch (handle->version_id) {
@@ -240,7 +261,7 @@ upk_create_req_disconnect(upk_protocol_handle_t * handle)
 /********************************************************************************************************************
   @brief protocol wrapper for sequence start reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)
 {
     switch (handle->version_id) {
@@ -253,7 +274,7 @@ upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type
 /********************************************************************************************************************
   @brief protocol wrapper for sequence end reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit)
 {
     switch (handle->version_id) {
@@ -266,7 +287,7 @@ upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit)
 /********************************************************************************************************************
   @brief protocol wrapper for result reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_result(upk_protocol_handle_t * handle, char *msg, bool successful)
 {
     switch (handle->version_id) {
@@ -279,7 +300,7 @@ upk_create_repl_result(upk_protocol_handle_t * handle, char *msg, bool successfu
 /********************************************************************************************************************
   @brief protocol wrapper for listing reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_listing(upk_protocol_handle_t * handle, char *svc_id)
 {
     switch (handle->version_id) {
@@ -292,7 +313,7 @@ upk_create_repl_listing(upk_protocol_handle_t * handle, char *svc_id)
 /********************************************************************************************************************
   @brief protocol wrapper for svcinfo reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_svcinfo(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo)
 {
     switch (handle->version_id) {
@@ -305,7 +326,7 @@ upk_create_repl_svcinfo(upk_protocol_handle_t * handle, char *svc_id, upk_svcinf
 /********************************************************************************************************************
   @brief protocol wrapper for ack reply
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_repl_ack(upk_protocol_handle_t * handle)
 {
     switch (handle->version_id) {
@@ -318,9 +339,8 @@ upk_create_repl_ack(upk_protocol_handle_t * handle)
 /********************************************************************************************************************
   @brief protocol wrapper for error reply
  ********************************************************************************************************************/
-upk_packet_t         *
-upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id, upk_errno_t uerrno, char *errmsg,
-                      upk_errlevel_t errlvl)
+upk_packet_t           *
+upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id, upk_errno_t uerrno, char *errmsg, upk_errlevel_t errlvl)
 {
     switch (handle->version_id) {
     case 0:
@@ -332,7 +352,7 @@ upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id, upk_errno_t 
 /********************************************************************************************************************
   @brief protocol wrapper for publication message
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_pub_publication(upk_protocol_handle_t * handle)
 {
     switch (handle->version_id) {
@@ -345,7 +365,7 @@ upk_create_pub_publication(upk_protocol_handle_t * handle)
 /********************************************************************************************************************
   @brief protocol wrapper for cancelation message
  ********************************************************************************************************************/
-upk_packet_t         *
+upk_packet_t           *
 upk_create_pub_cancelation(upk_protocol_handle_t * handle)
 {
     switch (handle->version_id) {
@@ -361,7 +381,7 @@ upk_create_pub_cancelation(upk_protocol_handle_t * handle)
 upk_msgtype_t
 upk_get_msgtype(upk_packet_t * pkt)
 {
-    upk_generic_msg_t    *dummy = pkt->payload;
+    upk_generic_msg_t      *dummy = pkt->payload;
 
     return dummy->msgtype;
 }
@@ -399,3 +419,7 @@ upk_get_msgsize(upk_msgtype_t type)
         return msgsizes[UPK_MSGTYPE_IDX(type)];
     return 0;
 }
+
+/**
+  @}
+  */

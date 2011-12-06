@@ -78,8 +78,8 @@ int crap(upk_msgtype_t type)
 int
 main(int argc, char **argv, char **envp)
 {
-    upk_conn_handle_meta_t *clients = upk_net_conn_handle_init(NULL, NULL);
-    upk_conn_handle_meta_t *ctrl = upk_net_conn_handle_init(NULL, NULL);
+    upk_conn_handle_meta_t *clients = upk_net_conn_handles_init(NULL, NULL);
+    upk_conn_handle_meta_t *ctrl = upk_net_conn_handles_init(NULL, NULL);
     upk_packet_t           *pkt = NULL;
     int pair[2];
 /*    
@@ -97,15 +97,15 @@ main(int argc, char **argv, char **envp)
     if(pair[0] < 0 || pair[1] < 0)
         upk_fatal("unable to open socketpair\n");
 
-    upk_net_add_socket_handle(ctrl, pair[0], NULL);
-    upk_net_add_socket_handle(clients, pair[1], NULL);
+    upk_net_add_socket_handle(ctrl, pair[0]);
+    upk_net_add_socket_handle(clients, pair[1]);
 
     if(argc > 1 && (strcmp(argv[1], "action") == 0))
         pkt = upk_create_req_action(ctrl->head, "foobar", "start");
     else
         pkt = upk_create_req_preamble(ctrl->head, upk_clientid());
 
-    upk_queue_packet(ctrl->head, pkt, NULL, NULL);
+    upk_queue_packet(ctrl, ctrl->head, pkt, NULL);
     //upk_pkt_free(pkt);
 
     while(!clients->head->last_pkt_data.type) { 

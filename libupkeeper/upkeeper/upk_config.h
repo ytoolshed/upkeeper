@@ -82,7 +82,7 @@ struct _upk_svc_desc {
                                                               here are implicitely added to the list of Prerequisites if not already present 
                                                             */
 
-    int32_t                 BuddyShutdownTimeout;          /*!< when a service is stopped; how many seconds to wait before shutting the
+    /* int32_t                 BuddyShutdownTimeout;          *!< when a service is stopped; how many seconds to wait before shutting the
                                                               buddy down to conserve resources. a value < 0 means to leave the buddy
                                                               running indefinately */
 

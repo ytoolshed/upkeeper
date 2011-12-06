@@ -47,26 +47,26 @@
 
 
 typedef enum {
-    UPK_DIAGLVL_FATAL = 0,                                 /*!< fatal error, operation cannot continue */
-    UPK_DIAGLVL_ALERT,                                     /*!< alert; something really bad happened, but we 
-                                                              believe we can continue */
-    UPK_DIAGLVL_CRIT,                                      /*!< critical; something really bad happened,
-                                                              that probably shouldn't happen; we can
-                                                              continue */
-    UPK_DIAGLVL_ERROR,                                     /*!< An error occurred. */
-    UPK_DIAGLVL_WARN,                                      /*!< A warning, serious, but not too serious */
-    UPK_DIAGLVL_NOTICE,                                    /*!< Something you might want to notice; possibly 
-                                                              normal operation */
-    UPK_DIAGLVL_VERBOSE,                                   /*!< verbose, probably normal operation */
-    UPK_DIAGLVL_INFO,                                      /*!< information, definitely normal operation,
-                                                              intended to aid in troubleshooting
-                                                              user-configurable things */
-    UPK_DIAGLVL_DEBUG0,                                    /*!< debug0, intended to help find bugs in the
-                                                              program; but may also help in finding
-                                                              configuration or environment problems */
-    UPK_DIAGLVL_DEBUG1                                     /*!< debug1, useful in finding and demonstrating
-                                                              bugs in the program (you should probably be
-                                                              using gdb by this point) */
+    UPK_DIAGLVL_FATAL = 0,                                                               /*!< fatal error, operation cannot continue */
+    UPK_DIAGLVL_ALERT,                                                                   /*!< alert; something really bad happened, but we 
+                                                                                            believe we can continue */
+    UPK_DIAGLVL_CRIT,                                                                    /*!< critical; something really bad happened,
+                                                                                            that probably shouldn't happen; we can continue 
+                                                                                          */
+    UPK_DIAGLVL_ERROR,                                                                   /*!< An error occurred. */
+    UPK_DIAGLVL_WARN,                                                                    /*!< A warning, serious, but not too serious */
+    UPK_DIAGLVL_NOTICE,                                                                  /*!< Something you might want to notice; possibly 
+                                                                                            normal operation */
+    UPK_DIAGLVL_VERBOSE,                                                                 /*!< verbose, probably normal operation */
+    UPK_DIAGLVL_INFO,                                                                    /*!< information, definitely normal operation,
+                                                                                            intended to aid in troubleshooting
+                                                                                            user-configurable things */
+    UPK_DIAGLVL_DEBUG0,                                                                  /*!< debug0, intended to help find bugs in the
+                                                                                            program; but may also help in finding
+                                                                                            configuration or environment problems */
+    UPK_DIAGLVL_DEBUG1                                                                   /*!< debug1, useful in finding and demonstrating
+                                                                                            bugs in the program (you should probably be
+                                                                                            using gdb by this point) */
 } upk_diaglvl_t;
 
 static const char       upk_diag_label_idx[][16] = {
@@ -83,8 +83,8 @@ static const char       upk_diag_label_idx[][16] = {
 };
 
 typedef enum {
-    UPK_ERRLVL_ERROR,                                      /*!< semantically similar to diaglvl; but for
-                                                              error-reporting; may become purely protocol */
+    UPK_ERRLVL_ERROR,                                                                    /*!< semantically similar to diaglvl; but for
+                                                                                            error-reporting; may become purely protocol */
 } upk_errlevel_t;
 
 
@@ -92,14 +92,16 @@ typedef enum {
 /* These two items should be kept in sync: */
 /* ************************************* */
 typedef enum {
-    UPK_ERR_UNKNOWN = 0,                                   /*!< unknown error */
-    UPK_ERR_UNSUP,                                         /*!< unsupported */
-    UPK_ERR_INVALID_PKT,                                   /*!< invalid packet, possibly invalid protocol,
-                                                              packet dimensions, or checksum */
-    UPK_SOCKET_FAILURE,                                    /*!< unable to bind/connect/accept/listen on a
-                                                              socket */
-    UPK_JSON_PARSE_ERROR,                                  /*!< json parse error; additional information
-                                                              should also be provided */
+    UPK_ERR_UNKNOWN = 0,                                                                 /*!< unknown error */
+    UPK_ERR_UNSUP,                                                                       /*!< unsupported */
+    UPK_ERR_INVALID_PKT,                                                                 /*!< invalid packet, possibly invalid protocol,
+                                                                                            packet dimensions, or checksum */
+    UPK_SOCKET_FAILURE,                                                                  /*!< unable to bind/connect/accept/listen on a
+                                                                                            socket */
+    UPK_JSON_PARSE_ERROR,                                                                /*!< json parse error; additional information
+                                                                                            should also be provided */
+    UPK_SQL_ERROR,                                                                       /*!< SQLite Error */
+    UPK_CONF_ERROR, /*!< Configuration error */
 } upk_errno_t;
 
 static const char       __upk_errors[][128] = {
@@ -108,15 +110,16 @@ static const char       __upk_errors[][128] = {
     "invalid packet",
     "socket failure",
     "JSON parser error",
+    "SQlite Error",
+    "Configuration Error",
 };
 
-extern char       __upk_err_buf[4096]; // = "";
-extern upk_errno_t __upk_errno_type; // = 0;
+extern char             __upk_err_buf[4096];                                             // = "";
+extern upk_errno_t      __upk_errno_type;                                                // = 0;
 
 typedef void            (*err_rpt_callback_t) (upk_errno_t);
 typedef void            (*err_rpt_msg_callback_t) (upk_errno_t, const char *);
-typedef void            (*diag_output_callback_t) (upk_diaglvl_t diaglvl, const char *label, const char *loc,
-                                                   const char *fmt, va_list ap);
+typedef void            (*diag_output_callback_t) (upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap);
 
 /* upk_error.c */
 extern int32_t          upk_diag_verbosity;
