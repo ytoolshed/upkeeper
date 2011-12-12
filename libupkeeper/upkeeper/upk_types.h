@@ -141,6 +141,9 @@ typedef struct _upk_svcinfo {
 #define UPKLIST_METANODE(TYPE, NAME) \
     struct { TYPE * head; TYPE * tail; TYPE * prevp; TYPE * nextp; TYPE * tempp; TYPE * thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME
 
+#define VUPKLIST_VMETANODE(TYPE, NAME) \
+    struct { volatile TYPE * volatile head; volatile TYPE * volatile tail; volatile TYPE * volatile prevp; volatile TYPE * volatile nextp; volatile TYPE * volatile tempp; volatile TYPE * volatile thisp; uint32_t count; void *userdata; void (*userdata_free_func)(void *); } * NAME
+
 #define UPKLIST_INIT(TYPE, NAME) \
     UPKLIST_METANODE(TYPE, NAME) = NULL; \
     NAME = calloc(1, sizeof(*NAME))
@@ -204,7 +207,7 @@ typedef struct _upk_svcinfo {
     NAME->tempp->next = A->next; \
     A->next = B->next; \
     B->next = NAME->tempp->next; \
-    free(NAME->tempp); NAME->tempp = NULL
+    free((void *) NAME->tempp); NAME->tempp = NULL
 
 
 #define UPKLIST_UNLINK(NAME) \
@@ -212,7 +215,7 @@ typedef struct _upk_svcinfo {
         if(NAME->thisp) { \
             if(! NAME->prevp ) { NAME->head = NAME->nextp; } else { NAME->prevp->next = NAME->nextp; } \
             if(! NAME->nextp ) { NAME->tail = NAME->prevp; } \
-            free(NAME->thisp); NAME->thisp = NULL; \
+            free((void *) NAME->thisp); NAME->thisp = NULL; \
             --NAME->count; \
         } \
     } while(0)
@@ -225,7 +228,7 @@ typedef struct _upk_svcinfo {
                 UPKLIST_UNLINK(NAME); \
             }\
             if(NAME->userdata && NAME->userdata_free_func) { NAME->userdata_free_func(NAME->userdata); } \
-            free(NAME); \
+            free((void *)NAME); \
         } \
     } while(0)
 

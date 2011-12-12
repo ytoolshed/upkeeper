@@ -16,7 +16,7 @@
 #include <errno.h>
 
 
-static ctrl_sigqueue_meta_t *ctrl_signal_queue;
+static volatile ctrl_sigqueue_meta_t * volatile ctrl_signal_queue;
 static upk_conn_handle_meta_t *clients_list_for_cleanup;
 
 void                    controller_packet_callback(upk_conn_handle_meta_t * clients, upk_payload_t *);

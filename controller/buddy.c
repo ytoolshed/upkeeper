@@ -226,7 +226,7 @@ buddy_init(diag_output_callback_t logger)
     buddy_init_paths();
 
     chdir("/");
-    fclose(stdin);
+    freopen("/dev/null", "a", stdin);
     freopen(buddy_path("log/buddyout"), "a", stdout);
     freopen(buddy_path("log/buddyerr"), "a", stderr);
 
@@ -529,18 +529,20 @@ buddy_build_fd_set(fd_set * socks, bool listen_sock)
 static inline void
 buddy_supp_groups(void)
 {
-    struct passwd * pw = getpwuid(buddy_setuid);  
+    static struct passwd * pw = NULL;
+    
+    pw = getpwuid(buddy_setuid);  
 
 #ifdef HAVE_SETGROUPS
     if(clear_supplemental_groups)
         setgroups(0, (const gid_t *) NULL);
 #endif
-    if(pw) {
 #ifdef HAVE_INITGROUPS
+    if(pw) {
         if(initialize_supplemental_groups && buddy_setuid)
             initgroups(pw->pw_name,pw->pw_gid);
-#endif
     }
+#endif
 } 
 
 
@@ -806,9 +808,9 @@ buddy_setreguid(void)
 static inline void
 buddy_setup_fds(void)
 {
+    freopen("/dev/null", "a", stdin);
     freopen(buddy_path("log/stdout"), "a", stdout);
     freopen(buddy_path("log/stderr"), "a", stderr);
-    fclose(stdin);
 }
 
 /* ********************************************************************************************************************

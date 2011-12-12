@@ -20,17 +20,18 @@
 #include <sqlite3.h>
 
 #define UPK_CTRL_MAX_CLIENTS FD_SETSIZE
-
+/* This is overkill, but including volatile keyword here to make it obvious variables of this should really be volatile/un-optimized, and
+   treated specially */
 typedef struct _ctrl_sigqueue ctrl_sigqueue_t;
 struct _ctrl_sigqueue {
-    siginfo_t               siginfo;
-    int                     signal;
-    ctrl_sigqueue_t          *next;
+    volatile siginfo_t      siginfo;
+    volatile int            signal;
+    volatile ctrl_sigqueue_t *volatile next;
 };
 
-typedef                 UPKLIST_METANODE(ctrl_sigqueue_t, ctrl_sigqueue_meta_p), ctrl_sigqueue_meta_t;
+typedef                 VUPKLIST_VMETANODE(ctrl_sigqueue_t, ctrl_sigqueue_meta_p), ctrl_sigqueue_meta_t;
 
-extern sqlite3 * ctrl_dbh;
+extern sqlite3         *ctrl_dbh;
 
 extern int              socket_setup(const char *sock_path);
 extern void             handle_signals(void);

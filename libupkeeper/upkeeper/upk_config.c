@@ -225,6 +225,7 @@ const char upk_default_configuration_str[] =
 /* FIXME: this could lead to thread safety issues; need to do this more cleanly */
 upk_controller_config_t upk_default_configuration;
 upk_controller_config_t upk_file_configuration;
+upk_controller_config_t upk_db_configuration;
 upk_controller_config_t upk_runtime_configuration;
 
 /* ******************************************************************************************************************
@@ -861,7 +862,7 @@ upk_config_loadfile(const char *filename)
             len += (add = strnlen(buf, sizeof(buf)));
             if(len > size) {
                 size *= 2;
-                json_string = realloc(json_string, size);
+                json_string = realloc(json_string, size + 1);
             }
             strncat(json_string, buf, add);
         }
@@ -1247,6 +1248,8 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->StartScript && strlen(high->StartScript) > 0) {
+        if(dest->StartScript)
+            free(dest->StartScript);
         dest->StartScript = calloc(1, strlen(high->StartScript) + 1);
         strcpy(dest->StartScript, high->StartScript);
     }
@@ -1257,6 +1260,8 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->StopScript && strlen(high->StopScript) > 0) {
+        if(dest->StopScript)
+            free(dest->StopScript);
         dest->StopScript = calloc(1, strlen(high->StopScript) + 1);
         strcpy(dest->StopScript, high->StopScript);
     }
@@ -1267,6 +1272,8 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->ReloadScript && strlen(high->ReloadScript) > 0) {
+        if(dest->ReloadScript)
+            free(dest->ReloadScript);
         dest->ReloadScript = calloc(1, strlen(high->ReloadScript) + 1);
         strcpy(dest->ReloadScript, high->ReloadScript);
     }
@@ -1296,11 +1303,15 @@ upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)
     }
 
     if(high->PipeStdoutScript && strlen(high->PipeStdoutScript) > 0) {
+        if(dest->PipeStdoutScript)
+            free(dest->PipeStdoutScript);
         dest->PipeStdoutScript = calloc(1, strlen(high->PipeStdoutScript) + 1);
         strcpy(dest->PipeStdoutScript, high->PipeStdoutScript);
     }
 
     if(high->PipeStderrScript && strlen(high->PipeStderrScript) > 0) {
+        if(dest->PipeStdoutScript)
+            free(dest->PipeStdoutScript);
         dest->PipeStderrScript = calloc(1, strlen(high->PipeStderrScript) + 1);
         strcpy(dest->PipeStderrScript, high->PipeStderrScript);
     }
@@ -1424,6 +1435,8 @@ upk_load_runtime_services(void)
     strncpy(path_buf, upk_runtime_configuration.SvcConfigPath, sizeof(path_buf) - 1);
     pathp = path_buf + strnlen(path_buf, sizeof(path_buf));
 
+    upk_file_configuration.svclist = calloc(1, sizeof(*upk_file_configuration.svclist));
+
     if(strnlen(upk_runtime_configuration.SvcConfigPath, sizeof(upk_runtime_configuration.SvcConfigPath)) > 0) {
         errno = 0;
         if((dir = opendir(upk_runtime_configuration.SvcConfigPath))) {
@@ -1447,16 +1460,14 @@ upk_load_runtime_services(void)
                 UPKLIST_FREE(upk_runtime_configuration.svclist);
             upk_runtime_configuration.svclist = calloc(1, sizeof(*upk_runtime_configuration.svclist));
 
-            if(upk_file_configuration.svclist) {
-                UPKLIST_FOREACH(upk_file_configuration.svclist) {
-                    UPKLIST_APPEND(upk_runtime_configuration.svclist);
-                    upk_svc_desc_clear(upk_runtime_configuration.svclist->thisp);
-                    upk_finalize_svc_desc(upk_runtime_configuration.svclist->thisp, upk_file_configuration.svclist->thisp);
-                    if(upk_diag_verbosity >= UPK_DIAGLVL_DEBUG1) {
-                        p = upk_json_serialize_svc_config(upk_runtime_configuration.svclist->thisp, opts);
-                        upk_debug1("Finalized service:\n%s\n", p);
-                        free(p);
-                    }
+            UPKLIST_FOREACH(upk_file_configuration.svclist) {
+                UPKLIST_APPEND(upk_runtime_configuration.svclist);
+                upk_svc_desc_clear(upk_runtime_configuration.svclist->thisp);
+                upk_finalize_svc_desc(upk_runtime_configuration.svclist->thisp, upk_file_configuration.svclist->thisp);
+                if(upk_diag_verbosity >= UPK_DIAGLVL_DEBUG1) {
+                    p = upk_json_serialize_svc_config(upk_runtime_configuration.svclist->thisp, opts);
+                    upk_debug1("Finalized service:\n%s\n", p);
+                    free(p);
                 }
             }
         } else {

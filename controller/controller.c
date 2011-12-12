@@ -12,12 +12,15 @@
  ************************************************************************** */
 
 #include <upkeeper.h>
-#include "controller.h"
 #include <sqlite3.h>
+#include <sys/file.h>
+#include "controller.h"
 #include "ctrl_sql.h"
 #include "ctrl_data.h"
 
 sqlite3                *ctrl_dbh;
+static char             flockpath[UPK_MAX_STRING_LEN] = "";
+static int              flock_fd;
 
 /** ******************************************************************************************************************
   @brief controller state initialization.
@@ -27,6 +30,7 @@ upk_state_init(void)
 {
     struct stat             st;
     int                     errno_tmp;
+    int                     flock_fd = -1;
 
     errno = 0;
     upk_mkdir_p(upk_runtime_configuration.StateDir);
@@ -35,6 +39,15 @@ upk_state_init(void)
        || !S_ISDIR(st.st_mode)) {
         upk_fatal("State directory doesn't exist and could not be created: %s: %s\n", upk_runtime_configuration.StateDir, errno_tmp);
     }
+
+    strncpy(flockpath, upk_runtime_configuration.StateDir, UPK_MAX_STRING_LEN - 1);
+    strncat(flockpath, ".lock", UPK_MAX_STRING_LEN - 1 - strnlen(upk_runtime_configuration.StateDir, UPK_MAX_STRING_LEN));
+
+    open(flockpath, O_CREAT);
+    fcntl(flock_fd, F_SETFD, FD_CLOEXEC);
+
+    if(flock(flock_fd, LOCK_EX) != 0)
+        upk_fatal("Another instance of controller is already running\n");
 
     return;
 }
@@ -78,7 +91,8 @@ upk_ctrl_init_db(char *db_path)
     int                     rc = 0;
     char                   *db_pathp = NULL;
     char                   *sqlerr = NULL;
-    //char                    table_id[UPK_MAX_STRING_LEN] = "";
+
+    // char table_id[UPK_MAX_STRING_LEN] = "";
 
     db_pathp = db_path + strnlen(db_path, UPK_MAX_PATH_LEN);
 
@@ -113,7 +127,10 @@ upk_ctrl_exit(void)
     if(ctrl_dbh)
         sqlite3_close(ctrl_dbh);
     upk_ctrl_free_config();
+    close(flock_fd);
+    unlink(flockpath);
 }
+
 
 /** ******************************************************************************************************************
  ******************************************************************************************************************* */
