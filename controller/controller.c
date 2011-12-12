@@ -41,9 +41,13 @@ upk_state_init(void)
     }
 
     strncpy(flockpath, upk_runtime_configuration.StateDir, UPK_MAX_STRING_LEN - 1);
-    strncat(flockpath, ".lock", UPK_MAX_STRING_LEN - 1 - strnlen(upk_runtime_configuration.StateDir, UPK_MAX_STRING_LEN));
+    strncat(flockpath, "/.lock", UPK_MAX_STRING_LEN - 1 - strnlen(upk_runtime_configuration.StateDir, UPK_MAX_STRING_LEN));
 
-    open(flockpath, O_CREAT);
+    errno = 0;
+    flock_fd = open(flockpath, O_CREAT);
+    if(errno)
+        upk_fatal("Could not open %s: %s\n", flockpath, strerror(errno));
+
     fcntl(flock_fd, F_SETFD, FD_CLOEXEC);
 
     if(flock(flock_fd, LOCK_EX) != 0)
