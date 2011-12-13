@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #include <upkeeper.h>
 #include <upkeeper/upk_json.h>
 #include <getopt.h>
@@ -12,7 +24,6 @@ static struct option longopts[] = {
     {"long_description", 1, 0, 0},
     {"prerequisites", 1, 0, 0},
     {"start_priority", 1, 0, 0},
-    {"buddy_shutdown_timeout", 1, 0, 0},
     {"kill_timeout", 1, 0, 0},
     {"max_consecutive_failures", 1, 0, 0},
     {"user_max_restarts", 1, 0, 0},
@@ -54,10 +65,12 @@ main(int argc, char ** argv, char ** envp)
     int option_index = 0;
     upk_json_data_output_opts_t opts = { .pad = " ", .indent = "    ", .sep = "\n", .suppress_null_values = false };
     upk_svc_desc_t svc = { 0 };
+    upk_svc_desc_t dest = { 0 };
 
     upk_svc_desc_clear(&svc);
+    upk_svc_desc_clear(&dest);
 
-    while((c = getopt_long(argc, argv, "sch", longopts, &option_index)) >= 0) {
+    while((c = getopt_long(argc, argv, "dfsch", longopts, &option_index)) >= 0) {
         *(cbuf + 1) = (option_index) ? '-' : c;
         p = (option_index) ? longopts[option_index].name : pbuf;
         switch(c) {
@@ -69,7 +82,7 @@ main(int argc, char ** argv, char ** envp)
                 else if(strcmp(longopts[option_index].name, "package") == 0)
                     strcpy(svc.Package, optarg);
                 else if(strcmp(longopts[option_index].name, "uuid") == 0) {
-                    upk_string_to_uuid(optarg, &svc.UUID);
+                    upk_string_to_uuid(&svc.UUID, optarg);
                 }
                 else if(strcmp(longopts[option_index].name, "short_description") == 0)
                     strcpy(svc.ShortDescription, optarg);
@@ -82,10 +95,6 @@ main(int argc, char ** argv, char ** envp)
                 else if(strcmp(longopts[option_index].name, "start_priority") == 0) {
                     upk_numeric_string(optarg, &nbuf);
                     svc.StartPriority = nbuf;
-                }
-                else if(strcmp(longopts[option_index].name, "buddy_shutdown_timeout") == 0) {
-                    upk_numeric_string(optarg, &nbuf);
-                    svc.BuddyShutdownTimeout = nbuf;
                 }
                 else if(strcmp(longopts[option_index].name, "kill_timeout") == 0) {
                     upk_numeric_string(optarg, &nbuf);
@@ -177,6 +186,9 @@ main(int argc, char ** argv, char ** envp)
                 opts.indent = "",
                 opts.sep = "";
                 break;
+            case 'd':
+                printf("%s\n", upk_default_configuration_str);
+                exit(0);
             case 's':
                 opts.suppress_null_values = true;
                 break;
@@ -186,18 +198,24 @@ main(int argc, char ** argv, char ** envp)
         }
     }
 
-    /*
-    if(finalize)
-        UPKLIST_FOREACH(cfg.svclist) {
-            UPKLIST_APPEND(svclist);
-            upk_svc_desc_clear(svclist->thisp);
-                                        upk_finalize_svc_desc(svclist->thisp, cfg.svclist->thisp);
-                                            }
-    */
+    upk_ctrl_load_config();
 
-    cp = upk_json_serialize_svc_config(&svc, opts);
+    if(finalize) {
+        upk_finalize_svc_desc(&dest, &svc);
+        upk_svc_desc_free(&svc);
+    }
+    else {
+        dest = svc;
+    }
+
+    cp = upk_json_serialize_svc_config(&dest, opts);
+    upk_svc_desc_free(&dest);
+    upk_ctrl_free_config();
+
     printf("%s", cp);
     free(cp);
+
+    return 0;
 }
 
 

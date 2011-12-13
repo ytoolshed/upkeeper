@@ -42,8 +42,10 @@ ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/m4/libtool.m4 \
 	$(top_srcdir)/m4/ltoptions.m4 $(top_srcdir)/m4/ltsugar.m4 \
 	$(top_srcdir)/m4/ltversion.m4 $(top_srcdir)/m4/lt~obsolete.m4 \
-	$(top_srcdir)/m4/upk_poll.m4 $(top_srcdir)/m4/upk_with_lib.m4 \
-	$(top_srcdir)/configure.ac
+	$(top_srcdir)/m4/pkg.m4 $(top_srcdir)/m4/upk_have_progname.m4 \
+	$(top_srcdir)/m4/upk_helpers.m4 \
+	$(top_srcdir)/m4/upk_installdirs.m4 \
+	$(top_srcdir)/m4/upk_with_lib.m4 $(top_srcdir)/configure.ac
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
 mkinstalldirs = $(install_sh) -d
@@ -55,18 +57,20 @@ PROGRAMS = $(libexec_PROGRAMS) $(sbin_PROGRAMS)
 am_upk_buddy_OBJECTS = upk_buddy-buddy.$(OBJEXT) \
 	upk_buddy-buddy_main.$(OBJEXT) upk_buddy-upk_error.$(OBJEXT)
 upk_buddy_OBJECTS = $(am_upk_buddy_OBJECTS)
-upk_buddy_DEPENDENCIES =
+upk_buddy_DEPENDENCIES =  \
+	$(top_builddir)/libupkeeper/libupkeeper_util.la
 upk_buddy_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(upk_buddy_CFLAGS) \
-	$(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
+	$(CFLAGS) $(upk_buddy_LDFLAGS) $(LDFLAGS) -o $@
 am_upk_controller_OBJECTS = controller.$(OBJEXT) \
 	controller_main.$(OBJEXT) ctrl_protocol.$(OBJEXT) \
-	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT)
-upk_controller_OBJECTS = $(am_upk_controller_OBJECTS)
-upk_controller_LDADD = $(LDADD)
-upk_controller_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
-	$(upk_controller_LDFLAGS) $(LDFLAGS) -o $@
+	ctrl_buddy.$(OBJEXT) ctrl_eventloop.$(OBJEXT) \
+	ctrl_data.$(OBJEXT)
+nodist_upk_controller_OBJECTS =
+upk_controller_OBJECTS = $(am_upk_controller_OBJECTS) \
+	$(nodist_upk_controller_OBJECTS)
+upk_controller_DEPENDENCIES =  \
+	$(top_builddir)/libupkeeper/libupkeeper.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -80,7 +84,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(upk_buddy_SOURCES) $(upk_controller_SOURCES)
+SOURCES = $(upk_buddy_SOURCES) $(upk_controller_SOURCES) \
+	$(nodist_upk_controller_SOURCES)
 DIST_SOURCES = $(upk_buddy_SOURCES) $(upk_controller_SOURCES)
 ETAGS = etags
 CTAGS = ctags
@@ -117,16 +122,24 @@ INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
 INSTALL_SCRIPT = @INSTALL_SCRIPT@
 INSTALL_STRIP_PROGRAM = @INSTALL_STRIP_PROGRAM@
+JSON_CPPFLAGS = @JSON_CPPFLAGS@
+JSON_LDFLAGS = @JSON_LDFLAGS@
+JSON_LIBS = @JSON_LIBS@
+JSON_TOKENER_PARSE_LIBS = @JSON_TOKENER_PARSE_LIBS@
 LD = @LD@
 LDFLAGS = @LDFLAGS@
 LIBOBJS = @LIBOBJS@
-LIBS = 
+LIBS = @LIBS@
 LIBTOOL = @LIBTOOL@
 LIPO = @LIPO@
 LN_S = @LN_S@
 LTLIBOBJS = @LTLIBOBJS@
+MAIN_LIBS = @MAIN_LIBS@
 MAKEINFO = @MAKEINFO@
 MKDIR_P = @MKDIR_P@
+NCURSES_CPPFLAGS = @NCURSES_CPPFLAGS@
+NCURSES_LDFLAGS = @NCURSES_LDFLAGS@
+NCURSES_LIBS = @NCURSES_LIBS@
 NM = @NM@
 NMEDIT = @NMEDIT@
 OBJDUMP = @OBJDUMP@
@@ -145,6 +158,10 @@ RANLIB = @RANLIB@
 SED = @SED@
 SET_MAKE = @SET_MAKE@
 SHELL = @SHELL@
+SQLITE3_CPPFLAGS = @SQLITE3_CPPFLAGS@
+SQLITE3_LDFLAGS = @SQLITE3_LDFLAGS@
+SQLITE3_LIBS = @SQLITE3_LIBS@
+SQLITE3_OPEN_LIBS = @SQLITE3_OPEN_LIBS@
 STRIP = @STRIP@
 VERSION = @VERSION@
 abs_builddir = @abs_builddir@
@@ -165,9 +182,6 @@ build_cpu = @build_cpu@
 build_os = @build_os@
 build_vendor = @build_vendor@
 builddir = @builddir@
-conf_libexecdir = @conf_libexecdir@
-conf_localstatedir = @conf_localstatedir@
-conf_sysconfdir = @conf_sysconfdir@
 datadir = @datadir@
 datarootdir = @datarootdir@
 docdir = @docdir@
@@ -202,15 +216,20 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CPPFLAGS = -I$(top_builddir)/libupkeeper
-LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
-upk_buddy_LDADD = 
-upk_buddy_CFLAGS = -DUPK_STATIC_ERR_DECL
-upk_buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h
-upk_controller_SOURCES = controller.c controller_main.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c 
-upk_controller_DEPENDENCIES = $(top_builddir)/libupkeeper/libupkeeper.la
-upk_controller_LDFLAGS = -ljson -lsqlite3
-all: all-am
+AM_CPPFLAGS_G := $(CPPFLAGS) -I$(top_builddir)/libupkeeper
+AM_LDFLAGS_G := $(LDFLAGS)
+AM_CPPFLAGS = @SQLITE3_CPPFLAGS@ @JSON_CPPFLAGS@ $(AM_CPPFLAGS_G)
+AM_LDFLAGS = @SQLITE3_LDFLAGS@ @SQLITE3_LIBS@ @JSON_LDFLAGS@ @JSON_LIBS@ $(AM_LDFLAGS_G)
+BUILT_SOURCES = ctrl_sql.h
+upk_controller_SOURCES = controller.c controller_main.c controller.h ctrl_protocol.c ctrl_buddy.c ctrl_eventloop.c ctrl_data.c ctrl_data.h $(top_builddir)/upkeeper_config.h 
+nodist_upk_controller_SOURCES = ctrl_sql.h
+upk_controller_LDADD = $(top_builddir)/libupkeeper/libupkeeper.la 
+upk_buddy_CFLAGS = -DUPK_STATIC_ERR_DECL 
+upk_buddy_LDFLAGS = -static
+upk_buddy_LDADD = $(top_builddir)/libupkeeper/libupkeeper_util.la
+upk_buddy_SOURCES = buddy.c buddy_main.c $(top_builddir)/libupkeeper/upkeeper/upk_error.c $(top_builddir)/libupkeeper/upkeeper/error.h $(top_builddir)/upkeeper_config.h
+all: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) all-am
 
 .SUFFIXES:
 .SUFFIXES: .c .lo .o .obj
@@ -335,7 +354,7 @@ upk_buddy$(EXEEXT): $(upk_buddy_OBJECTS) $(upk_buddy_DEPENDENCIES)
 	$(upk_buddy_LINK) $(upk_buddy_OBJECTS) $(upk_buddy_LDADD) $(LIBS)
 upk_controller$(EXEEXT): $(upk_controller_OBJECTS) $(upk_controller_DEPENDENCIES) 
 	@rm -f upk_controller$(EXEEXT)
-	$(upk_controller_LINK) $(upk_controller_OBJECTS) $(upk_controller_LDADD) $(LIBS)
+	$(LINK) $(upk_controller_OBJECTS) $(upk_controller_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -346,6 +365,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/controller.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/controller_main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_buddy.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_data.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_eventloop.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ctrl_protocol.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/upk_buddy-buddy.Po@am__quote@
@@ -504,13 +524,15 @@ distdir: $(DISTFILES)
 	  fi; \
 	done
 check-am: all-am
-check: check-am
+check: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) check-am
 all-am: Makefile $(PROGRAMS)
 installdirs:
 	for dir in "$(DESTDIR)$(libexecdir)" "$(DESTDIR)$(sbindir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
 	done
-install: install-am
+install: $(BUILT_SOURCES)
+	$(MAKE) $(AM_MAKEFLAGS) install-am
 install-exec: install-exec-am
 install-data: install-data-am
 uninstall: uninstall-am
@@ -535,6 +557,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+	-test -z "$(BUILT_SOURCES)" || rm -f $(BUILT_SOURCES)
 clean: clean-am
 
 clean-am: clean-generic clean-libexecPROGRAMS clean-libtool \
@@ -606,7 +629,7 @@ ps-am:
 
 uninstall-am: uninstall-libexecPROGRAMS uninstall-sbinPROGRAMS
 
-.MAKE: install-am install-strip
+.MAKE: all check install install-am install-strip
 
 .PHONY: CTAGS GTAGS all all-am check check-am clean clean-generic \
 	clean-libexecPROGRAMS clean-libtool clean-sbinPROGRAMS ctags \
@@ -624,6 +647,10 @@ uninstall-am: uninstall-libexecPROGRAMS uninstall-sbinPROGRAMS
 	tags uninstall uninstall-am uninstall-libexecPROGRAMS \
 	uninstall-sbinPROGRAMS
 
+
+ctrl_sql.h: *.sql $(top_srcdir)/scripts/create_sql_header.sh
+	chmod 755 $(top_srcdir)/scripts/create_sql_header.sh; \
+	$(top_srcdir)/scripts/create_sql_header.sh "$(top_builddir)"
 
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.

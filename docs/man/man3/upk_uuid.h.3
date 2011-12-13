@@ -1,0 +1,76 @@
+.TH "libupkeeper/upkeeper/upk_uuid.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_uuid.h \- 
+.PP
+definition of upk uuid implementation.  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_std_include.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_uuid\fP"
+.br
+.RI "\fIstructure for holding 16 byte UUID. \fP"
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_UUID_LEN\fP   sizeof(\fBupk_uuid_t\fP)"
+.br
+.ti -1c
+.RI "#define \fBUPK_UUID_STRING_LEN\fP   36"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_uuid\fP \fBupk_uuid_t\fP"
+.br
+.RI "\fIstructure for holding 16 byte UUID. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_uuid_seed_random\fP (void)"
+.br
+.RI "\fIseed random number pool used by upk_gen_uuid_bytes. \fP"
+.ti -1c
+.RI "int \fBupk_uuid_open_random\fP (void)"
+.br
+.RI "\fIopen random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable. \fP"
+.ti -1c
+.RI "void \fBupk_gen_uuid_bytes\fP (\fBupk_uuid_t\fP *buf)"
+.br
+.RI "\fIcollect and/or generate 16 bytes of random data. \fP"
+.ti -1c
+.RI "void \fBupk_uuid_to_string\fP (char *buf, const \fBupk_uuid_t\fP *uuid)"
+.br
+.RI "\fIconvert uuid to string and place in buf. \fP"
+.ti -1c
+.RI "bool \fBis_valid_upk_uuid_string\fP (const char *string)"
+.br
+.RI "\fItest if a given string is a valid uuid string. \fP"
+.ti -1c
+.RI "void \fBupk_string_to_uuid\fP (\fBupk_uuid_t\fP *uuid, const char *string)"
+.br
+.RI "\fIconvert uuid string into uuid structure. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+definition of upk uuid implementation. 
+
+Functions for version 4 UUIDs (random) 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,128 @@
+.TH "libupkeeper/upkeeper/upk_json.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_json.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+\fC#include <json/json.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_json_string\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_json_type\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_json_stack_handlers\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_json_stack_node\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_json_string\fP \fBupk_json_string_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_json_type\fP \fBupk_json_val_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_json_stack_node\fP \fBupk_json_stack_node_t\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBupk_json_handler_t\fP )(\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_json_stack_handlers\fP \fBupk_json_handlers_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_json_stack_node_t\fP, upk_json_stack_meta_p)"
+.br
+.ti -1c
+.RI "void \fBupk_json_stack_pop\fP (\fBupk_json_stack_meta_t\fP *meta)"
+.br
+.ti -1c
+.RI "void \fBupk_json_stack_push\fP (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_stack_node_t\fP *node)"
+.br
+.ti -1c
+.RI "void \fBupk_json_parse_node\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_json_parse_string\fP (const char *string)"
+.br
+.ti -1c
+.RI "char * \fBupk_json_obj_to_string\fP (struct json_object *obj, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.ti -1c
+.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBupk_json_stack_meta_t\fP"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef void(* \fBupk_json_handler_t\fP)(\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.SS "typedef struct \fB_upk_json_stack_handlers\fP  \fBupk_json_handlers_t\fP"
+.SS "typedef struct \fB_upk_json_stack_node\fP \fBupk_json_stack_node_t\fP"
+.SS "typedef struct \fB_upk_json_string\fP  \fBupk_json_string_t\fP"
+.SS "typedef struct \fB_upk_json_type\fP  \fBupk_json_val_t\fP"
+.SH "Function Documentation"
+.PP 
+.SS "void upk_json_obj_to_stream (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fPopts)"
+.PP
+References data_type_stream, _upk_json_output_data::type, and upk_json_obj_serializer().
+.SS "char* upk_json_obj_to_string (struct json_object *obj, \fBupk_json_data_output_opts_t\fPopts)"
+.PP
+References _upk_json_output_data::d, data_type_string, _upk_stream_string::p, _upk_stream_string::str, _upk_json_output_data::type, and upk_json_obj_serializer().
+.PP
+Referenced by upk_json_serialize_svc_config().
+.SS "void upk_json_parse_node (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)"
+.PP
+References _upk_json_parse_node().
+.PP
+Referenced by upk_ctrlconf_pack(), upk_json_obj_serializer(), and upk_svcconf_pack().
+.SS "struct json_object* upk_json_parse_string (const char *string)\fC [read]\fP"
+.PP
+References IF_UPK_ERROR, UPK_ERR_INIT, UPK_FUNC_ASSERT_MSG, and UPK_JSON_PARSE_ERROR.
+.PP
+Referenced by main(), upk_ctrlconf_pack(), and upk_svcconf_pack().
+.SS "void upk_json_stack_pop (\fBupk_json_stack_meta_t\fP *meta)"
+.PP
+References UPKLIST_FOREACH, and UPKLIST_UNLINK.
+.PP
+Referenced by _upk_json_parse_node().
+.SS "void upk_json_stack_push (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_stack_node_t\fP *node)"
+.PP
+References UPKLIST_PREPEND.
+.PP
+Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_array_handler(), upk_svcconf_nested_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
+.SS "typedef UPKLIST_METANODE (\fBupk_json_stack_node_t\fP, upk_json_stack_meta_p)"
+.SH "Variable Documentation"
+.PP 
+.SS "typedef \fBupk_json_stack_meta_t\fP"
+.PP
+Referenced by upk_ctrlconf_pack(), upk_json_obj_serializer(), and upk_svcconf_pack().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

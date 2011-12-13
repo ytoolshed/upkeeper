@@ -1,0 +1,476 @@
+\section{Pager Struct Reference}
+\label{structPager}\index{Pager@{Pager}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Vfs}
+\item 
+\bf{u8} \bf{exclusive\-Mode}
+\item 
+\bf{u8} \bf{journal\-Mode}
+\item 
+\bf{u8} \bf{use\-Journal}
+\item 
+\bf{u8} \bf{no\-Readlock}
+\item 
+\bf{u8} \bf{no\-Sync}
+\item 
+\bf{u8} \bf{full\-Sync}
+\item 
+\bf{u8} \bf{sync\_\-flags}
+\item 
+\bf{u8} \bf{temp\-File}
+\item 
+\bf{u8} \bf{read\-Only}
+\item 
+\bf{u8} \bf{mem\-Db}
+\item 
+\bf{u8} \bf{e\-State}
+\item 
+\bf{u8} \bf{e\-Lock}
+\item 
+\bf{u8} \bf{change\-Count\-Done}
+\item 
+\bf{u8} \bf{set\-Master}
+\item 
+\bf{u8} \bf{do\-Not\-Spill}
+\item 
+\bf{u8} \bf{do\-Not\-Sync\-Spill}
+\item 
+\bf{u8} \bf{subj\-In\-Memory}
+\item 
+\bf{Pgno} \bf{db\-Size}
+\item 
+\bf{Pgno} \bf{db\-Orig\-Size}
+\item 
+\bf{Pgno} \bf{db\-File\-Size}
+\item 
+\bf{Pgno} \bf{db\-Hint\-Size}
+\item 
+int \bf{err\-Code}
+\item 
+int \bf{n\-Rec}
+\item 
+\bf{u32} \bf{cksum\-Init}
+\item 
+\bf{u32} \bf{n\-Sub\-Rec}
+\item 
+\bf{Bitvec} $\ast$ \bf{p\-In\-Journal}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{fd}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{jfd}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{sjfd}
+\item 
+\bf{i64} \bf{journal\-Off}
+\item 
+\bf{i64} \bf{journal\-Hdr}
+\item 
+\bf{sqlite3\_\-backup} $\ast$ \bf{p\-Backup}
+\item 
+\bf{Pager\-Savepoint} $\ast$ \bf{a\-Savepoint}
+\item 
+int \bf{n\-Savepoint}
+\item 
+char \bf{db\-File\-Vers} [16]
+\item 
+\bf{u16} \bf{n\-Extra}
+\item 
+\bf{i16} \bf{n\-Reserve}
+\item 
+\bf{u32} \bf{vfs\-Flags}
+\item 
+\bf{u32} \bf{sector\-Size}
+\item 
+int \bf{page\-Size}
+\item 
+\bf{Pgno} \bf{mx\-Pgno}
+\item 
+\bf{i64} \bf{journal\-Size\-Limit}
+\item 
+char $\ast$ \bf{z\-Filename}
+\item 
+char $\ast$ \bf{z\-Journal}
+\item 
+int($\ast$ \bf{x\-Busy\-Handler} )(void $\ast$)
+\item 
+void $\ast$ \bf{p\-Busy\-Handler\-Arg}
+\item 
+void($\ast$ \bf{x\-Reiniter} )(\bf{Db\-Page} $\ast$)
+\item 
+char $\ast$ \bf{p\-Tmp\-Space}
+\item 
+\bf{PCache} $\ast$ \bf{p\-PCache}
+\item 
+\bf{Wal} $\ast$ \bf{p\-Wal}
+\item 
+char $\ast$ \bf{z\-Wal}
+\item 
+\bf{sqlite3\_\-vfs} $\ast$ \bf{p\-Vfs}
+\item 
+\bf{Bitvec} $\ast$ \bf{p\-In\-Journal}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{fd}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{jfd}
+\item 
+\bf{sqlite3\_\-file} $\ast$ \bf{sjfd}
+\item 
+\bf{sqlite3\_\-backup} $\ast$ \bf{p\-Backup}
+\item 
+\bf{Pager\-Savepoint} $\ast$ \bf{a\-Savepoint}
+\item 
+char $\ast$ \bf{z\-Filename}
+\item 
+char $\ast$ \bf{z\-Journal}
+\item 
+void $\ast$ \bf{p\-Busy\-Handler\-Arg}
+\item 
+char $\ast$ \bf{p\-Tmp\-Space}
+\item 
+\bf{PCache} $\ast$ \bf{p\-PCache}
+\item 
+\bf{Wal} $\ast$ \bf{p\-Wal}
+\item 
+char $\ast$ \bf{z\-Wal}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{Pager@{Pager}!aSavepoint@{aSavepoint}}
+\index{aSavepoint@{aSavepoint}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pager\-Savepoint}$\ast$ \bf{Pager::a\-Savepoint}}\label{structPager_7c939695fe5ff2b9082114c645c2ff3d}
+
+
+\index{Pager@{Pager}!aSavepoint@{aSavepoint}}
+\index{aSavepoint@{aSavepoint}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pager\-Savepoint}$\ast$ \bf{Pager::a\-Savepoint}}\label{structPager_7c939695fe5ff2b9082114c645c2ff3d}
+
+
+\index{Pager@{Pager}!changeCountDone@{changeCountDone}}
+\index{changeCountDone@{changeCountDone}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::change\-Count\-Done}}\label{structPager_b537e61f59a0da85db21d64f194992c8}
+
+
+\index{Pager@{Pager}!cksumInit@{cksumInit}}
+\index{cksumInit@{cksumInit}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Pager::cksum\-Init}}\label{structPager_71efc550c572147f53de1f32717daaf9}
+
+
+\index{Pager@{Pager}!dbFileSize@{dbFileSize}}
+\index{dbFileSize@{dbFileSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Pager::db\-File\-Size}}\label{structPager_0a3d351b0806698fc04204e9e7e593c2}
+
+
+\index{Pager@{Pager}!dbFileVers@{dbFileVers}}
+\index{dbFileVers@{dbFileVers}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{Pager::db\-File\-Vers}}\label{structPager_1bf16ef1974acb60c4c4426284c14ada}
+
+
+\index{Pager@{Pager}!dbHintSize@{dbHintSize}}
+\index{dbHintSize@{dbHintSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Pager::db\-Hint\-Size}}\label{structPager_2ae6c4da9afb16beaa540c7f214c9000}
+
+
+\index{Pager@{Pager}!dbOrigSize@{dbOrigSize}}
+\index{dbOrigSize@{dbOrigSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Pager::db\-Orig\-Size}}\label{structPager_b4d2f0dbbfea63fa8c63dae6490262e0}
+
+
+\index{Pager@{Pager}!dbSize@{dbSize}}
+\index{dbSize@{dbSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Pager::db\-Size}}\label{structPager_9c8ad8db3829b039f131a26c3c0d5ffc}
+
+
+\index{Pager@{Pager}!doNotSpill@{doNotSpill}}
+\index{doNotSpill@{doNotSpill}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::do\-Not\-Spill}}\label{structPager_3aff6964a2a5bc851a27be72b8a74afe}
+
+
+\index{Pager@{Pager}!doNotSyncSpill@{doNotSyncSpill}}
+\index{doNotSyncSpill@{doNotSyncSpill}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::do\-Not\-Sync\-Spill}}\label{structPager_267a41149898942d3ee48af66da122b8}
+
+
+\index{Pager@{Pager}!eLock@{eLock}}
+\index{eLock@{eLock}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::e\-Lock}}\label{structPager_8b34aa4f3d3d5cba325a637739c261f3}
+
+
+\index{Pager@{Pager}!errCode@{errCode}}
+\index{errCode@{errCode}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Pager::err\-Code}}\label{structPager_19647148eb32314eaa97abf7b512b6af}
+
+
+\index{Pager@{Pager}!eState@{eState}}
+\index{eState@{eState}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::e\-State}}\label{structPager_0ecfd24ae9e300a7636b05680ad5bfe3}
+
+
+\index{Pager@{Pager}!exclusiveMode@{exclusiveMode}}
+\index{exclusiveMode@{exclusiveMode}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::exclusive\-Mode}}\label{structPager_935df50d4c73ef7b9c3166397018e236}
+
+
+\index{Pager@{Pager}!fd@{fd}}
+\index{fd@{fd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::fd}}\label{structPager_f9a4265d38803db5830ebc603fd693e9}
+
+
+\index{Pager@{Pager}!fd@{fd}}
+\index{fd@{fd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::fd}}\label{structPager_f9a4265d38803db5830ebc603fd693e9}
+
+
+\index{Pager@{Pager}!fullSync@{fullSync}}
+\index{fullSync@{fullSync}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::full\-Sync}}\label{structPager_1df9e5a8245518b911d8c6e27bcad070}
+
+
+\index{Pager@{Pager}!jfd@{jfd}}
+\index{jfd@{jfd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::jfd}}\label{structPager_e1b57829dc5dcb7d1ef4e22769e26251}
+
+
+\index{Pager@{Pager}!jfd@{jfd}}
+\index{jfd@{jfd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::jfd}}\label{structPager_e1b57829dc5dcb7d1ef4e22769e26251}
+
+
+\index{Pager@{Pager}!journalHdr@{journalHdr}}
+\index{journalHdr@{journalHdr}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Pager::journal\-Hdr}}\label{structPager_1ab0b1aba19e889325c7ba5caf4b5e14}
+
+
+\index{Pager@{Pager}!journalMode@{journalMode}}
+\index{journalMode@{journalMode}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::journal\-Mode}}\label{structPager_fe97f42c12986ce31d2ba5edc4b4a0b5}
+
+
+\index{Pager@{Pager}!journalOff@{journalOff}}
+\index{journalOff@{journalOff}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Pager::journal\-Off}}\label{structPager_7c46d4230c62a6c3bd21a08b7c0ab93c}
+
+
+\index{Pager@{Pager}!journalSizeLimit@{journalSizeLimit}}
+\index{journalSizeLimit@{journalSizeLimit}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Pager::journal\-Size\-Limit}}\label{structPager_fa25f8c830f534ee6a3b2b974bd5e40e}
+
+
+\index{Pager@{Pager}!memDb@{memDb}}
+\index{memDb@{memDb}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::mem\-Db}}\label{structPager_aca31782fcec6779142275a59dbff429}
+
+
+\index{Pager@{Pager}!mxPgno@{mxPgno}}
+\index{mxPgno@{mxPgno}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Pager::mx\-Pgno}}\label{structPager_ada1c8ae00e1c4ae3eaeb457974a2d17}
+
+
+\index{Pager@{Pager}!nExtra@{nExtra}}
+\index{nExtra@{nExtra}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Pager::n\-Extra}}\label{structPager_e405f1413e199a42c44216ed1f24d6da}
+
+
+\index{Pager@{Pager}!noReadlock@{noReadlock}}
+\index{noReadlock@{noReadlock}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::no\-Readlock}}\label{structPager_868673429bc20041c861a0ebd1e75be3}
+
+
+\index{Pager@{Pager}!noSync@{noSync}}
+\index{noSync@{noSync}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::no\-Sync}}\label{structPager_463d4983c477493209ca9daf23d3158b}
+
+
+\index{Pager@{Pager}!nRec@{nRec}}
+\index{nRec@{nRec}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Pager::n\-Rec}}\label{structPager_475ee99c4f66c27f07d3fd3424cad5c2}
+
+
+\index{Pager@{Pager}!nReserve@{nReserve}}
+\index{nReserve@{nReserve}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i16} \bf{Pager::n\-Reserve}}\label{structPager_cb8659ea3a6e8c5a304088035c1f067f}
+
+
+\index{Pager@{Pager}!nSavepoint@{nSavepoint}}
+\index{nSavepoint@{nSavepoint}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Pager::n\-Savepoint}}\label{structPager_954809df3ea018bb84a35cab5331d587}
+
+
+\index{Pager@{Pager}!nSubRec@{nSubRec}}
+\index{nSubRec@{nSubRec}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Pager::n\-Sub\-Rec}}\label{structPager_8a36fc64aecd63c00404642d6166e57c}
+
+
+\index{Pager@{Pager}!pageSize@{pageSize}}
+\index{pageSize@{pageSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Pager::page\-Size}}\label{structPager_0f22929d84880e4deb758262d44cfff1}
+
+
+\index{Pager@{Pager}!pBackup@{pBackup}}
+\index{pBackup@{pBackup}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-backup}$\ast$ \bf{Pager::p\-Backup}}\label{structPager_a3dd22c905ac50985d9a414139c64741}
+
+
+\index{Pager@{Pager}!pBackup@{pBackup}}
+\index{pBackup@{pBackup}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-backup}$\ast$ \bf{Pager::p\-Backup}}\label{structPager_a3dd22c905ac50985d9a414139c64741}
+
+
+\index{Pager@{Pager}!pBusyHandlerArg@{pBusyHandlerArg}}
+\index{pBusyHandlerArg@{pBusyHandlerArg}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Pager::p\-Busy\-Handler\-Arg}}\label{structPager_f73ac667557f1431b8aa959e546a2110}
+
+
+\index{Pager@{Pager}!pBusyHandlerArg@{pBusyHandlerArg}}
+\index{pBusyHandlerArg@{pBusyHandlerArg}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Pager::p\-Busy\-Handler\-Arg}}\label{structPager_f73ac667557f1431b8aa959e546a2110}
+
+
+\index{Pager@{Pager}!pInJournal@{pInJournal}}
+\index{pInJournal@{pInJournal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bitvec}$\ast$ \bf{Pager::p\-In\-Journal}}\label{structPager_d3a07fd96548bad2f500b3c856bf4a82}
+
+
+\index{Pager@{Pager}!pInJournal@{pInJournal}}
+\index{pInJournal@{pInJournal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bitvec}$\ast$ \bf{Pager::p\-In\-Journal}}\label{structPager_d3a07fd96548bad2f500b3c856bf4a82}
+
+
+\index{Pager@{Pager}!pPCache@{pPCache}}
+\index{pPCache@{pPCache}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{PCache}$\ast$ \bf{Pager::p\-PCache}}\label{structPager_1404e083e3a73bc62e75c57f921acdfc}
+
+
+\index{Pager@{Pager}!pPCache@{pPCache}}
+\index{pPCache@{pPCache}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{PCache}$\ast$ \bf{Pager::p\-PCache}}\label{structPager_1404e083e3a73bc62e75c57f921acdfc}
+
+
+\index{Pager@{Pager}!pTmpSpace@{pTmpSpace}}
+\index{pTmpSpace@{pTmpSpace}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::p\-Tmp\-Space}}\label{structPager_df3e288adca29d7dbd8bd0266daf092f}
+
+
+\index{Pager@{Pager}!pTmpSpace@{pTmpSpace}}
+\index{pTmpSpace@{pTmpSpace}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::p\-Tmp\-Space}}\label{structPager_df3e288adca29d7dbd8bd0266daf092f}
+
+
+\index{Pager@{Pager}!pVfs@{pVfs}}
+\index{pVfs@{pVfs}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{Pager::p\-Vfs}}\label{structPager_eff7ecfcd9956f4c5022610092e5b8a4}
+
+
+\index{Pager@{Pager}!pVfs@{pVfs}}
+\index{pVfs@{pVfs}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-vfs}$\ast$ \bf{Pager::p\-Vfs}}\label{structPager_eff7ecfcd9956f4c5022610092e5b8a4}
+
+
+\index{Pager@{Pager}!pWal@{pWal}}
+\index{pWal@{pWal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Wal}$\ast$ \bf{Pager::p\-Wal}}\label{structPager_8c7b00572353e763b7e9251a11a32df6}
+
+
+\index{Pager@{Pager}!pWal@{pWal}}
+\index{pWal@{pWal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Wal}$\ast$ \bf{Pager::p\-Wal}}\label{structPager_8c7b00572353e763b7e9251a11a32df6}
+
+
+\index{Pager@{Pager}!readOnly@{readOnly}}
+\index{readOnly@{readOnly}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::read\-Only}}\label{structPager_780c09d4959e6300bfe051b9b58ae130}
+
+
+\index{Pager@{Pager}!sectorSize@{sectorSize}}
+\index{sectorSize@{sectorSize}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Pager::sector\-Size}}\label{structPager_f8516d5d7e134a9d8e5456b69c4a526e}
+
+
+\index{Pager@{Pager}!setMaster@{setMaster}}
+\index{setMaster@{setMaster}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::set\-Master}}\label{structPager_0d90bd357615be24bdc9e9e6f5a07a5e}
+
+
+\index{Pager@{Pager}!sjfd@{sjfd}}
+\index{sjfd@{sjfd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::sjfd}}\label{structPager_fb8104f7bf7521887c82ded3fe2fef9e}
+
+
+\index{Pager@{Pager}!sjfd@{sjfd}}
+\index{sjfd@{sjfd}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-file}$\ast$ \bf{Pager::sjfd}}\label{structPager_fb8104f7bf7521887c82ded3fe2fef9e}
+
+
+\index{Pager@{Pager}!subjInMemory@{subjInMemory}}
+\index{subjInMemory@{subjInMemory}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::subj\-In\-Memory}}\label{structPager_12a32f70864ecb8ae2f2d87c08d40d05}
+
+
+\index{Pager@{Pager}!sync_flags@{sync\_\-flags}}
+\index{sync_flags@{sync\_\-flags}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::sync\_\-flags}}\label{structPager_25657ec140842e3f2b3026183654ba29}
+
+
+\index{Pager@{Pager}!tempFile@{tempFile}}
+\index{tempFile@{tempFile}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::temp\-File}}\label{structPager_aaa4004cadf92418eb1ad1ca16559c93}
+
+
+\index{Pager@{Pager}!useJournal@{useJournal}}
+\index{useJournal@{useJournal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Pager::use\-Journal}}\label{structPager_7f3ac0e5a7cbf474ff0eee4d2b6b8b26}
+
+
+\index{Pager@{Pager}!vfsFlags@{vfsFlags}}
+\index{vfsFlags@{vfsFlags}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Pager::vfs\-Flags}}\label{structPager_4756a20185d4d5903d35554c353d4e88}
+
+
+\index{Pager@{Pager}!xBusyHandler@{xBusyHandler}}
+\index{xBusyHandler@{xBusyHandler}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{Pager::x\-Busy\-Handler}}\label{structPager_97421404c7f36afbf1b66725bc6101ad}
+
+
+\index{Pager@{Pager}!xReiniter@{xReiniter}}
+\index{xReiniter@{xReiniter}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ \bf{Pager::x\-Reiniter}}\label{structPager_7c1010be8e470c11e88033fa163fbdba}
+
+
+\index{Pager@{Pager}!zFilename@{zFilename}}
+\index{zFilename@{zFilename}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Filename}}\label{structPager_a648755def4a5b1f683c62d6b00fda7d}
+
+
+\index{Pager@{Pager}!zFilename@{zFilename}}
+\index{zFilename@{zFilename}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Filename}}\label{structPager_a648755def4a5b1f683c62d6b00fda7d}
+
+
+\index{Pager@{Pager}!zJournal@{zJournal}}
+\index{zJournal@{zJournal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Journal}}\label{structPager_773dda603ace878a33d288337a5707f3}
+
+
+\index{Pager@{Pager}!zJournal@{zJournal}}
+\index{zJournal@{zJournal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Journal}}\label{structPager_773dda603ace878a33d288337a5707f3}
+
+
+\index{Pager@{Pager}!zWal@{zWal}}
+\index{zWal@{zWal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Wal}}\label{structPager_9f871bb53869eef36bfbe09d569ce835}
+
+
+\index{Pager@{Pager}!zWal@{zWal}}
+\index{zWal@{zWal}!Pager@{Pager}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Pager::z\-Wal}}\label{structPager_9f871bb53869eef36bfbe09d569ce835}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

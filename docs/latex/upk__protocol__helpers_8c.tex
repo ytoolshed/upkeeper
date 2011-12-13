@@ -1,0 +1,152 @@
+\section{libupkeeper/tests/upk\_\-protocol\_\-helpers.c File Reference}
+\label{upk__protocol__helpers_8c}\index{libupkeeper/tests/upk\_\-protocol\_\-helpers.c@{libupkeeper/tests/upk\_\-protocol\_\-helpers.c}}
+{\ttfamily \#include $<$check.h$>$}\par
+{\ttfamily \#include $<$upkeeper/upk\_\-protocol.h$>$}\par
+{\ttfamily \#include \char`\"{}v0\_\-protocol\_\-generic\_\-value\_\-checks.inc.c\char`\"{}}\par
+Include dependency graph for upk\_\-protocol\_\-helpers.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol__helpers_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf NAME\_\-TO\_\-FUNC}(A)~upk\_\-create\_\- \#\# A
+\item 
+\#define {\bf NAME\_\-TO\_\-TYPE}(A)~upk\_\- \#\# A \#\# \_\-t
+\item 
+\#define {\bf TEST\_\-SETUP}(NAME,...)
+\item 
+\#define {\bf TEST\_\-SETUP\_\-NOARGS}(NAME)
+\item 
+\#define {\bf TEST\_\-TEARDOWN}~upk\_\-pkt\_\-free(pkt);
+\item 
+\#define {\bf v0\_\-svcinfo\_\-t}~{\bf upk\_\-svcinfo\_\-t}
+\item 
+\#define {\bf CHECK\_\-PREAMBLE}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+Suite $\ast$ {\bf upk\_\-proto\_\-helpers\_\-suite} (void)
+\item 
+int {\bf main} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!CHECK\_\-PREAMBLE@{CHECK\_\-PREAMBLE}}
+\index{CHECK\_\-PREAMBLE@{CHECK\_\-PREAMBLE}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{CHECK\_\-PREAMBLE}]{\setlength{\rightskip}{0pt plus 5cm}\#define CHECK\_\-PREAMBLE}\label{upk__protocol__helpers_8c_a248d7b1695dd281019c862493d2e844e}
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!NAME\_\-TO\_\-FUNC@{NAME\_\-TO\_\-FUNC}}
+\index{NAME\_\-TO\_\-FUNC@{NAME\_\-TO\_\-FUNC}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{NAME\_\-TO\_\-FUNC}]{\setlength{\rightskip}{0pt plus 5cm}\#define NAME\_\-TO\_\-FUNC(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~upk\_\-create\_\- \#\# A}\label{upk__protocol__helpers_8c_a2465364896ae6a9f5d5a029843f87fa2}
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!NAME\_\-TO\_\-TYPE@{NAME\_\-TO\_\-TYPE}}
+\index{NAME\_\-TO\_\-TYPE@{NAME\_\-TO\_\-TYPE}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{NAME\_\-TO\_\-TYPE}]{\setlength{\rightskip}{0pt plus 5cm}\#define NAME\_\-TO\_\-TYPE(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~upk\_\- \#\# A \#\# \_\-t}\label{upk__protocol__helpers_8c_ac6c929cac18f9881e60a13de8a6dde33}
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!TEST\_\-SETUP@{TEST\_\-SETUP}}
+\index{TEST\_\-SETUP@{TEST\_\-SETUP}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{TEST\_\-SETUP}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-SETUP(
+\begin{DoxyParamCaption}
+\item[{}]{NAME, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{upk__protocol__helpers_8c_ad9198f6daa353c15cfe5e21689971de9}
+{\bfseries Value:}
+\begin{DoxyCode}
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    upk_protocol_handle_t handle = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(&handle, __VA_ARGS__); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+\end{DoxyCode}
+
+
+Referenced by START\_\-TEST().
+
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!TEST\_\-SETUP\_\-NOARGS@{TEST\_\-SETUP\_\-NOARGS}}
+\index{TEST\_\-SETUP\_\-NOARGS@{TEST\_\-SETUP\_\-NOARGS}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{TEST\_\-SETUP\_\-NOARGS}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-SETUP\_\-NOARGS(
+\begin{DoxyParamCaption}
+\item[{}]{NAME}
+\end{DoxyParamCaption}
+)}\label{upk__protocol__helpers_8c_aa4a34f6f94c5eace6a0c837938e48d0e}
+{\bfseries Value:}
+\begin{DoxyCode}
+upk_packet_t *pkt = NULL; \
+    NAME_TO_TYPE(NAME) t = { 0 }; \
+    upk_protocol_handle_t handle = { 0 }; \
+    pkt = NAME_TO_FUNC(NAME)(&handle); \
+    t = *((NAME_TO_TYPE(NAME) *) pkt->payload)
+\end{DoxyCode}
+
+
+Referenced by START\_\-TEST().
+
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!TEST\_\-TEARDOWN@{TEST\_\-TEARDOWN}}
+\index{TEST\_\-TEARDOWN@{TEST\_\-TEARDOWN}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{TEST\_\-TEARDOWN}]{\setlength{\rightskip}{0pt plus 5cm}\#define TEST\_\-TEARDOWN~upk\_\-pkt\_\-free(pkt);}\label{upk__protocol__helpers_8c_a95cf650329cffbc4f514eb95b315d915}
+
+
+Referenced by START\_\-TEST().
+
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{v0\_\-svcinfo\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf v0\_\-svcinfo\_\-t}~{\bf upk\_\-svcinfo\_\-t}}\label{upk__protocol__helpers_8c_a5eaabf9c7c85d9fb75104c8a7c77dcb1}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!main@{main}}
+\index{main@{main}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__protocol__helpers_8c_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+References suite(), and upk\_\-proto\_\-helpers\_\-suite().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol__helpers_8c_a840291bc02cba5474a4cb46a9b9566fe_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-protocol\_\-helpers.c@{upk\_\-protocol\_\-helpers.c}!upk\_\-proto\_\-helpers\_\-suite@{upk\_\-proto\_\-helpers\_\-suite}}
+\index{upk\_\-proto\_\-helpers\_\-suite@{upk\_\-proto\_\-helpers\_\-suite}!upk_protocol_helpers.c@{upk\_\-protocol\_\-helpers.c}}
+\subsubsection[{upk\_\-proto\_\-helpers\_\-suite}]{\setlength{\rightskip}{0pt plus 5cm}Suite$\ast$ upk\_\-proto\_\-helpers\_\-suite (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{upk__protocol__helpers_8c_ac0a4392c67731095927ac147b1880fff}
+
+
+References suite(), v0\_\-proto\_\-pubmsgs(), v0\_\-proto\_\-replies(), and v0\_\-proto\_\-requests().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=378pt]{upk__protocol__helpers_8c_ac0a4392c67731095927ac147b1880fff_cgraph}
+\end{center}
+\end{figure}
+
+

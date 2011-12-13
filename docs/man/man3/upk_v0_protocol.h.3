@@ -1,0 +1,148 @@
+.TH "libupkeeper/upkeeper/upk_v0_protocol.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_v0_protocol.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_protocol.h'\fP
+.br
+\fC#include 'upk_v0_protocol_structs.h'\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBv0_req_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_action_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_signal_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_list_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_status_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_subscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_unsubscribe_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_req_disconnect_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_seq_start_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_seq_end_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_result_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_listing_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_svcinfo_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_ack_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_repl_error_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_pub_publication_t\fP"
+.br
+.ti -1c
+.RI "struct \fBv0_pub_cancelation_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBv0_serialize_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void * \fBv0_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fP pkttype)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, \fBuint32_t\fP msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_action\fP (char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_signal\fP (char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_list\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_status\fP (char *svc_id, \fBuint32_t\fP restart_window_seconds)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_subscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_unsubscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_disconnect\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, \fBuint32_t\fP msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_result\fP (char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_listing\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_svcinfo\fP (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_ack\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_error\fP (char *svc_id, \fBupk_errno_t\fP uerrno, char *errmsg, \fBupk_errlevel_t\fP errlvl)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_publication\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_cancelation\fP (void)"
+.br
+.ti -1c
+.RI "void \fBv0_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void* v0_deserialize_payload (\fBupk_pkt_buf_t\fP *UPK_BUF, \fBupk_pkttype_t\fPpkttype)"
+.SS "\fBupk_pkt_buf_t\fP* v0_serialize_payload (\fBupk_packet_t\fP *pkt)"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

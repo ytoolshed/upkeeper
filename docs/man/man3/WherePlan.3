@@ -1,0 +1,75 @@
+.TH "WherePlan" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+WherePlan \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBu32\fP \fBwsFlags\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnEq\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   \fBIndex\fP * \fBpIdx\fP"
+.br
+.ti -1c
+.RI "   \fBWhereTerm\fP * \fBpTerm\fP"
+.br
+.ti -1c
+.RI "   \fBsqlite3_index_info\fP * \fBpVtabIdx\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   \fBIndex\fP * \fBpIdx\fP"
+.br
+.ti -1c
+.RI "   \fBWhereTerm\fP * \fBpTerm\fP"
+.br
+.ti -1c
+.RI "   \fBsqlite3_index_info\fP * \fBpVtabIdx\fP"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu32\fP \fBWherePlan::nEq\fP"
+.PP
+.SS "\fBIndex\fP* \fBWherePlan::pIdx\fP"
+.PP
+.SS "\fBIndex\fP* \fBWherePlan::pIdx\fP"
+.PP
+.SS "struct \fBWhereTerm\fP* \fBWherePlan::pTerm\fP"
+.PP
+.SS "struct \fBWhereTerm\fP* \fBWherePlan::pTerm\fP"
+.PP
+.SS "\fBsqlite3_index_info\fP* \fBWherePlan::pVtabIdx\fP"
+.PP
+.SS "\fBsqlite3_index_info\fP* \fBWherePlan::pVtabIdx\fP"
+.PP
+.SS "union { ... }   \fBWherePlan::u\fP"
+.PP
+.SS "union { ... }   \fBWherePlan::u\fP"
+.PP
+.SS "\fBu32\fP \fBWherePlan::wsFlags\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

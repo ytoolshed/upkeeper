@@ -1,0 +1,731 @@
+\section{Protocol}
+\label{group__protocol}\index{Protocol@{Protocol}}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf PROTOCOL\_\-VERSION}~0
+\item 
+\#define {\bf UPK\_\-INIT\_\-HELPER}(TYPE, MSGTYPE)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT32}(MEMB)~UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT16}(MEMB)~UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT8}(MEMB)~UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-ENUM}(MEMB)~UPK\_\-HELPER\_\-UINT32(MEMB)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-BOOL}(MEMB)~UPK\_\-HELPER\_\-UINT8(MEMB)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-BUF}(DEST, SRC, LEN)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-ANSISTRING}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-END\_\-HELPER}(PKT\_\-TYPE)~return upk\_\-create\_\-pkt(UPK\_\-DATA, UPK\_\-DATA\_\-LEN, PKT\_\-TYPE, PROTOCOL\_\-VERSION)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bf free\_\-data\_\-t} )(void $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf v0\_\-free\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-msgtype\_\-t} msg\_\-seq\_\-type, {\bf uint32\_\-t} msg\_\-seq\_\-count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-seq\_\-end} (bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-action} (char $\ast$svc\_\-id, char $\ast$action)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-signal} (char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-list} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-status} (char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-subscribe} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-unsubscribe} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-disconnect} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-msgtype\_\-t} msg\_\-seq\_\-type, {\bf uint32\_\-t} msg\_\-seq\_\-count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-seq\_\-end} (bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-result} (char $\ast$msg, bool successful)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-listing} (char $\ast$svc\_\-id)
+\item 
+static {\bf uint32\_\-t} {\bf get\_\-svcinfo\_\-len} ({\bf v0\_\-svcinfo\_\-t} s)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-svcinfo} (char $\ast$svc\_\-id, {\bf v0\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-ack} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-error} (char $\ast$svc\_\-id, {\bf upk\_\-errno\_\-t} uerrno, char $\ast$msg, {\bf upk\_\-errlevel\_\-t} errlevel)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-pub\_\-publication} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-pub\_\-cancelation} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{Protocol@{Protocol}!PROTOCOL\_\-VERSION@{PROTOCOL\_\-VERSION}}
+\index{PROTOCOL\_\-VERSION@{PROTOCOL\_\-VERSION}!Protocol@{Protocol}}
+\subsubsection[{PROTOCOL\_\-VERSION}]{\setlength{\rightskip}{0pt plus 5cm}\#define PROTOCOL\_\-VERSION~0}\label{group__protocol_ga277f7abca2044f354abe265252cb9252}
+\index{Protocol@{Protocol}!UPK\_\-END\_\-HELPER@{UPK\_\-END\_\-HELPER}}
+\index{UPK\_\-END\_\-HELPER@{UPK\_\-END\_\-HELPER}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-END\_\-HELPER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-END\_\-HELPER(
+\begin{DoxyParamCaption}
+\item[{}]{PKT\_\-TYPE}
+\end{DoxyParamCaption}
+)~return upk\_\-create\_\-pkt(UPK\_\-DATA, UPK\_\-DATA\_\-LEN, PKT\_\-TYPE, PROTOCOL\_\-VERSION)}\label{group__protocol_gaf4bd92408245edaba2754f023d8b6f39}
+
+
+Referenced by v0\_\-create\_\-pub\_\-cancelation(), v0\_\-create\_\-pub\_\-publication(), v0\_\-create\_\-repl\_\-ack(), v0\_\-create\_\-repl\_\-error(), v0\_\-create\_\-repl\_\-listing(), v0\_\-create\_\-repl\_\-result(), v0\_\-create\_\-repl\_\-seq\_\-end(), v0\_\-create\_\-repl\_\-seq\_\-start(), v0\_\-create\_\-repl\_\-svcinfo(), v0\_\-create\_\-req\_\-action(), v0\_\-create\_\-req\_\-disconnect(), v0\_\-create\_\-req\_\-list(), v0\_\-create\_\-req\_\-seq\_\-end(), v0\_\-create\_\-req\_\-seq\_\-start(), v0\_\-create\_\-req\_\-signal(), v0\_\-create\_\-req\_\-status(), v0\_\-create\_\-req\_\-subscribe(), and v0\_\-create\_\-req\_\-unsubscribe().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-ANSISTRING@{UPK\_\-HELPER\_\-ANSISTRING}}
+\index{UPK\_\-HELPER\_\-ANSISTRING@{UPK\_\-HELPER\_\-ANSISTRING}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-ANSISTRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-ANSISTRING(
+\begin{DoxyParamCaption}
+\item[{}]{DEST, }
+\item[{}]{SRC}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga70eeb772afe31c1debe539ee1d5f14e0}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_STRING_LENGTH = strnlen(SRC, UPK_MAX_STRING_LEN); \
+    UPK_HELPER_BUF(DEST, SRC, UPK_STRING_LENGTH + 1); \
+    UPK_DATA_LEN--
+\end{DoxyCode}
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-BOOL@{UPK\_\-HELPER\_\-BOOL}}
+\index{UPK\_\-HELPER\_\-BOOL@{UPK\_\-HELPER\_\-BOOL}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-BOOL}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-BOOL(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-HELPER\_\-UINT8(MEMB)}\label{group__protocol_ga8f802360865c64d30136f7b2862026a9}
+
+
+Referenced by v0\_\-create\_\-repl\_\-result(), v0\_\-create\_\-repl\_\-seq\_\-end(), v0\_\-create\_\-req\_\-seq\_\-end(), v0\_\-create\_\-req\_\-signal(), v0\_\-create\_\-req\_\-subscribe(), and v0\_\-create\_\-req\_\-unsubscribe().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-BUF@{UPK\_\-HELPER\_\-BUF}}
+\index{UPK\_\-HELPER\_\-BUF@{UPK\_\-HELPER\_\-BUF}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-BUF(
+\begin{DoxyParamCaption}
+\item[{}]{DEST, }
+\item[{}]{SRC, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gadd39e3db19c59d1a74ba953179346c7d}
+{\bfseries Value:}
+\begin{DoxyCode}
+/* DEST = calloc(1, LEN); */ \
+    memcpy(DEST,SRC,LEN); \
+    UPK_DATA_LEN += LEN
+\end{DoxyCode}
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-ENUM@{UPK\_\-HELPER\_\-ENUM}}
+\index{UPK\_\-HELPER\_\-ENUM@{UPK\_\-HELPER\_\-ENUM}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-ENUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-ENUM(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-HELPER\_\-UINT32(MEMB)}\label{group__protocol_ga88709609481444663fb628dbe83f9485}
+
+
+Referenced by v0\_\-create\_\-repl\_\-error(), v0\_\-create\_\-repl\_\-seq\_\-start(), v0\_\-create\_\-req\_\-seq\_\-start(), and v0\_\-create\_\-req\_\-signal().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-STRING@{UPK\_\-HELPER\_\-STRING}}
+\index{UPK\_\-HELPER\_\-STRING@{UPK\_\-HELPER\_\-STRING}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-STRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-STRING(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga19949767cfba264d965628a28412d2c8}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_HELPER_ANSISTRING(UPK_DATA->MEMB, MEMB); \
+    UPK_HELPER_UINT32_EXPLICIT(UPK_DATA->UPK_MEMB_TO_LEN(MEMB), 
+      UPK_STRING_LENGTH)
+\end{DoxyCode}
+
+
+Referenced by v0\_\-create\_\-repl\_\-error(), v0\_\-create\_\-repl\_\-listing(), v0\_\-create\_\-repl\_\-result(), v0\_\-create\_\-repl\_\-svcinfo(), v0\_\-create\_\-req\_\-action(), v0\_\-create\_\-req\_\-signal(), v0\_\-create\_\-req\_\-status(), v0\_\-create\_\-req\_\-subscribe(), and v0\_\-create\_\-req\_\-unsubscribe().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT16@{UPK\_\-HELPER\_\-UINT16}}
+\index{UPK\_\-HELPER\_\-UINT16@{UPK\_\-HELPER\_\-UINT16}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT16}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT16(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);}\label{group__protocol_ga3d0faaaf056b9512e94fb71f02432e81}
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT}}
+\index{UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT(
+\begin{DoxyParamCaption}
+\item[{}]{DEST, }
+\item[{}]{SRC}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gab88e8ac9469efe899be626c40c5a5de2}
+{\bfseries Value:}
+\begin{DoxyCode}
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint16_t)
+\end{DoxyCode}
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT32@{UPK\_\-HELPER\_\-UINT32}}
+\index{UPK\_\-HELPER\_\-UINT32@{UPK\_\-HELPER\_\-UINT32}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT32}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT32(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);}\label{group__protocol_gadf1b2975aad8f30a3f6db5e838ddd6af}
+
+
+Referenced by v0\_\-create\_\-repl\_\-seq\_\-start(), v0\_\-create\_\-req\_\-seq\_\-start(), and v0\_\-create\_\-req\_\-status().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT}}
+\index{UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT(
+\begin{DoxyParamCaption}
+\item[{}]{DEST, }
+\item[{}]{SRC}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga7d2df78f21cdedb62f4e85947beed93d}
+{\bfseries Value:}
+\begin{DoxyCode}
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint32_t)
+\end{DoxyCode}
+
+
+Referenced by v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT8@{UPK\_\-HELPER\_\-UINT8}}
+\index{UPK\_\-HELPER\_\-UINT8@{UPK\_\-HELPER\_\-UINT8}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT8}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT8(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);}\label{group__protocol_ga035f7f3cff892fd97ffd12e16df08450}
+\index{Protocol@{Protocol}!UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT}}
+\index{UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT@{UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT(
+\begin{DoxyParamCaption}
+\item[{}]{DEST, }
+\item[{}]{SRC}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga113c39a0ebf0bd329fbc82e691698c70}
+{\bfseries Value:}
+\begin{DoxyCode}
+DEST = SRC; \
+    UPK_DATA_LEN += sizeof(uint8_t)
+\end{DoxyCode}
+\index{Protocol@{Protocol}!UPK\_\-INIT\_\-HELPER@{UPK\_\-INIT\_\-HELPER}}
+\index{UPK\_\-INIT\_\-HELPER@{UPK\_\-INIT\_\-HELPER}!Protocol@{Protocol}}
+\subsubsection[{UPK\_\-INIT\_\-HELPER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-HELPER(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{MSGTYPE}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga4a05db4636b9b59b54981e1d4fab373d}
+{\bfseries Value:}
+\begin{DoxyCode}
+TYPE *UPK_DATA = NULL; \
+    uint32_t UPK_DATA_LEN = 0; \
+    size_t UPK_STRING_LENGTH = 0; \
+    UPK_DATA = calloc(1, sizeof(*UPK_DATA)); \
+    UPK_DATA->msgtype = MSGTYPE; \
+    UPK_DATA_LEN += 4; \
+    UPK_DATA_LEN = UPK_DATA_LEN + 0; \
+    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0
+\end{DoxyCode}
+
+
+Referenced by v0\_\-create\_\-pub\_\-cancelation(), v0\_\-create\_\-pub\_\-publication(), v0\_\-create\_\-repl\_\-ack(), v0\_\-create\_\-repl\_\-error(), v0\_\-create\_\-repl\_\-listing(), v0\_\-create\_\-repl\_\-result(), v0\_\-create\_\-repl\_\-seq\_\-end(), v0\_\-create\_\-repl\_\-seq\_\-start(), v0\_\-create\_\-repl\_\-svcinfo(), v0\_\-create\_\-req\_\-action(), v0\_\-create\_\-req\_\-disconnect(), v0\_\-create\_\-req\_\-list(), v0\_\-create\_\-req\_\-seq\_\-end(), v0\_\-create\_\-req\_\-seq\_\-start(), v0\_\-create\_\-req\_\-signal(), v0\_\-create\_\-req\_\-status(), v0\_\-create\_\-req\_\-subscribe(), and v0\_\-create\_\-req\_\-unsubscribe().
+
+
+
+\subsection{Typedef Documentation}
+\index{Protocol@{Protocol}!free\_\-data\_\-t@{free\_\-data\_\-t}}
+\index{free\_\-data\_\-t@{free\_\-data\_\-t}!Protocol@{Protocol}}
+\subsubsection[{free\_\-data\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf free\_\-data\_\-t})(void $\ast$)}\label{group__protocol_gaee72a2b10ae9a483f44bf88859ad5134}
+
+
+\subsection{Function Documentation}
+\index{Protocol@{Protocol}!get\_\-svcinfo\_\-len@{get\_\-svcinfo\_\-len}}
+\index{get\_\-svcinfo\_\-len@{get\_\-svcinfo\_\-len}!Protocol@{Protocol}}
+\subsubsection[{get\_\-svcinfo\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf uint32\_\-t} get\_\-svcinfo\_\-len (
+\begin{DoxyParamCaption}
+\item[{{\bf v0\_\-svcinfo\_\-t}}]{s}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{group__protocol_ga0ce71b8c460b8bceaf3d1264382a23ed}
+
+
+References v0\_\-svcinfo\_\-t::current\_\-state, v0\_\-svcinfo\_\-t::last\_\-action\_\-name, v0\_\-svcinfo\_\-t::last\_\-action\_\-name\_\-len, and v0\_\-svcinfo\_\-t::last\_\-signal\_\-name.
+
+
+
+Referenced by v0\_\-create\_\-repl\_\-svcinfo().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{group__protocol_ga0ce71b8c460b8bceaf3d1264382a23ed_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-pub\_\-cancelation@{v0\_\-create\_\-pub\_\-cancelation}}
+\index{v0\_\-create\_\-pub\_\-cancelation@{v0\_\-create\_\-pub\_\-cancelation}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-pub\_\-cancelation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-pub\_\-cancelation (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga63a357d3b2b2d5e48d1d3083ef02eaae}
+
+
+References PKT\_\-PUBMSG, UPK\_\-END\_\-HELPER, UPK\_\-INIT\_\-HELPER, and UPK\_\-PUB\_\-CANCELATION.
+
+
+
+Referenced by upk\_\-create\_\-pub\_\-cancelation().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=356pt]{group__protocol_ga63a357d3b2b2d5e48d1d3083ef02eaae_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-pub\_\-publication@{v0\_\-create\_\-pub\_\-publication}}
+\index{v0\_\-create\_\-pub\_\-publication@{v0\_\-create\_\-pub\_\-publication}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-pub\_\-publication}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-pub\_\-publication (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gafbb65a90d304e976b3f2ada90c0fe672}
+
+
+References PKT\_\-PUBMSG, UPK\_\-END\_\-HELPER, UPK\_\-INIT\_\-HELPER, and UPK\_\-PUB\_\-PUBLICATION.
+
+
+
+Referenced by upk\_\-create\_\-pub\_\-publication().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{group__protocol_gafbb65a90d304e976b3f2ada90c0fe672_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-ack@{v0\_\-create\_\-repl\_\-ack}}
+\index{v0\_\-create\_\-repl\_\-ack@{v0\_\-create\_\-repl\_\-ack}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-ack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-ack (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gac84406ee7f85446fbacf82cae87d5645}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-ACK.
+
+
+
+Referenced by upk\_\-create\_\-repl\_\-ack().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=288pt]{group__protocol_gac84406ee7f85446fbacf82cae87d5645_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-error@{v0\_\-create\_\-repl\_\-error}}
+\index{v0\_\-create\_\-repl\_\-error@{v0\_\-create\_\-repl\_\-error}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-error (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-errno\_\-t}}]{uerrno, }
+\item[{char $\ast$}]{msg, }
+\item[{{\bf upk\_\-errlevel\_\-t}}]{errlevel}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga986a285e81efea956fe9c1ff796ea7a3}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-ENUM, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-ERROR.
+
+
+
+Referenced by upk\_\-create\_\-repl\_\-error().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=296pt]{group__protocol_ga986a285e81efea956fe9c1ff796ea7a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-listing@{v0\_\-create\_\-repl\_\-listing}}
+\index{v0\_\-create\_\-repl\_\-listing@{v0\_\-create\_\-repl\_\-listing}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-listing}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-listing (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga386132f8f4bffabd3e6d3e440a2a06bb}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-LISTING.
+
+
+
+Referenced by upk\_\-create\_\-repl\_\-listing().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=308pt]{group__protocol_ga386132f8f4bffabd3e6d3e440a2a06bb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-result@{v0\_\-create\_\-repl\_\-result}}
+\index{v0\_\-create\_\-repl\_\-result@{v0\_\-create\_\-repl\_\-result}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-result (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{msg, }
+\item[{bool}]{successful}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga067d22e252d3a91768f7ed22de2b461f}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-RESULT.
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-seq\_\-end@{v0\_\-create\_\-repl\_\-seq\_\-end}}
+\index{v0\_\-create\_\-repl\_\-seq\_\-end@{v0\_\-create\_\-repl\_\-seq\_\-end}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{bool}]{commit}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga12b2e949f156553fa0bf3348b7d347bb}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-SEQ\_\-END.
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-seq\_\-start@{v0\_\-create\_\-repl\_\-seq\_\-start}}
+\index{v0\_\-create\_\-repl\_\-seq\_\-start@{v0\_\-create\_\-repl\_\-seq\_\-start}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-msgtype\_\-t}}]{msg\_\-seq\_\-type, }
+\item[{{\bf uint32\_\-t}}]{msg\_\-seq\_\-count}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga90085803c6da09a6bbb420703cbd0bed}
+
+
+References PKT\_\-REPLY, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-ENUM, UPK\_\-HELPER\_\-UINT32, UPK\_\-INIT\_\-HELPER, and UPK\_\-REPL\_\-SEQ\_\-START.
+
+
+
+Referenced by upk\_\-create\_\-repl\_\-seq\_\-start().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=338pt]{group__protocol_ga90085803c6da09a6bbb420703cbd0bed_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-repl\_\-svcinfo@{v0\_\-create\_\-repl\_\-svcinfo}}
+\index{v0\_\-create\_\-repl\_\-svcinfo@{v0\_\-create\_\-repl\_\-svcinfo}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-repl\_\-svcinfo (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf v0\_\-svcinfo\_\-t} $\ast$}]{svcinfo}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gafc9c9d85a29171d60257260de499a277}
+
+
+References get\_\-svcinfo\_\-len(), v0\_\-svcinfo\_\-t::last\_\-action\_\-name, v0\_\-svcinfo\_\-t::last\_\-action\_\-name\_\-len, PKT\_\-REPLY, strnlen(), UPK\_\-DATA, UPK\_\-DATA\_\-LEN, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-STRING, UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT, UPK\_\-INIT\_\-HELPER, UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-REPL\_\-SVCINFO, and UPK\_\-STRING\_\-LENGTH.
+
+
+
+Referenced by upk\_\-create\_\-repl\_\-svcinfo().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=282pt]{group__protocol_gafc9c9d85a29171d60257260de499a277_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=320pt]{group__protocol_gafc9c9d85a29171d60257260de499a277_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-action@{v0\_\-create\_\-req\_\-action}}
+\index{v0\_\-create\_\-req\_\-action@{v0\_\-create\_\-req\_\-action}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-action (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{char $\ast$}]{action}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga9e280445e3d21b22b52cd7e8aac2ebde}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-ACTION.
+
+
+
+Referenced by upk\_\-create\_\-req\_\-action().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{group__protocol_ga9e280445e3d21b22b52cd7e8aac2ebde_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-disconnect@{v0\_\-create\_\-req\_\-disconnect}}
+\index{v0\_\-create\_\-req\_\-disconnect@{v0\_\-create\_\-req\_\-disconnect}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gafa1259e66b357b013a93238d6422d2d5}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-DISCONNECT.
+
+
+
+Referenced by upk\_\-create\_\-req\_\-disconnect().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{group__protocol_gafa1259e66b357b013a93238d6422d2d5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-list@{v0\_\-create\_\-req\_\-list}}
+\index{v0\_\-create\_\-req\_\-list@{v0\_\-create\_\-req\_\-list}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-list (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga3e81f53aa2de56e24c926935bacdda62}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-LIST.
+
+
+
+Referenced by upk\_\-create\_\-req\_\-list().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{group__protocol_ga3e81f53aa2de56e24c926935bacdda62_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-seq\_\-end@{v0\_\-create\_\-req\_\-seq\_\-end}}
+\index{v0\_\-create\_\-req\_\-seq\_\-end@{v0\_\-create\_\-req\_\-seq\_\-end}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{bool}]{commit}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga6067fa84364df612c073da778f1ff488}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-SEQ\_\-END.
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-seq\_\-start@{v0\_\-create\_\-req\_\-seq\_\-start}}
+\index{v0\_\-create\_\-req\_\-seq\_\-start@{v0\_\-create\_\-req\_\-seq\_\-start}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-msgtype\_\-t}}]{msg\_\-seq\_\-type, }
+\item[{{\bf uint32\_\-t}}]{msg\_\-seq\_\-count}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga8bda2a3467a00884646ce14f77baebc9}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-ENUM, UPK\_\-HELPER\_\-UINT32, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-SEQ\_\-START.
+
+
+
+Referenced by upk\_\-create\_\-req\_\-seq\_\-start().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=334pt]{group__protocol_ga8bda2a3467a00884646ce14f77baebc9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-signal@{v0\_\-create\_\-req\_\-signal}}
+\index{v0\_\-create\_\-req\_\-signal@{v0\_\-create\_\-req\_\-signal}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-signal (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-signal\_\-t}}]{signal, }
+\item[{bool}]{signal\_\-sid, }
+\item[{bool}]{signal\_\-pgrp}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga75785c92d7be052b7e642b2d92a18888}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-HELPER\_\-ENUM, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-SIGNAL.
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-status@{v0\_\-create\_\-req\_\-status}}
+\index{v0\_\-create\_\-req\_\-status@{v0\_\-create\_\-req\_\-status}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-status (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf uint32\_\-t}}]{restart\_\-window\_\-seconds}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga2fc49e311081b7bde1010374938d92e5}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-STRING, UPK\_\-HELPER\_\-UINT32, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-STATUS.
+
+
+
+Referenced by upk\_\-create\_\-req\_\-status().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=306pt]{group__protocol_ga2fc49e311081b7bde1010374938d92e5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-subscribe@{v0\_\-create\_\-req\_\-subscribe}}
+\index{v0\_\-create\_\-req\_\-subscribe@{v0\_\-create\_\-req\_\-subscribe}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-subscribe (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{bool}]{all\_\-svcs}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga2ec0924f457946d6234db0d6411bffeb}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-SUBSCRIBE.
+
+\index{Protocol@{Protocol}!v0\_\-create\_\-req\_\-unsubscribe@{v0\_\-create\_\-req\_\-unsubscribe}}
+\index{v0\_\-create\_\-req\_\-unsubscribe@{v0\_\-create\_\-req\_\-unsubscribe}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-create\_\-req\_\-unsubscribe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ v0\_\-create\_\-req\_\-unsubscribe (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{bool}]{all\_\-svcs}
+\end{DoxyParamCaption}
+)}\label{group__protocol_ga5329d3013032c9af799f112944f9cac6}
+
+
+References PKT\_\-REQUEST, UPK\_\-END\_\-HELPER, UPK\_\-HELPER\_\-BOOL, UPK\_\-HELPER\_\-STRING, UPK\_\-INIT\_\-HELPER, and UPK\_\-REQ\_\-UNSUBSCRIBE.
+
+\index{Protocol@{Protocol}!v0\_\-free\_\-payload@{v0\_\-free\_\-payload}}
+\index{v0\_\-free\_\-payload@{v0\_\-free\_\-payload}!Protocol@{Protocol}}
+\subsubsection[{v0\_\-free\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}void v0\_\-free\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)}\label{group__protocol_gab5cfa619e4f879bb6de7ba9c2c37e91e}
+
+
+Referenced by upk\_\-free\_\-payload().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=370pt]{group__protocol_gab5cfa619e4f879bb6de7ba9c2c37e91e_icgraph}
+\end{center}
+\end{figure}
+
+

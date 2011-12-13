@@ -1,0 +1,97 @@
+.TH "libupkeeper/upkeeper/upk_network_types.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_network_types.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_netmsg_queue\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "struct \fB_upk_net_cb_stk\fP"
+.br
+.RI "\fIa callback-stack for use in nesting/branching expectations in a conversation \fP"
+.ti -1c
+.RI "struct \fB_upk_net_state\fP"
+.br
+.ti -1c
+.RI "struct \fB_upklist_userdata_state_partition\fP"
+.br
+.RI "\fIa struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. \fP"
+.ti -1c
+.RI "struct \fB_upk_conn_handle\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTOTAL_N_MSG_TYPES\fP   (UPK_N_REQ_TYPES + UPK_N_REPL_TYPES + UPK_N_PUB_TYPES)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_conn_handle\fP \fBupk_conn_handle_t\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBupk_net_callback_t\fP )(\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fItypedef for callback functions. \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_netmsg_queue\fP \fBupk_netmsg_queue_t\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_net_cb_stk\fP \fBupk_net_cb_stk_t\fP"
+.br
+.RI "\fIa callback-stack for use in nesting/branching expectations in a conversation \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_net_state\fP \fBupk_net_state_t\fP"
+.br
+.RI "\fIglobal state data for this client/connection \fP"
+.ti -1c
+.RI "typedef struct \fB_upklist_userdata_state_partition\fP \fBupklist_userdata_state_partition_t\fP"
+.br
+.RI "\fIa struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_conn_handle_t\fP, \fBupk_conn_handle_meta_p\fP)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_netmsg_queue_t\fP, \fBupk_netmsg_queue_meta_p\fP)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_net_cb_stk_t\fP, \fBupk_net_cb_stk_meta_p\fP)"
+.br
+.RI "\fImetanode for the callback stack \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBupk_conn_handle_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_netmsg_queue_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_net_cb_stk_meta_t\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

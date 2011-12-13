@@ -1,0 +1,217 @@
+\section{Functions}
+\label{group__functions}\index{Functions@{Functions}}
+Collaboration diagram for Functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{group__functions}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-free} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-svclist\_\-free} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+void {\bf upk\_\-ctrlconf\_\-free} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg)
+\item 
+void {\bf upk\_\-ctrl\_\-free\_\-config} (void)
+\item 
+void {\bf upk\_\-svcconf\_\-pack} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$cfg, const char $\ast$json\_\-string)
+\item 
+void {\bf upk\_\-ctrl\_\-load\_\-config} (void)
+\item 
+void {\bf upk\_\-svc\_\-desc\_\-clear} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+char $\ast$ {\bf upk\_\-concat\_\-svcid} (char $\ast$dest, const char $\ast$pkg, const char $\ast$name)
+\item 
+char $\ast$ {\bf upk\_\-svc\_\-id} (char $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+void {\bf upk\_\-parse\_\-svc\_\-id} (char $\ast$key, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svclist\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$svclist)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc)
+\item 
+char $\ast$ {\bf upk\_\-json\_\-serialize\_\-svc\_\-config} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$svc, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\item 
+void {\bf upk\_\-overlay\_\-svcconf\_\-values} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-overlay\_\-ctrlconf\_\-values} ({\bf upk\_\-controller\_\-config\_\-t} $\ast$dest, {\bf upk\_\-controller\_\-config\_\-t} $\ast$high)
+\item 
+void {\bf upk\_\-finalize\_\-svc\_\-desc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$dest, {\bf upk\_\-svc\_\-desc\_\-t} $\ast$orig)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-service\_\-file} (const char $\ast$filename)
+\item 
+void {\bf upk\_\-load\_\-runtime\_\-services} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char {\bf upk\_\-ctrl\_\-configuration\_\-file} [8192]
+\item 
+const char {\bf upk\_\-default\_\-configuration\_\-str} [$\,$]
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-file\_\-configuration}
+\item 
+{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-runtime\_\-configuration}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{Functions@{Functions}!upk\_\-concat\_\-svcid@{upk\_\-concat\_\-svcid}}
+\index{upk\_\-concat\_\-svcid@{upk\_\-concat\_\-svcid}!Functions@{Functions}}
+\subsubsection[{upk\_\-concat\_\-svcid}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-concat\_\-svcid (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{dest, }
+\item[{const char $\ast$}]{pkg, }
+\item[{const char $\ast$}]{name}
+\end{DoxyParamCaption}
+)}\label{group__functions_gaed8f504cfc4e6b33df5b113bc5ef2177}
+\index{Functions@{Functions}!upk\_\-ctrl\_\-free\_\-config@{upk\_\-ctrl\_\-free\_\-config}}
+\index{upk\_\-ctrl\_\-free\_\-config@{upk\_\-ctrl\_\-free\_\-config}!Functions@{Functions}}
+\subsubsection[{upk\_\-ctrl\_\-free\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-ctrl\_\-free\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga386ddb0964c89347dbf6a2807ed1800e}
+\index{Functions@{Functions}!upk\_\-ctrl\_\-load\_\-config@{upk\_\-ctrl\_\-load\_\-config}}
+\index{upk\_\-ctrl\_\-load\_\-config@{upk\_\-ctrl\_\-load\_\-config}!Functions@{Functions}}
+\subsubsection[{upk\_\-ctrl\_\-load\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-ctrl\_\-load\_\-config (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga11c5a55e854fb56c864a12ef5d314798}
+\index{Functions@{Functions}!upk\_\-ctrlconf\_\-free@{upk\_\-ctrlconf\_\-free}}
+\index{upk\_\-ctrlconf\_\-free@{upk\_\-ctrlconf\_\-free}!Functions@{Functions}}
+\subsubsection[{upk\_\-ctrlconf\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-ctrlconf\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-controller\_\-config\_\-t} $\ast$}]{cfg}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga2aa4766451425bf4662449117b2f8e63}
+\index{Functions@{Functions}!upk\_\-finalize\_\-svc\_\-desc@{upk\_\-finalize\_\-svc\_\-desc}}
+\index{upk\_\-finalize\_\-svc\_\-desc@{upk\_\-finalize\_\-svc\_\-desc}!Functions@{Functions}}
+\subsubsection[{upk\_\-finalize\_\-svc\_\-desc}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-finalize\_\-svc\_\-desc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{dest, }
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{orig}
+\end{DoxyParamCaption}
+)}\label{group__functions_gafef3f55911da038eb9f8d82bba48222e}
+\index{Functions@{Functions}!upk\_\-json\_\-serialize\_\-svc\_\-config@{upk\_\-json\_\-serialize\_\-svc\_\-config}}
+\index{upk\_\-json\_\-serialize\_\-svc\_\-config@{upk\_\-json\_\-serialize\_\-svc\_\-config}!Functions@{Functions}}
+\subsubsection[{upk\_\-json\_\-serialize\_\-svc\_\-config}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-json\_\-serialize\_\-svc\_\-config (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc, }
+\item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga19d2bc0bd2e96a937820f26f4e56b2d9}
+\index{Functions@{Functions}!upk\_\-load\_\-runtime\_\-service\_\-file@{upk\_\-load\_\-runtime\_\-service\_\-file}}
+\index{upk\_\-load\_\-runtime\_\-service\_\-file@{upk\_\-load\_\-runtime\_\-service\_\-file}!Functions@{Functions}}
+\subsubsection[{upk\_\-load\_\-runtime\_\-service\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-load\_\-runtime\_\-service\_\-file (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{filename}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga677c2a2d101f12525f6a1d39c8952584}
+\index{Functions@{Functions}!upk\_\-load\_\-runtime\_\-services@{upk\_\-load\_\-runtime\_\-services}}
+\index{upk\_\-load\_\-runtime\_\-services@{upk\_\-load\_\-runtime\_\-services}!Functions@{Functions}}
+\subsubsection[{upk\_\-load\_\-runtime\_\-services}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-load\_\-runtime\_\-services (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__functions_gaad96df378fe382df9bb37e2f21b62ee9}
+\index{Functions@{Functions}!upk\_\-overlay\_\-ctrlconf\_\-values@{upk\_\-overlay\_\-ctrlconf\_\-values}}
+\index{upk\_\-overlay\_\-ctrlconf\_\-values@{upk\_\-overlay\_\-ctrlconf\_\-values}!Functions@{Functions}}
+\subsubsection[{upk\_\-overlay\_\-ctrlconf\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-overlay\_\-ctrlconf\_\-values (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-controller\_\-config\_\-t} $\ast$}]{dest, }
+\item[{{\bf upk\_\-controller\_\-config\_\-t} $\ast$}]{high}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga431d962e0b29ea6f54f88d6d1505b2d0}
+\index{Functions@{Functions}!upk\_\-overlay\_\-svcconf\_\-values@{upk\_\-overlay\_\-svcconf\_\-values}}
+\index{upk\_\-overlay\_\-svcconf\_\-values@{upk\_\-overlay\_\-svcconf\_\-values}!Functions@{Functions}}
+\subsubsection[{upk\_\-overlay\_\-svcconf\_\-values}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-overlay\_\-svcconf\_\-values (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{dest, }
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{high}
+\end{DoxyParamCaption}
+)}\label{group__functions_gaab28dbb04c28f723b90b0baba926408f}
+\index{Functions@{Functions}!upk\_\-parse\_\-svc\_\-id@{upk\_\-parse\_\-svc\_\-id}}
+\index{upk\_\-parse\_\-svc\_\-id@{upk\_\-parse\_\-svc\_\-id}!Functions@{Functions}}
+\subsubsection[{upk\_\-parse\_\-svc\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-parse\_\-svc\_\-id (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc}
+\end{DoxyParamCaption}
+)}\label{group__functions_gad985bf99864c933b1a60705b58fded9d}
+\index{Functions@{Functions}!upk\_\-svc\_\-desc\_\-clear@{upk\_\-svc\_\-desc\_\-clear}}
+\index{upk\_\-svc\_\-desc\_\-clear@{upk\_\-svc\_\-desc\_\-clear}!Functions@{Functions}}
+\subsubsection[{upk\_\-svc\_\-desc\_\-clear}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-svc\_\-desc\_\-clear (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc}
+\end{DoxyParamCaption}
+)}\label{group__functions_gad3c49ca389d2928e563ec9834942fb28}
+\index{Functions@{Functions}!upk\_\-svc\_\-desc\_\-free@{upk\_\-svc\_\-desc\_\-free}}
+\index{upk\_\-svc\_\-desc\_\-free@{upk\_\-svc\_\-desc\_\-free}!Functions@{Functions}}
+\subsubsection[{upk\_\-svc\_\-desc\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-svc\_\-desc\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga6ca9879f5d370291faf16c2c15ac10bc}
+\index{Functions@{Functions}!upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj@{upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj}}
+\index{upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj@{upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj}!Functions@{Functions}}
+\subsubsection[{upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}struct json\_\-object$\ast$ upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [read]}}\label{group__functions_ga02e5b971c150fa74691e14f94b6ee291}
+\index{Functions@{Functions}!upk\_\-svc\_\-id@{upk\_\-svc\_\-id}}
+\index{upk\_\-svc\_\-id@{upk\_\-svc\_\-id}!Functions@{Functions}}
+\subsubsection[{upk\_\-svc\_\-id}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-svc\_\-id (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{dest, }
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{svc}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga74c0ebb6d5f4b890205dfba4fea7b730}
+\index{Functions@{Functions}!upk\_\-svcconf\_\-pack@{upk\_\-svcconf\_\-pack}}
+\index{upk\_\-svcconf\_\-pack@{upk\_\-svcconf\_\-pack}!Functions@{Functions}}
+\subsubsection[{upk\_\-svcconf\_\-pack}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-svcconf\_\-pack (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-controller\_\-config\_\-t} $\ast$}]{cfg, }
+\item[{const char $\ast$}]{json\_\-string}
+\end{DoxyParamCaption}
+)}\label{group__functions_gaef8b858931337dfe742cae5815857dec}
+\index{Functions@{Functions}!upk\_\-svclist\_\-free@{upk\_\-svclist\_\-free}}
+\index{upk\_\-svclist\_\-free@{upk\_\-svclist\_\-free}!Functions@{Functions}}
+\subsubsection[{upk\_\-svclist\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-svclist\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$}]{svclist}
+\end{DoxyParamCaption}
+)}\label{group__functions_ga6d49c10e8747af4aa6387ef8388bcd24}
+\index{Functions@{Functions}!upk\_\-svclist\_\-to\_\-json\_\-obj@{upk\_\-svclist\_\-to\_\-json\_\-obj}}
+\index{upk\_\-svclist\_\-to\_\-json\_\-obj@{upk\_\-svclist\_\-to\_\-json\_\-obj}!Functions@{Functions}}
+\subsubsection[{upk\_\-svclist\_\-to\_\-json\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}struct json\_\-object$\ast$ upk\_\-svclist\_\-to\_\-json\_\-obj (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-meta\_\-t} $\ast$}]{svclist}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [read]}}\label{group__functions_ga82376799c5e86edd919376c308139d8b}
+
+
+\subsection{Variable Documentation}
+\index{Functions@{Functions}!upk\_\-ctrl\_\-configuration\_\-file@{upk\_\-ctrl\_\-configuration\_\-file}}
+\index{upk\_\-ctrl\_\-configuration\_\-file@{upk\_\-ctrl\_\-configuration\_\-file}!Functions@{Functions}}
+\subsubsection[{upk\_\-ctrl\_\-configuration\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf upk\_\-ctrl\_\-configuration\_\-file}[8192]}\label{group__functions_ga55113abc1ba5c44b6e95ddacb81b21fb}
+\index{Functions@{Functions}!upk\_\-default\_\-configuration@{upk\_\-default\_\-configuration}}
+\index{upk\_\-default\_\-configuration@{upk\_\-default\_\-configuration}!Functions@{Functions}}
+\subsubsection[{upk\_\-default\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-default\_\-configuration}}\label{group__functions_gaefda54e715b67195adc6ee3b56671e56}
+\index{Functions@{Functions}!upk\_\-default\_\-configuration\_\-str@{upk\_\-default\_\-configuration\_\-str}}
+\index{upk\_\-default\_\-configuration\_\-str@{upk\_\-default\_\-configuration\_\-str}!Functions@{Functions}}
+\subsubsection[{upk\_\-default\_\-configuration\_\-str}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf upk\_\-default\_\-configuration\_\-str}[$\,$]}\label{group__functions_ga295298f54e6d77eee6df85c725e3465a}
+\index{Functions@{Functions}!upk\_\-file\_\-configuration@{upk\_\-file\_\-configuration}}
+\index{upk\_\-file\_\-configuration@{upk\_\-file\_\-configuration}!Functions@{Functions}}
+\subsubsection[{upk\_\-file\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-file\_\-configuration}}\label{group__functions_ga63e376b66da63c0b37258f999eff12f8}
+\index{Functions@{Functions}!upk\_\-runtime\_\-configuration@{upk\_\-runtime\_\-configuration}}
+\index{upk\_\-runtime\_\-configuration@{upk\_\-runtime\_\-configuration}!Functions@{Functions}}
+\subsubsection[{upk\_\-runtime\_\-configuration}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-controller\_\-config\_\-t} {\bf upk\_\-runtime\_\-configuration}}\label{group__functions_gaf7638ba77297c6ad954805d92fa33c13}

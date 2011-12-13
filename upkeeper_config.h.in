@@ -1,5 +1,68 @@
 /* upkeeper_config.h.in.  Generated from configure.ac by autoheader.  */
 
+/* define CONF_BINDIR to $bindir */
+#undef CONF_BINDIR
+
+/* define CONF_DATADIR to $datadir */
+#undef CONF_DATADIR
+
+/* define CONF_DATAROOTDIR to $datarootdir */
+#undef CONF_DATAROOTDIR
+
+/* define CONF_DOCDIR to $docdir */
+#undef CONF_DOCDIR
+
+/* define CONF_DVIDIR to $dvidir */
+#undef CONF_DVIDIR
+
+/* define CONF_EXEC_PREFIX to $exec_prefix */
+#undef CONF_EXEC_PREFIX
+
+/* define CONF_HTMLDIR to $htmldir */
+#undef CONF_HTMLDIR
+
+/* define CONF_INCLUDEDIR to $includedir */
+#undef CONF_INCLUDEDIR
+
+/* define CONF_INFODIR to $infodir */
+#undef CONF_INFODIR
+
+/* define CONF_LIBDIR to $libdir */
+#undef CONF_LIBDIR
+
+/* define CONF_LIBEXECDIR to $libexecdir */
+#undef CONF_LIBEXECDIR
+
+/* define CONF_LOCALEDIR to $localedir */
+#undef CONF_LOCALEDIR
+
+/* define CONF_LOCALSTATEDIR to $localstatedir */
+#undef CONF_LOCALSTATEDIR
+
+/* define CONF_MANDIR to $mandir */
+#undef CONF_MANDIR
+
+/* define CONF_OLDINCLUDEDIR to $oldincludedir */
+#undef CONF_OLDINCLUDEDIR
+
+/* define CONF_PDFDIR to $pdfdir */
+#undef CONF_PDFDIR
+
+/* define CONF_PREFIX to $prefix */
+#undef CONF_PREFIX
+
+/* define CONF_PSDIR to $psdir */
+#undef CONF_PSDIR
+
+/* define CONF_SBINDIR to $sbindir */
+#undef CONF_SBINDIR
+
+/* define CONF_SHAREDSTATEDIR to $sharedstatedir */
+#undef CONF_SHAREDSTATEDIR
+
+/* define CONF_SYSCONFDIR to $sysconfdir */
+#undef CONF_SYSCONFDIR
+
 /* Define to one of `_getb67', `GETB67', `getb67' for Cray-2 and Cray-YMP
    systems. This function is required for `alloca.c' support on those systems.
    */
@@ -42,16 +105,19 @@
 /* Define to 1 if you have the `gettimeofday' function. */
 #undef HAVE_GETTIMEOFDAY
 
+/* Define to 1 if you have the `initgroups' function. */
+#undef HAVE_INITGROUPS
+
 /* Define to 1 if you have the <inttypes.h> header file. */
 #undef HAVE_INTTYPES_H
 
-/* Define to 1 if you have the `json' library (-ljson). */
+/* Define to 1 if you have libjson */
 #undef HAVE_LIBJSON
 
-/* Define to 1 if you have the `ncurses' library (-lncurses). */
+/* Define to 1 if you have libncurses */
 #undef HAVE_LIBNCURSES
 
-/* Define to 1 if you have the `sqlite3' library (-lsqlite3). */
+/* Define to 1 if you have libsqlite3 */
 #undef HAVE_LIBSQLITE3
 
 /* Define to 1 if your system has a GNU libc compatible `malloc' function, and
@@ -77,8 +143,14 @@
    and to 0 otherwise. */
 #undef HAVE_REALLOC
 
+/* Define to 1 if you have the `rmdir' function. */
+#undef HAVE_RMDIR
+
 /* Define to 1 if you have the `select' function. */
 #undef HAVE_SELECT
+
+/* Define to 1 if you have the `setgroups' function. */
+#undef HAVE_SETGROUPS
 
 /* Define to 1 if you have the `socket' function. */
 #undef HAVE_SOCKET
@@ -115,6 +187,9 @@
 
 /* Define to 1 if you have the `strncasecmp' function. */
 #undef HAVE_STRNCASECMP
+
+/* Define to 1 if you have the `strnlen' function. */
+#undef HAVE_STRNLEN
 
 /* Define to 1 if you have the `strstr' function. */
 #undef HAVE_STRSTR
@@ -158,6 +233,9 @@
 /* Define to 1 if the system has the type `_Bool'. */
 #undef HAVE__BOOL
 
+/* Define if libc defines __progname */
+#undef HAVE___PROGNAME
+
 /* Define to 1 if `lstat' dereferences a symlink specified with a trailing
    slash. */
 #undef LSTAT_FOLLOWS_SLASHED_SYMLINK
@@ -165,6 +243,9 @@
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
 #undef LT_OBJDIR
+
+/* Define to 1 if your C compiler doesn't accept -c and -o together. */
+#undef NO_MINUS_C_MINUS_O
 
 /* Name of package */
 #undef PACKAGE
@@ -272,6 +353,19 @@
 
 /* Define to rpl_realloc if the replacement function should be used. */
 #undef realloc
+
+/* Define to the equivalent of the C99 'restrict' keyword, or to
+   nothing if this is not supported.  Do not define if restrict is
+   supported directly.  */
+#undef restrict
+/* Work around a bug in Sun C++: it does not support _Restrict, even
+   though the corresponding Sun C compiler does, which causes
+   "#define restrict _Restrict" in the previous line.  Perhaps some future
+   version of Sun C++ will work with _Restrict; if so, it'll probably
+   define __RESTRICT, just as Sun C does.  */
+#if defined __SUNPRO_CC && !defined __RESTRICT
+# define _Restrict
+#endif
 
 /* Define to `unsigned int' if <sys/types.h> does not define. */
 #undef size_t

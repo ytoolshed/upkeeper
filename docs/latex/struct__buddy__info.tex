@@ -1,0 +1,152 @@
+\section{\_\-buddy\_\-info Struct Reference}
+\label{struct__buddy__info}\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}}
+
+
+information buddy returns.  
+
+
+
+
+{\ttfamily \#include $<$ctrl\_\-protocol.h$>$}
+
+
+
+Collaboration diagram for \_\-buddy\_\-info:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{struct__buddy__info__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+bool {\bf populated}
+\item 
+{\bf pid\_\-t} {\bf service\_\-pid}
+\item 
+{\bf pid\_\-t} {\bf wait\_\-pid}
+\item 
+{\bf buddy\_\-cmnd\_\-t} {\bf command}
+\item 
+{\bf buddy\_\-runstate\_\-t} {\bf desired\_\-state}
+\item 
+{\bf siginfo\_\-t} {\bf siginfo}
+\item 
+int {\bf wait\_\-status}
+\item 
+{\bf time\_\-t} {\bf timestamp}
+\item 
+{\bf size\_\-t} {\bf remaining}
+\item 
+{\bf upk\_\-uuid\_\-t} {\bf uuid}
+\item 
+{\bf size\_\-t} {\bf slot\_\-n}
+\item 
+{\bf buddy\_\-info\_\-t} $\ast$ {\bf next}
+\item 
+\_\-Bool {\bf populated}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+information buddy returns. 
+
+This is what buddy sends to controller. 
+
+\subsection{Field Documentation}
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!command@{command}}
+\index{command@{command}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{command}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-cmnd\_\-t} {\bf \_\-buddy\_\-info::command}}\label{struct__buddy__info_a411cde42d2b5345a711f9c10888e1198}
+last command handled by buddy 
+
+Referenced by buddy\_\-readstate(), and buddy\_\-record\_\-state().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!desired\_\-state@{desired\_\-state}}
+\index{desired\_\-state@{desired\_\-state}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{desired\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-runstate\_\-t} {\bf \_\-buddy\_\-info::desired\_\-state}}\label{struct__buddy__info_ab0dbf45adc70df2fef1f709781873d5a}
+desired state of the buddy 
+
+Referenced by buddy\_\-readstate(), and buddy\_\-record\_\-state().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!next@{next}}
+\index{next@{next}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-info\_\-t} $\ast$ {\bf \_\-buddy\_\-info::next}}\label{struct__buddy__info_a89ec8f08886386f79f6ad0f856470a18}
+pointer to next member in ringbuffer 
+
+Referenced by buddy\_\-flush\_\-ringbuffer(), buddy\_\-free\_\-ringbuffer(), buddy\_\-init\_\-ringbuffer(), buddy\_\-start\_\-proc(), buddy\_\-zero\_\-info(), and sa\_\-sigaction\_\-func().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!populated@{populated}}
+\index{populated@{populated}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{populated}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool {\bf \_\-buddy\_\-info::populated}}\label{struct__buddy__info_afb40390f48fab69bc107ce7c9eaf3891}
+this member is populated; used in ringbuffer 
+
+Referenced by buddy\_\-flush\_\-ringbuffer(), buddy\_\-record\_\-state(), and buddy\_\-zero\_\-info().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!populated@{populated}}
+\index{populated@{populated}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{populated}]{\setlength{\rightskip}{0pt plus 5cm}\_\-Bool {\bf \_\-buddy\_\-info::populated}}\label{struct__buddy__info_afb40390f48fab69bc107ce7c9eaf3891}
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!remaining@{remaining}}
+\index{remaining@{remaining}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{remaining}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-buddy\_\-info::remaining}}\label{struct__buddy__info_a0e53404c2bbc4000dee7f9e79e384a9b}
+number of remaining messages to be sent from buddy 
+
+Referenced by buddy\_\-flush\_\-ringbuffer(), and buddy\_\-readstate().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!service\_\-pid@{service\_\-pid}}
+\index{service\_\-pid@{service\_\-pid}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{service\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pid\_\-t} {\bf \_\-buddy\_\-info::service\_\-pid}}\label{struct__buddy__info_ac62c5f536812b863ec3016a7394baaa3}
+pid of the managed process 
+
+Referenced by buddy\_\-readstate(), and buddy\_\-record\_\-state().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!siginfo@{siginfo}}
+\index{siginfo@{siginfo}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{siginfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf siginfo\_\-t} {\bf \_\-buddy\_\-info::siginfo}}\label{struct__buddy__info_aad8330ed234bad72bad6a915548519da}
+siginfo struct if available 
+
+Referenced by sa\_\-sigaction\_\-func().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!slot\_\-n@{slot\_\-n}}
+\index{slot\_\-n@{slot\_\-n}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{slot\_\-n}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-buddy\_\-info::slot\_\-n}}\label{struct__buddy__info_aea38b50c414cf38d926ffe579e6449db}
+used for diagnostics 
+
+Referenced by buddy\_\-init\_\-ringbuffer(), and buddy\_\-zero\_\-info().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!timestamp@{timestamp}}
+\index{timestamp@{timestamp}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{timestamp}]{\setlength{\rightskip}{0pt plus 5cm}{\bf time\_\-t} {\bf \_\-buddy\_\-info::timestamp}}\label{struct__buddy__info_ab7990ca27beae47735ee8cbf3376c3d7}
+timestamp 
+
+Referenced by buddy\_\-readstate(), and buddy\_\-record\_\-state().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!uuid@{uuid}}
+\index{uuid@{uuid}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf \_\-buddy\_\-info::uuid}}\label{struct__buddy__info_a677c1a945cf4e2571cdd29b7ae822439}
+uuid of service managed by buddy 
+
+Referenced by buddy\_\-readstate(), and buddy\_\-record\_\-state().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!wait\_\-pid@{wait\_\-pid}}
+\index{wait\_\-pid@{wait\_\-pid}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{wait\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf pid\_\-t} {\bf \_\-buddy\_\-info::wait\_\-pid}}\label{struct__buddy__info_af7057b15fc51781ce0bb63d717d59e2a}
+pid of the process just waited on, if applicable 
+
+Referenced by buddy\_\-readstate(), and sa\_\-sigaction\_\-func().
+
+\index{\_\-buddy\_\-info@{\_\-buddy\_\-info}!wait\_\-status@{wait\_\-status}}
+\index{wait\_\-status@{wait\_\-status}!_buddy_info@{\_\-buddy\_\-info}}
+\subsubsection[{wait\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf \_\-buddy\_\-info::wait\_\-status}}\label{struct__buddy__info_a60504b45dc317e3607852855a74f6904}
+wait status, if available 
+
+Referenced by buddy\_\-readstate(), and sa\_\-sigaction\_\-func().
+
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf ctrl\_\-protocol.h}\item 
+controller/{\bf tp.c}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

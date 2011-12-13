@@ -1,0 +1,495 @@
+.TH "deps/sqlite-3.7.3/shell.c" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+deps/sqlite-3.7.3/shell.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <assert.h>\fP
+.br
+\fC#include 'sqlite3.h'\fP
+.br
+\fC#include <ctype.h>\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <pwd.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <sys/time.h>\fP
+.br
+\fC#include <sys/resource.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBprevious_mode_data\fP"
+.br
+.ti -1c
+.RI "struct \fBcallback_data\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBreadline\fP(p)   local_getline(p,stdin)"
+.br
+.ti -1c
+.RI "#define \fBadd_history\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBread_history\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBwrite_history\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBstifle_history\fP(X)"
+.br
+.ti -1c
+.RI "#define \fBBEGIN_TIMER\fP   beginTimer()"
+.br
+.ti -1c
+.RI "#define \fBEND_TIMER\fP   endTimer()"
+.br
+.ti -1c
+.RI "#define \fBHAS_TIMER\fP   1"
+.br
+.ti -1c
+.RI "#define \fBUNUSED_PARAMETER\fP(x)   (void)(x)"
+.br
+.ti -1c
+.RI "#define \fBMODE_Line\fP   0"
+.br
+.ti -1c
+.RI "#define \fBMODE_Column\fP   1"
+.br
+.ti -1c
+.RI "#define \fBMODE_List\fP   2"
+.br
+.ti -1c
+.RI "#define \fBMODE_Semi\fP   3"
+.br
+.ti -1c
+.RI "#define \fBMODE_Html\fP   4"
+.br
+.ti -1c
+.RI "#define \fBMODE_Insert\fP   5"
+.br
+.ti -1c
+.RI "#define \fBMODE_Tcl\fP   6"
+.br
+.ti -1c
+.RI "#define \fBMODE_Csv\fP   7"
+.br
+.ti -1c
+.RI "#define \fBMODE_Explain\fP   8"
+.br
+.ti -1c
+.RI "#define \fBArraySize\fP(X)   (int)(sizeof(X)/sizeof(X[0]))"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBisatty\fP ()"
+.br
+.ti -1c
+.RI "static void \fBbeginTimer\fP (void)"
+.br
+.ti -1c
+.RI "static double \fBtimeDiff\fP (struct timeval *pStart, struct timeval *pEnd)"
+.br
+.ti -1c
+.RI "static void \fBendTimer\fP (void)"
+.br
+.ti -1c
+.RI "static int \fBisNumber\fP (const char *z, int *realnum)"
+.br
+.ti -1c
+.RI "static void \fBshellstaticFunc\fP (\fBsqlite3_context\fP *context, int argc, \fBsqlite3_value\fP **argv)"
+.br
+.ti -1c
+.RI "static char * \fBlocal_getline\fP (char *zPrompt, FILE *in)"
+.br
+.ti -1c
+.RI "static char * \fBone_input_line\fP (const char *zPrior, FILE *in)"
+.br
+.ti -1c
+.RI "static int \fBstrlen30\fP (const char *z)"
+.br
+.ti -1c
+.RI "static void \fBshellLog\fP (void *pArg, int iErrCode, const char *zMsg)"
+.br
+.ti -1c
+.RI "static void \fBoutput_hex_blob\fP (FILE *out, const void *pBlob, int nBlob)"
+.br
+.ti -1c
+.RI "static void \fBoutput_quoted_string\fP (FILE *out, const char *z)"
+.br
+.ti -1c
+.RI "static void \fBoutput_c_string\fP (FILE *out, const char *z)"
+.br
+.ti -1c
+.RI "static void \fBoutput_html_string\fP (FILE *out, const char *z)"
+.br
+.ti -1c
+.RI "static void \fBoutput_csv\fP (struct \fBcallback_data\fP *p, const char *z, int bSep)"
+.br
+.ti -1c
+.RI "static int \fBshell_callback\fP (void *pArg, int nArg, char **azArg, char **azCol, int *aiType)"
+.br
+.ti -1c
+.RI "static int \fBcallback\fP (void *pArg, int nArg, char **azArg, char **azCol)"
+.br
+.ti -1c
+.RI "static void \fBset_table_name\fP (struct \fBcallback_data\fP *p, const char *zName)"
+.br
+.ti -1c
+.RI "static char * \fBappendText\fP (char *zIn, char const *zAppend, char quote)"
+.br
+.ti -1c
+.RI "static int \fBrun_table_dump_query\fP (FILE *out, \fBsqlite3\fP *\fBdb\fP, const char *zSelect, const char *zFirstRow)"
+.br
+.ti -1c
+.RI "static char * \fBsave_err_msg\fP (\fBsqlite3\fP *\fBdb\fP)"
+.br
+.ti -1c
+.RI "static int \fBdisplay_stats\fP (\fBsqlite3\fP *\fBdb\fP, struct \fBcallback_data\fP *pArg, int bReset)"
+.br
+.ti -1c
+.RI "static int \fBshell_exec\fP (\fBsqlite3\fP *\fBdb\fP, const char *zSql, int(*xCallback)(void *, int, char **, char **, int *), struct \fBcallback_data\fP *pArg, char **pzErrMsg)"
+.br
+.ti -1c
+.RI "static int \fBdump_callback\fP (void *pArg, int nArg, char **azArg, char **azCol)"
+.br
+.ti -1c
+.RI "static int \fBrun_schema_dump_query\fP (struct \fBcallback_data\fP *p, const char *zQuery, char **pzErrMsg)"
+.br
+.ti -1c
+.RI "static int \fBprocess_input\fP (struct \fBcallback_data\fP *p, FILE *in)"
+.br
+.ti -1c
+.RI "static void \fBopen_db\fP (struct \fBcallback_data\fP *p)"
+.br
+.ti -1c
+.RI "static void \fBresolve_backslashes\fP (char *z)"
+.br
+.ti -1c
+.RI "static int \fBbooleanValue\fP (char *zArg)"
+.br
+.ti -1c
+.RI "static int \fBdo_meta_command\fP (char *zLine, struct \fBcallback_data\fP *p)"
+.br
+.ti -1c
+.RI "static int \fB_contains_semicolon\fP (const char *z, int N)"
+.br
+.ti -1c
+.RI "static int \fB_all_whitespace\fP (const char *z)"
+.br
+.ti -1c
+.RI "static int \fB_is_command_terminator\fP (const char *zLine)"
+.br
+.ti -1c
+.RI "static int \fB_is_complete\fP (char *zSql, int nSql)"
+.br
+.ti -1c
+.RI "static char * \fBfind_home_dir\fP (void)"
+.br
+.ti -1c
+.RI "static int \fBprocess_sqliterc\fP (struct \fBcallback_data\fP *p, const char *sqliterc_override)"
+.br
+.ti -1c
+.RI "static void \fBusage\fP (int showDetail)"
+.br
+.ti -1c
+.RI "static void \fBmain_init\fP (struct \fBcallback_data\fP *data)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static struct rusage \fBsBegin\fP"
+.br
+.ti -1c
+.RI "static int \fBenableTimer\fP = 0"
+.br
+.ti -1c
+.RI "static int \fBbail_on_error\fP = 0"
+.br
+.ti -1c
+.RI "static int \fBstdin_is_interactive\fP = 1"
+.br
+.ti -1c
+.RI "static \fBsqlite3\fP * \fBdb\fP = 0"
+.br
+.ti -1c
+.RI "static volatile int \fBseenInterrupt\fP = 0"
+.br
+.ti -1c
+.RI "static char * \fBArgv0\fP"
+.br
+.ti -1c
+.RI "static char \fBmainPrompt\fP [20]"
+.br
+.ti -1c
+.RI "static char \fBcontinuePrompt\fP [20]"
+.br
+.ti -1c
+.RI "static const char * \fBzShellStatic\fP = 0"
+.br
+.ti -1c
+.RI "static const char * \fBmodeDescr\fP []"
+.br
+.ti -1c
+.RI "static const char \fBneedCsvQuote\fP []"
+.br
+.ti -1c
+.RI "static char \fBzHelp\fP []"
+.br
+.ti -1c
+.RI "static char \fBzTimerHelp\fP []"
+.br
+.ti -1c
+.RI "static const char \fBzOptions\fP []"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define add_history(X)"
+.PP
+.SS "#define ArraySize(X)   (int)(sizeof(X)/sizeof(X[0]))"
+.PP
+.SS "#define BEGIN_TIMER   beginTimer()"
+.PP
+.SS "#define END_TIMER   endTimer()"
+.PP
+.SS "#define HAS_TIMER   1"
+.PP
+.SS "#define MODE_Column   1"
+.PP
+.SS "#define MODE_Csv   7"
+.PP
+.SS "#define MODE_Explain   8"
+.PP
+.SS "#define MODE_Html   4"
+.PP
+.SS "#define MODE_Insert   5"
+.PP
+.SS "#define MODE_Line   0"
+.PP
+.SS "#define MODE_List   2"
+.PP
+.SS "#define MODE_Semi   3"
+.PP
+.SS "#define MODE_Tcl   6"
+.PP
+.SS "#define read_history(X)"
+.PP
+.SS "#define readline(p)   local_getline(p,stdin)"
+.PP
+.SS "#define stifle_history(X)"
+.PP
+.SS "#define UNUSED_PARAMETER(x)   (void)(x)"
+.PP
+.SS "#define write_history(X)"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "static int _all_whitespace (const char * z)\fC [static]\fP"
+.PP
+.SS "static int _contains_semicolon (const char * z, int N)\fC [static]\fP"
+.PP
+.SS "static int _is_command_terminator (const char * zLine)\fC [static]\fP"
+.PP
+.SS "static int _is_complete (char * zSql, int nSql)\fC [static]\fP"
+.PP
+.SS "static char* appendText (char * zIn, char const * zAppend, char quote)\fC [static]\fP"
+.PP
+.SS "static void beginTimer (void)\fC [static]\fP"
+.PP
+.SS "static int booleanValue (char * zArg)\fC [static]\fP"
+.PP
+.SS "static int callback (void * pArg, int nArg, char ** azArg, char ** azCol)\fC [static]\fP"
+.PP
+.SS "static int display_stats (\fBsqlite3\fP * db, struct \fBcallback_data\fP * pArg, int bReset)\fC [static]\fP"
+.PP
+.SS "static int do_meta_command (char * zLine, struct \fBcallback_data\fP * p)\fC [static]\fP"
+.PP
+.SS "static int dump_callback (void * pArg, int nArg, char ** azArg, char ** azCol)\fC [static]\fP"
+.PP
+.SS "static void endTimer (void)\fC [static]\fP"
+.PP
+.SS "static char* find_home_dir (void)\fC [static]\fP"
+.PP
+.SS "int isatty ()"
+.PP
+.SS "static int isNumber (const char * z, int * realnum)\fC [static]\fP"
+.PP
+.SS "static char* local_getline (char * zPrompt, FILE * in)\fC [static]\fP"
+.PP
+.SS "int main (int argc, char ** argv)"
+.PP
+.SS "static void main_init (struct \fBcallback_data\fP * data)\fC [static]\fP"
+.PP
+.SS "static char* one_input_line (const char * zPrior, FILE * in)\fC [static]\fP"
+.PP
+.SS "static void open_db (struct \fBcallback_data\fP * p)\fC [static]\fP"
+.PP
+.SS "static void output_c_string (FILE * out, const char * z)\fC [static]\fP"
+.PP
+.SS "static void output_csv (struct \fBcallback_data\fP * p, const char * z, int bSep)\fC [static]\fP"
+.PP
+.SS "static void output_hex_blob (FILE * out, const void * pBlob, int nBlob)\fC [static]\fP"
+.PP
+.SS "static void output_html_string (FILE * out, const char * z)\fC [static]\fP"
+.PP
+.SS "static void output_quoted_string (FILE * out, const char * z)\fC [static]\fP"
+.PP
+.SS "static int process_input (struct \fBcallback_data\fP * p, FILE * in)\fC [static]\fP"
+.PP
+.SS "static int process_sqliterc (struct \fBcallback_data\fP * p, const char * sqliterc_override)\fC [static]\fP"
+.PP
+.SS "static void resolve_backslashes (char * z)\fC [static]\fP"
+.PP
+.SS "static int run_schema_dump_query (struct \fBcallback_data\fP * p, const char * zQuery, char ** pzErrMsg)\fC [static]\fP"
+.PP
+.SS "static int run_table_dump_query (FILE * out, \fBsqlite3\fP * db, const char * zSelect, const char * zFirstRow)\fC [static]\fP"
+.PP
+.SS "static char* save_err_msg (\fBsqlite3\fP * db)\fC [static]\fP"
+.PP
+.SS "static void set_table_name (struct \fBcallback_data\fP * p, const char * zName)\fC [static]\fP"
+.PP
+.SS "static int shell_callback (void * pArg, int nArg, char ** azArg, char ** azCol, int * aiType)\fC [static]\fP"
+.PP
+.SS "static int shell_exec (\fBsqlite3\fP * db, const char * zSql, int(*)(void *, int, char **, char **, int *) xCallback, struct \fBcallback_data\fP * pArg, char ** pzErrMsg)\fC [static]\fP"
+.PP
+.SS "static void shellLog (void * pArg, int iErrCode, const char * zMsg)\fC [static]\fP"
+.PP
+.SS "static void shellstaticFunc (\fBsqlite3_context\fP * context, int argc, \fBsqlite3_value\fP ** argv)\fC [static]\fP"
+.PP
+.SS "static int strlen30 (const char * z)\fC [static]\fP"
+.PP
+.SS "static double timeDiff (struct timeval * pStart, struct timeval * pEnd)\fC [static]\fP"
+.PP
+.SS "static void usage (int showDetail)\fC [static]\fP"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "char* \fBArgv0\fP\fC [static]\fP"
+.PP
+.SS "int \fBbail_on_error\fP = 0\fC [static]\fP"
+.PP
+.SS "char \fBcontinuePrompt\fP[20]\fC [static]\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBdb\fP = 0\fC [static]\fP"
+.PP
+.SS "int \fBenableTimer\fP = 0\fC [static]\fP"
+.PP
+.SS "char \fBmainPrompt\fP[20]\fC [static]\fP"
+.PP
+.SS "const char* \fBmodeDescr\fP[]\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+ {
+  'line',
+  'column',
+  'list',
+  'semi',
+  'html',
+  'insert',
+  'tcl',
+  'csv',
+  'explain',
+}
+.fi
+.SS "const char \fBneedCsvQuote\fP[]\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+ {
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 0, 1, 0, 0, 0, 0, 1,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 0, 
+  0, 0, 0, 0, 0, 0, 0, 0,   0, 0, 0, 0, 0, 0, 0, 1, 
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+  1, 1, 1, 1, 1, 1, 1, 1,   1, 1, 1, 1, 1, 1, 1, 1,   
+}
+.fi
+.SS "struct rusage \fBsBegin\fP\fC [static]\fP"
+.PP
+.SS "volatile int \fBseenInterrupt\fP = 0\fC [static]\fP"
+.PP
+.SS "int \fBstdin_is_interactive\fP = 1\fC [static]\fP"
+.PP
+.SS "char \fBzHelp\fP[]\fC [static]\fP"
+.PP
+.SS "const char \fBzOptions\fP[]\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+ 
+  '   -help                show this message\n'
+  '   -init filename       read/process named file\n'
+  '   -echo                print commands before execution\n'
+  '   -[no]header          turn headers on or off\n'
+  '   -bail                stop after hitting an error\n'
+  '   -interactive         force interactive I/O\n'
+  '   -batch               force batch I/O\n'
+  '   -column              set output mode to 'column'\n'
+  '   -csv                 set output mode to 'csv'\n'
+  '   -html                set output mode to HTML\n'
+  '   -line                set output mode to 'line'\n'
+  '   -list                set output mode to 'list'\n'
+  '   -separator 'x'       set output field separator (|)\n'
+  '   -stats               print memory stats before each finalize\n'
+  '   -nullvalue 'text'    set text string for NULL values\n'
+  '   -version             show SQLite version\n'
+.fi
+.SS "const char* \fBzShellStatic\fP = 0\fC [static]\fP"
+.PP
+.SS "char \fBzTimerHelp\fP[]\fC [static]\fP"
+.PP
+\fBInitial value:\fP
+.PP
+.nf
+
+  '.timer ON|OFF          Turn the CPU timer measurement on or off\n'
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

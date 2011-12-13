@@ -1,0 +1,78 @@
+.TH "_upk_svcinfo" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_svcinfo \- 
+.PP
+see definition in *protocol_fields.h.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_time\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_status\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_action_name_len\fP"
+.br
+.ti -1c
+.RI "char \fBlast_action_name\fP [2048]"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_signal_time\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBlast_signal_status\fP"
+.br
+.ti -1c
+.RI "\fBupk_signal_t\fP \fBlast_signal_name\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBbuddy_pid\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBproc_pid\fP"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBcurrent_state\fP"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBprior_state\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBn_recorded_restarts\fP"
+.br
+.ti -1c
+.RI "\fBUPK_V0_SVCINFO_T_FIELDS\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+see definition in *protocol_fields.h. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::buddy_pid\fP"
+.SS "\fBupk_state_t\fP \fB_upk_svcinfo::current_state\fP"
+.SS "char \fB_upk_svcinfo::last_action_name\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::last_action_name_len\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::last_action_status\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::last_action_time\fP"
+.SS "\fBupk_signal_t\fP \fB_upk_svcinfo::last_signal_name\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::last_signal_status\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::last_signal_time\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::n_recorded_restarts\fP"
+.SS "\fBupk_state_t\fP \fB_upk_svcinfo::prior_state\fP"
+.SS "\fBuint32_t\fP \fB_upk_svcinfo::proc_pid\fP"
+.SS "\fB_upk_svcinfo::UPK_V0_SVCINFO_T_FIELDS\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

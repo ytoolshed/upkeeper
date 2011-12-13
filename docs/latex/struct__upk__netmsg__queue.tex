@@ -1,0 +1,78 @@
+\section{\_\-upk\_\-netmsg\_\-queue Struct Reference}
+\label{struct__upk__netmsg__queue}\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}}
+
+
+this is a tailq for network message queuing  
+
+
+
+
+{\ttfamily \#include $<$upk\_\-network\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-netmsg\_\-queue:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{struct__upk__netmsg__queue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} {\bf msg} [65536]
+\item 
+{\bf size\_\-t} {\bf msg\_\-len}
+\item 
+{\bf size\_\-t} {\bf n\_\-bytes\_\-written}
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf after\_\-write\_\-callback}
+\item 
+{\bf upk\_\-netmsg\_\-queue\_\-t} $\ast$ {\bf next}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+this is a tailq for network message queuing 
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}!after\_\-write\_\-callback@{after\_\-write\_\-callback}}
+\index{after\_\-write\_\-callback@{after\_\-write\_\-callback}!_upk_netmsg_queue@{\_\-upk\_\-netmsg\_\-queue}}
+\subsubsection[{after\_\-write\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-netmsg\_\-queue::after\_\-write\_\-callback}}\label{struct__upk__netmsg__queue_ac08757fcf4cb2cf80d69d4aaa47f0dba}
+call this after writing this msg; may be NULL 
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}!msg@{msg}}
+\index{msg@{msg}!_upk_netmsg_queue@{\_\-upk\_\-netmsg\_\-queue}}
+\subsubsection[{msg}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t} {\bf \_\-upk\_\-netmsg\_\-queue::msg}}\label{struct__upk__netmsg__queue_a64bd48d1e45dcba5cfe2966bb160bab3}
+serialized packet (a message) 
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}!msg\_\-len@{msg\_\-len}}
+\index{msg\_\-len@{msg\_\-len}!_upk_netmsg_queue@{\_\-upk\_\-netmsg\_\-queue}}
+\subsubsection[{msg\_\-len}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-upk\_\-netmsg\_\-queue::msg\_\-len}}\label{struct__upk__netmsg__queue_a72d42bbdbfdd3281240ba032a478072c}
+length of msg to write 
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}!n\_\-bytes\_\-written@{n\_\-bytes\_\-written}}
+\index{n\_\-bytes\_\-written@{n\_\-bytes\_\-written}!_upk_netmsg_queue@{\_\-upk\_\-netmsg\_\-queue}}
+\subsubsection[{n\_\-bytes\_\-written}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf \_\-upk\_\-netmsg\_\-queue::n\_\-bytes\_\-written}}\label{struct__upk__netmsg__queue_afd55858a2d41feebd6a484c238df816b}
+remaining bytes in message to write ; used to advance ptr 
+
+Referenced by upk\_\-write\_\-packets().
+
+\index{\_\-upk\_\-netmsg\_\-queue@{\_\-upk\_\-netmsg\_\-queue}!next@{next}}
+\index{next@{next}!_upk_netmsg_queue@{\_\-upk\_\-netmsg\_\-queue}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-netmsg\_\-queue\_\-t} $\ast$ {\bf \_\-upk\_\-netmsg\_\-queue::next}}\label{struct__upk__netmsg__queue_a5366fc1aeebe39634cfc00d779b8b308}
+next 
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-network\_\-types.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

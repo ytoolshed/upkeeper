@@ -1,0 +1,26 @@
+\section{libupkeeper/upkeeper/uuid.c File Reference}
+\label{upkeeper_2uuid_8c}\index{libupkeeper/upkeeper/uuid.c@{libupkeeper/upkeeper/uuid.c}}
+{\ttfamily \#include \char`\"{}upk\_\-uuid.h\char`\"{}}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+Include dependency graph for uuid.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upkeeper_2uuid_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf upk\_\-uuid\_\-seed\_\-random} (void)
+\begin{DoxyCompactList}\small\item\em seed random number pool used by upk\_\-gen\_\-uuid\_\-bytes. \end{DoxyCompactList}\item 
+int {\bf upk\_\-uuid\_\-open\_\-random} (void)
+\begin{DoxyCompactList}\small\item\em open random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable. \end{DoxyCompactList}\item 
+void {\bf upk\_\-gen\_\-uuid\_\-bytes} ({\bf upk\_\-uuid\_\-t} $\ast$buf)
+\begin{DoxyCompactList}\small\item\em collect and/or generate 16 bytes of random data. \end{DoxyCompactList}\item 
+void {\bf upk\_\-uuid\_\-to\_\-string} (char $\ast$buf, const {\bf upk\_\-uuid\_\-t} $\ast$uuid)
+\begin{DoxyCompactList}\small\item\em convert uuid to string and place in buf. \end{DoxyCompactList}\item 
+bool {\bf is\_\-valid\_\-upk\_\-uuid\_\-string} (const char $\ast$string)
+\begin{DoxyCompactList}\small\item\em test if a given string is a valid uuid string. \end{DoxyCompactList}\item 
+void {\bf upk\_\-string\_\-to\_\-uuid} ({\bf upk\_\-uuid\_\-t} $\ast$uuid, const char $\ast$string)
+\begin{DoxyCompactList}\small\item\em convert uuid string into uuid structure. \end{DoxyCompactList}\end{DoxyCompactItemize}

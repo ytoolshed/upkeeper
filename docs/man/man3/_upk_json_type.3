@@ -1,0 +1,65 @@
+.TH "_upk_json_type" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_json_type \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_json.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBuint8_t\fP \fBtype\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   bool \fBbl\fP"
+.br
+.ti -1c
+.RI "   double \fBdbl\fP"
+.br
+.ti -1c
+.RI "   int \fBi\fP"
+.br
+.ti -1c
+.RI "   \fBupk_json_string_t\fP \fBstr\fP"
+.br
+.ti -1c
+.RI "   struct json_object * \fBobj\fP"
+.br
+.ti -1c
+.RI "} \fBval\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "bool \fB_upk_json_type::bl\fP"
+.PP
+Referenced by upk_json_output_bool_handler(), upk_json_value(), and upk_svcconf_bool_handler().
+.SS "double \fB_upk_json_type::dbl\fP"
+.PP
+Referenced by upk_ctrlconf_double_handler(), upk_json_output_double_handler(), and upk_json_value().
+.SS "int \fB_upk_json_type::i\fP"
+.PP
+Referenced by upk_ctrlconf_int_handler(), upk_json_output_int_handler(), upk_json_value(), and upk_svcconf_int_handler().
+.SS "struct json_object* \fB_upk_json_type::obj\fP"
+.PP
+Referenced by _upk_json_parse_node(), and upk_json_value().
+.SS "\fBupk_json_string_t\fP \fB_upk_json_type::str\fP"
+.PP
+Referenced by upk_ctrlconf_string_handler(), upk_json_output_string_handler(), upk_json_value(), upk_svcconf_customaction_array_appender(), upk_svcconf_string_handler(), and upk_svcconf_svcid_array_appender().
+.SS "\fBuint8_t\fP \fB_upk_json_type::type\fP"
+.PP
+Referenced by _upk_json_parse_node(), and upk_json_value().
+.SS "union { ... }   \fB_upk_json_type::val\fP"
+.PP
+Referenced by _upk_json_parse_node(), upk_ctrlconf_double_handler(), upk_ctrlconf_int_handler(), upk_ctrlconf_string_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_string_handler(), upk_json_value(), upk_svcconf_bool_handler(), upk_svcconf_customaction_array_appender(), upk_svcconf_int_handler(), upk_svcconf_string_handler(), and upk_svcconf_svcid_array_appender().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

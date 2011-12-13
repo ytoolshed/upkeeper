@@ -1,0 +1,54 @@
+.TH "Uuid" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Uuid \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_uuid\fP"
+.br
+.RI "\fIstructure for holding 16 byte UUID. \fP"
+.in -1c
+.SS "Modules"
+
+.in +1c
+.ti -1c
+.RI "\fBUuid_functions\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_UUID_LEN\fP   sizeof(\fBupk_uuid_t\fP)"
+.br
+.ti -1c
+.RI "#define \fBUPK_UUID_STRING_LEN\fP   36"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_uuid\fP \fBupk_uuid_t\fP"
+.br
+.RI "\fIstructure for holding 16 byte UUID. \fP"
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define UPK_UUID_LEN   sizeof(\fBupk_uuid_t\fP)"
+.PP
+Referenced by upk_gen_uuid_bytes().
+.SS "#define UPK_UUID_STRING_LEN   36"
+.PP
+Referenced by spawn_buddy(), upk_db_add_new_service(), upk_db_gen_uuid(), upk_db_insert_cfg(), upk_db_try_insert(), upk_db_try_update(), upk_db_upsert(), and upk_uuid_to_string().
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_upk_uuid\fP  \fBupk_uuid_t\fP"
+.PP
+structure for holding 16 byte UUID. Despite only using v4 uuids, field labels chosen to reflect convention but All bits save those for version and id are random; and do not contain the information the label might imply 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

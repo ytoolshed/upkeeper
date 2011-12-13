@@ -1,0 +1,111 @@
+.TH "libupkeeper/tests/dlinked_lists.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/tests/dlinked_lists.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <check.h>\fP
+.br
+\fC#include <upkeeper.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_test_foo\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_test_foo\fP \fBtest_foo_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_swap)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_prepend)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_append)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_append_this)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_unlink)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_unlink_first)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (reverse)"
+.br
+.ti -1c
+.RI "TCase * \fBll_tcase\fP (void)"
+.br
+.ti -1c
+.RI "Suite * \fBupk_ll_suite\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBEND_TEST\fP"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_test_foo\fP \fBtest_foo_t\fP"
+.SH "Function Documentation"
+.PP 
+.SS "TCase* ll_tcase (void)"
+.PP
+Referenced by upk_ll_suite().
+.SS "int main (void)"
+.PP
+References suite(), and upk_ll_suite().
+.SS "START_TEST (test_unlink)"
+.PP
+References UPKDLIST_APPEND_THIS, UPKDLIST_FOREACH, UPKDLIST_FREE, UPKDLIST_INIT, and UPKDLIST_UNLINK.
+.SS "START_TEST (test_prepend)"
+.PP
+References UPKDLIST_FOREACH, UPKDLIST_FREE, UPKDLIST_INIT, and UPKDLIST_PREPEND.
+.SS "START_TEST (reverse)"
+.PP
+References UPKDLIST_APPEND_THIS, UPKDLIST_FOREACH_REVERSE, UPKDLIST_FREE, and UPKDLIST_INIT.
+.SS "START_TEST (test_unlink_first)"
+.PP
+References UPKDLIST_APPEND_THIS, UPKDLIST_FOREACH, UPKDLIST_FREE, UPKDLIST_INIT, and UPKDLIST_UNLINK.
+.SS "START_TEST (test_swap)"
+.PP
+References UPKDLIST_APPEND, UPKDLIST_FOREACH, UPKDLIST_FREE, UPKDLIST_INIT, and UPKDLIST_SWAP.
+.SS "START_TEST (test_append_this)"
+.PP
+References UPKDLIST_APPEND_THIS, UPKDLIST_FOREACH, UPKDLIST_FREE, and UPKDLIST_INIT.
+.SS "START_TEST (test_append)"
+.PP
+References UPKDLIST_APPEND, UPKDLIST_FOREACH, UPKDLIST_FREE, and UPKDLIST_INIT.
+.SS "Suite* upk_ll_suite (void)"
+.PP
+References ll_tcase(), and suite().
+.PP
+Referenced by main().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBEND_TEST\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

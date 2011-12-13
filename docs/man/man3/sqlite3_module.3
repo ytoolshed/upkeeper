@@ -1,0 +1,121 @@
+.TH "sqlite3_module" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_module \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBiVersion\fP"
+.br
+.ti -1c
+.RI "int(* \fBxCreate\fP )(\fBsqlite3\fP *, void *pAux, int argc, const char *const *argv, \fBsqlite3_vtab\fP **ppVTab, char **)"
+.br
+.ti -1c
+.RI "int(* \fBxConnect\fP )(\fBsqlite3\fP *, void *pAux, int argc, const char *const *argv, \fBsqlite3_vtab\fP **ppVTab, char **)"
+.br
+.ti -1c
+.RI "int(* \fBxBestIndex\fP )(\fBsqlite3_vtab\fP *pVTab, \fBsqlite3_index_info\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxDisconnect\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxDestroy\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxOpen\fP )(\fBsqlite3_vtab\fP *pVTab, \fBsqlite3_vtab_cursor\fP **ppCursor)"
+.br
+.ti -1c
+.RI "int(* \fBxClose\fP )(\fBsqlite3_vtab_cursor\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxFilter\fP )(\fBsqlite3_vtab_cursor\fP *, int idxNum, const char *idxStr, int argc, \fBsqlite3_value\fP **argv)"
+.br
+.ti -1c
+.RI "int(* \fBxNext\fP )(\fBsqlite3_vtab_cursor\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxEof\fP )(\fBsqlite3_vtab_cursor\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxColumn\fP )(\fBsqlite3_vtab_cursor\fP *, \fBsqlite3_context\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBxRowid\fP )(\fBsqlite3_vtab_cursor\fP *, \fBsqlite3_int64\fP *pRowid)"
+.br
+.ti -1c
+.RI "int(* \fBxUpdate\fP )(\fBsqlite3_vtab\fP *, int, \fBsqlite3_value\fP **, \fBsqlite3_int64\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxBegin\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxSync\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxCommit\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxRollback\fP )(\fBsqlite3_vtab\fP *pVTab)"
+.br
+.ti -1c
+.RI "int(* \fBxFindFunction\fP )(\fBsqlite3_vtab\fP *pVtab, int nArg, const char *zName, void(**pxFunc)(\fBsqlite3_context\fP *, int, \fBsqlite3_value\fP **), void **ppArg)"
+.br
+.ti -1c
+.RI "int(* \fBxRename\fP )(\fBsqlite3_vtab\fP *pVtab, const char *zNew)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int \fBsqlite3_module::iVersion\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xBegin\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xBestIndex\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xClose\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xColumn\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xCommit\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xConnect\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xCreate\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xDestroy\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xDisconnect\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xEof\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xFilter\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xFindFunction\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xNext\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xOpen\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xRename\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xRollback\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xRowid\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xSync\fP"
+.PP
+.SS "int(* \fBsqlite3_module::xUpdate\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

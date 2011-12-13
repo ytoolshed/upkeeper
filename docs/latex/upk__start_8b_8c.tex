@@ -1,0 +1,74 @@
+\section{clients/upk\_\-start.b.c File Reference}
+\label{upk__start_8b_8c}\index{clients/upk\_\-start.b.c@{clients/upk\_\-start.b.c}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include $<$sys/un.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+Include dependency graph for upk\_\-start.b.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__start_8b_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf received\_\-packet\_\-callback} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$controller, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\item 
+int {\bf main} (int argc, char $\ast$$\ast$argv, char $\ast$$\ast$envp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-start.b.c@{upk\_\-start.b.c}!main@{main}}
+\index{main@{main}!upk_start.b.c@{upk\_\-start.b.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{char $\ast$$\ast$}]{envp}
+\end{DoxyParamCaption}
+)}\label{upk__start_8b_8c_a647f21a28344e1d9c643f4115516d7c9}
+
+
+References \_\-upk\_\-controller\_\-config::controller\_\-socket, received\_\-packet\_\-callback(), upk\_\-conn\_\-handle\_\-meta\_\-t, upk\_\-create\_\-req\_\-action(), upk\_\-ctrl\_\-load\_\-config(), upk\_\-diag\_\-verbosity, UPK\_\-DIAGLVL\_\-DEBUG1, upk\_\-fatal, upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-event\_\-dispatcher(), upk\_\-pkt\_\-free(), upk\_\-queue\_\-packet(), upk\_\-runtime\_\-configuration, and upk\_\-verbose.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__start_8b_8c_a647f21a28344e1d9c643f4115516d7c9_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-start.b.c@{upk\_\-start.b.c}!received\_\-packet\_\-callback@{received\_\-packet\_\-callback}}
+\index{received\_\-packet\_\-callback@{received\_\-packet\_\-callback}!upk_start.b.c@{upk\_\-start.b.c}}
+\subsubsection[{received\_\-packet\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}void received\_\-packet\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{controller, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{upk__start_8b_8c_ae50a9d24cdfdce38f685f32c13ca4b0d}
+
+
+References \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::repl\_\-result, \_\-upk\_\-payload::type, upk\_\-notice, and UPK\_\-REPL\_\-RESULT.
+
+
+
+Referenced by main().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{upk__start_8b_8c_ae50a9d24cdfdce38f685f32c13ca4b0d_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,268 @@
+.TH "_upk_svc_desc" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_svc_desc \- 
+.PP
+service configuration.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_config.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int32_t \fBStartPriority\fP"
+.br
+.ti -1c
+.RI "char \fBName\fP [2048]"
+.br
+.ti -1c
+.RI "char \fBPackage\fP [2048]"
+.br
+.ti -1c
+.RI "\fBupk_svcid_meta_t\fP * \fBProvides\fP"
+.br
+.ti -1c
+.RI "\fBupk_uuid_t\fP \fBUUID\fP"
+.br
+.ti -1c
+.RI "char \fBShortDescription\fP [2048]"
+.br
+.ti -1c
+.RI "char * \fBLongDescription\fP"
+.br
+.ti -1c
+.RI "\fBupk_svcid_meta_t\fP * \fBPrerequisites\fP"
+.br
+.ti -1c
+.RI "\fBupk_svcid_meta_t\fP * \fBStartAfter\fP"
+.br
+.ti -1c
+.RI "_Bool \fBRestartAllDependencies\fP"
+.br
+.ti -1c
+.RI "_Bool \fBRestartOnPrerequisiteRestart\fP"
+.br
+.ti -1c
+.RI "\fBupk_svcid_meta_t\fP * \fBRestartOnNamedPrereqRestart\fP"
+.br
+.ti -1c
+.RI "int32_t \fBKillTimeout\fP"
+.br
+.ti -1c
+.RI "int32_t \fBStartupDelay\fP"
+.br
+.ti -1c
+.RI "int32_t \fBMaxConsecutiveFailures\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserMaxRestarts\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserRestartWindow\fP"
+.br
+.ti -1c
+.RI "int32_t \fBUserRateLimit\fP"
+.br
+.ti -1c
+.RI "int8_t \fBRandomizeRateLimit\fP"
+.br
+.ti -1c
+.RI "\fBuid_t\fP \fBSetUID\fP"
+.br
+.ti -1c
+.RI "\fBgid_t\fP \fBSetGID\fP"
+.br
+.ti -1c
+.RI "\fBsize_t\fP \fBRingbufferSize\fP"
+.br
+.ti -1c
+.RI "int32_t \fBReconnectRetries\fP"
+.br
+.ti -1c
+.RI "char \fBExecStart\fP [8192]"
+.br
+.ti -1c
+.RI "char * \fBStartScript\fP"
+.br
+.ti -1c
+.RI "char \fBExecStop\fP [8192]"
+.br
+.ti -1c
+.RI "char * \fBStopScript\fP"
+.br
+.ti -1c
+.RI "char \fBExecReload\fP [8192]"
+.br
+.ti -1c
+.RI "char * \fBReloadScript\fP"
+.br
+.ti -1c
+.RI "\fBupk_cust_actscr_meta_t\fP * \fBCustomActions\fP"
+.br
+.ti -1c
+.RI "char * \fBPipeStdoutScript\fP"
+.br
+.ti -1c
+.RI "char * \fBPipeStderrScript\fP"
+.br
+.ti -1c
+.RI "char \fBRedirectStdout\fP [8192]"
+.br
+.ti -1c
+.RI "char \fBRedirectStderr\fP [8192]"
+.br
+.ti -1c
+.RI "\fBupk_state_t\fP \fBInitialState\fP"
+.br
+.ti -1c
+.RI "int8_t \fBUnconfigureOnFileRemoval\fP"
+.br
+.ti -1c
+.RI "int8_t \fBPreferBuddyStateForStopped\fP"
+.br
+.ti -1c
+.RI "int8_t \fBPreferBuddyStateForRunning\fP"
+.br
+.ti -1c
+.RI "\fBupk_svc_desc_t\fP * \fBnext\fP"
+.br
+.ti -1c
+.RI "bool \fBRestartAllDependencies\fP"
+.br
+.ti -1c
+.RI "bool \fBRestartOnPrerequisiteRestart\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+service configuration. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_cust_actscr_meta_t\fP * \fB_upk_svc_desc::CustomActions\fP"linked list of custom actions 
+.PP
+Referenced by create_buddy_statedir(), remove_buddy_statedir(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_nested_object_handler().
+.SS "char \fB_upk_svc_desc::ExecReload\fP"command to exec for reload. Default: 'kill -HUP', see 'ReloadScript' 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "char \fB_upk_svc_desc::ExecStart\fP"command to exec for start, see 'StartScript' 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "char \fB_upk_svc_desc::ExecStop\fP"executable to exec for stop. Default: 'kill', see 'StopScript' 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "\fBupk_state_t\fP \fB_upk_svc_desc::InitialState\fP"state the service should be set to initially; this is used only when a service is first configured 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "int32_t \fB_upk_svc_desc::KillTimeout\fP"how long to wait for a service to stop before issuing TERM and, if necessary, KILL signals to bring it down. A negative value means to wait indefiniately for a stopped process to terminate 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "char * \fB_upk_svc_desc::LongDescription\fP"a brief description of the service an arbitrary length description of the service 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "int32_t \fB_upk_svc_desc::MaxConsecutiveFailures\fP"Maximum number of times a process may fail in-a-row before its state is changed to down; a negative value indicates to restart forever (and is the default) 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "char \fB_upk_svc_desc::Name\fP"service name. if pkg is used, the concatination of <pkg>::<name> must be unique; otherwise this name must be unique 
+.PP
+Referenced by buddy_sock_path(), create_buddy_statedir(), ctrl_req_action_handler(), lookup_buddy_from_path(), main(), remove_buddy_statedir(), spawn_buddy(), upk_db_add_new_service(), upk_db_insert_cfg(), upk_db_upsert(), upk_db_upsert_options(), upk_overlay_ctrlconf_values(), upk_overlay_svcconf_values(), upk_parse_svc_id(), upk_svc_id(), and upk_svcconf_string_handler().
+.SS "\fBupk_svc_desc_t\fP * \fB_upk_svc_desc::next\fP"for use in lists 
+.PP
+Referenced by upk_json_serialize_svc_config(), upk_overlay_ctrlconf_values(), and upk_svc_desc_clear().
+.SS "char \fB_upk_svc_desc::Package\fP"an optional prefix to be preppended to the service name 
+.PP
+Referenced by main(), upk_db_add_new_service(), upk_db_insert_cfg(), upk_db_upsert(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_parse_svc_id(), upk_svc_desc_to_json_obj(), upk_svc_id(), and upk_svcconf_string_handler().
+.SS "char * \fB_upk_svc_desc::PipeStderrScript\fP"optional script to pipe stderr to. for instance: 'exec logger -p local0.warn' 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "char * \fB_upk_svc_desc::PipeStdoutScript\fP"optional script to pipe stdout to. for instance: 'exec logger -p local0.notice' 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "int8_t \fB_upk_svc_desc::PreferBuddyStateForRunning\fP"if the controller starts/restarts, and buddy has a service state set to 'running', but controller's data-store believes the service should be stopped, prefer buddy's world view, and update the data-store to reflect the running state (the default is to trust the data-store, which would cause the service to be stopped 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_bool_handler().
+.SS "int8_t \fB_upk_svc_desc::PreferBuddyStateForStopped\fP"if the controller starts/restarts, and buddy has a service state set to 'stopped', but controller's data-store believes the service should be running, prefer buddy's world view, and update the data-store to reflect the stopped state (the default is to trust the data-store; which would cause the service to be started 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_bool_handler().
+.SS "\fBupk_svcid_meta_t\fP * \fB_upk_svc_desc::Prerequisites\fP"A list of prerequisite services that must be started prior to this service; either by name, pkg-prefix, or by what they provide 
+.PP
+Referenced by upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_array_handler().
+.SS "\fBupk_svcid_meta_t\fP * \fB_upk_svc_desc::Provides\fP"
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_array_handler().
+.SS "int8_t \fB_upk_svc_desc::RandomizeRateLimit\fP"a flag to enable/disable adding a randomized 'jitter' to the user_ratelimit 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_bool_handler().
+.SS "int32_t \fB_upk_svc_desc::ReconnectRetries\fP"number of times to retry connections to the controler when emergent actions occur in the buddy; (-1 for indefinate) 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "char \fB_upk_svc_desc::RedirectStderr\fP"optional place to direct stderr. Note that if you pipe stderr elsewhere, this might never be written to, unless the thing you pipe to prints to stderr itself 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "char \fB_upk_svc_desc::RedirectStdout\fP"optional place to direct stdout. Note that if you pipe stdout elsewhere, this might never be written to, unless the thing you pipe to prints to stdout itself 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "char * \fB_upk_svc_desc::ReloadScript\fP"replace the default reload script of 'exec kill -HUP $1'; argv[1] == pid of monitored process 
+.PP
+Referenced by create_buddy_statedir(), main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "bool \fB_upk_svc_desc::RestartAllDependencies\fP"Force anything that depends on this service to be restarted if this service restarts 
+.SS "_Bool \fB_upk_svc_desc::RestartAllDependencies\fP"
+.PP
+Referenced by upk_db_upsert_options().
+.SS "\fBupk_svcid_meta_t\fP * \fB_upk_svc_desc::RestartOnNamedPrereqRestart\fP"A JSON array (e.g.: ['foo']) containing the names of Prerequisite services that if they fail, should cause this service to be restarted (services listed here are implicitely added to the list of Prerequisites if not already present 
+.PP
+Referenced by upk_db_upsert_options().
+.SS "bool \fB_upk_svc_desc::RestartOnPrerequisiteRestart\fP"If any prerequisite service (in the 'Prerequisites' array above) fails, restart this service. 
+.SS "_Bool \fB_upk_svc_desc::RestartOnPrerequisiteRestart\fP"
+.PP
+Referenced by upk_db_upsert_options().
+.SS "\fBsize_t\fP \fB_upk_svc_desc::RingbufferSize\fP"size of the ringbuffer to maintain in the buddy 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "\fBgid_t\fP \fB_upk_svc_desc::SetGID\fP"if controller and/or buddy is run euid root; which gid to run the service as 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), upk_svcconf_int_handler(), and upk_svcconf_string_handler().
+.SS "\fBuid_t\fP \fB_upk_svc_desc::SetUID\fP"if controller and/or buddy is run euid root; which uid to run the service as 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), upk_svcconf_int_handler(), and upk_svcconf_string_handler().
+.SS "char \fB_upk_svc_desc::ShortDescription\fP"
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "\fBupk_svcid_meta_t\fP * \fB_upk_svc_desc::StartAfter\fP"A list of services that must be started prior to this service; either by name, pkg-prefix, or by what they provide; this is distinct from Prerequisites in that if these items do not exist, the service will still start, but if they do exist, they will be started first 
+.PP
+Referenced by upk_db_upsert_options().
+.SS "int32_t \fB_upk_svc_desc::StartPriority\fP"similar to prerequisites, provide a fixed numeric start priority to indicate service startup order 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_clear(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "char * \fB_upk_svc_desc::StartScript\fP"script to run to start the monitored process; replaces the default of 'exec %(ExecStart)' 
+.PP
+Referenced by create_buddy_statedir(), main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "int32_t \fB_upk_svc_desc::StartupDelay\fP"Specified in seconds, After successfully starting this service, pause for N seconds before starting services that depend on this one. Useful if a service can be relatively guaranteed to be 'ready' in a fixed number of seconds, however, for dependencies that require a particular capability to definitely be running before starting, you should probably instrument a relativistic test either as a custom-action of this service, and/or as a startup test of the dependent service 
+.PP
+Referenced by upk_db_upsert_options().
+.SS "char * \fB_upk_svc_desc::StopScript\fP"replace the default stop script of 'exec %(EXEC_STOP) $1'; argv[1] == pid of monitored process 
+.PP
+Referenced by create_buddy_statedir(), main(), upk_db_upsert_options(), upk_finalize_svc_desc(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+.SS "int8_t \fB_upk_svc_desc::UnconfigureOnFileRemoval\fP"May be used by a package to instruct the controler to remove a configured service if the file defining that service ever disappears. possibly useful in packaging to cleanup the controller on package removal. The default behavior is to ignore file removal, and require explicit manual removal of configured services 
+.PP
+Referenced by upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_bool_handler().
+.SS "int32_t \fB_upk_svc_desc::UserMaxRestarts\fP"user-defined max number of restarts within restart window 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "int32_t \fB_upk_svc_desc::UserRateLimit\fP"duration, in seconds, to wait between respawn attempts 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "int32_t \fB_upk_svc_desc::UserRestartWindow\fP"user-defined restart window, in seconds 
+.PP
+Referenced by main(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_int_handler().
+.SS "\fBupk_uuid_t\fP \fB_upk_svc_desc::UUID\fP"a uuid for a service; dynamically generated at service creation in most cases 
+.PP
+Referenced by main(), spawn_buddy(), upk_db_add_new_service(), upk_db_insert_cfg(), upk_db_try_insert(), upk_db_try_update(), upk_db_upsert(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_to_json_obj(), and upk_svcconf_string_handler().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

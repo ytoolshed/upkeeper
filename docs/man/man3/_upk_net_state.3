@@ -1,0 +1,32 @@
+.TH "_upk_net_state" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_net_state \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsize_t\fP \fBpending_writeq\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_meta_t\fP * \fBcallback_stack\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_cb_stk_meta_t\fP * \fB_upk_net_state::callback_stack\fP"the callback stack, who's current head is at this point in the conversation 
+.PP
+Referenced by init_callback_handlers(), upk_call_received_packet_callbacks(), upk_callback_stack_pop(), upk_callback_stack_push(), upk_net_add_socket_handle(), upk_net_conn_handles_init(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), and upk_partitioned_userdata_free().
+.SS "\fBsize_t\fP \fB_upk_net_state::pending_writeq\fP"how many messages are waiting to be sent, used to determine if select on write is necessary 
+.PP
+Referenced by upk_net_event_dispatcher(), upk_queue_packet(), and upk_write_packets().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

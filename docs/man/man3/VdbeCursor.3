@@ -1,0 +1,189 @@
+.TH "VdbeCursor" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+VdbeCursor \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpCursor\fP"
+.br
+.ti -1c
+.RI "int \fBiDb\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBlastRowid\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBzeroed\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBrowidIsValid\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBatFirst\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBuseRandomRowid\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBnullRow\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBdeferredMoveto\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBisTable\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBisIndex\fP"
+.br
+.ti -1c
+.RI "\fBBool\fP \fBisOrdered\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBmovetoTarget\fP"
+.br
+.ti -1c
+.RI "\fBBtree\fP * \fBpBt\fP"
+.br
+.ti -1c
+.RI "int \fBpseudoTableReg\fP"
+.br
+.ti -1c
+.RI "\fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "int \fBnField\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBseqCount\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_vtab_cursor\fP * \fBpVtabCursor\fP"
+.br
+.ti -1c
+.RI "const \fBsqlite3_module\fP * \fBpModule\fP"
+.br
+.ti -1c
+.RI "int \fBseekResult\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBcacheStatus\fP"
+.br
+.ti -1c
+.RI "int \fBpayloadSize\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP * \fBaType\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP * \fBaOffset\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP * \fBaRow\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpCursor\fP"
+.br
+.ti -1c
+.RI "\fBBtree\fP * \fBpBt\fP"
+.br
+.ti -1c
+.RI "\fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_vtab_cursor\fP * \fBpVtabCursor\fP"
+.br
+.ti -1c
+.RI "const \fBsqlite3_module\fP * \fBpModule\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP * \fBaType\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP * \fBaOffset\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP * \fBaRow\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu32\fP* \fBVdbeCursor::aOffset\fP"
+.PP
+.SS "\fBu32\fP* \fBVdbeCursor::aOffset\fP"
+.PP
+.SS "\fBu8\fP* \fBVdbeCursor::aRow\fP"
+.PP
+.SS "\fBu8\fP* \fBVdbeCursor::aRow\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::atFirst\fP"
+.PP
+.SS "\fBu32\fP* \fBVdbeCursor::aType\fP"
+.PP
+.SS "\fBu32\fP* \fBVdbeCursor::aType\fP"
+.PP
+.SS "\fBu32\fP \fBVdbeCursor::cacheStatus\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::deferredMoveto\fP"
+.PP
+.SS "int \fBVdbeCursor::iDb\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::isIndex\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::isOrdered\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::isTable\fP"
+.PP
+.SS "\fBi64\fP \fBVdbeCursor::lastRowid\fP"
+.PP
+.SS "\fBi64\fP \fBVdbeCursor::movetoTarget\fP"
+.PP
+.SS "int \fBVdbeCursor::nField\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::nullRow\fP"
+.PP
+.SS "int \fBVdbeCursor::payloadSize\fP"
+.PP
+.SS "\fBBtree\fP* \fBVdbeCursor::pBt\fP"
+.PP
+.SS "\fBBtree\fP* \fBVdbeCursor::pBt\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBVdbeCursor::pCursor\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBVdbeCursor::pCursor\fP"
+.PP
+.SS "\fBKeyInfo\fP* \fBVdbeCursor::pKeyInfo\fP"
+.PP
+.SS "\fBKeyInfo\fP* \fBVdbeCursor::pKeyInfo\fP"
+.PP
+.SS "const \fBsqlite3_module\fP* \fBVdbeCursor::pModule\fP"
+.PP
+.SS "const \fBsqlite3_module\fP* \fBVdbeCursor::pModule\fP"
+.PP
+.SS "int \fBVdbeCursor::pseudoTableReg\fP"
+.PP
+.SS "\fBsqlite3_vtab_cursor\fP* \fBVdbeCursor::pVtabCursor\fP"
+.PP
+.SS "\fBsqlite3_vtab_cursor\fP* \fBVdbeCursor::pVtabCursor\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::rowidIsValid\fP"
+.PP
+.SS "int \fBVdbeCursor::seekResult\fP"
+.PP
+.SS "\fBi64\fP \fBVdbeCursor::seqCount\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::useRandomRowid\fP"
+.PP
+.SS "\fBBool\fP \fBVdbeCursor::zeroed\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

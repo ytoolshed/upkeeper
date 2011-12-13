@@ -1,0 +1,77 @@
+.TH "libupkeeper/upkeeper/upk_network.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_network.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBupk_domain_socket_connect\fP (const char *sockpath)"
+.br
+.RI "\fIconnect to a domain socket. \fP"
+.ti -1c
+.RI "void \fBupk_read_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIread any packets from the handle handles->thisp, and call read-callbacks. \fP"
+.ti -1c
+.RI "void \fBupk_queue_packet\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_conn_handle_t\fP *handle, \fBupk_packet_t\fP *pkt, \fBupk_net_callback_t\fP after_write_callback)"
+.br
+.RI "\fIenqueue a packet for sending \fP"
+.ti -1c
+.RI "void \fBupk_write_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIwrite the packets in the writeq for handles->thisp, and call any write callbacks \fP"
+.ti -1c
+.RI "void \fBupk_disconnect_handle\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIdisconnect the ->thisp handle in handles. \fP"
+.ti -1c
+.RI "bool \fBupk_net_add_socket_handle\fP (\fBupk_conn_handle_meta_t\fP *handles, int fd)"
+.br
+.RI "\fIadd a new socket handle to the handles list \fP"
+.ti -1c
+.RI "void \fBupk_net_event_dispatcher\fP (\fBupk_conn_handle_meta_t\fP *handles, double poll_ival)"
+.br
+.RI "\fIThe event dispatcher, called via an event-loop. \fP"
+.ti -1c
+.RI "void \fBupk_net_flush_closed_sockets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIiterate through the list of handles, and prune any that are no longer valid. \fP"
+.ti -1c
+.RI "int \fBupk_net_block_until_msg\fP (\fBupk_conn_handle_meta_t\fP *handles, double poll_ival, struct \fBtimeval\fP *\fBtimeout\fP)"
+.br
+.RI "\fIblock until a complete message is received, up to timeout. \fP"
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBupk_net_conn_handles_init\fP (void *userdata, void(*userdata_free_func)(void *ptr))"
+.br
+.RI "\fIinitialize connection handles \fP"
+.ti -1c
+.RI "void \fBupk_net_shutdown_callback\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fIwrapper around upk-disconnect_handle for use as a callback. \fP"
+.ti -1c
+.RI "\fBupk_net_state_t\fP * \fBupk_net_get_global_state\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIextract the nested global_state component from the generic (void *) userdata element \fP"
+.ti -1c
+.RI "void \fBupk_callback_stack_push\fP (\fBupk_conn_handle_t\fP *handle, \fBupk_net_cb_stk_t\fP *state)"
+.br
+.RI "\fIpush a callback-stack state element onto the callback stack for a handle. \fP"
+.ti -1c
+.RI "void \fBupk_callback_stack_pop\fP (\fBupk_conn_handle_t\fP *handle)"
+.br
+.RI "\fIpop the top element off the callback-stack for a handle. \fP"
+.in -1c
+.SH "Detailed Description"
+.PP 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

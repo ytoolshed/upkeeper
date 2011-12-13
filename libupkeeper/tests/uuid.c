@@ -1,3 +1,15 @@
+/* ***************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #include <check.h>
 #include <upkeeper.h>
 #include <stdio.h>
@@ -10,7 +22,7 @@ START_TEST(test_string_to_uuid)
     char buf[37] = "12345678-1234-5678-9ABC-0123456789AB";
     upk_uuid_t foo = { 0 };
 
-    upk_string_to_uuid(buf, &foo);
+    upk_string_to_uuid(&foo, buf);
 
     fail_unless(foo.time_low == 0x12345678, "time_low: %02X", foo.time_low);
     fail_unless(foo.time_mid == 0x1234, "time_mid: %02X", foo.time_mid);

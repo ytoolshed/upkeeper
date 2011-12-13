@@ -1,0 +1,115 @@
+\section{api/upk.c File Reference}
+\label{api_2upk_8c}\index{api/upk.c@{api/upk.c}}
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$getopt.h$>$}\par
+{\tt \#include $<$sqlite3.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include \char`\"{}api/upk\_\-api.h\char`\"{}}\par
+{\tt \#include \char`\"{}store/upk\_\-db.h\char`\"{}}\par
+{\tt \#include \char`\"{}controller/controller.h\char`\"{}}\par
+{\tt \#include $<$assert.h$>$}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{STRING\_\-OR\_\-NULL}(x)~( (x) ? ( x ) : \char`\"{}[unset]\char`\"{} )
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+void \bf{help} ()
+\item 
+int \bf{options\_\-parse} (int argc, char $\ast$argv[$\,$])
+\item 
+void \bf{service\_\-list\_\-callback} (struct \bf{upk\_\-api\_\-service} $\ast$data, void $\ast$context)
+\item 
+int \bf{main} (int argc, char $\ast$argv[$\,$])
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+int \bf{DEBUG} = 0
+\item 
+int \bf{OPT\_\-START}
+\item 
+int \bf{OPT\_\-STOP}
+\item 
+int \bf{OPT\_\-HELP}
+\item 
+int \bf{OPT\_\-LIST}
+\item 
+int \bf{OPT\_\-VERBOSE}
+\item 
+int \bf{OPT\_\-NONE} = 0
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{api/upk.c@{api/upk.c}!STRING_OR_NULL@{STRING\_\-OR\_\-NULL}}
+\index{STRING_OR_NULL@{STRING\_\-OR\_\-NULL}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define STRING\_\-OR\_\-NULL(x)~( (x) ? ( x ) : \char`\"{}[unset]\char`\"{} )}\label{api_2upk_8c_222425f5d97e736baa67e894e041620d}
+
+
+
+
+\subsection{Function Documentation}
+\index{api/upk.c@{api/upk.c}!help@{help}}
+\index{help@{help}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void help ()}\label{api_2upk_8c_c26945a412008c505d56d9c43688813c}
+
+
+\index{api/upk.c@{api/upk.c}!main@{main}}
+\index{main@{main}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int main (int {\em argc}, char $\ast$ {\em argv}[$\,$])}\label{api_2upk_8c_28052c36c3b61c6c0eaa18f5d226118f}
+
+
+\index{api/upk.c@{api/upk.c}!options_parse@{options\_\-parse}}
+\index{options_parse@{options\_\-parse}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int options\_\-parse (int {\em argc}, char $\ast$ {\em argv}[$\,$])}\label{api_2upk_8c_6da3d38637ee68a846aed0723145ae1e}
+
+
+\index{api/upk.c@{api/upk.c}!service_list_callback@{service\_\-list\_\-callback}}
+\index{service_list_callback@{service\_\-list\_\-callback}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void service\_\-list\_\-callback (struct \bf{upk\_\-api\_\-service} $\ast$ {\em data}, void $\ast$ {\em context})}\label{api_2upk_8c_aefe1f8c57a41fa26cb0572ff5199ee8}
+
+
+
+
+\subsection{Variable Documentation}
+\index{api/upk.c@{api/upk.c}!DEBUG@{DEBUG}}
+\index{DEBUG@{DEBUG}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{DEBUG} = 0}\label{api_2upk_8c_9c602b43f791fa5e1018e90fbb9178eb}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_HELP@{OPT\_\-HELP}}
+\index{OPT_HELP@{OPT\_\-HELP}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-HELP}}\label{api_2upk_8c_58ad7fa7193e9801ccb9e84ab8aea842}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_LIST@{OPT\_\-LIST}}
+\index{OPT_LIST@{OPT\_\-LIST}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-LIST}}\label{api_2upk_8c_5ad414630947d9393bee5f0ffa83418a}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_NONE@{OPT\_\-NONE}}
+\index{OPT_NONE@{OPT\_\-NONE}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-NONE} = 0}\label{api_2upk_8c_46448122de32e87df3ddd63ca7744eb7}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_START@{OPT\_\-START}}
+\index{OPT_START@{OPT\_\-START}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-START}}\label{api_2upk_8c_85e81d94420cc5125b113574048ff02b}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_STOP@{OPT\_\-STOP}}
+\index{OPT_STOP@{OPT\_\-STOP}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-STOP}}\label{api_2upk_8c_2c37533cbbac6748ccf76f211768e8dc}
+
+
+\index{api/upk.c@{api/upk.c}!OPT_VERBOSE@{OPT\_\-VERBOSE}}
+\index{OPT_VERBOSE@{OPT\_\-VERBOSE}!api/upk.c@{api/upk.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{OPT\_\-VERBOSE}}\label{api_2upk_8c_cda97ce372a5bd91d7554863804600eb}
+
+

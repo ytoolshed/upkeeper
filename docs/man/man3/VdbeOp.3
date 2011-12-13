@@ -1,0 +1,198 @@
+.TH "VdbeOp" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+VdbeOp \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBu8\fP \fBopcode\fP"
+.br
+.ti -1c
+.RI "signed char \fBp4type\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBopflags\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBp5\fP"
+.br
+.ti -1c
+.RI "int \fBp1\fP"
+.br
+.ti -1c
+.RI "int \fBp2\fP"
+.br
+.ti -1c
+.RI "int \fBp3\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBi\fP"
+.br
+.ti -1c
+.RI "   void * \fBp\fP"
+.br
+.ti -1c
+.RI "   char * \fBz\fP"
+.br
+.ti -1c
+.RI "   \fBi64\fP * \fBpI64\fP"
+.br
+.ti -1c
+.RI "   double * \fBpReal\fP"
+.br
+.ti -1c
+.RI "   \fBFuncDef\fP * \fBpFunc\fP"
+.br
+.ti -1c
+.RI "   \fBVdbeFunc\fP * \fBpVdbeFunc\fP"
+.br
+.ti -1c
+.RI "   \fBCollSeq\fP * \fBpColl\fP"
+.br
+.ti -1c
+.RI "   \fBMem\fP * \fBpMem\fP"
+.br
+.ti -1c
+.RI "   \fBVTable\fP * \fBpVtab\fP"
+.br
+.ti -1c
+.RI "   \fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "   int * \fBai\fP"
+.br
+.ti -1c
+.RI "   \fBSubProgram\fP * \fBpProgram\fP"
+.br
+.ti -1c
+.RI "} \fBp4\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fBi\fP"
+.br
+.ti -1c
+.RI "   void * \fBp\fP"
+.br
+.ti -1c
+.RI "   char * \fBz\fP"
+.br
+.ti -1c
+.RI "   \fBi64\fP * \fBpI64\fP"
+.br
+.ti -1c
+.RI "   double * \fBpReal\fP"
+.br
+.ti -1c
+.RI "   \fBFuncDef\fP * \fBpFunc\fP"
+.br
+.ti -1c
+.RI "   \fBVdbeFunc\fP * \fBpVdbeFunc\fP"
+.br
+.ti -1c
+.RI "   \fBCollSeq\fP * \fBpColl\fP"
+.br
+.ti -1c
+.RI "   \fBMem\fP * \fBpMem\fP"
+.br
+.ti -1c
+.RI "   \fBVTable\fP * \fBpVtab\fP"
+.br
+.ti -1c
+.RI "   \fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "   int * \fBai\fP"
+.br
+.ti -1c
+.RI "   \fBSubProgram\fP * \fBpProgram\fP"
+.br
+.ti -1c
+.RI "} \fBp4\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int* \fBVdbeOp::ai\fP"
+.PP
+.SS "int* \fBVdbeOp::ai\fP"
+.PP
+.SS "int \fBVdbeOp::i\fP"
+.PP
+.SS "\fBu8\fP \fBVdbeOp::opcode\fP"
+.PP
+.SS "\fBu8\fP \fBVdbeOp::opflags\fP"
+.PP
+.SS "void* \fBVdbeOp::p\fP"
+.PP
+.SS "void* \fBVdbeOp::p\fP"
+.PP
+.SS "int \fBVdbeOp::p1\fP"
+.PP
+.SS "int \fBVdbeOp::p2\fP"
+.PP
+.SS "int \fBVdbeOp::p3\fP"
+.PP
+.SS "union { ... }   \fBVdbeOp::p4\fP"
+.PP
+.SS "union { ... }   \fBVdbeOp::p4\fP"
+.PP
+.SS "signed char \fBVdbeOp::p4type\fP"
+.PP
+.SS "\fBu8\fP \fBVdbeOp::p5\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBVdbeOp::pColl\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBVdbeOp::pColl\fP"
+.PP
+.SS "\fBFuncDef\fP* \fBVdbeOp::pFunc\fP"
+.PP
+.SS "\fBFuncDef\fP* \fBVdbeOp::pFunc\fP"
+.PP
+.SS "\fBi64\fP* \fBVdbeOp::pI64\fP"
+.PP
+.SS "\fBi64\fP* \fBVdbeOp::pI64\fP"
+.PP
+.SS "\fBKeyInfo\fP* \fBVdbeOp::pKeyInfo\fP"
+.PP
+.SS "\fBKeyInfo\fP* \fBVdbeOp::pKeyInfo\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbeOp::pMem\fP"
+.PP
+.SS "\fBMem\fP* \fBVdbeOp::pMem\fP"
+.PP
+.SS "\fBSubProgram\fP* \fBVdbeOp::pProgram\fP"
+.PP
+.SS "\fBSubProgram\fP* \fBVdbeOp::pProgram\fP"
+.PP
+.SS "double* \fBVdbeOp::pReal\fP"
+.PP
+.SS "double* \fBVdbeOp::pReal\fP"
+.PP
+.SS "\fBVdbeFunc\fP* \fBVdbeOp::pVdbeFunc\fP"
+.PP
+.SS "\fBVdbeFunc\fP* \fBVdbeOp::pVdbeFunc\fP"
+.PP
+.SS "\fBVTable\fP* \fBVdbeOp::pVtab\fP"
+.PP
+.SS "\fBVTable\fP* \fBVdbeOp::pVtab\fP"
+.PP
+.SS "char* \fBVdbeOp::z\fP"
+.PP
+.SS "char* \fBVdbeOp::z\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

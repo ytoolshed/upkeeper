@@ -1,0 +1,241 @@
+\section{Expr Struct Reference}
+\label{structExpr}\index{Expr@{Expr}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{u8} \bf{op}
+\item 
+char \bf{affinity}
+\item 
+\bf{u16} \bf{flags}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>char $\ast$ \bf{zToken}\\
+\>int \bf{iValue}\\
+\} \bf{u}\\
+
+\end{tabbing}\item 
+\bf{Expr} $\ast$ \bf{p\-Left}
+\item 
+\bf{Expr} $\ast$ \bf{p\-Right}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\bf{ExprList} $\ast$ \bf{pList}\\
+\>\bf{Select} $\ast$ \bf{pSelect}\\
+\} \bf{x}\\
+
+\end{tabbing}\item 
+\bf{Coll\-Seq} $\ast$ \bf{p\-Coll}
+\item 
+int \bf{i\-Table}
+\item 
+\bf{yn\-Var} \bf{i\-Column}
+\item 
+\bf{i16} \bf{i\-Agg}
+\item 
+\bf{i16} \bf{i\-Right\-Join\-Table}
+\item 
+\bf{u8} \bf{flags2}
+\item 
+\bf{u8} \bf{op2}
+\item 
+\bf{Agg\-Info} $\ast$ \bf{p\-Agg\-Info}
+\item 
+\bf{Table} $\ast$ \bf{p\-Tab}
+\item 
+int \bf{n\-Height}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>char $\ast$ \bf{zToken}\\
+\>int \bf{iValue}\\
+\} \bf{u}\\
+
+\end{tabbing}\item 
+\bf{Expr} $\ast$ \bf{p\-Left}
+\item 
+\bf{Expr} $\ast$ \bf{p\-Right}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\bf{ExprList} $\ast$ \bf{pList}\\
+\>\bf{Select} $\ast$ \bf{pSelect}\\
+\} \bf{x}\\
+
+\end{tabbing}\item 
+\bf{Coll\-Seq} $\ast$ \bf{p\-Coll}
+\item 
+\bf{Agg\-Info} $\ast$ \bf{p\-Agg\-Info}
+\item 
+\bf{Table} $\ast$ \bf{p\-Tab}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{Expr@{Expr}!affinity@{affinity}}
+\index{affinity@{affinity}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char \bf{Expr::affinity}}\label{structExpr_c0d9f55a8d94373d163e59e80908dbc3}
+
+
+\index{Expr@{Expr}!flags@{flags}}
+\index{flags@{flags}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Expr::flags}}\label{structExpr_db73f0745bd291df2bed0fc580940795}
+
+
+\index{Expr@{Expr}!flags2@{flags2}}
+\index{flags2@{flags2}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Expr::flags2}}\label{structExpr_9b40fb1f352adba16bd4a5cb2a8e4545}
+
+
+\index{Expr@{Expr}!iAgg@{iAgg}}
+\index{iAgg@{iAgg}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i16} \bf{Expr::i\-Agg}}\label{structExpr_165aa9d64d82e1f939d9e3a576856d1e}
+
+
+\index{Expr@{Expr}!iColumn@{iColumn}}
+\index{iColumn@{iColumn}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{yn\-Var} \bf{Expr::i\-Column}}\label{structExpr_f8fe1fd9a22cd67c7bd2f731622f0132}
+
+
+\index{Expr@{Expr}!iRightJoinTable@{iRightJoinTable}}
+\index{iRightJoinTable@{iRightJoinTable}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i16} \bf{Expr::i\-Right\-Join\-Table}}\label{structExpr_0c86352042d4a241f6c793eebc730ca9}
+
+
+\index{Expr@{Expr}!iTable@{iTable}}
+\index{iTable@{iTable}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Expr::i\-Table}}\label{structExpr_e9596002e67d80bdd0bd4aa79df5c32a}
+
+
+\index{Expr@{Expr}!iValue@{iValue}}
+\index{iValue@{iValue}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Expr::i\-Value}}\label{structExpr_eec07a98ba946a7a3341dc275bed65c1}
+
+
+\index{Expr@{Expr}!nHeight@{nHeight}}
+\index{nHeight@{nHeight}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Expr::n\-Height}}\label{structExpr_ac7d9249b5f4aaa726f4b572b2a673f2}
+
+
+\index{Expr@{Expr}!op@{op}}
+\index{op@{op}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Expr::op}}\label{structExpr_5645da8dccf681a446a6ff4f0b74b729}
+
+
+\index{Expr@{Expr}!op2@{op2}}
+\index{op2@{op2}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Expr::op2}}\label{structExpr_eb2b297c4de370de4a3c301e3777f915}
+
+
+\index{Expr@{Expr}!pAggInfo@{pAggInfo}}
+\index{pAggInfo@{pAggInfo}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Agg\-Info}$\ast$ \bf{Expr::p\-Agg\-Info}}\label{structExpr_53d22bfcb76f129581f8463f76e20021}
+
+
+\index{Expr@{Expr}!pAggInfo@{pAggInfo}}
+\index{pAggInfo@{pAggInfo}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Agg\-Info}$\ast$ \bf{Expr::p\-Agg\-Info}}\label{structExpr_53d22bfcb76f129581f8463f76e20021}
+
+
+\index{Expr@{Expr}!pColl@{pColl}}
+\index{pColl@{pColl}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Coll\-Seq}$\ast$ \bf{Expr::p\-Coll}}\label{structExpr_a0ba7ae97e7761f7a1f567b0a9bb6350}
+
+
+\index{Expr@{Expr}!pColl@{pColl}}
+\index{pColl@{pColl}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Coll\-Seq}$\ast$ \bf{Expr::p\-Coll}}\label{structExpr_a0ba7ae97e7761f7a1f567b0a9bb6350}
+
+
+\index{Expr@{Expr}!pLeft@{pLeft}}
+\index{pLeft@{pLeft}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Expr::p\-Left}}\label{structExpr_7e12cccae737517c55635926ba4091e2}
+
+
+\index{Expr@{Expr}!pLeft@{pLeft}}
+\index{pLeft@{pLeft}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Expr::p\-Left}}\label{structExpr_7e12cccae737517c55635926ba4091e2}
+
+
+\index{Expr@{Expr}!pList@{pList}}
+\index{pList@{pList}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr\-List}$\ast$ \bf{Expr::p\-List}}\label{structExpr_8eb0b59798c61d147a051fbd93a0983c}
+
+
+\index{Expr@{Expr}!pList@{pList}}
+\index{pList@{pList}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr\-List}$\ast$ \bf{Expr::p\-List}}\label{structExpr_8eb0b59798c61d147a051fbd93a0983c}
+
+
+\index{Expr@{Expr}!pRight@{pRight}}
+\index{pRight@{pRight}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Expr::p\-Right}}\label{structExpr_c7e7645d9ef0afe58cc8a7b254022cb1}
+
+
+\index{Expr@{Expr}!pRight@{pRight}}
+\index{pRight@{pRight}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$ \bf{Expr::p\-Right}}\label{structExpr_c7e7645d9ef0afe58cc8a7b254022cb1}
+
+
+\index{Expr@{Expr}!pSelect@{pSelect}}
+\index{pSelect@{pSelect}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Select}$\ast$ \bf{Expr::p\-Select}}\label{structExpr_bde9c8c63519c331518706bb4b11b657}
+
+
+\index{Expr@{Expr}!pSelect@{pSelect}}
+\index{pSelect@{pSelect}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Select}$\ast$ \bf{Expr::p\-Select}}\label{structExpr_bde9c8c63519c331518706bb4b11b657}
+
+
+\index{Expr@{Expr}!pTab@{pTab}}
+\index{pTab@{pTab}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Expr::p\-Tab}}\label{structExpr_4e6d7c7177e231d5ccd0af7e8f8528c6}
+
+
+\index{Expr@{Expr}!pTab@{pTab}}
+\index{pTab@{pTab}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Expr::p\-Tab}}\label{structExpr_4e6d7c7177e231d5ccd0af7e8f8528c6}
+
+
+\index{Expr@{Expr}!u@{u}}
+\index{u@{u}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Expr::u}}\label{structExpr_2c0542a250e09c79b58e294860cc2d48}
+
+
+\index{Expr@{Expr}!u@{u}}
+\index{u@{u}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Expr::u}}\label{structExpr_8a835d57985941cd0518cd80fab44a00}
+
+
+\index{Expr@{Expr}!x@{x}}
+\index{x@{x}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Expr::x}}\label{structExpr_842be5758a0ad8c191ead1ee865ab20e}
+
+
+\index{Expr@{Expr}!x@{x}}
+\index{x@{x}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   \bf{Expr::x}}\label{structExpr_ab1ab6dfbe60670eac78c808ac477248}
+
+
+\index{Expr@{Expr}!zToken@{zToken}}
+\index{zToken@{zToken}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Expr::z\-Token}}\label{structExpr_db3ec7ee0c708100fa9577e9d059f364}
+
+
+\index{Expr@{Expr}!zToken@{zToken}}
+\index{zToken@{zToken}!Expr@{Expr}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Expr::z\-Token}}\label{structExpr_db3ec7ee0c708100fa9577e9d059f364}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

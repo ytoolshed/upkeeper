@@ -1,0 +1,95 @@
+\section{libupkeeper/s.c File Reference}
+\label{s_8c}\index{libupkeeper/s.c@{libupkeeper/s.c}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+Include dependency graph for s.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{s_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf n\_\-protos}~(1 + UPK\_\-MAX\_\-SUPPORTED\_\-PROTO -\/ UPK\_\-MIN\_\-SUPPORTED\_\-PROTO)
+\item 
+\#define {\bf n\_\-per}(A)~(UPK\_\-\#\#A\#\#\_\-LIMIT -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN -\/ n\_\-protos)
+\item 
+\#define {\bf t\_\-scs}(A, B)~(type $<$ UPK\_\-\#\#A\#\#\_\-LIMIT) ? (type -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN) + B
+\item 
+\#define {\bf t\_\-idx}~t\_\-scs(REQ, 0) : t\_\-scs(REPL, n\_\-per(REQ)) : t\_\-scs(PUB, n\_\-per(REQ) + n\_\-per(REPL)) : -\/1
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf crap} ({\bf upk\_\-msgtype\_\-t} type)
+\item 
+int {\bf main} (int argc, char $\ast$$\ast$argv, char $\ast$$\ast$envp)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{s.c@{s.c}!n\_\-per@{n\_\-per}}
+\index{n\_\-per@{n\_\-per}!s.c@{s.c}}
+\subsubsection[{n\_\-per}]{\setlength{\rightskip}{0pt plus 5cm}\#define n\_\-per(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~(UPK\_\-\#\#A\#\#\_\-LIMIT -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN -\/ n\_\-protos)}\label{s_8c_a720a1ab6b45d3777fa01bd970d5f0b85}
+\index{s.c@{s.c}!n\_\-protos@{n\_\-protos}}
+\index{n\_\-protos@{n\_\-protos}!s.c@{s.c}}
+\subsubsection[{n\_\-protos}]{\setlength{\rightskip}{0pt plus 5cm}\#define n\_\-protos~(1 + UPK\_\-MAX\_\-SUPPORTED\_\-PROTO -\/ UPK\_\-MIN\_\-SUPPORTED\_\-PROTO)}\label{s_8c_aeb0621327e4cfc85469f9bc0d8f2cefa}
+\index{s.c@{s.c}!t\_\-idx@{t\_\-idx}}
+\index{t\_\-idx@{t\_\-idx}!s.c@{s.c}}
+\subsubsection[{t\_\-idx}]{\setlength{\rightskip}{0pt plus 5cm}\#define t\_\-idx~t\_\-scs(REQ, 0) : t\_\-scs(REPL, n\_\-per(REQ)) : t\_\-scs(PUB, n\_\-per(REQ) + n\_\-per(REPL)) : -\/1}\label{s_8c_a2428a4fbabf6a9eb9f66b0877121fb4b}
+
+
+Referenced by crap().
+
+\index{s.c@{s.c}!t\_\-scs@{t\_\-scs}}
+\index{t\_\-scs@{t\_\-scs}!s.c@{s.c}}
+\subsubsection[{t\_\-scs}]{\setlength{\rightskip}{0pt plus 5cm}\#define t\_\-scs(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B}
+\end{DoxyParamCaption}
+)~(type $<$ UPK\_\-\#\#A\#\#\_\-LIMIT) ? (type -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN) + B}\label{s_8c_aa3c02e742a20b4c124386f2fe23ccb12}
+
+
+\subsection{Function Documentation}
+\index{s.c@{s.c}!crap@{crap}}
+\index{crap@{crap}!s.c@{s.c}}
+\subsubsection[{crap}]{\setlength{\rightskip}{0pt plus 5cm}int crap (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-msgtype\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}\label{s_8c_a85487da9057c1e9f9a5feaa8b34d007b}
+
+
+References t\_\-idx.
+
+\index{s.c@{s.c}!main@{main}}
+\index{main@{main}!s.c@{s.c}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{argc, }
+\item[{char $\ast$$\ast$}]{argv, }
+\item[{char $\ast$$\ast$}]{envp}
+\end{DoxyParamCaption}
+)}\label{s_8c_a647f21a28344e1d9c643f4115516d7c9}
+
+
+References upk\_\-req\_\-preamble\_\-t::client\_\-name, upk\_\-conn\_\-handle\_\-meta\_\-p::head, \_\-upk\_\-conn\_\-handle::last\_\-pkt\_\-data, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::req\_\-preamble, SOCK\_\-STREAM, socketpair(), \_\-upk\_\-payload::type, upk\_\-clientid(), upk\_\-create\_\-req\_\-action(), upk\_\-create\_\-req\_\-preamble(), upk\_\-fatal, upk\_\-net\_\-add\_\-socket\_\-handle(), upk\_\-net\_\-conn\_\-handles\_\-init(), upk\_\-net\_\-event\_\-dispatcher(), and upk\_\-queue\_\-packet().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{s_8c_a647f21a28344e1d9c643f4115516d7c9_cgraph}
+\end{center}
+\end{figure}
+
+

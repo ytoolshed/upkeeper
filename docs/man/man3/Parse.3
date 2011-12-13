@@ -1,0 +1,449 @@
+.TH "Parse" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Parse \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "int \fBrc\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpVdbe\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBcolNamesSet\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnameClash\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBcheckSchema\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnested\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBparseError\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnTempReg\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnTempInUse\fP"
+.br
+.ti -1c
+.RI "int \fBaTempReg\fP [8]"
+.br
+.ti -1c
+.RI "int \fBnRangeReg\fP"
+.br
+.ti -1c
+.RI "int \fBiRangeReg\fP"
+.br
+.ti -1c
+.RI "int \fBnErr\fP"
+.br
+.ti -1c
+.RI "int \fBnTab\fP"
+.br
+.ti -1c
+.RI "int \fBnMem\fP"
+.br
+.ti -1c
+.RI "int \fBnSet\fP"
+.br
+.ti -1c
+.RI "int \fBckBase\fP"
+.br
+.ti -1c
+.RI "int \fBiCacheLevel\fP"
+.br
+.ti -1c
+.RI "int \fBiCacheCnt\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnColCache\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBiColCache\fP"
+.br
+.ti -1c
+.RI "\fBParse::yColCache\fP \fBaColCache\fP [SQLITE_N_COLCACHE]"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBwriteMask\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBcookieMask\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisMultiWrite\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBmayAbort\fP"
+.br
+.ti -1c
+.RI "int \fBcookieGoto\fP"
+.br
+.ti -1c
+.RI "int \fBcookieValue\fP [SQLITE_MAX_ATTACHED+2]"
+.br
+.ti -1c
+.RI "int \fBnTableLock\fP"
+.br
+.ti -1c
+.RI "\fBTableLock\fP * \fBaTableLock\fP"
+.br
+.ti -1c
+.RI "int \fBregRowid\fP"
+.br
+.ti -1c
+.RI "int \fBregRoot\fP"
+.br
+.ti -1c
+.RI "\fBAutoincInfo\fP * \fBpAinc\fP"
+.br
+.ti -1c
+.RI "int \fBnMaxArg\fP"
+.br
+.ti -1c
+.RI "\fBParse\fP * \fBpToplevel\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpTriggerTab\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBoldmask\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnewmask\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBeTriggerOp\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBeOrconf\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdisableTriggers\fP"
+.br
+.ti -1c
+.RI "double \fBnQueryLoop\fP"
+.br
+.ti -1c
+.RI "int \fBnVar\fP"
+.br
+.ti -1c
+.RI "int \fBnVarExpr\fP"
+.br
+.ti -1c
+.RI "int \fBnVarExprAlloc\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP ** \fBapVarExpr\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpReprepare\fP"
+.br
+.ti -1c
+.RI "int \fBnAlias\fP"
+.br
+.ti -1c
+.RI "int \fBnAliasAlloc\fP"
+.br
+.ti -1c
+.RI "int * \fBaAlias\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBexplain\fP"
+.br
+.ti -1c
+.RI "\fBToken\fP \fBsNameToken\fP"
+.br
+.ti -1c
+.RI "\fBToken\fP \fBsLastToken\fP"
+.br
+.ti -1c
+.RI "const char * \fBzTail\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpNewTable\fP"
+.br
+.ti -1c
+.RI "\fBTrigger\fP * \fBpNewTrigger\fP"
+.br
+.ti -1c
+.RI "const char * \fBzAuthContext\fP"
+.br
+.ti -1c
+.RI "\fBToken\fP \fBsArg\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdeclareVtab\fP"
+.br
+.ti -1c
+.RI "int \fBnVtabLock\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP ** \fBapVtabLock\fP"
+.br
+.ti -1c
+.RI "int \fBnHeight\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpZombieTab\fP"
+.br
+.ti -1c
+.RI "\fBTriggerPrg\fP * \fBpTriggerPrg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBdb\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpVdbe\fP"
+.br
+.ti -1c
+.RI "\fBParse::yColCache\fP \fBaColCache\fP [SQLITE_N_COLCACHE]"
+.br
+.ti -1c
+.RI "\fBTableLock\fP * \fBaTableLock\fP"
+.br
+.ti -1c
+.RI "\fBAutoincInfo\fP * \fBpAinc\fP"
+.br
+.ti -1c
+.RI "\fBParse\fP * \fBpToplevel\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpTriggerTab\fP"
+.br
+.ti -1c
+.RI "\fBExpr\fP ** \fBapVarExpr\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpReprepare\fP"
+.br
+.ti -1c
+.RI "int * \fBaAlias\fP"
+.br
+.ti -1c
+.RI "const char * \fBzTail\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpNewTable\fP"
+.br
+.ti -1c
+.RI "\fBTrigger\fP * \fBpNewTrigger\fP"
+.br
+.ti -1c
+.RI "const char * \fBzAuthContext\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP ** \fBapVtabLock\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpZombieTab\fP"
+.br
+.ti -1c
+.RI "\fBTriggerPrg\fP * \fBpTriggerPrg\fP"
+.br
+.in -1c
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fByColCache\fP"
+.br
+.ti -1c
+.RI "struct \fByColCache\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int* \fBParse::aAlias\fP"
+.PP
+.SS "int* \fBParse::aAlias\fP"
+.PP
+.SS "struct \fBParse::yColCache\fP  \fBParse::aColCache\fP[SQLITE_N_COLCACHE]"
+.PP
+.SS "struct \fBParse::yColCache\fP  \fBParse::aColCache\fP[SQLITE_N_COLCACHE]"
+.PP
+.SS "\fBExpr\fP** \fBParse::apVarExpr\fP"
+.PP
+.SS "\fBExpr\fP** \fBParse::apVarExpr\fP"
+.PP
+.SS "\fBTable\fP** \fBParse::apVtabLock\fP"
+.PP
+.SS "\fBTable\fP** \fBParse::apVtabLock\fP"
+.PP
+.SS "\fBTableLock\fP* \fBParse::aTableLock\fP"
+.PP
+.SS "\fBTableLock\fP* \fBParse::aTableLock\fP"
+.PP
+.SS "int \fBParse::aTempReg\fP"
+.PP
+.SS "\fBu8\fP \fBParse::checkSchema\fP"
+.PP
+.SS "int \fBParse::ckBase\fP"
+.PP
+.SS "\fBu8\fP \fBParse::colNamesSet\fP"
+.PP
+.SS "int \fBParse::cookieGoto\fP"
+.PP
+.SS "\fBu32\fP \fBParse::cookieMask\fP"
+.PP
+.SS "int \fBParse::cookieValue\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBParse::db\fP"
+.PP
+.SS "\fBsqlite3\fP* \fBParse::db\fP"
+.PP
+.SS "\fBu8\fP \fBParse::declareVtab\fP"
+.PP
+.SS "\fBu8\fP \fBParse::disableTriggers\fP"
+.PP
+.SS "\fBu8\fP \fBParse::eOrconf\fP"
+.PP
+.SS "\fBu8\fP \fBParse::eTriggerOp\fP"
+.PP
+.SS "\fBu8\fP \fBParse::explain\fP"
+.PP
+.SS "int \fBParse::iCacheCnt\fP"
+.PP
+.SS "int \fBParse::iCacheLevel\fP"
+.PP
+.SS "\fBu8\fP \fBParse::iColCache\fP"
+.PP
+.SS "int \fBParse::iRangeReg\fP"
+.PP
+.SS "\fBu8\fP \fBParse::isMultiWrite\fP"
+.PP
+.SS "\fBu8\fP \fBParse::mayAbort\fP"
+.PP
+.SS "int \fBParse::nAlias\fP"
+.PP
+.SS "int \fBParse::nAliasAlloc\fP"
+.PP
+.SS "\fBu8\fP \fBParse::nameClash\fP"
+.PP
+.SS "\fBu8\fP \fBParse::nColCache\fP"
+.PP
+.SS "int \fBParse::nErr\fP"
+.PP
+.SS "\fBu8\fP \fBParse::nested\fP"
+.PP
+.SS "\fBu32\fP \fBParse::newmask\fP"
+.PP
+.SS "int \fBParse::nHeight\fP"
+.PP
+.SS "int \fBParse::nMaxArg\fP"
+.PP
+.SS "int \fBParse::nMem\fP"
+.PP
+.SS "double \fBParse::nQueryLoop\fP"
+.PP
+.SS "int \fBParse::nRangeReg\fP"
+.PP
+.SS "int \fBParse::nSet\fP"
+.PP
+.SS "int \fBParse::nTab\fP"
+.PP
+.SS "int \fBParse::nTableLock\fP"
+.PP
+.SS "\fBu8\fP \fBParse::nTempInUse\fP"
+.PP
+.SS "\fBu8\fP \fBParse::nTempReg\fP"
+.PP
+.SS "int \fBParse::nVar\fP"
+.PP
+.SS "int \fBParse::nVarExpr\fP"
+.PP
+.SS "int \fBParse::nVarExprAlloc\fP"
+.PP
+.SS "int \fBParse::nVtabLock\fP"
+.PP
+.SS "\fBu32\fP \fBParse::oldmask\fP"
+.PP
+.SS "\fBAutoincInfo\fP* \fBParse::pAinc\fP"
+.PP
+.SS "\fBAutoincInfo\fP* \fBParse::pAinc\fP"
+.PP
+.SS "\fBu8\fP \fBParse::parseError\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pNewTable\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pNewTable\fP"
+.PP
+.SS "\fBTrigger\fP* \fBParse::pNewTrigger\fP"
+.PP
+.SS "\fBTrigger\fP* \fBParse::pNewTrigger\fP"
+.PP
+.SS "\fBVdbe\fP* \fBParse::pReprepare\fP"
+.PP
+.SS "\fBVdbe\fP* \fBParse::pReprepare\fP"
+.PP
+.SS "\fBParse\fP* \fBParse::pToplevel\fP"
+.PP
+.SS "\fBParse\fP* \fBParse::pToplevel\fP"
+.PP
+.SS "\fBTriggerPrg\fP* \fBParse::pTriggerPrg\fP"
+.PP
+.SS "\fBTriggerPrg\fP* \fBParse::pTriggerPrg\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pTriggerTab\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pTriggerTab\fP"
+.PP
+.SS "\fBVdbe\fP* \fBParse::pVdbe\fP"
+.PP
+.SS "\fBVdbe\fP* \fBParse::pVdbe\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pZombieTab\fP"
+.PP
+.SS "\fBTable\fP* \fBParse::pZombieTab\fP"
+.PP
+.SS "int \fBParse::rc\fP"
+.PP
+.SS "int \fBParse::regRoot\fP"
+.PP
+.SS "int \fBParse::regRowid\fP"
+.PP
+.SS "\fBToken\fP \fBParse::sArg\fP"
+.PP
+.SS "\fBToken\fP \fBParse::sLastToken\fP"
+.PP
+.SS "\fBToken\fP \fBParse::sNameToken\fP"
+.PP
+.SS "\fBu32\fP \fBParse::writeMask\fP"
+.PP
+.SS "const char* \fBParse::zAuthContext\fP"
+.PP
+.SS "const char* \fBParse::zAuthContext\fP"
+.PP
+.SS "char* \fBParse::zErrMsg\fP"
+.PP
+.SS "char* \fBParse::zErrMsg\fP"
+.PP
+.SS "const char* \fBParse::zTail\fP"
+.PP
+.SS "const char* \fBParse::zTail\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

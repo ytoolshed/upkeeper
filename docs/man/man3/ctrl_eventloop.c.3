@@ -1,0 +1,210 @@
+.TH "controller/ctrl_eventloop.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+controller/ctrl_eventloop.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'controller.h'\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBcontroller_packet_callback\fP (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *)"
+.br
+.ti -1c
+.RI "void \fBctrl_req_action_handler\fP (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fIHandler to call when an action request is received from a client, signature is of upk_net_callback_t,. \fP"
+.ti -1c
+.RI "void \fBctrl_req_preamble_handler\fP (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fIHandler to call when an preamble request is received from a client, signature is of upk_net_callback_t,. \fP"
+.ti -1c
+.RI "void \fBctrl_req_disconnect_handler\fP (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fIHandler to call when an disconnect request is received from a client, signature is of upk_net_callback_t,. \fP"
+.ti -1c
+.RI "static void \fBinit_callback_handlers\fP (\fBupk_conn_handle_meta_t\fP *clients)"
+.br
+.RI "\fIsetup initial callback handlers \fP"
+.ti -1c
+.RI "static void \fBctrl_accept_conn\fP (int32_t listen_sock, \fBupk_conn_handle_meta_t\fP *clients)"
+.br
+.RI "\fI\fBaccept()\fP and setup a handle for an incomming connection. \fP"
+.ti -1c
+.RI "void \fBsa_sigaction_func\fP (int signal, \fBsiginfo_t\fP *\fBsiginfo\fP, void *\fBucontext\fP)"
+.br
+.RI "\fIplace received signals into a queue to handle later. \fP"
+.ti -1c
+.RI "void \fBctrl_exit_cleanup\fP (void)"
+.br
+.RI "\fIcleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues \fP"
+.ti -1c
+.RI "static void \fBctrl_setup_sighandlers\fP (void)"
+.br
+.RI "\fIsetup signal handlers \fP"
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBctrl_init\fP (void)"
+.br
+.RI "\fIinitialization before eventloop \fP"
+.ti -1c
+.RI "void \fBevent_loop\fP (int32_t listen_sock)"
+.br
+.RI "\fIthe main event loop. \fP"
+.ti -1c
+.RI "int32_t \fBctrl_sock_setup\fP (void)"
+.br
+.RI "\fIsetup controller's socket \fP"
+.ti -1c
+.RI "void \fBhandle_signals\fP (void)"
+.br
+.RI "\fIdeal with signals pending action in signal_queue. \fP"
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "static \fBctrl_sigqueue_meta_t\fP * \fBctrl_signal_queue\fP"
+.br
+.ti -1c
+.RI "static \fBupk_conn_handle_meta_t\fP * \fBclients_list_for_cleanup\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void controller_packet_callback (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *)"
+.SS "static void ctrl_accept_conn (int32_tlisten_sock, \fBupk_conn_handle_meta_t\fP *clients)\fC [static]\fP"
+.PP
+\fBaccept()\fP and setup a handle for an incomming connection. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIlisten_sock\fP The socket the request is coming in on. 
+.br
+\fIclients\fP The llist of clients, which will be modified if the connection is accepted. 
+.RE
+.PP
+
+.PP
+References accept(), and upk_net_add_socket_handle().
+.PP
+Referenced by event_loop().
+.SS "void ctrl_exit_cleanup (void)"
+.PP
+cleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues ***************************************************************************************************************** 
+.PP
+References UPKLIST_FREE.
+.PP
+Referenced by ctrl_init().
+.SS "\fBupk_conn_handle_meta_t\fP* ctrl_init (void)"
+.PP
+initialization before eventloop ***************************************************************************************************************** This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+.PP
+References calloc(), ctrl_exit_cleanup(), ctrl_setup_sighandlers(), init_callback_handlers(), and upk_net_conn_handles_init().
+.PP
+Referenced by event_loop().
+.SS "void ctrl_req_action_handler (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.PP
+Handler to call when an action request is received from a client, signature is of upk_net_callback_t,. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclients\fP The llist of handles, and clients->thisp is the current handle. 
+.br
+\fImsg\fP The action request message. 
+.RE
+.PP
+
+.PP
+References upk_req_action_t::action, _upk_svc_desc::Name, _upk_payload::payload, reload_buddy_svc(), _upk_payload_types::req_action, start_buddy_svc(), stop_buddy_svc(), upk_req_action_t::svc_id, _upk_controller_config::svclist, upk_svc_desc_meta_p::thisp, upk_conn_handle_meta_p::thisp, upk_create_repl_result(), upk_debug1, UPK_MAX_STRING_LEN, upk_pkt_free(), upk_queue_packet(), upk_runtime_configuration, and UPKLIST_FOREACH.
+.PP
+Referenced by init_callback_handlers().
+.SS "void ctrl_req_disconnect_handler (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.PP
+Handler to call when an disconnect request is received from a client, signature is of upk_net_callback_t,. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclients\fP The llist of handles, and clients->thisp is the current handle. 
+.br
+\fImsg\fP The disconnect request message. 
+.RE
+.PP
+
+.PP
+References _upk_conn_handle::cl_name, upk_conn_handle_meta_p::thisp, upk_create_req_disconnect(), upk_debug1, upk_net_shutdown_callback(), upk_pkt_free(), and upk_queue_packet().
+.PP
+Referenced by init_callback_handlers().
+.SS "void ctrl_req_preamble_handler (\fBupk_conn_handle_meta_t\fP *clients, \fBupk_payload_t\fP *msg)"
+.PP
+Handler to call when an preamble request is received from a client, signature is of upk_net_callback_t,. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIclients\fP The llist of handles, and clients->thisp is the current handle. 
+.br
+\fImsg\fP The preamble request message. 
+.RE
+.PP
+
+.PP
+References _upk_conn_handle::cl_name, upk_req_preamble_t::client_name, upk_req_preamble_t::max_supported_ver, upk_req_preamble_t::min_supported_ver, upk_packet_t::payload, _upk_payload::payload, _upk_payload_types::req_preamble, upk_conn_handle_meta_p::thisp, upk_create_repl_preamble(), upk_debug1, UPK_MAX_STRING_LEN, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, upk_pkt_free(), and upk_queue_packet().
+.PP
+Referenced by init_callback_handlers().
+.SS "static void ctrl_setup_sighandlers (void)\fC [inline, static]\fP"
+.PP
+setup signal handlers ***************************************************************************************************************** 
+.PP
+References sigaction::sa_flags, sigaction::sa_handler, sigaction::sa_mask, sa_sigaction_func(), sigaction(), sigemptyset(), sigfillset(), and upk_fatal.
+.PP
+Referenced by ctrl_init().
+.SS "int32_t ctrl_sock_setup (void)"
+.PP
+setup controller's socket ***************************************************************************************************************** 
+.PP
+References bind(), _upk_controller_config::controller_socket, fcntl(), IF_UPK_ERROR, listen(), SOCK_STREAM, socket(), sockaddr_un::sun_family, sockaddr_un::sun_path, UPK_FUNC_ASSERT, UPK_FUNC_ASSERT_MSG, upk_runtime_configuration, and UPK_SOCKET_FAILURE.
+.PP
+Referenced by main().
+.SS "void event_loop (int32_tlisten_sock)"
+.PP
+the main event loop. ***************************************************************************************************************** This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+.PP
+References _upk_controller_config::BuddyPollingInterval, ctrl_accept_conn(), ctrl_init(), handle_buddies(), handle_signals(), select(), upk_debug1, upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), and upk_runtime_configuration.
+.PP
+Referenced by main().
+.SS "void handle_signals (void)"
+.PP
+deal with signals pending action in signal_queue. ***************************************************************************************************************** Block all signals during copy to avoid annoying race conditions. 
+.PP
+References ctrl_sigqueue_meta_p::count, siginfo::si_pid, sigfillset(), _ctrl_sigqueue::siginfo, _ctrl_sigqueue::signal, sigprocmask(), sigset(), ctrl_sigqueue_meta_p::thisp, UPKLIST_HEAD, UPKLIST_UNLINK, and waitpid().
+.PP
+Referenced by event_loop().
+.SS "static void init_callback_handlers (\fBupk_conn_handle_meta_t\fP *clients)\fC [static]\fP"
+.PP
+setup initial callback handlers ***************************************************************************************************************** 
+.PP
+References _upk_net_state::callback_stack, ctrl_req_action_handler(), ctrl_req_disconnect_handler(), ctrl_req_preamble_handler(), upk_net_cb_stk_meta_p::head, _upk_net_cb_stk::msg_handlers, UPK_MSGTYPE_IDX, upk_net_get_global_state(), UPK_REQ_ACTION, UPK_REQ_DISCONNECT, UPK_REQ_PREAMBLE, and UPKLIST_PREPEND.
+.PP
+Referenced by ctrl_init().
+.SS "void sa_sigaction_func (intsignal, \fBsiginfo_t\fP *siginfo, void *ucontext)"
+.PP
+place received signals into a queue to handle later. ***************************************************************************************************************** Because most signal handling will have fairly significant work to do, all signal handling is done via queuing the receipt to the 'ctrl_signal_queue', and processing is deferred to the event loop; specifically the 'handle_signals' function called first in the event loop. 
+.PP
+References _ctrl_sigqueue::siginfo, _ctrl_sigqueue::signal, ctrl_sigqueue_meta_p::thisp, and UPKLIST_APPEND.
+.PP
+Referenced by ctrl_setup_sighandlers().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBupk_conn_handle_meta_t\fP* \fBclients_list_for_cleanup\fP\fC [static]\fP"
+.SS "\fBctrl_sigqueue_meta_t\fP* \fBctrl_signal_queue\fP\fC [static]\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

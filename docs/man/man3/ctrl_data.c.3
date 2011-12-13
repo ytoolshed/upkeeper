@@ -1,0 +1,92 @@
+.TH "controller/ctrl_data.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+controller/ctrl_data.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upkeeper.h>\fP
+.br
+\fC#include 'controller.h'\fP
+.br
+\fC#include <sqlite3.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPSERT_TEXT\fP(A)"
+.br
+.RI "\fIinsert or update a list option. \fP"
+.ti -1c
+.RI "#define \fBUPSERT_INT\fP(A, NMIN)"
+.br
+.ti -1c
+.RI "#define \fBLIST_UPSERT_TEXT\fP(A, B, C)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBupk_db_get_single_text\fP (\fBsqlite3\fP *dbh, char *value, const char *sql,...)"
+.br
+.RI "\fIlookup a table_id from the schema table. \fP"
+.ti -1c
+.RI "static int \fBupk_db_get_table_id\fP (\fBsqlite3\fP *dbh, const char *db, const char *table_name, char *table_id)"
+.br
+.RI "\fIlookup a table_id from the schema table. \fP"
+.ti -1c
+.RI "int \fBupk_db_get_audit_service_table\fP (\fBsqlite3\fP *dbh, char *table_id)"
+.br
+.RI "\fIlookup the table_id for upk_audit.service from the schema table. \fP"
+.ti -1c
+.RI "int \fBupk_db_get_cfg_services_table\fP (\fBsqlite3\fP *dbh, char *table_id)"
+.br
+.RI "\fIlookup the table_id for upk_cfg.services from the schema table. \fP"
+.ti -1c
+.RI "int \fBupk_db_get_cfg_svc_options_table\fP (\fBsqlite3\fP *dbh, char *table_id)"
+.br
+.RI "\fIlookup the table_id for upk_cfg.svc_optionsfrom the schema table. \fP"
+.ti -1c
+.RI "int \fBupk_db_get_cfg_svc_list_options_table\fP (\fBsqlite3\fP *dbh, char *table_id)"
+.br
+.RI "\fIlookup the table_id for upk_cfg.svc_list_options from the schema table. \fP"
+.ti -1c
+.RI "char * \fBupk_db_svc_uuid_lookup\fP (\fBsqlite3\fP *dbh, const char *svcid, const char *package)"
+.br
+.RI "\fIlookup a service <package>-<name> \fP"
+.ti -1c
+.RI "char * \fBupk_db_gen_uuid\fP (\fBsqlite3\fP *dbh)"
+.br
+.RI "\fIgenerate new unique service UUID. \fP"
+.ti -1c
+.RI "bool \fBupk_db_add_new_service\fP (\fBsqlite3\fP *dbh, \fBupk_svc_desc_t\fP *svc)"
+.br
+.RI "\fICreate new service definition. \fP"
+.ti -1c
+.RI "static int \fBupk_db_try_insert\fP (\fBsqlite3\fP *dbh, char *table_id, \fBupk_svc_desc_t\fP *svc, int type, char *optkey, void *optval, \fBsize_t\fP len, char *section, char *id)"
+.br
+.RI "\fItry to insert an option \fP"
+.ti -1c
+.RI "static int \fBupk_db_try_update\fP (\fBsqlite3\fP *dbh, char *table_id, \fBupk_svc_desc_t\fP *svc, int type, char *optkey, void *optval, \fBsize_t\fP len, char *section, char *id)"
+.br
+.RI "\fItry to update an option \fP"
+.ti -1c
+.RI "bool \fBupk_db_upsert\fP (\fBsqlite3\fP *dbh, char *table_id, \fBupk_svc_desc_t\fP *svc, int type, char *optkey, void *optval, \fBsize_t\fP len, char *section, char *id)"
+.br
+.RI "\fIinsert or update a option. \fP"
+.ti -1c
+.RI "int32_t \fBupk_db_upsert_options\fP (\fBsqlite3\fP *dbh, \fBupk_svc_desc_t\fP *svc)"
+.br
+.RI "\fIInsert options into database;. \fP"
+.ti -1c
+.RI "bool \fBupk_db_insert_cfg\fP (\fBsqlite3\fP *dbh, \fBupk_svc_desc_t\fP *svc)"
+.br
+.RI "\fIInsert a configuration into the database. \fP"
+.in -1c
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

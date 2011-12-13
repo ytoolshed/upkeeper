@@ -726,6 +726,42 @@ fi
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 exec 7<&0 </dev/null 6>&1
 
 # Name of the host.
@@ -793,11 +829,20 @@ ac_unique_file="upkeeper_config.h.in"
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
-conf_sysconfdir
-conf_localstatedir
-conf_libexecdir
 LIBOBJS
 ALLOCA
+JSON_TOKENER_PARSE_LIBS
+JSON_CPPFLAGS
+JSON_LDFLAGS
+JSON_LIBS
+SQLITE3_OPEN_LIBS
+SQLITE3_CPPFLAGS
+SQLITE3_LDFLAGS
+SQLITE3_LIBS
+MAIN_LIBS
+NCURSES_CPPFLAGS
+NCURSES_LDFLAGS
+NCURSES_LIBS
 CHECK_LIBS
 CHECK_CFLAGS
 PKG_CONFIG
@@ -915,7 +960,7 @@ enable_fast_install
 with_gnu_ld
 enable_libtool_lock
 enable_dependency_tracking
-with_
+enable_rpath
 with_ncurses
 with_sqlite3
 with_json
@@ -929,9 +974,7 @@ LDFLAGS
 LIBS
 CPPFLAGS
 CPP
-PKG_CONFIG
-CHECK_CFLAGS
-CHECK_LIBS'
+PKG_CONFIG'
 
 
 # Initialize some variables set by options.
@@ -1569,6 +1612,7 @@ Optional Features:
   --disable-libtool-lock  avoid locking (might break parallel builds)
   --disable-dependency-tracking  speeds up one-time build
   --enable-dependency-tracking   do not reject slow dependency extractors
+  --enable-rpath=PATH     Add linker option to add PATH to the runpath
 
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
@@ -1576,7 +1620,6 @@ Optional Packages:
   --with-pic              try to use only PIC/non-PIC objects [default=use
                           both]
   --with-gnu-ld           assume the C compiler uses GNU ld [default=no]
-  --with-=PATH            specify path to library installation [default=auto]
   --with-ncurses=PATH     specify path to ncurses library installation
                           [default=auto]
   --with-sqlite3=PATH     specify path to sqlite3 library installation
@@ -1594,9 +1637,6 @@ Some influential environment variables:
               you have headers in a nonstandard directory <include dir>
   CPP         C preprocessor
   PKG_CONFIG  path to pkg-config utility
-  CHECK_CFLAGS
-              C compiler flags for CHECK, overriding pkg-config
-  CHECK_LIBS  linker flags for CHECK, overriding pkg-config
 
 Use these variables to override the choices made by `configure' or to help
 it to find libraries and programs with nonstandard names/locations.
@@ -4436,13 +4476,13 @@ if test "${lt_cv_nm_interface+set}" = set; then
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4439: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:4479: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4442: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:4482: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4445: output\"" >&5)
+  (eval echo "\"\$as_me:4485: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -5647,7 +5687,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5650 "configure"' > conftest.$ac_ext
+  echo '#line 5690 "configure"' > conftest.$ac_ext
   if { (eval echo "$as_me:$LINENO: \"$ac_compile\"") >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7016,11 +7056,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7019: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7059: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7023: \$? = $ac_status" >&5
+   echo "$as_me:7063: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7355,11 +7395,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7358: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7398: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7362: \$? = $ac_status" >&5
+   echo "$as_me:7402: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7460,11 +7500,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7463: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7503: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7467: \$? = $ac_status" >&5
+   echo "$as_me:7507: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7515,11 +7555,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7518: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7558: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7522: \$? = $ac_status" >&5
+   echo "$as_me:7562: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -10318,7 +10358,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10321 "configure"
+#line 10361 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10414,7 +10454,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10417 "configure"
+#line 10457 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11321,6 +11361,138 @@ fi
 
 
 
+if test "x$CC" != xcc; then
+  { $as_echo "$as_me:$LINENO: checking whether $CC and cc understand -c and -o together" >&5
+$as_echo_n "checking whether $CC and cc understand -c and -o together... " >&6; }
+else
+  { $as_echo "$as_me:$LINENO: checking whether cc understands -c and -o together" >&5
+$as_echo_n "checking whether cc understands -c and -o together... " >&6; }
+fi
+set dummy $CC; ac_cc=`$as_echo "$2" |
+		      sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
+if { as_var=ac_cv_prog_cc_${ac_cc}_c_o; eval "test \"\${$as_var+set}\" = set"; }; then
+  $as_echo_n "(cached) " >&6
+else
+  cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+int
+main ()
+{
+
+  ;
+  return 0;
+}
+_ACEOF
+# Make sure it works both with $CC and with simple cc.
+# We do the test twice because some compilers refuse to overwrite an
+# existing .o file with -o, though they will create one.
+ac_try='$CC -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
+rm -f conftest2.*
+if { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+   test -f conftest2.$ac_objext && { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); };
+then
+  eval ac_cv_prog_cc_${ac_cc}_c_o=yes
+  if test "x$CC" != xcc; then
+    # Test first that cc exists at all.
+    if { ac_try='cc -c conftest.$ac_ext >&5'
+  { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; }; then
+      ac_try='cc -c conftest.$ac_ext -o conftest2.$ac_objext >&5'
+      rm -f conftest2.*
+      if { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } &&
+	 test -f conftest2.$ac_objext && { (case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_try") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); };
+      then
+	# cc works too.
+	:
+      else
+	# cc exists but doesn't like -o.
+	eval ac_cv_prog_cc_${ac_cc}_c_o=no
+      fi
+    fi
+  fi
+else
+  eval ac_cv_prog_cc_${ac_cc}_c_o=no
+fi
+rm -f core conftest*
+
+fi
+if eval test \$ac_cv_prog_cc_${ac_cc}_c_o = yes; then
+  { $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+else
+  { $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+
+cat >>confdefs.h <<\_ACEOF
+#define NO_MINUS_C_MINUS_O 1
+_ACEOF
+
+fi
+
+# FIXME: we rely on the cache variable name because
+# there is no other way.
+set dummy $CC
+am_cc=`echo $2 | sed 's/[^a-zA-Z0-9_]/_/g;s/^[0-9]/_/'`
+eval am_t=\$ac_cv_prog_cc_${am_cc}_c_o
+if test "$am_t" != yes; then
+   # Losing compiler, so override with the script.
+   # FIXME: It is wrong to rewrite CC.
+   # But if we don't then we get into trouble of one sort or another.
+   # A longer-term fix would be to have automake use am__CC in this case,
+   # and then we could set am__CC="\$(top_srcdir)/compile \$(CC)"
+   CC="$am_aux_dir/compile $CC"
+fi
+
+
 
 
 ac_config_headers="$ac_config_headers upkeeper_config.h"
@@ -11329,26 +11501,30 @@ ac_config_headers="$ac_config_headers upkeeper_config.h"
 ACLOCAL_AMFLAGS="-I m4"
 
 
-# Checks for programs.
-if test -n "$ac_tool_prefix"; then
-  # Extract the first word of "${ac_tool_prefix}ranlib", so it can be a program name with args.
-set dummy ${ac_tool_prefix}ranlib; ac_word=$2
+
+
+if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
+	if test -n "$ac_tool_prefix"; then
+  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
+set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
 { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_RANLIB+set}" = set; then
+if test "${ac_cv_path_PKG_CONFIG+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
-  if test -n "$RANLIB"; then
-  ac_cv_prog_RANLIB="$RANLIB" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+  case $PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
 for as_dir in $PATH
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
   for ac_exec_ext in '' $ac_executable_extensions; do
   if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_RANLIB="${ac_tool_prefix}ranlib"
+    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -11356,12 +11532,13 @@ done
 done
 IFS=$as_save_IFS
 
+  ;;
+esac
 fi
-fi
-RANLIB=$ac_cv_prog_RANLIB
-if test -n "$RANLIB"; then
-  { $as_echo "$as_me:$LINENO: result: $RANLIB" >&5
-$as_echo "$RANLIB" >&6; }
+PKG_CONFIG=$ac_cv_path_PKG_CONFIG
+if test -n "$PKG_CONFIG"; then
+  { $as_echo "$as_me:$LINENO: result: $PKG_CONFIG" >&5
+$as_echo "$PKG_CONFIG" >&6; }
 else
   { $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
@@ -11369,26 +11546,28 @@ fi
 
 
 fi
-if test -z "$ac_cv_prog_RANLIB"; then
-  ac_ct_RANLIB=$RANLIB
-  # Extract the first word of "ranlib", so it can be a program name with args.
-set dummy ranlib; ac_word=$2
+if test -z "$ac_cv_path_PKG_CONFIG"; then
+  ac_pt_PKG_CONFIG=$PKG_CONFIG
+  # Extract the first word of "pkg-config", so it can be a program name with args.
+set dummy pkg-config; ac_word=$2
 { $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
 $as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_prog_ac_ct_RANLIB+set}" = set; then
+if test "${ac_cv_path_ac_pt_PKG_CONFIG+set}" = set; then
   $as_echo_n "(cached) " >&6
 else
-  if test -n "$ac_ct_RANLIB"; then
-  ac_cv_prog_ac_ct_RANLIB="$ac_ct_RANLIB" # Let the user override the test.
-else
-as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+  case $ac_pt_PKG_CONFIG in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
 for as_dir in $PATH
 do
   IFS=$as_save_IFS
   test -z "$as_dir" && as_dir=.
   for ac_exec_ext in '' $ac_executable_extensions; do
   if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_prog_ac_ct_RANLIB="ranlib"
+    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
     $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
     break 2
   fi
@@ -11396,19 +11575,20 @@ done
 done
 IFS=$as_save_IFS
 
+  ;;
+esac
 fi
-fi
-ac_ct_RANLIB=$ac_cv_prog_ac_ct_RANLIB
-if test -n "$ac_ct_RANLIB"; then
-  { $as_echo "$as_me:$LINENO: result: $ac_ct_RANLIB" >&5
-$as_echo "$ac_ct_RANLIB" >&6; }
+ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
+if test -n "$ac_pt_PKG_CONFIG"; then
+  { $as_echo "$as_me:$LINENO: result: $ac_pt_PKG_CONFIG" >&5
+$as_echo "$ac_pt_PKG_CONFIG" >&6; }
 else
   { $as_echo "$as_me:$LINENO: result: no" >&5
 $as_echo "no" >&6; }
 fi
 
-  if test "x$ac_ct_RANLIB" = x; then
-    RANLIB=":"
+  if test "x$ac_pt_PKG_CONFIG" = x; then
+    PKG_CONFIG=""
   else
     case $cross_compiling:$ac_tool_warned in
 yes:)
@@ -11416,12 +11596,30 @@ yes:)
 $as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
 ac_tool_warned=yes ;;
 esac
-    RANLIB=$ac_ct_RANLIB
+    PKG_CONFIG=$ac_pt_PKG_CONFIG
   fi
 else
-  RANLIB="$ac_cv_prog_RANLIB"
+  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
 fi
 
+fi
+if test -n "$PKG_CONFIG"; then
+	_pkg_min_version=0.9.0
+	{ $as_echo "$as_me:$LINENO: checking pkg-config is at least version $_pkg_min_version" >&5
+$as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
+	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
+		{ $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+	else
+		{ $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+		PKG_CONFIG=""
+	fi
+
+fi
+
+# Checks for programs.
+# AC_PROG_RANLIB
 { $as_echo "$as_me:$LINENO: checking for inline" >&5
 $as_echo_n "checking for inline... " >&6; }
 if test "${ac_cv_c_inline+set}" = set; then
@@ -11491,6 +11689,82 @@ case $ac_cv_c_inline in
 _ACEOF
     ;;
 esac
+
+{ $as_echo "$as_me:$LINENO: checking for C/C++ restrict keyword" >&5
+$as_echo_n "checking for C/C++ restrict keyword... " >&6; }
+if test "${ac_cv_c_restrict+set}" = set; then
+  $as_echo_n "(cached) " >&6
+else
+  ac_cv_c_restrict=no
+   # The order here caters to the fact that C++ does not require restrict.
+   for ac_kw in __restrict __restrict__ _Restrict restrict; do
+     cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+typedef int * int_ptr;
+	int foo (int_ptr $ac_kw ip) {
+	return ip[0];
+       }
+int
+main ()
+{
+int s[1];
+	int * $ac_kw t = s;
+	t[0] = 0;
+	return foo(t)
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext
+if { (ac_try="$ac_compile"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_compile") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest.$ac_objext; then
+  ac_cv_c_restrict=$ac_kw
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+
+fi
+
+rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+     test "$ac_cv_c_restrict" != no && break
+   done
+
+fi
+{ $as_echo "$as_me:$LINENO: result: $ac_cv_c_restrict" >&5
+$as_echo "$ac_cv_c_restrict" >&6; }
+
+
+ case $ac_cv_c_restrict in
+   restrict) ;;
+   no) cat >>confdefs.h <<\_ACEOF
+#define restrict /**/
+_ACEOF
+ ;;
+   *)  cat >>confdefs.h <<_ACEOF
+#define restrict $ac_cv_c_restrict
+_ACEOF
+ ;;
+ esac
 
 
    { $as_echo "$as_me:$LINENO: checking for $CC option to accept ISO C99" >&5
@@ -12068,266 +12342,85 @@ fi
 
 
 
-
-if test "x$ac_cv_env_PKG_CONFIG_set" != "xset"; then
-	if test -n "$ac_tool_prefix"; then
-  # Extract the first word of "${ac_tool_prefix}pkg-config", so it can be a program name with args.
-set dummy ${ac_tool_prefix}pkg-config; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_path_PKG_CONFIG+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  case $PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_PKG_CONFIG="$PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-PKG_CONFIG=$ac_cv_path_PKG_CONFIG
-if test -n "$PKG_CONFIG"; then
-  { $as_echo "$as_me:$LINENO: result: $PKG_CONFIG" >&5
-$as_echo "$PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-fi
-if test -z "$ac_cv_path_PKG_CONFIG"; then
-  ac_pt_PKG_CONFIG=$PKG_CONFIG
-  # Extract the first word of "pkg-config", so it can be a program name with args.
-set dummy pkg-config; ac_word=$2
-{ $as_echo "$as_me:$LINENO: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if test "${ac_cv_path_ac_pt_PKG_CONFIG+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-  case $ac_pt_PKG_CONFIG in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ac_pt_PKG_CONFIG="$ac_pt_PKG_CONFIG" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $PATH
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-  for ac_exec_ext in '' $ac_executable_extensions; do
-  if { test -f "$as_dir/$ac_word$ac_exec_ext" && $as_test_x "$as_dir/$ac_word$ac_exec_ext"; }; then
-    ac_cv_path_ac_pt_PKG_CONFIG="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:$LINENO: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-done
-IFS=$as_save_IFS
-
-  ;;
-esac
-fi
-ac_pt_PKG_CONFIG=$ac_cv_path_ac_pt_PKG_CONFIG
-if test -n "$ac_pt_PKG_CONFIG"; then
-  { $as_echo "$as_me:$LINENO: result: $ac_pt_PKG_CONFIG" >&5
-$as_echo "$ac_pt_PKG_CONFIG" >&6; }
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-  if test "x$ac_pt_PKG_CONFIG" = x; then
-    PKG_CONFIG=""
-  else
-    case $cross_compiling:$ac_tool_warned in
-yes:)
-{ $as_echo "$as_me:$LINENO: WARNING: using cross tools not prefixed with host triplet" >&5
-$as_echo "$as_me: WARNING: using cross tools not prefixed with host triplet" >&2;}
-ac_tool_warned=yes ;;
-esac
-    PKG_CONFIG=$ac_pt_PKG_CONFIG
-  fi
-else
-  PKG_CONFIG="$ac_cv_path_PKG_CONFIG"
-fi
-
-fi
-if test -n "$PKG_CONFIG"; then
-	_pkg_min_version=0.9.0
-	{ $as_echo "$as_me:$LINENO: checking pkg-config is at least version $_pkg_min_version" >&5
-$as_echo_n "checking pkg-config is at least version $_pkg_min_version... " >&6; }
-	if $PKG_CONFIG --atleast-pkgconfig-version $_pkg_min_version; then
-		{ $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-	else
-		{ $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-		PKG_CONFIG=""
-	fi
-
-fi
-
-pkg_failed=no
-{ $as_echo "$as_me:$LINENO: checking for CHECK" >&5
-$as_echo_n "checking for CHECK... " >&6; }
-
-if test -n "$PKG_CONFIG"; then
-    if test -n "$CHECK_CFLAGS"; then
-        pkg_cv_CHECK_CFLAGS="$CHECK_CFLAGS"
-    else
-        if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"check >= 0.9.4\"") >&5
-  ($PKG_CONFIG --exists --print-errors "check >= 0.9.4") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_CHECK_CFLAGS=`$PKG_CONFIG --cflags "check >= 0.9.4" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
-    fi
-else
-	pkg_failed=untried
-fi
-if test -n "$PKG_CONFIG"; then
-    if test -n "$CHECK_LIBS"; then
-        pkg_cv_CHECK_LIBS="$CHECK_LIBS"
-    else
-        if test -n "$PKG_CONFIG" && \
-    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"check >= 0.9.4\"") >&5
-  ($PKG_CONFIG --exists --print-errors "check >= 0.9.4") 2>&5
-  ac_status=$?
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); }; then
-  pkg_cv_CHECK_LIBS=`$PKG_CONFIG --libs "check >= 0.9.4" 2>/dev/null`
-else
-  pkg_failed=yes
-fi
-    fi
-else
-	pkg_failed=untried
-fi
-
-
-
-if test $pkg_failed = yes; then
-
-if $PKG_CONFIG --atleast-pkgconfig-version 0.20; then
-        _pkg_short_errors_supported=yes
-else
-        _pkg_short_errors_supported=no
-fi
-        if test $_pkg_short_errors_supported = yes; then
-	        CHECK_PKG_ERRORS=`$PKG_CONFIG --short-errors --errors-to-stdout --print-errors "check >= 0.9.4"`
-        else
-	        CHECK_PKG_ERRORS=`$PKG_CONFIG --errors-to-stdout --print-errors "check >= 0.9.4"`
-        fi
-	# Put the nasty error message in config.log where it belongs
-	echo "$CHECK_PKG_ERRORS" >&5
-
-	{ { $as_echo "$as_me:$LINENO: error: Package requirements (check >= 0.9.4) were not met:
-
-$CHECK_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables CHECK_CFLAGS
-and CHECK_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&5
-$as_echo "$as_me: error: Package requirements (check >= 0.9.4) were not met:
-
-$CHECK_PKG_ERRORS
-
-Consider adjusting the PKG_CONFIG_PATH environment variable if you
-installed software in a non-standard prefix.
-
-Alternatively, you may set the environment variables CHECK_CFLAGS
-and CHECK_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-" >&2;}
-   { (exit 1); exit 1; }; }
-elif test $pkg_failed = untried; then
-	{ { $as_echo "$as_me:$LINENO: error: in \`$ac_pwd':" >&5
-$as_echo "$as_me: error: in \`$ac_pwd':" >&2;}
-{ { $as_echo "$as_me:$LINENO: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables CHECK_CFLAGS
-and CHECK_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
-See \`config.log' for more details." >&5
-$as_echo "$as_me: error: The pkg-config script could not be found or is too old.  Make sure it
-is in your PATH or set the PKG_CONFIG environment variable to the full
-path to pkg-config.
-
-Alternatively, you may set the environment variables CHECK_CFLAGS
-and CHECK_LIBS to avoid the need to call pkg-config.
-See the pkg-config man page for more details.
-
-To get pkg-config, see <http://www.freedesktop.org/software/pkgconfig>.
-See \`config.log' for more details." >&2;}
-   { (exit 1); exit 1; }; }; }
-else
-	CHECK_CFLAGS=$pkg_cv_CHECK_CFLAGS
-	CHECK_LIBS=$pkg_cv_CHECK_LIBS
-        { $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-	:
-fi
-
 # Checks for libraries.
 
+# Check whether --enable-rpath was given.
+if test "${enable_rpath+set}" = set; then
+  enableval=$enable_rpath; 			   if test "x$enableval" != "x"; then
+  LDFLAGS="-Wl,-rpath,\"$enableval\" $LDFLAGS"
+fi
+
+fi
 
 
-# Check whether --with- was given.
-if test "${with_+set}" = set; then
-  withval=$with_; ax_with_=$withval
+{ $as_echo "$as_me:$LINENO: checking check" >&5
+$as_echo_n "checking check... " >&6; }
+if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"check >= 0.9.4\"") >&5
+  ($PKG_CONFIG --exists --print-errors "check >= 0.9.4") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+     if test -n "$PKG_CONFIG"; then
+    if test -n "$check_CFLAGS"; then
+        pkg_cv_check_CFLAGS="$check_CFLAGS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"check\"") >&5
+  ($PKG_CONFIG --exists --print-errors "check") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_check_CFLAGS=`$PKG_CONFIG --cflags "check" 2>/dev/null`
 else
-  ax_with_=auto
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+   if test -n "$PKG_CONFIG"; then
+    if test -n "$check_LIBS"; then
+        pkg_cv_check_LIBS="$check_LIBS"
+    else
+        if test -n "$PKG_CONFIG" && \
+    { ($as_echo "$as_me:$LINENO: \$PKG_CONFIG --exists --print-errors \"check\"") >&5
+  ($PKG_CONFIG --exists --print-errors "check") 2>&5
+  ac_status=$?
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); }; then
+  pkg_cv_check_LIBS=`$PKG_CONFIG --libs "check" 2>/dev/null`
+else
+  pkg_failed=yes
+fi
+    fi
+else
+	pkg_failed=untried
+fi
+   CHECK_CFLAGS=$pkg_cv_check_CFLAGS
+
+   CHECK_LIBS=$pkg_cv_check_LIBS
+
+   { $as_echo "$as_me:$LINENO: result: yes" >&5
+$as_echo "yes" >&6; }
+
+else
+     { $as_echo "$as_me:$LINENO: result: no" >&5
+$as_echo "no" >&6; }
+   { $as_echo "$as_me:$LINENO: WARNING: The \"check\" C unit testing library was not found! you will not be able to run \"make check\"" >&5
+$as_echo "$as_me: WARNING: The \"check\" C unit testing library was not found! you will not be able to run \"make check\"" >&2;}
 fi
 
 
 
 
-		  if test "x$ax_with_" != "xauto"; then
-  oldLDFLAGS="$LDFLAGS"
-				 oldCPPFLAGS="$CPPFLAGS"
-				 case "$ax_with_" in
-  ./*|../*) $ax_with_="`pwd`/$withval" ;;
-esac
-
-				 if test -d "${ax_with_}/lib"; then
-  LDFLAGS="-L${ax_with_}/lib $LDFLAGS"
-fi
-
-				 if test -d "${ax_with_}/include"; then
-  CPPFLAGS="-I${ax_with_}/include $CPPFLAGS"
-fi
 
 
-fi
+
+
+
+
+
 
 
 
@@ -12346,27 +12439,56 @@ fi
 
 
 
-		  if test "x$ax_with_ncurses" != "xauto"; then
-  oldLDFLAGS="$LDFLAGS"
-				 oldCPPFLAGS="$CPPFLAGS"
-				 case "$ax_with_ncurses" in
-  ./*|../*) $ax_with_ncurses="`pwd`/$withval" ;;
+
+
+
+
+
+
+        if test "x$ax_with_ncurses" = x""auto; then
+  :
+else
+              case "$ax_with_ncurses" in
+  ./*|../*) ax_with_ncurses="`pwd`/$withval" ;;
 esac
-
-				 if test -d "${ax_with_ncurses}/lib"; then
-  LDFLAGS="-L${ax_with_ncurses}/lib $LDFLAGS"
-fi
-
-				 if test -d "${ax_with_ncurses}/include"; then
-  CPPFLAGS="-I${ax_with_ncurses}/include $CPPFLAGS"
-fi
-
+ #''
+            if test -d "${ax_with_ncurses}/lib"; then
+                  NCURSES_LDFLAGS="-L${ax_with_ncurses}/lib"
 
 fi
 
+            if test -d "${ax_with_ncurses}/lib64"; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
+
+                    NCURSES_LDFLAGS="-L${ax_with_ncurses}/lib64"
+
+else
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
+
+						NCURSES_LDFLAGS="-L${ax_with_ncurses}/lib64"
+
+fi
 
 
-{ $as_echo "$as_me:$LINENO: checking for main in -lncurses" >&5
+fi
+
+
+fi
+
+            if test -d "${ax_with_ncurses}/include"; then
+                  NCURSES_CPPFLAGS="-I${ax_with_ncurses}/include"
+
+fi
+
+
+fi
+
+
+
+
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $NCURSES_LDFLAGS"
+          { $as_echo "$as_me:$LINENO: checking for main in -lncurses" >&5
 $as_echo_n "checking for main in -lncurses... " >&6; }
 if test "${ac_cv_lib_ncurses_main+set}" = set; then
   $as_echo_n "(cached) " >&6
@@ -12426,18 +12548,66 @@ fi
 { $as_echo "$as_me:$LINENO: result: $ac_cv_lib_ncurses_main" >&5
 $as_echo "$ac_cv_lib_ncurses_main" >&6; }
 if test "x$ac_cv_lib_ncurses_main" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
 #define HAVE_LIBNCURSES 1
 _ACEOF
 
-  LIBS="-lncurses $LIBS"
+          NCURSES_LIBS=-lncurses
+                                 if test "${NCURSES_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LIBS" >&5
+$as_echo_n "checking ncurses flags NCURSES_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LIBS\" 	" >&5
+$as_echo "					\"$NCURSES_LIBS\" 	" >&6; }
 
-else
-  { { $as_echo "$as_me:$LINENO: error: ncurses is required" >&5
-$as_echo "$as_me: error: ncurses is required" >&2;}
-   { (exit 1); exit 1; }; }
+
 fi
 
+
+                       if test "${NCURSES_LDFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_LDFLAGS" >&5
+$as_echo_n "checking ncurses flags NCURSES_LDFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_LDFLAGS\" 	" >&5
+$as_echo "					\"$NCURSES_LDFLAGS\" 	" >&6; }
+
+
+fi
+
+
+                       if test "${NCURSES_CPPFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking ncurses flags NCURSES_CPPFLAGS" >&5
+$as_echo_n "checking ncurses flags NCURSES_CPPFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$NCURSES_CPPFLAGS\" 	" >&5
+$as_echo "					\"$NCURSES_CPPFLAGS\" 	" >&6; }
+
+
+fi
+
+
+
+
+
+else
+  			NCURSES_LIBS=-lncurses
+			                       if test "${MAIN_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking main flags MAIN_LIBS" >&5
+$as_echo_n "checking main flags MAIN_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$MAIN_LIBS\" 	" >&5
+$as_echo "					\"$MAIN_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: ncurses is required" >&5
+$as_echo "$as_me: error: ncurses is required" >&2;}
+   { (exit 1); exit 1; }; }
+
+fi
+
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 
@@ -12455,27 +12625,56 @@ fi
 
 
 
-		  if test "x$ax_with_sqlite3" != "xauto"; then
-  oldLDFLAGS="$LDFLAGS"
-				 oldCPPFLAGS="$CPPFLAGS"
-				 case "$ax_with_sqlite3" in
-  ./*|../*) $ax_with_sqlite3="`pwd`/$withval" ;;
+
+
+
+
+
+
+        if test "x$ax_with_sqlite3" = x""auto; then
+  :
+else
+              case "$ax_with_sqlite3" in
+  ./*|../*) ax_with_sqlite3="`pwd`/$withval" ;;
 esac
-
-				 if test -d "${ax_with_sqlite3}/lib"; then
-  LDFLAGS="-L${ax_with_sqlite3}/lib $LDFLAGS"
-fi
-
-				 if test -d "${ax_with_sqlite3}/include"; then
-  CPPFLAGS="-I${ax_with_sqlite3}/include $CPPFLAGS"
-fi
-
+ #''
+            if test -d "${ax_with_sqlite3}/lib"; then
+                  SQLITE3_LDFLAGS="-L${ax_with_sqlite3}/lib"
 
 fi
 
+            if test -d "${ax_with_sqlite3}/lib64"; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
+
+                    SQLITE3_LDFLAGS="-L${ax_with_sqlite3}/lib64"
+
+else
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
+
+						SQLITE3_LDFLAGS="-L${ax_with_sqlite3}/lib64"
+
+fi
 
 
-{ $as_echo "$as_me:$LINENO: checking for sqlite3_open in -lsqlite3" >&5
+fi
+
+
+fi
+
+            if test -d "${ax_with_sqlite3}/include"; then
+                  SQLITE3_CPPFLAGS="-I${ax_with_sqlite3}/include"
+
+fi
+
+
+fi
+
+
+
+
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $SQLITE3_LDFLAGS"
+          { $as_echo "$as_me:$LINENO: checking for sqlite3_open in -lsqlite3" >&5
 $as_echo_n "checking for sqlite3_open in -lsqlite3... " >&6; }
 if test "${ac_cv_lib_sqlite3_sqlite3_open+set}" = set; then
   $as_echo_n "(cached) " >&6
@@ -12541,18 +12740,66 @@ fi
 { $as_echo "$as_me:$LINENO: result: $ac_cv_lib_sqlite3_sqlite3_open" >&5
 $as_echo "$ac_cv_lib_sqlite3_sqlite3_open" >&6; }
 if test "x$ac_cv_lib_sqlite3_sqlite3_open" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
 #define HAVE_LIBSQLITE3 1
 _ACEOF
 
-  LIBS="-lsqlite3 $LIBS"
+          SQLITE3_LIBS=-lsqlite3
+                                 if test "${SQLITE3_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LIBS" >&5
+$as_echo_n "checking sqlite3 flags SQLITE3_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LIBS\" 	" >&5
+$as_echo "					\"$SQLITE3_LIBS\" 	" >&6; }
 
-else
-  { { $as_echo "$as_me:$LINENO: error: sqlite is required" >&5
-$as_echo "$as_me: error: sqlite is required" >&2;}
-   { (exit 1); exit 1; }; }
+
 fi
 
+
+                       if test "${SQLITE3_LDFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_LDFLAGS" >&5
+$as_echo_n "checking sqlite3 flags SQLITE3_LDFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_LDFLAGS\" 	" >&5
+$as_echo "					\"$SQLITE3_LDFLAGS\" 	" >&6; }
+
+
+fi
+
+
+                       if test "${SQLITE3_CPPFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3 flags SQLITE3_CPPFLAGS" >&5
+$as_echo_n "checking sqlite3 flags SQLITE3_CPPFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_CPPFLAGS\" 	" >&5
+$as_echo "					\"$SQLITE3_CPPFLAGS\" 	" >&6; }
+
+
+fi
+
+
+
+
+
+else
+  			SQLITE3_LIBS=-lsqlite3
+			                       if test "${SQLITE3_OPEN_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking sqlite3_open flags SQLITE3_OPEN_LIBS" >&5
+$as_echo_n "checking sqlite3_open flags SQLITE3_OPEN_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$SQLITE3_OPEN_LIBS\" 	" >&5
+$as_echo "					\"$SQLITE3_OPEN_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: sqlite is required" >&5
+$as_echo "$as_me: error: sqlite is required" >&2;}
+   { (exit 1); exit 1; }; }
+
+fi
+
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 
@@ -12570,27 +12817,56 @@ fi
 
 
 
-		  if test "x$ax_with_json" != "xauto"; then
-  oldLDFLAGS="$LDFLAGS"
-				 oldCPPFLAGS="$CPPFLAGS"
-				 case "$ax_with_json" in
-  ./*|../*) $ax_with_json="`pwd`/$withval" ;;
+
+
+
+
+
+
+        if test "x$ax_with_json" = x""auto; then
+  :
+else
+              case "$ax_with_json" in
+  ./*|../*) ax_with_json="`pwd`/$withval" ;;
 esac
-
-				 if test -d "${ax_with_json}/lib"; then
-  LDFLAGS="-L${ax_with_json}/lib $LDFLAGS"
-fi
-
-				 if test -d "${ax_with_json}/include"; then
-  CPPFLAGS="-I${ax_with_json}/include $CPPFLAGS"
-fi
-
+ #''
+            if test -d "${ax_with_json}/lib"; then
+                  JSON_LDFLAGS="-L${ax_with_json}/lib"
 
 fi
 
+            if test -d "${ax_with_json}/lib64"; then
+  				if test 0`echo $target | grep -c 64` -gt 0; then
+
+                    JSON_LDFLAGS="-L${ax_with_json}/lib64"
+
+else
+  					if test 0`echo $build | grep -c 64` -gt 0 ; then
+
+						JSON_LDFLAGS="-L${ax_with_json}/lib64"
+
+fi
 
 
-{ $as_echo "$as_me:$LINENO: checking for json_tokener_parse in -ljson" >&5
+fi
+
+
+fi
+
+            if test -d "${ax_with_json}/include"; then
+                  JSON_CPPFLAGS="-I${ax_with_json}/include"
+
+fi
+
+
+fi
+
+
+
+
+          tmp_LDFLAGS="$LDFLAGS"
+          LDFLAGS="$LDFLAGS $JSON_LDFLAGS"
+          { $as_echo "$as_me:$LINENO: checking for json_tokener_parse in -ljson" >&5
 $as_echo_n "checking for json_tokener_parse in -ljson... " >&6; }
 if test "${ac_cv_lib_json_json_tokener_parse+set}" = set; then
   $as_echo_n "(cached) " >&6
@@ -12656,18 +12932,66 @@ fi
 { $as_echo "$as_me:$LINENO: result: $ac_cv_lib_json_json_tokener_parse" >&5
 $as_echo "$ac_cv_lib_json_json_tokener_parse" >&6; }
 if test "x$ac_cv_lib_json_json_tokener_parse" = x""yes; then
-  cat >>confdefs.h <<_ACEOF
+
+
+cat >>confdefs.h <<\_ACEOF
 #define HAVE_LIBJSON 1
 _ACEOF
 
-  LIBS="-ljson $LIBS"
+          JSON_LIBS=-ljson
+                                 if test "${JSON_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_LIBS" >&5
+$as_echo_n "checking json flags JSON_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_LIBS\" 	" >&5
+$as_echo "					\"$JSON_LIBS\" 	" >&6; }
 
-else
-  { { $as_echo "$as_me:$LINENO: error: json-c is required" >&5
-$as_echo "$as_me: error: json-c is required" >&2;}
-   { (exit 1); exit 1; }; }
+
 fi
 
+
+                       if test "${JSON_LDFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_LDFLAGS" >&5
+$as_echo_n "checking json flags JSON_LDFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_LDFLAGS\" 	" >&5
+$as_echo "					\"$JSON_LDFLAGS\" 	" >&6; }
+
+
+fi
+
+
+                       if test "${JSON_CPPFLAGS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking json flags JSON_CPPFLAGS" >&5
+$as_echo_n "checking json flags JSON_CPPFLAGS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_CPPFLAGS\" 	" >&5
+$as_echo "					\"$JSON_CPPFLAGS\" 	" >&6; }
+
+
+fi
+
+
+
+
+
+else
+  			JSON_LIBS=-ljson
+			                       if test "${JSON_TOKENER_PARSE_LIBS+set}" = set; then
+                                        			             { $as_echo "$as_me:$LINENO: checking json_tokener_parse flags JSON_TOKENER_PARSE_LIBS" >&5
+$as_echo_n "checking json_tokener_parse flags JSON_TOKENER_PARSE_LIBS... " >&6; }
+            { $as_echo "$as_me:$LINENO: result: 					\"$JSON_TOKENER_PARSE_LIBS\" 	" >&5
+$as_echo "					\"$JSON_TOKENER_PARSE_LIBS\" 	" >&6; }
+
+
+fi
+
+
+
+			{ { $as_echo "$as_me:$LINENO: error: json-c is required" >&5
+$as_echo "$as_me: error: json-c is required" >&2;}
+   { (exit 1); exit 1; }; }
+
+fi
+
+          LDFLAGS="$tmp_LDFLAGS"
 
 
 # Checks for header files.
@@ -14266,72 +14590,7 @@ fi
 
 
 # Checks for library functions.
-  { $as_echo "$as_me:$LINENO: checking for poll(2)" >&5
-$as_echo_n "checking for poll(2)... " >&6; }
-  if test "${ax_cv_have_poll+set}" = set; then
-  $as_echo_n "(cached) " >&6
-else
-      cat >conftest.$ac_ext <<_ACEOF
-      /* confdefs.h.  */
-_ACEOF
-cat confdefs.h >>conftest.$ac_ext
-cat >>conftest.$ac_ext <<_ACEOF
-/* end confdefs.h.  */
-#include <poll.h>
-int
-main ()
-{
-int rc; rc = poll((struct pollfd *)(0), 0, 0);
-  ;
-  return 0;
-}
-_ACEOF
-rm -f conftest.$ac_objext conftest$ac_exeext
-if { (ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
-$as_echo "$ac_try_echo") >&5
-  (eval "$ac_link") 2>conftest.er1
-  ac_status=$?
-  grep -v '^ *+' conftest.er1 >conftest.err
-  rm -f conftest.er1
-  cat conftest.err >&5
-  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
-  (exit $ac_status); } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then
-  ax_cv_have_poll=yes
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ax_cv_have_poll=no
-fi
-
-rm -rf conftest.dSYM
-rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
-      conftest$ac_exeext conftest.$ac_ext
-fi
-
-  if test "${ax_cv_have_poll}" = "yes"; then
-  { $as_echo "$as_me:$LINENO: result: yes" >&5
-$as_echo "yes" >&6; }
-
-else
-  { $as_echo "$as_me:$LINENO: result: no" >&5
-$as_echo "no" >&6; }
-
-fi
-
-
-
+# AX_FUNC_POLL
 { $as_echo "$as_me:$LINENO: checking for pid_t" >&5
 $as_echo_n "checking for pid_t... " >&6; }
 if test "${ac_cv_type_pid_t+set}" = set; then
@@ -15534,7 +15793,11 @@ fi
 
 
 
-for ac_func in dup2 memset select socket strdup strerror memchr strtol strcasecmp atexit mkdir gettimeofday strtoul strncasecmp strchr strstr
+
+
+
+
+for ac_func in dup2 memset select socket strdup strerror memchr strtol strcasecmp atexit mkdir gettimeofday strtoul strncasecmp strchr strstr strnlen rmdir initgroups setgroups
 do
 as_ac_var=`$as_echo "ac_cv_func_$ac_func" | $as_tr_sh`
 { $as_echo "$as_me:$LINENO: checking for $ac_func" >&5
@@ -15728,12 +15991,708 @@ esac
 fi
 
 
-conf_libexecdir=$libexecdir
+## Check whether or not symbol '__progname' is defined
+cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
 
-conf_localstatedir=$localstatedir
+int
+main ()
+{
 
-conf_sysconfdir=$sysconfdir
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 $as_test_x conftest$ac_exeext
+       }; then
+  :
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
 
+
+fi
+
+rm -rf conftest.dSYM
+rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
+      conftest$ac_exeext conftest.$ac_ext
+
+          cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+int
+main ()
+{
+extern const char *__progname; const char *foo; foo = __progname;
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 $as_test_x conftest$ac_exeext
+       }; then
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE___PROGNAME 1
+_ACEOF
+
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+
+fi
+
+rm -rf conftest.dSYM
+rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
+      conftest$ac_exeext conftest.$ac_ext
+
+
+
+
+          cat >conftest.$ac_ext <<_ACEOF
+/* confdefs.h.  */
+_ACEOF
+cat confdefs.h >>conftest.$ac_ext
+cat >>conftest.$ac_ext <<_ACEOF
+/* end confdefs.h.  */
+
+int
+main ()
+{
+extern const char *__progname; const char *foo; foo = __progname;
+  ;
+  return 0;
+}
+_ACEOF
+rm -f conftest.$ac_objext conftest$ac_exeext
+if { (ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:$LINENO: $ac_try_echo\""
+$as_echo "$ac_try_echo") >&5
+  (eval "$ac_link") 2>conftest.er1
+  ac_status=$?
+  grep -v '^ *+' conftest.er1 >conftest.err
+  rm -f conftest.er1
+  cat conftest.err >&5
+  $as_echo "$as_me:$LINENO: \$? = $ac_status" >&5
+  (exit $ac_status); } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 $as_test_x conftest$ac_exeext
+       }; then
+
+cat >>confdefs.h <<\_ACEOF
+#define HAVE___PROGNAME 1
+_ACEOF
+
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+
+fi
+
+rm -rf conftest.dSYM
+rm -f core conftest.err conftest.$ac_objext conftest_ipa8_conftest.oo \
+      conftest$ac_exeext conftest.$ac_ext
+
+
+
+#if test "x$prefix" = "xNONE"; then
+#	prefix="/usr/local"
+#fi
+
+#if test "x$exec_prefix" = "xNONE"; then
+#	exec_prefix="$prefix"
+#fi
+
+#conf_libexecdir="`eval echo \"$libexecdir\"`"
+#conf_localstatedir="`eval echo \"$localstatedir\"`"
+#conf_sysconfdir="`eval echo \"$sysconfdir\"`"
+
+#AC_DEFINE_UNQUOTED([CONF_LIBEXECDIR], $conf_libexecdir, [Define to the value of libexecdir])
+#AC_DEFINE_UNQUOTED([CONF_LOCALSTATEDIR], $conf_localstatedir, [Define to the value of localstatedir])
+#AC_DEFINE_UNQUOTED([CONF_SYSCONFDIR], $conf_sysconfdir, [Define to the value of sysconfdir])
+
+if test "x$prefix" = "xNONE"; then
+  prefix="/usr/local"
+fi
+	if test "x$exec_prefix" = "xNONE"; then
+  exec_prefix="$prefix"
+fi
+
+	conf_prefix="$prefix"
+	_CONF_VAR_COUNT=`echo "$conf_prefix" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_prefix=`eval echo "$conf_prefix"` #''
+		_CONF_VAR_COUNT=`echo "$conf_prefix" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PREFIX $conf_prefix
+_ACEOF
+ # ''
+
+	conf_exec_prefix="$exec_prefix"
+	_CONF_VAR_COUNT=`echo "$conf_exec_prefix" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_exec_prefix=`eval echo "$conf_exec_prefix"` #''
+		_CONF_VAR_COUNT=`echo "$conf_exec_prefix" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_EXEC_PREFIX $conf_exec_prefix
+_ACEOF
+ # ''
+
+	conf_bindir="$bindir"
+	_CONF_VAR_COUNT=`echo "$conf_bindir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_bindir=`eval echo "$conf_bindir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_bindir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_BINDIR $conf_bindir
+_ACEOF
+ # ''
+
+	conf_sbindir="$sbindir"
+	_CONF_VAR_COUNT=`echo "$conf_sbindir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sbindir=`eval echo "$conf_sbindir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sbindir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SBINDIR $conf_sbindir
+_ACEOF
+ # ''
+
+	conf_libexecdir="$libexecdir"
+	_CONF_VAR_COUNT=`echo "$conf_libexecdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_libexecdir=`eval echo "$conf_libexecdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_libexecdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LIBEXECDIR $conf_libexecdir
+_ACEOF
+ # ''
+
+	conf_sysconfdir="$sysconfdir"
+	_CONF_VAR_COUNT=`echo "$conf_sysconfdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sysconfdir=`eval echo "$conf_sysconfdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sysconfdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SYSCONFDIR $conf_sysconfdir
+_ACEOF
+ # ''
+
+	conf_sharedstatedir="$sharedstatedir"
+	_CONF_VAR_COUNT=`echo "$conf_sharedstatedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sharedstatedir=`eval echo "$conf_sharedstatedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sharedstatedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SHAREDSTATEDIR $conf_sharedstatedir
+_ACEOF
+ # ''
+
+	conf_localstatedir="$localstatedir"
+	_CONF_VAR_COUNT=`echo "$conf_localstatedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_localstatedir=`eval echo "$conf_localstatedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_localstatedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LOCALSTATEDIR $conf_localstatedir
+_ACEOF
+ # ''
+
+	conf_libdir="$libdir"
+	_CONF_VAR_COUNT=`echo "$conf_libdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_libdir=`eval echo "$conf_libdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_libdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LIBDIR $conf_libdir
+_ACEOF
+ # ''
+
+	conf_includedir="$includedir"
+	_CONF_VAR_COUNT=`echo "$conf_includedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_includedir=`eval echo "$conf_includedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_includedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_INCLUDEDIR $conf_includedir
+_ACEOF
+ # ''
+
+	conf_oldincludedir="$oldincludedir"
+	_CONF_VAR_COUNT=`echo "$conf_oldincludedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_oldincludedir=`eval echo "$conf_oldincludedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_oldincludedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_OLDINCLUDEDIR $conf_oldincludedir
+_ACEOF
+ # ''
+
+	conf_datarootdir="$datarootdir"
+	_CONF_VAR_COUNT=`echo "$conf_datarootdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_datarootdir=`eval echo "$conf_datarootdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_datarootdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DATAROOTDIR $conf_datarootdir
+_ACEOF
+ # ''
+
+	conf_datadir="$datadir"
+	_CONF_VAR_COUNT=`echo "$conf_datadir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_datadir=`eval echo "$conf_datadir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_datadir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DATADIR $conf_datadir
+_ACEOF
+ # ''
+
+	conf_infodir="$infodir"
+	_CONF_VAR_COUNT=`echo "$conf_infodir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_infodir=`eval echo "$conf_infodir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_infodir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_INFODIR $conf_infodir
+_ACEOF
+ # ''
+
+	conf_localedir="$localedir"
+	_CONF_VAR_COUNT=`echo "$conf_localedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_localedir=`eval echo "$conf_localedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_localedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LOCALEDIR $conf_localedir
+_ACEOF
+ # ''
+
+	conf_mandir="$mandir"
+	_CONF_VAR_COUNT=`echo "$conf_mandir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_mandir=`eval echo "$conf_mandir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_mandir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_MANDIR $conf_mandir
+_ACEOF
+ # ''
+
+	conf_docdir="$docdir"
+	_CONF_VAR_COUNT=`echo "$conf_docdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_docdir=`eval echo "$conf_docdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_docdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DOCDIR $conf_docdir
+_ACEOF
+ # ''
+
+	conf_htmldir="$htmldir"
+	_CONF_VAR_COUNT=`echo "$conf_htmldir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_htmldir=`eval echo "$conf_htmldir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_htmldir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_HTMLDIR $conf_htmldir
+_ACEOF
+ # ''
+
+	conf_dvidir="$dvidir"
+	_CONF_VAR_COUNT=`echo "$conf_dvidir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_dvidir=`eval echo "$conf_dvidir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_dvidir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DVIDIR $conf_dvidir
+_ACEOF
+ # ''
+
+	conf_pdfdir="$pdfdir"
+	_CONF_VAR_COUNT=`echo "$conf_pdfdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_pdfdir=`eval echo "$conf_pdfdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_pdfdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PDFDIR $conf_pdfdir
+_ACEOF
+ # ''
+
+	conf_psdir="$psdir"
+	_CONF_VAR_COUNT=`echo "$conf_psdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_psdir=`eval echo "$conf_psdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_psdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PSDIR $conf_psdir
+_ACEOF
+ # ''
+
+
+
+	 if test "x$prefix" = "xNONE"; then
+  prefix="/usr/local"
+fi
+	if test "x$exec_prefix" = "xNONE"; then
+  exec_prefix="$prefix"
+fi
+
+	conf_prefix="$prefix"
+	_CONF_VAR_COUNT=`echo "$conf_prefix" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_prefix=`eval echo "$conf_prefix"` #''
+		_CONF_VAR_COUNT=`echo "$conf_prefix" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PREFIX $conf_prefix
+_ACEOF
+ # ''
+
+	conf_exec_prefix="$exec_prefix"
+	_CONF_VAR_COUNT=`echo "$conf_exec_prefix" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_exec_prefix=`eval echo "$conf_exec_prefix"` #''
+		_CONF_VAR_COUNT=`echo "$conf_exec_prefix" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_EXEC_PREFIX $conf_exec_prefix
+_ACEOF
+ # ''
+
+	conf_bindir="$bindir"
+	_CONF_VAR_COUNT=`echo "$conf_bindir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_bindir=`eval echo "$conf_bindir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_bindir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_BINDIR $conf_bindir
+_ACEOF
+ # ''
+
+	conf_sbindir="$sbindir"
+	_CONF_VAR_COUNT=`echo "$conf_sbindir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sbindir=`eval echo "$conf_sbindir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sbindir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SBINDIR $conf_sbindir
+_ACEOF
+ # ''
+
+	conf_libexecdir="$libexecdir"
+	_CONF_VAR_COUNT=`echo "$conf_libexecdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_libexecdir=`eval echo "$conf_libexecdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_libexecdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LIBEXECDIR $conf_libexecdir
+_ACEOF
+ # ''
+
+	conf_sysconfdir="$sysconfdir"
+	_CONF_VAR_COUNT=`echo "$conf_sysconfdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sysconfdir=`eval echo "$conf_sysconfdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sysconfdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SYSCONFDIR $conf_sysconfdir
+_ACEOF
+ # ''
+
+	conf_sharedstatedir="$sharedstatedir"
+	_CONF_VAR_COUNT=`echo "$conf_sharedstatedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_sharedstatedir=`eval echo "$conf_sharedstatedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_sharedstatedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_SHAREDSTATEDIR $conf_sharedstatedir
+_ACEOF
+ # ''
+
+	conf_localstatedir="$localstatedir"
+	_CONF_VAR_COUNT=`echo "$conf_localstatedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_localstatedir=`eval echo "$conf_localstatedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_localstatedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LOCALSTATEDIR $conf_localstatedir
+_ACEOF
+ # ''
+
+	conf_libdir="$libdir"
+	_CONF_VAR_COUNT=`echo "$conf_libdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_libdir=`eval echo "$conf_libdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_libdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LIBDIR $conf_libdir
+_ACEOF
+ # ''
+
+	conf_includedir="$includedir"
+	_CONF_VAR_COUNT=`echo "$conf_includedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_includedir=`eval echo "$conf_includedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_includedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_INCLUDEDIR $conf_includedir
+_ACEOF
+ # ''
+
+	conf_oldincludedir="$oldincludedir"
+	_CONF_VAR_COUNT=`echo "$conf_oldincludedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_oldincludedir=`eval echo "$conf_oldincludedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_oldincludedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_OLDINCLUDEDIR $conf_oldincludedir
+_ACEOF
+ # ''
+
+	conf_datarootdir="$datarootdir"
+	_CONF_VAR_COUNT=`echo "$conf_datarootdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_datarootdir=`eval echo "$conf_datarootdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_datarootdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DATAROOTDIR $conf_datarootdir
+_ACEOF
+ # ''
+
+	conf_datadir="$datadir"
+	_CONF_VAR_COUNT=`echo "$conf_datadir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_datadir=`eval echo "$conf_datadir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_datadir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DATADIR $conf_datadir
+_ACEOF
+ # ''
+
+	conf_infodir="$infodir"
+	_CONF_VAR_COUNT=`echo "$conf_infodir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_infodir=`eval echo "$conf_infodir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_infodir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_INFODIR $conf_infodir
+_ACEOF
+ # ''
+
+	conf_localedir="$localedir"
+	_CONF_VAR_COUNT=`echo "$conf_localedir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_localedir=`eval echo "$conf_localedir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_localedir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_LOCALEDIR $conf_localedir
+_ACEOF
+ # ''
+
+	conf_mandir="$mandir"
+	_CONF_VAR_COUNT=`echo "$conf_mandir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_mandir=`eval echo "$conf_mandir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_mandir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_MANDIR $conf_mandir
+_ACEOF
+ # ''
+
+	conf_docdir="$docdir"
+	_CONF_VAR_COUNT=`echo "$conf_docdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_docdir=`eval echo "$conf_docdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_docdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DOCDIR $conf_docdir
+_ACEOF
+ # ''
+
+	conf_htmldir="$htmldir"
+	_CONF_VAR_COUNT=`echo "$conf_htmldir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_htmldir=`eval echo "$conf_htmldir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_htmldir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_HTMLDIR $conf_htmldir
+_ACEOF
+ # ''
+
+	conf_dvidir="$dvidir"
+	_CONF_VAR_COUNT=`echo "$conf_dvidir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_dvidir=`eval echo "$conf_dvidir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_dvidir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_DVIDIR $conf_dvidir
+_ACEOF
+ # ''
+
+	conf_pdfdir="$pdfdir"
+	_CONF_VAR_COUNT=`echo "$conf_pdfdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_pdfdir=`eval echo "$conf_pdfdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_pdfdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PDFDIR $conf_pdfdir
+_ACEOF
+ # ''
+
+	conf_psdir="$psdir"
+	_CONF_VAR_COUNT=`echo "$conf_psdir" | $GREP -c '\\\$'` #'
+	while test $_CONF_VAR_COUNT -gt 0; do
+		conf_psdir=`eval echo "$conf_psdir"` #''
+		_CONF_VAR_COUNT=`echo "$conf_psdir" | $GREP -c '\\\$'` #'
+	done
+
+cat >>confdefs.h <<_ACEOF
+#define CONF_PSDIR $conf_psdir
+_ACEOF
+ # ''
+
+
+
+
+#AC_SUBST([conf_libexecdir], [$libexecdir])
+#AC_SUBST([conf_localstatedir], [$localstatedir])
+#AC_SUBST([conf_sysconfdir], [$sysconfdir])
+##AX_ACSUBST_INSTDIRS
+#AX_SHELL_EXPANDVAR([libexecdir])
 
 # TODO: we should have an AC_SUBST for this
 # AX_FUNC_POLL

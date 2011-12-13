@@ -1,0 +1,44 @@
+.TH "_upklist_userdata_state_partition" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upklist_userdata_state_partition \- 
+.PP
+a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "void * \fBglobal_userdata\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_state_t\fP * \fBglobal_state\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. 
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_state_t\fP * \fB_upklist_userdata_state_partition::global_state\fP"global state data for this handle 
+.PP
+Referenced by upk_net_conn_handles_init(), upk_net_get_global_state(), and upk_partitioned_userdata_free().
+.SS "void * \fB_upklist_userdata_state_partition::global_userdata\fP"generic place to stuff data you might need 
+.PP
+Referenced by upk_net_conn_handles_init(), upk_net_get_global_userdata(), and upk_partitioned_userdata_free().
+.SS "void(* \fB_upklist_userdata_state_partition::userdata_free_func\fP)(void *)"function to free your userdata 
+.PP
+Referenced by upk_net_conn_handles_init(), and upk_partitioned_userdata_free().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

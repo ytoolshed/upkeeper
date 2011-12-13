@@ -1,0 +1,36 @@
+.TH "_ctrl_sigqueue" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_ctrl_sigqueue \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <controller.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsiginfo_t\fP \fBsiginfo\fP"
+.br
+.ti -1c
+.RI "int \fBsignal\fP"
+.br
+.ti -1c
+.RI "\fBctrl_sigqueue_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBctrl_sigqueue_t\fP * \fB_ctrl_sigqueue::next\fP"
+.SS "\fBsiginfo_t\fP \fB_ctrl_sigqueue::siginfo\fP"
+.PP
+Referenced by handle_signals(), and sa_sigaction_func().
+.SS "int \fB_ctrl_sigqueue::signal\fP"
+.PP
+Referenced by handle_signals(), and sa_sigaction_func().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

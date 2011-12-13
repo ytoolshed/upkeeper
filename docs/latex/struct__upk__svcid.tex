@@ -1,0 +1,68 @@
+\section{\_\-upk\_\-svcid Struct Reference}
+\label{struct__upk__svcid}\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}}
+
+
+linked list of service identifiers.  
+
+
+
+
+{\ttfamily \#include $<$upk\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-svcid:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=147pt]{struct__upk__svcid__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+char {\bf pkg} [2048]
+\item 
+char {\bf name} [2048]
+\item 
+{\bf upk\_\-uuid\_\-t} {\bf uuid}
+\item 
+{\bf upk\_\-svcid\_\-t} $\ast$ {\bf next}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+linked list of service identifiers. 
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!name@{name}}
+\index{name@{name}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svcid::name}}\label{struct__upk__svcid_a3aa8414bbbad4602a7f1b2b5923a6ef1}
+service name 
+
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-svcid\_\-array\_\-appender().
+
+\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!next@{next}}
+\index{next@{next}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svcid\_\-t} $\ast$ {\bf \_\-upk\_\-svcid::next}}\label{struct__upk__svcid_a925548c82b552cde7a1f29cf8ccd03d6}
+next, for use in lists 
+
+Referenced by upk\_\-db\_\-upsert\_\-options(), and upk\_\-overlay\_\-svcconf\_\-values().
+
+\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!pkg@{pkg}}
+\index{pkg@{pkg}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{pkg}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-upk\_\-svcid::pkg}}\label{struct__upk__svcid_a341ff782303a90b58311264377c6de48}
+service package-\/prefix 
+
+Referenced by upk\_\-db\_\-upsert\_\-options(), upk\_\-svc\_\-desc\_\-to\_\-json\_\-obj(), and upk\_\-svcconf\_\-svcid\_\-array\_\-appender().
+
+\index{\_\-upk\_\-svcid@{\_\-upk\_\-svcid}!uuid@{uuid}}
+\index{uuid@{uuid}!_upk_svcid@{\_\-upk\_\-svcid}}
+\subsubsection[{uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf \_\-upk\_\-svcid::uuid}}\label{struct__upk__svcid_a3b7d5a1866b60ecac8ea4dabe871dfbe}
+not sure I need this here; but just in case for now 
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-types.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

@@ -1,0 +1,56 @@
+.TH "upk_repl_error_t" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upk_repl_error_t \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_protocol.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBmsgtype\fP"
+.br
+.ti -1c
+.RI "\fBupk_errlevel_t\fP \fBerrlevel\fP"
+.br
+.ti -1c
+.RI "\fBupk_errno_t\fP \fBuerrno\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBmsg_len\fP"
+.br
+.ti -1c
+.RI "char \fBmsg\fP [2048]"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBsvc_id_len\fP"
+.br
+.ti -1c
+.RI "char \fBsvc_id\fP [2048]"
+.br
+.ti -1c
+.RI "\fBUPK_V0_REPL_ERROR_T_FIELDS\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_errlevel_t\fP \fBupk_repl_error_t::errlevel\fP"
+.PP
+Referenced by upk_clnet_req_action(), upk_clnet_req_signal(), and upk_clnet_req_status().
+.SS "char \fBupk_repl_error_t::msg\fP"
+.PP
+Referenced by upk_clnet_req_action(), upk_clnet_req_signal(), and upk_clnet_req_status().
+.SS "\fBuint32_t\fP \fBupk_repl_error_t::msg_len\fP"
+.SS "\fBupk_msgtype_t\fP \fBupk_repl_error_t::msgtype\fP"
+.SS "char \fBupk_repl_error_t::svc_id\fP"
+.SS "\fBuint32_t\fP \fBupk_repl_error_t::svc_id_len\fP"
+.SS "\fBupk_errno_t\fP \fBupk_repl_error_t::uerrno\fP"
+.SS "\fBupk_repl_error_t::UPK_V0_REPL_ERROR_T_FIELDS\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

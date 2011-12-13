@@ -1,0 +1,48 @@
+.TH "libupkeeper/upkeeper/upk_compat.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_compat.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upkeeper_config.h'\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_GNU_SOURCE\fP"
+.br
+.ti -1c
+.RI "#define \fBc_isxdigit\fP(c)   ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))"
+.br
+.ti -1c
+.RI "#define \fBupk_getprogname\fP   \fB__progname\fP"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "const char * \fB__progname\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define _GNU_SOURCE"
+.SS "#define c_isxdigit(c)   ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'F') || (c >= 'a' && c <= 'f'))"
+.PP
+Referenced by is_valid_upk_uuid_string().
+.SS "#define upk_getprogname   \fB__progname\fP"
+.PP
+Referenced by upk_clientid().
+.SH "Variable Documentation"
+.PP 
+.SS "const char* \fB__progname\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

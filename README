@@ -1,35 +1,67 @@
 ##########################
-upkeeper 0.01
+upkeeper 0.02
 ##########################
 
-Run
+Summary:
+	Upkeeper is a process management framework, similar to systemd, DJB's
+	daemontools, runit, upstart, and others.  What distinguishes upkeeper
+	from the others, is that it records changes in process state to a
+	data store, allowing you to more easily instrument monitoring,
+	alerting, metrics-collection, and automation.
 
-    ./configure
 
-and then
+Installation: 
 
-    make
+	Prerequisites: 
+	json-c: http://oss.metaparadigm.com/json-c/
+	sqlite: http://www.sqlite.org/
 
-to compile this.
+	And for uptop:
+	ncurses: http://www.gnu.org/ncurses/ 
 
-To run a quick demo, do
+	In the top directory,
 
-    cd demo
-    ./demo-setup.sh
-    ./upkeeper-init
+	Run
+		./configure
 
-then open a new terminal with
+	and then
 
-    cd ..
-    cd uptop
-    ./uptop
+		make
 
-(You can get out of the uptop screen by typing 'q').
+	and optionally:
 
-Now, in the original terminal, in the 'demo' directory, type
+		make check
 
-    ./demo-down.sh
-    ./demo-up.sh
+	and finally:
 
-to watch the upkeeper dashboard update.
+		make install
+
+Using upkeeper:
+	Upkeeper consists of 3 logical parts, the 'controller', which manages
+	configuration and auditing; the 'buddy', which supervises tasks, and
+	ensures they remain running during the lifetime of buddy, as well as
+	reporting changes to the 'controller'; and 'clients', which are the 
+	tools you use to interact or interogate the controller, add services,
+	etc.
+
+	In general, you will want to run the controller (upk_controller) as a
+	respawning service via init, or init-like system. Once controller is
+	running, you can add services to controller, remove services, query
+	configured services, interogate and otherwise list state histories,
+	etc.
+
+	The 'upk_config' utility is a client that is used to configure services.
+	'upk_list' lists configured services.
+	'upk_start' starts a given service.
+    'upk_stop' stops a given service.
+	'upk_ps' gives ps-like output for services.
+	'upk_top' is like upk_ps, but in an ncurses UI (like top.)
+	'upk_ctl' gets information from the controller.
+	'upk' is a wrapper around the above clients.
+
+
+	
+	
+
+
 

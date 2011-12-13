@@ -1,0 +1,139 @@
+.TH "libupkeeper/upkeeper/upk_v0_protocol.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_v0_protocol.c \- 
+.PP
+version 0 of the protocol between clients and controlelr  
+
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_v0_protocol.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBPROTOCOL_VERSION\fP   0"
+.br
+.ti -1c
+.RI "#define \fBUPK_INIT_HELPER\fP(TYPE, MSGTYPE)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT32_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT32\fP(MEMB)   UPK_HELPER_UINT32_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT16_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT16\fP(MEMB)   UPK_HELPER_UINT16_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT8_EXPLICIT\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_UINT8\fP(MEMB)   UPK_HELPER_UINT8_EXPLICIT(UPK_DATA->MEMB, MEMB);"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_ENUM\fP(MEMB)   UPK_HELPER_UINT32(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_BOOL\fP(MEMB)   UPK_HELPER_UINT8(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_BUF\fP(DEST, SRC, LEN)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_ANSISTRING\fP(DEST, SRC)"
+.br
+.ti -1c
+.RI "#define \fBUPK_HELPER_STRING\fP(MEMB)"
+.br
+.ti -1c
+.RI "#define \fBUPK_END_HELPER\fP(PKT_TYPE)   return upk_create_pkt(UPK_DATA, UPK_DATA_LEN, PKT_TYPE, PROTOCOL_VERSION)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef void(* \fBfree_data_t\fP )(void *)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBv0_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, \fBuint32_t\fP msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_action\fP (char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_signal\fP (char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_list\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_status\fP (char *svc_id, \fBuint32_t\fP restart_window_seconds)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_subscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_unsubscribe\fP (char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_req_disconnect\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_start\fP (\fBupk_msgtype_t\fP msg_seq_type, \fBuint32_t\fP msg_seq_count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_seq_end\fP (bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_result\fP (char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_listing\fP (char *svc_id)"
+.br
+.ti -1c
+.RI "static \fBuint32_t\fP \fBget_svcinfo_len\fP (\fBv0_svcinfo_t\fP s)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_svcinfo\fP (char *svc_id, \fBv0_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_ack\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_repl_error\fP (char *svc_id, \fBupk_errno_t\fP uerrno, char *msg, \fBupk_errlevel_t\fP errlevel)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_publication\fP (void)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBv0_create_pub_cancelation\fP (void)"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+version 0 of the protocol between clients and controlelr 
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

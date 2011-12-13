@@ -1,0 +1,119 @@
+.TH "Wal" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Wal \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBpDbFd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBpWalFd\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBiCallback\fP"
+.br
+.ti -1c
+.RI "int \fBnWiData\fP"
+.br
+.ti -1c
+.RI "volatile \fBu32\fP ** \fBapWiData\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBszPage\fP"
+.br
+.ti -1c
+.RI "\fBi16\fP \fBreadLock\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBexclusiveMode\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBwriteLock\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBckptLock\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBreadOnly\fP"
+.br
+.ti -1c
+.RI "\fBWalIndexHdr\fP \fBhdr\fP"
+.br
+.ti -1c
+.RI "const char * \fBzWalName\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnCkpt\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBpDbFd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBpWalFd\fP"
+.br
+.ti -1c
+.RI "volatile \fBu32\fP ** \fBapWiData\fP"
+.br
+.ti -1c
+.RI "const char * \fBzWalName\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "volatile \fBu32\fP** \fBWal::apWiData\fP"
+.PP
+.SS "volatile \fBu32\fP** \fBWal::apWiData\fP"
+.PP
+.SS "\fBu8\fP \fBWal::ckptLock\fP"
+.PP
+.SS "\fBu8\fP \fBWal::exclusiveMode\fP"
+.PP
+.SS "\fBWalIndexHdr\fP \fBWal::hdr\fP"
+.PP
+.SS "\fBu32\fP \fBWal::iCallback\fP"
+.PP
+.SS "\fBu32\fP \fBWal::nCkpt\fP"
+.PP
+.SS "int \fBWal::nWiData\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBWal::pDbFd\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBWal::pDbFd\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBWal::pVfs\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBWal::pVfs\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBWal::pWalFd\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBWal::pWalFd\fP"
+.PP
+.SS "\fBi16\fP \fBWal::readLock\fP"
+.PP
+.SS "\fBu8\fP \fBWal::readOnly\fP"
+.PP
+.SS "\fBu32\fP \fBWal::szPage\fP"
+.PP
+.SS "\fBu8\fP \fBWal::writeLock\fP"
+.PP
+.SS "const char* \fBWal::zWalName\fP"
+.PP
+.SS "const char* \fBWal::zWalName\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,78 @@
+\section{\_\-upk\_\-net\_\-cb\_\-stk Struct Reference}
+\label{struct__upk__net__cb__stk}\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+
+
+a callback-\/stack for use in nesting/branching expectations in a conversation  
+
+
+
+
+{\ttfamily \#include $<$upk\_\-network\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upk\_\-net\_\-cb\_\-stk:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{struct__upk__net__cb__stk__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf msg\_\-handlers} [((UPK\_\-REQ\_\-LIMIT-\/UPK\_\-REQ\_\-ORIGIN-\/(1+0-\/0))+(UPK\_\-REPL\_\-LIMIT-\/UPK\_\-REPL\_\-ORIGIN-\/(1+0-\/0))+(UPK\_\-PUB\_\-LIMIT-\/UPK\_\-PUB\_\-ORIGIN-\/(1+0-\/0)))]
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf net\_\-dispatch\_\-pre}
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf net\_\-dispatch\_\-foreach}
+\item 
+{\bf upk\_\-net\_\-callback\_\-t} {\bf net\_\-dispatch\_\-post}
+\item 
+{\bf upk\_\-net\_\-cb\_\-stk\_\-t} $\ast$ {\bf next}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+a callback-\/stack for use in nesting/branching expectations in a conversation 
+
+\subsection{Field Documentation}
+\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}!msg\_\-handlers@{msg\_\-handlers}}
+\index{msg\_\-handlers@{msg\_\-handlers}!_upk_net_cb_stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+\subsubsection[{msg\_\-handlers}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-net\_\-cb\_\-stk::msg\_\-handlers}}\label{struct__upk__net__cb__stk_a65e029ac7932d87d41452383c60306c0}
+the array of callback handlers for each type of message, set the appropriate bucket with the function that handles the type of messages you expect next. Use the macro \doxyref{UPK\_\-MSGTYPE\_\-IDX(msgtype)}{p.}{group__client__protocol_gad9b7e8c40ab66ea44d07826b155dc315} to find the appropriate bucket 
+
+Referenced by init\_\-callback\_\-handlers(), and upk\_\-call\_\-received\_\-packet\_\-callbacks().
+
+\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}!net\_\-dispatch\_\-foreach@{net\_\-dispatch\_\-foreach}}
+\index{net\_\-dispatch\_\-foreach@{net\_\-dispatch\_\-foreach}!_upk_net_cb_stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+\subsubsection[{net\_\-dispatch\_\-foreach}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-net\_\-cb\_\-stk::net\_\-dispatch\_\-foreach}}\label{struct__upk__net__cb__stk_a8f8b5b40c2400aaf8ec46f1580c7b462}
+run this for every message 
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}!net\_\-dispatch\_\-post@{net\_\-dispatch\_\-post}}
+\index{net\_\-dispatch\_\-post@{net\_\-dispatch\_\-post}!_upk_net_cb_stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+\subsubsection[{net\_\-dispatch\_\-post}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-net\_\-cb\_\-stk::net\_\-dispatch\_\-post}}\label{struct__upk__net__cb__stk_aa25feca04a93875eaadd0acf705c6fa2}
+run this after dispatching to a handler 
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}!net\_\-dispatch\_\-pre@{net\_\-dispatch\_\-pre}}
+\index{net\_\-dispatch\_\-pre@{net\_\-dispatch\_\-pre}!_upk_net_cb_stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+\subsubsection[{net\_\-dispatch\_\-pre}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-callback\_\-t} {\bf \_\-upk\_\-net\_\-cb\_\-stk::net\_\-dispatch\_\-pre}}\label{struct__upk__net__cb__stk_ad521714e4b24eacccd56313716b2e80d}
+before dispatching the event to the handler in msg\_\-handlers 
+
+Referenced by upk\_\-net\_\-event\_\-dispatcher().
+
+\index{\_\-upk\_\-net\_\-cb\_\-stk@{\_\-upk\_\-net\_\-cb\_\-stk}!next@{next}}
+\index{next@{next}!_upk_net_cb_stk@{\_\-upk\_\-net\_\-cb\_\-stk}}
+\subsubsection[{next}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-cb\_\-stk\_\-t} $\ast$ {\bf \_\-upk\_\-net\_\-cb\_\-stk::next}}\label{struct__upk__net__cb__stk_a6f4bbc9529a57400fefc14965dc55d75}
+next 
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-network\_\-types.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

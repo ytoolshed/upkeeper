@@ -1,0 +1,687 @@
+.TH "Upk_network" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Upk_network \- 
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_upk_netmsg_queue\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "struct \fB_upk_net_cb_stk\fP"
+.br
+.RI "\fIa callback-stack for use in nesting/branching expectations in a conversation \fP"
+.ti -1c
+.RI "struct \fB_upk_net_state\fP"
+.br
+.ti -1c
+.RI "struct \fB_upklist_userdata_state_partition\fP"
+.br
+.RI "\fIa struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. \fP"
+.ti -1c
+.RI "struct \fB_upk_conn_handle\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTOTAL_N_MSG_TYPES\fP   (UPK_N_REQ_TYPES + UPK_N_REPL_TYPES + UPK_N_PUB_TYPES)"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_upk_conn_handle\fP \fBupk_conn_handle_t\fP"
+.br
+.ti -1c
+.RI "typedef void(* \fBupk_net_callback_t\fP )(\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fItypedef for callback functions. \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_netmsg_queue\fP \fBupk_netmsg_queue_t\fP"
+.br
+.RI "\fIthis is a tailq for network message queuing \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_net_cb_stk\fP \fBupk_net_cb_stk_t\fP"
+.br
+.RI "\fIa callback-stack for use in nesting/branching expectations in a conversation \fP"
+.ti -1c
+.RI "typedef struct \fB_upk_net_state\fP \fBupk_net_state_t\fP"
+.br
+.RI "\fIglobal state data for this client/connection \fP"
+.ti -1c
+.RI "typedef struct \fB_upklist_userdata_state_partition\fP \fBupklist_userdata_state_partition_t\fP"
+.br
+.RI "\fIa struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. \fP"
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBupk_call_received_packet_callbacks\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_packet_t\fP *pkt)"
+.br
+.RI "\fIcall callback for received packet based on type. \fP"
+.ti -1c
+.RI "static int \fBupk_build_fd_sets\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBfd_set\fP *readfds, \fBfd_set\fP *writefds, \fBfd_set\fP *exceptfds)"
+.br
+.RI "\fIinitialize file-descriptor sets \fP"
+.ti -1c
+.RI "static void \fBupk_partitioned_userdata_free\fP (void *ptr)"
+.br
+.RI "\fIuserdata cleanup callback \fP"
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBupk_net_conn_handles_init\fP (void *userdata, void(*userdata_free_func)(void *ptr))"
+.br
+.RI "\fIinitialize connection handles \fP"
+.ti -1c
+.RI "\fBupk_net_state_t\fP * \fBupk_net_get_global_state\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIextract the nested global_state component from the generic (void *) userdata element \fP"
+.ti -1c
+.RI "void * \fBupk_net_get_global_userdata\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIextract nested the global_userdata component from the generic (void *) userdata element \fP"
+.ti -1c
+.RI "bool \fBupk_net_add_socket_handle\fP (\fBupk_conn_handle_meta_t\fP *handles, int fd)"
+.br
+.RI "\fIadd a new socket handle to the handles list \fP"
+.ti -1c
+.RI "void \fBupk_net_flush_closed_sockets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIiterate through the list of handles, and prune any that are no longer valid. \fP"
+.ti -1c
+.RI "void \fBupk_net_event_dispatcher\fP (\fBupk_conn_handle_meta_t\fP *handles, double sel_ival)"
+.br
+.RI "\fIThe event dispatcher, called via an event-loop. \fP"
+.ti -1c
+.RI "int \fBupk_net_block_until_msg\fP (\fBupk_conn_handle_meta_t\fP *handles, double sel_ival, struct \fBtimeval\fP *\fBtimeout\fP)"
+.br
+.RI "\fIblock until a complete message is received, up to timeout. \fP"
+.ti -1c
+.RI "void \fBupk_disconnect_handle\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIdisconnect the ->thisp handle in handles. \fP"
+.ti -1c
+.RI "void \fBupk_net_shutdown_callback\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.br
+.RI "\fIwrapper around upk-disconnect_handle for use as a callback. \fP"
+.ti -1c
+.RI "void \fBupk_queue_packet\fP (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_conn_handle_t\fP *handle, \fBupk_packet_t\fP *pkt, \fBupk_net_callback_t\fP after_write_callback)"
+.br
+.RI "\fIenqueue a packet for sending \fP"
+.ti -1c
+.RI "void \fBupk_write_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIwrite the packets in the writeq for handles->thisp, and call any write callbacks \fP"
+.ti -1c
+.RI "void \fBupk_read_packets\fP (\fBupk_conn_handle_meta_t\fP *handles)"
+.br
+.RI "\fIread any packets from the handle handles->thisp, and call read-callbacks. \fP"
+.ti -1c
+.RI "int \fBupk_domain_socket_connect\fP (const char *sockpath)"
+.br
+.RI "\fIconnect to a domain socket. \fP"
+.ti -1c
+.RI "void \fBupk_callback_stack_push\fP (\fBupk_conn_handle_t\fP *handle, \fBupk_net_cb_stk_t\fP *state)"
+.br
+.RI "\fIpush a callback-stack state element onto the callback stack for a handle. \fP"
+.ti -1c
+.RI "void \fBupk_callback_stack_pop\fP (\fBupk_conn_handle_t\fP *handle)"
+.br
+.RI "\fIpop the top element off the callback-stack for a handle. \fP"
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_conn_handle_t\fP, \fBupk_conn_handle_meta_p\fP)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_netmsg_queue_t\fP, \fBupk_netmsg_queue_meta_p\fP)"
+.br
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBupk_net_cb_stk_t\fP, \fBupk_net_cb_stk_meta_p\fP)"
+.br
+.RI "\fImetanode for the callback stack \fP"
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pkt\fP (void *payload, \fBuint32_t\fP payload_len, \fBupk_pkttype_t\fP pkttype, \fBuint32_t\fP proto_ver)"
+.br
+.ti -1c
+.RI "static \fBuint32_t\fP \fBreq_preamble_len\fP (\fBupk_req_preamble_t\fP *preamble)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_preamble\fP (\fBupk_protocol_handle_t\fP *handle, char *client_name)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_preamble\fP (\fBupk_protocol_handle_t\fP *handle, \fBuint32_t\fP best_version)"
+.br
+.ti -1c
+.RI "static void \fBupk_free_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void \fBupk_pkt_free\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fP seq_type, \fBuint32_t\fP count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_action\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *action)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_signal\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_signal_t\fP signal, bool signal_sid, bool signal_pgrp)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_list\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_status\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBuint32_t\fP restart_window_seconds)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_subscribe\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_unsubscribe\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, bool all_svcs)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_req_disconnect\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_start\fP (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fP seq_type, \fBuint32_t\fP count)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_seq_end\fP (\fBupk_protocol_handle_t\fP *handle, bool commit)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_result\fP (\fBupk_protocol_handle_t\fP *handle, char *msg, bool successful)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_listing\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_svcinfo\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_svcinfo_t\fP *svcinfo)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_ack\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_repl_error\fP (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_errno_t\fP uerrno, char *errmsg, \fBupk_errlevel_t\fP errlvl)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pub_publication\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_create_pub_cancelation\fP (\fBupk_protocol_handle_t\fP *handle)"
+.br
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBupk_get_msgtype\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBsize_t\fP \fBupk_get_msgsize\fP (\fBupk_msgtype_t\fP type)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBupk_conn_handle_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_netmsg_queue_meta_t\fP"
+.br
+.ti -1c
+.RI "typedef \fBupk_net_cb_stk_meta_t\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define TOTAL_N_MSG_TYPES   (UPK_N_REQ_TYPES + UPK_N_REPL_TYPES + UPK_N_PUB_TYPES)"
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_upk_conn_handle\fP \fBupk_conn_handle_t\fP"
+.SS "typedef void(* \fBupk_net_callback_t\fP)(\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.PP
+typedef for callback functions. \fBParameters:\fP
+.RS 4
+\fIhandles\fP - the handle list, where thisp is the handle that generated the event for the callback. 
+.br
+\fIdata\fP - used to pass data you specify to the callbacks. 
+.br
+\fImsg\fP - the deserialized message. 
+.RE
+.PP
+
+.SS "typedef struct \fB_upk_net_cb_stk\fP \fBupk_net_cb_stk_t\fP"
+.PP
+a callback-stack for use in nesting/branching expectations in a conversation 
+.SS "typedef struct \fB_upk_net_state\fP \fBupk_net_state_t\fP"
+.PP
+global state data for this client/connection 
+.SS "typedef struct \fB_upk_netmsg_queue\fP \fBupk_netmsg_queue_t\fP"
+.PP
+this is a tailq for network message queuing 
+.SS "typedef struct \fB_upklist_userdata_state_partition\fP \fBupklist_userdata_state_partition_t\fP"
+.PP
+a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. 
+.SH "Function Documentation"
+.PP 
+.SS "static \fBuint32_t\fP req_preamble_len (\fBupk_req_preamble_t\fP *preamble)\fC [inline, static]\fP"
+.PP
+References upk_req_preamble_t::client_name, and upk_req_preamble_t::client_name_len.
+.PP
+Referenced by upk_create_req_preamble().
+.SS "static int upk_build_fd_sets (\fBupk_conn_handle_meta_t\fP *handles, \fBfd_set\fP *readfds, \fBfd_set\fP *writefds, \fBfd_set\fP *exceptfds)\fC [inline, static]\fP"
+.PP
+initialize file-descriptor sets ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP the list of client handles 
+.br
+\fIreadfds\fP the read fdset 
+.br
+\fIwritefds\fP the write fdset 
+.br
+\fIexceptfds\fP the exception fdset
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+highest fd in any set. (for select)
+.RE
+.PP
+FIXME: this does not presently handle fdset partitioning, which is necessary for poll-like behavior; this should be fixed if we want to support more than a small number of concurent clients (<= 1024 on many platforms; limited to FD_SETSIZE) 
+.PP
+References fcntl(), _upk_conn_handle::fd, upk_conn_handle_meta_p::thisp, and UPKLIST_FOREACH.
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "static void upk_call_received_packet_callbacks (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_packet_t\fP *pkt)\fC [static]\fP"
+.PP
+call callback for received packet based on type. ***************************************************************************************************************** Will call the appropriate msg_handler for the packet type if availble.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handle llist 
+.br
+\fIpkt\fP the packet itself 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, upk_net_cb_stk_meta_p::head, _upk_conn_handle::last_pkt_data, _upk_net_cb_stk::msg_handlers, upk_packet_t::payload, _upk_payload::payload, _upk_conn_handle::state, upk_conn_handle_meta_p::thisp, _upk_payload::type, upk_get_msgsize(), upk_get_msgtype(), and UPK_MSGTYPE_IDX.
+.PP
+Referenced by upk_read_packets().
+.SS "void upk_callback_stack_pop (\fBupk_conn_handle_t\fP *handle)"
+.PP
+pop the top element off the callback-stack for a handle. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandle\fP The handle to pop the state from.
+.RE
+.PP
+Note that the element popped will be freed, and should not be referenced after popping. This does not return the popped element; it just discards it. 
+.PP
+References _upk_net_state::callback_stack, _upk_conn_handle::state, UPKLIST_HEAD, and UPKLIST_UNLINK.
+.SS "void upk_callback_stack_push (\fBupk_conn_handle_t\fP *handle, \fBupk_net_cb_stk_t\fP *state)"
+.PP
+push a callback-stack state element onto the callback stack for a handle. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandle\fP the handle to push the state onto. 
+.br
+\fIstate\fP The state element to push. 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, _upk_conn_handle::state, upk_net_cb_stk_meta_p::thisp, and UPKLIST_PREPEND.
+.PP
+Referenced by upk_net_add_socket_handle().
+.SS "\fBupk_packet_t\fP* upk_create_pkt (void *payload, \fBuint32_t\fPpayload_len, \fBupk_pkttype_t\fPpkttype, \fBuint32_t\fPproto_ver)"
+.PP
+References calloc(), upk_packet_t::crc32, upk_packet_t::payload, upk_packet_t::payload_len, upk_packet_t::pkttype, upk_packet_t::seq_num, and upk_packet_t::version_id.
+.PP
+Referenced by upk_create_repl_preamble(), and upk_create_req_preamble().
+.SS "\fBupk_packet_t\fP* upk_create_pub_cancelation (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_pub_cancelation(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_pub_publication (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_pub_publication(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_ack (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_repl_ack(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_error (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_errno_t\fPuerrno, char *errmsg, \fBupk_errlevel_t\fPerrlvl)"
+.PP
+References v0_create_repl_error(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_listing (\fBupk_protocol_handle_t\fP *handle, char *svc_id)"
+.PP
+References v0_create_repl_listing(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_preamble (\fBupk_protocol_handle_t\fP *handle, \fBuint32_t\fPbest_version)"
+.PP
+References upk_repl_preamble_t::best_version, calloc(), upk_repl_preamble_t::msgtype, PKT_REPLY, upk_create_pkt(), and UPK_REPL_PREAMBLE.
+.PP
+Referenced by ctrl_req_preamble_handler().
+.SS "\fBupk_packet_t\fP* upk_create_repl_result (\fBupk_protocol_handle_t\fP *handle, char *msg, boolsuccessful)"
+.PP
+References v0_create_repl_result(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_end (\fBupk_protocol_handle_t\fP *handle, boolcommit)"
+.PP
+References v0_create_repl_seq_end(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_seq_start (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fPseq_type, \fBuint32_t\fPcount)"
+.PP
+References v0_create_repl_seq_start(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_repl_svcinfo (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_svcinfo_t\fP *svcinfo)"
+.PP
+References v0_create_repl_svcinfo(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_action (\fBupk_protocol_handle_t\fP *handle, char *svc_id, char *action)"
+.PP
+References v0_create_req_action(), and _upk_conn_handle::version_id.
+.PP
+Referenced by main(), and upk_clnet_req_action().
+.SS "\fBupk_packet_t\fP* upk_create_req_disconnect (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_req_disconnect(), and _upk_conn_handle::version_id.
+.PP
+Referenced by ctrl_req_disconnect_handler(), and upk_clnet_req_disconnect().
+.SS "\fBupk_packet_t\fP* upk_create_req_list (\fBupk_protocol_handle_t\fP *handle)"
+.PP
+References v0_create_req_list(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_preamble (\fBupk_protocol_handle_t\fP *handle, char *client_name)"
+.PP
+References calloc(), upk_req_preamble_t::client_name, upk_req_preamble_t::client_name_len, upk_req_preamble_t::max_supported_ver, upk_req_preamble_t::min_supported_ver, upk_req_preamble_t::msgtype, PKT_REQUEST, req_preamble_len(), strnlen(), upk_create_pkt(), UPK_MAX_STRING_LEN, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, and UPK_REQ_PREAMBLE.
+.PP
+Referenced by main(), and upk_clnet_req_preamble().
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_end (\fBupk_protocol_handle_t\fP *handle, boolcommit)"
+.PP
+References v0_create_req_seq_end(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_seq_start (\fBupk_protocol_handle_t\fP *handle, \fBupk_msgtype_t\fPseq_type, \fBuint32_t\fPcount)"
+.PP
+References v0_create_req_seq_start(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_signal (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBupk_signal_t\fPsignal, boolsignal_sid, boolsignal_pgrp)"
+.PP
+References v0_create_req_signal(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_status (\fBupk_protocol_handle_t\fP *handle, char *svc_id, \fBuint32_t\fPrestart_window_seconds)"
+.PP
+References v0_create_req_status(), and _upk_conn_handle::version_id.
+.PP
+Referenced by upk_clnet_req_status().
+.SS "\fBupk_packet_t\fP* upk_create_req_subscribe (\fBupk_protocol_handle_t\fP *handle, char *svc_id, boolall_svcs)"
+.PP
+References v0_create_req_subscribe(), and _upk_conn_handle::version_id.
+.SS "\fBupk_packet_t\fP* upk_create_req_unsubscribe (\fBupk_protocol_handle_t\fP *handle, char *svc_id, boolall_svcs)"
+.PP
+References v0_create_req_unsubscribe(), and _upk_conn_handle::version_id.
+.SS "void upk_disconnect_handle (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+disconnect the ->thisp handle in handles. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist. 
+.RE
+.PP
+
+.PP
+References _upk_conn_handle::fd, SHUT_RDWR, shutdown(), and upk_conn_handle_meta_p::thisp.
+.PP
+Referenced by upk_clnet_req_disconnect(), upk_net_event_dispatcher(), upk_net_shutdown_callback(), upk_read_packets(), and upk_write_packets().
+.SS "int upk_domain_socket_connect (const char *sockpath)"
+.PP
+connect to a domain socket. ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIsockpath\fP Path to the socket in question.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the fd of the socket, or -2 on connect error (-1 if \fBsocket()\fP error, errno may be checked) 
+.RE
+.PP
+
+.PP
+References connect(), SOCK_STREAM, socket(), sockaddr_un::sun_family, and sockaddr_un::sun_path.
+.PP
+Referenced by upk_clnet_ctrl_connect().
+.SS "static void upk_free_payload (\fBupk_packet_t\fP *pkt)\fC [inline, static]\fP"
+.PP
+References free(), upk_packet_t::payload, and v0_free_payload().
+.PP
+Referenced by upk_pkt_free().
+.SS "\fBsize_t\fP upk_get_msgsize (\fBupk_msgtype_t\fPtype)"
+.PP
+References UPK_MSGTYPE_IDX.
+.PP
+Referenced by upk_call_received_packet_callbacks().
+.SS "\fBupk_msgtype_t\fP upk_get_msgtype (\fBupk_packet_t\fP *pkt)"
+.PP
+References upk_generic_msg_t::msgtype, and upk_packet_t::payload.
+.PP
+Referenced by upk_call_received_packet_callbacks().
+.SS "bool upk_net_add_socket_handle (\fBupk_conn_handle_meta_t\fP *handles, intfd)"
+.PP
+add a new socket handle to the handles list ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist, will be modified by appending a connection handle. 
+.br
+\fIfd\fP fd number of socket for new connection.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+true if socket is valid and connection handle appended, false otherwise 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, calloc(), fcntl(), _upk_conn_handle::fd, upk_net_cb_stk_meta_p::head, sockopts, _upk_conn_handle::state, upk_conn_handle_meta_p::thisp, upk_callback_stack_push(), upk_net_get_global_state(), upk_net_get_global_userdata(), UPKLIST_APPEND, and _upk_conn_handle::userdata.
+.PP
+Referenced by ctrl_accept_conn(), main(), and upk_clnet_ctrl_connect().
+.SS "int upk_net_block_until_msg (\fBupk_conn_handle_meta_t\fP *handles, doublesel_ival, struct \fBtimeval\fP *timeout)"
+.PP
+block until a complete message is received, up to timeout. ***************************************************************************************************************** Make the underlying asynchronous network communication model behave like a synchronous one by blocking.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP The llist of connection handles. 
+.br
+\fIsel_ival\fP The select timeout value. 
+.br
+\fItimeout\fP Global timeout to block for; distinct from the sel_ival in that if a partial packet is received, select would trigger, but the global timeout would still play.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+message type or error. (msgtype >= 0 if valid, < 0 if invalid; if < -1, then it represents the fd value, which may be useful in debugging) 
+.RE
+.PP
+
+.PP
+References _upk_conn_handle::fd, gettimeofday(), _upk_conn_handle::last_pkt_data, upk_conn_handle_meta_p::thisp, timeval::tv_sec, timeval::tv_usec, _upk_payload::type, and upk_net_event_dispatcher().
+.PP
+Referenced by upk_clnet_serial_request().
+.SS "\fBupk_conn_handle_meta_t\fP* upk_net_conn_handles_init (void *userdata, void(*)(void *ptr)userdata_free_func)"
+.PP
+initialize connection handles ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIuserdata\fP pointer to any data you want to have available to connection handles 
+.br
+\fIuserdata_free_func\fP the function to free userdata
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+an initialized connection handles llist metanode 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, calloc(), _upklist_userdata_state_partition::global_state, _upklist_userdata_state_partition::global_userdata, upk_partitioned_userdata_free(), upk_conn_handle_meta_p::userdata, upk_conn_handle_meta_p::userdata_free_func, and _upklist_userdata_state_partition::userdata_free_func.
+.PP
+Referenced by ctrl_init(), main(), and upk_clnet_ctrl_connect().
+.SS "void upk_net_event_dispatcher (\fBupk_conn_handle_meta_t\fP *handles, doublesel_ival)"
+.PP
+The event dispatcher, called via an event-loop. ***************************************************************************************************************** This is where events in either the state-stack are calledis invoked
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP the list of handles 
+.br
+\fIsel_ival\fP the wait time for select to wait 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, fcntl(), _upk_conn_handle::fd, upk_net_cb_stk_meta_p::head, _upk_net_cb_stk::net_dispatch_foreach, _upk_net_cb_stk::net_dispatch_post, _upk_net_cb_stk::net_dispatch_pre, _upk_net_state::pending_writeq, select(), sigfillset(), sigprocmask(), _upk_conn_handle::state, upk_conn_handle_meta_p::thisp, upk_build_fd_sets(), upk_disconnect_handle(), upk_double_to_timeval(), upk_net_get_global_state(), upk_read_packets(), upk_write_packets(), and UPKLIST_FOREACH.
+.PP
+Referenced by event_loop(), main(), and upk_net_block_until_msg().
+.SS "void upk_net_flush_closed_sockets (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+iterate through the list of handles, and prune any that are no longer valid. ***************************************************************************************************************** free callback stacks, userdata, and state. Unlink node from list.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist, will be modified by removing closed connection handles. 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, _upk_conn_handle::fd, free(), _upk_conn_handle::state, upk_conn_handle_meta_p::thisp, UPKLIST_FOREACH, UPKLIST_FREE, UPKLIST_UNLINK, _upk_conn_handle::userdata, and _upk_conn_handle::userdata_free_func.
+.PP
+Referenced by event_loop(), upk_clnet_req_disconnect(), and upk_clnet_serial_request().
+.SS "\fBupk_net_state_t\fP* upk_net_get_global_state (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+extract the nested global_state component from the generic (void *) userdata element ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handle llist
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+global state. 
+.RE
+.PP
+
+.PP
+References _upklist_userdata_state_partition::global_state, and upk_conn_handle_meta_p::userdata.
+.PP
+Referenced by init_callback_handlers(), upk_net_add_socket_handle(), upk_net_event_dispatcher(), upk_queue_packet(), and upk_write_packets().
+.SS "void* upk_net_get_global_userdata (\fBupk_conn_handle_meta_t\fP *handles)\fC [inline]\fP"
+.PP
+extract nested the global_userdata component from the generic (void *) userdata element ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the global_userdata element from handles->userdata (handles->userdata is split into two pieces) 
+.RE
+.PP
+
+.PP
+References _upklist_userdata_state_partition::global_userdata, and upk_conn_handle_meta_p::userdata.
+.PP
+Referenced by upk_net_add_socket_handle().
+.SS "void upk_net_shutdown_callback (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_payload_t\fP *msg)"
+.PP
+wrapper around upk-disconnect_handle for use as a callback. ***************************************************************************************************************** 
+.PP
+References upk_disconnect_handle().
+.PP
+Referenced by ctrl_req_disconnect_handler().
+.SS "static void upk_partitioned_userdata_free (void *ptr)\fC [static]\fP"
+.PP
+userdata cleanup callback ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIptr\fP the userdata object to free 
+.RE
+.PP
+
+.PP
+References _upk_net_state::callback_stack, free(), _upklist_userdata_state_partition::global_state, _upklist_userdata_state_partition::global_userdata, UPKLIST_FREE, and _upklist_userdata_state_partition::userdata_free_func.
+.PP
+Referenced by upk_net_conn_handles_init().
+.SS "void upk_pkt_free (\fBupk_packet_t\fP *pkt)"
+.PP
+References free(), and upk_free_payload().
+.PP
+Referenced by ctrl_req_action_handler(), ctrl_req_disconnect_handler(), ctrl_req_preamble_handler(), upk_clnet_req_action(), upk_clnet_req_disconnect(), upk_clnet_req_preamble(), upk_clnet_req_signal(), upk_clnet_req_status(), and upk_read_packets().
+.SS "void upk_queue_packet (\fBupk_conn_handle_meta_t\fP *handles, \fBupk_conn_handle_t\fP *handle, \fBupk_packet_t\fP *pkt, \fBupk_net_callback_t\fPafter_write_callback)"
+.PP
+enqueue a packet for sending ***************************************************************************************************************** This takes a packet and places it on the writeq for handle.
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist 
+.br
+\fIhandle\fP the handle to update the writeq for. 
+.br
+\fIpkt\fP the packet to enqueue 
+.br
+\fIafter_write_callback\fP a callback to call after successfully writing the packet, usually to setup the receive callback stack.
+.RE
+.PP
+pkt will be copied, so that the copy may be freed after it's been sent. You must free the pkt you pass yourself. 
+.PP
+References _upk_netmsg_queue::after_write_callback, free(), _upk_netmsg_queue::msg, _upk_netmsg_queue::msg_len, upk_packet_t::payload_len, _upk_net_state::pending_writeq, upk_netmsg_queue_meta_p::thisp, upk_net_get_global_state(), UPK_PACKET_FOOTER_LEN, UPK_PACKET_HEADER_LEN, upk_serialize_packet(), UPKLIST_APPEND, and _upk_conn_handle::writeq.
+.PP
+Referenced by ctrl_req_action_handler(), ctrl_req_disconnect_handler(), ctrl_req_preamble_handler(), main(), and upk_clnet_serial_request().
+.SS "void upk_read_packets (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+read any packets from the handle handles->thisp, and call read-callbacks. ****************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist. 
+.RE
+.PP
+
+.PP
+References _upk_conn_handle::fd, _upk_conn_handle::n_hdr_bytes_read, _upk_conn_handle::n_remaining_read, ntohl(), _upk_conn_handle::readbuf, upk_conn_handle_meta_p::thisp, upk_call_received_packet_callbacks(), upk_debug1, upk_deserialize_packet(), upk_disconnect_handle(), upk_error, UPK_MAX_PACKET_SIZE, UPK_MAX_SUPPORTED_PROTO, UPK_MIN_SUPPORTED_PROTO, UPK_PACKET_FOOTER_LEN, UPK_PACKET_HEADER_LEN, and upk_pkt_free().
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "void upk_write_packets (\fBupk_conn_handle_meta_t\fP *handles)"
+.PP
+write the packets in the writeq for handles->thisp, and call any write callbacks ***************************************************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIhandles\fP connection handles llist; uses thisp 
+.RE
+.PP
+
+.PP
+References _upk_netmsg_queue::after_write_callback, upk_netmsg_queue_meta_p::count, _upk_conn_handle::fd, _upk_netmsg_queue::msg, _upk_netmsg_queue::msg_len, _upk_netmsg_queue::n_bytes_written, _upk_net_state::pending_writeq, upk_netmsg_queue_meta_p::thisp, upk_conn_handle_meta_p::thisp, upk_disconnect_handle(), upk_net_get_global_state(), UPKLIST_UNLINK, and _upk_conn_handle::writeq.
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "typedef UPKLIST_METANODE (\fBupk_net_cb_stk_t\fP, \fBupk_net_cb_stk_meta_p\fP)"
+.PP
+metanode for the callback stack 
+.SS "typedef UPKLIST_METANODE (\fBupk_netmsg_queue_t\fP, \fBupk_netmsg_queue_meta_p\fP)"
+.SS "typedef UPKLIST_METANODE (\fBupk_conn_handle_t\fP, \fBupk_conn_handle_meta_p\fP)"
+.SH "Variable Documentation"
+.PP 
+.SS "typedef \fBupk_conn_handle_meta_t\fP"
+.SS "typedef \fBupk_net_cb_stk_meta_t\fP"
+.SS "typedef \fBupk_netmsg_queue_meta_t\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

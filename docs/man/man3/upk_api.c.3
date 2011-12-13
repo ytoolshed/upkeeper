@@ -1,0 +1,105 @@
+.TH "api/upk_api.c" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+api/upk_api.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <libgen.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <sqlite3.h>\fP
+.br
+\fC#include <fcntl.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+\fC#include <sys/types.h>\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <assert.h>\fP
+.br
+\fC#include <sys/stat.h>\fP
+.br
+\fC#include <sys/socket.h>\fP
+.br
+\fC#include <sys/un.h>\fP
+.br
+\fC#include 'store/upk_db.h'\fP
+.br
+\fC#include 'api/upk_api.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBupk_handle_valid\fP(x)   assert( x->magic[3] == UPK_MAGIC[3] )"
+.br
+.ti -1c
+.RI "#define \fBupk_api_handle_to_srvc\fP(pupk_api_p, package_p, service_p, srvc_p)"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBupk_api_init\fP (struct \fBupk_api\fP *pupk_api)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_desired_status_set\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service, upk_status_t upk_status)"
+.br
+.ti -1c
+.RI "const char * \fBupk_api_service_desired_status_get\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service)"
+.br
+.ti -1c
+.RI "const char * \fBupk_api_service_actual_status_get\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_set\fP (struct \fBupk_api\fP *pupk_api, char *package, char *service, char *cmdline)"
+.br
+.ti -1c
+.RI "int \fBupk_api_service_visitor\fP (struct \fBupk_api\fP *pupk_api, void(*callback)(), void *context)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define upk_api_handle_to_srvc(pupk_api_p, package_p, service_p, srvc_p)"
+.PP
+\fBValue:\fP
+.PP
+.nf
+srvc_p.upk_db  = pupk_api_p->upk_db; \
+    srvc_p.package = package_p; \
+    srvc_p.service = service_p;
+.fi
+.SS "#define upk_handle_valid(x)   assert( x->magic[3] == UPK_MAGIC[3] )"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "int upk_api_init (struct \fBupk_api\fP * pupk_api)"
+.PP
+.SS "const char* upk_api_service_actual_status_get (struct \fBupk_api\fP * pupk_api, char * package, char * service)"
+.PP
+.SS "const char* upk_api_service_desired_status_get (struct \fBupk_api\fP * pupk_api, char * package, char * service)"
+.PP
+.SS "int upk_api_service_desired_status_set (struct \fBupk_api\fP * pupk_api, char * package, char * service, upk_status_t upk_status)"
+.PP
+.SS "int upk_api_service_set (struct \fBupk_api\fP * pupk_api, char * package, char * service, char * cmdline)"
+.PP
+.SS "int upk_api_service_visitor (struct \fBupk_api\fP * pupk_api, void(*)() callback, void * context)"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

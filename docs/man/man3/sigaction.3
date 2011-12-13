@@ -1,0 +1,67 @@
+.TH "sigaction" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sigaction \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __sighandler_t \fBsa_handler\fP"
+.br
+.ti -1c
+.RI "   void(* \fBsa_sigaction\fP )(int, \fBsiginfo_t\fP *, void *)"
+.br
+.ti -1c
+.RI "} \fB__sigaction_handler\fP"
+.br
+.ti -1c
+.RI "\fB__sigset_t\fP \fBsa_mask\fP"
+.br
+.ti -1c
+.RI "int \fBsa_flags\fP"
+.br
+.ti -1c
+.RI "void(* \fBsa_restorer\fP )(void)"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   __sighandler_t \fBsa_handler\fP"
+.br
+.ti -1c
+.RI "   void(* \fBsa_sigaction\fP )(int, \fBsiginfo_t\fP *, void *)"
+.br
+.ti -1c
+.RI "} \fB__sigaction_handler\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "union { ... } 
+     \fBsigaction::__sigaction_handler\fP"
+.SS "union { ... }   \fBsigaction::__sigaction_handler\fP"
+.SS "int \fBsigaction::sa_flags\fP"
+.PP
+Referenced by buddy_exec_action(), buddy_init(), commit_buddycide(), and ctrl_setup_sighandlers().
+.SS "__sighandler_t \fBsigaction::sa_handler\fP"
+.PP
+Referenced by buddy_exec_action(), buddy_init(), commit_buddycide(), and ctrl_setup_sighandlers().
+.SS "\fB__sigset_t\fP \fBsigaction::sa_mask\fP"
+.PP
+Referenced by buddy_exec_action(), buddy_init(), commit_buddycide(), and ctrl_setup_sighandlers().
+.SS "void(* \fBsigaction::sa_restorer\fP)(void)"
+.SS "void(* \fBsigaction::sa_sigaction\fP)(int, \fBsiginfo_t\fP *, void *)"
+.PP
+Referenced by buddy_init().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

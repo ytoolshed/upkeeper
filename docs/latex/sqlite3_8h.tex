@@ -1,0 +1,3215 @@
+\section{deps/sqlite/sqlite3.h File Reference}
+\label{sqlite3_8h}\index{deps/sqlite/sqlite3.h@{deps/sqlite/sqlite3.h}}
+{\tt \#include $<$stdarg.h$>$}\par
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{sqlite3\_\-file}
+\item 
+struct \bf{sqlite3\_\-io\_\-methods}
+\item 
+struct \bf{sqlite3\_\-vfs}
+\item 
+struct \bf{sqlite3\_\-mem\_\-methods}
+\item 
+struct \bf{sqlite3\_\-module}
+\item 
+struct \bf{sqlite3\_\-index\_\-info}
+\item 
+struct \bf{sqlite3\_\-index\_\-info::sqlite3\_\-index\_\-constraint}
+\item 
+struct \bf{sqlite3\_\-index\_\-info::sqlite3\_\-index\_\-orderby}
+\item 
+struct \bf{sqlite3\_\-index\_\-info::sqlite3\_\-index\_\-constraint\_\-usage}
+\item 
+struct \bf{sqlite3\_\-vtab}
+\item 
+struct \bf{sqlite3\_\-vtab\_\-cursor}
+\item 
+struct \bf{sqlite3\_\-mutex\_\-methods}
+\item 
+struct \bf{sqlite3\_\-pcache\_\-methods}
+\item 
+struct \bf{sqlite3\_\-rtree\_\-geometry}
+\end{CompactItemize}
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{SQLITE\_\-EXTERN}~extern
+\item 
+\#define \bf{SQLITE\_\-DEPRECATED}
+\item 
+\#define \bf{SQLITE\_\-EXPERIMENTAL}
+\item 
+\#define \bf{SQLITE\_\-VERSION}~\char`\"{}3.7.3\char`\"{}
+\item 
+\#define \bf{SQLITE\_\-VERSION\_\-NUMBER}~3007003
+\item 
+\#define \bf{SQLITE\_\-SOURCE\_\-ID}~\char`\"{}2010-10-08 02:34:02 2677848087c9c090efb17c1893e77d6136a9111d\char`\"{}
+\item 
+\#define \bf{SQLITE\_\-OK}~0
+\item 
+\#define \bf{SQLITE\_\-ERROR}~1
+\item 
+\#define \bf{SQLITE\_\-INTERNAL}~2
+\item 
+\#define \bf{SQLITE\_\-PERM}~3
+\item 
+\#define \bf{SQLITE\_\-ABORT}~4
+\item 
+\#define \bf{SQLITE\_\-BUSY}~5
+\item 
+\#define \bf{SQLITE\_\-LOCKED}~6
+\item 
+\#define \bf{SQLITE\_\-NOMEM}~7
+\item 
+\#define \bf{SQLITE\_\-READONLY}~8
+\item 
+\#define \bf{SQLITE\_\-INTERRUPT}~9
+\item 
+\#define \bf{SQLITE\_\-IOERR}~10
+\item 
+\#define \bf{SQLITE\_\-CORRUPT}~11
+\item 
+\#define \bf{SQLITE\_\-NOTFOUND}~12
+\item 
+\#define \bf{SQLITE\_\-FULL}~13
+\item 
+\#define \bf{SQLITE\_\-CANTOPEN}~14
+\item 
+\#define \bf{SQLITE\_\-PROTOCOL}~15
+\item 
+\#define \bf{SQLITE\_\-EMPTY}~16
+\item 
+\#define \bf{SQLITE\_\-SCHEMA}~17
+\item 
+\#define \bf{SQLITE\_\-TOOBIG}~18
+\item 
+\#define \bf{SQLITE\_\-CONSTRAINT}~19
+\item 
+\#define \bf{SQLITE\_\-MISMATCH}~20
+\item 
+\#define \bf{SQLITE\_\-MISUSE}~21
+\item 
+\#define \bf{SQLITE\_\-NOLFS}~22
+\item 
+\#define \bf{SQLITE\_\-AUTH}~23
+\item 
+\#define \bf{SQLITE\_\-FORMAT}~24
+\item 
+\#define \bf{SQLITE\_\-RANGE}~25
+\item 
+\#define \bf{SQLITE\_\-NOTADB}~26
+\item 
+\#define \bf{SQLITE\_\-ROW}~100
+\item 
+\#define \bf{SQLITE\_\-DONE}~101
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-READ}~(SQLITE\_\-IOERR $|$ (1$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-SHORT\_\-READ}~(SQLITE\_\-IOERR $|$ (2$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-WRITE}~(SQLITE\_\-IOERR $|$ (3$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-FSYNC}~(SQLITE\_\-IOERR $|$ (4$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-DIR\_\-FSYNC}~(SQLITE\_\-IOERR $|$ (5$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-TRUNCATE}~(SQLITE\_\-IOERR $|$ (6$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-FSTAT}~(SQLITE\_\-IOERR $|$ (7$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-UNLOCK}~(SQLITE\_\-IOERR $|$ (8$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-RDLOCK}~(SQLITE\_\-IOERR $|$ (9$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-DELETE}~(SQLITE\_\-IOERR $|$ (10$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-BLOCKED}~(SQLITE\_\-IOERR $|$ (11$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-NOMEM}~(SQLITE\_\-IOERR $|$ (12$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-ACCESS}~(SQLITE\_\-IOERR $|$ (13$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-CHECKRESERVEDLOCK}~(SQLITE\_\-IOERR $|$ (14$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-LOCK}~(SQLITE\_\-IOERR $|$ (15$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-CLOSE}~(SQLITE\_\-IOERR $|$ (16$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-DIR\_\-CLOSE}~(SQLITE\_\-IOERR $|$ (17$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-SHMOPEN}~(SQLITE\_\-IOERR $|$ (18$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-SHMSIZE}~(SQLITE\_\-IOERR $|$ (19$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-IOERR\_\-SHMLOCK}~(SQLITE\_\-IOERR $|$ (20$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-LOCKED\_\-SHAREDCACHE}~(SQLITE\_\-LOCKED $|$  (1$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-BUSY\_\-RECOVERY}~(SQLITE\_\-BUSY   $|$  (1$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-CANTOPEN\_\-NOTEMPDIR}~(SQLITE\_\-CANTOPEN $|$ (1$<$$<$8))
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-READONLY}~0x00000001
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-READWRITE}~0x00000002
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-CREATE}~0x00000004
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-DELETEONCLOSE}~0x00000008
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-EXCLUSIVE}~0x00000010
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-AUTOPROXY}~0x00000020
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-MAIN\_\-DB}~0x00000100
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-TEMP\_\-DB}~0x00000200
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-TRANSIENT\_\-DB}~0x00000400
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-MAIN\_\-JOURNAL}~0x00000800
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-TEMP\_\-JOURNAL}~0x00001000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-SUBJOURNAL}~0x00002000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-MASTER\_\-JOURNAL}~0x00004000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-NOMUTEX}~0x00008000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-FULLMUTEX}~0x00010000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-SHAREDCACHE}~0x00020000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-PRIVATECACHE}~0x00040000
+\item 
+\#define \bf{SQLITE\_\-OPEN\_\-WAL}~0x00080000
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC}~0x00000001
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC512}~0x00000002
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC1K}~0x00000004
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC2K}~0x00000008
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC4K}~0x00000010
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC8K}~0x00000020
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC16K}~0x00000040
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC32K}~0x00000080
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-ATOMIC64K}~0x00000100
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-SAFE\_\-APPEND}~0x00000200
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-SEQUENTIAL}~0x00000400
+\item 
+\#define \bf{SQLITE\_\-IOCAP\_\-UNDELETABLE\_\-WHEN\_\-OPEN}~0x00000800
+\item 
+\#define \bf{SQLITE\_\-LOCK\_\-NONE}~0
+\item 
+\#define \bf{SQLITE\_\-LOCK\_\-SHARED}~1
+\item 
+\#define \bf{SQLITE\_\-LOCK\_\-RESERVED}~2
+\item 
+\#define \bf{SQLITE\_\-LOCK\_\-PENDING}~3
+\item 
+\#define \bf{SQLITE\_\-LOCK\_\-EXCLUSIVE}~4
+\item 
+\#define \bf{SQLITE\_\-SYNC\_\-NORMAL}~0x00002
+\item 
+\#define \bf{SQLITE\_\-SYNC\_\-FULL}~0x00003
+\item 
+\#define \bf{SQLITE\_\-SYNC\_\-DATAONLY}~0x00010
+\item 
+\#define \bf{SQLITE\_\-FCNTL\_\-LOCKSTATE}~1
+\item 
+\#define \bf{SQLITE\_\-GET\_\-LOCKPROXYFILE}~2
+\item 
+\#define \bf{SQLITE\_\-SET\_\-LOCKPROXYFILE}~3
+\item 
+\#define \bf{SQLITE\_\-LAST\_\-ERRNO}~4
+\item 
+\#define \bf{SQLITE\_\-FCNTL\_\-SIZE\_\-HINT}~5
+\item 
+\#define \bf{SQLITE\_\-FCNTL\_\-CHUNK\_\-SIZE}~6
+\item 
+\#define \bf{SQLITE\_\-ACCESS\_\-EXISTS}~0
+\item 
+\#define \bf{SQLITE\_\-ACCESS\_\-READWRITE}~1
+\item 
+\#define \bf{SQLITE\_\-ACCESS\_\-READ}~2
+\item 
+\#define \bf{SQLITE\_\-SHM\_\-UNLOCK}~1
+\item 
+\#define \bf{SQLITE\_\-SHM\_\-LOCK}~2
+\item 
+\#define \bf{SQLITE\_\-SHM\_\-SHARED}~4
+\item 
+\#define \bf{SQLITE\_\-SHM\_\-EXCLUSIVE}~8
+\item 
+\#define \bf{SQLITE\_\-SHM\_\-NLOCK}~8
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-SINGLETHREAD}~1
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-MULTITHREAD}~2
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-SERIALIZED}~3
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-MALLOC}~4
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-GETMALLOC}~5
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-SCRATCH}~6
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-PAGECACHE}~7
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-HEAP}~8
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-MEMSTATUS}~9
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-MUTEX}~10
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-GETMUTEX}~11
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-LOOKASIDE}~13
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-PCACHE}~14
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-GETPCACHE}~15
+\item 
+\#define \bf{SQLITE\_\-CONFIG\_\-LOG}~16
+\item 
+\#define \bf{SQLITE\_\-DBCONFIG\_\-LOOKASIDE}~1001
+\item 
+\#define \bf{SQLITE\_\-DENY}~1
+\item 
+\#define \bf{SQLITE\_\-IGNORE}~2
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-INDEX}~1
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TABLE}~2
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TEMP\_\-INDEX}~3
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TEMP\_\-TABLE}~4
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TEMP\_\-TRIGGER}~5
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TEMP\_\-VIEW}~6
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-TRIGGER}~7
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-VIEW}~8
+\item 
+\#define \bf{SQLITE\_\-DELETE}~9
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-INDEX}~10
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TABLE}~11
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TEMP\_\-INDEX}~12
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TEMP\_\-TABLE}~13
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TEMP\_\-TRIGGER}~14
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TEMP\_\-VIEW}~15
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-TRIGGER}~16
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-VIEW}~17
+\item 
+\#define \bf{SQLITE\_\-INSERT}~18
+\item 
+\#define \bf{SQLITE\_\-PRAGMA}~19
+\item 
+\#define \bf{SQLITE\_\-READ}~20
+\item 
+\#define \bf{SQLITE\_\-SELECT}~21
+\item 
+\#define \bf{SQLITE\_\-TRANSACTION}~22
+\item 
+\#define \bf{SQLITE\_\-UPDATE}~23
+\item 
+\#define \bf{SQLITE\_\-ATTACH}~24
+\item 
+\#define \bf{SQLITE\_\-DETACH}~25
+\item 
+\#define \bf{SQLITE\_\-ALTER\_\-TABLE}~26
+\item 
+\#define \bf{SQLITE\_\-REINDEX}~27
+\item 
+\#define \bf{SQLITE\_\-ANALYZE}~28
+\item 
+\#define \bf{SQLITE\_\-CREATE\_\-VTABLE}~29
+\item 
+\#define \bf{SQLITE\_\-DROP\_\-VTABLE}~30
+\item 
+\#define \bf{SQLITE\_\-FUNCTION}~31
+\item 
+\#define \bf{SQLITE\_\-SAVEPOINT}~32
+\item 
+\#define \bf{SQLITE\_\-COPY}~0
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-LENGTH}~0
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-SQL\_\-LENGTH}~1
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-COLUMN}~2
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-EXPR\_\-DEPTH}~3
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-COMPOUND\_\-SELECT}~4
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-VDBE\_\-OP}~5
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-FUNCTION\_\-ARG}~6
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-ATTACHED}~7
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-LIKE\_\-PATTERN\_\-LENGTH}~8
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-VARIABLE\_\-NUMBER}~9
+\item 
+\#define \bf{SQLITE\_\-LIMIT\_\-TRIGGER\_\-DEPTH}~10
+\item 
+\#define \bf{SQLITE\_\-INTEGER}~1
+\item 
+\#define \bf{SQLITE\_\-FLOAT}~2
+\item 
+\#define \bf{SQLITE\_\-BLOB}~4
+\item 
+\#define \bf{SQLITE\_\-NULL}~5
+\item 
+\#define \bf{SQLITE\_\-TEXT}~3
+\item 
+\#define \bf{SQLITE3\_\-TEXT}~3
+\item 
+\#define \bf{SQLITE\_\-UTF8}~1
+\item 
+\#define \bf{SQLITE\_\-UTF16LE}~2
+\item 
+\#define \bf{SQLITE\_\-UTF16BE}~3
+\item 
+\#define \bf{SQLITE\_\-UTF16}~4
+\item 
+\#define \bf{SQLITE\_\-ANY}~5
+\item 
+\#define \bf{SQLITE\_\-UTF16\_\-ALIGNED}~8
+\item 
+\#define \bf{SQLITE\_\-STATIC}~((\bf{sqlite3\_\-destructor\_\-type})0)
+\item 
+\#define \bf{SQLITE\_\-TRANSIENT}~((\bf{sqlite3\_\-destructor\_\-type})-1)
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-EQ}~2
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GT}~4
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LE}~8
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LT}~16
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GE}~32
+\item 
+\#define \bf{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-MATCH}~64
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-FAST}~0
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-RECURSIVE}~1
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-MASTER}~2
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM}~3
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM2}~4
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-OPEN}~4
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-PRNG}~5
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU}~6
+\item 
+\#define \bf{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU2}~7
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-FIRST}~5
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-PRNG\_\-SAVE}~5
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESTORE}~6
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESET}~7
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-BITVEC\_\-TEST}~8
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-FAULT\_\-INSTALL}~9
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-BENIGN\_\-MALLOC\_\-HOOKS}~10
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-PENDING\_\-BYTE}~11
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-ASSERT}~12
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-ALWAYS}~13
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-RESERVE}~14
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-OPTIMIZATIONS}~15
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-ISKEYWORD}~16
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-PGHDRSZ}~17
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-SCRATCHMALLOC}~18
+\item 
+\#define \bf{SQLITE\_\-TESTCTRL\_\-LAST}~18
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-MEMORY\_\-USED}~0
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-PAGECACHE\_\-USED}~1
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-PAGECACHE\_\-OVERFLOW}~2
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-SCRATCH\_\-USED}~3
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-SCRATCH\_\-OVERFLOW}~4
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-MALLOC\_\-SIZE}~5
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-PARSER\_\-STACK}~6
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-PAGECACHE\_\-SIZE}~7
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-SCRATCH\_\-SIZE}~8
+\item 
+\#define \bf{SQLITE\_\-STATUS\_\-MALLOC\_\-COUNT}~9
+\item 
+\#define \bf{SQLITE\_\-DBSTATUS\_\-LOOKASIDE\_\-USED}~0
+\item 
+\#define \bf{SQLITE\_\-DBSTATUS\_\-CACHE\_\-USED}~1
+\item 
+\#define \bf{SQLITE\_\-DBSTATUS\_\-SCHEMA\_\-USED}~2
+\item 
+\#define \bf{SQLITE\_\-DBSTATUS\_\-STMT\_\-USED}~3
+\item 
+\#define \bf{SQLITE\_\-DBSTATUS\_\-MAX}~3
+\item 
+\#define \bf{SQLITE\_\-STMTSTATUS\_\-FULLSCAN\_\-STEP}~1
+\item 
+\#define \bf{SQLITE\_\-STMTSTATUS\_\-SORT}~2
+\item 
+\#define \bf{SQLITE\_\-STMTSTATUS\_\-AUTOINDEX}~3
+\end{CompactItemize}
+\subsection*{Typedefs}
+\begin{CompactItemize}
+\item 
+typedef \bf{sqlite3} \bf{sqlite3}
+\item 
+typedef long long int \bf{sqlite\_\-int64}
+\item 
+typedef unsigned long long int \bf{sqlite\_\-uint64}
+\item 
+typedef \bf{sqlite\_\-int64} \bf{sqlite3\_\-int64}
+\item 
+typedef \bf{sqlite\_\-uint64} \bf{sqlite3\_\-uint64}
+\item 
+typedef int($\ast$) \bf{sqlite3\_\-callback} (void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$)
+\item 
+typedef \bf{sqlite3\_\-file} \bf{sqlite3\_\-file}
+\item 
+typedef \bf{sqlite3\_\-io\_\-methods} \bf{sqlite3\_\-io\_\-methods}
+\item 
+typedef \bf{sqlite3\_\-mutex} \bf{sqlite3\_\-mutex}
+\item 
+typedef \bf{sqlite3\_\-vfs} \bf{sqlite3\_\-vfs}
+\item 
+typedef \bf{sqlite3\_\-mem\_\-methods} \bf{sqlite3\_\-mem\_\-methods}
+\item 
+typedef \bf{sqlite3\_\-stmt} \bf{sqlite3\_\-stmt}
+\item 
+typedef \bf{Mem} \bf{sqlite3\_\-value}
+\item 
+typedef \bf{sqlite3\_\-context} \bf{sqlite3\_\-context}
+\item 
+typedef void($\ast$) \bf{sqlite3\_\-destructor\_\-type} (void $\ast$)
+\item 
+typedef \bf{sqlite3\_\-vtab} \bf{sqlite3\_\-vtab}
+\item 
+typedef \bf{sqlite3\_\-index\_\-info} \bf{sqlite3\_\-index\_\-info}
+\item 
+typedef \bf{sqlite3\_\-vtab\_\-cursor} \bf{sqlite3\_\-vtab\_\-cursor}
+\item 
+typedef \bf{sqlite3\_\-module} \bf{sqlite3\_\-module}
+\item 
+typedef \bf{sqlite3\_\-blob} \bf{sqlite3\_\-blob}
+\item 
+typedef \bf{sqlite3\_\-mutex\_\-methods} \bf{sqlite3\_\-mutex\_\-methods}
+\item 
+typedef \bf{sqlite3\_\-pcache} \bf{sqlite3\_\-pcache}
+\item 
+typedef \bf{sqlite3\_\-pcache\_\-methods} \bf{sqlite3\_\-pcache\_\-methods}
+\item 
+typedef \bf{sqlite3\_\-backup} \bf{sqlite3\_\-backup}
+\item 
+typedef \bf{sqlite3\_\-rtree\_\-geometry} \bf{sqlite3\_\-rtree\_\-geometry}
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-libversion} (void)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-sourceid} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-libversion\_\-number} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-compileoption\_\-used} (const char $\ast$z\-Opt\-Name)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-compileoption\_\-get} (int N)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-threadsafe} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-close} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-exec} (\bf{sqlite3} $\ast$, const char $\ast$sql, int($\ast$callback)(void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$), void $\ast$, char $\ast$$\ast$errmsg)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-initialize} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-shutdown} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-os\_\-init} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-os\_\-end} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-config} (int,...)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-db\_\-config} (\bf{sqlite3} $\ast$, int op,...)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-extended\_\-result\_\-codes} (\bf{sqlite3} $\ast$, int onoff)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-last\_\-insert\_\-rowid} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-changes} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-total\_\-changes} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-interrupt} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-complete} (const char $\ast$sql)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-complete16} (const void $\ast$sql)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-busy\_\-handler} (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$, int), void $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-busy\_\-timeout} (\bf{sqlite3} $\ast$, int ms)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-get\_\-table} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Sql, char $\ast$$\ast$$\ast$paz\-Result, int $\ast$pn\-Row, int $\ast$pn\-Column, char $\ast$$\ast$pz\-Errmsg)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-free\_\-table} (char $\ast$$\ast$result)
+\item 
+SQLITE\_\-API char $\ast$ \bf{sqlite3\_\-mprintf} (const char $\ast$,...)
+\item 
+SQLITE\_\-API char $\ast$ \bf{sqlite3\_\-vmprintf} (const char $\ast$, va\_\-list)
+\item 
+SQLITE\_\-API char $\ast$ \bf{sqlite3\_\-snprintf} (int, char $\ast$, const char $\ast$,...)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-malloc} (int)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-realloc} (void $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-free} (void $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-memory\_\-used} (void)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-memory\_\-highwater} (int reset\-Flag)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-randomness} (int N, void $\ast$P)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-set\_\-authorizer} (\bf{sqlite3} $\ast$, int($\ast$x\-Auth)(void $\ast$, int, const char $\ast$, const char $\ast$, const char $\ast$, const char $\ast$), void $\ast$p\-User\-Data)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-trace} (\bf{sqlite3} $\ast$, void($\ast$x\-Trace)(void $\ast$, const char $\ast$), void $\ast$)
+\item 
+SQLITE\_\-API SQLITE\_\-EXPERIMENTAL void $\ast$ \bf{sqlite3\_\-profile} (\bf{sqlite3} $\ast$, void($\ast$x\-Profile)(void $\ast$, const char $\ast$, \bf{sqlite3\_\-uint64}), void $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-progress\_\-handler} (\bf{sqlite3} $\ast$, int, int($\ast$)(void $\ast$), void $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-open} (const char $\ast$filename, \bf{sqlite3} $\ast$$\ast$pp\-Db)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-open16} (const void $\ast$filename, \bf{sqlite3} $\ast$$\ast$pp\-Db)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-open\_\-v2} (const char $\ast$filename, \bf{sqlite3} $\ast$$\ast$pp\-Db, int flags, const char $\ast$z\-Vfs)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-errcode} (\bf{sqlite3} $\ast$\bf{db})
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-extended\_\-errcode} (\bf{sqlite3} $\ast$\bf{db})
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-errmsg} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-errmsg16} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-limit} (\bf{sqlite3} $\ast$, int id, int new\-Val)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-prepare} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Sql, int n\-Byte, \bf{sqlite3\_\-stmt} $\ast$$\ast$pp\-Stmt, const char $\ast$$\ast$pz\-Tail)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-prepare\_\-v2} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Sql, int n\-Byte, \bf{sqlite3\_\-stmt} $\ast$$\ast$pp\-Stmt, const char $\ast$$\ast$pz\-Tail)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-prepare16} (\bf{sqlite3} $\ast$\bf{db}, const void $\ast$z\-Sql, int n\-Byte, \bf{sqlite3\_\-stmt} $\ast$$\ast$pp\-Stmt, const void $\ast$$\ast$pz\-Tail)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-prepare16\_\-v2} (\bf{sqlite3} $\ast$\bf{db}, const void $\ast$z\-Sql, int n\-Byte, \bf{sqlite3\_\-stmt} $\ast$$\ast$pp\-Stmt, const void $\ast$$\ast$pz\-Tail)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-sql} (\bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-blob} (\bf{sqlite3\_\-stmt} $\ast$, int, const void $\ast$, int n, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-double} (\bf{sqlite3\_\-stmt} $\ast$, int, double)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-int} (\bf{sqlite3\_\-stmt} $\ast$, int, int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-int64} (\bf{sqlite3\_\-stmt} $\ast$, int, \bf{sqlite3\_\-int64})
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-null} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-text} (\bf{sqlite3\_\-stmt} $\ast$, int, const char $\ast$, int n, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-text16} (\bf{sqlite3\_\-stmt} $\ast$, int, const void $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-value} (\bf{sqlite3\_\-stmt} $\ast$, int, const \bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-zeroblob} (\bf{sqlite3\_\-stmt} $\ast$, int, int n)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-parameter\_\-count} (\bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-bind\_\-parameter\_\-name} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-bind\_\-parameter\_\-index} (\bf{sqlite3\_\-stmt} $\ast$, const char $\ast$z\-Name)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-clear\_\-bindings} (\bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-column\_\-count} (\bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-column\_\-name} (\bf{sqlite3\_\-stmt} $\ast$, int N)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-name16} (\bf{sqlite3\_\-stmt} $\ast$, int N)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-column\_\-database\_\-name} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-database\_\-name16} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-column\_\-table\_\-name} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-table\_\-name16} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-column\_\-origin\_\-name} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-origin\_\-name16} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const char $\ast$ \bf{sqlite3\_\-column\_\-decltype} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-decltype16} (\bf{sqlite3\_\-stmt} $\ast$, int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-step} (\bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-data\_\-count} (\bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-blob} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-column\_\-bytes} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-column\_\-bytes16} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API double \bf{sqlite3\_\-column\_\-double} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-column\_\-int} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-column\_\-int64} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API const unsigned char $\ast$ \bf{sqlite3\_\-column\_\-text} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-column\_\-text16} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-column\_\-type} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-value} $\ast$ \bf{sqlite3\_\-column\_\-value} (\bf{sqlite3\_\-stmt} $\ast$, int i\-Col)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-finalize} (\bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-reset} (\bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-function} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Function\-Name, int n\-Arg, int e\-Text\-Rep, void $\ast$p\-App, void($\ast$x\-Func)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Step)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Final)(\bf{sqlite3\_\-context} $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-function16} (\bf{sqlite3} $\ast$\bf{db}, const void $\ast$z\-Function\-Name, int n\-Arg, int e\-Text\-Rep, void $\ast$p\-App, void($\ast$x\-Func)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Step)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Final)(\bf{sqlite3\_\-context} $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-function\_\-v2} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Function\-Name, int n\-Arg, int e\-Text\-Rep, void $\ast$p\-App, void($\ast$x\-Func)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Step)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void($\ast$x\-Final)(\bf{sqlite3\_\-context} $\ast$), void($\ast$x\-Destroy)(void $\ast$))
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED int \bf{sqlite3\_\-aggregate\_\-count} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED int \bf{sqlite3\_\-expired} (\bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED int \bf{sqlite3\_\-transfer\_\-bindings} (\bf{sqlite3\_\-stmt} $\ast$, \bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED int \bf{sqlite3\_\-global\_\-recover} (void)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED void \bf{sqlite3\_\-thread\_\-cleanup} (void)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED int \bf{sqlite3\_\-memory\_\-alarm} (void($\ast$)(void $\ast$, \bf{sqlite3\_\-int64}, int), void $\ast$, \bf{sqlite3\_\-int64})
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-value\_\-blob} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-value\_\-bytes} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-value\_\-bytes16} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API double \bf{sqlite3\_\-value\_\-double} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-value\_\-int} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-value\_\-int64} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API const unsigned char $\ast$ \bf{sqlite3\_\-value\_\-text} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-value\_\-text16} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-value\_\-text16le} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API const void $\ast$ \bf{sqlite3\_\-value\_\-text16be} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-value\_\-type} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-value\_\-numeric\_\-type} (\bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-aggregate\_\-context} (\bf{sqlite3\_\-context} $\ast$, int n\-Bytes)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-user\_\-data} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3} $\ast$ \bf{sqlite3\_\-context\_\-db\_\-handle} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-get\_\-auxdata} (\bf{sqlite3\_\-context} $\ast$, int N)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-set\_\-auxdata} (\bf{sqlite3\_\-context} $\ast$, int N, void $\ast$, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-blob} (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-double} (\bf{sqlite3\_\-context} $\ast$, double)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-error} (\bf{sqlite3\_\-context} $\ast$, const char $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-error16} (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-error\_\-toobig} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-error\_\-nomem} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-error\_\-code} (\bf{sqlite3\_\-context} $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-int} (\bf{sqlite3\_\-context} $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-int64} (\bf{sqlite3\_\-context} $\ast$, \bf{sqlite3\_\-int64})
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-null} (\bf{sqlite3\_\-context} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-text} (\bf{sqlite3\_\-context} $\ast$, const char $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-text16} (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-text16le} (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-text16be} (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-value} (\bf{sqlite3\_\-context} $\ast$, \bf{sqlite3\_\-value} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-result\_\-zeroblob} (\bf{sqlite3\_\-context} $\ast$, int n)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-collation} (\bf{sqlite3} $\ast$, const char $\ast$z\-Name, int e\-Text\-Rep, void $\ast$p\-Arg, int($\ast$x\-Compare)(void $\ast$, int, const void $\ast$, int, const void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-collation\_\-v2} (\bf{sqlite3} $\ast$, const char $\ast$z\-Name, int e\-Text\-Rep, void $\ast$p\-Arg, int($\ast$x\-Compare)(void $\ast$, int, const void $\ast$, int, const void $\ast$), void($\ast$x\-Destroy)(void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-collation16} (\bf{sqlite3} $\ast$, const void $\ast$z\-Name, int e\-Text\-Rep, void $\ast$p\-Arg, int($\ast$x\-Compare)(void $\ast$, int, const void $\ast$, int, const void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-collation\_\-needed} (\bf{sqlite3} $\ast$, void $\ast$, void($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, int e\-Text\-Rep, const char $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-collation\_\-needed16} (\bf{sqlite3} $\ast$, void $\ast$, void($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, int e\-Text\-Rep, const void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-sleep} (int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-get\_\-autocommit} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3} $\ast$ \bf{sqlite3\_\-db\_\-handle} (\bf{sqlite3\_\-stmt} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-stmt} $\ast$ \bf{sqlite3\_\-next\_\-stmt} (\bf{sqlite3} $\ast$p\-Db, \bf{sqlite3\_\-stmt} $\ast$p\-Stmt)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-commit\_\-hook} (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$), void $\ast$)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-rollback\_\-hook} (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$), void $\ast$)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-update\_\-hook} (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$, int, char const $\ast$, char const $\ast$, \bf{sqlite3\_\-int64}), void $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-enable\_\-shared\_\-cache} (int)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-release\_\-memory} (int)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-int64} \bf{sqlite3\_\-soft\_\-heap\_\-limit64} (\bf{sqlite3\_\-int64} N)
+\item 
+SQLITE\_\-API SQLITE\_\-DEPRECATED void \bf{sqlite3\_\-soft\_\-heap\_\-limit} (int N)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-table\_\-column\_\-metadata} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Db\-Name, const char $\ast$z\-Table\-Name, const char $\ast$z\-Column\-Name, char const $\ast$$\ast$pz\-Data\-Type, char const $\ast$$\ast$pz\-Coll\-Seq, int $\ast$p\-Not\-Null, int $\ast$p\-Primary\-Key, int $\ast$p\-Autoinc)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-load\_\-extension} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-File, const char $\ast$z\-Proc, char $\ast$$\ast$pz\-Err\-Msg)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-enable\_\-load\_\-extension} (\bf{sqlite3} $\ast$\bf{db}, int onoff)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-auto\_\-extension} (void($\ast$x\-Entry\-Point)(void))
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-reset\_\-auto\_\-extension} (void)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-module} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Name, const \bf{sqlite3\_\-module} $\ast$p, void $\ast$p\-Client\-Data)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-create\_\-module\_\-v2} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Name, const \bf{sqlite3\_\-module} $\ast$p, void $\ast$p\-Client\-Data, void($\ast$x\-Destroy)(void $\ast$))
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-declare\_\-vtab} (\bf{sqlite3} $\ast$, const char $\ast$z\-SQL)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-overload\_\-function} (\bf{sqlite3} $\ast$, const char $\ast$z\-Func\-Name, int n\-Arg)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-blob\_\-open} (\bf{sqlite3} $\ast$, const char $\ast$z\-Db, const char $\ast$z\-Table, const char $\ast$z\-Column, \bf{sqlite3\_\-int64} i\-Row, int flags, \bf{sqlite3\_\-blob} $\ast$$\ast$pp\-Blob)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-blob\_\-close} (\bf{sqlite3\_\-blob} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-blob\_\-bytes} (\bf{sqlite3\_\-blob} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-blob\_\-read} (\bf{sqlite3\_\-blob} $\ast$, void $\ast$Z, int N, int i\-Offset)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-blob\_\-write} (\bf{sqlite3\_\-blob} $\ast$, const void $\ast$z, int n, int i\-Offset)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-vfs} $\ast$ \bf{sqlite3\_\-vfs\_\-find} (const char $\ast$z\-Vfs\-Name)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-vfs\_\-register} (\bf{sqlite3\_\-vfs} $\ast$, int make\-Dflt)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-vfs\_\-unregister} (\bf{sqlite3\_\-vfs} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-mutex} $\ast$ \bf{sqlite3\_\-mutex\_\-alloc} (int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-mutex\_\-free} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-mutex\_\-enter} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-mutex\_\-try} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-mutex\_\-leave} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-mutex\_\-held} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-mutex\_\-notheld} (\bf{sqlite3\_\-mutex} $\ast$)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-mutex} $\ast$ \bf{sqlite3\_\-db\_\-mutex} (\bf{sqlite3} $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-file\_\-control} (\bf{sqlite3} $\ast$, const char $\ast$z\-Db\-Name, int op, void $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-test\_\-control} (int op,...)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-status} (int op, int $\ast$p\-Current, int $\ast$p\-Highwater, int reset\-Flag)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-db\_\-status} (\bf{sqlite3} $\ast$, int op, int $\ast$p\-Cur, int $\ast$p\-Hiwtr, int reset\-Flg)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-stmt\_\-status} (\bf{sqlite3\_\-stmt} $\ast$, int op, int reset\-Flg)
+\item 
+SQLITE\_\-API \bf{sqlite3\_\-backup} $\ast$ \bf{sqlite3\_\-backup\_\-init} (\bf{sqlite3} $\ast$p\-Dest, const char $\ast$z\-Dest\-Name, \bf{sqlite3} $\ast$p\-Source, const char $\ast$z\-Source\-Name)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-backup\_\-step} (\bf{sqlite3\_\-backup} $\ast$p, int n\-Page)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-backup\_\-finish} (\bf{sqlite3\_\-backup} $\ast$p)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-backup\_\-remaining} (\bf{sqlite3\_\-backup} $\ast$p)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-backup\_\-pagecount} (\bf{sqlite3\_\-backup} $\ast$p)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-unlock\_\-notify} (\bf{sqlite3} $\ast$p\-Blocked, void($\ast$x\-Notify)(void $\ast$$\ast$ap\-Arg, int n\-Arg), void $\ast$p\-Notify\-Arg)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-strnicmp} (const char $\ast$, const char $\ast$, int)
+\item 
+SQLITE\_\-API void \bf{sqlite3\_\-log} (int i\-Err\-Code, const char $\ast$z\-Format,...)
+\item 
+SQLITE\_\-API void $\ast$ \bf{sqlite3\_\-wal\_\-hook} (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, const char $\ast$, int), void $\ast$)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-wal\_\-autocheckpoint} (\bf{sqlite3} $\ast$\bf{db}, int N)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-wal\_\-checkpoint} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Db)
+\item 
+SQLITE\_\-API int \bf{sqlite3\_\-rtree\_\-geometry\_\-callback} (\bf{sqlite3} $\ast$\bf{db}, const char $\ast$z\-Geom, int($\ast$x\-Geom)(\bf{sqlite3\_\-rtree\_\-geometry} $\ast$, int n\-Coord, double $\ast$a\-Coord, int $\ast$p\-Res), void $\ast$p\-Context)
+\end{CompactItemize}
+\subsection*{Variables}
+\begin{CompactItemize}
+\item 
+SQLITE\_\-API SQLITE\_\-EXTERN const char \bf{sqlite3\_\-version} [$\,$]
+\item 
+SQLITE\_\-API SQLITE\_\-EXTERN char $\ast$ \bf{sqlite3\_\-temp\_\-directory}
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{sqlite3.h@{sqlite3.h}!SQLITE3_TEXT@{SQLITE3\_\-TEXT}}
+\index{SQLITE3_TEXT@{SQLITE3\_\-TEXT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE3\_\-TEXT~3}\label{sqlite3_8h_31de299d1199b80ea4c52bb895fd0442}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ABORT@{SQLITE\_\-ABORT}}
+\index{SQLITE_ABORT@{SQLITE\_\-ABORT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ABORT~4}\label{sqlite3_8h_72ccbb6201595faa45a1bc630c7d7468}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ACCESS_EXISTS@{SQLITE\_\-ACCESS\_\-EXISTS}}
+\index{SQLITE_ACCESS_EXISTS@{SQLITE\_\-ACCESS\_\-EXISTS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ACCESS\_\-EXISTS~0}\label{sqlite3_8h_f76851b6b762e012acde62d4c477da5c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ACCESS_READ@{SQLITE\_\-ACCESS\_\-READ}}
+\index{SQLITE_ACCESS_READ@{SQLITE\_\-ACCESS\_\-READ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ACCESS\_\-READ~2}\label{sqlite3_8h_c4e49f685587a7cea45dc77db50a89fb}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ACCESS_READWRITE@{SQLITE\_\-ACCESS\_\-READWRITE}}
+\index{SQLITE_ACCESS_READWRITE@{SQLITE\_\-ACCESS\_\-READWRITE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ACCESS\_\-READWRITE~1}\label{sqlite3_8h_80207d78e77e76e4aa699f9fdc8e471f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ALTER_TABLE@{SQLITE\_\-ALTER\_\-TABLE}}
+\index{SQLITE_ALTER_TABLE@{SQLITE\_\-ALTER\_\-TABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ALTER\_\-TABLE~26}\label{sqlite3_8h_6d344630643c870d5488d358f6622fd9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ANALYZE@{SQLITE\_\-ANALYZE}}
+\index{SQLITE_ANALYZE@{SQLITE\_\-ANALYZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ANALYZE~28}\label{sqlite3_8h_ce96c7370ddfb35967cdac2cc4be247a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ANY@{SQLITE\_\-ANY}}
+\index{SQLITE_ANY@{SQLITE\_\-ANY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ANY~5}\label{sqlite3_8h_35fdca3f9d0dd8f50b155dac24067857}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ATTACH@{SQLITE\_\-ATTACH}}
+\index{SQLITE_ATTACH@{SQLITE\_\-ATTACH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ATTACH~24}\label{sqlite3_8h_b7dfa07cb207508a1281d5731910be1f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_AUTH@{SQLITE\_\-AUTH}}
+\index{SQLITE_AUTH@{SQLITE\_\-AUTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-AUTH~23}\label{sqlite3_8h_4153b306f92c012fab5480729f599fad}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_BLOB@{SQLITE\_\-BLOB}}
+\index{SQLITE_BLOB@{SQLITE\_\-BLOB}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-BLOB~4}\label{sqlite3_8h_1e20b4fc375534f70ef5a0a0f2d09420}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_BUSY@{SQLITE\_\-BUSY}}
+\index{SQLITE_BUSY@{SQLITE\_\-BUSY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-BUSY~5}\label{sqlite3_8h_37fe0c164246e7c8e931279dbc07e522}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_BUSY_RECOVERY@{SQLITE\_\-BUSY\_\-RECOVERY}}
+\index{SQLITE_BUSY_RECOVERY@{SQLITE\_\-BUSY\_\-RECOVERY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-BUSY\_\-RECOVERY~(SQLITE\_\-BUSY   $|$  (1$<$$<$8))}\label{sqlite3_8h_fbdbfde5303298f658239acf78f5694c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CANTOPEN@{SQLITE\_\-CANTOPEN}}
+\index{SQLITE_CANTOPEN@{SQLITE\_\-CANTOPEN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CANTOPEN~14}\label{sqlite3_8h_ce39be6d94748421ee3883ca9c531bd6}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CANTOPEN_NOTEMPDIR@{SQLITE\_\-CANTOPEN\_\-NOTEMPDIR}}
+\index{SQLITE_CANTOPEN_NOTEMPDIR@{SQLITE\_\-CANTOPEN\_\-NOTEMPDIR}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CANTOPEN\_\-NOTEMPDIR~(SQLITE\_\-CANTOPEN $|$ (1$<$$<$8))}\label{sqlite3_8h_c10758592d82dd205cd63b8f1dcc3e07}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_GETMALLOC@{SQLITE\_\-CONFIG\_\-GETMALLOC}}
+\index{SQLITE_CONFIG_GETMALLOC@{SQLITE\_\-CONFIG\_\-GETMALLOC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-GETMALLOC~5}\label{sqlite3_8h_e8569b27806a2cdc4d8e3706a88587be}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_GETMUTEX@{SQLITE\_\-CONFIG\_\-GETMUTEX}}
+\index{SQLITE_CONFIG_GETMUTEX@{SQLITE\_\-CONFIG\_\-GETMUTEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-GETMUTEX~11}\label{sqlite3_8h_41abe48220015e62de26508ce7d9c849}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_GETPCACHE@{SQLITE\_\-CONFIG\_\-GETPCACHE}}
+\index{SQLITE_CONFIG_GETPCACHE@{SQLITE\_\-CONFIG\_\-GETPCACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-GETPCACHE~15}\label{sqlite3_8h_4d4e470d23a59571aad11a3b007914d5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_HEAP@{SQLITE\_\-CONFIG\_\-HEAP}}
+\index{SQLITE_CONFIG_HEAP@{SQLITE\_\-CONFIG\_\-HEAP}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-HEAP~8}\label{sqlite3_8h_7e6c58348f64274497955d00cc8c1578}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_LOG@{SQLITE\_\-CONFIG\_\-LOG}}
+\index{SQLITE_CONFIG_LOG@{SQLITE\_\-CONFIG\_\-LOG}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-LOG~16}\label{sqlite3_8h_3213a960328601be2c7ff588ebefff08}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_LOOKASIDE@{SQLITE\_\-CONFIG\_\-LOOKASIDE}}
+\index{SQLITE_CONFIG_LOOKASIDE@{SQLITE\_\-CONFIG\_\-LOOKASIDE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-LOOKASIDE~13}\label{sqlite3_8h_62081cf07fb85abb51006f75ff330711}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_MALLOC@{SQLITE\_\-CONFIG\_\-MALLOC}}
+\index{SQLITE_CONFIG_MALLOC@{SQLITE\_\-CONFIG\_\-MALLOC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-MALLOC~4}\label{sqlite3_8h_27212b75ccf6330fa04d5ebcca76de37}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_MEMSTATUS@{SQLITE\_\-CONFIG\_\-MEMSTATUS}}
+\index{SQLITE_CONFIG_MEMSTATUS@{SQLITE\_\-CONFIG\_\-MEMSTATUS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-MEMSTATUS~9}\label{sqlite3_8h_e709da428c309dfd33141beccac49663}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_MULTITHREAD@{SQLITE\_\-CONFIG\_\-MULTITHREAD}}
+\index{SQLITE_CONFIG_MULTITHREAD@{SQLITE\_\-CONFIG\_\-MULTITHREAD}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-MULTITHREAD~2}\label{sqlite3_8h_3ceee9b3be2064f0bc5e57aa341881c2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_MUTEX@{SQLITE\_\-CONFIG\_\-MUTEX}}
+\index{SQLITE_CONFIG_MUTEX@{SQLITE\_\-CONFIG\_\-MUTEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-MUTEX~10}\label{sqlite3_8h_2ad4d9afe680f7facefdb4ce24b13758}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_PAGECACHE@{SQLITE\_\-CONFIG\_\-PAGECACHE}}
+\index{SQLITE_CONFIG_PAGECACHE@{SQLITE\_\-CONFIG\_\-PAGECACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-PAGECACHE~7}\label{sqlite3_8h_64931a8ca46c74ac72957d56717e03f0}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_PCACHE@{SQLITE\_\-CONFIG\_\-PCACHE}}
+\index{SQLITE_CONFIG_PCACHE@{SQLITE\_\-CONFIG\_\-PCACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-PCACHE~14}\label{sqlite3_8h_3a15e65c8918fe9d316e194dec22f304}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_SCRATCH@{SQLITE\_\-CONFIG\_\-SCRATCH}}
+\index{SQLITE_CONFIG_SCRATCH@{SQLITE\_\-CONFIG\_\-SCRATCH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-SCRATCH~6}\label{sqlite3_8h_5956093f7cac325558725aa8a646e61f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_SERIALIZED@{SQLITE\_\-CONFIG\_\-SERIALIZED}}
+\index{SQLITE_CONFIG_SERIALIZED@{SQLITE\_\-CONFIG\_\-SERIALIZED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-SERIALIZED~3}\label{sqlite3_8h_a1d3789707bfc311b8e3f3da13efd576}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONFIG_SINGLETHREAD@{SQLITE\_\-CONFIG\_\-SINGLETHREAD}}
+\index{SQLITE_CONFIG_SINGLETHREAD@{SQLITE\_\-CONFIG\_\-SINGLETHREAD}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONFIG\_\-SINGLETHREAD~1}\label{sqlite3_8h_0c74108cf003c450a40cc4d4f4a544dc}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CONSTRAINT@{SQLITE\_\-CONSTRAINT}}
+\index{SQLITE_CONSTRAINT@{SQLITE\_\-CONSTRAINT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CONSTRAINT~19}\label{sqlite3_8h_8cb9a116114b2f3ef974a6e7dce72eaf}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_COPY@{SQLITE\_\-COPY}}
+\index{SQLITE_COPY@{SQLITE\_\-COPY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-COPY~0}\label{sqlite3_8h_30c27e99fb82ed232893002f6dc3a0bf}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CORRUPT@{SQLITE\_\-CORRUPT}}
+\index{SQLITE_CORRUPT@{SQLITE\_\-CORRUPT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CORRUPT~11}\label{sqlite3_8h_b4419d476a8d3c3fa1b55efc2f700188}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_INDEX@{SQLITE\_\-CREATE\_\-INDEX}}
+\index{SQLITE_CREATE_INDEX@{SQLITE\_\-CREATE\_\-INDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-INDEX~1}\label{sqlite3_8h_79bb655348adefd743968a1a92c54edc}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TABLE@{SQLITE\_\-CREATE\_\-TABLE}}
+\index{SQLITE_CREATE_TABLE@{SQLITE\_\-CREATE\_\-TABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TABLE~2}\label{sqlite3_8h_b251f424a88f764a612731f43d01a98d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TEMP_INDEX@{SQLITE\_\-CREATE\_\-TEMP\_\-INDEX}}
+\index{SQLITE_CREATE_TEMP_INDEX@{SQLITE\_\-CREATE\_\-TEMP\_\-INDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TEMP\_\-INDEX~3}\label{sqlite3_8h_f7ba9f61359c49b9b9c266192bd8f706}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TEMP_TABLE@{SQLITE\_\-CREATE\_\-TEMP\_\-TABLE}}
+\index{SQLITE_CREATE_TEMP_TABLE@{SQLITE\_\-CREATE\_\-TEMP\_\-TABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TEMP\_\-TABLE~4}\label{sqlite3_8h_e2f9a5425f5ca41035df30008fa54842}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TEMP_TRIGGER@{SQLITE\_\-CREATE\_\-TEMP\_\-TRIGGER}}
+\index{SQLITE_CREATE_TEMP_TRIGGER@{SQLITE\_\-CREATE\_\-TEMP\_\-TRIGGER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TEMP\_\-TRIGGER~5}\label{sqlite3_8h_b7a5490dae3f29bbd5b4e10988216f91}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TEMP_VIEW@{SQLITE\_\-CREATE\_\-TEMP\_\-VIEW}}
+\index{SQLITE_CREATE_TEMP_VIEW@{SQLITE\_\-CREATE\_\-TEMP\_\-VIEW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TEMP\_\-VIEW~6}\label{sqlite3_8h_8c9060e907859bbb1ffbc5b074b73d78}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_TRIGGER@{SQLITE\_\-CREATE\_\-TRIGGER}}
+\index{SQLITE_CREATE_TRIGGER@{SQLITE\_\-CREATE\_\-TRIGGER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-TRIGGER~7}\label{sqlite3_8h_a628daec8c61fb3e627bfa2ca19882c5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_VIEW@{SQLITE\_\-CREATE\_\-VIEW}}
+\index{SQLITE_CREATE_VIEW@{SQLITE\_\-CREATE\_\-VIEW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-VIEW~8}\label{sqlite3_8h_d3e86e0c74302d2d923e22e6640b1a5f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_CREATE_VTABLE@{SQLITE\_\-CREATE\_\-VTABLE}}
+\index{SQLITE_CREATE_VTABLE@{SQLITE\_\-CREATE\_\-VTABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-CREATE\_\-VTABLE~29}\label{sqlite3_8h_98e3a09a7528cc09b23dfeda8ccc8de2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBCONFIG_LOOKASIDE@{SQLITE\_\-DBCONFIG\_\-LOOKASIDE}}
+\index{SQLITE_DBCONFIG_LOOKASIDE@{SQLITE\_\-DBCONFIG\_\-LOOKASIDE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBCONFIG\_\-LOOKASIDE~1001}\label{sqlite3_8h_11af24f47ac417a96c20e4fa7504cf5c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBSTATUS_CACHE_USED@{SQLITE\_\-DBSTATUS\_\-CACHE\_\-USED}}
+\index{SQLITE_DBSTATUS_CACHE_USED@{SQLITE\_\-DBSTATUS\_\-CACHE\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBSTATUS\_\-CACHE\_\-USED~1}\label{sqlite3_8h_0c35defd69f0334854fd213906c24531}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBSTATUS_LOOKASIDE_USED@{SQLITE\_\-DBSTATUS\_\-LOOKASIDE\_\-USED}}
+\index{SQLITE_DBSTATUS_LOOKASIDE_USED@{SQLITE\_\-DBSTATUS\_\-LOOKASIDE\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBSTATUS\_\-LOOKASIDE\_\-USED~0}\label{sqlite3_8h_42b8db548b1aa7d7224249a5487c3e21}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBSTATUS_MAX@{SQLITE\_\-DBSTATUS\_\-MAX}}
+\index{SQLITE_DBSTATUS_MAX@{SQLITE\_\-DBSTATUS\_\-MAX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBSTATUS\_\-MAX~3}\label{sqlite3_8h_b8bb7b1f3ab2cd71cdcad01ef94948a4}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBSTATUS_SCHEMA_USED@{SQLITE\_\-DBSTATUS\_\-SCHEMA\_\-USED}}
+\index{SQLITE_DBSTATUS_SCHEMA_USED@{SQLITE\_\-DBSTATUS\_\-SCHEMA\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBSTATUS\_\-SCHEMA\_\-USED~2}\label{sqlite3_8h_fa5092e74cb040f2c221f7682d5b2226}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DBSTATUS_STMT_USED@{SQLITE\_\-DBSTATUS\_\-STMT\_\-USED}}
+\index{SQLITE_DBSTATUS_STMT_USED@{SQLITE\_\-DBSTATUS\_\-STMT\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DBSTATUS\_\-STMT\_\-USED~3}\label{sqlite3_8h_3afa0ff990a0bbb3d69bd11277601a5c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DELETE@{SQLITE\_\-DELETE}}
+\index{SQLITE_DELETE@{SQLITE\_\-DELETE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DELETE~9}\label{sqlite3_8h_cf24a0c2e5af75587e00a60dfa932965}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DENY@{SQLITE\_\-DENY}}
+\index{SQLITE_DENY@{SQLITE\_\-DENY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DENY~1}\label{sqlite3_8h_02dc41b3a645c587b1485b5115047fd9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DEPRECATED@{SQLITE\_\-DEPRECATED}}
+\index{SQLITE_DEPRECATED@{SQLITE\_\-DEPRECATED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DEPRECATED}\label{sqlite3_8h_1a25528452e571babd728f83770d3f05}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DETACH@{SQLITE\_\-DETACH}}
+\index{SQLITE_DETACH@{SQLITE\_\-DETACH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DETACH~25}\label{sqlite3_8h_b7ba7833f6030439286e82e276eb45da}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DONE@{SQLITE\_\-DONE}}
+\index{SQLITE_DONE@{SQLITE\_\-DONE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DONE~101}\label{sqlite3_8h_83d7497a28bf7c774e5e7a20bcdf0999}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_INDEX@{SQLITE\_\-DROP\_\-INDEX}}
+\index{SQLITE_DROP_INDEX@{SQLITE\_\-DROP\_\-INDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-INDEX~10}\label{sqlite3_8h_f0bb0466ef8d22d3041d598c3043d505}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TABLE@{SQLITE\_\-DROP\_\-TABLE}}
+\index{SQLITE_DROP_TABLE@{SQLITE\_\-DROP\_\-TABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TABLE~11}\label{sqlite3_8h_551b028ac40059bdfea45f7ec54b372f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TEMP_INDEX@{SQLITE\_\-DROP\_\-TEMP\_\-INDEX}}
+\index{SQLITE_DROP_TEMP_INDEX@{SQLITE\_\-DROP\_\-TEMP\_\-INDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TEMP\_\-INDEX~12}\label{sqlite3_8h_55502a3c2cd2f53bcad3f604f2f6b6a0}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TEMP_TABLE@{SQLITE\_\-DROP\_\-TEMP\_\-TABLE}}
+\index{SQLITE_DROP_TEMP_TABLE@{SQLITE\_\-DROP\_\-TEMP\_\-TABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TEMP\_\-TABLE~13}\label{sqlite3_8h_c7a74168a03bfb8989a076456bd5eecd}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TEMP_TRIGGER@{SQLITE\_\-DROP\_\-TEMP\_\-TRIGGER}}
+\index{SQLITE_DROP_TEMP_TRIGGER@{SQLITE\_\-DROP\_\-TEMP\_\-TRIGGER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TEMP\_\-TRIGGER~14}\label{sqlite3_8h_6e0411131f7b3e35295ddb11627acdb1}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TEMP_VIEW@{SQLITE\_\-DROP\_\-TEMP\_\-VIEW}}
+\index{SQLITE_DROP_TEMP_VIEW@{SQLITE\_\-DROP\_\-TEMP\_\-VIEW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TEMP\_\-VIEW~15}\label{sqlite3_8h_17d027cbb18d8eac462bdb5ac4b9d2ea}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_TRIGGER@{SQLITE\_\-DROP\_\-TRIGGER}}
+\index{SQLITE_DROP_TRIGGER@{SQLITE\_\-DROP\_\-TRIGGER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-TRIGGER~16}\label{sqlite3_8h_058a9d15eb2c8250725a8df9b22c0ab2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_VIEW@{SQLITE\_\-DROP\_\-VIEW}}
+\index{SQLITE_DROP_VIEW@{SQLITE\_\-DROP\_\-VIEW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-VIEW~17}\label{sqlite3_8h_be551a36f53fc4ac2285c6e5b376c6dd}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_DROP_VTABLE@{SQLITE\_\-DROP\_\-VTABLE}}
+\index{SQLITE_DROP_VTABLE@{SQLITE\_\-DROP\_\-VTABLE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-DROP\_\-VTABLE~30}\label{sqlite3_8h_218e5ddedc30622cc3bd9cd87cae5c72}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_EMPTY@{SQLITE\_\-EMPTY}}
+\index{SQLITE_EMPTY@{SQLITE\_\-EMPTY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-EMPTY~16}\label{sqlite3_8h_b0d5601045257f18149971a7f8f1e92f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ERROR@{SQLITE\_\-ERROR}}
+\index{SQLITE_ERROR@{SQLITE\_\-ERROR}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ERROR~1}\label{sqlite3_8h_7e59e26d217c2172cb4aa773b9646314}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_EXPERIMENTAL@{SQLITE\_\-EXPERIMENTAL}}
+\index{SQLITE_EXPERIMENTAL@{SQLITE\_\-EXPERIMENTAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-EXPERIMENTAL}\label{sqlite3_8h_ecb7b86a178a629f10d35559aa879dd2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_EXTERN@{SQLITE\_\-EXTERN}}
+\index{SQLITE_EXTERN@{SQLITE\_\-EXTERN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-EXTERN~extern}\label{sqlite3_8h_36c6f788f3f1b3397c31bd6fb9d43ce7}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FCNTL_CHUNK_SIZE@{SQLITE\_\-FCNTL\_\-CHUNK\_\-SIZE}}
+\index{SQLITE_FCNTL_CHUNK_SIZE@{SQLITE\_\-FCNTL\_\-CHUNK\_\-SIZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FCNTL\_\-CHUNK\_\-SIZE~6}\label{sqlite3_8h_1faa3c747186e8c44f0d0e8f9ed0051b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FCNTL_LOCKSTATE@{SQLITE\_\-FCNTL\_\-LOCKSTATE}}
+\index{SQLITE_FCNTL_LOCKSTATE@{SQLITE\_\-FCNTL\_\-LOCKSTATE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FCNTL\_\-LOCKSTATE~1}\label{sqlite3_8h_e9a0ea5494582083930f1f2ee9f8d6e5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FCNTL_SIZE_HINT@{SQLITE\_\-FCNTL\_\-SIZE\_\-HINT}}
+\index{SQLITE_FCNTL_SIZE_HINT@{SQLITE\_\-FCNTL\_\-SIZE\_\-HINT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FCNTL\_\-SIZE\_\-HINT~5}\label{sqlite3_8h_1265d1f343a1725264f841fc3551be74}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FLOAT@{SQLITE\_\-FLOAT}}
+\index{SQLITE_FLOAT@{SQLITE\_\-FLOAT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FLOAT~2}\label{sqlite3_8h_0a7204d8285ebe83d50cf8ae8401f030}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FORMAT@{SQLITE\_\-FORMAT}}
+\index{SQLITE_FORMAT@{SQLITE\_\-FORMAT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FORMAT~24}\label{sqlite3_8h_6254e07bd36a3c7b3a0ae2e64c853de3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FULL@{SQLITE\_\-FULL}}
+\index{SQLITE_FULL@{SQLITE\_\-FULL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FULL~13}\label{sqlite3_8h_7aa5a7ca41f5f0bf43f7eaa98ea48341}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_FUNCTION@{SQLITE\_\-FUNCTION}}
+\index{SQLITE_FUNCTION@{SQLITE\_\-FUNCTION}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-FUNCTION~31}\label{sqlite3_8h_cbef9cc2d59ecad3314dca7ef5ff490e}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_GET_LOCKPROXYFILE@{SQLITE\_\-GET\_\-LOCKPROXYFILE}}
+\index{SQLITE_GET_LOCKPROXYFILE@{SQLITE\_\-GET\_\-LOCKPROXYFILE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-GET\_\-LOCKPROXYFILE~2}\label{sqlite3_8h_50048b4fbd6bbf077d0290b6ac5070cf}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IGNORE@{SQLITE\_\-IGNORE}}
+\index{SQLITE_IGNORE@{SQLITE\_\-IGNORE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IGNORE~2}\label{sqlite3_8h_5f935aec31c73abd4dec8510d860a790}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_EQ@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-EQ}}
+\index{SQLITE_INDEX_CONSTRAINT_EQ@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-EQ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-EQ~2}\label{sqlite3_8h_69a2a186fb8bf3fd9064fefc7e7f2a61}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_GE@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GE}}
+\index{SQLITE_INDEX_CONSTRAINT_GE@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GE~32}\label{sqlite3_8h_85a8a488eb749f66e99b48acb8f72657}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_GT@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GT}}
+\index{SQLITE_INDEX_CONSTRAINT_GT@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-GT~4}\label{sqlite3_8h_efdf5e5abc134748441594216cffefdd}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_LE@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LE}}
+\index{SQLITE_INDEX_CONSTRAINT_LE@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LE~8}\label{sqlite3_8h_3565ba6d3d32795c677832f67caeffb5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_LT@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LT}}
+\index{SQLITE_INDEX_CONSTRAINT_LT@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-LT~16}\label{sqlite3_8h_554e2a0837dc83f6dac9973cdd1ddb7f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INDEX_CONSTRAINT_MATCH@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-MATCH}}
+\index{SQLITE_INDEX_CONSTRAINT_MATCH@{SQLITE\_\-INDEX\_\-CONSTRAINT\_\-MATCH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INDEX\_\-CONSTRAINT\_\-MATCH~64}\label{sqlite3_8h_c5e37a86063f1e33170919decc076728}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INSERT@{SQLITE\_\-INSERT}}
+\index{SQLITE_INSERT@{SQLITE\_\-INSERT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INSERT~18}\label{sqlite3_8h_ffae072081f8ad29c8751cf375445887}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INTEGER@{SQLITE\_\-INTEGER}}
+\index{SQLITE_INTEGER@{SQLITE\_\-INTEGER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INTEGER~1}\label{sqlite3_8h_d4e3226f51bfdc6b23805ed57211f80a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INTERNAL@{SQLITE\_\-INTERNAL}}
+\index{SQLITE_INTERNAL@{SQLITE\_\-INTERNAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INTERNAL~2}\label{sqlite3_8h_b8ad826806034ec7a7e78c72319b658c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_INTERRUPT@{SQLITE\_\-INTERRUPT}}
+\index{SQLITE_INTERRUPT@{SQLITE\_\-INTERRUPT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-INTERRUPT~9}\label{sqlite3_8h_986b8573e7176b0b32b470070f7a720b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC@{SQLITE\_\-IOCAP\_\-ATOMIC}}
+\index{SQLITE_IOCAP_ATOMIC@{SQLITE\_\-IOCAP\_\-ATOMIC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC~0x00000001}\label{sqlite3_8h_da6a19862bdd924191d9a70a147586f4}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC16K@{SQLITE\_\-IOCAP\_\-ATOMIC16K}}
+\index{SQLITE_IOCAP_ATOMIC16K@{SQLITE\_\-IOCAP\_\-ATOMIC16K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC16K~0x00000040}\label{sqlite3_8h_9adc0847da46a49d142b61ceb905a36a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC1K@{SQLITE\_\-IOCAP\_\-ATOMIC1K}}
+\index{SQLITE_IOCAP_ATOMIC1K@{SQLITE\_\-IOCAP\_\-ATOMIC1K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC1K~0x00000004}\label{sqlite3_8h_6274cf01d1939553dfebb229faa23aa9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC2K@{SQLITE\_\-IOCAP\_\-ATOMIC2K}}
+\index{SQLITE_IOCAP_ATOMIC2K@{SQLITE\_\-IOCAP\_\-ATOMIC2K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC2K~0x00000008}\label{sqlite3_8h_d73f5157934856293260547e7ee53d00}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC32K@{SQLITE\_\-IOCAP\_\-ATOMIC32K}}
+\index{SQLITE_IOCAP_ATOMIC32K@{SQLITE\_\-IOCAP\_\-ATOMIC32K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC32K~0x00000080}\label{sqlite3_8h_ef9c7f9b31bc9870d52a9e19568e4cc2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC4K@{SQLITE\_\-IOCAP\_\-ATOMIC4K}}
+\index{SQLITE_IOCAP_ATOMIC4K@{SQLITE\_\-IOCAP\_\-ATOMIC4K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC4K~0x00000010}\label{sqlite3_8h_0c6ada9ed3dcb5a65214a657f5c7460f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC512@{SQLITE\_\-IOCAP\_\-ATOMIC512}}
+\index{SQLITE_IOCAP_ATOMIC512@{SQLITE\_\-IOCAP\_\-ATOMIC512}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC512~0x00000002}\label{sqlite3_8h_1e3a458775db3fdacda33417f26842ac}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC64K@{SQLITE\_\-IOCAP\_\-ATOMIC64K}}
+\index{SQLITE_IOCAP_ATOMIC64K@{SQLITE\_\-IOCAP\_\-ATOMIC64K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC64K~0x00000100}\label{sqlite3_8h_0190f25737369a906604d14412675d7c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_ATOMIC8K@{SQLITE\_\-IOCAP\_\-ATOMIC8K}}
+\index{SQLITE_IOCAP_ATOMIC8K@{SQLITE\_\-IOCAP\_\-ATOMIC8K}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-ATOMIC8K~0x00000020}\label{sqlite3_8h_1e2edcf90ba217d02b1f5f89c79b5e21}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_SAFE_APPEND@{SQLITE\_\-IOCAP\_\-SAFE\_\-APPEND}}
+\index{SQLITE_IOCAP_SAFE_APPEND@{SQLITE\_\-IOCAP\_\-SAFE\_\-APPEND}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-SAFE\_\-APPEND~0x00000200}\label{sqlite3_8h_b542b4465504ef1bec763e2586af1255}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_SEQUENTIAL@{SQLITE\_\-IOCAP\_\-SEQUENTIAL}}
+\index{SQLITE_IOCAP_SEQUENTIAL@{SQLITE\_\-IOCAP\_\-SEQUENTIAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-SEQUENTIAL~0x00000400}\label{sqlite3_8h_b4542bda2c42fca3289a08cff27e8846}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOCAP_UNDELETABLE_WHEN_OPEN@{SQLITE\_\-IOCAP\_\-UNDELETABLE\_\-WHEN\_\-OPEN}}
+\index{SQLITE_IOCAP_UNDELETABLE_WHEN_OPEN@{SQLITE\_\-IOCAP\_\-UNDELETABLE\_\-WHEN\_\-OPEN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOCAP\_\-UNDELETABLE\_\-WHEN\_\-OPEN~0x00000800}\label{sqlite3_8h_ee34bde6d39fa1b3f645504648582357}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR@{SQLITE\_\-IOERR}}
+\index{SQLITE_IOERR@{SQLITE\_\-IOERR}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR~10}\label{sqlite3_8h_4cd16f7dee3df28cc812607aeb011812}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_ACCESS@{SQLITE\_\-IOERR\_\-ACCESS}}
+\index{SQLITE_IOERR_ACCESS@{SQLITE\_\-IOERR\_\-ACCESS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-ACCESS~(SQLITE\_\-IOERR $|$ (13$<$$<$8))}\label{sqlite3_8h_844b43596f2ab66cb1f7af3974b42e01}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_BLOCKED@{SQLITE\_\-IOERR\_\-BLOCKED}}
+\index{SQLITE_IOERR_BLOCKED@{SQLITE\_\-IOERR\_\-BLOCKED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-BLOCKED~(SQLITE\_\-IOERR $|$ (11$<$$<$8))}\label{sqlite3_8h_d83baa3519e86c26bb878955e62a41de}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_CHECKRESERVEDLOCK@{SQLITE\_\-IOERR\_\-CHECKRESERVEDLOCK}}
+\index{SQLITE_IOERR_CHECKRESERVEDLOCK@{SQLITE\_\-IOERR\_\-CHECKRESERVEDLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-CHECKRESERVEDLOCK~(SQLITE\_\-IOERR $|$ (14$<$$<$8))}\label{sqlite3_8h_42e5ede83feddc2d783f305b53f4b941}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_CLOSE@{SQLITE\_\-IOERR\_\-CLOSE}}
+\index{SQLITE_IOERR_CLOSE@{SQLITE\_\-IOERR\_\-CLOSE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-CLOSE~(SQLITE\_\-IOERR $|$ (16$<$$<$8))}\label{sqlite3_8h_b923b1cd35a5b4420dcde7ed518c78f5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_DELETE@{SQLITE\_\-IOERR\_\-DELETE}}
+\index{SQLITE_IOERR_DELETE@{SQLITE\_\-IOERR\_\-DELETE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-DELETE~(SQLITE\_\-IOERR $|$ (10$<$$<$8))}\label{sqlite3_8h_e06c1f84722a4ea5e27051931915ca2c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_DIR_CLOSE@{SQLITE\_\-IOERR\_\-DIR\_\-CLOSE}}
+\index{SQLITE_IOERR_DIR_CLOSE@{SQLITE\_\-IOERR\_\-DIR\_\-CLOSE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-DIR\_\-CLOSE~(SQLITE\_\-IOERR $|$ (17$<$$<$8))}\label{sqlite3_8h_e1d7012ea10f3d25b1d2b3debefe6dd6}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_DIR_FSYNC@{SQLITE\_\-IOERR\_\-DIR\_\-FSYNC}}
+\index{SQLITE_IOERR_DIR_FSYNC@{SQLITE\_\-IOERR\_\-DIR\_\-FSYNC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-DIR\_\-FSYNC~(SQLITE\_\-IOERR $|$ (5$<$$<$8))}\label{sqlite3_8h_dab4ae1c800b81ee176308e408e58bc3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_FSTAT@{SQLITE\_\-IOERR\_\-FSTAT}}
+\index{SQLITE_IOERR_FSTAT@{SQLITE\_\-IOERR\_\-FSTAT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-FSTAT~(SQLITE\_\-IOERR $|$ (7$<$$<$8))}\label{sqlite3_8h_b531be158c778f360b43a06822605bee}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_FSYNC@{SQLITE\_\-IOERR\_\-FSYNC}}
+\index{SQLITE_IOERR_FSYNC@{SQLITE\_\-IOERR\_\-FSYNC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-FSYNC~(SQLITE\_\-IOERR $|$ (4$<$$<$8))}\label{sqlite3_8h_b172546476a9749e64fcfd57436037e0}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_LOCK@{SQLITE\_\-IOERR\_\-LOCK}}
+\index{SQLITE_IOERR_LOCK@{SQLITE\_\-IOERR\_\-LOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-LOCK~(SQLITE\_\-IOERR $|$ (15$<$$<$8))}\label{sqlite3_8h_4986fb949839abfe5b10adb31cb6e43b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_NOMEM@{SQLITE\_\-IOERR\_\-NOMEM}}
+\index{SQLITE_IOERR_NOMEM@{SQLITE\_\-IOERR\_\-NOMEM}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-NOMEM~(SQLITE\_\-IOERR $|$ (12$<$$<$8))}\label{sqlite3_8h_0b352a1df498103bda6d1ce46a4396c3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_RDLOCK@{SQLITE\_\-IOERR\_\-RDLOCK}}
+\index{SQLITE_IOERR_RDLOCK@{SQLITE\_\-IOERR\_\-RDLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-RDLOCK~(SQLITE\_\-IOERR $|$ (9$<$$<$8))}\label{sqlite3_8h_93d8c0785f129c4cb378b1f98d852921}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_READ@{SQLITE\_\-IOERR\_\-READ}}
+\index{SQLITE_IOERR_READ@{SQLITE\_\-IOERR\_\-READ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-READ~(SQLITE\_\-IOERR $|$ (1$<$$<$8))}\label{sqlite3_8h_1d64b5bc6f72d1a8b67e5a9a38555222}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_SHMLOCK@{SQLITE\_\-IOERR\_\-SHMLOCK}}
+\index{SQLITE_IOERR_SHMLOCK@{SQLITE\_\-IOERR\_\-SHMLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-SHMLOCK~(SQLITE\_\-IOERR $|$ (20$<$$<$8))}\label{sqlite3_8h_5c6e82ee66ce7b5cf7646b15b61f658f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_SHMOPEN@{SQLITE\_\-IOERR\_\-SHMOPEN}}
+\index{SQLITE_IOERR_SHMOPEN@{SQLITE\_\-IOERR\_\-SHMOPEN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-SHMOPEN~(SQLITE\_\-IOERR $|$ (18$<$$<$8))}\label{sqlite3_8h_4c024c6b9d8059f15fd15a5c72f0d6f3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_SHMSIZE@{SQLITE\_\-IOERR\_\-SHMSIZE}}
+\index{SQLITE_IOERR_SHMSIZE@{SQLITE\_\-IOERR\_\-SHMSIZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-SHMSIZE~(SQLITE\_\-IOERR $|$ (19$<$$<$8))}\label{sqlite3_8h_f5dd24ce8f9572b3c7487f5c263fffd6}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_SHORT_READ@{SQLITE\_\-IOERR\_\-SHORT\_\-READ}}
+\index{SQLITE_IOERR_SHORT_READ@{SQLITE\_\-IOERR\_\-SHORT\_\-READ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-SHORT\_\-READ~(SQLITE\_\-IOERR $|$ (2$<$$<$8))}\label{sqlite3_8h_3ee906a3809b57e056196c0b0a17f4cb}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_TRUNCATE@{SQLITE\_\-IOERR\_\-TRUNCATE}}
+\index{SQLITE_IOERR_TRUNCATE@{SQLITE\_\-IOERR\_\-TRUNCATE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-TRUNCATE~(SQLITE\_\-IOERR $|$ (6$<$$<$8))}\label{sqlite3_8h_6a8d45ececeda76dd401a996ebbc2292}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_UNLOCK@{SQLITE\_\-IOERR\_\-UNLOCK}}
+\index{SQLITE_IOERR_UNLOCK@{SQLITE\_\-IOERR\_\-UNLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-UNLOCK~(SQLITE\_\-IOERR $|$ (8$<$$<$8))}\label{sqlite3_8h_b8c052efade06c57c8599d102d873788}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_IOERR_WRITE@{SQLITE\_\-IOERR\_\-WRITE}}
+\index{SQLITE_IOERR_WRITE@{SQLITE\_\-IOERR\_\-WRITE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-IOERR\_\-WRITE~(SQLITE\_\-IOERR $|$ (3$<$$<$8))}\label{sqlite3_8h_2a7a1245146c894650dc7efba4c7f675}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LAST_ERRNO@{SQLITE\_\-LAST\_\-ERRNO}}
+\index{SQLITE_LAST_ERRNO@{SQLITE\_\-LAST\_\-ERRNO}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LAST\_\-ERRNO~4}\label{sqlite3_8h_65c4dc68a9fabfea23dad096693fc90f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_ATTACHED@{SQLITE\_\-LIMIT\_\-ATTACHED}}
+\index{SQLITE_LIMIT_ATTACHED@{SQLITE\_\-LIMIT\_\-ATTACHED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-ATTACHED~7}\label{sqlite3_8h_41ba8818821b70d04298700106622881}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_COLUMN@{SQLITE\_\-LIMIT\_\-COLUMN}}
+\index{SQLITE_LIMIT_COLUMN@{SQLITE\_\-LIMIT\_\-COLUMN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-COLUMN~2}\label{sqlite3_8h_5243a2d1f3abd4784f42f2194a1a8ab3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_COMPOUND_SELECT@{SQLITE\_\-LIMIT\_\-COMPOUND\_\-SELECT}}
+\index{SQLITE_LIMIT_COMPOUND_SELECT@{SQLITE\_\-LIMIT\_\-COMPOUND\_\-SELECT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-COMPOUND\_\-SELECT~4}\label{sqlite3_8h_af4ea9137856c2b1c3f424e73fc624ef}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_EXPR_DEPTH@{SQLITE\_\-LIMIT\_\-EXPR\_\-DEPTH}}
+\index{SQLITE_LIMIT_EXPR_DEPTH@{SQLITE\_\-LIMIT\_\-EXPR\_\-DEPTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-EXPR\_\-DEPTH~3}\label{sqlite3_8h_1a011d60c5f4601f8a73d2ecee300a09}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_FUNCTION_ARG@{SQLITE\_\-LIMIT\_\-FUNCTION\_\-ARG}}
+\index{SQLITE_LIMIT_FUNCTION_ARG@{SQLITE\_\-LIMIT\_\-FUNCTION\_\-ARG}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-FUNCTION\_\-ARG~6}\label{sqlite3_8h_14eca5ecb1e123c0848cc7825a16515c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_LENGTH@{SQLITE\_\-LIMIT\_\-LENGTH}}
+\index{SQLITE_LIMIT_LENGTH@{SQLITE\_\-LIMIT\_\-LENGTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-LENGTH~0}\label{sqlite3_8h_39af7f0a8ecd47da6c8151b5d6534b8d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_LIKE_PATTERN_LENGTH@{SQLITE\_\-LIMIT\_\-LIKE\_\-PATTERN\_\-LENGTH}}
+\index{SQLITE_LIMIT_LIKE_PATTERN_LENGTH@{SQLITE\_\-LIMIT\_\-LIKE\_\-PATTERN\_\-LENGTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-LIKE\_\-PATTERN\_\-LENGTH~8}\label{sqlite3_8h_d37be6827407c34146e90a14227665e1}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_SQL_LENGTH@{SQLITE\_\-LIMIT\_\-SQL\_\-LENGTH}}
+\index{SQLITE_LIMIT_SQL_LENGTH@{SQLITE\_\-LIMIT\_\-SQL\_\-LENGTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-SQL\_\-LENGTH~1}\label{sqlite3_8h_d4ab7a9bf94d5fa0d67c5a59446956e1}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_TRIGGER_DEPTH@{SQLITE\_\-LIMIT\_\-TRIGGER\_\-DEPTH}}
+\index{SQLITE_LIMIT_TRIGGER_DEPTH@{SQLITE\_\-LIMIT\_\-TRIGGER\_\-DEPTH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-TRIGGER\_\-DEPTH~10}\label{sqlite3_8h_0953eacd122961a497152270bf99a06d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_VARIABLE_NUMBER@{SQLITE\_\-LIMIT\_\-VARIABLE\_\-NUMBER}}
+\index{SQLITE_LIMIT_VARIABLE_NUMBER@{SQLITE\_\-LIMIT\_\-VARIABLE\_\-NUMBER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-VARIABLE\_\-NUMBER~9}\label{sqlite3_8h_1de692bce381f1592f0d2b063291d9ae}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LIMIT_VDBE_OP@{SQLITE\_\-LIMIT\_\-VDBE\_\-OP}}
+\index{SQLITE_LIMIT_VDBE_OP@{SQLITE\_\-LIMIT\_\-VDBE\_\-OP}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LIMIT\_\-VDBE\_\-OP~5}\label{sqlite3_8h_b47ab04dec1e0decea4485d6ba68fd73}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCK_EXCLUSIVE@{SQLITE\_\-LOCK\_\-EXCLUSIVE}}
+\index{SQLITE_LOCK_EXCLUSIVE@{SQLITE\_\-LOCK\_\-EXCLUSIVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCK\_\-EXCLUSIVE~4}\label{sqlite3_8h_89d26f2158707d4cd44ac218b1dd7ca4}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCK_NONE@{SQLITE\_\-LOCK\_\-NONE}}
+\index{SQLITE_LOCK_NONE@{SQLITE\_\-LOCK\_\-NONE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCK\_\-NONE~0}\label{sqlite3_8h_def0e83ee5ad294128f41de6c08cd5df}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCK_PENDING@{SQLITE\_\-LOCK\_\-PENDING}}
+\index{SQLITE_LOCK_PENDING@{SQLITE\_\-LOCK\_\-PENDING}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCK\_\-PENDING~3}\label{sqlite3_8h_1eb578d753b376874142dcc1adc25979}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCK_RESERVED@{SQLITE\_\-LOCK\_\-RESERVED}}
+\index{SQLITE_LOCK_RESERVED@{SQLITE\_\-LOCK\_\-RESERVED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCK\_\-RESERVED~2}\label{sqlite3_8h_58df948c4c13c6ddecff058ca0867d33}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCK_SHARED@{SQLITE\_\-LOCK\_\-SHARED}}
+\index{SQLITE_LOCK_SHARED@{SQLITE\_\-LOCK\_\-SHARED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCK\_\-SHARED~1}\label{sqlite3_8h_d5037630796950fc66798f25beb45cdd}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCKED@{SQLITE\_\-LOCKED}}
+\index{SQLITE_LOCKED@{SQLITE\_\-LOCKED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCKED~6}\label{sqlite3_8h_6ce824c2e769737029fc679991f2f190}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_LOCKED_SHAREDCACHE@{SQLITE\_\-LOCKED\_\-SHAREDCACHE}}
+\index{SQLITE_LOCKED_SHAREDCACHE@{SQLITE\_\-LOCKED\_\-SHAREDCACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-LOCKED\_\-SHAREDCACHE~(SQLITE\_\-LOCKED $|$  (1$<$$<$8))}\label{sqlite3_8h_51e8165573d6d91a38db4839e4dd81a9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MISMATCH@{SQLITE\_\-MISMATCH}}
+\index{SQLITE_MISMATCH@{SQLITE\_\-MISMATCH}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MISMATCH~20}\label{sqlite3_8h_2eabca49522c4372b03bb73c4bd32ed8}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MISUSE@{SQLITE\_\-MISUSE}}
+\index{SQLITE_MISUSE@{SQLITE\_\-MISUSE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MISUSE~21}\label{sqlite3_8h_26ec80ee32d3c8e2c5de430ebd995b97}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_FAST@{SQLITE\_\-MUTEX\_\-FAST}}
+\index{SQLITE_MUTEX_FAST@{SQLITE\_\-MUTEX\_\-FAST}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-FAST~0}\label{sqlite3_8h_039da15c5b2f66faa7d9da6581c51ee5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_RECURSIVE@{SQLITE\_\-MUTEX\_\-RECURSIVE}}
+\index{SQLITE_MUTEX_RECURSIVE@{SQLITE\_\-MUTEX\_\-RECURSIVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-RECURSIVE~1}\label{sqlite3_8h_1cc2697ae103eb313278e723d90f121d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_LRU@{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU}}
+\index{SQLITE_MUTEX_STATIC_LRU@{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-LRU~6}\label{sqlite3_8h_271efa65c7a7f6e5169c236f8741bf66}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_LRU2@{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU2}}
+\index{SQLITE_MUTEX_STATIC_LRU2@{SQLITE\_\-MUTEX\_\-STATIC\_\-LRU2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-LRU2~7}\label{sqlite3_8h_1daa683c4bd724b6655ed009cd984b9f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_MASTER@{SQLITE\_\-MUTEX\_\-STATIC\_\-MASTER}}
+\index{SQLITE_MUTEX_STATIC_MASTER@{SQLITE\_\-MUTEX\_\-STATIC\_\-MASTER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-MASTER~2}\label{sqlite3_8h_def6c0b37338e13e61188110e83f5d08}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_MEM@{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM}}
+\index{SQLITE_MUTEX_STATIC_MEM@{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-MEM~3}\label{sqlite3_8h_3b63483b27ff97e6e347e4af16ffebe1}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_MEM2@{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM2}}
+\index{SQLITE_MUTEX_STATIC_MEM2@{SQLITE\_\-MUTEX\_\-STATIC\_\-MEM2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-MEM2~4}\label{sqlite3_8h_b1e4c2b646e5e1449790e747f08041f5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_OPEN@{SQLITE\_\-MUTEX\_\-STATIC\_\-OPEN}}
+\index{SQLITE_MUTEX_STATIC_OPEN@{SQLITE\_\-MUTEX\_\-STATIC\_\-OPEN}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-OPEN~4}\label{sqlite3_8h_7cb5647b5d0b282bb685f16fc31725f0}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_MUTEX_STATIC_PRNG@{SQLITE\_\-MUTEX\_\-STATIC\_\-PRNG}}
+\index{SQLITE_MUTEX_STATIC_PRNG@{SQLITE\_\-MUTEX\_\-STATIC\_\-PRNG}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-MUTEX\_\-STATIC\_\-PRNG~5}\label{sqlite3_8h_c9959de6dc9e368a95f5ecf45c44826f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_NOLFS@{SQLITE\_\-NOLFS}}
+\index{SQLITE_NOLFS@{SQLITE\_\-NOLFS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-NOLFS~22}\label{sqlite3_8h_e4aa0552ebe02b76b516534d2ae5ec78}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_NOMEM@{SQLITE\_\-NOMEM}}
+\index{SQLITE_NOMEM@{SQLITE\_\-NOMEM}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-NOMEM~7}\label{sqlite3_8h_93cc9244cdc8bcc2bc50bced17f83765}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_NOTADB@{SQLITE\_\-NOTADB}}
+\index{SQLITE_NOTADB@{SQLITE\_\-NOTADB}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-NOTADB~26}\label{sqlite3_8h_0c213e7657babb08b0ceaa71c94e2b1a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_NOTFOUND@{SQLITE\_\-NOTFOUND}}
+\index{SQLITE_NOTFOUND@{SQLITE\_\-NOTFOUND}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-NOTFOUND~12}\label{sqlite3_8h_0c5dc97de5b5687cfa8a8026709c1ba6}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_NULL@{SQLITE\_\-NULL}}
+\index{SQLITE_NULL@{SQLITE\_\-NULL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-NULL~5}\label{sqlite3_8h_73907bb69e1e768973f86c32c8af66de}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OK@{SQLITE\_\-OK}}
+\index{SQLITE_OK@{SQLITE\_\-OK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OK~0}\label{sqlite3_8h_e1eeb00c8b429a42e5822031a90f9aac}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_AUTOPROXY@{SQLITE\_\-OPEN\_\-AUTOPROXY}}
+\index{SQLITE_OPEN_AUTOPROXY@{SQLITE\_\-OPEN\_\-AUTOPROXY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-AUTOPROXY~0x00000020}\label{sqlite3_8h_5fddc8e34e19cc16d75cd5ef6aec9407}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_CREATE@{SQLITE\_\-OPEN\_\-CREATE}}
+\index{SQLITE_OPEN_CREATE@{SQLITE\_\-OPEN\_\-CREATE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-CREATE~0x00000004}\label{sqlite3_8h_1ebd1382673919f2cd831db04ebdbe2a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_DELETEONCLOSE@{SQLITE\_\-OPEN\_\-DELETEONCLOSE}}
+\index{SQLITE_OPEN_DELETEONCLOSE@{SQLITE\_\-OPEN\_\-DELETEONCLOSE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-DELETEONCLOSE~0x00000008}\label{sqlite3_8h_78bb62659a0e28867a29f830fce8db3d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_EXCLUSIVE@{SQLITE\_\-OPEN\_\-EXCLUSIVE}}
+\index{SQLITE_OPEN_EXCLUSIVE@{SQLITE\_\-OPEN\_\-EXCLUSIVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-EXCLUSIVE~0x00000010}\label{sqlite3_8h_045145c85cbac2c3ee6c6f0fc42e28e9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_FULLMUTEX@{SQLITE\_\-OPEN\_\-FULLMUTEX}}
+\index{SQLITE_OPEN_FULLMUTEX@{SQLITE\_\-OPEN\_\-FULLMUTEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-FULLMUTEX~0x00010000}\label{sqlite3_8h_ff359762f46e8cbe7e17e587f8d27f01}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_MAIN_DB@{SQLITE\_\-OPEN\_\-MAIN\_\-DB}}
+\index{SQLITE_OPEN_MAIN_DB@{SQLITE\_\-OPEN\_\-MAIN\_\-DB}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-MAIN\_\-DB~0x00000100}\label{sqlite3_8h_dc30dea5a32dd3acd9bab0565856a90e}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_MAIN_JOURNAL@{SQLITE\_\-OPEN\_\-MAIN\_\-JOURNAL}}
+\index{SQLITE_OPEN_MAIN_JOURNAL@{SQLITE\_\-OPEN\_\-MAIN\_\-JOURNAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-MAIN\_\-JOURNAL~0x00000800}\label{sqlite3_8h_ce7350a6f1d650b72df4ade7326f37f6}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_MASTER_JOURNAL@{SQLITE\_\-OPEN\_\-MASTER\_\-JOURNAL}}
+\index{SQLITE_OPEN_MASTER_JOURNAL@{SQLITE\_\-OPEN\_\-MASTER\_\-JOURNAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-MASTER\_\-JOURNAL~0x00004000}\label{sqlite3_8h_f4ac5f40b38f69dfb545199247209d16}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_NOMUTEX@{SQLITE\_\-OPEN\_\-NOMUTEX}}
+\index{SQLITE_OPEN_NOMUTEX@{SQLITE\_\-OPEN\_\-NOMUTEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-NOMUTEX~0x00008000}\label{sqlite3_8h_7c3b7c4091bb8638574f8fe16a3847f3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_PRIVATECACHE@{SQLITE\_\-OPEN\_\-PRIVATECACHE}}
+\index{SQLITE_OPEN_PRIVATECACHE@{SQLITE\_\-OPEN\_\-PRIVATECACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-PRIVATECACHE~0x00040000}\label{sqlite3_8h_fffc5aad256084dcadc54ba09a1ee619}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_READONLY@{SQLITE\_\-OPEN\_\-READONLY}}
+\index{SQLITE_OPEN_READONLY@{SQLITE\_\-OPEN\_\-READONLY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-READONLY~0x00000001}\label{sqlite3_8h_3d60e202d375f4b30ff34aeea391cec5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_READWRITE@{SQLITE\_\-OPEN\_\-READWRITE}}
+\index{SQLITE_OPEN_READWRITE@{SQLITE\_\-OPEN\_\-READWRITE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-READWRITE~0x00000002}\label{sqlite3_8h_b3608ecb15345192c5165ad08491e14b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_SHAREDCACHE@{SQLITE\_\-OPEN\_\-SHAREDCACHE}}
+\index{SQLITE_OPEN_SHAREDCACHE@{SQLITE\_\-OPEN\_\-SHAREDCACHE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-SHAREDCACHE~0x00020000}\label{sqlite3_8h_56524036ace495bd165baba672f8239f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_SUBJOURNAL@{SQLITE\_\-OPEN\_\-SUBJOURNAL}}
+\index{SQLITE_OPEN_SUBJOURNAL@{SQLITE\_\-OPEN\_\-SUBJOURNAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-SUBJOURNAL~0x00002000}\label{sqlite3_8h_328669e46b9eb13d78c4dd0f02945687}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_TEMP_DB@{SQLITE\_\-OPEN\_\-TEMP\_\-DB}}
+\index{SQLITE_OPEN_TEMP_DB@{SQLITE\_\-OPEN\_\-TEMP\_\-DB}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-TEMP\_\-DB~0x00000200}\label{sqlite3_8h_35917bfd29b1a3bd8d22eee6f6a066a4}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_TEMP_JOURNAL@{SQLITE\_\-OPEN\_\-TEMP\_\-JOURNAL}}
+\index{SQLITE_OPEN_TEMP_JOURNAL@{SQLITE\_\-OPEN\_\-TEMP\_\-JOURNAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-TEMP\_\-JOURNAL~0x00001000}\label{sqlite3_8h_926e4f4734765435704288440e172610}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_TRANSIENT_DB@{SQLITE\_\-OPEN\_\-TRANSIENT\_\-DB}}
+\index{SQLITE_OPEN_TRANSIENT_DB@{SQLITE\_\-OPEN\_\-TRANSIENT\_\-DB}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-TRANSIENT\_\-DB~0x00000400}\label{sqlite3_8h_d239ec22e0edf031f4486532e57c659a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_OPEN_WAL@{SQLITE\_\-OPEN\_\-WAL}}
+\index{SQLITE_OPEN_WAL@{SQLITE\_\-OPEN\_\-WAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-OPEN\_\-WAL~0x00080000}\label{sqlite3_8h_2bf3cfa938a48648726c8d75111f0b2e}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_PERM@{SQLITE\_\-PERM}}
+\index{SQLITE_PERM@{SQLITE\_\-PERM}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-PERM~3}\label{sqlite3_8h_37712540804b66b67ac8635f3aa1e7e3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_PRAGMA@{SQLITE\_\-PRAGMA}}
+\index{SQLITE_PRAGMA@{SQLITE\_\-PRAGMA}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-PRAGMA~19}\label{sqlite3_8h_d41f9ee47c2d6adffee3358d6620bb88}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_PROTOCOL@{SQLITE\_\-PROTOCOL}}
+\index{SQLITE_PROTOCOL@{SQLITE\_\-PROTOCOL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-PROTOCOL~15}\label{sqlite3_8h_d9a56ac88f24956d6cb4fd9ecfb5f768}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_RANGE@{SQLITE\_\-RANGE}}
+\index{SQLITE_RANGE@{SQLITE\_\-RANGE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-RANGE~25}\label{sqlite3_8h_79dc597e8013a6ac4da99a97884a3527}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_READ@{SQLITE\_\-READ}}
+\index{SQLITE_READ@{SQLITE\_\-READ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-READ~20}\label{sqlite3_8h_7acef3945759a94a1af6f374c2ac7bb5}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_READONLY@{SQLITE\_\-READONLY}}
+\index{SQLITE_READONLY@{SQLITE\_\-READONLY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-READONLY~8}\label{sqlite3_8h_88b2addb9c00382ffb0fda6253d95164}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_REINDEX@{SQLITE\_\-REINDEX}}
+\index{SQLITE_REINDEX@{SQLITE\_\-REINDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-REINDEX~27}\label{sqlite3_8h_ac719f4298cc722fca24b2f45ca289eb}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_ROW@{SQLITE\_\-ROW}}
+\index{SQLITE_ROW@{SQLITE\_\-ROW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-ROW~100}\label{sqlite3_8h_3f13624c642e00a276a7755b09963873}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SAVEPOINT@{SQLITE\_\-SAVEPOINT}}
+\index{SQLITE_SAVEPOINT@{SQLITE\_\-SAVEPOINT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SAVEPOINT~32}\label{sqlite3_8h_2c063192439360d98d277c221a31d63a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SCHEMA@{SQLITE\_\-SCHEMA}}
+\index{SQLITE_SCHEMA@{SQLITE\_\-SCHEMA}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SCHEMA~17}\label{sqlite3_8h_99884417ce18213eff14244711a729c0}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SELECT@{SQLITE\_\-SELECT}}
+\index{SQLITE_SELECT@{SQLITE\_\-SELECT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SELECT~21}\label{sqlite3_8h_77f89a1e51c2ea404930f8ea1b167475}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SET_LOCKPROXYFILE@{SQLITE\_\-SET\_\-LOCKPROXYFILE}}
+\index{SQLITE_SET_LOCKPROXYFILE@{SQLITE\_\-SET\_\-LOCKPROXYFILE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SET\_\-LOCKPROXYFILE~3}\label{sqlite3_8h_3cf452f032687ca4cd0073414837163d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SHM_EXCLUSIVE@{SQLITE\_\-SHM\_\-EXCLUSIVE}}
+\index{SQLITE_SHM_EXCLUSIVE@{SQLITE\_\-SHM\_\-EXCLUSIVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SHM\_\-EXCLUSIVE~8}\label{sqlite3_8h_f6fe741985e6b74eedb7c7719464dfeb}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SHM_LOCK@{SQLITE\_\-SHM\_\-LOCK}}
+\index{SQLITE_SHM_LOCK@{SQLITE\_\-SHM\_\-LOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SHM\_\-LOCK~2}\label{sqlite3_8h_f7ed841ae1333d902cbc2c43020e2643}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SHM_NLOCK@{SQLITE\_\-SHM\_\-NLOCK}}
+\index{SQLITE_SHM_NLOCK@{SQLITE\_\-SHM\_\-NLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SHM\_\-NLOCK~8}\label{sqlite3_8h_fbbe3a5346155a2ea23b9e9739e8a5f3}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SHM_SHARED@{SQLITE\_\-SHM\_\-SHARED}}
+\index{SQLITE_SHM_SHARED@{SQLITE\_\-SHM\_\-SHARED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SHM\_\-SHARED~4}\label{sqlite3_8h_d09decd0769872bcf3ba71e57f4b2978}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SHM_UNLOCK@{SQLITE\_\-SHM\_\-UNLOCK}}
+\index{SQLITE_SHM_UNLOCK@{SQLITE\_\-SHM\_\-UNLOCK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SHM\_\-UNLOCK~1}\label{sqlite3_8h_c525cff9ddca356d2a5c2a1736503299}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SOURCE_ID@{SQLITE\_\-SOURCE\_\-ID}}
+\index{SQLITE_SOURCE_ID@{SQLITE\_\-SOURCE\_\-ID}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SOURCE\_\-ID~\char`\"{}2010-10-08 02:34:02 2677848087c9c090efb17c1893e77d6136a9111d\char`\"{}}\label{sqlite3_8h_47210e63aa5476c5e3807394ee0dfb0b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATIC@{SQLITE\_\-STATIC}}
+\index{SQLITE_STATIC@{SQLITE\_\-STATIC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATIC~((\bf{sqlite3\_\-destructor\_\-type})0)}\label{sqlite3_8h_34baeecb1cbe87aaa1b78a53a9aa8b73}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_MALLOC_COUNT@{SQLITE\_\-STATUS\_\-MALLOC\_\-COUNT}}
+\index{SQLITE_STATUS_MALLOC_COUNT@{SQLITE\_\-STATUS\_\-MALLOC\_\-COUNT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-MALLOC\_\-COUNT~9}\label{sqlite3_8h_173012f8310c18708e2129e4e6b11a5d}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_MALLOC_SIZE@{SQLITE\_\-STATUS\_\-MALLOC\_\-SIZE}}
+\index{SQLITE_STATUS_MALLOC_SIZE@{SQLITE\_\-STATUS\_\-MALLOC\_\-SIZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-MALLOC\_\-SIZE~5}\label{sqlite3_8h_ff510bfedbd888cf48df904ed0655c26}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_MEMORY_USED@{SQLITE\_\-STATUS\_\-MEMORY\_\-USED}}
+\index{SQLITE_STATUS_MEMORY_USED@{SQLITE\_\-STATUS\_\-MEMORY\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-MEMORY\_\-USED~0}\label{sqlite3_8h_ed3dc834f0301e9a3e5e6e5b91fe7241}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_PAGECACHE_OVERFLOW@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-OVERFLOW}}
+\index{SQLITE_STATUS_PAGECACHE_OVERFLOW@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-OVERFLOW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-PAGECACHE\_\-OVERFLOW~2}\label{sqlite3_8h_1af6b119a37354b0a9e9617a14491910}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_PAGECACHE_SIZE@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-SIZE}}
+\index{SQLITE_STATUS_PAGECACHE_SIZE@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-SIZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-PAGECACHE\_\-SIZE~7}\label{sqlite3_8h_de1663efbacf49074ce39972cbf7078c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_PAGECACHE_USED@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-USED}}
+\index{SQLITE_STATUS_PAGECACHE_USED@{SQLITE\_\-STATUS\_\-PAGECACHE\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-PAGECACHE\_\-USED~1}\label{sqlite3_8h_ff6f5d147639700bf16a0d17a737c4b2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_PARSER_STACK@{SQLITE\_\-STATUS\_\-PARSER\_\-STACK}}
+\index{SQLITE_STATUS_PARSER_STACK@{SQLITE\_\-STATUS\_\-PARSER\_\-STACK}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-PARSER\_\-STACK~6}\label{sqlite3_8h_afba77391ea45f55fb0c2702e1e79ea7}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_SCRATCH_OVERFLOW@{SQLITE\_\-STATUS\_\-SCRATCH\_\-OVERFLOW}}
+\index{SQLITE_STATUS_SCRATCH_OVERFLOW@{SQLITE\_\-STATUS\_\-SCRATCH\_\-OVERFLOW}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-SCRATCH\_\-OVERFLOW~4}\label{sqlite3_8h_0ce1db86f065dc0c352e4532eba70c4b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_SCRATCH_SIZE@{SQLITE\_\-STATUS\_\-SCRATCH\_\-SIZE}}
+\index{SQLITE_STATUS_SCRATCH_SIZE@{SQLITE\_\-STATUS\_\-SCRATCH\_\-SIZE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-SCRATCH\_\-SIZE~8}\label{sqlite3_8h_72633f7514dccf5375a6ed772f8b2c16}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STATUS_SCRATCH_USED@{SQLITE\_\-STATUS\_\-SCRATCH\_\-USED}}
+\index{SQLITE_STATUS_SCRATCH_USED@{SQLITE\_\-STATUS\_\-SCRATCH\_\-USED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STATUS\_\-SCRATCH\_\-USED~3}\label{sqlite3_8h_0491e14c4b4a6185818dd6867125d0f4}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STMTSTATUS_AUTOINDEX@{SQLITE\_\-STMTSTATUS\_\-AUTOINDEX}}
+\index{SQLITE_STMTSTATUS_AUTOINDEX@{SQLITE\_\-STMTSTATUS\_\-AUTOINDEX}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STMTSTATUS\_\-AUTOINDEX~3}\label{sqlite3_8h_6d1ac080c56efe68df577e2f779942cf}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STMTSTATUS_FULLSCAN_STEP@{SQLITE\_\-STMTSTATUS\_\-FULLSCAN\_\-STEP}}
+\index{SQLITE_STMTSTATUS_FULLSCAN_STEP@{SQLITE\_\-STMTSTATUS\_\-FULLSCAN\_\-STEP}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STMTSTATUS\_\-FULLSCAN\_\-STEP~1}\label{sqlite3_8h_7a74ee0343aaf045cdcfe1cfc76ada77}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_STMTSTATUS_SORT@{SQLITE\_\-STMTSTATUS\_\-SORT}}
+\index{SQLITE_STMTSTATUS_SORT@{SQLITE\_\-STMTSTATUS\_\-SORT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-STMTSTATUS\_\-SORT~2}\label{sqlite3_8h_03996c39f53cd3e6ea8470d015032d62}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SYNC_DATAONLY@{SQLITE\_\-SYNC\_\-DATAONLY}}
+\index{SQLITE_SYNC_DATAONLY@{SQLITE\_\-SYNC\_\-DATAONLY}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SYNC\_\-DATAONLY~0x00010}\label{sqlite3_8h_52a3557d1e7b53db2da95a2e36b13246}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SYNC_FULL@{SQLITE\_\-SYNC\_\-FULL}}
+\index{SQLITE_SYNC_FULL@{SQLITE\_\-SYNC\_\-FULL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SYNC\_\-FULL~0x00003}\label{sqlite3_8h_1ea4d3606a268bd0c8db44ba94c3be79}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_SYNC_NORMAL@{SQLITE\_\-SYNC\_\-NORMAL}}
+\index{SQLITE_SYNC_NORMAL@{SQLITE\_\-SYNC\_\-NORMAL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-SYNC\_\-NORMAL~0x00002}\label{sqlite3_8h_8c2dfd5ee7d089aa30ac0c542736a87b}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_ALWAYS@{SQLITE\_\-TESTCTRL\_\-ALWAYS}}
+\index{SQLITE_TESTCTRL_ALWAYS@{SQLITE\_\-TESTCTRL\_\-ALWAYS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-ALWAYS~13}\label{sqlite3_8h_c8733f2da0b79644f23c210ec7131ccc}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_ASSERT@{SQLITE\_\-TESTCTRL\_\-ASSERT}}
+\index{SQLITE_TESTCTRL_ASSERT@{SQLITE\_\-TESTCTRL\_\-ASSERT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-ASSERT~12}\label{sqlite3_8h_3c75c9deba79cd751eb7d2501ea58ed9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_BENIGN_MALLOC_HOOKS@{SQLITE\_\-TESTCTRL\_\-BENIGN\_\-MALLOC\_\-HOOKS}}
+\index{SQLITE_TESTCTRL_BENIGN_MALLOC_HOOKS@{SQLITE\_\-TESTCTRL\_\-BENIGN\_\-MALLOC\_\-HOOKS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-BENIGN\_\-MALLOC\_\-HOOKS~10}\label{sqlite3_8h_df0a3a08d30b5369d1bf1b4348119427}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_BITVEC_TEST@{SQLITE\_\-TESTCTRL\_\-BITVEC\_\-TEST}}
+\index{SQLITE_TESTCTRL_BITVEC_TEST@{SQLITE\_\-TESTCTRL\_\-BITVEC\_\-TEST}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-BITVEC\_\-TEST~8}\label{sqlite3_8h_281dae88fd8222815114b6f4160c3455}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_FAULT_INSTALL@{SQLITE\_\-TESTCTRL\_\-FAULT\_\-INSTALL}}
+\index{SQLITE_TESTCTRL_FAULT_INSTALL@{SQLITE\_\-TESTCTRL\_\-FAULT\_\-INSTALL}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-FAULT\_\-INSTALL~9}\label{sqlite3_8h_da86508db2f48c228ab2433021ca250a}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_FIRST@{SQLITE\_\-TESTCTRL\_\-FIRST}}
+\index{SQLITE_TESTCTRL_FIRST@{SQLITE\_\-TESTCTRL\_\-FIRST}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-FIRST~5}\label{sqlite3_8h_c04836288da51c9296d90fc4c0768b90}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_ISKEYWORD@{SQLITE\_\-TESTCTRL\_\-ISKEYWORD}}
+\index{SQLITE_TESTCTRL_ISKEYWORD@{SQLITE\_\-TESTCTRL\_\-ISKEYWORD}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-ISKEYWORD~16}\label{sqlite3_8h_9f47aeb0d4d30f3948bf2636a29b384f}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_LAST@{SQLITE\_\-TESTCTRL\_\-LAST}}
+\index{SQLITE_TESTCTRL_LAST@{SQLITE\_\-TESTCTRL\_\-LAST}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-LAST~18}\label{sqlite3_8h_b9e6b683841e0ff66e1e049f84b503a2}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_OPTIMIZATIONS@{SQLITE\_\-TESTCTRL\_\-OPTIMIZATIONS}}
+\index{SQLITE_TESTCTRL_OPTIMIZATIONS@{SQLITE\_\-TESTCTRL\_\-OPTIMIZATIONS}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-OPTIMIZATIONS~15}\label{sqlite3_8h_12efdcf2bcc45e86e3d2ecb1a1fdd3ed}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_PENDING_BYTE@{SQLITE\_\-TESTCTRL\_\-PENDING\_\-BYTE}}
+\index{SQLITE_TESTCTRL_PENDING_BYTE@{SQLITE\_\-TESTCTRL\_\-PENDING\_\-BYTE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-PENDING\_\-BYTE~11}\label{sqlite3_8h_1d862d171f040428b2240afade85fd82}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_PGHDRSZ@{SQLITE\_\-TESTCTRL\_\-PGHDRSZ}}
+\index{SQLITE_TESTCTRL_PGHDRSZ@{SQLITE\_\-TESTCTRL\_\-PGHDRSZ}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-PGHDRSZ~17}\label{sqlite3_8h_805a5091c5b05f6863175a563200f3d7}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_PRNG_RESET@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESET}}
+\index{SQLITE_TESTCTRL_PRNG_RESET@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESET}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESET~7}\label{sqlite3_8h_285e8524a5370c393b5f42af59750ca7}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_PRNG_RESTORE@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESTORE}}
+\index{SQLITE_TESTCTRL_PRNG_RESTORE@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESTORE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-PRNG\_\-RESTORE~6}\label{sqlite3_8h_7f0d06aabcaab7c1116dccbac42571c8}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_PRNG_SAVE@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-SAVE}}
+\index{SQLITE_TESTCTRL_PRNG_SAVE@{SQLITE\_\-TESTCTRL\_\-PRNG\_\-SAVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-PRNG\_\-SAVE~5}\label{sqlite3_8h_88d2d4cc9ea07f72adf1fb545cf07ef1}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_RESERVE@{SQLITE\_\-TESTCTRL\_\-RESERVE}}
+\index{SQLITE_TESTCTRL_RESERVE@{SQLITE\_\-TESTCTRL\_\-RESERVE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-RESERVE~14}\label{sqlite3_8h_e69e79d67b0dc833e1f741eddd775e75}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TESTCTRL_SCRATCHMALLOC@{SQLITE\_\-TESTCTRL\_\-SCRATCHMALLOC}}
+\index{SQLITE_TESTCTRL_SCRATCHMALLOC@{SQLITE\_\-TESTCTRL\_\-SCRATCHMALLOC}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TESTCTRL\_\-SCRATCHMALLOC~18}\label{sqlite3_8h_d573f05cc300dcf368e8977632da59f9}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TEXT@{SQLITE\_\-TEXT}}
+\index{SQLITE_TEXT@{SQLITE\_\-TEXT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TEXT~3}\label{sqlite3_8h_2225fb9a74c55408ce0366bd94b4e23c}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TOOBIG@{SQLITE\_\-TOOBIG}}
+\index{SQLITE_TOOBIG@{SQLITE\_\-TOOBIG}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TOOBIG~18}\label{sqlite3_8h_c5d47e0d3cc5b359117da90c686c2184}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TRANSACTION@{SQLITE\_\-TRANSACTION}}
+\index{SQLITE_TRANSACTION@{SQLITE\_\-TRANSACTION}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TRANSACTION~22}\label{sqlite3_8h_3b251812f43e442c80c38dd58554856e}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_TRANSIENT@{SQLITE\_\-TRANSIENT}}
+\index{SQLITE_TRANSIENT@{SQLITE\_\-TRANSIENT}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-TRANSIENT~((\bf{sqlite3\_\-destructor\_\-type})-1)}\label{sqlite3_8h_846cc64be8e81987adea36303d95efdf}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UPDATE@{SQLITE\_\-UPDATE}}
+\index{SQLITE_UPDATE@{SQLITE\_\-UPDATE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UPDATE~23}\label{sqlite3_8h_06417b912dbedf6208f2dd9c27695624}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UTF16@{SQLITE\_\-UTF16}}
+\index{SQLITE_UTF16@{SQLITE\_\-UTF16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UTF16~4}\label{sqlite3_8h_60c0988cac7b5d0f20115cbc9dafde33}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UTF16_ALIGNED@{SQLITE\_\-UTF16\_\-ALIGNED}}
+\index{SQLITE_UTF16_ALIGNED@{SQLITE\_\-UTF16\_\-ALIGNED}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UTF16\_\-ALIGNED~8}\label{sqlite3_8h_77777b6039a05b9bb2efde8c0c9d6708}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UTF16BE@{SQLITE\_\-UTF16BE}}
+\index{SQLITE_UTF16BE@{SQLITE\_\-UTF16BE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UTF16BE~3}\label{sqlite3_8h_a5a5084214e1269d52385c66acd6f53e}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UTF16LE@{SQLITE\_\-UTF16LE}}
+\index{SQLITE_UTF16LE@{SQLITE\_\-UTF16LE}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UTF16LE~2}\label{sqlite3_8h_fd5dc3e2ab9bf000eac2df0ba8bd9f83}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_UTF8@{SQLITE\_\-UTF8}}
+\index{SQLITE_UTF8@{SQLITE\_\-UTF8}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-UTF8~1}\label{sqlite3_8h_5db72ffce36aafd49b1ef50ea3d57888}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_VERSION@{SQLITE\_\-VERSION}}
+\index{SQLITE_VERSION@{SQLITE\_\-VERSION}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-VERSION~\char`\"{}3.7.3\char`\"{}}\label{sqlite3_8h_231ae983a8ed8c57a2faa95447378acc}
+
+
+\index{sqlite3.h@{sqlite3.h}!SQLITE_VERSION_NUMBER@{SQLITE\_\-VERSION\_\-NUMBER}}
+\index{SQLITE_VERSION_NUMBER@{SQLITE\_\-VERSION\_\-NUMBER}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define SQLITE\_\-VERSION\_\-NUMBER~3007003}\label{sqlite3_8h_b7e3b4fcf83c06c8d17228f49711a094}
+
+
+
+
+\subsection{Typedef Documentation}
+\index{sqlite3.h@{sqlite3.h}!sqlite3@{sqlite3}}
+\index{sqlite3@{sqlite3}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3} \bf{sqlite3}}\label{sqlite3_8h_4ee6db15c882c2876e8c8cbd52049439}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup@{sqlite3\_\-backup}}
+\index{sqlite3_backup@{sqlite3\_\-backup}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-backup} \bf{sqlite3\_\-backup}}\label{sqlite3_8h_d95ea459c3e284f61c9510a53d753ec5}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob@{sqlite3\_\-blob}}
+\index{sqlite3_blob@{sqlite3\_\-blob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-blob} \bf{sqlite3\_\-blob}}\label{sqlite3_8h_c10bd89462a3f9cf19cb7181fd9bb069}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_callback@{sqlite3\_\-callback}}
+\index{sqlite3_callback@{sqlite3\_\-callback}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef int($\ast$) \bf{sqlite3\_\-callback}(void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$)}\label{sqlite3_8h_ee8c674c96e3ef08cbf03b587c9154d8}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_context@{sqlite3\_\-context}}
+\index{sqlite3_context@{sqlite3\_\-context}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-context} \bf{sqlite3\_\-context}}\label{sqlite3_8h_c2ddf48fd47d1f884d155f3dd510b7ac}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_destructor_type@{sqlite3\_\-destructor\_\-type}}
+\index{sqlite3_destructor_type@{sqlite3\_\-destructor\_\-type}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$) \bf{sqlite3\_\-destructor\_\-type}(void $\ast$)}\label{sqlite3_8h_8cf04a35efbcda729ebc31eda3d825ad}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_file@{sqlite3\_\-file}}
+\index{sqlite3_file@{sqlite3\_\-file}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-file} \bf{sqlite3\_\-file}}\label{sqlite3_8h_9271d5afbb65bb5159507f9cb2320118}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_index_info@{sqlite3\_\-index\_\-info}}
+\index{sqlite3_index_info@{sqlite3\_\-index\_\-info}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-index\_\-info} \bf{sqlite3\_\-index\_\-info}}\label{sqlite3_8h_d6ddc28edc1f5ea319a8a67ed07a958f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_int64@{sqlite3\_\-int64}}
+\index{sqlite3_int64@{sqlite3\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef \bf{sqlite\_\-int64} \bf{sqlite3\_\-int64}}\label{sqlite3_8h_7339b9e13023c719f869da426f447e02}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_io_methods@{sqlite3\_\-io\_\-methods}}
+\index{sqlite3_io_methods@{sqlite3\_\-io\_\-methods}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-io\_\-methods} \bf{sqlite3\_\-io\_\-methods}}\label{sqlite3_8h_3c057479de9981b071d4916c31eb5ee9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mem_methods@{sqlite3\_\-mem\_\-methods}}
+\index{sqlite3_mem_methods@{sqlite3\_\-mem\_\-methods}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-mem\_\-methods} \bf{sqlite3\_\-mem\_\-methods}}\label{sqlite3_8h_73c96509d62e858535fcd4f7cad4b8f1}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_module@{sqlite3\_\-module}}
+\index{sqlite3_module@{sqlite3\_\-module}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-module} \bf{sqlite3\_\-module}}\label{sqlite3_8h_3d049fe37923eef92a3e8fd207974b8c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex@{sqlite3\_\-mutex}}
+\index{sqlite3_mutex@{sqlite3\_\-mutex}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-mutex} \bf{sqlite3\_\-mutex}}\label{sqlite3_8h_9a2e9e549d4ae199e2b2e282cbd66afa}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_methods@{sqlite3\_\-mutex\_\-methods}}
+\index{sqlite3_mutex_methods@{sqlite3\_\-mutex\_\-methods}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-mutex\_\-methods} \bf{sqlite3\_\-mutex\_\-methods}}\label{sqlite3_8h_e8531fb8ae92367025e0521b3cd76b9e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_pcache@{sqlite3\_\-pcache}}
+\index{sqlite3_pcache@{sqlite3\_\-pcache}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-pcache} \bf{sqlite3\_\-pcache}}\label{sqlite3_8h_43ea17060007dce741565896f76cf1aa}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_pcache_methods@{sqlite3\_\-pcache\_\-methods}}
+\index{sqlite3_pcache_methods@{sqlite3\_\-pcache\_\-methods}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-pcache\_\-methods} \bf{sqlite3\_\-pcache\_\-methods}}\label{sqlite3_8h_cdda2c2362e1d3d8362ad64b5895684a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_rtree_geometry@{sqlite3\_\-rtree\_\-geometry}}
+\index{sqlite3_rtree_geometry@{sqlite3\_\-rtree\_\-geometry}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-rtree\_\-geometry} \bf{sqlite3\_\-rtree\_\-geometry}}\label{sqlite3_8h_ea7c347b474fbef63b8bcabf1ba4a039}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_stmt@{sqlite3\_\-stmt}}
+\index{sqlite3_stmt@{sqlite3\_\-stmt}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-stmt} \bf{sqlite3\_\-stmt}}\label{sqlite3_8h_fb2ecae0bdd46f25bf39374f992f27c9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_uint64@{sqlite3\_\-uint64}}
+\index{sqlite3_uint64@{sqlite3\_\-uint64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef \bf{sqlite\_\-uint64} \bf{sqlite3\_\-uint64}}\label{sqlite3_8h_3696acb630c05df6b4fe8707a47d58bf}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value@{sqlite3\_\-value}}
+\index{sqlite3_value@{sqlite3\_\-value}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{Mem} \bf{sqlite3\_\-value}}\label{sqlite3_8h_6a0a4add31fd681f2116993e1a1b33e6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vfs@{sqlite3\_\-vfs}}
+\index{sqlite3_vfs@{sqlite3\_\-vfs}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-vfs} \bf{sqlite3\_\-vfs}}\label{sqlite3_8h_863f09b2540f3f285fa9778a21af1952}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vtab@{sqlite3\_\-vtab}}
+\index{sqlite3_vtab@{sqlite3\_\-vtab}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-vtab} \bf{sqlite3\_\-vtab}}\label{sqlite3_8h_70afd56b8ab5a79ba056e14741dbfac7}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vtab_cursor@{sqlite3\_\-vtab\_\-cursor}}
+\index{sqlite3_vtab_cursor@{sqlite3\_\-vtab\_\-cursor}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef struct \bf{sqlite3\_\-vtab\_\-cursor} \bf{sqlite3\_\-vtab\_\-cursor}}\label{sqlite3_8h_385059c2bbc3ad753e5ca83de7722dbe}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite_int64@{sqlite\_\-int64}}
+\index{sqlite_int64@{sqlite\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef long long int \bf{sqlite\_\-int64}}\label{sqlite3_8h_9a4846a26490d2aec06df9a779229a49}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite_uint64@{sqlite\_\-uint64}}
+\index{sqlite_uint64@{sqlite\_\-uint64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned long long int \bf{sqlite\_\-uint64}}\label{sqlite3_8h_be97e50627530e66b6390cc4c807b968}
+
+
+
+
+\subsection{Function Documentation}
+\index{sqlite3.h@{sqlite3.h}!sqlite3_aggregate_context@{sqlite3\_\-aggregate\_\-context}}
+\index{sqlite3_aggregate_context@{sqlite3\_\-aggregate\_\-context}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-aggregate\_\-context (\bf{sqlite3\_\-context} $\ast$, int {\em n\-Bytes})}\label{sqlite3_8h_57acb4262c53e56f96cf321d372a5b59}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_aggregate_count@{sqlite3\_\-aggregate\_\-count}}
+\index{sqlite3_aggregate_count@{sqlite3\_\-aggregate\_\-count}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED int sqlite3\_\-aggregate\_\-count (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_e1201e9b7c8e07a4e59d419605372797}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_auto_extension@{sqlite3\_\-auto\_\-extension}}
+\index{sqlite3_auto_extension@{sqlite3\_\-auto\_\-extension}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-auto\_\-extension (void($\ast$)(void) {\em x\-Entry\-Point})}\label{sqlite3_8h_f6b6d5c8ab692bb976b1d9c8409bb668}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup_finish@{sqlite3\_\-backup\_\-finish}}
+\index{sqlite3_backup_finish@{sqlite3\_\-backup\_\-finish}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-backup\_\-finish (\bf{sqlite3\_\-backup} $\ast$ {\em p})}\label{sqlite3_8h_dc1563e2b05f20460a67251b95311005}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup_init@{sqlite3\_\-backup\_\-init}}
+\index{sqlite3_backup_init@{sqlite3\_\-backup\_\-init}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-backup}$\ast$ sqlite3\_\-backup\_\-init (\bf{sqlite3} $\ast$ {\em p\-Dest}, const char $\ast$ {\em z\-Dest\-Name}, \bf{sqlite3} $\ast$ {\em p\-Source}, const char $\ast$ {\em z\-Source\-Name})}\label{sqlite3_8h_0485dfa31f1f6803b816bf997be61b2f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup_pagecount@{sqlite3\_\-backup\_\-pagecount}}
+\index{sqlite3_backup_pagecount@{sqlite3\_\-backup\_\-pagecount}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-backup\_\-pagecount (\bf{sqlite3\_\-backup} $\ast$ {\em p})}\label{sqlite3_8h_e05554aaeefbe4222e6d55d9322fb6e7}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup_remaining@{sqlite3\_\-backup\_\-remaining}}
+\index{sqlite3_backup_remaining@{sqlite3\_\-backup\_\-remaining}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-backup\_\-remaining (\bf{sqlite3\_\-backup} $\ast$ {\em p})}\label{sqlite3_8h_56b3779887aede32c49b86b2959e2b4d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_backup_step@{sqlite3\_\-backup\_\-step}}
+\index{sqlite3_backup_step@{sqlite3\_\-backup\_\-step}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-backup\_\-step (\bf{sqlite3\_\-backup} $\ast$ {\em p}, int {\em n\-Page})}\label{sqlite3_8h_502907b3dd22d78bdd89c3f6928a5452}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_blob@{sqlite3\_\-bind\_\-blob}}
+\index{sqlite3_bind_blob@{sqlite3\_\-bind\_\-blob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-blob (\bf{sqlite3\_\-stmt} $\ast$, int, const void $\ast$, int {\em n}, void($\ast$)(void $\ast$))}\label{sqlite3_8h_61a596cb2300d5febdc97889ad819301}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_double@{sqlite3\_\-bind\_\-double}}
+\index{sqlite3_bind_double@{sqlite3\_\-bind\_\-double}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-double (\bf{sqlite3\_\-stmt} $\ast$, int, double)}\label{sqlite3_8h_10ad471cd18ddb9e3fa9faa915becc44}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_int@{sqlite3\_\-bind\_\-int}}
+\index{sqlite3_bind_int@{sqlite3\_\-bind\_\-int}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-int (\bf{sqlite3\_\-stmt} $\ast$, int, int)}\label{sqlite3_8h_56e90df7c0a33bb7def70c793a2b9e0b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_int64@{sqlite3\_\-bind\_\-int64}}
+\index{sqlite3_bind_int64@{sqlite3\_\-bind\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-int64 (\bf{sqlite3\_\-stmt} $\ast$, int, \bf{sqlite3\_\-int64})}\label{sqlite3_8h_8b9d6c407ae804ee7e29e551b79aff13}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_null@{sqlite3\_\-bind\_\-null}}
+\index{sqlite3_bind_null@{sqlite3\_\-bind\_\-null}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-null (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_b4e9f03d73071faf52c1e4a14af7925f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_parameter_count@{sqlite3\_\-bind\_\-parameter\_\-count}}
+\index{sqlite3_bind_parameter_count@{sqlite3\_\-bind\_\-parameter\_\-count}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-parameter\_\-count (\bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_b35ff57baede86186bb089684315ac03}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_parameter_index@{sqlite3\_\-bind\_\-parameter\_\-index}}
+\index{sqlite3_bind_parameter_index@{sqlite3\_\-bind\_\-parameter\_\-index}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-parameter\_\-index (\bf{sqlite3\_\-stmt} $\ast$, const char $\ast$ {\em z\-Name})}\label{sqlite3_8h_673863557e9d4c8587e51ec22d425492}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_parameter_name@{sqlite3\_\-bind\_\-parameter\_\-name}}
+\index{sqlite3_bind_parameter_name@{sqlite3\_\-bind\_\-parameter\_\-name}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-bind\_\-parameter\_\-name (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_2a146b3e5df29dca131720aa0a4207a7}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_text@{sqlite3\_\-bind\_\-text}}
+\index{sqlite3_bind_text@{sqlite3\_\-bind\_\-text}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-text (\bf{sqlite3\_\-stmt} $\ast$, int, const char $\ast$, int {\em n}, void($\ast$)(void $\ast$))}\label{sqlite3_8h_b77e59c25c02e781096a8b8a3497a326}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_text16@{sqlite3\_\-bind\_\-text16}}
+\index{sqlite3_bind_text16@{sqlite3\_\-bind\_\-text16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-text16 (\bf{sqlite3\_\-stmt} $\ast$, int, const void $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_4c6fbb3d7df82679cfe1ca4c4b6864dd}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_value@{sqlite3\_\-bind\_\-value}}
+\index{sqlite3_bind_value@{sqlite3\_\-bind\_\-value}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-value (\bf{sqlite3\_\-stmt} $\ast$, int, const \bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_9314480b7e69cc2f8044cee1cda6eeeb}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_bind_zeroblob@{sqlite3\_\-bind\_\-zeroblob}}
+\index{sqlite3_bind_zeroblob@{sqlite3\_\-bind\_\-zeroblob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-bind\_\-zeroblob (\bf{sqlite3\_\-stmt} $\ast$, int, int {\em n})}\label{sqlite3_8h_91b221cbaeec59c6a13c75a79bad73b2}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob_bytes@{sqlite3\_\-blob\_\-bytes}}
+\index{sqlite3_blob_bytes@{sqlite3\_\-blob\_\-bytes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-blob\_\-bytes (\bf{sqlite3\_\-blob} $\ast$)}\label{sqlite3_8h_64b03ae91e1ce50988d84bdefd9615fc}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob_close@{sqlite3\_\-blob\_\-close}}
+\index{sqlite3_blob_close@{sqlite3\_\-blob\_\-close}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-blob\_\-close (\bf{sqlite3\_\-blob} $\ast$)}\label{sqlite3_8h_97d37c38d3554508551155d3faae3874}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob_open@{sqlite3\_\-blob\_\-open}}
+\index{sqlite3_blob_open@{sqlite3\_\-blob\_\-open}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-blob\_\-open (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-Db}, const char $\ast$ {\em z\-Table}, const char $\ast$ {\em z\-Column}, \bf{sqlite3\_\-int64} {\em i\-Row}, int {\em flags}, \bf{sqlite3\_\-blob} $\ast$$\ast$ {\em pp\-Blob})}\label{sqlite3_8h_facbe3cf34b3a121f2d701237405a0c0}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob_read@{sqlite3\_\-blob\_\-read}}
+\index{sqlite3_blob_read@{sqlite3\_\-blob\_\-read}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-blob\_\-read (\bf{sqlite3\_\-blob} $\ast$, void $\ast$ {\em Z}, int {\em N}, int {\em i\-Offset})}\label{sqlite3_8h_13798194938ed4c3776bee2ba325fa93}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_blob_write@{sqlite3\_\-blob\_\-write}}
+\index{sqlite3_blob_write@{sqlite3\_\-blob\_\-write}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-blob\_\-write (\bf{sqlite3\_\-blob} $\ast$, const void $\ast$ {\em z}, int {\em n}, int {\em i\-Offset})}\label{sqlite3_8h_427fc558139a041b077a52449652fe78}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_busy_handler@{sqlite3\_\-busy\_\-handler}}
+\index{sqlite3_busy_handler@{sqlite3\_\-busy\_\-handler}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-busy\_\-handler (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$, int), void $\ast$)}\label{sqlite3_8h_93a0e747e6f831295658e0f57a4160c6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_busy_timeout@{sqlite3\_\-busy\_\-timeout}}
+\index{sqlite3_busy_timeout@{sqlite3\_\-busy\_\-timeout}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-busy\_\-timeout (\bf{sqlite3} $\ast$, int {\em ms})}\label{sqlite3_8h_002ffc2b570a361aef7a9d4b1ae04d96}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_changes@{sqlite3\_\-changes}}
+\index{sqlite3_changes@{sqlite3\_\-changes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-changes (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_56571006ecfafec770f403a157dc30c2}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_clear_bindings@{sqlite3\_\-clear\_\-bindings}}
+\index{sqlite3_clear_bindings@{sqlite3\_\-clear\_\-bindings}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-clear\_\-bindings (\bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_49f250076c7945543037dd22d1361da6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_close@{sqlite3\_\-close}}
+\index{sqlite3_close@{sqlite3\_\-close}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-close (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_cc0010c0a2591f18a72d75c1ab0bed3c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_collation_needed@{sqlite3\_\-collation\_\-needed}}
+\index{sqlite3_collation_needed@{sqlite3\_\-collation\_\-needed}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-collation\_\-needed (\bf{sqlite3} $\ast$, void $\ast$, void($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, int e\-Text\-Rep, const char $\ast$))}\label{sqlite3_8h_166d8e18456ed35b94302c57f718184d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_collation_needed16@{sqlite3\_\-collation\_\-needed16}}
+\index{sqlite3_collation_needed16@{sqlite3\_\-collation\_\-needed16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-collation\_\-needed16 (\bf{sqlite3} $\ast$, void $\ast$, void($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, int e\-Text\-Rep, const void $\ast$))}\label{sqlite3_8h_930caa2625849fd5a84d6564037bb6a3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_blob@{sqlite3\_\-column\_\-blob}}
+\index{sqlite3_column_blob@{sqlite3\_\-column\_\-blob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-blob (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_702b9f10c84ef4d1bed0a764b615606a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_bytes@{sqlite3\_\-column\_\-bytes}}
+\index{sqlite3_column_bytes@{sqlite3\_\-column\_\-bytes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-column\_\-bytes (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_4fe87568f6eb6a48ee7143fe410fc3fb}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_bytes16@{sqlite3\_\-column\_\-bytes16}}
+\index{sqlite3_column_bytes16@{sqlite3\_\-column\_\-bytes16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-column\_\-bytes16 (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_22c8bf6660c5612ba8cc8fecf560277e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_count@{sqlite3\_\-column\_\-count}}
+\index{sqlite3_column_count@{sqlite3\_\-column\_\-count}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-column\_\-count (\bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_9fc42e46f8580d2c6c8d399f876a11e9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_database_name@{sqlite3\_\-column\_\-database\_\-name}}
+\index{sqlite3_column_database_name@{sqlite3\_\-column\_\-database\_\-name}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-column\_\-database\_\-name (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_5182ade5ee90bd02a25d8b380ae05971}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_database_name16@{sqlite3\_\-column\_\-database\_\-name16}}
+\index{sqlite3_column_database_name16@{sqlite3\_\-column\_\-database\_\-name16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-database\_\-name16 (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_6d6697cd6769e773b6dcf724e6ada154}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_decltype@{sqlite3\_\-column\_\-decltype}}
+\index{sqlite3_column_decltype@{sqlite3\_\-column\_\-decltype}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-column\_\-decltype (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_c1fd4189a930794b72a1a4b31c0ca578}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_decltype16@{sqlite3\_\-column\_\-decltype16}}
+\index{sqlite3_column_decltype16@{sqlite3\_\-column\_\-decltype16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-decltype16 (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_a6d3c501558152f1e2c9989f666e2230}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_double@{sqlite3\_\-column\_\-double}}
+\index{sqlite3_column_double@{sqlite3\_\-column\_\-double}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API double sqlite3\_\-column\_\-double (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_5222042c5600adb8ce0e3cf287278f8a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_int@{sqlite3\_\-column\_\-int}}
+\index{sqlite3_column_int@{sqlite3\_\-column\_\-int}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-column\_\-int (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_1d8a36ec5212592d687563d85b3f7dd4}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_int64@{sqlite3\_\-column\_\-int64}}
+\index{sqlite3_column_int64@{sqlite3\_\-column\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-column\_\-int64 (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_0c1c4bf9b0491f76577928206e4528ad}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_name@{sqlite3\_\-column\_\-name}}
+\index{sqlite3_column_name@{sqlite3\_\-column\_\-name}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-column\_\-name (\bf{sqlite3\_\-stmt} $\ast$, int {\em N})}\label{sqlite3_8h_473f6acc116673bc8b7d99e5f6996360}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_name16@{sqlite3\_\-column\_\-name16}}
+\index{sqlite3_column_name16@{sqlite3\_\-column\_\-name16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-name16 (\bf{sqlite3\_\-stmt} $\ast$, int {\em N})}\label{sqlite3_8h_609846f71174f4ec0f920148423c0fb0}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_origin_name@{sqlite3\_\-column\_\-origin\_\-name}}
+\index{sqlite3_column_origin_name@{sqlite3\_\-column\_\-origin\_\-name}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-column\_\-origin\_\-name (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_e76abb8988c31a46552d27b3975123f3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_origin_name16@{sqlite3\_\-column\_\-origin\_\-name16}}
+\index{sqlite3_column_origin_name16@{sqlite3\_\-column\_\-origin\_\-name16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-origin\_\-name16 (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_65ac088736283be3ae8408f6bd5ef13e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_table_name@{sqlite3\_\-column\_\-table\_\-name}}
+\index{sqlite3_column_table_name@{sqlite3\_\-column\_\-table\_\-name}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-column\_\-table\_\-name (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_70919c5b1aca3eb2cbf2e2aab03d5e50}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_table_name16@{sqlite3\_\-column\_\-table\_\-name16}}
+\index{sqlite3_column_table_name16@{sqlite3\_\-column\_\-table\_\-name16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-table\_\-name16 (\bf{sqlite3\_\-stmt} $\ast$, int)}\label{sqlite3_8h_8ed3a004ceab313c30343c11fcbf8119}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_text@{sqlite3\_\-column\_\-text}}
+\index{sqlite3_column_text@{sqlite3\_\-column\_\-text}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const unsigned char$\ast$ sqlite3\_\-column\_\-text (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_c5077b449f4112bd5049e1c4832e4a91}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_text16@{sqlite3\_\-column\_\-text16}}
+\index{sqlite3_column_text16@{sqlite3\_\-column\_\-text16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-column\_\-text16 (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_b04268e1b13daac8203ffc39a58bf8f1}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_type@{sqlite3\_\-column\_\-type}}
+\index{sqlite3_column_type@{sqlite3\_\-column\_\-type}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-column\_\-type (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_b2350de815e7eb52c3f53390f83fd2e8}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_column_value@{sqlite3\_\-column\_\-value}}
+\index{sqlite3_column_value@{sqlite3\_\-column\_\-value}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-value}$\ast$ sqlite3\_\-column\_\-value (\bf{sqlite3\_\-stmt} $\ast$, int {\em i\-Col})}\label{sqlite3_8h_44c174aeac9aebae2a46ebca71a935d5}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_commit_hook@{sqlite3\_\-commit\_\-hook}}
+\index{sqlite3_commit_hook@{sqlite3\_\-commit\_\-hook}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-commit\_\-hook (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$), void $\ast$)}\label{sqlite3_8h_b99dc512668bad27caa1ba660b8ac677}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_compileoption_get@{sqlite3\_\-compileoption\_\-get}}
+\index{sqlite3_compileoption_get@{sqlite3\_\-compileoption\_\-get}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-compileoption\_\-get (int {\em N})}\label{sqlite3_8h_dacc619ab0ea26eb3cf2e5db7b558e73}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_compileoption_used@{sqlite3\_\-compileoption\_\-used}}
+\index{sqlite3_compileoption_used@{sqlite3\_\-compileoption\_\-used}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-compileoption\_\-used (const char $\ast$ {\em z\-Opt\-Name})}\label{sqlite3_8h_e2eda78a2e5c81fad83edc77c719b59d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_complete@{sqlite3\_\-complete}}
+\index{sqlite3_complete@{sqlite3\_\-complete}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-complete (const char $\ast$ {\em sql})}\label{sqlite3_8h_2f121f6f6e96f9b3357a4fb26dcc0b7f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_complete16@{sqlite3\_\-complete16}}
+\index{sqlite3_complete16@{sqlite3\_\-complete16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-complete16 (const void $\ast$ {\em sql})}\label{sqlite3_8h_eeb430af39077bd59bff058201b31202}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_config@{sqlite3\_\-config}}
+\index{sqlite3_config@{sqlite3\_\-config}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-config (int,  {\em ...})}\label{sqlite3_8h_df581b98388c7afe93347aa78509f63e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_context_db_handle@{sqlite3\_\-context\_\-db\_\-handle}}
+\index{sqlite3_context_db_handle@{sqlite3\_\-context\_\-db\_\-handle}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3}$\ast$ sqlite3\_\-context\_\-db\_\-handle (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_cdb21c1e62f29c7f5e02c2286077dec5}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_collation@{sqlite3\_\-create\_\-collation}}
+\index{sqlite3_create_collation@{sqlite3\_\-create\_\-collation}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-collation (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-Name}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-Arg}, int($\ast$)(void $\ast$, int, const void $\ast$, int, const void $\ast$) {\em x\-Compare})}\label{sqlite3_8h_18e68b175a19b53afe09b608a6965f1b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_collation16@{sqlite3\_\-create\_\-collation16}}
+\index{sqlite3_create_collation16@{sqlite3\_\-create\_\-collation16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-collation16 (\bf{sqlite3} $\ast$, const void $\ast$ {\em z\-Name}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-Arg}, int($\ast$)(void $\ast$, int, const void $\ast$, int, const void $\ast$) {\em x\-Compare})}\label{sqlite3_8h_525239b46e0f69f7c3a2a28a35d3ff20}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_collation_v2@{sqlite3\_\-create\_\-collation\_\-v2}}
+\index{sqlite3_create_collation_v2@{sqlite3\_\-create\_\-collation\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-collation\_\-v2 (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-Name}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-Arg}, int($\ast$)(void $\ast$, int, const void $\ast$, int, const void $\ast$) {\em x\-Compare}, void($\ast$)(void $\ast$) {\em x\-Destroy})}\label{sqlite3_8h_2cd7da719748dbeb98b73444ed62c9cf}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_function@{sqlite3\_\-create\_\-function}}
+\index{sqlite3_create_function@{sqlite3\_\-create\_\-function}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-function (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Function\-Name}, int {\em n\-Arg}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-App}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Func}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Step}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$) {\em x\-Final})}\label{sqlite3_8h_f070a60371f4332d24e7be7b7f2097b7}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_function16@{sqlite3\_\-create\_\-function16}}
+\index{sqlite3_create_function16@{sqlite3\_\-create\_\-function16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-function16 (\bf{sqlite3} $\ast$ {\em db}, const void $\ast$ {\em z\-Function\-Name}, int {\em n\-Arg}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-App}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Func}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Step}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$) {\em x\-Final})}\label{sqlite3_8h_5d852d74f7a67d560e44564aaf75c6b3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_function_v2@{sqlite3\_\-create\_\-function\_\-v2}}
+\index{sqlite3_create_function_v2@{sqlite3\_\-create\_\-function\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-function\_\-v2 (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Function\-Name}, int {\em n\-Arg}, int {\em e\-Text\-Rep}, void $\ast$ {\em p\-App}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Func}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$) {\em x\-Step}, void($\ast$)(\bf{sqlite3\_\-context} $\ast$) {\em x\-Final}, void($\ast$)(void $\ast$) {\em x\-Destroy})}\label{sqlite3_8h_14dd082584947d02a37f0509d7049aa3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_module@{sqlite3\_\-create\_\-module}}
+\index{sqlite3_create_module@{sqlite3\_\-create\_\-module}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-module (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Name}, const \bf{sqlite3\_\-module} $\ast$ {\em p}, void $\ast$ {\em p\-Client\-Data})}\label{sqlite3_8h_e8a0bf6f9a28a7568bf9751ab4e17d79}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_create_module_v2@{sqlite3\_\-create\_\-module\_\-v2}}
+\index{sqlite3_create_module_v2@{sqlite3\_\-create\_\-module\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-create\_\-module\_\-v2 (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Name}, const \bf{sqlite3\_\-module} $\ast$ {\em p}, void $\ast$ {\em p\-Client\-Data}, void($\ast$)(void $\ast$) {\em x\-Destroy})}\label{sqlite3_8h_ad75a3ba8b1c309327f67292e0360380}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_data_count@{sqlite3\_\-data\_\-count}}
+\index{sqlite3_data_count@{sqlite3\_\-data\_\-count}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-data\_\-count (\bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_2ba9adf536a111d4bf5cdb2d1454e8dc}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_db_config@{sqlite3\_\-db\_\-config}}
+\index{sqlite3_db_config@{sqlite3\_\-db\_\-config}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-db\_\-config (\bf{sqlite3} $\ast$, int {\em op},  {\em ...})}\label{sqlite3_8h_00c3ffbc397753bea7ed229f46be483f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_db_handle@{sqlite3\_\-db\_\-handle}}
+\index{sqlite3_db_handle@{sqlite3\_\-db\_\-handle}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3}$\ast$ sqlite3\_\-db\_\-handle (\bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_317a2a696dd76135b4dd0a40c2df34bd}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_db_mutex@{sqlite3\_\-db\_\-mutex}}
+\index{sqlite3_db_mutex@{sqlite3\_\-db\_\-mutex}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-mutex}$\ast$ sqlite3\_\-db\_\-mutex (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_a043e41f6c628088d504c6e15a314604}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_db_status@{sqlite3\_\-db\_\-status}}
+\index{sqlite3_db_status@{sqlite3\_\-db\_\-status}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-db\_\-status (\bf{sqlite3} $\ast$, int {\em op}, int $\ast$ {\em p\-Cur}, int $\ast$ {\em p\-Hiwtr}, int {\em reset\-Flg})}\label{sqlite3_8h_da6462a71386fda9a8b500560d7581af}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_declare_vtab@{sqlite3\_\-declare\_\-vtab}}
+\index{sqlite3_declare_vtab@{sqlite3\_\-declare\_\-vtab}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-declare\_\-vtab (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-SQL})}\label{sqlite3_8h_bf5b229929ae032d98751af8f00b3d20}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_enable_load_extension@{sqlite3\_\-enable\_\-load\_\-extension}}
+\index{sqlite3_enable_load_extension@{sqlite3\_\-enable\_\-load\_\-extension}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-enable\_\-load\_\-extension (\bf{sqlite3} $\ast$ {\em db}, int {\em onoff})}\label{sqlite3_8h_7973dfbf98388db0bbc68375a2889446}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_enable_shared_cache@{sqlite3\_\-enable\_\-shared\_\-cache}}
+\index{sqlite3_enable_shared_cache@{sqlite3\_\-enable\_\-shared\_\-cache}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-enable\_\-shared\_\-cache (int)}\label{sqlite3_8h_0e8158ecfd08e9d0fb6a82ac743d6204}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_errcode@{sqlite3\_\-errcode}}
+\index{sqlite3_errcode@{sqlite3\_\-errcode}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-errcode (\bf{sqlite3} $\ast$ {\em db})}\label{sqlite3_8h_eafe59d2b37a2363276c21c1b6863f3f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_errmsg@{sqlite3\_\-errmsg}}
+\index{sqlite3_errmsg@{sqlite3\_\-errmsg}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-errmsg (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_683ebfa74c3f78cf67934bacc55aecbc}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_errmsg16@{sqlite3\_\-errmsg16}}
+\index{sqlite3_errmsg16@{sqlite3\_\-errmsg16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-errmsg16 (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_d5a70ae0cfa2d2a947b614176ecec0fe}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_exec@{sqlite3\_\-exec}}
+\index{sqlite3_exec@{sqlite3\_\-exec}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-exec (\bf{sqlite3} $\ast$, const char $\ast$ {\em sql}, int($\ast$)(void $\ast$, int, char $\ast$$\ast$, char $\ast$$\ast$) {\em callback}, void $\ast$, char $\ast$$\ast$ {\em errmsg})}\label{sqlite3_8h_f2c87cddc0247180407fc534ba564578}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_expired@{sqlite3\_\-expired}}
+\index{sqlite3_expired@{sqlite3\_\-expired}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED int sqlite3\_\-expired (\bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_dddee18b3cc1e33680cdf76c14bdc408}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_extended_errcode@{sqlite3\_\-extended\_\-errcode}}
+\index{sqlite3_extended_errcode@{sqlite3\_\-extended\_\-errcode}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-extended\_\-errcode (\bf{sqlite3} $\ast$ {\em db})}\label{sqlite3_8h_1a9932e4ea9826b566dcaa0b25635307}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_extended_result_codes@{sqlite3\_\-extended\_\-result\_\-codes}}
+\index{sqlite3_extended_result_codes@{sqlite3\_\-extended\_\-result\_\-codes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-extended\_\-result\_\-codes (\bf{sqlite3} $\ast$, int {\em onoff})}\label{sqlite3_8h_538a6a31d2fa691c13b26f75f8eec39a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_file_control@{sqlite3\_\-file\_\-control}}
+\index{sqlite3_file_control@{sqlite3\_\-file\_\-control}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-file\_\-control (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-Db\-Name}, int {\em op}, void $\ast$)}\label{sqlite3_8h_27c8e7f5471c13ed02d324737dbeaf07}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_finalize@{sqlite3\_\-finalize}}
+\index{sqlite3_finalize@{sqlite3\_\-finalize}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-finalize (\bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_ede1faf715f1161562c3d9c02dce1c3b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_free@{sqlite3\_\-free}}
+\index{sqlite3_free@{sqlite3\_\-free}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-free (void $\ast$)}\label{sqlite3_8h_4c85d1540e8c037d5a08ff259233baa1}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_free_table@{sqlite3\_\-free\_\-table}}
+\index{sqlite3_free_table@{sqlite3\_\-free\_\-table}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-free\_\-table (char $\ast$$\ast$ {\em result})}\label{sqlite3_8h_83a672266cad949d575707adef38fa2d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_get_autocommit@{sqlite3\_\-get\_\-autocommit}}
+\index{sqlite3_get_autocommit@{sqlite3\_\-get\_\-autocommit}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-get\_\-autocommit (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_dad51d30727e82684407bf3a6d822e23}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_get_auxdata@{sqlite3\_\-get\_\-auxdata}}
+\index{sqlite3_get_auxdata@{sqlite3\_\-get\_\-auxdata}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-get\_\-auxdata (\bf{sqlite3\_\-context} $\ast$, int {\em N})}\label{sqlite3_8h_03b7d8a321fd3921b25264f87fc61d0c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_get_table@{sqlite3\_\-get\_\-table}}
+\index{sqlite3_get_table@{sqlite3\_\-get\_\-table}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-get\_\-table (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Sql}, char $\ast$$\ast$$\ast$ {\em paz\-Result}, int $\ast$ {\em pn\-Row}, int $\ast$ {\em pn\-Column}, char $\ast$$\ast$ {\em pz\-Errmsg})}\label{sqlite3_8h_e1f1814e75cb9724ce25d10b5d451c99}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_global_recover@{sqlite3\_\-global\_\-recover}}
+\index{sqlite3_global_recover@{sqlite3\_\-global\_\-recover}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED int sqlite3\_\-global\_\-recover (void)}\label{sqlite3_8h_1563697f21bca3732e3abaf313754c12}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_initialize@{sqlite3\_\-initialize}}
+\index{sqlite3_initialize@{sqlite3\_\-initialize}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-initialize (void)}\label{sqlite3_8h_ec663f6f6ed23f62c3d89f31b85cf4c9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_interrupt@{sqlite3\_\-interrupt}}
+\index{sqlite3_interrupt@{sqlite3\_\-interrupt}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-interrupt (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_80f57ba90a2c490e6c868b43bd231a80}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_last_insert_rowid@{sqlite3\_\-last\_\-insert\_\-rowid}}
+\index{sqlite3_last_insert_rowid@{sqlite3\_\-last\_\-insert\_\-rowid}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-last\_\-insert\_\-rowid (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_e99438dc81a6e35c3f7c66908d72f4aa}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_libversion@{sqlite3\_\-libversion}}
+\index{sqlite3_libversion@{sqlite3\_\-libversion}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-libversion (void)}\label{sqlite3_8h_3bf9e924f35637820ff9a4d1aafd654c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_libversion_number@{sqlite3\_\-libversion\_\-number}}
+\index{sqlite3_libversion_number@{sqlite3\_\-libversion\_\-number}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-libversion\_\-number (void)}\label{sqlite3_8h_b1da6a8ad50c56e2fa057fd98b3c1e28}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_limit@{sqlite3\_\-limit}}
+\index{sqlite3_limit@{sqlite3\_\-limit}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-limit (\bf{sqlite3} $\ast$, int {\em id}, int {\em new\-Val})}\label{sqlite3_8h_1477ffe7d4de9481f70827b9085dbf3b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_load_extension@{sqlite3\_\-load\_\-extension}}
+\index{sqlite3_load_extension@{sqlite3\_\-load\_\-extension}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-load\_\-extension (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-File}, const char $\ast$ {\em z\-Proc}, char $\ast$$\ast$ {\em pz\-Err\-Msg})}\label{sqlite3_8h_a1458ede9a84cddde1488a529e69e3e8}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_log@{sqlite3\_\-log}}
+\index{sqlite3_log@{sqlite3\_\-log}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-log (int {\em i\-Err\-Code}, const char $\ast$ {\em z\-Format},  {\em ...})}\label{sqlite3_8h_c8a749ed6797093ff57b081c9a4c651d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_malloc@{sqlite3\_\-malloc}}
+\index{sqlite3_malloc@{sqlite3\_\-malloc}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-malloc (int)}\label{sqlite3_8h_9a47c84e13577262a3cb890b645815d4}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_memory_alarm@{sqlite3\_\-memory\_\-alarm}}
+\index{sqlite3_memory_alarm@{sqlite3\_\-memory\_\-alarm}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED int sqlite3\_\-memory\_\-alarm (void($\ast$)(void $\ast$, \bf{sqlite3\_\-int64}, int), void $\ast$, \bf{sqlite3\_\-int64})}\label{sqlite3_8h_4ecaca141cb987fd4a7dffe3a9d4f20c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_memory_highwater@{sqlite3\_\-memory\_\-highwater}}
+\index{sqlite3_memory_highwater@{sqlite3\_\-memory\_\-highwater}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-memory\_\-highwater (int {\em reset\-Flag})}\label{sqlite3_8h_21e45bf118587012c5d73b4e217fc66f}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_memory_used@{sqlite3\_\-memory\_\-used}}
+\index{sqlite3_memory_used@{sqlite3\_\-memory\_\-used}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-memory\_\-used (void)}\label{sqlite3_8h_1fdf69bb2199c84840320b2e74fb1279}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mprintf@{sqlite3\_\-mprintf}}
+\index{sqlite3_mprintf@{sqlite3\_\-mprintf}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API char$\ast$ sqlite3\_\-mprintf (const char $\ast$,  {\em ...})}\label{sqlite3_8h_71fe7e2dab928bb04d554dfaa008fca3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_alloc@{sqlite3\_\-mutex\_\-alloc}}
+\index{sqlite3_mutex_alloc@{sqlite3\_\-mutex\_\-alloc}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-mutex}$\ast$ sqlite3\_\-mutex\_\-alloc (int)}\label{sqlite3_8h_225727b67632d3a2c16c305eaf29f02a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_enter@{sqlite3\_\-mutex\_\-enter}}
+\index{sqlite3_mutex_enter@{sqlite3\_\-mutex\_\-enter}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-mutex\_\-enter (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_6c973f40d682f1aec937fbe39385e3e0}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_free@{sqlite3\_\-mutex\_\-free}}
+\index{sqlite3_mutex_free@{sqlite3\_\-mutex\_\-free}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-mutex\_\-free (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_4ab9efe610fc2781c7b3d39b8463c8a9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_held@{sqlite3\_\-mutex\_\-held}}
+\index{sqlite3_mutex_held@{sqlite3\_\-mutex\_\-held}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-mutex\_\-held (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_cbf92aaf3868248f841bcc50a21dfc54}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_leave@{sqlite3\_\-mutex\_\-leave}}
+\index{sqlite3_mutex_leave@{sqlite3\_\-mutex\_\-leave}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-mutex\_\-leave (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_e0e416bc6966f02010d30b572527a295}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_notheld@{sqlite3\_\-mutex\_\-notheld}}
+\index{sqlite3_mutex_notheld@{sqlite3\_\-mutex\_\-notheld}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-mutex\_\-notheld (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_b81397efaf9735820618df2f3b1f8ff5}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_mutex_try@{sqlite3\_\-mutex\_\-try}}
+\index{sqlite3_mutex_try@{sqlite3\_\-mutex\_\-try}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-mutex\_\-try (\bf{sqlite3\_\-mutex} $\ast$)}\label{sqlite3_8h_9d8738994d068db59e0c03d3814ea95c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_next_stmt@{sqlite3\_\-next\_\-stmt}}
+\index{sqlite3_next_stmt@{sqlite3\_\-next\_\-stmt}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-stmt}$\ast$ sqlite3\_\-next\_\-stmt (\bf{sqlite3} $\ast$ {\em p\-Db}, \bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_43e760b2f0a3f2fbecb780d15c023ec9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_open@{sqlite3\_\-open}}
+\index{sqlite3_open@{sqlite3\_\-open}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-open (const char $\ast$ {\em filename}, \bf{sqlite3} $\ast$$\ast$ {\em pp\-Db})}\label{sqlite3_8h_6bb84d38a6c6b632a0041975dae382cf}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_open16@{sqlite3\_\-open16}}
+\index{sqlite3_open16@{sqlite3\_\-open16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-open16 (const void $\ast$ {\em filename}, \bf{sqlite3} $\ast$$\ast$ {\em pp\-Db})}\label{sqlite3_8h_c4986caf9ad298459f859307c984253d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_open_v2@{sqlite3\_\-open\_\-v2}}
+\index{sqlite3_open_v2@{sqlite3\_\-open\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-open\_\-v2 (const char $\ast$ {\em filename}, \bf{sqlite3} $\ast$$\ast$ {\em pp\-Db}, int {\em flags}, const char $\ast$ {\em z\-Vfs})}\label{sqlite3_8h_fb526d6d56057862f059a0ba68e85592}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_os_end@{sqlite3\_\-os\_\-end}}
+\index{sqlite3_os_end@{sqlite3\_\-os\_\-end}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-os\_\-end (void)}\label{sqlite3_8h_99b87070ad2d629f1feee576fc168118}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_os_init@{sqlite3\_\-os\_\-init}}
+\index{sqlite3_os_init@{sqlite3\_\-os\_\-init}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-os\_\-init (void)}\label{sqlite3_8h_0f344452bf27c5debe53d93961651dd4}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_overload_function@{sqlite3\_\-overload\_\-function}}
+\index{sqlite3_overload_function@{sqlite3\_\-overload\_\-function}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-overload\_\-function (\bf{sqlite3} $\ast$, const char $\ast$ {\em z\-Func\-Name}, int {\em n\-Arg})}\label{sqlite3_8h_8f54955dfb9eb521a32ec684e13bd1c3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_prepare@{sqlite3\_\-prepare}}
+\index{sqlite3_prepare@{sqlite3\_\-prepare}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-prepare (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Sql}, int {\em n\-Byte}, \bf{sqlite3\_\-stmt} $\ast$$\ast$ {\em pp\-Stmt}, const char $\ast$$\ast$ {\em pz\-Tail})}\label{sqlite3_8h_ea8957d895d7b5b82a814ab0cdb92288}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_prepare16@{sqlite3\_\-prepare16}}
+\index{sqlite3_prepare16@{sqlite3\_\-prepare16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-prepare16 (\bf{sqlite3} $\ast$ {\em db}, const void $\ast$ {\em z\-Sql}, int {\em n\-Byte}, \bf{sqlite3\_\-stmt} $\ast$$\ast$ {\em pp\-Stmt}, const void $\ast$$\ast$ {\em pz\-Tail})}\label{sqlite3_8h_c100b945af46a0ccf763fa39cac9feda}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_prepare16_v2@{sqlite3\_\-prepare16\_\-v2}}
+\index{sqlite3_prepare16_v2@{sqlite3\_\-prepare16\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-prepare16\_\-v2 (\bf{sqlite3} $\ast$ {\em db}, const void $\ast$ {\em z\-Sql}, int {\em n\-Byte}, \bf{sqlite3\_\-stmt} $\ast$$\ast$ {\em pp\-Stmt}, const void $\ast$$\ast$ {\em pz\-Tail})}\label{sqlite3_8h_d007ebc349b63a751155cf507a72e412}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_prepare_v2@{sqlite3\_\-prepare\_\-v2}}
+\index{sqlite3_prepare_v2@{sqlite3\_\-prepare\_\-v2}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-prepare\_\-v2 (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Sql}, int {\em n\-Byte}, \bf{sqlite3\_\-stmt} $\ast$$\ast$ {\em pp\-Stmt}, const char $\ast$$\ast$ {\em pz\-Tail})}\label{sqlite3_8h_e5c653b392f2b8206f6a8fe71e5dc2e9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_profile@{sqlite3\_\-profile}}
+\index{sqlite3_profile@{sqlite3\_\-profile}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-EXPERIMENTAL void$\ast$ sqlite3\_\-profile (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$, const char $\ast$, \bf{sqlite3\_\-uint64}) {\em x\-Profile}, void $\ast$)}\label{sqlite3_8h_c702670bdc43af94a297f2f403d76fcf}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_progress_handler@{sqlite3\_\-progress\_\-handler}}
+\index{sqlite3_progress_handler@{sqlite3\_\-progress\_\-handler}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-progress\_\-handler (\bf{sqlite3} $\ast$, int, int($\ast$)(void $\ast$), void $\ast$)}\label{sqlite3_8h_fe59832e379d469933074fdcfb751874}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_randomness@{sqlite3\_\-randomness}}
+\index{sqlite3_randomness@{sqlite3\_\-randomness}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-randomness (int {\em N}, void $\ast$ {\em P})}\label{sqlite3_8h_3bd9db52e0309de6f9c0c8e82f51681e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_realloc@{sqlite3\_\-realloc}}
+\index{sqlite3_realloc@{sqlite3\_\-realloc}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-realloc (void $\ast$, int)}\label{sqlite3_8h_fc33d1e3f67317f64ff255a3a21fd43a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_release_memory@{sqlite3\_\-release\_\-memory}}
+\index{sqlite3_release_memory@{sqlite3\_\-release\_\-memory}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-release\_\-memory (int)}\label{sqlite3_8h_59e39f32b04ca7e1b26679211e6c41db}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_reset@{sqlite3\_\-reset}}
+\index{sqlite3_reset@{sqlite3\_\-reset}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-reset (\bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_142668db0bce929d572cdf132024b423}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_reset_auto_extension@{sqlite3\_\-reset\_\-auto\_\-extension}}
+\index{sqlite3_reset_auto_extension@{sqlite3\_\-reset\_\-auto\_\-extension}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-reset\_\-auto\_\-extension (void)}\label{sqlite3_8h_ce3f70776cbddee9d15d4f933f020c9b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_blob@{sqlite3\_\-result\_\-blob}}
+\index{sqlite3_result_blob@{sqlite3\_\-result\_\-blob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-blob (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_7cdc5cd1d2ddfaa4ddf37ea9ba70c15c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_double@{sqlite3\_\-result\_\-double}}
+\index{sqlite3_result_double@{sqlite3\_\-result\_\-double}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-double (\bf{sqlite3\_\-context} $\ast$, double)}\label{sqlite3_8h_5d258809557b80a32c108455dc30dea0}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_error@{sqlite3\_\-result\_\-error}}
+\index{sqlite3_result_error@{sqlite3\_\-result\_\-error}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-error (\bf{sqlite3\_\-context} $\ast$, const char $\ast$, int)}\label{sqlite3_8h_f2f9f5fe5d0441cb832159bd45513b3c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_error16@{sqlite3\_\-result\_\-error16}}
+\index{sqlite3_result_error16@{sqlite3\_\-result\_\-error16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-error16 (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int)}\label{sqlite3_8h_4fb25414b9dd3b0a4587fea388ca3070}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_error_code@{sqlite3\_\-result\_\-error\_\-code}}
+\index{sqlite3_result_error_code@{sqlite3\_\-result\_\-error\_\-code}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-error\_\-code (\bf{sqlite3\_\-context} $\ast$, int)}\label{sqlite3_8h_2b18641ee1fe2ef5bc4b837e4ce14407}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_error_nomem@{sqlite3\_\-result\_\-error\_\-nomem}}
+\index{sqlite3_result_error_nomem@{sqlite3\_\-result\_\-error\_\-nomem}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-error\_\-nomem (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_ed850ae8131a3d3faa98d4e8859c6480}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_error_toobig@{sqlite3\_\-result\_\-error\_\-toobig}}
+\index{sqlite3_result_error_toobig@{sqlite3\_\-result\_\-error\_\-toobig}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-error\_\-toobig (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_4db309aa18666062fdebaaefbd6e846a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_int@{sqlite3\_\-result\_\-int}}
+\index{sqlite3_result_int@{sqlite3\_\-result\_\-int}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-int (\bf{sqlite3\_\-context} $\ast$, int)}\label{sqlite3_8h_9c7b22acbb68747a504b6a85b04a393a}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_int64@{sqlite3\_\-result\_\-int64}}
+\index{sqlite3_result_int64@{sqlite3\_\-result\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-int64 (\bf{sqlite3\_\-context} $\ast$, \bf{sqlite3\_\-int64})}\label{sqlite3_8h_95373481947bbf3d1784a52cce078b10}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_null@{sqlite3\_\-result\_\-null}}
+\index{sqlite3_result_null@{sqlite3\_\-result\_\-null}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-null (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_33cf641b75a03d918b7e55de5d9aed23}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_text@{sqlite3\_\-result\_\-text}}
+\index{sqlite3_result_text@{sqlite3\_\-result\_\-text}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-text (\bf{sqlite3\_\-context} $\ast$, const char $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_1c038e249f52550e852f77b8f6253955}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_text16@{sqlite3\_\-result\_\-text16}}
+\index{sqlite3_result_text16@{sqlite3\_\-result\_\-text16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-text16 (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_7f125e9ae00dbcc68721b3b2a15c76b7}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_text16be@{sqlite3\_\-result\_\-text16be}}
+\index{sqlite3_result_text16be@{sqlite3\_\-result\_\-text16be}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-text16be (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_e5f471d26375f623ec1e6be1128847a1}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_text16le@{sqlite3\_\-result\_\-text16le}}
+\index{sqlite3_result_text16le@{sqlite3\_\-result\_\-text16le}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-text16le (\bf{sqlite3\_\-context} $\ast$, const void $\ast$, int, void($\ast$)(void $\ast$))}\label{sqlite3_8h_9c461bdbaf7ce0ddf7ae26e657f060de}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_value@{sqlite3\_\-result\_\-value}}
+\index{sqlite3_result_value@{sqlite3\_\-result\_\-value}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-value (\bf{sqlite3\_\-context} $\ast$, \bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_b8683c3b8ae91b18ab9d8e9dcbca323b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_result_zeroblob@{sqlite3\_\-result\_\-zeroblob}}
+\index{sqlite3_result_zeroblob@{sqlite3\_\-result\_\-zeroblob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-result\_\-zeroblob (\bf{sqlite3\_\-context} $\ast$, int {\em n})}\label{sqlite3_8h_3297fda72f3532591a2c2a122e7c6622}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_rollback_hook@{sqlite3\_\-rollback\_\-hook}}
+\index{sqlite3_rollback_hook@{sqlite3\_\-rollback\_\-hook}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-rollback\_\-hook (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$), void $\ast$)}\label{sqlite3_8h_4d9fc8bdd3ca62d2e1dcf895ed839dee}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_rtree_geometry_callback@{sqlite3\_\-rtree\_\-geometry\_\-callback}}
+\index{sqlite3_rtree_geometry_callback@{sqlite3\_\-rtree\_\-geometry\_\-callback}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-rtree\_\-geometry\_\-callback (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Geom}, int($\ast$)(\bf{sqlite3\_\-rtree\_\-geometry} $\ast$, int n\-Coord, double $\ast$a\-Coord, int $\ast$p\-Res) {\em x\-Geom}, void $\ast$ {\em p\-Context})}\label{sqlite3_8h_cb94b790afa01aadcad8aed94e4e578d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_set_authorizer@{sqlite3\_\-set\_\-authorizer}}
+\index{sqlite3_set_authorizer@{sqlite3\_\-set\_\-authorizer}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-set\_\-authorizer (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$, int, const char $\ast$, const char $\ast$, const char $\ast$, const char $\ast$) {\em x\-Auth}, void $\ast$ {\em p\-User\-Data})}\label{sqlite3_8h_fb89d8aca6e9f51f21da892f1028700b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_set_auxdata@{sqlite3\_\-set\_\-auxdata}}
+\index{sqlite3_set_auxdata@{sqlite3\_\-set\_\-auxdata}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void sqlite3\_\-set\_\-auxdata (\bf{sqlite3\_\-context} $\ast$, int {\em N}, void $\ast$, void($\ast$)(void $\ast$))}\label{sqlite3_8h_2daee656f04eb465ccd03c3938340f91}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_shutdown@{sqlite3\_\-shutdown}}
+\index{sqlite3_shutdown@{sqlite3\_\-shutdown}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-shutdown (void)}\label{sqlite3_8h_fe5c184daa23f194a5552a3e855d02b6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_sleep@{sqlite3\_\-sleep}}
+\index{sqlite3_sleep@{sqlite3\_\-sleep}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-sleep (int)}\label{sqlite3_8h_9f42bed99908220b4d83a3b695612b30}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_snprintf@{sqlite3\_\-snprintf}}
+\index{sqlite3_snprintf@{sqlite3\_\-snprintf}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API char$\ast$ sqlite3\_\-snprintf (int, char $\ast$, const char $\ast$,  {\em ...})}\label{sqlite3_8h_7173fe05e995203add38ea63bfd3e29c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_soft_heap_limit@{sqlite3\_\-soft\_\-heap\_\-limit}}
+\index{sqlite3_soft_heap_limit@{sqlite3\_\-soft\_\-heap\_\-limit}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED void sqlite3\_\-soft\_\-heap\_\-limit (int {\em N})}\label{sqlite3_8h_a75d37f686b7b2226b3fccea2f744f2c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_soft_heap_limit64@{sqlite3\_\-soft\_\-heap\_\-limit64}}
+\index{sqlite3_soft_heap_limit64@{sqlite3\_\-soft\_\-heap\_\-limit64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-soft\_\-heap\_\-limit64 (\bf{sqlite3\_\-int64} {\em N})}\label{sqlite3_8h_3c7b737a2a8d636d6f7f538b91215594}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_sourceid@{sqlite3\_\-sourceid}}
+\index{sqlite3_sourceid@{sqlite3\_\-sourceid}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-sourceid (void)}\label{sqlite3_8h_a7c695d6e6cd66a70af91997660c02af}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_sql@{sqlite3\_\-sql}}
+\index{sqlite3_sql@{sqlite3\_\-sql}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const char$\ast$ sqlite3\_\-sql (\bf{sqlite3\_\-stmt} $\ast$ {\em p\-Stmt})}\label{sqlite3_8h_9a09eec0ab166acea06379809fa1c915}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_status@{sqlite3\_\-status}}
+\index{sqlite3_status@{sqlite3\_\-status}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-status (int {\em op}, int $\ast$ {\em p\-Current}, int $\ast$ {\em p\-Highwater}, int {\em reset\-Flag})}\label{sqlite3_8h_e19ffe48abe62021306e39e4053553dd}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_step@{sqlite3\_\-step}}
+\index{sqlite3_step@{sqlite3\_\-step}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-step (\bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_3c6007970aa2fac9654774846c396cff}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_stmt_status@{sqlite3\_\-stmt\_\-status}}
+\index{sqlite3_stmt_status@{sqlite3\_\-stmt\_\-status}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-stmt\_\-status (\bf{sqlite3\_\-stmt} $\ast$, int {\em op}, int {\em reset\-Flg})}\label{sqlite3_8h_57a215c68b54587914a6e74c3763cfce}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_strnicmp@{sqlite3\_\-strnicmp}}
+\index{sqlite3_strnicmp@{sqlite3\_\-strnicmp}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-strnicmp (const char $\ast$, const char $\ast$, int)}\label{sqlite3_8h_f3862ae0941eba2ced02c96a05dcc2d4}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_table_column_metadata@{sqlite3\_\-table\_\-column\_\-metadata}}
+\index{sqlite3_table_column_metadata@{sqlite3\_\-table\_\-column\_\-metadata}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-table\_\-column\_\-metadata (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Db\-Name}, const char $\ast$ {\em z\-Table\-Name}, const char $\ast$ {\em z\-Column\-Name}, char const $\ast$$\ast$ {\em pz\-Data\-Type}, char const $\ast$$\ast$ {\em pz\-Coll\-Seq}, int $\ast$ {\em p\-Not\-Null}, int $\ast$ {\em p\-Primary\-Key}, int $\ast$ {\em p\-Autoinc})}\label{sqlite3_8h_4d8d3d0d7646859663128b9ad9a3e658}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_test_control@{sqlite3\_\-test\_\-control}}
+\index{sqlite3_test_control@{sqlite3\_\-test\_\-control}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-test\_\-control (int {\em op},  {\em ...})}\label{sqlite3_8h_10a3a5dfa2cef7a572d3f5b55043b076}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_thread_cleanup@{sqlite3\_\-thread\_\-cleanup}}
+\index{sqlite3_thread_cleanup@{sqlite3\_\-thread\_\-cleanup}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED void sqlite3\_\-thread\_\-cleanup (void)}\label{sqlite3_8h_11b54da3131e9a12e047d955aaaff1b1}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_threadsafe@{sqlite3\_\-threadsafe}}
+\index{sqlite3_threadsafe@{sqlite3\_\-threadsafe}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-threadsafe (void)}\label{sqlite3_8h_a0de47dcc224080ad76245f417a1917c}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_total_changes@{sqlite3\_\-total\_\-changes}}
+\index{sqlite3_total_changes@{sqlite3\_\-total\_\-changes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-total\_\-changes (\bf{sqlite3} $\ast$)}\label{sqlite3_8h_33b8b86f8fc2c98d12f896fa0e4e94b9}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_trace@{sqlite3\_\-trace}}
+\index{sqlite3_trace@{sqlite3\_\-trace}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-trace (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$, const char $\ast$) {\em x\-Trace}, void $\ast$)}\label{sqlite3_8h_43ba4159ee8c107efeec7647183d4bf4}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_transfer_bindings@{sqlite3\_\-transfer\_\-bindings}}
+\index{sqlite3_transfer_bindings@{sqlite3\_\-transfer\_\-bindings}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-DEPRECATED int sqlite3\_\-transfer\_\-bindings (\bf{sqlite3\_\-stmt} $\ast$, \bf{sqlite3\_\-stmt} $\ast$)}\label{sqlite3_8h_1ed7bbeb7f199d6ac803dbdeb504e559}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_unlock_notify@{sqlite3\_\-unlock\_\-notify}}
+\index{sqlite3_unlock_notify@{sqlite3\_\-unlock\_\-notify}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-unlock\_\-notify (\bf{sqlite3} $\ast$ {\em p\-Blocked}, void($\ast$)(void $\ast$$\ast$ap\-Arg, int n\-Arg) {\em x\-Notify}, void $\ast$ {\em p\-Notify\-Arg})}\label{sqlite3_8h_bf46814e2d65cfd4eb3857e0468cb365}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_update_hook@{sqlite3\_\-update\_\-hook}}
+\index{sqlite3_update_hook@{sqlite3\_\-update\_\-hook}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-update\_\-hook (\bf{sqlite3} $\ast$, void($\ast$)(void $\ast$, int, char const $\ast$, char const $\ast$, \bf{sqlite3\_\-int64}), void $\ast$)}\label{sqlite3_8h_0cf411c582caddc0f5d68bf638f6b61d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_user_data@{sqlite3\_\-user\_\-data}}
+\index{sqlite3_user_data@{sqlite3\_\-user\_\-data}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-user\_\-data (\bf{sqlite3\_\-context} $\ast$)}\label{sqlite3_8h_55838188d91e46dc41487b322dd0359d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_blob@{sqlite3\_\-value\_\-blob}}
+\index{sqlite3_value_blob@{sqlite3\_\-value\_\-blob}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-value\_\-blob (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_efd6de9ddb5717a0aaf8d9ad8a546486}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_bytes@{sqlite3\_\-value\_\-bytes}}
+\index{sqlite3_value_bytes@{sqlite3\_\-value\_\-bytes}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-value\_\-bytes (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_83bb21989a2e48aeb06986dd09af4c22}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_bytes16@{sqlite3\_\-value\_\-bytes16}}
+\index{sqlite3_value_bytes16@{sqlite3\_\-value\_\-bytes16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-value\_\-bytes16 (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_eed4c5a01a4aca9219dc7e018cfa60d8}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_double@{sqlite3\_\-value\_\-double}}
+\index{sqlite3_value_double@{sqlite3\_\-value\_\-double}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API double sqlite3\_\-value\_\-double (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_aa3064cdf49ff97b6a3782bed0b89a6e}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_int@{sqlite3\_\-value\_\-int}}
+\index{sqlite3_value_int@{sqlite3\_\-value\_\-int}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-value\_\-int (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_0fdc949183a7eb47fce6886057fdbc69}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_int64@{sqlite3\_\-value\_\-int64}}
+\index{sqlite3_value_int64@{sqlite3\_\-value\_\-int64}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-int64} sqlite3\_\-value\_\-int64 (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_8e56324702441541e7a9701cfb2c7e5b}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_numeric_type@{sqlite3\_\-value\_\-numeric\_\-type}}
+\index{sqlite3_value_numeric_type@{sqlite3\_\-value\_\-numeric\_\-type}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-value\_\-numeric\_\-type (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_d8f1a9ba00c5eb23e48205c88e8d0a11}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_text@{sqlite3\_\-value\_\-text}}
+\index{sqlite3_value_text@{sqlite3\_\-value\_\-text}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const unsigned char$\ast$ sqlite3\_\-value\_\-text (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_5d44cb6fcdf25766601eeb9c1feb2037}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_text16@{sqlite3\_\-value\_\-text16}}
+\index{sqlite3_value_text16@{sqlite3\_\-value\_\-text16}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-value\_\-text16 (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_7ff07c7973cf817d7adc8d8dbfad9a21}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_text16be@{sqlite3\_\-value\_\-text16be}}
+\index{sqlite3_value_text16be@{sqlite3\_\-value\_\-text16be}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-value\_\-text16be (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_82d9da380fb58a74aaacc262f2fcf4ba}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_text16le@{sqlite3\_\-value\_\-text16le}}
+\index{sqlite3_value_text16le@{sqlite3\_\-value\_\-text16le}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API const void$\ast$ sqlite3\_\-value\_\-text16le (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_8284edba0645b28d67a653420c30dec2}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_value_type@{sqlite3\_\-value\_\-type}}
+\index{sqlite3_value_type@{sqlite3\_\-value\_\-type}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-value\_\-type (\bf{sqlite3\_\-value} $\ast$)}\label{sqlite3_8h_47397b85ebc880c5722d0fb1a94be22d}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vfs_find@{sqlite3\_\-vfs\_\-find}}
+\index{sqlite3_vfs_find@{sqlite3\_\-vfs\_\-find}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API \bf{sqlite3\_\-vfs}$\ast$ sqlite3\_\-vfs\_\-find (const char $\ast$ {\em z\-Vfs\-Name})}\label{sqlite3_8h_8bfe58eea13b12d70eeb85e1a7937faa}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vfs_register@{sqlite3\_\-vfs\_\-register}}
+\index{sqlite3_vfs_register@{sqlite3\_\-vfs\_\-register}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-vfs\_\-register (\bf{sqlite3\_\-vfs} $\ast$, int {\em make\-Dflt})}\label{sqlite3_8h_b0f3c03175a61b948593b95d1a24f5d6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vfs_unregister@{sqlite3\_\-vfs\_\-unregister}}
+\index{sqlite3_vfs_unregister@{sqlite3\_\-vfs\_\-unregister}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-vfs\_\-unregister (\bf{sqlite3\_\-vfs} $\ast$)}\label{sqlite3_8h_0068d360095531f679587717658697e0}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_vmprintf@{sqlite3\_\-vmprintf}}
+\index{sqlite3_vmprintf@{sqlite3\_\-vmprintf}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API char$\ast$ sqlite3\_\-vmprintf (const char $\ast$, va\_\-list)}\label{sqlite3_8h_b192196a79cbfe8e993e58873cb81d00}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_wal_autocheckpoint@{sqlite3\_\-wal\_\-autocheckpoint}}
+\index{sqlite3_wal_autocheckpoint@{sqlite3\_\-wal\_\-autocheckpoint}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-wal\_\-autocheckpoint (\bf{sqlite3} $\ast$ {\em db}, int {\em N})}\label{sqlite3_8h_4508dda2e89b55436dfd2f8cd11401a3}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_wal_checkpoint@{sqlite3\_\-wal\_\-checkpoint}}
+\index{sqlite3_wal_checkpoint@{sqlite3\_\-wal\_\-checkpoint}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API int sqlite3\_\-wal\_\-checkpoint (\bf{sqlite3} $\ast$ {\em db}, const char $\ast$ {\em z\-Db})}\label{sqlite3_8h_3f94a731620e4b278d7ecfb49b3cc9b6}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_wal_hook@{sqlite3\_\-wal\_\-hook}}
+\index{sqlite3_wal_hook@{sqlite3\_\-wal\_\-hook}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API void$\ast$ sqlite3\_\-wal\_\-hook (\bf{sqlite3} $\ast$, int($\ast$)(void $\ast$, \bf{sqlite3} $\ast$, const char $\ast$, int), void $\ast$)}\label{sqlite3_8h_a2f37bdd32f9bc95235c9f31470c61c6}
+
+
+
+
+\subsection{Variable Documentation}
+\index{sqlite3.h@{sqlite3.h}!sqlite3_temp_directory@{sqlite3\_\-temp\_\-directory}}
+\index{sqlite3_temp_directory@{sqlite3\_\-temp\_\-directory}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-EXTERN char$\ast$ \bf{sqlite3\_\-temp\_\-directory}}\label{sqlite3_8h_a4fa7ae92f24bf95fb8223c1f6609850}
+
+
+\index{sqlite3.h@{sqlite3.h}!sqlite3_version@{sqlite3\_\-version}}
+\index{sqlite3_version@{sqlite3\_\-version}!sqlite3.h@{sqlite3.h}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}SQLITE\_\-API SQLITE\_\-EXTERN const char \bf{sqlite3\_\-version}[$\,$]}\label{sqlite3_8h_4b2d4546f20302ba96d3a9f7cfe7269b}
+
+

@@ -1,0 +1,58 @@
+.TH "upk_net_cb_stk_meta_p" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upk_net_cb_stk_meta_p \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBhead\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBtail\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBprevp\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBnextp\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBtempp\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBthisp\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBcount\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fBupk_net_cb_stk_meta_p::count\fP"
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::head\fP"
+.PP
+Referenced by init_callback_handlers(), upk_call_received_packet_callbacks(), upk_net_add_socket_handle(), and upk_net_event_dispatcher().
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::nextp\fP"
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::prevp\fP"
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::tail\fP"
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::tempp\fP"
+.SS "\fBupk_net_cb_stk_t\fP * \fBupk_net_cb_stk_meta_p::thisp\fP"
+.PP
+Referenced by upk_callback_stack_push().
+.SS "void * \fBupk_net_cb_stk_meta_p::userdata\fP"
+.SS "void(* \fBupk_net_cb_stk_meta_p::userdata_free_func\fP)(void *)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,62 @@
+.TH "_libc_fpstate" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_libc_fpstate \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fB__uint16_t\fP \fBcwd\fP"
+.br
+.ti -1c
+.RI "\fB__uint16_t\fP \fBswd\fP"
+.br
+.ti -1c
+.RI "\fB__uint16_t\fP \fBftw\fP"
+.br
+.ti -1c
+.RI "\fB__uint16_t\fP \fBfop\fP"
+.br
+.ti -1c
+.RI "\fB__uint64_t\fP \fBrip\fP"
+.br
+.ti -1c
+.RI "\fB__uint64_t\fP \fBrdp\fP"
+.br
+.ti -1c
+.RI "\fB__uint32_t\fP \fBmxcsr\fP"
+.br
+.ti -1c
+.RI "\fB__uint32_t\fP \fBmxcr_mask\fP"
+.br
+.ti -1c
+.RI "struct \fB_libc_fpxreg\fP \fB_st\fP [8]"
+.br
+.ti -1c
+.RI "struct \fB_libc_xmmreg\fP \fB_xmm\fP [16]"
+.br
+.ti -1c
+.RI "\fB__uint32_t\fP \fBpadding\fP [24]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct \fB_libc_fpxreg\fP \fB_libc_fpstate::_st\fP"
+.SS "struct \fB_libc_xmmreg\fP \fB_libc_fpstate::_xmm\fP"
+.SS "\fB__uint16_t\fP \fB_libc_fpstate::cwd\fP"
+.SS "\fB__uint16_t\fP \fB_libc_fpstate::fop\fP"
+.SS "\fB__uint16_t\fP \fB_libc_fpstate::ftw\fP"
+.SS "\fB__uint32_t\fP \fB_libc_fpstate::mxcr_mask\fP"
+.SS "\fB__uint32_t\fP \fB_libc_fpstate::mxcsr\fP"
+.SS "\fB__uint32_t\fP \fB_libc_fpstate::padding\fP"
+.SS "\fB__uint64_t\fP \fB_libc_fpstate::rdp\fP"
+.SS "\fB__uint64_t\fP \fB_libc_fpstate::rip\fP"
+.SS "\fB__uint16_t\fP \fB_libc_fpstate::swd\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,76 @@
+.TH "Bitvec" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Bitvec \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBu32\fP \fBiSize\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnSet\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBiDivisor\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   BITVEC_TELEM \fBaBitmap\fP [BITVEC_NELEM]"
+.br
+.ti -1c
+.RI "   \fBu32\fP \fBaHash\fP [BITVEC_NINT]"
+.br
+.ti -1c
+.RI "   \fBBitvec\fP * \fBapSub\fP [BITVEC_NPTR]"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   BITVEC_TELEM \fBaBitmap\fP [BITVEC_NELEM]"
+.br
+.ti -1c
+.RI "   \fBu32\fP \fBaHash\fP [BITVEC_NINT]"
+.br
+.ti -1c
+.RI "   \fBBitvec\fP * \fBapSub\fP [BITVEC_NPTR]"
+.br
+.ti -1c
+.RI "} \fBu\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "BITVEC_TELEM \fBBitvec::aBitmap\fP[BITVEC_NELEM]"
+.PP
+.SS "\fBu32\fP \fBBitvec::aHash\fP[BITVEC_NINT]"
+.PP
+.SS "\fBBitvec\fP* \fBBitvec::apSub\fP[BITVEC_NPTR]"
+.PP
+.SS "\fBBitvec\fP* \fBBitvec::apSub\fP[BITVEC_NPTR]"
+.PP
+.SS "\fBu32\fP \fBBitvec::iDivisor\fP"
+.PP
+.SS "\fBu32\fP \fBBitvec::iSize\fP"
+.PP
+.SS "\fBu32\fP \fBBitvec::nSet\fP"
+.PP
+.SS "union { ... }   \fBBitvec::u\fP"
+.PP
+.SS "union { ... }   \fBBitvec::u\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

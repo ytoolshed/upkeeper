@@ -1,0 +1,609 @@
+\section{controller/ctrl\_\-buddy.c File Reference}
+\label{ctrl__buddy_8c}\index{controller/ctrl\_\-buddy.c@{controller/ctrl\_\-buddy.c}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include \char`\"{}controller.h\char`\"{}}\par
+Include dependency graph for ctrl\_\-buddy.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool {\bf create\_\-buddy\_\-statedir} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+static bool {\bf remove\_\-buddy\_\-statedir} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf spawn\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf kill\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+static bool {\bf send\_\-buddy\_\-cmd} (int fd, {\bf buddy\_\-cmnd\_\-t} cmd)
+\item 
+static char $\ast$ {\bf buddy\_\-sock\_\-path} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy, char $\ast$pathbuf)
+\item 
+void {\bf create\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+void {\bf remove\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+int {\bf buddy\_\-connect} (const char $\ast$sockpath)
+\item 
+{\bf buddy\_\-info\_\-t} $\ast$ {\bf buddy\_\-readstate} (int fd)
+\item 
+{\bf upk\_\-svc\_\-desc\_\-t} $\ast$ {\bf lookup\_\-buddy\_\-from\_\-path} (char $\ast$buddy\_\-path)
+\item 
+void {\bf handle\_\-buddies} (void)
+\item 
+bool {\bf start\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf stop\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf reload\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!buddy\_\-connect@{buddy\_\-connect}}
+\index{buddy\_\-connect@{buddy\_\-connect}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{buddy\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}int buddy\_\-connect (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{sockpath}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c}
+
+
+References connect(), SOCK\_\-STREAM, socket(), sockaddr\_\-un::sun\_\-family, sockaddr\_\-un::sun\_\-path, and upk\_\-alert.
+
+
+
+Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), start\_\-buddy\_\-svc(), and stop\_\-buddy\_\-svc().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{ctrl__buddy_8c_a702a0c4cef2ab68a8567086357066d3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!buddy\_\-readstate@{buddy\_\-readstate}}
+\index{buddy\_\-readstate@{buddy\_\-readstate}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{buddy\_\-readstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-info\_\-t}$\ast$ buddy\_\-readstate (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01}
+
+
+References \_\-buddy\_\-info::command, \_\-buddy\_\-info::desired\_\-state, \_\-buddy\_\-info::remaining, select(), \_\-buddy\_\-info::service\_\-pid, \_\-buddy\_\-info::timestamp, timeval::tv\_\-sec, timeval::tv\_\-usec, UPK\_\-CTRL\_\-ACK, upk\_\-debug0, upk\_\-debug1, upk\_\-uuid\_\-to\_\-string(), \_\-buddy\_\-info::uuid, \_\-buddy\_\-info::wait\_\-pid, and \_\-buddy\_\-info::wait\_\-status.
+
+
+
+Referenced by send\_\-buddy\_\-cmd().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=266pt]{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=394pt]{ctrl__buddy_8c_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!buddy\_\-sock\_\-path@{buddy\_\-sock\_\-path}}
+\index{buddy\_\-sock\_\-path@{buddy\_\-sock\_\-path}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{buddy\_\-sock\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ buddy\_\-sock\_\-path (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy, }
+\item[{char $\ast$}]{pathbuf}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{ctrl__buddy_8c_a3167c192e6ed5cd46f95d1a5d8848e7c}
+
+
+References \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::SvcRunPath, UPK\_\-MAX\_\-PATH\_\-LEN, and upk\_\-runtime\_\-configuration.
+
+
+
+Referenced by create\_\-buddy(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), start\_\-buddy\_\-svc(), and stop\_\-buddy\_\-svc().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{ctrl__buddy_8c_a3167c192e6ed5cd46f95d1a5d8848e7c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!create\_\-buddy@{create\_\-buddy}}
+\index{create\_\-buddy@{create\_\-buddy}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{create\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}void create\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3}
+
+
+References buddy\_\-sock\_\-path(), create\_\-buddy\_\-statedir(), spawn\_\-buddy(), stat::st\_\-mode, stat(), and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{ctrl__buddy_8c_ab5645904078d1ac29f24cf8f6f9f95b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!create\_\-buddy\_\-statedir@{create\_\-buddy\_\-statedir}}
+\index{create\_\-buddy\_\-statedir@{create\_\-buddy\_\-statedir}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{create\_\-buddy\_\-statedir}]{\setlength{\rightskip}{0pt plus 5cm}static bool create\_\-buddy\_\-statedir (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a0e91992d43a88269609df40068714512}
+
+
+References \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-controller\_\-config::controller\_\-socket, \_\-upk\_\-svc\_\-desc::CustomActions, fchmod(), \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-svc\_\-desc::ReloadScript, \_\-upk\_\-cust\_\-actscr\_\-list::script, \_\-upk\_\-svc\_\-desc::StartScript, \_\-upk\_\-svc\_\-desc::StopScript, \_\-upk\_\-controller\_\-config::SvcRunPath, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, upk\_\-verbose, and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by create\_\-buddy().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{ctrl__buddy_8c_a0e91992d43a88269609df40068714512_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=268pt]{ctrl__buddy_8c_a0e91992d43a88269609df40068714512_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!handle\_\-buddies@{handle\_\-buddies}}
+\index{handle\_\-buddies@{handle\_\-buddies}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{handle\_\-buddies}]{\setlength{\rightskip}{0pt plus 5cm}void handle\_\-buddies (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8}
+
+
+References buddy\_\-connect(), closedir(), lookup\_\-buddy\_\-from\_\-path(), opendir(), readdir(), remove\_\-buddy(), send\_\-buddy\_\-cmd(), \_\-upk\_\-controller\_\-config::SvcRunPath, UPK\_\-CTRL\_\-STATUS\_\-REQ, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-rm\_\-rf(), and upk\_\-runtime\_\-configuration.
+
+
+
+Referenced by event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{ctrl__buddy_8c_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!kill\_\-buddy@{kill\_\-buddy}}
+\index{kill\_\-buddy@{kill\_\-buddy}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{kill\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}bool kill\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a}
+
+
+References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-SHUTDOWN, and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by remove\_\-buddy().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{ctrl__buddy_8c_ac08a0cf9a291c08c1d7d25bab3fb789a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!lookup\_\-buddy\_\-from\_\-path@{lookup\_\-buddy\_\-from\_\-path}}
+\index{lookup\_\-buddy\_\-from\_\-path@{lookup\_\-buddy\_\-from\_\-path}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{lookup\_\-buddy\_\-from\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-svc\_\-desc\_\-t}$\ast$ lookup\_\-buddy\_\-from\_\-path (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buddy\_\-path}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a5bb1452ac49e63b88f834fe2588f3850}
+
+
+References \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::svclist, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by handle\_\-buddies().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{ctrl__buddy_8c_a5bb1452ac49e63b88f834fe2588f3850_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!reload\_\-buddy\_\-svc@{reload\_\-buddy\_\-svc}}
+\index{reload\_\-buddy\_\-svc@{reload\_\-buddy\_\-svc}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{reload\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool reload\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a732e458dbb31507c5d6e25fe8051c526}
+
+
+References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-RELOAD, and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=394pt]{ctrl__buddy_8c_a732e458dbb31507c5d6e25fe8051c526_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c_a732e458dbb31507c5d6e25fe8051c526_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!remove\_\-buddy@{remove\_\-buddy}}
+\index{remove\_\-buddy@{remove\_\-buddy}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{remove\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}void remove\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1}
+
+
+References kill\_\-buddy(), and remove\_\-buddy\_\-statedir().
+
+
+
+Referenced by handle\_\-buddies().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=374pt]{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{ctrl__buddy_8c_a885b8908c44426b410c5849bbf7ab9b1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!remove\_\-buddy\_\-statedir@{remove\_\-buddy\_\-statedir}}
+\index{remove\_\-buddy\_\-statedir@{remove\_\-buddy\_\-statedir}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{remove\_\-buddy\_\-statedir}]{\setlength{\rightskip}{0pt plus 5cm}static bool remove\_\-buddy\_\-statedir (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a61bbd1a5bc18012f8087f8a9764ef409}
+
+
+References closedir(), \_\-upk\_\-controller\_\-config::controller\_\-buddy\_\-sock, \_\-upk\_\-svc\_\-desc::CustomActions, \_\-upk\_\-cust\_\-actscr\_\-list::name, \_\-upk\_\-svc\_\-desc::Name, opendir(), readdir(), \_\-upk\_\-controller\_\-config::SvcRunPath, \_\-upk\_\-cust\_\-actscr\_\-meta\_\-p::thisp, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-rm\_\-rf(), upk\_\-runtime\_\-configuration, upk\_\-verbose, and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by remove\_\-buddy().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{ctrl__buddy_8c_a61bbd1a5bc18012f8087f8a9764ef409_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{ctrl__buddy_8c_a61bbd1a5bc18012f8087f8a9764ef409_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!send\_\-buddy\_\-cmd@{send\_\-buddy\_\-cmd}}
+\index{send\_\-buddy\_\-cmd@{send\_\-buddy\_\-cmd}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{send\_\-buddy\_\-cmd}]{\setlength{\rightskip}{0pt plus 5cm}static bool send\_\-buddy\_\-cmd (
+\begin{DoxyParamCaption}
+\item[{int}]{fd, }
+\item[{{\bf buddy\_\-cmnd\_\-t}}]{cmd}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e}
+
+
+References buddy\_\-readstate(), select(), SHUT\_\-RDWR, shutdown(), and timeval::tv\_\-sec.
+
+
+
+Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), start\_\-buddy\_\-svc(), and stop\_\-buddy\_\-svc().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=262pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=270pt]{ctrl__buddy_8c_a40a47789c2b14952ebdb1c4a78a2b70e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!spawn\_\-buddy@{spawn\_\-buddy}}
+\index{spawn\_\-buddy@{spawn\_\-buddy}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{spawn\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}bool spawn\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47}
+
+
+References buddy\_\-path(), buddy\_\-uuid, \_\-upk\_\-controller\_\-config::BuddyVerbosity, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-controller\_\-config::SvcRunPath, timespec::tv\_\-sec, upk\_\-fatal, UPK\_\-MAX\_\-PATH\_\-LEN, upk\_\-runtime\_\-configuration, UPK\_\-UUID\_\-STRING\_\-LEN, upk\_\-uuid\_\-to\_\-string(), upk\_\-verbose, \_\-upk\_\-controller\_\-config::UpkBuddyPath, and \_\-upk\_\-svc\_\-desc::UUID.
+
+
+
+Referenced by create\_\-buddy().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=232pt]{ctrl__buddy_8c_ad0312ac0cbebe30134d47757bc97ea47_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!start\_\-buddy\_\-svc@{start\_\-buddy\_\-svc}}
+\index{start\_\-buddy\_\-svc@{start\_\-buddy\_\-svc}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{start\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool start\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_abac768e7b1b76398ad7e25e651f776ea}
+
+
+References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-START, and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=386pt]{ctrl__buddy_8c_abac768e7b1b76398ad7e25e651f776ea_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c_abac768e7b1b76398ad7e25e651f776ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-buddy.c@{ctrl\_\-buddy.c}!stop\_\-buddy\_\-svc@{stop\_\-buddy\_\-svc}}
+\index{stop\_\-buddy\_\-svc@{stop\_\-buddy\_\-svc}!ctrl_buddy.c@{ctrl\_\-buddy.c}}
+\subsubsection[{stop\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool stop\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{ctrl__buddy_8c_af36be3e8ca1253b0d412f404dcde2629}
+
+
+References buddy\_\-connect(), buddy\_\-sock\_\-path(), send\_\-buddy\_\-cmd(), UPK\_\-CTRL\_\-ACTION\_\-STOP, and UPK\_\-MAX\_\-PATH\_\-LEN.
+
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=386pt]{ctrl__buddy_8c_af36be3e8ca1253b0d412f404dcde2629_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__buddy_8c_af36be3e8ca1253b0d412f404dcde2629_icgraph}
+\end{center}
+\end{figure}
+
+

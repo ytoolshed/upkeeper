@@ -1,3 +1,17 @@
+
+/****************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
+
 #include "upk_json.h"
 #include <stdarg.h>
 
@@ -38,14 +52,16 @@ static void             upk_json_output_array_handler(upk_json_stack_meta_t * me
                                                       upk_json_val_t v);
 static void             upk_json_output_object_handler(upk_json_stack_meta_t * meta, void *data, char *key,
                                                        upk_json_val_t v);
-static void             upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key,
-                                                                   upk_json_val_t v);
+static void             upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data,
+                                                                   char *key, upk_json_val_t v);
 static void             upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data,
                                                                      char *key, upk_json_val_t v);
 
 static inline void      upk_json_value(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj);
-static inline void      upk_json_parse_array(upk_json_stack_meta_t * meta, char *key, struct json_object *jarray);
-static inline void      _upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *obj);
+static inline void      upk_json_parse_array(upk_json_stack_meta_t * meta, char *key,
+                                             struct json_object *jarray);
+static inline void      _upk_json_parse_node(upk_json_stack_meta_t * meta, char *key,
+                                             struct json_object *obj);
 
 
 /* *******************************************************************************************************************
@@ -104,6 +120,7 @@ static void
 upk_json_output_null_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
 {
     upk_json_output_data_t *d = data;
+
     if(d->opts.suppress_null_values)
         return;
 
@@ -207,7 +224,8 @@ upk_json_output_object_handler(upk_json_stack_meta_t * meta, void *data, char *k
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 static void
-upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                           upk_json_val_t v)
 {
     upk_json_output_data_t *d = data;
 
@@ -219,7 +237,8 @@ upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *d
 /* *******************************************************************************************************************
    ******************************************************************************************************************* */
 static void
-upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)
+upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key,
+                                             upk_json_val_t v)
 {
     upk_json_output_data_t *d = data;
 
@@ -307,8 +326,8 @@ upk_json_value(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj
         break;
     case json_type_string:
         if(meta->head->handlers.json_string) {
-            v.val.str.c_str = json_object_get_string(jobj);
-            v.val.str.esc_str = upk_json_unescape_forwardslash(json_object_to_json_string(jobj));
+            v.val.str.c_str = (char *) json_object_get_string(jobj);
+            v.val.str.esc_str = upk_json_unescape_forwardslash((char *) json_object_to_json_string(jobj));
             meta->head->handlers.json_string(meta, meta->head->data, key, v);
         }
         break;
@@ -437,14 +456,15 @@ upk_json_parse_string(const char *string)
     }
 
     UPK_FUNC_ASSERT_MSG((tok->err == json_tokener_success), UPK_JSON_PARSE_ERROR,
-                        "%s: near: ``%s''; line: %d; column: %d; byte offset %d\n", json_tokener_errors[tok->err], near,
-                        nline, ncol - 1, tok->char_offset);
+                        "%s: near: ``%s''; line: %d; column: %d; byte offset %d\n",
+                        json_tokener_errors[tok->err], near, nline, ncol - 1, tok->char_offset);
 
     IF_UPK_ERROR {
         if(jobj)
             json_object_put(jobj);
         jobj = NULL;
     }
+    tok->err = json_tokener_success; /* for some reason, this doesn't clear between parsings */
     json_tokener_free(tok);
 
     return jobj;

@@ -1,0 +1,62 @@
+.TH "upk_conn_handle_meta_p" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upk_conn_handle_meta_p \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBhead\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBtail\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBprevp\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBnextp\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBtempp\fP"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_t\fP * \fBthisp\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBcount\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fBupk_conn_handle_meta_p::count\fP"
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::head\fP"
+.PP
+Referenced by main(), upk_clnet_req_action(), upk_clnet_req_disconnect(), upk_clnet_req_preamble(), upk_clnet_req_signal(), upk_clnet_req_status(), and upk_clnet_serial_request().
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::nextp\fP"
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::prevp\fP"
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::tail\fP"
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::tempp\fP"
+.SS "\fBupk_conn_handle_t\fP * \fBupk_conn_handle_meta_p::thisp\fP"
+.PP
+Referenced by ctrl_req_action_handler(), ctrl_req_disconnect_handler(), ctrl_req_preamble_handler(), main(), upk_build_fd_sets(), upk_call_received_packet_callbacks(), upk_disconnect_handle(), upk_net_add_socket_handle(), upk_net_block_until_msg(), upk_net_event_dispatcher(), upk_net_flush_closed_sockets(), upk_read_packets(), and upk_write_packets().
+.SS "void * \fBupk_conn_handle_meta_p::userdata\fP"
+.PP
+Referenced by upk_net_conn_handles_init(), upk_net_get_global_state(), and upk_net_get_global_userdata().
+.SS "void(* \fBupk_conn_handle_meta_p::userdata_free_func\fP)(void *)"
+.PP
+Referenced by upk_net_conn_handles_init().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

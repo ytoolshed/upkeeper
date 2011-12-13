@@ -1,0 +1,77 @@
+\section{sigevent Struct Reference}
+\label{structsigevent}\index{sigevent@{sigevent}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+{\bf sigval\_\-t} {\bf sigev\_\-value}
+\item 
+int {\bf sigev\_\-signo}
+\item 
+int {\bf sigev\_\-notify}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int {\bf \_pad} [((64/sizeof(int))-\/4)]\\
+\>{\bf \_\_pid\_t} {\bf \_tid}\\
+\>struct \{\\
+\>\>void($\ast$ {\bf \_function} )({\bf sigval\_t})\\
+\>\>void $\ast$ {\bf \_attribute}\\
+\>\} {\bf \_sigev\_thread}\\
+\} {\bf \_sigev\_un}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int {\bf \_pad} [((64/sizeof(int))-\/4)]\\
+\>{\bf \_\_pid\_t} {\bf \_tid}\\
+\>struct \{\\
+\>\>void($\ast$ {\bf \_function} )({\bf sigval\_t})\\
+\>\>void $\ast$ {\bf \_attribute}\\
+\>\} {\bf \_sigev\_thread}\\
+\} {\bf \_sigev\_un}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sigevent@{sigevent}!\_\-attribute@{\_\-attribute}}
+\index{\_\-attribute@{\_\-attribute}!sigevent@{sigevent}}
+\subsubsection[{\_\-attribute}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ {\bf sigevent::\_\-attribute}}\label{structsigevent_a059b220fad09b524b48c34ff65761a32}
+\index{sigevent@{sigevent}!\_\-function@{\_\-function}}
+\index{\_\-function@{\_\-function}!sigevent@{sigevent}}
+\subsubsection[{\_\-function}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ {\bf sigevent::\_\-function})({\bf sigval\_\-t})}\label{structsigevent_a8404b069b1af9c92971a24d59537646d}
+\index{sigevent@{sigevent}!\_\-pad@{\_\-pad}}
+\index{\_\-pad@{\_\-pad}!sigevent@{sigevent}}
+\subsubsection[{\_\-pad}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf sigevent::\_\-pad}[((64/sizeof(int))-\/4)]}\label{structsigevent_a63f9e4e3988ce50ed94fa5e601f8d6d5}
+\index{sigevent@{sigevent}!\_\-sigev\_\-thread@{\_\-sigev\_\-thread}}
+\index{\_\-sigev\_\-thread@{\_\-sigev\_\-thread}!sigevent@{sigevent}}
+\subsubsection[{\_\-sigev\_\-thread}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf sigevent::\_\-sigev\_\-thread}}\label{structsigevent_adf0d5f931b24a122ed93a46ff97452f7}
+\index{sigevent@{sigevent}!\_\-sigev\_\-thread@{\_\-sigev\_\-thread}}
+\index{\_\-sigev\_\-thread@{\_\-sigev\_\-thread}!sigevent@{sigevent}}
+\subsubsection[{\_\-sigev\_\-thread}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf sigevent::\_\-sigev\_\-thread}}\label{structsigevent_ab5ea879e537a904b979e61a82197eef8}
+\index{sigevent@{sigevent}!\_\-sigev\_\-un@{\_\-sigev\_\-un}}
+\index{\_\-sigev\_\-un@{\_\-sigev\_\-un}!sigevent@{sigevent}}
+\subsubsection[{\_\-sigev\_\-un}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf sigevent::\_\-sigev\_\-un}}\label{structsigevent_a491a279f390a056750a3106e0adae6c5}
+\index{sigevent@{sigevent}!\_\-sigev\_\-un@{\_\-sigev\_\-un}}
+\index{\_\-sigev\_\-un@{\_\-sigev\_\-un}!sigevent@{sigevent}}
+\subsubsection[{\_\-sigev\_\-un}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf sigevent::\_\-sigev\_\-un}}\label{structsigevent_a591095c4e8420332e260414be1b01f92}
+\index{sigevent@{sigevent}!\_\-tid@{\_\-tid}}
+\index{\_\-tid@{\_\-tid}!sigevent@{sigevent}}
+\subsubsection[{\_\-tid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-pid\_\-t} {\bf sigevent::\_\-tid}}\label{structsigevent_aae283fb8799fd184e639061a42416a78}
+\index{sigevent@{sigevent}!sigev\_\-notify@{sigev\_\-notify}}
+\index{sigev\_\-notify@{sigev\_\-notify}!sigevent@{sigevent}}
+\subsubsection[{sigev\_\-notify}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf sigevent::sigev\_\-notify}}\label{structsigevent_aae9a19d879c38e0c4e8a9bf738c5081e}
+\index{sigevent@{sigevent}!sigev\_\-signo@{sigev\_\-signo}}
+\index{sigev\_\-signo@{sigev\_\-signo}!sigevent@{sigevent}}
+\subsubsection[{sigev\_\-signo}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf sigevent::sigev\_\-signo}}\label{structsigevent_a5c645ec1d12bb46efc3f4097c52b665d}
+\index{sigevent@{sigevent}!sigev\_\-value@{sigev\_\-value}}
+\index{sigev\_\-value@{sigev\_\-value}!sigevent@{sigevent}}
+\subsubsection[{sigev\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sigval\_\-t} {\bf sigevent::sigev\_\-value}}\label{structsigevent_aedd1f9ff34678d5cfb6946b4ca5a7521}
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

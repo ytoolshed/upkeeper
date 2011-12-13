@@ -1,0 +1,195 @@
+\section{libupkeeper/upkeeper/upk\_\-protocol\_\-serializer.c File Reference}
+\label{upk__protocol__serializer_8c}\index{libupkeeper/upkeeper/upk\_\-protocol\_\-serializer.c@{libupkeeper/upkeeper/upk\_\-protocol\_\-serializer.c}}
+{\ttfamily \#include \char`\"{}upk\_\-protocol.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-error.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-crc32.h\char`\"{}}\par
+Include dependency graph for upk\_\-protocol\_\-serializer.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol__serializer_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER}~msgtype
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-pkttype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER}~pkttype
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-req\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-req\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-repl\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static void $\ast$ {\bf upk\_\-deserialize\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$payload\_\-buf, {\bf upk\_\-pkttype\_\-t} pkttype, {\bf uint32\_\-t} version\_\-id)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-deserialize\_\-packet} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-packet} ({\bf upk\_\-packet\_\-t} $\ast$UPK\_\-DATA\_\-PTR)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-pkttype\_\-t} {\bf upk\_\-pkt\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-req\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-repl\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-pub\_\-proto\_\-limit} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}}
+\index{UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER~msgtype}\label{upk__protocol__serializer_8c_a085168993b6f7b7f00302e0c30df8302}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}}
+\index{UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER~pkttype}\label{upk__protocol__serializer_8c_a085168993b6f7b7f00302e0c30df8302}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-pkttype\_\-t}}\label{upk__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-deserialize\_\-payload@{upk\_\-deserialize\_\-payload}}
+\index{upk\_\-deserialize\_\-payload@{upk\_\-deserialize\_\-payload}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-deserialize\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static void$\ast$ upk\_\-deserialize\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{payload\_\-buf, }
+\item[{{\bf upk\_\-pkttype\_\-t}}]{pkttype, }
+\item[{{\bf uint32\_\-t}}]{version\_\-id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__protocol__serializer_8c_a713b5010e0138e2bd764b23bd4afe7ac}
+
+
+References v0\_\-deserialize\_\-payload().
+
+
+
+Referenced by upk\_\-deserialize\_\-packet().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{upk__protocol__serializer_8c_a713b5010e0138e2bd764b23bd4afe7ac_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{upk__protocol__serializer_8c_a713b5010e0138e2bd764b23bd4afe7ac_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-serialize\_\-payload@{upk\_\-serialize\_\-payload}}
+\index{upk\_\-serialize\_\-payload@{upk\_\-serialize\_\-payload}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-serialize\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t}$\ast$ upk\_\-serialize\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__protocol__serializer_8c_a9ab5d899eb9b4becff49ebecbfb3e324}
+
+
+References v0\_\-serialize\_\-payload(), and upk\_\-packet\_\-t::version\_\-id.
+
+
+
+Referenced by upk\_\-serialize\_\-packet().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{upk__protocol__serializer_8c_a9ab5d899eb9b4becff49ebecbfb3e324_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{upk__protocol__serializer_8c_a9ab5d899eb9b4becff49ebecbfb3e324_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-pkt\_\-proto\_\-limit@{upk\_\-pkt\_\-proto\_\-limit}}
+\index{upk\_\-pkt\_\-proto\_\-limit@{upk\_\-pkt\_\-proto\_\-limit}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-pkt\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkttype\_\-t} {\bf upk\_\-pkt\_\-proto\_\-limit}[$\,$]}\label{upk__protocol__serializer_8c_ae68958999ec86cc64f3a4890000e55ac}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    PKT_V0_PROTO_LIMIT,
+}
+\end{DoxyCode}
+
+
+Referenced by upk\_\-deserialize\_\-packet().
+
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-pub\_\-proto\_\-limit@{upk\_\-pub\_\-proto\_\-limit}}
+\index{upk\_\-pub\_\-proto\_\-limit@{upk\_\-pub\_\-proto\_\-limit}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-pub\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-pub\_\-proto\_\-limit}[$\,$]}\label{upk__protocol__serializer_8c_a14dea902b70e94c33ef604fa46f155fc}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    UPK_PUB_V0_PROTO_LIMIT,
+}
+\end{DoxyCode}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-repl\_\-proto\_\-limit@{upk\_\-repl\_\-proto\_\-limit}}
+\index{upk\_\-repl\_\-proto\_\-limit@{upk\_\-repl\_\-proto\_\-limit}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-repl\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-repl\_\-proto\_\-limit}[$\,$]}\label{upk__protocol__serializer_8c_a05506541d609817a37f3332197cd7b45}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    UPK_REPL_V0_PROTO_LIMIT,
+}
+\end{DoxyCode}
+\index{upk\_\-protocol\_\-serializer.c@{upk\_\-protocol\_\-serializer.c}!upk\_\-req\_\-proto\_\-limit@{upk\_\-req\_\-proto\_\-limit}}
+\index{upk\_\-req\_\-proto\_\-limit@{upk\_\-req\_\-proto\_\-limit}!upk_protocol_serializer.c@{upk\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-req\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-req\_\-proto\_\-limit}[$\,$]}\label{upk__protocol__serializer_8c_a6ab96c29b9358b9d52158aebbdb6aeaa}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    UPK_REQ_V0_PROTO_LIMIT,
+}
+\end{DoxyCode}

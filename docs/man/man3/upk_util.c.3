@@ -1,0 +1,79 @@
+.TH "libupkeeper/upkeeper/upk_util.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_util.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_include.h'\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "bool \fBupk_numeric_string\fP (const char *string, long *num)"
+.br
+.ti -1c
+.RI "bool \fBupk_boolean_string\fP (const char *string, bool *val)"
+.br
+.ti -1c
+.RI "void \fBupk_replace_string\fP (char **haystack, const char *needle, const char *repl)"
+.br
+.ti -1c
+.RI "struct \fBtimeval\fP \fBupk_double_to_timeval\fP (long double r)"
+.br
+.ti -1c
+.RI "int \fBupk_rm_rf\fP (char *start_path)"
+.br
+.ti -1c
+.RI "int \fBupk_mkdir_p\fP (const char *path)"
+.br
+.RI "\fIcreate a directory and any path components leading up to it. \fP"
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "bool upk_boolean_string (const char *string, bool *val)"*************************************************************************** 
+.PP
+References upk_numeric_string().
+.SS "struct \fBtimeval\fP upk_double_to_timeval (long doubler)\fC [read]\fP"*************************************************************************** 
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "int upk_mkdir_p (const char *path)"
+.PP
+create a directory and any path components leading up to it. *************************************************************************** 
+.PP
+\fBParameters:\fP
+.RS 4
+\fIpath\fP directory to create.
+.RE
+.PP
+\fBReturns:\fP
+.RS 4
+the number of directories successfully created. 
+.RE
+.PP
+
+.PP
+References calloc(), dirname(), stat(), _upk_stringlist::string, _upk_stringlist_meta_p::thisp, UPK_MAX_STRING_LEN, upk_warn, UPKLIST_FOREACH, UPKLIST_FREE, and UPKLIST_PREPEND.
+.PP
+Referenced by upk_state_init().
+.SS "bool upk_numeric_string (const char *string, long *num)"*************************************************************************** 
+.PP
+Referenced by main(), and upk_boolean_string().
+.SS "void upk_replace_string (char **haystack, const char *needle, const char *repl)"*************************************************************************** 
+.PP
+References realloc().
+.PP
+Referenced by START_TEST(), and upk_finalize_svc_desc().
+.SS "int upk_rm_rf (char *start_path)"*************************************************************************** 
+.PP
+References closedir(), opendir(), readdir(), stat::st_mode, stat(), UPK_MAX_PATH_LEN, upk_rm_rf(), and upk_warn.
+.PP
+Referenced by handle_buddies(), main(), remove_buddy_statedir(), and upk_rm_rf().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

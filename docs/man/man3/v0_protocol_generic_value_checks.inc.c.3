@@ -1,0 +1,203 @@
+.TH "libupkeeper/tests/v0_protocol_generic_value_checks.inc.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/tests/v0_protocol_generic_value_checks.inc.c \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fB_stringify\fP(A)   #A"
+.br
+.ti -1c
+.RI "#define \fBstringify\fP(A)   _stringify(A)"
+.br
+.ti -1c
+.RI "#define \fB_create_fmt\fP(FMT)   ': got: ' stringify(FMT) ', wanted: ' stringify(FMT)"
+.br
+.ti -1c
+.RI "#define \fBcheck_isequal\fP(A, B, FMT)   fail_unless( (A == B), stringify(A) _create_fmt(FMT), A, B)"
+.br
+.ti -1c
+.RI "#define \fBcheck_isequal_str\fP(A, B, FMT)   fail_unless( strcmp(A, B) == 0, stringify(A) _create_fmt(FMT), A, B)"
+.br
+.ti -1c
+.RI "#define \fBaction_name\fP   'svcinfo last action name'"
+.br
+.ti -1c
+.RI "#define \fBservice_name\fP   'svcinfo service'"
+.br
+.ti -1c
+.RI "#define \fBservice_name\fP   'service on which error is being reported'"
+.br
+.ti -1c
+.RI "#define \fBerrmsg\fP   'Some helpful error message telling what happened'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_seq_start)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_seq_end)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_action)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_signal)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_list)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_status)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_subscribe)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_unsubscribe)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_req_disconnect)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_seq_start)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_seq_end)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_result)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_listing)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_svcinfo)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_ack)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_repl_error)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_pub_publication)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_proto_pub_cancelation)"
+.br
+.ti -1c
+.RI "TCase * \fBv0_proto_requests\fP (void)"
+.br
+.ti -1c
+.RI "TCase * \fBv0_proto_replies\fP (void)"
+.br
+.ti -1c
+.RI "TCase * \fBv0_proto_pubmsgs\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBEND_TEST\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define _create_fmt(FMT)   ': got: ' stringify(FMT) ', wanted: ' stringify(FMT)"
+.SS "#define _stringify(A)   #A"
+.SS "#define action_name   'svcinfo last action name'"
+.PP
+Referenced by START_TEST().
+.SS "#define check_isequal(A, B, FMT)   fail_unless( (A == B), stringify(A) _create_fmt(FMT), A, B)"
+.PP
+Referenced by START_TEST().
+.SS "#define check_isequal_str(A, B, FMT)   fail_unless( strcmp(A, B) == 0, stringify(A) _create_fmt(FMT), A, B)"
+.SS "#define errmsg   'Some helpful error message telling what happened'"
+.PP
+Referenced by START_TEST().
+.SS "#define service_name   'svcinfo service'"
+.PP
+Referenced by START_TEST().
+.SS "#define service_name   'service on which error is being reported'"
+.SS "#define stringify(A)   _stringify(A)"
+.SH "Function Documentation"
+.PP 
+.SS "START_TEST (test_proto_req_seq_start)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, UPK_REQ_LIST, and UPK_REQ_SEQ_START.
+.SS "START_TEST (test_proto_req_seq_end)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, and UPK_REQ_SEQ_END.
+.SS "START_TEST (test_proto_req_signal)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, UPK_REQ_SIGNAL, and UPK_SIG_KILL.
+.SS "START_TEST (test_proto_req_unsubscribe)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, and UPK_REQ_UNSUBSCRIBE.
+.SS "START_TEST (test_proto_pub_cancelation)"
+.PP
+References PKT_PUBMSG, TEST_SETUP_NOARGS, TEST_TEARDOWN, and UPK_PUB_CANCELATION.
+.SS "START_TEST (test_proto_repl_error)"
+.PP
+References check_isequal, errmsg, PKT_REPLY, service_name, TEST_SETUP, TEST_TEARDOWN, UPK_ERR_UNKNOWN, UPK_ERRLVL_ERROR, and UPK_REPL_ERROR.
+.SS "START_TEST (test_proto_pub_publication)"
+.PP
+References PKT_PUBMSG, TEST_SETUP_NOARGS, TEST_TEARDOWN, and UPK_PUB_PUBLICATION.
+.SS "START_TEST (test_proto_repl_ack)"
+.PP
+References PKT_REPLY, TEST_SETUP_NOARGS, TEST_TEARDOWN, and UPK_REPL_ACK.
+.SS "START_TEST (test_proto_repl_svcinfo)"
+.PP
+References action_name, v0_svcinfo_t::last_action_time, PKT_REPLY, service_name, TEST_SETUP, TEST_TEARDOWN, UPK_REPL_SVCINFO, UPK_SIG_KILL, UPK_STATE_RUNNING, and UPK_STATE_SHUTDOWN.
+.SS "START_TEST (test_proto_repl_listing)"
+.PP
+References PKT_REPLY, TEST_SETUP, TEST_TEARDOWN, and UPK_REPL_LISTING.
+.SS "START_TEST (test_proto_repl_result)"
+.PP
+References PKT_REPLY, TEST_SETUP, TEST_TEARDOWN, and UPK_REPL_RESULT.
+.SS "START_TEST (test_proto_repl_seq_end)"
+.PP
+References PKT_REPLY, TEST_SETUP, TEST_TEARDOWN, and UPK_REPL_SEQ_END.
+.SS "START_TEST (test_proto_repl_seq_start)"
+.PP
+References PKT_REPLY, TEST_SETUP, TEST_TEARDOWN, UPK_REPL_LISTING, and UPK_REPL_SEQ_START.
+.SS "START_TEST (test_proto_req_disconnect)"
+.PP
+References PKT_REQUEST, TEST_SETUP_NOARGS, TEST_TEARDOWN, and UPK_REQ_DISCONNECT.
+.SS "START_TEST (test_proto_req_list)"
+.PP
+References PKT_REQUEST, TEST_SETUP_NOARGS, TEST_TEARDOWN, and UPK_REQ_LIST.
+.SS "START_TEST (test_proto_req_subscribe)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, and UPK_REQ_SUBSCRIBE.
+.SS "START_TEST (test_proto_req_status)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, and UPK_REQ_STATUS.
+.SS "START_TEST (test_proto_req_action)"
+.PP
+References PKT_REQUEST, TEST_SETUP, TEST_TEARDOWN, and UPK_REQ_ACTION.
+.SS "TCase* v0_proto_pubmsgs (void)"
+.PP
+Referenced by upk_proto_helpers_suite(), upk_proto_serializers_suite(), v0_proto_helpers_suite(), and v0_proto_serializers_suite().
+.SS "TCase* v0_proto_replies (void)"
+.PP
+Referenced by upk_proto_helpers_suite(), upk_proto_serializers_suite(), v0_proto_helpers_suite(), and v0_proto_serializers_suite().
+.SS "TCase* v0_proto_requests (void)"
+.PP
+Referenced by upk_proto_helpers_suite(), upk_proto_serializers_suite(), v0_proto_helpers_suite(), and v0_proto_serializers_suite().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBEND_TEST\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

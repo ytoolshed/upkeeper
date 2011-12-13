@@ -1,0 +1,52 @@
+\section{libupkeeper/upkeeper/upk\_\-network.h File Reference}
+\label{upk__network_8h}\index{libupkeeper/upkeeper/upk\_\-network.h@{libupkeeper/upkeeper/upk\_\-network.h}}
+{\ttfamily \#include \char`\"{}upk\_\-include.h\char`\"{}}\par
+Include dependency graph for upk\_\-network.h:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__network_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__network_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf upk\_\-domain\_\-socket\_\-connect} (const char $\ast$sockpath)
+\begin{DoxyCompactList}\small\item\em connect to a domain socket. \end{DoxyCompactList}\item 
+void {\bf upk\_\-read\_\-packets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em read any packets from the handle handles-\/$>$thisp, and call read-\/callbacks. \end{DoxyCompactList}\item 
+void {\bf upk\_\-queue\_\-packet} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, {\bf upk\_\-conn\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-packet\_\-t} $\ast$pkt, {\bf upk\_\-net\_\-callback\_\-t} after\_\-write\_\-callback)
+\begin{DoxyCompactList}\small\item\em enqueue a packet for sending \end{DoxyCompactList}\item 
+void {\bf upk\_\-write\_\-packets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em write the packets in the writeq for handles-\/$>$thisp, and call any write callbacks \end{DoxyCompactList}\item 
+void {\bf upk\_\-disconnect\_\-handle} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em disconnect the -\/$>$thisp handle in handles. \end{DoxyCompactList}\item 
+bool {\bf upk\_\-net\_\-add\_\-socket\_\-handle} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, int fd)
+\begin{DoxyCompactList}\small\item\em add a new socket handle to the handles list \end{DoxyCompactList}\item 
+void {\bf upk\_\-net\_\-event\_\-dispatcher} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, double poll\_\-ival)
+\begin{DoxyCompactList}\small\item\em The event dispatcher, called via an event-\/loop. \end{DoxyCompactList}\item 
+void {\bf upk\_\-net\_\-flush\_\-closed\_\-sockets} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em iterate through the list of handles, and prune any that are no longer valid. \end{DoxyCompactList}\item 
+int {\bf upk\_\-net\_\-block\_\-until\_\-msg} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, double poll\_\-ival, struct {\bf timeval} $\ast${\bf timeout})
+\begin{DoxyCompactList}\small\item\em block until a complete message is received, up to timeout. \end{DoxyCompactList}\item 
+{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ {\bf upk\_\-net\_\-conn\_\-handles\_\-init} (void $\ast$userdata, void($\ast$userdata\_\-free\_\-func)(void $\ast$ptr))
+\begin{DoxyCompactList}\small\item\em initialize connection handles \end{DoxyCompactList}\item 
+void {\bf upk\_\-net\_\-shutdown\_\-callback} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em wrapper around upk-\/disconnect\_\-handle for use as a callback. \end{DoxyCompactList}\item 
+{\bf upk\_\-net\_\-state\_\-t} $\ast$ {\bf upk\_\-net\_\-get\_\-global\_\-state} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$handles)
+\begin{DoxyCompactList}\small\item\em extract the nested global\_\-state component from the generic (void $\ast$) userdata element \end{DoxyCompactList}\item 
+void {\bf upk\_\-callback\_\-stack\_\-push} ({\bf upk\_\-conn\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-net\_\-cb\_\-stk\_\-t} $\ast$state)
+\begin{DoxyCompactList}\small\item\em push a callback-\/stack state element onto the callback stack for a handle. \end{DoxyCompactList}\item 
+void {\bf upk\_\-callback\_\-stack\_\-pop} ({\bf upk\_\-conn\_\-handle\_\-t} $\ast$handle)
+\begin{DoxyCompactList}\small\item\em pop the top element off the callback-\/stack for a handle. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}

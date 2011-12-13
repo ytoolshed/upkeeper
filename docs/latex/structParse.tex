@@ -1,0 +1,609 @@
+\section{Parse Struct Reference}
+\label{structParse}\index{Parse@{Parse}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{sqlite3} $\ast$ \bf{db}
+\item 
+int \bf{rc}
+\item 
+char $\ast$ \bf{z\-Err\-Msg}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Vdbe}
+\item 
+\bf{u8} \bf{col\-Names\-Set}
+\item 
+\bf{u8} \bf{name\-Clash}
+\item 
+\bf{u8} \bf{check\-Schema}
+\item 
+\bf{u8} \bf{nested}
+\item 
+\bf{u8} \bf{parse\-Error}
+\item 
+\bf{u8} \bf{n\-Temp\-Reg}
+\item 
+\bf{u8} \bf{n\-Temp\-In\-Use}
+\item 
+int \bf{a\-Temp\-Reg} [8]
+\item 
+int \bf{n\-Range\-Reg}
+\item 
+int \bf{i\-Range\-Reg}
+\item 
+int \bf{n\-Err}
+\item 
+int \bf{n\-Tab}
+\item 
+int \bf{n\-Mem}
+\item 
+int \bf{n\-Set}
+\item 
+int \bf{ck\-Base}
+\item 
+int \bf{i\-Cache\-Level}
+\item 
+int \bf{i\-Cache\-Cnt}
+\item 
+\bf{u8} \bf{n\-Col\-Cache}
+\item 
+\bf{u8} \bf{i\-Col\-Cache}
+\item 
+\bf{Parse::y\-Col\-Cache} \bf{a\-Col\-Cache} [SQLITE\_\-N\_\-COLCACHE]
+\item 
+\bf{u32} \bf{write\-Mask}
+\item 
+\bf{u32} \bf{cookie\-Mask}
+\item 
+\bf{u8} \bf{is\-Multi\-Write}
+\item 
+\bf{u8} \bf{may\-Abort}
+\item 
+int \bf{cookie\-Goto}
+\item 
+int \bf{cookie\-Value} [SQLITE\_\-MAX\_\-ATTACHED+2]
+\item 
+int \bf{n\-Table\-Lock}
+\item 
+\bf{Table\-Lock} $\ast$ \bf{a\-Table\-Lock}
+\item 
+int \bf{reg\-Rowid}
+\item 
+int \bf{reg\-Root}
+\item 
+\bf{Autoinc\-Info} $\ast$ \bf{p\-Ainc}
+\item 
+int \bf{n\-Max\-Arg}
+\item 
+\bf{Parse} $\ast$ \bf{p\-Toplevel}
+\item 
+\bf{Table} $\ast$ \bf{p\-Trigger\-Tab}
+\item 
+\bf{u32} \bf{oldmask}
+\item 
+\bf{u32} \bf{newmask}
+\item 
+\bf{u8} \bf{e\-Trigger\-Op}
+\item 
+\bf{u8} \bf{e\-Orconf}
+\item 
+\bf{u8} \bf{disable\-Triggers}
+\item 
+double \bf{n\-Query\-Loop}
+\item 
+int \bf{n\-Var}
+\item 
+int \bf{n\-Var\-Expr}
+\item 
+int \bf{n\-Var\-Expr\-Alloc}
+\item 
+\bf{Expr} $\ast$$\ast$ \bf{ap\-Var\-Expr}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Reprepare}
+\item 
+int \bf{n\-Alias}
+\item 
+int \bf{n\-Alias\-Alloc}
+\item 
+int $\ast$ \bf{a\-Alias}
+\item 
+\bf{u8} \bf{explain}
+\item 
+\bf{Token} \bf{s\-Name\-Token}
+\item 
+\bf{Token} \bf{s\-Last\-Token}
+\item 
+const char $\ast$ \bf{z\-Tail}
+\item 
+\bf{Table} $\ast$ \bf{p\-New\-Table}
+\item 
+\bf{Trigger} $\ast$ \bf{p\-New\-Trigger}
+\item 
+const char $\ast$ \bf{z\-Auth\-Context}
+\item 
+\bf{Token} \bf{s\-Arg}
+\item 
+\bf{u8} \bf{declare\-Vtab}
+\item 
+int \bf{n\-Vtab\-Lock}
+\item 
+\bf{Table} $\ast$$\ast$ \bf{ap\-Vtab\-Lock}
+\item 
+int \bf{n\-Height}
+\item 
+\bf{Table} $\ast$ \bf{p\-Zombie\-Tab}
+\item 
+\bf{Trigger\-Prg} $\ast$ \bf{p\-Trigger\-Prg}
+\item 
+\bf{sqlite3} $\ast$ \bf{db}
+\item 
+char $\ast$ \bf{z\-Err\-Msg}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Vdbe}
+\item 
+\bf{Parse::y\-Col\-Cache} \bf{a\-Col\-Cache} [SQLITE\_\-N\_\-COLCACHE]
+\item 
+\bf{Table\-Lock} $\ast$ \bf{a\-Table\-Lock}
+\item 
+\bf{Autoinc\-Info} $\ast$ \bf{p\-Ainc}
+\item 
+\bf{Parse} $\ast$ \bf{p\-Toplevel}
+\item 
+\bf{Table} $\ast$ \bf{p\-Trigger\-Tab}
+\item 
+\bf{Expr} $\ast$$\ast$ \bf{ap\-Var\-Expr}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Reprepare}
+\item 
+int $\ast$ \bf{a\-Alias}
+\item 
+const char $\ast$ \bf{z\-Tail}
+\item 
+\bf{Table} $\ast$ \bf{p\-New\-Table}
+\item 
+\bf{Trigger} $\ast$ \bf{p\-New\-Trigger}
+\item 
+const char $\ast$ \bf{z\-Auth\-Context}
+\item 
+\bf{Table} $\ast$$\ast$ \bf{ap\-Vtab\-Lock}
+\item 
+\bf{Table} $\ast$ \bf{p\-Zombie\-Tab}
+\item 
+\bf{Trigger\-Prg} $\ast$ \bf{p\-Trigger\-Prg}
+\end{CompactItemize}
+\subsection*{Data Structures}
+\begin{CompactItemize}
+\item 
+struct \bf{y\-Col\-Cache}
+\item 
+struct \bf{y\-Col\-Cache}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{Parse@{Parse}!aAlias@{aAlias}}
+\index{aAlias@{aAlias}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Parse::a\-Alias}}\label{structParse_00094d46de40943645d581bf9da8094f}
+
+
+\index{Parse@{Parse}!aAlias@{aAlias}}
+\index{aAlias@{aAlias}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Parse::a\-Alias}}\label{structParse_00094d46de40943645d581bf9da8094f}
+
+
+\index{Parse@{Parse}!aColCache@{aColCache}}
+\index{aColCache@{aColCache}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \bf{Parse::y\-Col\-Cache}  \bf{Parse::a\-Col\-Cache}[SQLITE\_\-N\_\-COLCACHE]}\label{structParse_816c2b5c48b8fadf15ea54e260b415bc}
+
+
+\index{Parse@{Parse}!aColCache@{aColCache}}
+\index{aColCache@{aColCache}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \bf{Parse::y\-Col\-Cache}  \bf{Parse::a\-Col\-Cache}[SQLITE\_\-N\_\-COLCACHE]}\label{structParse_816c2b5c48b8fadf15ea54e260b415bc}
+
+
+\index{Parse@{Parse}!apVarExpr@{apVarExpr}}
+\index{apVarExpr@{apVarExpr}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$$\ast$ \bf{Parse::ap\-Var\-Expr}}\label{structParse_67299b2e5184eb042bf45b30705718c2}
+
+
+\index{Parse@{Parse}!apVarExpr@{apVarExpr}}
+\index{apVarExpr@{apVarExpr}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Expr}$\ast$$\ast$ \bf{Parse::ap\-Var\-Expr}}\label{structParse_67299b2e5184eb042bf45b30705718c2}
+
+
+\index{Parse@{Parse}!apVtabLock@{apVtabLock}}
+\index{apVtabLock@{apVtabLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$$\ast$ \bf{Parse::ap\-Vtab\-Lock}}\label{structParse_8b6c66ec846924e2638530a0ed583019}
+
+
+\index{Parse@{Parse}!apVtabLock@{apVtabLock}}
+\index{apVtabLock@{apVtabLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$$\ast$ \bf{Parse::ap\-Vtab\-Lock}}\label{structParse_8b6c66ec846924e2638530a0ed583019}
+
+
+\index{Parse@{Parse}!aTableLock@{aTableLock}}
+\index{aTableLock@{aTableLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table\-Lock}$\ast$ \bf{Parse::a\-Table\-Lock}}\label{structParse_c6632dd1e59fe9d415692e7e9442d879}
+
+
+\index{Parse@{Parse}!aTableLock@{aTableLock}}
+\index{aTableLock@{aTableLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table\-Lock}$\ast$ \bf{Parse::a\-Table\-Lock}}\label{structParse_c6632dd1e59fe9d415692e7e9442d879}
+
+
+\index{Parse@{Parse}!aTempReg@{aTempReg}}
+\index{aTempReg@{aTempReg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::a\-Temp\-Reg}}\label{structParse_22ecc75adec27a9ba923a0849f159902}
+
+
+\index{Parse@{Parse}!checkSchema@{checkSchema}}
+\index{checkSchema@{checkSchema}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::check\-Schema}}\label{structParse_54c3cb21f06ef573cb10ed20418966c0}
+
+
+\index{Parse@{Parse}!ckBase@{ckBase}}
+\index{ckBase@{ckBase}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::ck\-Base}}\label{structParse_b76ef64e96b515a607c429ff725ee3e7}
+
+
+\index{Parse@{Parse}!colNamesSet@{colNamesSet}}
+\index{colNamesSet@{colNamesSet}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::col\-Names\-Set}}\label{structParse_71a933663b751753c890950ceeb9100e}
+
+
+\index{Parse@{Parse}!cookieGoto@{cookieGoto}}
+\index{cookieGoto@{cookieGoto}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::cookie\-Goto}}\label{structParse_c998d4b158a0be21cf3d2dd386c76dd6}
+
+
+\index{Parse@{Parse}!cookieMask@{cookieMask}}
+\index{cookieMask@{cookieMask}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Parse::cookie\-Mask}}\label{structParse_4541fcfa80f770cd325e707f4122585b}
+
+
+\index{Parse@{Parse}!cookieValue@{cookieValue}}
+\index{cookieValue@{cookieValue}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::cookie\-Value}}\label{structParse_6fa453224c149652e1ce90605845cce9}
+
+
+\index{Parse@{Parse}!db@{db}}
+\index{db@{db}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3}$\ast$ \bf{Parse::db}}\label{structParse_2af9f8230a69bc3f15d0acf8c9a62572}
+
+
+\index{Parse@{Parse}!db@{db}}
+\index{db@{db}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3}$\ast$ \bf{Parse::db}}\label{structParse_2af9f8230a69bc3f15d0acf8c9a62572}
+
+
+\index{Parse@{Parse}!declareVtab@{declareVtab}}
+\index{declareVtab@{declareVtab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::declare\-Vtab}}\label{structParse_b67c9302fc7f0eaa2cc360ff6467e0a6}
+
+
+\index{Parse@{Parse}!disableTriggers@{disableTriggers}}
+\index{disableTriggers@{disableTriggers}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::disable\-Triggers}}\label{structParse_c29ae8b642d8ea22a6992a844ac0d25f}
+
+
+\index{Parse@{Parse}!eOrconf@{eOrconf}}
+\index{eOrconf@{eOrconf}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::e\-Orconf}}\label{structParse_4f49d482d6ad9d3efdeb9bebd0f6b7eb}
+
+
+\index{Parse@{Parse}!eTriggerOp@{eTriggerOp}}
+\index{eTriggerOp@{eTriggerOp}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::e\-Trigger\-Op}}\label{structParse_a80bcdd34aa590112f1191eef2f12d6a}
+
+
+\index{Parse@{Parse}!explain@{explain}}
+\index{explain@{explain}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::explain}}\label{structParse_ef71f796171b3e7d247690f3710cd88b}
+
+
+\index{Parse@{Parse}!iCacheCnt@{iCacheCnt}}
+\index{iCacheCnt@{iCacheCnt}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::i\-Cache\-Cnt}}\label{structParse_a3865347bf214607884448d05a2df0c7}
+
+
+\index{Parse@{Parse}!iCacheLevel@{iCacheLevel}}
+\index{iCacheLevel@{iCacheLevel}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::i\-Cache\-Level}}\label{structParse_f3259b26add2b305516ca8ee782365b6}
+
+
+\index{Parse@{Parse}!iColCache@{iColCache}}
+\index{iColCache@{iColCache}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::i\-Col\-Cache}}\label{structParse_fcb9fe9dc37d0426dbed334f9bb0eb06}
+
+
+\index{Parse@{Parse}!iRangeReg@{iRangeReg}}
+\index{iRangeReg@{iRangeReg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::i\-Range\-Reg}}\label{structParse_5719e00b8cb74d19850153c3bae6cc4c}
+
+
+\index{Parse@{Parse}!isMultiWrite@{isMultiWrite}}
+\index{isMultiWrite@{isMultiWrite}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::is\-Multi\-Write}}\label{structParse_445355910720758c7aae2a718684c968}
+
+
+\index{Parse@{Parse}!mayAbort@{mayAbort}}
+\index{mayAbort@{mayAbort}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::may\-Abort}}\label{structParse_b747474c0f5db9a356fcf7cca9783075}
+
+
+\index{Parse@{Parse}!nAlias@{nAlias}}
+\index{nAlias@{nAlias}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Alias}}\label{structParse_97c7abdfb0f04b5edecad70ed7cf5086}
+
+
+\index{Parse@{Parse}!nAliasAlloc@{nAliasAlloc}}
+\index{nAliasAlloc@{nAliasAlloc}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Alias\-Alloc}}\label{structParse_34bd6e917b0cb4f7d573a1e0e1ed1a20}
+
+
+\index{Parse@{Parse}!nameClash@{nameClash}}
+\index{nameClash@{nameClash}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::name\-Clash}}\label{structParse_4293d6397aff4680522b4a831dc499a2}
+
+
+\index{Parse@{Parse}!nColCache@{nColCache}}
+\index{nColCache@{nColCache}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::n\-Col\-Cache}}\label{structParse_f5517acce3c34fb0109e52add2805425}
+
+
+\index{Parse@{Parse}!nErr@{nErr}}
+\index{nErr@{nErr}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Err}}\label{structParse_80d5d13e759bdfb1fb1923afa204bfc6}
+
+
+\index{Parse@{Parse}!nested@{nested}}
+\index{nested@{nested}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::nested}}\label{structParse_47c1af097deafa8f8ba7013b554599b2}
+
+
+\index{Parse@{Parse}!newmask@{newmask}}
+\index{newmask@{newmask}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Parse::newmask}}\label{structParse_183d564de504e6cd498d0179a9e980f0}
+
+
+\index{Parse@{Parse}!nHeight@{nHeight}}
+\index{nHeight@{nHeight}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Height}}\label{structParse_e4b3fca5b979fc8993f64373655de1ea}
+
+
+\index{Parse@{Parse}!nMaxArg@{nMaxArg}}
+\index{nMaxArg@{nMaxArg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Max\-Arg}}\label{structParse_da66be3de94cd7a2990bdf4e429667e6}
+
+
+\index{Parse@{Parse}!nMem@{nMem}}
+\index{nMem@{nMem}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Mem}}\label{structParse_b7be5cf2444bc3b34c3ff25c94efa912}
+
+
+\index{Parse@{Parse}!nQueryLoop@{nQueryLoop}}
+\index{nQueryLoop@{nQueryLoop}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}double \bf{Parse::n\-Query\-Loop}}\label{structParse_965bf960cb4762f49b9a662f87458607}
+
+
+\index{Parse@{Parse}!nRangeReg@{nRangeReg}}
+\index{nRangeReg@{nRangeReg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Range\-Reg}}\label{structParse_0893991112362e5822c8220194a2627a}
+
+
+\index{Parse@{Parse}!nSet@{nSet}}
+\index{nSet@{nSet}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Set}}\label{structParse_346a2fbe67fee27eaf1f6238520fdac2}
+
+
+\index{Parse@{Parse}!nTab@{nTab}}
+\index{nTab@{nTab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Tab}}\label{structParse_221c4f146d2f3528f77a3431c64c2c2d}
+
+
+\index{Parse@{Parse}!nTableLock@{nTableLock}}
+\index{nTableLock@{nTableLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Table\-Lock}}\label{structParse_73f12ccf539589588f55890cdab901f4}
+
+
+\index{Parse@{Parse}!nTempInUse@{nTempInUse}}
+\index{nTempInUse@{nTempInUse}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::n\-Temp\-In\-Use}}\label{structParse_20b4d7816facb4a7276ddc724d1ca8ea}
+
+
+\index{Parse@{Parse}!nTempReg@{nTempReg}}
+\index{nTempReg@{nTempReg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::n\-Temp\-Reg}}\label{structParse_34c8db9ff17fd6d3d3af0ebf9a79c836}
+
+
+\index{Parse@{Parse}!nVar@{nVar}}
+\index{nVar@{nVar}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Var}}\label{structParse_07ca1ebcadf5c1936663c916eedac922}
+
+
+\index{Parse@{Parse}!nVarExpr@{nVarExpr}}
+\index{nVarExpr@{nVarExpr}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Var\-Expr}}\label{structParse_7c425fddb74080d9e1bd6f8a455e3782}
+
+
+\index{Parse@{Parse}!nVarExprAlloc@{nVarExprAlloc}}
+\index{nVarExprAlloc@{nVarExprAlloc}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Var\-Expr\-Alloc}}\label{structParse_bcacf642c089a48452c60b32e61d936a}
+
+
+\index{Parse@{Parse}!nVtabLock@{nVtabLock}}
+\index{nVtabLock@{nVtabLock}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::n\-Vtab\-Lock}}\label{structParse_2e3c6f49435f07549ec12aff5ecaaabf}
+
+
+\index{Parse@{Parse}!oldmask@{oldmask}}
+\index{oldmask@{oldmask}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Parse::oldmask}}\label{structParse_6a1ee73d67fcc04b3f8811fda0c8d384}
+
+
+\index{Parse@{Parse}!pAinc@{pAinc}}
+\index{pAinc@{pAinc}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Autoinc\-Info}$\ast$ \bf{Parse::p\-Ainc}}\label{structParse_79e01bb854025ffdf55e4f0ca361c7dc}
+
+
+\index{Parse@{Parse}!pAinc@{pAinc}}
+\index{pAinc@{pAinc}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Autoinc\-Info}$\ast$ \bf{Parse::p\-Ainc}}\label{structParse_79e01bb854025ffdf55e4f0ca361c7dc}
+
+
+\index{Parse@{Parse}!parseError@{parseError}}
+\index{parseError@{parseError}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Parse::parse\-Error}}\label{structParse_f69bc51ee6aa1b9293fa2a3c49e2abb7}
+
+
+\index{Parse@{Parse}!pNewTable@{pNewTable}}
+\index{pNewTable@{pNewTable}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-New\-Table}}\label{structParse_6d96eda27adfa40998e92fb7fdf2b746}
+
+
+\index{Parse@{Parse}!pNewTable@{pNewTable}}
+\index{pNewTable@{pNewTable}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-New\-Table}}\label{structParse_6d96eda27adfa40998e92fb7fdf2b746}
+
+
+\index{Parse@{Parse}!pNewTrigger@{pNewTrigger}}
+\index{pNewTrigger@{pNewTrigger}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Trigger}$\ast$ \bf{Parse::p\-New\-Trigger}}\label{structParse_ff8934f0a0fd54f653a561a02f4d1999}
+
+
+\index{Parse@{Parse}!pNewTrigger@{pNewTrigger}}
+\index{pNewTrigger@{pNewTrigger}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Trigger}$\ast$ \bf{Parse::p\-New\-Trigger}}\label{structParse_ff8934f0a0fd54f653a561a02f4d1999}
+
+
+\index{Parse@{Parse}!pReprepare@{pReprepare}}
+\index{pReprepare@{pReprepare}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Parse::p\-Reprepare}}\label{structParse_d5f882ff454ec46743f5cf30c8884ba8}
+
+
+\index{Parse@{Parse}!pReprepare@{pReprepare}}
+\index{pReprepare@{pReprepare}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Parse::p\-Reprepare}}\label{structParse_d5f882ff454ec46743f5cf30c8884ba8}
+
+
+\index{Parse@{Parse}!pToplevel@{pToplevel}}
+\index{pToplevel@{pToplevel}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Parse}$\ast$ \bf{Parse::p\-Toplevel}}\label{structParse_113fa68f54ac0a8a4e80157589639134}
+
+
+\index{Parse@{Parse}!pToplevel@{pToplevel}}
+\index{pToplevel@{pToplevel}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Parse}$\ast$ \bf{Parse::p\-Toplevel}}\label{structParse_113fa68f54ac0a8a4e80157589639134}
+
+
+\index{Parse@{Parse}!pTriggerPrg@{pTriggerPrg}}
+\index{pTriggerPrg@{pTriggerPrg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Trigger\-Prg}$\ast$ \bf{Parse::p\-Trigger\-Prg}}\label{structParse_a63be9a9431db870b922d1be03d44dcf}
+
+
+\index{Parse@{Parse}!pTriggerPrg@{pTriggerPrg}}
+\index{pTriggerPrg@{pTriggerPrg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Trigger\-Prg}$\ast$ \bf{Parse::p\-Trigger\-Prg}}\label{structParse_a63be9a9431db870b922d1be03d44dcf}
+
+
+\index{Parse@{Parse}!pTriggerTab@{pTriggerTab}}
+\index{pTriggerTab@{pTriggerTab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-Trigger\-Tab}}\label{structParse_dde8e19cf614cbad5fc23a59a28ebe18}
+
+
+\index{Parse@{Parse}!pTriggerTab@{pTriggerTab}}
+\index{pTriggerTab@{pTriggerTab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-Trigger\-Tab}}\label{structParse_dde8e19cf614cbad5fc23a59a28ebe18}
+
+
+\index{Parse@{Parse}!pVdbe@{pVdbe}}
+\index{pVdbe@{pVdbe}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Parse::p\-Vdbe}}\label{structParse_ea0bd929e812b34b06d9a9e66df945ac}
+
+
+\index{Parse@{Parse}!pVdbe@{pVdbe}}
+\index{pVdbe@{pVdbe}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Parse::p\-Vdbe}}\label{structParse_ea0bd929e812b34b06d9a9e66df945ac}
+
+
+\index{Parse@{Parse}!pZombieTab@{pZombieTab}}
+\index{pZombieTab@{pZombieTab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-Zombie\-Tab}}\label{structParse_47af5b0cfdee587101d2b89b9c652094}
+
+
+\index{Parse@{Parse}!pZombieTab@{pZombieTab}}
+\index{pZombieTab@{pZombieTab}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Table}$\ast$ \bf{Parse::p\-Zombie\-Tab}}\label{structParse_47af5b0cfdee587101d2b89b9c652094}
+
+
+\index{Parse@{Parse}!rc@{rc}}
+\index{rc@{rc}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::rc}}\label{structParse_aef59e39ec8a6791e4fab8be5c233a42}
+
+
+\index{Parse@{Parse}!regRoot@{regRoot}}
+\index{regRoot@{regRoot}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::reg\-Root}}\label{structParse_63e43516edf717cb5ac592742ff411bf}
+
+
+\index{Parse@{Parse}!regRowid@{regRowid}}
+\index{regRowid@{regRowid}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Parse::reg\-Rowid}}\label{structParse_cd06e73447354e9a23a068f660b630db}
+
+
+\index{Parse@{Parse}!sArg@{sArg}}
+\index{sArg@{sArg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Token} \bf{Parse::s\-Arg}}\label{structParse_7831895d84b0a1320e22a5db1fe16163}
+
+
+\index{Parse@{Parse}!sLastToken@{sLastToken}}
+\index{sLastToken@{sLastToken}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Token} \bf{Parse::s\-Last\-Token}}\label{structParse_4dd68e407fde700129587beed7fe5167}
+
+
+\index{Parse@{Parse}!sNameToken@{sNameToken}}
+\index{sNameToken@{sNameToken}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Token} \bf{Parse::s\-Name\-Token}}\label{structParse_f9fe14896a2daf02d2e1a1b555f3d92d}
+
+
+\index{Parse@{Parse}!writeMask@{writeMask}}
+\index{writeMask@{writeMask}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Parse::write\-Mask}}\label{structParse_3ccd14c595daecd9a828f8abd10c712b}
+
+
+\index{Parse@{Parse}!zAuthContext@{zAuthContext}}
+\index{zAuthContext@{zAuthContext}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{Parse::z\-Auth\-Context}}\label{structParse_b69ec0ee978c09c98abf1002128c8981}
+
+
+\index{Parse@{Parse}!zAuthContext@{zAuthContext}}
+\index{zAuthContext@{zAuthContext}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{Parse::z\-Auth\-Context}}\label{structParse_b69ec0ee978c09c98abf1002128c8981}
+
+
+\index{Parse@{Parse}!zErrMsg@{zErrMsg}}
+\index{zErrMsg@{zErrMsg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Parse::z\-Err\-Msg}}\label{structParse_7fca04462d31709cb25e784fbdf9efce}
+
+
+\index{Parse@{Parse}!zErrMsg@{zErrMsg}}
+\index{zErrMsg@{zErrMsg}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Parse::z\-Err\-Msg}}\label{structParse_7fca04462d31709cb25e784fbdf9efce}
+
+
+\index{Parse@{Parse}!zTail@{zTail}}
+\index{zTail@{zTail}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{Parse::z\-Tail}}\label{structParse_6ad0ea9af8b113ea036320934ebc9d2a}
+
+
+\index{Parse@{Parse}!zTail@{zTail}}
+\index{zTail@{zTail}!Parse@{Parse}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ \bf{Parse::z\-Tail}}\label{structParse_6ad0ea9af8b113ea036320934ebc9d2a}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

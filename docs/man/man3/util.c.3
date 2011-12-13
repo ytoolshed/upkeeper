@@ -1,0 +1,84 @@
+.TH "libupkeeper/tests/util.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/tests/util.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <check.h>\fP
+.br
+\fC#include <upkeeper.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBTESTCASE_NAME\fP   'util'"
+.br
+.ti -1c
+.RI "#define \fBSUITE_NAME\fP   'util'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_replace_larger)"
+.br
+.ti -1c
+.RI "\fBSTART_TEST\fP (test_replace_smaller)"
+.br
+.ti -1c
+.RI "TCase * \fBtest_tcase\fP (void)"
+.br
+.ti -1c
+.RI "Suite * \fBtest_suite\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBEND_TEST\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define SUITE_NAME   'util'"
+.PP
+Referenced by test_suite().
+.SS "#define TESTCASE_NAME   'util'"
+.PP
+Referenced by test_tcase().
+.SH "Function Documentation"
+.PP 
+.SS "int main (void)"
+.PP
+References suite(), and test_suite().
+.SS "START_TEST (test_replace_smaller)"
+.PP
+References calloc(), free(), and upk_replace_string().
+.SS "START_TEST (test_replace_larger)"
+.PP
+References calloc(), free(), and upk_replace_string().
+.SS "Suite* test_suite (void)"
+.PP
+References suite(), SUITE_NAME, and test_tcase().
+.PP
+Referenced by main().
+.SS "TCase* test_tcase (void)"
+.PP
+References tcase(), and TESTCASE_NAME.
+.PP
+Referenced by test_suite().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBEND_TEST\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

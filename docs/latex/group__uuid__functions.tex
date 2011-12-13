@@ -1,0 +1,128 @@
+\section{Uuid\_\-functions}
+\label{group__uuid__functions}\index{Uuid\_\-functions@{Uuid\_\-functions}}
+Collaboration diagram for Uuid\_\-functions:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=198pt]{group__uuid__functions}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf upk\_\-uuid\_\-seed\_\-random} (void)
+\begin{DoxyCompactList}\small\item\em seed random number pool used by upk\_\-gen\_\-uuid\_\-bytes. \end{DoxyCompactList}\item 
+int {\bf upk\_\-uuid\_\-open\_\-random} (void)
+\begin{DoxyCompactList}\small\item\em open random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable. \end{DoxyCompactList}\item 
+void {\bf upk\_\-gen\_\-uuid\_\-bytes} ({\bf upk\_\-uuid\_\-t} $\ast$buf)
+\begin{DoxyCompactList}\small\item\em collect and/or generate 16 bytes of random data. \end{DoxyCompactList}\item 
+void {\bf upk\_\-uuid\_\-to\_\-string} (char $\ast$buf, const {\bf upk\_\-uuid\_\-t} $\ast$uuid)
+\begin{DoxyCompactList}\small\item\em convert uuid to string and place in buf. \end{DoxyCompactList}\item 
+bool {\bf is\_\-valid\_\-upk\_\-uuid\_\-string} (const char $\ast$string)
+\begin{DoxyCompactList}\small\item\em test if a given string is a valid uuid string. \end{DoxyCompactList}\item 
+void {\bf upk\_\-string\_\-to\_\-uuid} ({\bf upk\_\-uuid\_\-t} $\ast$uuid, const char $\ast$string)
+\begin{DoxyCompactList}\small\item\em convert uuid string into uuid structure. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{Uuid\_\-functions@{Uuid\_\-functions}!is\_\-valid\_\-upk\_\-uuid\_\-string@{is\_\-valid\_\-upk\_\-uuid\_\-string}}
+\index{is\_\-valid\_\-upk\_\-uuid\_\-string@{is\_\-valid\_\-upk\_\-uuid\_\-string}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{is\_\-valid\_\-upk\_\-uuid\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}bool is\_\-valid\_\-upk\_\-uuid\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_gac7166422edb32c235fcda2f7215cb16c}
+
+
+test if a given string is a valid uuid string. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ verify string is 36 chars long; and consists of a correctly hiphen-\/separated sequence of hexidecimal digits
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em string} & string to check \\
+\hline
+\end{DoxyParams}
+\index{Uuid\_\-functions@{Uuid\_\-functions}!upk\_\-gen\_\-uuid\_\-bytes@{upk\_\-gen\_\-uuid\_\-bytes}}
+\index{upk\_\-gen\_\-uuid\_\-bytes@{upk\_\-gen\_\-uuid\_\-bytes}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{upk\_\-gen\_\-uuid\_\-bytes}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-gen\_\-uuid\_\-bytes (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-uuid\_\-t} $\ast$}]{buf}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_gadcafb43a269de38ca6b24ed2fdfe48c0}
+
+
+collect and/or generate 16 bytes of random data. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ pack the structure you passed; also sets version correctly on structure to conform with spec
+
+
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buf} & uuid structure to populate \\
+\hline
+\end{DoxyParams}
+\index{Uuid\_\-functions@{Uuid\_\-functions}!upk\_\-string\_\-to\_\-uuid@{upk\_\-string\_\-to\_\-uuid}}
+\index{upk\_\-string\_\-to\_\-uuid@{upk\_\-string\_\-to\_\-uuid}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{upk\_\-string\_\-to\_\-uuid}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-string\_\-to\_\-uuid (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-uuid\_\-t} $\ast$}]{uuid, }
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_ga96de704424fa69212eea81582a57c28d}
+
+
+convert uuid string into uuid structure. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em string} & uuid string to convert\\
+\hline
+\mbox{\tt out}  & {\em uuid} & pointer to buffer to populate \\
+\hline
+\end{DoxyParams}
+\index{Uuid\_\-functions@{Uuid\_\-functions}!upk\_\-uuid\_\-open\_\-random@{upk\_\-uuid\_\-open\_\-random}}
+\index{upk\_\-uuid\_\-open\_\-random@{upk\_\-uuid\_\-open\_\-random}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{upk\_\-uuid\_\-open\_\-random}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-uuid\_\-open\_\-random (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_ga2634678a70f7c9a1f89d2784666f0a64}
+
+
+open random device, prefering /dev/urandom, but also trying /dev/random if urandom is unavailable. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \begin{DoxyReturn}{Returns}
+fd of opened device 
+
+$<$ 0 on error (check errno) 
+\end{DoxyReturn}
+\index{Uuid\_\-functions@{Uuid\_\-functions}!upk\_\-uuid\_\-seed\_\-random@{upk\_\-uuid\_\-seed\_\-random}}
+\index{upk\_\-uuid\_\-seed\_\-random@{upk\_\-uuid\_\-seed\_\-random}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{upk\_\-uuid\_\-seed\_\-random}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-uuid\_\-seed\_\-random (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_ga9a500d34b25fc295c623bc87ac04b2a1}
+
+
+seed random number pool used by upk\_\-gen\_\-uuid\_\-bytes. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Only necessary if /dev/urandom and /dev/random are unavailable; for instance, check upk\_\-uuid\_\-open\_\-random to see if you get a valid fd; if not, call this (unless you have already seeded random elsewhere, in whatever manner you prefer \index{Uuid\_\-functions@{Uuid\_\-functions}!upk\_\-uuid\_\-to\_\-string@{upk\_\-uuid\_\-to\_\-string}}
+\index{upk\_\-uuid\_\-to\_\-string@{upk\_\-uuid\_\-to\_\-string}!Uuid_functions@{Uuid\_\-functions}}
+\subsubsection[{upk\_\-uuid\_\-to\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-uuid\_\-to\_\-string (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{buf, }
+\item[{const {\bf upk\_\-uuid\_\-t} $\ast$}]{uuid}
+\end{DoxyParamCaption}
+)}\label{group__uuid__functions_ga531ded5ea8455b772e093cf15147bea6}
+
+
+convert uuid to string and place in buf. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt out}  & {\em buf} & string buffer (must be at least (UPK\_\-UUID\_\-STRING\_\-LEN + 1) bytes long)\\
+\hline
+\mbox{\tt in}  & {\em uuid} & uuid structure to convert \\
+\hline
+\end{DoxyParams}

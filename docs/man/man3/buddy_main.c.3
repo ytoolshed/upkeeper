@@ -1,0 +1,76 @@
+.TH "controller/buddy_main.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+controller/buddy_main.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'buddy.h'\fP
+.br
+\fC#include <getopt.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <errno.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBbuddy_usage\fP (char *progname)"
+.br
+.ti -1c
+.RI "static bool \fBnumeric_string\fP (const char *string, long *num)"
+.br
+.ti -1c
+.RI "static int \fBopt_parse\fP (int argc, char **argv, char **envp)"
+.br
+.ti -1c
+.RI "static void \fBbuddy_diag_handler\fP (\fBupk_diaglvl_t\fP diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv, char **envp)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "static void buddy_diag_handler (\fBupk_diaglvl_t\fPdiaglvl, const char *label, const char *loc, const char *fmt, va_listap)\fC [static]\fP"
+.PP
+References upk_diag_verbosity, UPK_DIAGLVL_ALERT, UPK_DIAGLVL_CRIT, UPK_DIAGLVL_ERROR, UPK_DIAGLVL_FATAL, and UPK_DIAGLVL_INFO.
+.PP
+Referenced by main().
+.SS "static void buddy_usage (char *progname)\fC [static]\fP"
+.PP
+Referenced by opt_parse().
+.SS "int main (intargc, char **argv, char **envp)"
+.PP
+References buddy_cleanup(), buddy_diag_handler(), buddy_event_loop(), buddy_init(), opt_parse(), proc_envp, ringbuffer_size, and upk_diag_verbosity.
+.SS "static bool numeric_string (const char *string, long *num)\fC [inline, static]\fP"
+.PP
+Referenced by opt_parse().
+.SS "static int opt_parse (intargc, char **argv, char **envp)\fC [static]\fP"
+.PP
+< ringbuffer size
+.PP
+< ringbuffer size
+.PP
+< initialize supplemental groups
+.PP
+< initialize supplemental groups
+.PP
+< initialize supplemental groups
+.PP
+< clear supplemental groups
+.PP
+< clear supplemental groups
+.PP
+< clear supplemental groups 
+.PP
+References BUDDY_MAX_STRING_LEN, buddy_root_path, buddy_service_name, buddy_setgid, buddy_setuid, buddy_usage(), buddy_uuid, calloc(), clear_supplemental_groups, initialize_supplemental_groups, is_valid_upk_uuid_string(), numeric_string(), reconnect_retries, ringbuffer_size, strnlen(), upk_diag_verbosity, and upk_string_to_uuid().
+.PP
+Referenced by main().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

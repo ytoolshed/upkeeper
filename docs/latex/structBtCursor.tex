@@ -1,0 +1,203 @@
+\section{Bt\-Cursor Struct Reference}
+\label{structBtCursor}\index{BtCursor@{BtCursor}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{Btree} $\ast$ \bf{p\-Btree}
+\item 
+\bf{Bt\-Shared} $\ast$ \bf{p\-Bt}
+\item 
+\bf{Bt\-Cursor} $\ast$ \bf{p\-Next}
+\item 
+\bf{Bt\-Cursor} $\ast$ \bf{p\-Prev}
+\item 
+\bf{Key\-Info} $\ast$ \bf{p\-Key\-Info}
+\item 
+\bf{Pgno} \bf{pgno\-Root}
+\item 
+\bf{sqlite3\_\-int64} \bf{cached\-Rowid}
+\item 
+\bf{Cell\-Info} \bf{info}
+\item 
+\bf{u8} \bf{wr\-Flag}
+\item 
+\bf{u8} \bf{at\-Last}
+\item 
+\bf{u8} \bf{valid\-NKey}
+\item 
+\bf{u8} \bf{e\-State}
+\item 
+void $\ast$ \bf{p\-Key}
+\item 
+\bf{i64} \bf{n\-Key}
+\item 
+int \bf{skip\-Next}
+\item 
+\bf{u8} \bf{is\-Incrblob\-Handle}
+\item 
+\bf{Pgno} $\ast$ \bf{a\-Overflow}
+\item 
+\bf{i16} \bf{i\-Page}
+\item 
+\bf{Mem\-Page} $\ast$ \bf{ap\-Page} [BTCURSOR\_\-MAX\_\-DEPTH]
+\item 
+\bf{u16} \bf{ai\-Idx} [BTCURSOR\_\-MAX\_\-DEPTH]
+\item 
+\bf{Btree} $\ast$ \bf{p\-Btree}
+\item 
+\bf{Bt\-Shared} $\ast$ \bf{p\-Bt}
+\item 
+\bf{Bt\-Cursor} $\ast$ \bf{p\-Next}
+\item 
+\bf{Key\-Info} $\ast$ \bf{p\-Key\-Info}
+\item 
+void $\ast$ \bf{p\-Key}
+\item 
+\bf{Pgno} $\ast$ \bf{a\-Overflow}
+\item 
+\bf{Mem\-Page} $\ast$ \bf{ap\-Page} [BTCURSOR\_\-MAX\_\-DEPTH]
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{BtCursor@{Bt\-Cursor}!aiIdx@{aiIdx}}
+\index{aiIdx@{aiIdx}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Bt\-Cursor::ai\-Idx}}\label{structBtCursor_83c0e589d3388f82474e1fccc2eece8b}
+
+
+\index{BtCursor@{Bt\-Cursor}!aOverflow@{aOverflow}}
+\index{aOverflow@{aOverflow}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno}$\ast$ \bf{Bt\-Cursor::a\-Overflow}}\label{structBtCursor_de910d5e3c37b8c9085e7774ed3bef05}
+
+
+\index{BtCursor@{Bt\-Cursor}!aOverflow@{aOverflow}}
+\index{aOverflow@{aOverflow}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno}$\ast$ \bf{Bt\-Cursor::a\-Overflow}}\label{structBtCursor_de910d5e3c37b8c9085e7774ed3bef05}
+
+
+\index{BtCursor@{Bt\-Cursor}!apPage@{apPage}}
+\index{apPage@{apPage}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem\-Page}$\ast$ \bf{Bt\-Cursor::ap\-Page}[BTCURSOR\_\-MAX\_\-DEPTH]}\label{structBtCursor_7502ff6a1633801a4b8dcad3a5ee826b}
+
+
+\index{BtCursor@{Bt\-Cursor}!apPage@{apPage}}
+\index{apPage@{apPage}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem\-Page}$\ast$ \bf{Bt\-Cursor::ap\-Page}[BTCURSOR\_\-MAX\_\-DEPTH]}\label{structBtCursor_7502ff6a1633801a4b8dcad3a5ee826b}
+
+
+\index{BtCursor@{Bt\-Cursor}!atLast@{atLast}}
+\index{atLast@{atLast}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Bt\-Cursor::at\-Last}}\label{structBtCursor_d094f4b2d40ec500919956ac91395932}
+
+
+\index{BtCursor@{Bt\-Cursor}!cachedRowid@{cachedRowid}}
+\index{cachedRowid@{cachedRowid}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3\_\-int64} \bf{Bt\-Cursor::cached\-Rowid}}\label{structBtCursor_94cd6fd0fce3cbd86903bee3bf9c35e3}
+
+
+\index{BtCursor@{Bt\-Cursor}!eState@{eState}}
+\index{eState@{eState}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Bt\-Cursor::e\-State}}\label{structBtCursor_9ca866f15ce84a9a78d3bfa333d2cb85}
+
+
+\index{BtCursor@{Bt\-Cursor}!info@{info}}
+\index{info@{info}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Cell\-Info} \bf{Bt\-Cursor::info}}\label{structBtCursor_13953ad9193e72dd19da9a76d6832772}
+
+
+\index{BtCursor@{Bt\-Cursor}!iPage@{iPage}}
+\index{iPage@{iPage}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i16} \bf{Bt\-Cursor::i\-Page}}\label{structBtCursor_f7c6232adfe5585c113c5c47ddf4f42f}
+
+
+\index{BtCursor@{Bt\-Cursor}!isIncrblobHandle@{isIncrblobHandle}}
+\index{isIncrblobHandle@{isIncrblobHandle}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Bt\-Cursor::is\-Incrblob\-Handle}}\label{structBtCursor_015441906a9a36acf04486d7afc42881}
+
+
+\index{BtCursor@{Bt\-Cursor}!nKey@{nKey}}
+\index{nKey@{nKey}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Bt\-Cursor::n\-Key}}\label{structBtCursor_f73f89bb8b11a98608c7f280824d6a40}
+
+
+\index{BtCursor@{Bt\-Cursor}!pBt@{pBt}}
+\index{pBt@{pBt}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bt\-Shared}$\ast$ \bf{Bt\-Cursor::p\-Bt}}\label{structBtCursor_a3ae0f0003eac6132b48851109cbfca0}
+
+
+\index{BtCursor@{Bt\-Cursor}!pBt@{pBt}}
+\index{pBt@{pBt}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bt\-Shared}$\ast$ \bf{Bt\-Cursor::p\-Bt}}\label{structBtCursor_a3ae0f0003eac6132b48851109cbfca0}
+
+
+\index{BtCursor@{Bt\-Cursor}!pBtree@{pBtree}}
+\index{pBtree@{pBtree}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Btree}$\ast$ \bf{Bt\-Cursor::p\-Btree}}\label{structBtCursor_e7cc859a1a32748b35c478c585eb7201}
+
+
+\index{BtCursor@{Bt\-Cursor}!pBtree@{pBtree}}
+\index{pBtree@{pBtree}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Btree}$\ast$ \bf{Bt\-Cursor::p\-Btree}}\label{structBtCursor_e7cc859a1a32748b35c478c585eb7201}
+
+
+\index{BtCursor@{Bt\-Cursor}!pgnoRoot@{pgnoRoot}}
+\index{pgnoRoot@{pgnoRoot}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Pgno} \bf{Bt\-Cursor::pgno\-Root}}\label{structBtCursor_1d6526429ea3e29cd7515863401562ea}
+
+
+\index{BtCursor@{Bt\-Cursor}!pKey@{pKey}}
+\index{pKey@{pKey}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Bt\-Cursor::p\-Key}}\label{structBtCursor_c1697120db3eb0e7abfde3102d8b5da8}
+
+
+\index{BtCursor@{Bt\-Cursor}!pKey@{pKey}}
+\index{pKey@{pKey}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Bt\-Cursor::p\-Key}}\label{structBtCursor_c1697120db3eb0e7abfde3102d8b5da8}
+
+
+\index{BtCursor@{Bt\-Cursor}!pKeyInfo@{pKeyInfo}}
+\index{pKeyInfo@{pKeyInfo}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \bf{Key\-Info}$\ast$ \bf{Bt\-Cursor::p\-Key\-Info}}\label{structBtCursor_1839f398bd518468dd959b99b9266036}
+
+
+\index{BtCursor@{Bt\-Cursor}!pKeyInfo@{pKeyInfo}}
+\index{pKeyInfo@{pKeyInfo}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}struct \bf{Key\-Info}$\ast$ \bf{Bt\-Cursor::p\-Key\-Info}}\label{structBtCursor_1839f398bd518468dd959b99b9266036}
+
+
+\index{BtCursor@{Bt\-Cursor}!pNext@{pNext}}
+\index{pNext@{pNext}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bt\-Cursor}$\ast$ \bf{Bt\-Cursor::p\-Next}}\label{structBtCursor_cc2b295f0f7dce319eb2dc5edf5696ea}
+
+
+\index{BtCursor@{Bt\-Cursor}!pNext@{pNext}}
+\index{pNext@{pNext}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bt\-Cursor}$\ast$ \bf{Bt\-Cursor::p\-Next}}\label{structBtCursor_cc2b295f0f7dce319eb2dc5edf5696ea}
+
+
+\index{BtCursor@{Bt\-Cursor}!pPrev@{pPrev}}
+\index{pPrev@{pPrev}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Bt\-Cursor} $\ast$ \bf{Bt\-Cursor::p\-Prev}}\label{structBtCursor_df85346e645ba861cedc5edbd9141f53}
+
+
+\index{BtCursor@{Bt\-Cursor}!skipNext@{skipNext}}
+\index{skipNext@{skipNext}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Bt\-Cursor::skip\-Next}}\label{structBtCursor_38def78efc38319242569f47e9ebbc2f}
+
+
+\index{BtCursor@{Bt\-Cursor}!validNKey@{validNKey}}
+\index{validNKey@{validNKey}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Bt\-Cursor::valid\-NKey}}\label{structBtCursor_4db32c3416d221108fcda1bb45dc19b3}
+
+
+\index{BtCursor@{Bt\-Cursor}!wrFlag@{wrFlag}}
+\index{wrFlag@{wrFlag}!BtCursor@{Bt\-Cursor}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Bt\-Cursor::wr\-Flag}}\label{structBtCursor_3032e3ebb86a8ba97c0e8a58cafe0d90}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

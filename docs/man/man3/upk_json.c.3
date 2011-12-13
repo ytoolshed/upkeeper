@@ -1,0 +1,259 @@
+.TH "libupkeeper/upkeeper/upk_json.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_json.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_json.h'\fP
+.br
+\fC#include <stdarg.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "union \fB_upk_stream_string\fP"
+.br
+.ti -1c
+.RI "struct \fB_upk_json_output_data\fP"
+.br
+.ti -1c
+.RI "struct \fBupk_json_obj_iter\fP"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef union \fB_upk_stream_string\fP \fBupk_stream_string_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fB_upk_json_output_data\fP \fBupk_json_output_data_t\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBupk_json_obj_iter\fP \fBupk_json_obj_iter_t\fP"
+.br
+.in -1c
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum \fBupk_json_output_type_t\fP { \fBdata_type_stream\fP, \fBdata_type_string\fP }"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBupk_json_print_indent\fP (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_output_data_t\fP *data)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_null_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_bool_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_double_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_int_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_string_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_array_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_object_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_after_json_obj_pop_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_output_after_json_array_pop_handler\fP (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fP v)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_value\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_parse_array\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jarray)"
+.br
+.ti -1c
+.RI "static void \fB_upk_json_parse_node\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *obj)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_append_string\fP (\fBupk_json_output_data_t\fP *data, char *string)"
+.br
+.ti -1c
+.RI "static void \fBupk_output_json_string\fP (\fBupk_json_output_data_t\fP *data, char *fmt,...)"
+.br
+.ti -1c
+.RI "void \fBupk_json_stack_pop\fP (\fBupk_json_stack_meta_t\fP *meta)"
+.br
+.ti -1c
+.RI "void \fBupk_json_stack_push\fP (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_stack_node_t\fP *node)"
+.br
+.ti -1c
+.RI "static char * \fBupk_json_unescape_forwardslash\fP (char *str)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_parse_obj\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)"
+.br
+.ti -1c
+.RI "void \fBupk_json_parse_node\fP (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *obj)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_json_parse_string\fP (const char *string)"
+.br
+.ti -1c
+.RI "static void \fBupk_json_obj_serializer\fP (struct json_object *obj, \fBupk_json_output_data_t\fP *data)"
+.br
+.ti -1c
+.RI "char * \fBupk_json_obj_to_string\fP (struct json_object *obj, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.ti -1c
+.RI "void \fBupk_json_obj_to_stream\fP (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.in -1c
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fBupk_json_obj_iter\fP  \fBupk_json_obj_iter_t\fP"
+.SS "typedef struct \fB_upk_json_output_data\fP  \fBupk_json_output_data_t\fP"
+.SS "typedef union \fB_upk_stream_string\fP  \fBupk_stream_string_t\fP"
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum \fBupk_json_output_type_t\fP"
+.PP
+\fBEnumerator: \fP
+.in +1c
+.TP
+\fB\fIdata_type_stream \fP\fP
+.TP
+\fB\fIdata_type_string \fP\fP
+
+.SH "Function Documentation"
+.PP 
+.SS "static void _upk_json_parse_node (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *obj)\fC [inline, static]\fP"
+.PP
+References _upk_json_type::obj, _upk_json_type::type, upk_json_parse_array(), upk_json_parse_obj(), upk_json_stack_pop(), upk_json_value(), and _upk_json_type::val.
+.PP
+Referenced by upk_json_parse_array(), upk_json_parse_node(), and upk_json_parse_obj().
+.SS "static void upk_json_append_string (\fBupk_json_output_data_t\fP *data, char *string)\fC [inline, static]\fP"
+.PP
+References calloc(), _upk_json_output_data::d, _upk_stream_string::len, _upk_stream_string::p, realloc(), _upk_stream_string::str, strnlen(), and UPK_MAX_STRING_LEN.
+.PP
+Referenced by upk_output_json_string().
+.SS "static void upk_json_obj_serializer (struct json_object *obj, \fBupk_json_output_data_t\fP *data)\fC [static]\fP"
+.PP
+References calloc(), _upk_json_stack_node::data, upk_json_output_after_json_array_pop_handler(), upk_json_output_after_json_obj_pop_handler(), upk_json_output_array_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_null_handler(), upk_json_output_object_handler(), upk_json_output_string_handler(), upk_json_parse_node(), upk_json_stack_meta_t, upk_json_stack_push(), and UPKLIST_FREE.
+.PP
+Referenced by upk_json_obj_to_stream(), and upk_json_obj_to_string().
+.SS "void upk_json_obj_to_stream (struct json_object *obj, \fBFILE\fP *stream, \fBupk_json_data_output_opts_t\fPopts)"
+.PP
+References data_type_stream, _upk_json_output_data::type, and upk_json_obj_serializer().
+.SS "char* upk_json_obj_to_string (struct json_object *obj, \fBupk_json_data_output_opts_t\fPopts)"
+.PP
+References _upk_json_output_data::d, data_type_string, _upk_stream_string::p, _upk_stream_string::str, _upk_json_output_data::type, and upk_json_obj_serializer().
+.PP
+Referenced by upk_json_serialize_svc_config().
+.SS "static void upk_json_output_after_json_array_pop_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_output_data::opts, _upk_json_data_output_options::sep, upk_json_print_indent(), and upk_output_json_string().
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_after_json_obj_pop_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_output_data::opts, _upk_json_data_output_options::sep, upk_json_print_indent(), and upk_output_json_string().
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_array_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, strnlen(), upk_json_print_indent(), upk_json_stack_push(), UPK_MAX_STRING_LEN, and upk_output_json_string().
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_bool_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_type::bl, _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, upk_json_print_indent(), upk_output_json_string(), and _upk_json_type::val.
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_double_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_type::dbl, _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, upk_json_print_indent(), upk_output_json_string(), and _upk_json_type::val.
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_int_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_type::i, _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, upk_json_print_indent(), upk_output_json_string(), and _upk_json_type::val.
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_null_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, _upk_json_data_output_options::suppress_null_values, upk_json_print_indent(), and upk_output_json_string().
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_object_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, strnlen(), upk_json_print_indent(), upk_json_stack_push(), UPK_MAX_STRING_LEN, and upk_output_json_string().
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_output_string_handler (\fBupk_json_stack_meta_t\fP *meta, void *data, char *key, \fBupk_json_val_t\fPv)\fC [static]\fP"
+.PP
+References _upk_json_string::esc_str, _upk_json_output_data::opts, _upk_json_data_output_options::pad, _upk_json_data_output_options::sep, _upk_json_type::str, upk_json_print_indent(), upk_output_json_string(), and _upk_json_type::val.
+.PP
+Referenced by upk_json_obj_serializer().
+.SS "static void upk_json_parse_array (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jarray)\fC [inline, static]\fP"
+.PP
+References _upk_json_parse_node().
+.PP
+Referenced by _upk_json_parse_node().
+.SS "void upk_json_parse_node (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *obj)"
+.PP
+References _upk_json_parse_node().
+.PP
+Referenced by upk_ctrlconf_pack(), upk_json_obj_serializer(), and upk_svcconf_pack().
+.SS "static void upk_json_parse_obj (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)\fC [inline, static]\fP"
+.PP
+References _upk_json_parse_node(), upk_json_obj_iter::key, and upk_json_obj_iter::val.
+.PP
+Referenced by _upk_json_parse_node().
+.SS "struct json_object* upk_json_parse_string (const char *string)\fC [read]\fP"
+.PP
+References IF_UPK_ERROR, UPK_ERR_INIT, UPK_FUNC_ASSERT_MSG, and UPK_JSON_PARSE_ERROR.
+.PP
+Referenced by main(), upk_ctrlconf_pack(), and upk_svcconf_pack().
+.SS "static void upk_json_print_indent (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_output_data_t\fP *data)\fC [inline, static]\fP"
+.PP
+References _upk_json_data_output_options::indent, _upk_json_output_data::opts, and upk_output_json_string().
+.PP
+Referenced by upk_json_output_after_json_array_pop_handler(), upk_json_output_after_json_obj_pop_handler(), upk_json_output_array_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_null_handler(), upk_json_output_object_handler(), and upk_json_output_string_handler().
+.SS "void upk_json_stack_pop (\fBupk_json_stack_meta_t\fP *meta)"
+.PP
+References UPKLIST_FOREACH, and UPKLIST_UNLINK.
+.PP
+Referenced by _upk_json_parse_node().
+.SS "void upk_json_stack_push (\fBupk_json_stack_meta_t\fP *meta, \fBupk_json_stack_node_t\fP *node)"
+.PP
+References UPKLIST_PREPEND.
+.PP
+Referenced by upk_ctrlconf_object_handler(), upk_ctrlconf_pack(), upk_ctrlconf_toplvl_obj(), upk_json_obj_serializer(), upk_json_output_array_handler(), upk_json_output_object_handler(), upk_svcconf_array_handler(), upk_svcconf_nested_object_handler(), upk_svcconf_object_handler(), upk_svcconf_pack(), and upk_svcconf_toplvl_obj().
+.SS "static char* upk_json_unescape_forwardslash (char *str)\fC [inline, static]\fP"
+.PP
+Referenced by upk_json_value().
+.SS "static void upk_json_value (\fBupk_json_stack_meta_t\fP *meta, char *key, struct json_object *jobj)\fC [inline, static]\fP"
+.PP
+References _upk_json_type::bl, _upk_json_string::c_str, _upk_json_type::dbl, _upk_json_string::esc_str, _upk_json_type::i, _upk_json_type::obj, _upk_json_type::str, _upk_json_type::type, upk_json_unescape_forwardslash(), and _upk_json_type::val.
+.PP
+Referenced by _upk_json_parse_node().
+.SS "static void upk_output_json_string (\fBupk_json_output_data_t\fP *data, char *fmt, ...)\fC [inline, static]\fP"
+.PP
+References _upk_json_output_data::d, data_type_stream, data_type_string, _upk_stream_string::file, _upk_json_output_data::type, upk_json_append_string(), and UPK_MAX_STRING_LEN.
+.PP
+Referenced by upk_json_output_after_json_array_pop_handler(), upk_json_output_after_json_obj_pop_handler(), upk_json_output_array_handler(), upk_json_output_bool_handler(), upk_json_output_double_handler(), upk_json_output_int_handler(), upk_json_output_null_handler(), upk_json_output_object_handler(), upk_json_output_string_handler(), and upk_json_print_indent().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,59 @@
+.TH "upk_packet_t" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upk_packet_t \- 
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_protocol.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBuint32_t\fP \fBpayload_len\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBversion_id\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBseq_num\fP"
+.br
+.ti -1c
+.RI "\fBupk_pkttype_t\fP \fBpkttype\fP"
+.br
+.ti -1c
+.RI "void * \fBpayload\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBcrc32\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+******************************************************************************************************************* |----|----|----|----|<payload ...>|----| |<---- header --->| |foot| 
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fBupk_packet_t::crc32\fP"
+.PP
+Referenced by upk_create_pkt().
+.SS "void * \fBupk_packet_t::payload\fP"the payload 
+.PP
+Referenced by ctrl_req_preamble_handler(), upk_call_received_packet_callbacks(), upk_create_pkt(), upk_free_payload(), upk_get_msgtype(), and v0_serialize_payload().
+.SS "\fBuint32_t\fP \fBupk_packet_t::payload_len\fP"not size_t, because this would force the arch of the client to match the server; and even on localhost, that cannot be guaranteed 
+.PP
+Referenced by upk_create_pkt(), upk_queue_packet(), and v0_serialize_payload().
+.SS "\fBupk_pkttype_t\fP \fBupk_packet_t::pkttype\fP"will be forced into a uint32_t; even on 64bit 
+.PP
+Referenced by upk_create_pkt(), and v0_serialize_payload().
+.SS "\fBuint32_t\fP \fBupk_packet_t::seq_num\fP"not used at this time 
+.PP
+Referenced by upk_create_pkt().
+.SS "\fBuint32_t\fP \fBupk_packet_t::version_id\fP"this packet's version 
+.PP
+Referenced by upk_create_pkt(), and upk_serialize_payload().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

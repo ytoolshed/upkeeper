@@ -1,0 +1,476 @@
+\section{Vdbe Struct Reference}
+\label{structVdbe}\index{Vdbe@{Vdbe}}
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+\bf{sqlite3} $\ast$ \bf{db}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Prev}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Next}
+\item 
+int \bf{n\-Op}
+\item 
+int \bf{n\-Op\-Alloc}
+\item 
+\bf{Op} $\ast$ \bf{a\-Op}
+\item 
+int \bf{n\-Label}
+\item 
+int \bf{n\-Label\-Alloc}
+\item 
+int $\ast$ \bf{a\-Label}
+\item 
+\bf{Mem} $\ast$$\ast$ \bf{ap\-Arg}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Col\-Name}
+\item 
+\bf{Mem} $\ast$ \bf{p\-Result\-Set}
+\item 
+\bf{u16} \bf{n\-Res\-Column}
+\item 
+\bf{u16} \bf{n\-Cursor}
+\item 
+\bf{Vdbe\-Cursor} $\ast$$\ast$ \bf{ap\-Csr}
+\item 
+\bf{u8} \bf{error\-Action}
+\item 
+\bf{u8} \bf{ok\-Var}
+\item 
+\bf{yn\-Var} \bf{n\-Var}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Var}
+\item 
+char $\ast$$\ast$ \bf{az\-Var}
+\item 
+\bf{u32} \bf{magic}
+\item 
+int \bf{n\-Mem}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Mem}
+\item 
+\bf{u32} \bf{cache\-Ctr}
+\item 
+int \bf{pc}
+\item 
+int \bf{rc}
+\item 
+char $\ast$ \bf{z\-Err\-Msg}
+\item 
+\bf{u8} \bf{explain}
+\item 
+\bf{u8} \bf{change\-Cnt\-On}
+\item 
+\bf{u8} \bf{expired}
+\item 
+\bf{u8} \bf{run\-Only\-Once}
+\item 
+\bf{u8} \bf{min\-Write\-File\-Format}
+\item 
+\bf{u8} \bf{in\-Vtab\-Method}
+\item 
+\bf{u8} \bf{uses\-Stmt\-Journal}
+\item 
+\bf{u8} \bf{read\-Only}
+\item 
+\bf{u8} \bf{is\-Prepare\-V2}
+\item 
+int \bf{n\-Change}
+\item 
+int \bf{btree\-Mask}
+\item 
+\bf{i64} \bf{start\-Time}
+\item 
+\bf{Btree\-Mutex\-Array} \bf{a\-Mutex}
+\item 
+int \bf{a\-Counter} [3]
+\item 
+char $\ast$ \bf{z\-Sql}
+\item 
+void $\ast$ \bf{p\-Free}
+\item 
+\bf{i64} \bf{n\-Fk\-Constraint}
+\item 
+\bf{i64} \bf{n\-Stmt\-Def\-Cons}
+\item 
+int \bf{i\-Statement}
+\item 
+\bf{Vdbe\-Frame} $\ast$ \bf{p\-Frame}
+\item 
+int \bf{n\-Frame}
+\item 
+\bf{u32} \bf{expmask}
+\item 
+\bf{Sub\-Program} $\ast$ \bf{p\-Program}
+\item 
+\bf{sqlite3} $\ast$ \bf{db}
+\item 
+\bf{Vdbe} $\ast$ \bf{p\-Prev}
+\item 
+\bf{Op} $\ast$ \bf{a\-Op}
+\item 
+int $\ast$ \bf{a\-Label}
+\item 
+\bf{Mem} $\ast$$\ast$ \bf{ap\-Arg}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Col\-Name}
+\item 
+\bf{Mem} $\ast$ \bf{p\-Result\-Set}
+\item 
+\bf{Vdbe\-Cursor} $\ast$$\ast$ \bf{ap\-Csr}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Var}
+\item 
+char $\ast$$\ast$ \bf{az\-Var}
+\item 
+\bf{Mem} $\ast$ \bf{a\-Mem}
+\item 
+char $\ast$ \bf{z\-Err\-Msg}
+\item 
+char $\ast$ \bf{z\-Sql}
+\item 
+void $\ast$ \bf{p\-Free}
+\item 
+\bf{Vdbe\-Frame} $\ast$ \bf{p\-Frame}
+\item 
+\bf{Sub\-Program} $\ast$ \bf{p\-Program}
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{Vdbe@{Vdbe}!aColName@{aColName}}
+\index{aColName@{aColName}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Col\-Name}}\label{structVdbe_26a20240f7272738a7c335210b91ef58}
+
+
+\index{Vdbe@{Vdbe}!aColName@{aColName}}
+\index{aColName@{aColName}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Col\-Name}}\label{structVdbe_26a20240f7272738a7c335210b91ef58}
+
+
+\index{Vdbe@{Vdbe}!aCounter@{aCounter}}
+\index{aCounter@{aCounter}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::a\-Counter}}\label{structVdbe_8ca37ec68c561afcdca389c5287a6747}
+
+
+\index{Vdbe@{Vdbe}!aLabel@{aLabel}}
+\index{aLabel@{aLabel}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Vdbe::a\-Label}}\label{structVdbe_0f1daadddfb9a15bef80aba42c45033d}
+
+
+\index{Vdbe@{Vdbe}!aLabel@{aLabel}}
+\index{aLabel@{aLabel}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int$\ast$ \bf{Vdbe::a\-Label}}\label{structVdbe_0f1daadddfb9a15bef80aba42c45033d}
+
+
+\index{Vdbe@{Vdbe}!aMem@{aMem}}
+\index{aMem@{aMem}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Mem}}\label{structVdbe_f2c55e397fd5e07b8c65b32eebeccaba}
+
+
+\index{Vdbe@{Vdbe}!aMem@{aMem}}
+\index{aMem@{aMem}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Mem}}\label{structVdbe_f2c55e397fd5e07b8c65b32eebeccaba}
+
+
+\index{Vdbe@{Vdbe}!aMutex@{aMutex}}
+\index{aMutex@{aMutex}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Btree\-Mutex\-Array} \bf{Vdbe::a\-Mutex}}\label{structVdbe_12631defbed466652a086c8e696eea66}
+
+
+\index{Vdbe@{Vdbe}!aOp@{aOp}}
+\index{aOp@{aOp}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Op}$\ast$ \bf{Vdbe::a\-Op}}\label{structVdbe_52539ac78ef4f93dc4aefee0d88184b8}
+
+
+\index{Vdbe@{Vdbe}!aOp@{aOp}}
+\index{aOp@{aOp}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Op}$\ast$ \bf{Vdbe::a\-Op}}\label{structVdbe_52539ac78ef4f93dc4aefee0d88184b8}
+
+
+\index{Vdbe@{Vdbe}!apArg@{apArg}}
+\index{apArg@{apArg}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$$\ast$ \bf{Vdbe::ap\-Arg}}\label{structVdbe_3cba86d65cecfdf3da18fc9cc1e71316}
+
+
+\index{Vdbe@{Vdbe}!apArg@{apArg}}
+\index{apArg@{apArg}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$$\ast$ \bf{Vdbe::ap\-Arg}}\label{structVdbe_3cba86d65cecfdf3da18fc9cc1e71316}
+
+
+\index{Vdbe@{Vdbe}!apCsr@{apCsr}}
+\index{apCsr@{apCsr}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Cursor}$\ast$$\ast$ \bf{Vdbe::ap\-Csr}}\label{structVdbe_02848559849d96b3871290686c9617f2}
+
+
+\index{Vdbe@{Vdbe}!apCsr@{apCsr}}
+\index{apCsr@{apCsr}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Cursor}$\ast$$\ast$ \bf{Vdbe::ap\-Csr}}\label{structVdbe_02848559849d96b3871290686c9617f2}
+
+
+\index{Vdbe@{Vdbe}!aVar@{aVar}}
+\index{aVar@{aVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Var}}\label{structVdbe_0b098a5ca2ee6acf8cb06280b8f562bd}
+
+
+\index{Vdbe@{Vdbe}!aVar@{aVar}}
+\index{aVar@{aVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::a\-Var}}\label{structVdbe_0b098a5ca2ee6acf8cb06280b8f562bd}
+
+
+\index{Vdbe@{Vdbe}!azVar@{azVar}}
+\index{azVar@{azVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ \bf{Vdbe::az\-Var}}\label{structVdbe_39191fdb8b5761c3260b5b6c4c2988f8}
+
+
+\index{Vdbe@{Vdbe}!azVar@{azVar}}
+\index{azVar@{azVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ \bf{Vdbe::az\-Var}}\label{structVdbe_39191fdb8b5761c3260b5b6c4c2988f8}
+
+
+\index{Vdbe@{Vdbe}!btreeMask@{btreeMask}}
+\index{btreeMask@{btreeMask}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::btree\-Mask}}\label{structVdbe_3e171eb9f8584c339d654a7da247445e}
+
+
+\index{Vdbe@{Vdbe}!cacheCtr@{cacheCtr}}
+\index{cacheCtr@{cacheCtr}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Vdbe::cache\-Ctr}}\label{structVdbe_d444f26993df8bafb11f97dad3d9ce12}
+
+
+\index{Vdbe@{Vdbe}!changeCntOn@{changeCntOn}}
+\index{changeCntOn@{changeCntOn}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::change\-Cnt\-On}}\label{structVdbe_2ae22443da3762a5136e8870c87201d8}
+
+
+\index{Vdbe@{Vdbe}!db@{db}}
+\index{db@{db}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3}$\ast$ \bf{Vdbe::db}}\label{structVdbe_fecf120b55d072a8357ee007eb36bcab}
+
+
+\index{Vdbe@{Vdbe}!db@{db}}
+\index{db@{db}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{sqlite3}$\ast$ \bf{Vdbe::db}}\label{structVdbe_fecf120b55d072a8357ee007eb36bcab}
+
+
+\index{Vdbe@{Vdbe}!errorAction@{errorAction}}
+\index{errorAction@{errorAction}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::error\-Action}}\label{structVdbe_6a36048f8e2070a1449cb26aad44caf6}
+
+
+\index{Vdbe@{Vdbe}!expired@{expired}}
+\index{expired@{expired}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::expired}}\label{structVdbe_68eb10d66787f042d1f8ccec26e96d2c}
+
+
+\index{Vdbe@{Vdbe}!explain@{explain}}
+\index{explain@{explain}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::explain}}\label{structVdbe_50bfa3f626dadf83d761d65c81524fdd}
+
+
+\index{Vdbe@{Vdbe}!expmask@{expmask}}
+\index{expmask@{expmask}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Vdbe::expmask}}\label{structVdbe_7bd96ae9f93b12293b1e03328d02c931}
+
+
+\index{Vdbe@{Vdbe}!inVtabMethod@{inVtabMethod}}
+\index{inVtabMethod@{inVtabMethod}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::in\-Vtab\-Method}}\label{structVdbe_c4563a859ff93ecd521f439ab614db69}
+
+
+\index{Vdbe@{Vdbe}!isPrepareV2@{isPrepareV2}}
+\index{isPrepareV2@{isPrepareV2}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::is\-Prepare\-V2}}\label{structVdbe_f5d67be145da38b86d16d071857e68e9}
+
+
+\index{Vdbe@{Vdbe}!iStatement@{iStatement}}
+\index{iStatement@{iStatement}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::i\-Statement}}\label{structVdbe_e808f4d09e05de01e98464bfc8231c79}
+
+
+\index{Vdbe@{Vdbe}!magic@{magic}}
+\index{magic@{magic}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u32} \bf{Vdbe::magic}}\label{structVdbe_229edf61fed43b2e8c954bdbd062c652}
+
+
+\index{Vdbe@{Vdbe}!minWriteFileFormat@{minWriteFileFormat}}
+\index{minWriteFileFormat@{minWriteFileFormat}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::min\-Write\-File\-Format}}\label{structVdbe_a465c1cf33bb2b5497b99e6093541ef8}
+
+
+\index{Vdbe@{Vdbe}!nChange@{nChange}}
+\index{nChange@{nChange}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Change}}\label{structVdbe_d46c423e5bea72e6093874c7a61a2f45}
+
+
+\index{Vdbe@{Vdbe}!nCursor@{nCursor}}
+\index{nCursor@{nCursor}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Vdbe::n\-Cursor}}\label{structVdbe_4a4db4585d14b044e32ca36df5fa5afd}
+
+
+\index{Vdbe@{Vdbe}!nFkConstraint@{nFkConstraint}}
+\index{nFkConstraint@{nFkConstraint}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Vdbe::n\-Fk\-Constraint}}\label{structVdbe_75af5a04705083e7527182a2db283ba4}
+
+
+\index{Vdbe@{Vdbe}!nFrame@{nFrame}}
+\index{nFrame@{nFrame}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Frame}}\label{structVdbe_aeb11e330a5b313789db4b5076c2c70b}
+
+
+\index{Vdbe@{Vdbe}!nLabel@{nLabel}}
+\index{nLabel@{nLabel}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Label}}\label{structVdbe_77a27c3c8e1dde22e2456f4ca9d057cd}
+
+
+\index{Vdbe@{Vdbe}!nLabelAlloc@{nLabelAlloc}}
+\index{nLabelAlloc@{nLabelAlloc}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Label\-Alloc}}\label{structVdbe_d27c2fdb6b4c784974ad8ff48e980b6e}
+
+
+\index{Vdbe@{Vdbe}!nMem@{nMem}}
+\index{nMem@{nMem}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Mem}}\label{structVdbe_82bfaf7bb23e0a16bcbf16856a508efc}
+
+
+\index{Vdbe@{Vdbe}!nOp@{nOp}}
+\index{nOp@{nOp}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Op}}\label{structVdbe_999ec18a15c3dbbcb9e8e689b092a803}
+
+
+\index{Vdbe@{Vdbe}!nOpAlloc@{nOpAlloc}}
+\index{nOpAlloc@{nOpAlloc}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::n\-Op\-Alloc}}\label{structVdbe_bafb46d45fe3d61fb0735ccd2c191465}
+
+
+\index{Vdbe@{Vdbe}!nResColumn@{nResColumn}}
+\index{nResColumn@{nResColumn}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u16} \bf{Vdbe::n\-Res\-Column}}\label{structVdbe_e7bfd970c9ee6350a26cc341adf045b9}
+
+
+\index{Vdbe@{Vdbe}!nStmtDefCons@{nStmtDefCons}}
+\index{nStmtDefCons@{nStmtDefCons}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Vdbe::n\-Stmt\-Def\-Cons}}\label{structVdbe_c8a0554b8072a70046ae9eabf9493ee4}
+
+
+\index{Vdbe@{Vdbe}!nVar@{nVar}}
+\index{nVar@{nVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{yn\-Var} \bf{Vdbe::n\-Var}}\label{structVdbe_5345f39939526b7f46b16048baf1dec0}
+
+
+\index{Vdbe@{Vdbe}!okVar@{okVar}}
+\index{okVar@{okVar}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::ok\-Var}}\label{structVdbe_ded51f1dda8495c0cec3906c79010d26}
+
+
+\index{Vdbe@{Vdbe}!pc@{pc}}
+\index{pc@{pc}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::pc}}\label{structVdbe_0d6fe7ae1582d66464c4dca5674d6c4f}
+
+
+\index{Vdbe@{Vdbe}!pFrame@{pFrame}}
+\index{pFrame@{pFrame}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Frame}$\ast$ \bf{Vdbe::p\-Frame}}\label{structVdbe_638706edb365f926e4c5b3d08ea65389}
+
+
+\index{Vdbe@{Vdbe}!pFrame@{pFrame}}
+\index{pFrame@{pFrame}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe\-Frame}$\ast$ \bf{Vdbe::p\-Frame}}\label{structVdbe_638706edb365f926e4c5b3d08ea65389}
+
+
+\index{Vdbe@{Vdbe}!pFree@{pFree}}
+\index{pFree@{pFree}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Vdbe::p\-Free}}\label{structVdbe_eb3661ca67c50a10b49f0dd900444873}
+
+
+\index{Vdbe@{Vdbe}!pFree@{pFree}}
+\index{pFree@{pFree}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ \bf{Vdbe::p\-Free}}\label{structVdbe_eb3661ca67c50a10b49f0dd900444873}
+
+
+\index{Vdbe@{Vdbe}!pNext@{pNext}}
+\index{pNext@{pNext}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe} $\ast$ \bf{Vdbe::p\-Next}}\label{structVdbe_84365f81cd7c0bdf5059ca89ee244419}
+
+
+\index{Vdbe@{Vdbe}!pPrev@{pPrev}}
+\index{pPrev@{pPrev}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Vdbe::p\-Prev}}\label{structVdbe_0f109774fe1bf5ca6cd50214b71fc415}
+
+
+\index{Vdbe@{Vdbe}!pPrev@{pPrev}}
+\index{pPrev@{pPrev}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Vdbe}$\ast$ \bf{Vdbe::p\-Prev}}\label{structVdbe_0f109774fe1bf5ca6cd50214b71fc415}
+
+
+\index{Vdbe@{Vdbe}!pProgram@{pProgram}}
+\index{pProgram@{pProgram}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Sub\-Program}$\ast$ \bf{Vdbe::p\-Program}}\label{structVdbe_392bb8adc6e72d87dea31b93f9539456}
+
+
+\index{Vdbe@{Vdbe}!pProgram@{pProgram}}
+\index{pProgram@{pProgram}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Sub\-Program}$\ast$ \bf{Vdbe::p\-Program}}\label{structVdbe_392bb8adc6e72d87dea31b93f9539456}
+
+
+\index{Vdbe@{Vdbe}!pResultSet@{pResultSet}}
+\index{pResultSet@{pResultSet}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::p\-Result\-Set}}\label{structVdbe_9ee5c3cf014760d0646b5789c85cef0b}
+
+
+\index{Vdbe@{Vdbe}!pResultSet@{pResultSet}}
+\index{pResultSet@{pResultSet}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{Mem}$\ast$ \bf{Vdbe::p\-Result\-Set}}\label{structVdbe_9ee5c3cf014760d0646b5789c85cef0b}
+
+
+\index{Vdbe@{Vdbe}!rc@{rc}}
+\index{rc@{rc}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{Vdbe::rc}}\label{structVdbe_95ee69ac6b1d8c1ff9707fc9771dcf51}
+
+
+\index{Vdbe@{Vdbe}!readOnly@{readOnly}}
+\index{readOnly@{readOnly}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::read\-Only}}\label{structVdbe_bcb62366683a1bc4d2f82281505e2bfa}
+
+
+\index{Vdbe@{Vdbe}!runOnlyOnce@{runOnlyOnce}}
+\index{runOnlyOnce@{runOnlyOnce}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::run\-Only\-Once}}\label{structVdbe_e95a74cba42a6009a1dee7b86d876170}
+
+
+\index{Vdbe@{Vdbe}!startTime@{startTime}}
+\index{startTime@{startTime}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{i64} \bf{Vdbe::start\-Time}}\label{structVdbe_b2f6f1d0f422e280c083dda941065532}
+
+
+\index{Vdbe@{Vdbe}!usesStmtJournal@{usesStmtJournal}}
+\index{usesStmtJournal@{usesStmtJournal}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\bf{u8} \bf{Vdbe::uses\-Stmt\-Journal}}\label{structVdbe_acc0172dfc2ab691c4d600dbb8c07852}
+
+
+\index{Vdbe@{Vdbe}!zErrMsg@{zErrMsg}}
+\index{zErrMsg@{zErrMsg}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe::z\-Err\-Msg}}\label{structVdbe_ed0fa410c04fae75468e399fb71691b7}
+
+
+\index{Vdbe@{Vdbe}!zErrMsg@{zErrMsg}}
+\index{zErrMsg@{zErrMsg}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe::z\-Err\-Msg}}\label{structVdbe_ed0fa410c04fae75468e399fb71691b7}
+
+
+\index{Vdbe@{Vdbe}!zSql@{zSql}}
+\index{zSql@{zSql}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe::z\-Sql}}\label{structVdbe_080c22ed15b2bba65b3eb3cf8d186b54}
+
+
+\index{Vdbe@{Vdbe}!zSql@{zSql}}
+\index{zSql@{zSql}!Vdbe@{Vdbe}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ \bf{Vdbe::z\-Sql}}\label{structVdbe_080c22ed15b2bba65b3eb3cf8d186b54}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\end{CompactItemize}

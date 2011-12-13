@@ -1,0 +1,66 @@
+\section{libupkeeper/upkeeper/upk\_\-protocol.c File Reference}
+\label{upk__protocol_8c}\index{libupkeeper/upkeeper/upk\_\-protocol.c@{libupkeeper/upkeeper/upk\_\-protocol.c}}
+{\ttfamily \#include \char`\"{}upk\_\-protocol.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+Include dependency graph for upk\_\-protocol.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__protocol_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, {\bf uint32\_\-t} payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, {\bf uint32\_\-t} proto\_\-ver)
+\item 
+static {\bf uint32\_\-t} {\bf req\_\-preamble\_\-len} ({\bf upk\_\-req\_\-preamble\_\-t} $\ast$preamble)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$client\_\-name)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf uint32\_\-t} best\_\-version)
+\item 
+static void {\bf upk\_\-free\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-action} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, char $\ast$action)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-signal} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-list} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-subscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-unsubscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-disconnect} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-result} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$msg, bool successful)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-listing} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-svcinfo} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-ack} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-error} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-errno\_\-t} uerrno, char $\ast$errmsg, {\bf upk\_\-errlevel\_\-t} errlvl)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-publication} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-cancelation} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-get\_\-msgtype} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf size\_\-t} {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
+\end{DoxyCompactItemize}

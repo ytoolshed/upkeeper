@@ -1,0 +1,58 @@
+.TH "upk_netmsg_queue_meta_p" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+upk_netmsg_queue_meta_p \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBhead\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBtail\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBprevp\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBnextp\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBtempp\fP"
+.br
+.ti -1c
+.RI "\fBupk_netmsg_queue_t\fP * \fBthisp\fP"
+.br
+.ti -1c
+.RI "\fBuint32_t\fP \fBcount\fP"
+.br
+.ti -1c
+.RI "void * \fBuserdata\fP"
+.br
+.ti -1c
+.RI "void(* \fBuserdata_free_func\fP )(void *)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBuint32_t\fP \fBupk_netmsg_queue_meta_p::count\fP"
+.PP
+Referenced by upk_write_packets().
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::head\fP"
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::nextp\fP"
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::prevp\fP"
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::tail\fP"
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::tempp\fP"
+.SS "\fBupk_netmsg_queue_t\fP * \fBupk_netmsg_queue_meta_p::thisp\fP"
+.PP
+Referenced by upk_queue_packet(), and upk_write_packets().
+.SS "void * \fBupk_netmsg_queue_meta_p::userdata\fP"
+.SS "void(* \fBupk_netmsg_queue_meta_p::userdata_free_func\fP)(void *)"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

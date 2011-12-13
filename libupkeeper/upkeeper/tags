@@ -4,86 +4,138 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.6	//
+BuddyPollingInterval	upk_config.h	/^    double                  BuddyPollingInterval;          \/*!< duration in seconds, or fractions of seconds, to wait$/;"	m	struct:_upk_controller_config
+BuddyShutdownTimeout	upk_config.h	/^    int32_t                 BuddyShutdownTimeout;          \/*!< when a service is stopped; how many seconds to wait$/;"	m	struct:_upk_svc_desc
 CONTROLLER	controller.c	2;"	d	file:
-IF_UPK_ERROR	error.h	8;"	d
-PKT_PUBMSG	protocol.h	/^    PKT_PUBMSG,$/;"	e	enum:__anon26
-PKT_REPLY	protocol.h	/^    PKT_REPLY,$/;"	e	enum:__anon26
-PKT_REQUEST	protocol.h	/^    PKT_REQUEST = 1,$/;"	e	enum:__anon26
-PKT_V0_PROTO_LIMIT	protocol.h	/^    PKT_V0_PROTO_LIMIT,$/;"	e	enum:__anon26
+ExecReload	upk_config.h	/^    char                    ExecReload[UPK_MAX_PATH_LEN];  \/*!< command to exec for reload. Default: 'kill -HUP', see$/;"	m	struct:_upk_svc_desc
+ExecStart	upk_config.h	/^    char                    ExecStart[UPK_MAX_PATH_LEN];   \/*!< command to exec for start. Default: 'kill', see$/;"	m	struct:_upk_svc_desc
+ExecStop	upk_config.h	/^    char                    ExecStop[UPK_MAX_PATH_LEN];    \/*!< executable to exec for stop. see "StopScript" *\/$/;"	m	struct:_upk_svc_desc
+IF_UPK_ERROR	upk_error.h	29;"	d
+InitialState	upk_config.h	/^    upk_state_t             InitialState;                  \/*!< state the service should be set to initially; this is$/;"	m	struct:_upk_svc_desc
+KillTimeout	upk_config.h	/^    int32_t                 KillTimeout;                   \/*!< how long to wait for a service to stop before issuing$/;"	m	struct:_upk_svc_desc
+LongDescription	upk_config.h	/^    char                   *LongDescription;               \/*!< an arbitrary length description of the service *\/$/;"	m	struct:_upk_svc_desc
+MaxConsecutiveFailures	upk_config.h	/^    int32_t                 MaxConsecutiveFailures;        \/*!< Maximum number of times a process may fail in-a-row$/;"	m	struct:_upk_svc_desc
+Name	upk_config.h	/^    char                    Name[UPK_MAX_STRING_LEN];      \/*!< service name. if pkg is used, the concatination of$/;"	m	struct:_upk_svc_desc
+PKT_PUBMSG	upk_protocol.h	/^    PKT_PUBMSG,$/;"	e	enum:__anon1
+PKT_REPLY	upk_protocol.h	/^    PKT_REPLY,$/;"	e	enum:__anon1
+PKT_REQUEST	upk_protocol.h	/^    PKT_REQUEST = 1,$/;"	e	enum:__anon1
+PKT_V0_PROTO_LIMIT	upk_protocol.h	/^    PKT_V0_PROTO_LIMIT,$/;"	e	enum:__anon1
 PROTOCOL_VERSION	upk_v0_protocol.c	2;"	d	file:
-PUB_CANCELATION	protocol.h	/^    PUB_CANCELATION,$/;"	e	enum:__anon29
-PUB_PUBLICATION	protocol.h	/^    PUB_PUBLICATION = 1,$/;"	e	enum:__anon29
-PUB_V0_PROTO_LIMIT	protocol.h	/^    PUB_V0_PROTO_LIMIT,$/;"	e	enum:__anon29
-REPL_ACK	protocol.h	/^    REPL_ACK,$/;"	e	enum:__anon28
-REPL_ERROR	protocol.h	/^    REPL_ERROR,$/;"	e	enum:__anon28
-REPL_LISTING	protocol.h	/^    REPL_LISTING,$/;"	e	enum:__anon28
-REPL_PREAMBLE	protocol.h	/^    REPL_PREAMBLE = 1,$/;"	e	enum:__anon28
-REPL_RESULT	protocol.h	/^    REPL_RESULT,$/;"	e	enum:__anon28
-REPL_SEQ_END	protocol.h	/^    REPL_SEQ_END,$/;"	e	enum:__anon28
-REPL_SEQ_START	protocol.h	/^    REPL_SEQ_START,$/;"	e	enum:__anon28
-REPL_SVCINFO	protocol.h	/^    REPL_SVCINFO,$/;"	e	enum:__anon28
-REPL_V0_PROTO_LIMIT	protocol.h	/^    REPL_V0_PROTO_LIMIT,$/;"	e	enum:__anon28
-REQ_ACTION	protocol.h	/^    REQ_ACTION,$/;"	e	enum:__anon27
-REQ_DISCONNECT	protocol.h	/^    REQ_DISCONNECT,$/;"	e	enum:__anon27
-REQ_LIST	protocol.h	/^    REQ_LIST,$/;"	e	enum:__anon27
-REQ_PREAMBLE	protocol.h	/^    REQ_PREAMBLE = 1,$/;"	e	enum:__anon27
-REQ_SEQ_END	protocol.h	/^    REQ_SEQ_END,$/;"	e	enum:__anon27
-REQ_SEQ_START	protocol.h	/^    REQ_SEQ_START,$/;"	e	enum:__anon27
-REQ_SIGNAL	protocol.h	/^    REQ_SIGNAL,$/;"	e	enum:__anon27
-REQ_STATUS	protocol.h	/^    REQ_STATUS,$/;"	e	enum:__anon27
-REQ_SUBSCRIBE	protocol.h	/^    REQ_SUBSCRIBE,$/;"	e	enum:__anon27
-REQ_UNSUBSCRIBE	protocol.h	/^    REQ_UNSUBSCRIBE,$/;"	e	enum:__anon27
-REQ_V0_PROTO_LIMIT	protocol.h	/^    REQ_V0_PROTO_LIMIT,$/;"	e	enum:__anon27
-UPK_BUF	protocol.h	22;"	d
-UPK_BUF_PTR	protocol.h	23;"	d
-UPK_DATA	protocol.h	19;"	d
-UPK_DATA_LEN	protocol.h	21;"	d
-UPK_DATA_PTR	protocol.h	20;"	d
-UPK_END_HELPER	upk_v0_protocol.c	53;"	d	file:
-UPK_ERRLVL_ERROR	types.h	/^    UPK_ERRLVL_ERROR,$/;"	e	enum:__anon22
-UPK_ERR_INIT	error.h	6;"	d
-UPK_ERR_INVALID_PKT	types.h	/^    UPK_ERR_INVALID_PKT,$/;"	e	enum:__anon23
-UPK_ERR_UNKNOWN	types.h	/^    UPK_ERR_UNKNOWN = 0,$/;"	e	enum:__anon23
-UPK_ERR_UNSUP	types.h	/^    UPK_ERR_UNSUP,$/;"	e	enum:__anon23
-UPK_FETCH_ARRAY	protocol.h	90;"	d
-UPK_FETCH_BOOL	protocol.h	71;"	d
-UPK_FETCH_DATA	protocol.h	87;"	d
-UPK_FETCH_DATA_TO_BUF	protocol.h	82;"	d
-UPK_FETCH_ENUM	protocol.h	74;"	d
-UPK_FETCH_STRING	protocol.h	77;"	d
-UPK_FETCH_UINT16	protocol.h	60;"	d
-UPK_FETCH_UINT16_T	protocol.h	55;"	d
-UPK_FETCH_UINT32	protocol.h	52;"	d
-UPK_FETCH_UINT32_T	protocol.h	47;"	d
-UPK_FETCH_UINT8	protocol.h	68;"	d
-UPK_FETCH_UINT8_T	protocol.h	63;"	d
-UPK_FUNC_ASSERT	error.h	7;"	d
-UPK_HELPER_ANSISTRING	upk_v0_protocol.c	44;"	d	file:
-UPK_HELPER_BOOL	upk_v0_protocol.c	36;"	d	file:
-UPK_HELPER_BUF	upk_v0_protocol.c	39;"	d	file:
-UPK_HELPER_ENUM	upk_v0_protocol.c	33;"	d	file:
-UPK_HELPER_STRING	upk_v0_protocol.c	49;"	d	file:
-UPK_HELPER_UINT16	upk_v0_protocol.c	23;"	d	file:
-UPK_HELPER_UINT16_EXPLICIT	upk_v0_protocol.c	19;"	d	file:
-UPK_HELPER_UINT32	upk_v0_protocol.c	16;"	d	file:
-UPK_HELPER_UINT32_EXPLICIT	upk_v0_protocol.c	12;"	d	file:
-UPK_HELPER_UINT8	upk_v0_protocol.c	30;"	d	file:
-UPK_HELPER_UINT8_EXPLICIT	upk_v0_protocol.c	26;"	d	file:
-UPK_INIT_DESERIALIZE	protocol.h	33;"	d
-UPK_INIT_DESERIALIZE_MSG	protocol.h	42;"	d
+Package	upk_config.h	/^    char                    Package[UPK_MAX_STRING_LEN];   \/*!< an optional prefix to be preppended to the service$/;"	m	struct:_upk_svc_desc
+PipeStderrScript	upk_config.h	/^    char                   *PipeStderrScript;              \/*!< optional script to pipe stderr to. for instance: 'exec $/;"	m	struct:_upk_svc_desc
+PipeStdoutScript	upk_config.h	/^    char                   *PipeStdoutScript;              \/*!< optional script to pipe stdout to. for instance: 'exec $/;"	m	struct:_upk_svc_desc
+PreferBuddyStateForRunning	upk_config.h	/^    int8_t                  PreferBuddyStateForRunning;    \/*!< if the controller starts\/restarts, and buddy has a$/;"	m	struct:_upk_svc_desc
+PreferBuddyStateForStopped	upk_config.h	/^    int8_t                  PreferBuddyStateForStopped;    \/*!< if the controller starts\/restartindent: Standard$/;"	m	struct:_upk_svc_desc
+Prerequisites	upk_config.h	/^    upk_svcid_meta_t       *Prerequisites;                 \/*!< A list of prerequisite services that must be started$/;"	m	struct:_upk_svc_desc
+Provides	upk_config.h	/^    char                    Provides[UPK_MAX_STRING_LEN];  \/*!< a string describing the function of this service. this $/;"	m	struct:_upk_svc_desc
+RandomizeRateLimit	upk_config.h	/^    int8_t                  RandomizeRateLimit;            \/*!< a flag to enable\/disable adding a randomized "jitter"$/;"	m	struct:_upk_svc_desc
+ReconnectRetries	upk_config.h	/^    int32_t                 ReconnectRetries;              \/*!< number of times to retry connections to the controler$/;"	m	struct:_upk_svc_desc
+RedirectStderr	upk_config.h	/^    char                    RedirectStderr[UPK_MAX_PATH_LEN];   \/*!< optional place to direct stderr. Note that if you $/;"	m	struct:_upk_svc_desc
+RedirectStdout	upk_config.h	/^    char                    RedirectStdout[UPK_MAX_PATH_LEN];   \/*!< optional place to direct stdout. Note that if you $/;"	m	struct:_upk_svc_desc
+ReloadScript	upk_config.h	/^    char                   *ReloadScript;                  \/*!< replace the default reload script of 'exec kill -HUP$/;"	m	struct:_upk_svc_desc
+RingbufferSize	upk_config.h	/^    size_t                  RingbufferSize;                \/*!< size of the ringbuffer to maintain in the buddy *\/$/;"	m	struct:_upk_svc_desc
+ServiceDefaults	upk_config.h	/^    upk_svc_desc_t          ServiceDefaults;               \/*!< default service configuration parameters; used$/;"	m	struct:_upk_controller_config
+SetGID	upk_config.h	/^    gid_t                   SetGID;                        \/*!< if controller and\/or buddy is run euid root; which gid$/;"	m	struct:_upk_svc_desc
+SetUID	upk_config.h	/^    uid_t                   SetUID;                        \/*!< if controller and\/or buddy is run euid root; which uid$/;"	m	struct:_upk_svc_desc
+ShortDescription	upk_config.h	/^    char                    ShortDescription[UPK_MAX_STRING_LEN];   \/*! a brief description of the service *\/$/;"	m	struct:_upk_svc_desc
+StartPriority	upk_config.h	/^    int32_t                 StartPriority;                 \/*!< similar to prerequisites, provide a fixed numeric$/;"	m	struct:_upk_svc_desc
+StartScript	upk_config.h	/^    char                   *StartScript;                   \/*!< script to run to start the monitored process; replaces$/;"	m	struct:_upk_svc_desc
+StateDir	upk_config.h	/^    char                    StateDir[UPK_MAX_PATH_LEN];    \/*!< path to variable state-dir for controller and buddies *\/$/;"	m	struct:_upk_controller_config
+StopScript	upk_config.h	/^    char                   *StopScript;                    \/*!< replace the default stop script of 'exec %(EXEC_STOP)$/;"	m	struct:_upk_svc_desc
+SvcConfigPath	upk_config.h	/^    char                    SvcConfigPath[UPK_MAX_PATH_LEN];    \/*!< path to service configuration files *\/$/;"	m	struct:_upk_controller_config
+SvcRunPath	upk_config.h	/^    char                    SvcRunPath[UPK_MAX_PATH_LEN];  \/*!< path where buddy's will be created and run, usually$/;"	m	struct:_upk_controller_config
+UPKDLIST_APPEND	upk_types.h	228;"	d
+UPKDLIST_APPEND_THIS	upk_types.h	218;"	d
+UPKDLIST_FOREACH	upk_types.h	260;"	d
+UPKDLIST_FOREACH_REVERSE	upk_types.h	270;"	d
+UPKDLIST_FREE	upk_types.h	297;"	d
+UPKDLIST_INIT	upk_types.h	213;"	d
+UPKDLIST_METANODE	upk_types.h	205;"	d
+UPKDLIST_PREPEND	upk_types.h	244;"	d
+UPKDLIST_PREPEND_THIS	upk_types.h	234;"	d
+UPKDLIST_SWAP	upk_types.h	274;"	d
+UPKDLIST_UNLINK	upk_types.h	287;"	d
+UPKLIST_APPEND	upk_types.h	141;"	d
+UPKLIST_APPEND_THIS	upk_types.h	131;"	d
+UPKLIST_FOREACH	upk_types.h	172;"	d
+UPKLIST_FREE	upk_types.h	197;"	d
+UPKLIST_INIT	upk_types.h	122;"	d
+UPKLIST_METANODE	upk_config.h	/^typedef                 UPKLIST_METANODE(upk_svc_desc_t, upk_svc_desc_meta_p), upk_svc_desc_meta_t;$/;"	t
+UPKLIST_METANODE	upk_json.h	/^typedef                 UPKLIST_METANODE(upk_json_stack_node_t, upk_json_stack_meta_p), upk_json_stack_meta_t;$/;"	t
+UPKLIST_METANODE	upk_network.h	/^typedef                 UPKLIST_METANODE(upk_conn_handle_t, upk_conn_handle_meta_p), upk_conn_handle_meta_t;$/;"	t
+UPKLIST_METANODE	upk_network.h	/^typedef                 UPKLIST_METANODE(upk_netmsg_queue_t, upk_netmsg_queue_meta_p), upk_netmsg_queue_meta_t;$/;"	t
+UPKLIST_METANODE	upk_types.h	/^typedef                 UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_meta_p), upk_cust_actscr_meta_t;$/;"	t
+UPKLIST_METANODE	upk_types.h	/^typedef                 UPKLIST_METANODE(upk_svcid_t, _upk_svcid_meta_p), upk_svcid_meta_t;$/;"	t
+UPKLIST_METANODE	upk_types.h	119;"	d
+UPKLIST_PREPEND	upk_types.h	157;"	d
+UPKLIST_PREPEND_THIS	upk_types.h	148;"	d
+UPKLIST_SWAP	upk_types.h	176;"	d
+UPKLIST_UNLINK	upk_types.h	186;"	d
+UPK_AS_STRING	upk_error.h	136;"	d
+UPK_BUF	upk_protocol.h	44;"	d
+UPK_BUF_PTR	upk_protocol.h	45;"	d
+UPK_DATA	upk_protocol.h	41;"	d
+UPK_DATA_LEN	upk_protocol.h	43;"	d
+UPK_DATA_PTR	upk_protocol.h	42;"	d
+UPK_DIAGLVL_ALERT	upk_error.h	/^    UPK_DIAGLVL_ALERT,                                     \/*!< alert; something really bad happened, but we believe$/;"	e	enum:__anon27
+UPK_DIAGLVL_CRIT	upk_error.h	/^    UPK_DIAGLVL_CRIT,                                      \/*!< critical; something really bad happened, that probably $/;"	e	enum:__anon27
+UPK_DIAGLVL_DEBUG0	upk_error.h	/^    UPK_DIAGLVL_DEBUG0,                                    \/*!< debug0, intended to help find bugs in the program; but $/;"	e	enum:__anon27
+UPK_DIAGLVL_DEBUG1	upk_error.h	/^    UPK_DIAGLVL_DEBUG1                                     \/*!< debug1, useful in finding and demonstrating bugs in$/;"	e	enum:__anon27
+UPK_DIAGLVL_ERROR	upk_error.h	/^    UPK_DIAGLVL_ERROR,                                     \/*!< An error occurred. *\/$/;"	e	enum:__anon27
+UPK_DIAGLVL_FATAL	upk_error.h	/^    UPK_DIAGLVL_FATAL = 0,                                 \/*!< fatal error, operation cannot continue *\/$/;"	e	enum:__anon27
+UPK_DIAGLVL_INFO	upk_error.h	/^    UPK_DIAGLVL_INFO,                                      \/*!< information, definitely normal operation, intended to$/;"	e	enum:__anon27
+UPK_DIAGLVL_NOTICE	upk_error.h	/^    UPK_DIAGLVL_NOTICE,                                    \/*!< Something you might want to notice; possibly normal$/;"	e	enum:__anon27
+UPK_DIAGLVL_VERBOSE	upk_error.h	/^    UPK_DIAGLVL_VERBOSE,                                   \/*!< verbose, probably normal operation *\/$/;"	e	enum:__anon27
+UPK_DIAGLVL_WARN	upk_error.h	/^    UPK_DIAGLVL_WARN,                                      \/*!< A warning, serious, but not too serious *\/$/;"	e	enum:__anon27
+UPK_END_HELPER	upk_v0_protocol.c	55;"	d	file:
+UPK_ERRLVL_ERROR	upk_error.h	/^    UPK_ERRLVL_ERROR,                                      \/*!< semantically similar to diaglvl; but for$/;"	e	enum:__anon28
+UPK_ERRMSG	upk_error.h	19;"	d
+UPK_ERR_INIT	upk_error.h	21;"	d
+UPK_ERR_INVALID_PKT	upk_error.h	/^    UPK_ERR_INVALID_PKT,                                   \/*!< invalid packet, possibly invalid protocol, packet$/;"	e	enum:__anon29
+UPK_ERR_UNKNOWN	upk_error.h	/^    UPK_ERR_UNKNOWN = 0,                                   \/*!< unknown error *\/$/;"	e	enum:__anon29
+UPK_ERR_UNSUP	upk_error.h	/^    UPK_ERR_UNSUP,                                         \/*!< unsupported *\/$/;"	e	enum:__anon29
+UPK_FETCH_ARRAY	upk_protocol.h	117;"	d
+UPK_FETCH_BOOL	upk_protocol.h	97;"	d
+UPK_FETCH_DATA	upk_protocol.h	114;"	d
+UPK_FETCH_DATA_TO_BUF	upk_protocol.h	109;"	d
+UPK_FETCH_ENUM	upk_protocol.h	100;"	d
+UPK_FETCH_STRING	upk_protocol.h	103;"	d
+UPK_FETCH_UINT16	upk_protocol.h	86;"	d
+UPK_FETCH_UINT16_T	upk_protocol.h	81;"	d
+UPK_FETCH_UINT32	upk_protocol.h	78;"	d
+UPK_FETCH_UINT32_T	upk_protocol.h	73;"	d
+UPK_FETCH_UINT8	upk_protocol.h	94;"	d
+UPK_FETCH_UINT8_T	upk_protocol.h	89;"	d
+UPK_FUNC_ASSERT	upk_error.h	25;"	d
+UPK_FUNC_ASSERT_MSG	upk_error.h	26;"	d
+UPK_HELPER_ANSISTRING	upk_v0_protocol.c	46;"	d	file:
+UPK_HELPER_BOOL	upk_v0_protocol.c	38;"	d	file:
+UPK_HELPER_BUF	upk_v0_protocol.c	41;"	d	file:
+UPK_HELPER_ENUM	upk_v0_protocol.c	35;"	d	file:
+UPK_HELPER_STRING	upk_v0_protocol.c	51;"	d	file:
+UPK_HELPER_UINT16	upk_v0_protocol.c	25;"	d	file:
+UPK_HELPER_UINT16_EXPLICIT	upk_v0_protocol.c	21;"	d	file:
+UPK_HELPER_UINT32	upk_v0_protocol.c	18;"	d	file:
+UPK_HELPER_UINT32_EXPLICIT	upk_v0_protocol.c	14;"	d	file:
+UPK_HELPER_UINT8	upk_v0_protocol.c	32;"	d	file:
+UPK_HELPER_UINT8_EXPLICIT	upk_v0_protocol.c	28;"	d	file:
+UPK_INIT_DESERIALIZE	upk_protocol.h	55;"	d
+UPK_INIT_DESERIALIZE_MSG	upk_protocol.h	68;"	d
 UPK_INIT_HELPER	upk_v0_protocol.c	4;"	d	file:
-UPK_INIT_SERIALIZE	protocol.h	94;"	d
-UPK_INIT_SERIALIZE_BUF	protocol.h	103;"	d
-UPK_INIT_SERIALIZE_MSG	protocol.h	108;"	d
-UPK_MAX_PACKET_SIZE	protocol.h	14;"	d
-UPK_MAX_STRING_LEN	types.h	11;"	d
-UPK_MAX_SUPPORTED_PROTO	protocol.h	17;"	d
-UPK_MEMB_TO_LEN	protocol.h	40;"	d
-UPK_MIN_SUPPORTED_PROTO	protocol.h	16;"	d
-UPK_MSG_IDENTIFIER	protocol.h	31;"	d
+UPK_INIT_SERIALIZE	upk_protocol.h	121;"	d
+UPK_INIT_SERIALIZE_BUF	upk_protocol.h	134;"	d
+UPK_INIT_SERIALIZE_MSG	upk_protocol.h	139;"	d
+UPK_JSON_PARSE_ERROR	upk_error.h	/^    UPK_JSON_PARSE_ERROR,                                  \/*!< json parse error; additional information should also$/;"	e	enum:__anon29
+UPK_MAX_PACKET_SIZE	upk_protocol.h	34;"	d
+UPK_MAX_PATH_LEN	upk_types.h	16;"	d
+UPK_MAX_STRING_LEN	upk_types.h	15;"	d
+UPK_MAX_SUPPORTED_PROTO	upk_protocol.h	39;"	d
+UPK_MEMB_TO_LEN	upk_protocol.h	66;"	d
+UPK_MIN_SUPPORTED_PROTO	upk_protocol.h	38;"	d
+UPK_MSG_IDENTIFIER	upk_protocol.h	53;"	d
 UPK_MSG_IDENTIFIER	upk_v0_protocol_serializer.c	5;"	d	file:
 UPK_MSG_IDENTIFIER	upk_v0_protocol_serializer.c	6;"	d	file:
-UPK_MSG_IDENTIFIER_TYPEDEF	protocol.h	30;"	d
+UPK_MSG_IDENTIFIER_TYPEDEF	upk_protocol.h	52;"	d
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	256;"	d	file:
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	257;"	d	file:
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	380;"	d	file:
@@ -96,146 +148,258 @@ UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	667;"	d	file:
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	668;"	d	file:
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	793;"	d	file:
 UPK_MSG_IDENTIFIER_TYPEDEF	upk_v0_protocol_serializer.c	794;"	d	file:
-UPK_PUT_ARRAY	protocol.h	145;"	d
-UPK_PUT_BOOL	protocol.h	127;"	d
-UPK_PUT_DATA	protocol.h	142;"	d
-UPK_PUT_DATA_FROM_BUF	protocol.h	138;"	d
-UPK_PUT_ENUM	protocol.h	130;"	d
-UPK_PUT_STRING	protocol.h	133;"	d
-UPK_PUT_UINT16	protocol.h	117;"	d
-UPK_PUT_UINT32	protocol.h	112;"	d
-UPK_PUT_UINT8	protocol.h	122;"	d
-UPK_SIG_ABRT	types.h	/^    UPK_SIG_ABRT = 6,$/;"	e	enum:__anon24
-UPK_SIG_ALRM	types.h	/^    UPK_SIG_ALRM = 14,$/;"	e	enum:__anon24
-UPK_SIG_BUS	types.h	/^    UPK_SIG_BUS = 7,$/;"	e	enum:__anon24
-UPK_SIG_CHLD	types.h	/^    UPK_SIG_CHLD = 17,$/;"	e	enum:__anon24
-UPK_SIG_CONT	types.h	/^    UPK_SIG_CONT = 18,$/;"	e	enum:__anon24
-UPK_SIG_FPE	types.h	/^    UPK_SIG_FPE = 8,$/;"	e	enum:__anon24
-UPK_SIG_HUP	types.h	/^    UPK_SIG_HUP = 1,$/;"	e	enum:__anon24
-UPK_SIG_ILL	types.h	/^    UPK_SIG_ILL = 4,$/;"	e	enum:__anon24
-UPK_SIG_INT	types.h	/^    UPK_SIG_INT = 2,$/;"	e	enum:__anon24
-UPK_SIG_IO	types.h	/^    UPK_SIG_IO = 29,$/;"	e	enum:__anon24
-UPK_SIG_KILL	types.h	/^    UPK_SIG_KILL = 9,$/;"	e	enum:__anon24
-UPK_SIG_PIPE	types.h	/^    UPK_SIG_PIPE = 13,$/;"	e	enum:__anon24
-UPK_SIG_PROF	types.h	/^    UPK_SIG_PROF = 27,$/;"	e	enum:__anon24
-UPK_SIG_PWR	types.h	/^    UPK_SIG_PWR = 30,$/;"	e	enum:__anon24
-UPK_SIG_QUIT	types.h	/^    UPK_SIG_QUIT = 3,$/;"	e	enum:__anon24
-UPK_SIG_SEGV	types.h	/^    UPK_SIG_SEGV = 11,$/;"	e	enum:__anon24
-UPK_SIG_STKFLT	types.h	/^    UPK_SIG_STKFLT = 16,$/;"	e	enum:__anon24
-UPK_SIG_STOP	types.h	/^    UPK_SIG_STOP = 19,$/;"	e	enum:__anon24
-UPK_SIG_SYS	types.h	/^    UPK_SIG_SYS = 31,$/;"	e	enum:__anon24
-UPK_SIG_TERM	types.h	/^    UPK_SIG_TERM = 15,$/;"	e	enum:__anon24
-UPK_SIG_TRAP	types.h	/^    UPK_SIG_TRAP = 5,$/;"	e	enum:__anon24
-UPK_SIG_TSTP	types.h	/^    UPK_SIG_TSTP = 20,$/;"	e	enum:__anon24
-UPK_SIG_TTIN	types.h	/^    UPK_SIG_TTIN = 21,$/;"	e	enum:__anon24
-UPK_SIG_TTOU	types.h	/^    UPK_SIG_TTOU = 22,$/;"	e	enum:__anon24
-UPK_SIG_URG	types.h	/^    UPK_SIG_URG = 23,$/;"	e	enum:__anon24
-UPK_SIG_USR1	types.h	/^    UPK_SIG_USR1 = 10,$/;"	e	enum:__anon24
-UPK_SIG_USR2	types.h	/^    UPK_SIG_USR2 = 12,$/;"	e	enum:__anon24
-UPK_SIG_VTALRM	types.h	/^    UPK_SIG_VTALRM = 26,$/;"	e	enum:__anon24
-UPK_SIG_WINCH	types.h	/^    UPK_SIG_WINCH = 28,$/;"	e	enum:__anon24
-UPK_SIG_XCPU	types.h	/^    UPK_SIG_XCPU = 24,$/;"	e	enum:__anon24
-UPK_SIG_XFSZ	types.h	/^    UPK_SIG_XFSZ = 25,$/;"	e	enum:__anon24
-UPK_STATE_NOT_RUNNING	types.h	/^    UPK_STATE_NOT_RUNNING,$/;"	e	enum:__anon21
-UPK_STATE_RUNNING	types.h	/^    UPK_STATE_RUNNING,$/;"	e	enum:__anon21
-UPK_STATE_SHUTDOWN	types.h	/^    UPK_STATE_SHUTDOWN,$/;"	e	enum:__anon21
-UPK_STATE_STARTING	types.h	/^    UPK_STATE_STARTING,$/;"	e	enum:__anon21
-UPK_STATE_STOPPING	types.h	/^    UPK_STATE_STOPPING,$/;"	e	enum:__anon21
-UPK_STATE_UNDEFINED	types.h	/^    UPK_STATE_UNDEFINED,$/;"	e	enum:__anon21
-UPK_STRING_LENGTH	protocol.h	27;"	d
-UPK_UINT16_BUFFER	protocol.h	25;"	d
-UPK_UINT32_BUFFER	protocol.h	26;"	d
-UPK_UINT8_BUFFER	protocol.h	24;"	d
-UPK_V0_ACK_REPL_T_FIELDS	protocol.h	/^    UPK_V0_ACK_REPL_T_FIELDS;$/;"	m	struct:__anon47
-UPK_V0_ACK_REPL_T_FIELDS	v0_protocol.h	/^    UPK_V0_ACK_REPL_T_FIELDS;$/;"	m	struct:__anon16
-UPK_V0_ACK_REPL_T_FIELDS	v0_protocol_structs.h	159;"	d
-UPK_V0_ACTION_REQ_T_FIELDS	protocol.h	/^    UPK_V0_ACTION_REQ_T_FIELDS;$/;"	m	struct:__anon35
-UPK_V0_ACTION_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_ACTION_REQ_T_FIELDS;$/;"	m	struct:__anon3
-UPK_V0_ACTION_REQ_T_FIELDS	v0_protocol_structs.h	28;"	d
-UPK_V0_CANCELATION_T_FIELDS	protocol.h	/^    UPK_V0_CANCELATION_T_FIELDS;$/;"	m	struct:__anon50
-UPK_V0_CANCELATION_T_FIELDS	v0_protocol.h	/^    UPK_V0_CANCELATION_T_FIELDS;$/;"	m	struct:__anon19
-UPK_V0_CANCELATION_T_FIELDS	v0_protocol_structs.h	184;"	d
-UPK_V0_DISCON_REQ_T_FIELDS	protocol.h	/^    UPK_V0_DISCON_REQ_T_FIELDS;$/;"	m	struct:__anon41
-UPK_V0_DISCON_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_DISCON_REQ_T_FIELDS;$/;"	m	struct:__anon9
-UPK_V0_DISCON_REQ_T_FIELDS	v0_protocol_structs.h	90;"	d
-UPK_V0_ERROR_REPL_T_FIELDS	protocol.h	/^    UPK_V0_ERROR_REPL_T_FIELDS;$/;"	m	struct:__anon48
-UPK_V0_ERROR_REPL_T_FIELDS	v0_protocol.h	/^    UPK_V0_ERROR_REPL_T_FIELDS;$/;"	m	struct:__anon17
-UPK_V0_ERROR_REPL_T_FIELDS	v0_protocol_structs.h	165;"	d
-UPK_V0_LISTING_REPL_T_FIELDS	protocol.h	/^    UPK_V0_LISTING_REPL_T_FIELDS;$/;"	m	struct:__anon45
-UPK_V0_LISTING_REPL_T_FIELDS	v0_protocol.h	/^    UPK_V0_LISTING_REPL_T_FIELDS;$/;"	m	struct:__anon13
-UPK_V0_LISTING_REPL_T_FIELDS	v0_protocol_structs.h	123;"	d
-UPK_V0_LIST_REQ_T_FIELDS	protocol.h	/^    UPK_V0_LIST_REQ_T_FIELDS;$/;"	m	struct:__anon37
-UPK_V0_LIST_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_LIST_REQ_T_FIELDS;$/;"	m	struct:__anon5
-UPK_V0_LIST_REQ_T_FIELDS	v0_protocol_structs.h	49;"	d
-UPK_V0_PUBLICATION_T_FIELDS	protocol.h	/^    UPK_V0_PUBLICATION_T_FIELDS;$/;"	m	struct:__anon49
-UPK_V0_PUBLICATION_T_FIELDS	v0_protocol.h	/^    UPK_V0_PUBLICATION_T_FIELDS;$/;"	m	struct:__anon18
-UPK_V0_PUBLICATION_T_FIELDS	v0_protocol_structs.h	177;"	d
-UPK_V0_REPL_SEQ_END_T_FIELDS	protocol.h	/^    UPK_V0_REPL_SEQ_END_T_FIELDS;$/;"	m	struct:__anon43
-UPK_V0_REPL_SEQ_END_T_FIELDS	v0_protocol.h	/^    UPK_V0_REPL_SEQ_END_T_FIELDS;$/;"	m	struct:__anon11
-UPK_V0_REPL_SEQ_END_T_FIELDS	v0_protocol_structs.h	104;"	d
-UPK_V0_REPL_SEQ_START_T_FIELDS	protocol.h	/^    UPK_V0_REPL_SEQ_START_T_FIELDS;$/;"	m	struct:__anon42
-UPK_V0_REPL_SEQ_START_T_FIELDS	v0_protocol.h	/^    UPK_V0_REPL_SEQ_START_T_FIELDS;$/;"	m	struct:__anon10
-UPK_V0_REPL_SEQ_START_T_FIELDS	v0_protocol_structs.h	96;"	d
-UPK_V0_REQ_SEQ_END_T_FIELDS	protocol.h	/^    UPK_V0_REQ_SEQ_END_T_FIELDS;$/;"	m	struct:__anon34
-UPK_V0_REQ_SEQ_END_T_FIELDS	v0_protocol.h	/^    UPK_V0_REQ_SEQ_END_T_FIELDS;$/;"	m	struct:__anon2
-UPK_V0_REQ_SEQ_END_T_FIELDS	v0_protocol_structs.h	20;"	d
-UPK_V0_REQ_SEQ_START_T_FIELDS	protocol.h	/^    UPK_V0_REQ_SEQ_START_T_FIELDS;$/;"	m	struct:__anon33
-UPK_V0_REQ_SEQ_START_T_FIELDS	v0_protocol.h	/^    UPK_V0_REQ_SEQ_START_T_FIELDS;$/;"	m	struct:__anon1
-UPK_V0_REQ_SEQ_START_T_FIELDS	v0_protocol_structs.h	7;"	d
-UPK_V0_RESULT_REPL_T_FIELDS	protocol.h	/^    UPK_V0_RESULT_REPL_T_FIELDS;$/;"	m	struct:__anon44
-UPK_V0_RESULT_REPL_T_FIELDS	v0_protocol.h	/^    UPK_V0_RESULT_REPL_T_FIELDS;$/;"	m	struct:__anon12
-UPK_V0_RESULT_REPL_T_FIELDS	v0_protocol_structs.h	114;"	d
-UPK_V0_SIGNAL_REQ_T_FIELDS	protocol.h	/^    UPK_V0_SIGNAL_REQ_T_FIELDS;$/;"	m	struct:__anon36
-UPK_V0_SIGNAL_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_SIGNAL_REQ_T_FIELDS;$/;"	m	struct:__anon4
-UPK_V0_SIGNAL_REQ_T_FIELDS	v0_protocol_structs.h	38;"	d
-UPK_V0_STATUS_REQ_T_FIELDS	protocol.h	/^    UPK_V0_STATUS_REQ_T_FIELDS;$/;"	m	struct:__anon38
-UPK_V0_STATUS_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_STATUS_REQ_T_FIELDS;$/;"	m	struct:__anon6
-UPK_V0_STATUS_REQ_T_FIELDS	v0_protocol_structs.h	55;"	d
-UPK_V0_SUBSCR_REQ_T_FIELDS	protocol.h	/^    UPK_V0_SUBSCR_REQ_T_FIELDS;$/;"	m	struct:__anon39
-UPK_V0_SUBSCR_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_SUBSCR_REQ_T_FIELDS;$/;"	m	struct:__anon7
-UPK_V0_SUBSCR_REQ_T_FIELDS	v0_protocol_structs.h	67;"	d
-UPK_V0_SVCINFO_REPL_T_FIELDS	protocol.h	/^    UPK_V0_SVCINFO_REPL_T_FIELDS;$/;"	m	struct:__anon46
-UPK_V0_SVCINFO_REPL_T_FIELDS	v0_protocol.h	/^    UPK_V0_SVCINFO_REPL_T_FIELDS;$/;"	m	struct:__anon15
-UPK_V0_SVCINFO_REPL_T_FIELDS	v0_protocol_structs.h	147;"	d
-UPK_V0_SVCINFO_T_FIELDS	types.h	/^        UPK_V0_SVCINFO_T_FIELDS;$/;"	m	struct:__anon20
-UPK_V0_SVCINFO_T_FIELDS	v0_protocol.h	/^    UPK_V0_SVCINFO_T_FIELDS;$/;"	m	struct:__anon14
-UPK_V0_SVCINFO_T_FIELDS	v0_protocol_structs.h	131;"	d
-UPK_V0_UNSUBS_REQ_T_FIELDS	protocol.h	/^    UPK_V0_UNSUBS_REQ_T_FIELDS;$/;"	m	struct:__anon40
-UPK_V0_UNSUBS_REQ_T_FIELDS	v0_protocol.h	/^    UPK_V0_UNSUBS_REQ_T_FIELDS;$/;"	m	struct:__anon8
-UPK_V0_UNSUBS_REQ_T_FIELDS	v0_protocol_structs.h	81;"	d
+UPK_PACKET_FOOTER_LEN	upk_protocol.h	36;"	d
+UPK_PACKET_HEADER_LEN	upk_protocol.h	35;"	d
+UPK_PUB_CANCELATION	upk_protocol.h	/^    UPK_PUB_CANCELATION,                                   \/*!< notification that a particular service is no longer$/;"	e	enum:_upk_msgtype
+UPK_PUB_PUBLICATION	upk_protocol.h	/^    UPK_PUB_PUBLICATION = 8192,                            \/*!< a message sent from the controller to a subscriber,$/;"	e	enum:_upk_msgtype
+UPK_PUB_V0_PROTO_LIMIT	upk_protocol.h	/^    UPK_PUB_V0_PROTO_LIMIT,                                \/*!< All valid pub v0 publication messages are < this *\/$/;"	e	enum:_upk_msgtype
+UPK_PUT_ARRAY	upk_protocol.h	176;"	d
+UPK_PUT_BOOL	upk_protocol.h	158;"	d
+UPK_PUT_DATA	upk_protocol.h	173;"	d
+UPK_PUT_DATA_FROM_BUF	upk_protocol.h	169;"	d
+UPK_PUT_ENUM	upk_protocol.h	161;"	d
+UPK_PUT_STRING	upk_protocol.h	164;"	d
+UPK_PUT_UINT16	upk_protocol.h	148;"	d
+UPK_PUT_UINT32	upk_protocol.h	143;"	d
+UPK_PUT_UINT8	upk_protocol.h	153;"	d
+UPK_REPL_ACK	upk_protocol.h	/^    UPK_REPL_ACK,                                          \/*!< an ack, when nothing else really fits, but a reply is$/;"	e	enum:_upk_msgtype
+UPK_REPL_ERROR	upk_protocol.h	/^    UPK_REPL_ERROR,                                        \/*!< report an error to the client, for instance, if the$/;"	e	enum:_upk_msgtype
+UPK_REPL_LISTING	upk_protocol.h	/^    UPK_REPL_LISTING,                                      \/*!< the name of a service in a sequence listing all$/;"	e	enum:_upk_msgtype
+UPK_REPL_PREAMBLE	upk_protocol.h	/^    UPK_REPL_PREAMBLE = 4096,                              \/*!< the reply to a preamble request, used to send back$/;"	e	enum:_upk_msgtype
+UPK_REPL_RESULT	upk_protocol.h	/^    UPK_REPL_RESULT,                                       \/*!< the result of an action or signal request (or anything $/;"	e	enum:_upk_msgtype
+UPK_REPL_SEQ_END	upk_protocol.h	/^    UPK_REPL_SEQ_END,                                      \/*!< the end of a sequence of replies *\/$/;"	e	enum:_upk_msgtype
+UPK_REPL_SEQ_START	upk_protocol.h	/^    UPK_REPL_SEQ_START,                                    \/*!< the start of a sequence of replies *\/$/;"	e	enum:_upk_msgtype
+UPK_REPL_SVCINFO	upk_protocol.h	/^    UPK_REPL_SVCINFO,                                      \/*!< all the information known about a service *\/$/;"	e	enum:_upk_msgtype
+UPK_REPL_V0_PROTO_LIMIT	upk_protocol.h	/^    UPK_REPL_V0_PROTO_LIMIT,                               \/*!< All valid v0 replies are < this *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_ACTION	upk_protocol.h	/^    UPK_REQ_ACTION,                                        \/*!< An action request (e.g. start, stop, reload, or custom $/;"	e	enum:_upk_msgtype
+UPK_REQ_DISCONNECT	upk_protocol.h	/^    UPK_REQ_DISCONNECT,                                    \/*!< notify controller of your intent to disconnect *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_LIST	upk_protocol.h	/^    UPK_REQ_LIST,                                          \/*!< A listing request. for a listing of all service-ids$/;"	e	enum:_upk_msgtype
+UPK_REQ_PREAMBLE	upk_protocol.h	/^    UPK_REQ_PREAMBLE = 1,                                  \/*!< A preamble message, used to negotiate version, and$/;"	e	enum:_upk_msgtype
+UPK_REQ_SEQ_END	upk_protocol.h	/^    UPK_REQ_SEQ_END,                                       \/*!< the end of a request sequence *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_SEQ_START	upk_protocol.h	/^    UPK_REQ_SEQ_START,                                     \/*!< The start of a request sequence *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_SIGNAL	upk_protocol.h	/^    UPK_REQ_SIGNAL,                                        \/*!< a signal request (e.g. send signal N) *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_STATUS	upk_protocol.h	/^    UPK_REQ_STATUS,                                        \/*!< A status request, to get information on a particular$/;"	e	enum:_upk_msgtype
+UPK_REQ_SUBSCRIBE	upk_protocol.h	/^    UPK_REQ_SUBSCRIBE,                                     \/*!< subscribe to a feed of status updates *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_UNCONFIGURE	upk_protocol.h	/^    UPK_REQ_UNCONFIGURE,                                   \/*!< notify controller to unconfigure an existing service *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_UNSUBSCRIBE	upk_protocol.h	/^    UPK_REQ_UNSUBSCRIBE,                                   \/*!< unsubscribe from a feed of status updates *\/$/;"	e	enum:_upk_msgtype
+UPK_REQ_V0_PROTO_LIMIT	upk_protocol.h	/^    UPK_REQ_V0_PROTO_LIMIT,                                \/*!< all valid v0 requests are < this *\/$/;"	e	enum:_upk_msgtype
+UPK_SIG_ABRT	upk_types.h	/^    UPK_SIG_ABRT = 6,                                      \/*!< abrt *\/$/;"	e	enum:__anon31
+UPK_SIG_ALRM	upk_types.h	/^    UPK_SIG_ALRM = 14,                                     \/*!< alrm *\/$/;"	e	enum:__anon31
+UPK_SIG_BUS	upk_types.h	/^    UPK_SIG_BUS = 7,                                       \/*!< bus *\/$/;"	e	enum:__anon31
+UPK_SIG_CHLD	upk_types.h	/^    UPK_SIG_CHLD = 17,                                     \/*!< chld *\/$/;"	e	enum:__anon31
+UPK_SIG_CONT	upk_types.h	/^    UPK_SIG_CONT = 18,                                     \/*!< cont *\/$/;"	e	enum:__anon31
+UPK_SIG_FPE	upk_types.h	/^    UPK_SIG_FPE = 8,                                       \/*!< fpe *\/$/;"	e	enum:__anon31
+UPK_SIG_HUP	upk_types.h	/^    UPK_SIG_HUP = 1,                                       \/*!< hup *\/$/;"	e	enum:__anon31
+UPK_SIG_ILL	upk_types.h	/^    UPK_SIG_ILL = 4,                                       \/*!< ill *\/$/;"	e	enum:__anon31
+UPK_SIG_INT	upk_types.h	/^    UPK_SIG_INT = 2,                                       \/*!< int *\/$/;"	e	enum:__anon31
+UPK_SIG_IO	upk_types.h	/^    UPK_SIG_IO = 29,                                       \/*!< io *\/$/;"	e	enum:__anon31
+UPK_SIG_KILL	upk_types.h	/^    UPK_SIG_KILL = 9,                                      \/*!< kill *\/$/;"	e	enum:__anon31
+UPK_SIG_PIPE	upk_types.h	/^    UPK_SIG_PIPE = 13,                                     \/*!< pipe *\/$/;"	e	enum:__anon31
+UPK_SIG_PROF	upk_types.h	/^    UPK_SIG_PROF = 27,                                     \/*!< prof *\/$/;"	e	enum:__anon31
+UPK_SIG_PWR	upk_types.h	/^    UPK_SIG_PWR = 30,                                      \/*!< pwr *\/$/;"	e	enum:__anon31
+UPK_SIG_QUIT	upk_types.h	/^    UPK_SIG_QUIT = 3,                                      \/*!< quit *\/$/;"	e	enum:__anon31
+UPK_SIG_SEGV	upk_types.h	/^    UPK_SIG_SEGV = 11,                                     \/*!< segv *\/$/;"	e	enum:__anon31
+UPK_SIG_STKFLT	upk_types.h	/^    UPK_SIG_STKFLT = 16,                                   \/*!< stkflt *\/$/;"	e	enum:__anon31
+UPK_SIG_STOP	upk_types.h	/^    UPK_SIG_STOP = 19,                                     \/*!< stop *\/$/;"	e	enum:__anon31
+UPK_SIG_SYS	upk_types.h	/^    UPK_SIG_SYS = 31,                                      \/*!< sys *\/$/;"	e	enum:__anon31
+UPK_SIG_TERM	upk_types.h	/^    UPK_SIG_TERM = 15,                                     \/*!< term *\/$/;"	e	enum:__anon31
+UPK_SIG_TRAP	upk_types.h	/^    UPK_SIG_TRAP = 5,                                      \/*!< trap *\/$/;"	e	enum:__anon31
+UPK_SIG_TSTP	upk_types.h	/^    UPK_SIG_TSTP = 20,                                     \/*!< tstp *\/$/;"	e	enum:__anon31
+UPK_SIG_TTIN	upk_types.h	/^    UPK_SIG_TTIN = 21,                                     \/*!< ttin *\/$/;"	e	enum:__anon31
+UPK_SIG_TTOU	upk_types.h	/^    UPK_SIG_TTOU = 22,                                     \/*!< ttou *\/$/;"	e	enum:__anon31
+UPK_SIG_URG	upk_types.h	/^    UPK_SIG_URG = 23,                                      \/*!< urg *\/$/;"	e	enum:__anon31
+UPK_SIG_USR1	upk_types.h	/^    UPK_SIG_USR1 = 10,                                     \/*!< usr1 *\/$/;"	e	enum:__anon31
+UPK_SIG_USR2	upk_types.h	/^    UPK_SIG_USR2 = 12,                                     \/*!< usr2 *\/$/;"	e	enum:__anon31
+UPK_SIG_VTALRM	upk_types.h	/^    UPK_SIG_VTALRM = 26,                                   \/*!< vtalrm *\/$/;"	e	enum:__anon31
+UPK_SIG_WINCH	upk_types.h	/^    UPK_SIG_WINCH = 28,                                    \/*!< winch *\/$/;"	e	enum:__anon31
+UPK_SIG_XCPU	upk_types.h	/^    UPK_SIG_XCPU = 24,                                     \/*!< xcpu *\/$/;"	e	enum:__anon31
+UPK_SIG_XFSZ	upk_types.h	/^    UPK_SIG_XFSZ = 25,                                     \/*!< xfsz *\/$/;"	e	enum:__anon31
+UPK_SOCKET_FAILURE	upk_error.h	/^    UPK_SOCKET_FAILURE,                                    \/*!< unable to bind\/connect\/accept\/listen on a socket *\/$/;"	e	enum:__anon29
+UPK_STATE_RUNNING	upk_types.h	/^    UPK_STATE_RUNNING,                                     \/*!< the service is running *\/$/;"	e	enum:__anon30
+UPK_STATE_SHUTDOWN	upk_types.h	/^    UPK_STATE_SHUTDOWN,                                    \/*!< the service is stopped, and its buddy is not running *\/$/;"	e	enum:__anon30
+UPK_STATE_STOPPED	upk_types.h	/^    UPK_STATE_STOPPED,                                     \/*!< the service is stopped *\/$/;"	e	enum:__anon30
+UPK_STATE_UNDEFINED	upk_types.h	/^    UPK_STATE_UNDEFINED,                                   \/*!< unknown\/undefined; probably an error *\/$/;"	e	enum:__anon30
+UPK_STATIC_ERR_DECL	upk_error.c	11;"	d	file:
+UPK_STATIC_ERR_DECL	upk_error.c	6;"	d	file:
+UPK_STATIC_ERR_DECL	upk_error.c	7;"	d	file:
+UPK_STRING_LENGTH	upk_protocol.h	49;"	d
+UPK_UINT16_BUFFER	upk_protocol.h	47;"	d
+UPK_UINT32_BUFFER	upk_protocol.h	48;"	d
+UPK_UINT8_BUFFER	upk_protocol.h	46;"	d
+UPK_UUID_LEN	upk_uuid.h	33;"	d
+UPK_UUID_STRING_LEN	upk_uuid.h	34;"	d
+UPK_V0_CANCELATION_T_FIELDS	upk_protocol.h	/^    UPK_V0_CANCELATION_T_FIELDS;$/;"	m	struct:__anon22
+UPK_V0_CANCELATION_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_CANCELATION_T_FIELDS;$/;"	m	struct:__anon50
+UPK_V0_CANCELATION_T_FIELDS	upk_v0_protocol_structs.h	184;"	d
+UPK_V0_PUBLICATION_T_FIELDS	upk_protocol.h	/^    UPK_V0_PUBLICATION_T_FIELDS;$/;"	m	struct:__anon21
+UPK_V0_PUBLICATION_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_PUBLICATION_T_FIELDS;$/;"	m	struct:__anon49
+UPK_V0_PUBLICATION_T_FIELDS	upk_v0_protocol_structs.h	177;"	d
+UPK_V0_REPL_ACK_T_FIELDS	upk_protocol.h	/^    UPK_V0_REPL_ACK_T_FIELDS;$/;"	m	struct:__anon19
+UPK_V0_REPL_ACK_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REPL_ACK_T_FIELDS;$/;"	m	struct:__anon47
+UPK_V0_REPL_ACK_T_FIELDS	upk_v0_protocol_structs.h	159;"	d
+UPK_V0_REPL_ERROR_T_FIELDS	upk_protocol.h	/^    UPK_V0_REPL_ERROR_T_FIELDS;$/;"	m	struct:__anon20
+UPK_V0_REPL_ERROR_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REPL_ERROR_T_FIELDS;$/;"	m	struct:__anon48
+UPK_V0_REPL_ERROR_T_FIELDS	upk_v0_protocol_structs.h	165;"	d
+UPK_V0_REPL_LISTING_T_FIELDS	upk_protocol.h	/^    UPK_V0_REPL_LISTING_T_FIELDS;$/;"	m	struct:__anon17
+UPK_V0_REPL_LISTING_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REPL_LISTING_T_FIELDS;$/;"	m	struct:__anon44
+UPK_V0_REPL_LISTING_T_FIELDS	upk_v0_protocol_structs.h	123;"	d
+UPK_V0_REPL_RESULT_T_FIELDS	upk_protocol.h	/^    UPK_V0_REPL_RESULT_T_FIELDS;$/;"	m	struct:__anon16
+UPK_V0_REPL_RESULT_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REPL_RESULT_T_FIELDS;$/;"	m	struct:__anon43
+UPK_V0_REPL_RESULT_T_FIELDS	upk_v0_protocol_structs.h	114;"	d
+UPK_V0_REPL_SVCINFO_T_FIELDS	upk_protocol.h	/^    UPK_V0_REPL_SVCINFO_T_FIELDS;$/;"	m	struct:__anon18
+UPK_V0_REPL_SVCINFO_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REPL_SVCINFO_T_FIELDS;$/;"	m	struct:__anon46
+UPK_V0_REPL_SVCINFO_T_FIELDS	upk_v0_protocol_structs.h	147;"	d
+UPK_V0_REQ_ACTION_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_ACTION_T_FIELDS;$/;"	m	struct:__anon7
+UPK_V0_REQ_ACTION_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_ACTION_T_FIELDS;$/;"	m	struct:__anon34
+UPK_V0_REQ_ACTION_T_FIELDS	upk_v0_protocol_structs.h	28;"	d
+UPK_V0_REQ_DISCON_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_DISCON_T_FIELDS;$/;"	m	struct:__anon13
+UPK_V0_REQ_DISCON_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_DISCON_T_FIELDS;$/;"	m	struct:__anon40
+UPK_V0_REQ_DISCON_T_FIELDS	upk_v0_protocol_structs.h	90;"	d
+UPK_V0_REQ_LIST_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_LIST_T_FIELDS;$/;"	m	struct:__anon9
+UPK_V0_REQ_LIST_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_LIST_T_FIELDS;$/;"	m	struct:__anon36
+UPK_V0_REQ_LIST_T_FIELDS	upk_v0_protocol_structs.h	49;"	d
+UPK_V0_REQ_SIGNAL_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_SIGNAL_T_FIELDS;$/;"	m	struct:__anon8
+UPK_V0_REQ_SIGNAL_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_SIGNAL_T_FIELDS;$/;"	m	struct:__anon35
+UPK_V0_REQ_SIGNAL_T_FIELDS	upk_v0_protocol_structs.h	38;"	d
+UPK_V0_REQ_STATUS_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_STATUS_T_FIELDS;$/;"	m	struct:__anon10
+UPK_V0_REQ_STATUS_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_STATUS_T_FIELDS;$/;"	m	struct:__anon37
+UPK_V0_REQ_STATUS_T_FIELDS	upk_v0_protocol_structs.h	55;"	d
+UPK_V0_REQ_SUBSCR_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_SUBSCR_T_FIELDS;$/;"	m	struct:__anon11
+UPK_V0_REQ_SUBSCR_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_SUBSCR_T_FIELDS;$/;"	m	struct:__anon38
+UPK_V0_REQ_SUBSCR_T_FIELDS	upk_v0_protocol_structs.h	67;"	d
+UPK_V0_REQ_UNSUBS_T_FIELDS	upk_protocol.h	/^    UPK_V0_REQ_UNSUBS_T_FIELDS;$/;"	m	struct:__anon12
+UPK_V0_REQ_UNSUBS_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_REQ_UNSUBS_T_FIELDS;$/;"	m	struct:__anon39
+UPK_V0_REQ_UNSUBS_T_FIELDS	upk_v0_protocol_structs.h	81;"	d
+UPK_V0_SVCINFO_T_FIELDS	upk_types.h	/^    UPK_V0_SVCINFO_T_FIELDS;$/;"	m	struct:_upk_svcinfo
+UPK_V0_SVCINFO_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_SVCINFO_T_FIELDS;$/;"	m	struct:__anon45
+UPK_V0_SVCINFO_T_FIELDS	upk_v0_protocol_structs.h	131;"	d
+UPK_V0_UPK_REPL_SEQ_END_T_FIELDS	upk_protocol.h	/^    UPK_V0_UPK_REPL_SEQ_END_T_FIELDS;$/;"	m	struct:__anon15
+UPK_V0_UPK_REPL_SEQ_END_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_UPK_REPL_SEQ_END_T_FIELDS;$/;"	m	struct:__anon42
+UPK_V0_UPK_REPL_SEQ_END_T_FIELDS	upk_v0_protocol_structs.h	104;"	d
+UPK_V0_UPK_REPL_SEQ_START_T_FIELDS	upk_protocol.h	/^    UPK_V0_UPK_REPL_SEQ_START_T_FIELDS;$/;"	m	struct:__anon14
+UPK_V0_UPK_REPL_SEQ_START_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_UPK_REPL_SEQ_START_T_FIELDS;$/;"	m	struct:__anon41
+UPK_V0_UPK_REPL_SEQ_START_T_FIELDS	upk_v0_protocol_structs.h	96;"	d
+UPK_V0_UPK_REQ_SEQ_END_T_FIELDS	upk_protocol.h	/^    UPK_V0_UPK_REQ_SEQ_END_T_FIELDS;$/;"	m	struct:__anon6
+UPK_V0_UPK_REQ_SEQ_END_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_UPK_REQ_SEQ_END_T_FIELDS;$/;"	m	struct:__anon33
+UPK_V0_UPK_REQ_SEQ_END_T_FIELDS	upk_v0_protocol_structs.h	20;"	d
+UPK_V0_UPK_REQ_SEQ_START_T_FIELDS	upk_protocol.h	/^    UPK_V0_UPK_REQ_SEQ_START_T_FIELDS;$/;"	m	struct:__anon5
+UPK_V0_UPK_REQ_SEQ_START_T_FIELDS	upk_v0_protocol.h	/^    UPK_V0_UPK_REQ_SEQ_START_T_FIELDS;$/;"	m	struct:__anon32
+UPK_V0_UPK_REQ_SEQ_START_T_FIELDS	upk_v0_protocol_structs.h	7;"	d
+UUID	upk_config.h	/^    upk_uuid_t              UUID;                          \/*!< a uuid for a service; dynamically generated at service$/;"	m	struct:_upk_svc_desc
+UnconfigureOnFileRemoval	upk_config.h	/^    int8_t                  UnconfigureOnFileRemoval;      \/*!< May be used by a package to instruct the controler to$/;"	m	struct:_upk_svc_desc
+UpkBuddyPath	upk_config.h	/^    char                    UpkBuddyPath[UPK_MAX_PATH_LEN]; \/*!< path to upk_buddy executable, usually$/;"	m	struct:_upk_controller_config
+UserMaxRestarts	upk_config.h	/^    int32_t                 UserMaxRestarts;               \/*!< user-defined max number of restarts within restart$/;"	m	struct:_upk_svc_desc
+UserRateLimit	upk_config.h	/^    int32_t                 UserRateLimit;                 \/*!< duration, in seconds, to wait between respawn attempts $/;"	m	struct:_upk_svc_desc
+UserRestartWindow	upk_config.h	/^    int32_t                 UserRestartWindow;             \/*!< user-defined restart window, in seconds *\/$/;"	m	struct:_upk_svc_desc
 _Bool	stdbool.in.h	/^typedef bool _Bool;$/;"	t
-_Bool	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	t	typeref:enum:__anon25
+_Bool	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	t	typeref:enum:__anon26
 _Bool	stdbool.in.h	107;"	d
-_Bool_must_promote_to_int	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon25
+_Bool_must_promote_to_int	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon26
 _GL_STDBOOL_H	stdbool.in.h	19;"	d
-_GNU_SOURCE	std_include.h	4;"	d
+_GNU_SOURCE	upk_compat.h	5;"	d
+_UPKDLIST_FOREACH_CONTINUE	upk_types.h	252;"	d
+_UPKDLIST_FOREACH_INIT	upk_types.h	256;"	d
+_UPKDLIST_FOREACH_R_CONTINUE	upk_types.h	263;"	d
+_UPKDLIST_FOREACH_R_INIT	upk_types.h	267;"	d
+_UPKDLIST_NEWNODE	upk_types.h	209;"	d
+_UPKDLIST_NEXTNODE	upk_types.h	249;"	d
+_UPKDLIST_PREVNODE	upk_types.h	250;"	d
+_UPKLIST_FOREACH_CONTINUE	upk_types.h	164;"	d
+_UPKLIST_FOREACH_INIT	upk_types.h	168;"	d
+_UPKLIST_NEWNODE	upk_types.h	127;"	d
+_UPKLIST_NEXTNODE	upk_types.h	162;"	d
+_UPK_AS_STRING	upk_error.h	135;"	d
 _UPK_CLIENT_H	upk_client.h	2;"	d
-_UPK_COMPAT_H	compat.h	2;"	d
-_UPK_CRC32_H	crc32.h	2;"	d
-_UPK_ERROR_H	error.h	2;"	d
-_UPK_PROTOCOL_H	protocol.h	2;"	d
-_UPK_STD_INCLUDE_H	std_include.h	2;"	d
-_UPK_TYPES_H	types.h	2;"	d
-_UPK_V0_PROTOCOL_H	v0_protocol.h	2;"	d
-_UPK_V0_PROTOCOL_STRUCTS_H	v0_protocol_structs.h	2;"	d
-__UPK_ERRORS_ARRAY	types.h	35;"	d
+_UPK_COMPAT_H	upk_compat.h	2;"	d
+_UPK_CONFIG_H	upk_config.h	2;"	d
+_UPK_CRC32_H	upk_crc32.h	2;"	d
+_UPK_DIAG_LOCATION	upk_error.h	137;"	d
+_UPK_ERROR_H	upk_error.h	2;"	d
+_UPK_INCLUDE_H	upk_include.h	2;"	d
+_UPK_JSON_FMT_H	upk_json_fmt.h	2;"	d
+_UPK_JSON_H	upk_json.h	2;"	d
+_UPK_NETWORK_H	upk_network.h	2;"	d
+_UPK_PROTOCOL_H	upk_protocol.h	2;"	d
+_UPK_STD_INCLUDE_H	upk_std_include.h	2;"	d
+_UPK_TYPES_H	upk_types.h	2;"	d
+_UPK_UTIL_H	upk_util.h	2;"	d
+_UPK_UUID_H	upk_uuid.h	2;"	d
+_UPK_V0_PROTOCOL_H	upk_v0_protocol.h	2;"	d
+_UPK_V0_PROTOCOL_STRUCTS_H	upk_v0_protocol_structs.h	2;"	d
+__UPK_DIAG_LABELS	upk_error.h	40;"	d
+__UPK_ERRORS_DESC_ARRAY	upk_error.h	97;"	d
 __bool_true_false_are_defined	stdbool.in.h	120;"	d
+__never_compiled	upk_protocol.h	/^__never_compiled(void)$/;"	f
+__upk_diag_output_callback	upk_error.c	/^diag_output_callback_t  __upk_diag_output_callback = _upk_default_diag_output;$/;"	v
 __upk_error_rpt_callback	upk_error.c	/^err_rpt_callback_t      __upk_error_rpt_callback = _upk_default_error_rpt;$/;"	v
 __upk_error_rpt_msg_callback	upk_error.c	/^err_rpt_msg_callback_t  __upk_error_rpt_msg_callback = _upk_default_error_rpt_msg;$/;"	v
+_joa	upk_config.c	667;"	d	file:
+_joa	upk_config.c	772;"	d	file:
+_stringify	upk_config.c	16;"	d	file:
+_upk_alert	upk_error.c	/^_upk_alert(const char *loc, const char *fmt, ...)$/;"	f
+_upk_conn_handle	upk_network.h	/^struct _upk_conn_handle {$/;"	s
+_upk_controller_config	upk_config.h	/^typedef struct _upk_controller_config {$/;"	s
+_upk_crit	upk_error.c	/^_upk_crit(const char *loc, const char *fmt, ...)$/;"	f
+_upk_cust_actscr_list	upk_types.h	/^struct _upk_cust_actscr_list {$/;"	s
+_upk_debug0	upk_error.c	/^_upk_debug0(const char *loc, const char *fmt, ...)$/;"	f
+_upk_debug1	upk_error.c	/^_upk_debug1(const char *loc, const char *fmt, ...)$/;"	f
+_upk_default_diag_output	upk_error.c	/^_upk_default_diag_output(upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)$/;"	f	file:
 _upk_default_error_rpt	upk_error.c	/^_upk_default_error_rpt(upk_error_t err)$/;"	f	file:
 _upk_default_error_rpt_msg	upk_error.c	/^_upk_default_error_rpt_msg(upk_error_t err, unsigned const char *msg)$/;"	f	file:
-_upk_svclist	types.h	/^struct _upk_svclist {$/;"	s
-best_version	protocol.h	/^    uint32_t                best_version;$/;"	m	struct:__anon32
+_upk_diagnostic	upk_error.c	/^_upk_diagnostic(upk_diaglvl_t diaglvl, const char *loc, const char *fmt, va_list ap)$/;"	f	file:
+_upk_error	upk_error.c	/^_upk_error(const char *loc, const char *fmt, ...)$/;"	f
+_upk_fatal	upk_error.c	/^_upk_fatal(const char *loc, const char *fmt, ...)$/;"	f
+_upk_info	upk_error.c	/^_upk_info(const char *loc, const char *fmt, ...)$/;"	f
+_upk_json_data_output_options	upk_json_fmt.h	/^typedef struct _upk_json_data_output_options {$/;"	s
+_upk_json_output_data	upk_json.c	/^typedef struct _upk_json_output_data {$/;"	s	file:
+_upk_json_parse_node	upk_json.c	/^_upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *obj)$/;"	f	file:
+_upk_json_stack_handlers	upk_json.h	/^typedef struct _upk_json_stack_handlers {$/;"	s
+_upk_json_stack_node	upk_json.h	/^struct _upk_json_stack_node {$/;"	s
+_upk_json_string	upk_json.h	/^typedef struct _upk_json_string {$/;"	s
+_upk_json_type	upk_json.h	/^typedef struct _upk_json_type {$/;"	s
+_upk_msgtype	upk_protocol.h	/^typedef enum _upk_msgtype {$/;"	g
+_upk_netmsg_queue	upk_network.h	/^struct _upk_netmsg_queue {$/;"	s
+_upk_notice	upk_error.c	/^_upk_notice(const char *loc, const char *fmt, ...)$/;"	f
+_upk_payload	upk_protocol.h	/^typedef struct _upk_payload {$/;"	s
+_upk_payload_types	upk_protocol.h	/^typedef union _upk_payload_types {$/;"	u
+_upk_stream_string	upk_json.c	/^typedef union _upk_stream_string {$/;"	u	file:
+_upk_svc_desc	upk_config.h	/^struct _upk_svc_desc {$/;"	s
+_upk_svcid	upk_types.h	/^struct _upk_svcid {$/;"	s
+_upk_svcinfo	upk_types.h	/^typedef struct _upk_svcinfo {$/;"	s
+_upk_uuid	upk_uuid.h	/^typedef struct _upk_uuid {$/;"	s
+_upk_verbose	upk_error.c	/^_upk_verbose(const char *loc, const char *fmt, ...)$/;"	f
+_upk_warn	upk_error.c	/^_upk_warn(const char *loc, const char *fmt, ...)$/;"	f
+after_json_array_pop	upk_json.h	/^    upk_json_handler_t      after_json_array_pop;$/;"	m	struct:_upk_json_stack_handlers
+after_json_obj_pop	upk_json.h	/^    upk_json_handler_t      after_json_obj_pop;$/;"	m	struct:_upk_json_stack_handlers
+after_read_callback	upk_network.h	/^    upk_net_callback_t      after_read_callback;$/;"	m	struct:_upk_conn_handle
+after_write_callback	upk_network.h	/^    upk_net_callback_t      after_write_callback;          \/*!< call this after writing this msg; may be NULL *\/$/;"	m	struct:_upk_netmsg_queue
+after_write_callback	upk_network.h	/^    upk_net_callback_t      after_write_callback;$/;"	m	struct:_upk_conn_handle
+best_version	upk_protocol.h	/^    uint32_t                best_version;$/;"	m	struct:__anon4
+bl	upk_json.h	/^        bool                    bl;$/;"	m	union:_upk_json_type::__anon51
 bool	stdbool.in.h	115;"	d
-client_name	protocol.h	/^    char                   *client_name;$/;"	m	struct:__anon31
-client_name_len	protocol.h	/^    uint32_t                client_name_len;$/;"	m	struct:__anon31
-crc32	protocol.h	/^    uint32_t                crc32;$/;"	m	struct:__anon30
-deserial_pkt_dispatch	upk_v0_protocol_serializer.c	/^deserialize_payload_t   deserial_pkt_dispatch[] = {$/;"	v
+c_isxdigit	upk_compat.h	14;"	d
+c_isxdigit	upk_compat.h	16;"	d
+c_str	upk_json.h	/^    char *c_str;$/;"	m	struct:_upk_json_string
+client_name	upk_protocol.h	/^    char                   *client_name;$/;"	m	struct:__anon3
+client_name_len	upk_protocol.h	/^    uint32_t                client_name_len;$/;"	m	struct:__anon3
+clk_seq_high	upk_uuid.h	/^    uint8_t                 clk_seq_high;                  \/*!< clock sequence high bits (0x80 - 0xB0 in this impl) *\/$/;"	m	struct:_upk_uuid
+clk_seq_low	upk_uuid.h	/^    uint8_t                 clk_seq_low;                   \/*!< clock sequence low bits (random in this impl) *\/$/;"	m	struct:_upk_uuid
+controller_buddy_sock	upk_config.h	/^    char                    controller_buddy_sock[UPK_MAX_PATH_LEN];    \/*!< path to buddy socket; used internally *\/$/;"	m	struct:_upk_controller_config
+controller_socket	upk_config.h	/^    char                    controller_socket[UPK_MAX_PATH_LEN];    \/*!< path to the controller socket, used$/;"	m	struct:_upk_controller_config
+crc32	upk_protocol.h	/^    uint32_t                crc32;$/;"	m	struct:__anon2
+custom_action_scripts	upk_config.h	/^    upk_cust_actscr_meta_t *custom_action_scripts;         \/*!< linked list of custom actions *\/$/;"	m	struct:_upk_svc_desc
+d	upk_json.c	/^    upk_stream_string_t     d;$/;"	m	struct:_upk_json_output_data	file:
+data	upk_json.h	/^    void                   *data;$/;"	m	struct:_upk_json_stack_node
+data	upk_network.h	/^    void                   *data;                          \/*!< user-data for this client, will be passed to callbacks $/;"	m	struct:_upk_conn_handle
+data_type_stream	upk_json.c	/^    data_type_stream,$/;"	e	enum:__anon24	file:
+data_type_string	upk_json.c	/^    data_type_string,$/;"	e	enum:__anon24	file:
+dbl	upk_json.h	/^        double                  dbl;$/;"	m	union:_upk_json_type::__anon51
+deserial_pkt_dispatch	upk_v0_protocol_serializer.c	/^static deserialize_payload_t   deserial_pkt_dispatch[] = {$/;"	v	file:
 deserial_pub_cancel	upk_v0_protocol_serializer.c	/^deserial_pub_cancel(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
-deserial_pub_dispatch	upk_v0_protocol_serializer.c	/^deserialize_payload_t   deserial_pub_dispatch[] = {$/;"	v
+deserial_pub_dispatch	upk_v0_protocol_serializer.c	/^static deserialize_payload_t   deserial_pub_dispatch[] = {$/;"	v	file:
 deserial_pub_pub	upk_v0_protocol_serializer.c	/^deserial_pub_pub(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_repl_ack	upk_v0_protocol_serializer.c	/^deserial_repl_ack(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
-deserial_repl_dispatch	upk_v0_protocol_serializer.c	/^deserialize_payload_t   deserial_repl_dispatch[] = {$/;"	v
+deserial_repl_dispatch	upk_v0_protocol_serializer.c	/^static deserialize_payload_t   deserial_repl_dispatch[] = {$/;"	v	file:
 deserial_repl_err	upk_v0_protocol_serializer.c	/^deserial_repl_err(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_repl_listing	upk_v0_protocol_serializer.c	/^deserial_repl_listing(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_repl_result	upk_v0_protocol_serializer.c	/^deserial_repl_result(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
@@ -244,7 +408,7 @@ deserial_repl_seq_start	upk_v0_protocol_serializer.c	/^deserial_repl_seq_start(u
 deserial_repl_svcinfo	upk_v0_protocol_serializer.c	/^deserial_repl_svcinfo(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_req_action	upk_v0_protocol_serializer.c	/^deserial_req_action(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_req_disconnect	upk_v0_protocol_serializer.c	/^deserial_req_disconnect(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
-deserial_req_dispatch	upk_v0_protocol_serializer.c	/^deserialize_payload_t   deserial_req_dispatch[] = {$/;"	v
+deserial_req_dispatch	upk_v0_protocol_serializer.c	/^static deserialize_payload_t   deserial_req_dispatch[] = {$/;"	v	file:
 deserial_req_list	upk_v0_protocol_serializer.c	/^deserial_req_list(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_req_seq_end	upk_v0_protocol_serializer.c	/^deserial_req_seq_end(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserial_req_seq_start	upk_v0_protocol_serializer.c	/^deserial_req_seq_start(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
@@ -257,34 +421,104 @@ deserialize_payload_t	upk_v0_protocol_serializer.c	/^typedef void           *(*d
 deserialize_pub_payload	upk_v0_protocol_serializer.c	/^deserialize_pub_payload(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserialize_repl_payload	upk_v0_protocol_serializer.c	/^deserialize_repl_payload(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
 deserialize_req_payload	upk_v0_protocol_serializer.c	/^deserialize_req_payload(upk_pkt_buf_t * UPK_BUF)$/;"	f	file:
-err_rpt_callback_t	error.h	/^typedef void (*err_rpt_callback_t)(upk_error_t);$/;"	t
-err_rpt_msg_callback_t	error.h	/^typedef void (*err_rpt_msg_callback_t)(upk_error_t, unsigned const char *);$/;"	t
-false	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon25
+diag_output_callback_t	upk_error.h	/^typedef void            (*diag_output_callback_t) (upk_diaglvl_t diaglvl, const char *label, const char *loc,$/;"	t
+entry	upk_json.c	/^    struct lh_entry        *entry;$/;"	m	struct:upk_json_obj_iter	typeref:struct:upk_json_obj_iter::lh_entry	file:
+err_rpt_callback_t	upk_error.h	/^typedef void            (*err_rpt_callback_t) (upk_error_t);$/;"	t
+err_rpt_msg_callback_t	upk_error.h	/^typedef void            (*err_rpt_msg_callback_t) (upk_error_t, unsigned const char *);$/;"	t
+esc_str	upk_json.h	/^    char *esc_str;$/;"	m	struct:_upk_json_string
+false	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon26
 false	stdbool.in.h	118;"	d
 false	stdbool.in.h	66;"	d
+fd	upk_network.h	/^    int                     fd;$/;"	m	struct:_upk_conn_handle
+file	upk_json.c	/^    FILE                   *file;$/;"	m	union:_upk_stream_string	file:
 free_data_t	upk_v0_protocol.c	/^typedef void            (*free_data_t) (void *);$/;"	t	file:
-free_pkt_dispatch	upk_v0_protocol.c	/^free_data_t             free_pkt_dispatch[] = {$/;"	v
-free_repl_dispatch	upk_v0_protocol.c	/^free_data_t             free_repl_dispatch[] = {$/;"	v
-free_req_dispatch	upk_v0_protocol.c	/^free_data_t             free_req_dispatch[] = {$/;"	v
+free_pkt_dispatch	upk_v0_protocol.c	/^static free_data_t             free_pkt_dispatch[] = {$/;"	v	file:
+free_repl_dispatch	upk_v0_protocol.c	/^static free_data_t             free_repl_dispatch[] = {$/;"	v	file:
+free_req_dispatch	upk_v0_protocol.c	/^static free_data_t             free_req_dispatch[] = {$/;"	v	file:
 get_svcinfo_len	upk_v0_protocol.c	/^get_svcinfo_len(v0_svcinfo_t s)$/;"	f	file:
+handlers	upk_json.h	/^    upk_json_handlers_t     handlers;$/;"	m	struct:_upk_json_stack_node
+i	upk_json.h	/^        int                     i;$/;"	m	union:_upk_json_type::__anon51
+indent	upk_json_fmt.h	/^    char                   *indent;$/;"	m	struct:_upk_json_data_output_options
+is_valid_upk_uuid_string	uuid.c	/^is_valid_upk_uuid_string(const char *string)$/;"	f
+json_array	upk_json.h	/^    upk_json_handler_t      json_array;$/;"	m	struct:_upk_json_stack_handlers
+json_bool	upk_json.h	/^    upk_json_handler_t      json_bool;$/;"	m	struct:_upk_json_stack_handlers
+json_double	upk_json.h	/^    upk_json_handler_t      json_double;$/;"	m	struct:_upk_json_stack_handlers
+json_int	upk_json.h	/^    upk_json_handler_t      json_int;$/;"	m	struct:_upk_json_stack_handlers
+json_null	upk_json.h	/^    upk_json_handler_t      json_null;$/;"	m	struct:_upk_json_stack_handlers
+json_object	upk_json.h	/^    upk_json_handler_t      json_object;$/;"	m	struct:_upk_json_stack_handlers
+json_string	upk_json.h	/^    upk_json_handler_t      json_string;$/;"	m	struct:_upk_json_stack_handlers
+jt_array	upk_config.c	671;"	d	file:
+jt_array	upk_config.c	776;"	d	file:
+jt_boolean	upk_config.c	670;"	d	file:
+jt_boolean	upk_config.c	775;"	d	file:
+jt_int	upk_config.c	669;"	d	file:
+jt_int	upk_config.c	774;"	d	file:
+jt_string	upk_config.c	668;"	d	file:
+jt_string	upk_config.c	773;"	d	file:
+key	upk_json.c	/^    char                   *key;$/;"	m	struct:upk_json_obj_iter	file:
+len	upk_json.c	/^        size_t                  len;$/;"	m	struct:_upk_stream_string::__anon25	file:
 main	upk_crc32.c	/^main(int argc, char **argv, char **envp)$/;"	f
-max_supported_ver	protocol.h	/^    uint32_t                max_supported_ver;$/;"	m	struct:__anon31
-min_supported_ver	protocol.h	/^    uint32_t                min_supported_ver;$/;"	m	struct:__anon31
-msgtype	protocol.h	/^    upk_repl_msgtype_t      msgtype;$/;"	m	struct:__anon32
-msgtype	protocol.h	/^    upk_req_msgtype_t       msgtype;$/;"	m	struct:__anon31
-next	types.h	/^    upk_svclist_t          *next;$/;"	m	struct:_upk_svclist
-payload	protocol.h	/^    void                   *payload;$/;"	m	struct:__anon30
-payload_len	protocol.h	/^    uint32_t                payload_len;                   \/* not size_t, because this would force the arch of the$/;"	m	struct:__anon30
-pkttype	protocol.h	/^    upk_pkttype_t           pkttype;                       \/* will be forced into a uint32_t; even on 64bit *\/$/;"	m	struct:__anon30
+max_supported_ver	upk_protocol.h	/^    uint32_t                max_supported_ver;$/;"	m	struct:__anon3
+min_supported_ver	upk_protocol.h	/^    uint32_t                min_supported_ver;$/;"	m	struct:__anon3
+msg	upk_network.h	/^    upk_pkt_buf_t          *msg;                           \/*!< serialized packet *\/$/;"	m	struct:_upk_netmsg_queue
+msg_len	upk_network.h	/^    size_t                  msg_len;                       \/*!< length of msg *\/$/;"	m	struct:_upk_netmsg_queue
+msgqueue	upk_network.h	/^    upk_netmsg_queue_meta_t msgqueue;$/;"	m	struct:_upk_conn_handle
+msgtype	upk_protocol.h	/^    upk_msgtype_t           msgtype;$/;"	m	struct:__anon3
+msgtype	upk_protocol.h	/^    upk_msgtype_t           msgtype;$/;"	m	struct:__anon4
+n_hdr_bytes_read	upk_network.h	/^    uint8_t                 n_hdr_bytes_read;$/;"	m	struct:_upk_conn_handle
+n_remaining_read	upk_network.h	/^    size_t                  n_remaining_read;$/;"	m	struct:_upk_conn_handle
+n_remaining_write	upk_network.h	/^    size_t                  n_remaining_write;$/;"	m	struct:_upk_conn_handle
+name	upk_types.h	/^    char                    name[UPK_MAX_STRING_LEN];      \/*!< name of custom action *\/$/;"	m	struct:_upk_cust_actscr_list
+name	upk_types.h	/^    char                    name[UPK_MAX_STRING_LEN];      \/*!< service name *\/$/;"	m	struct:_upk_svcid
+next	upk_config.h	/^    upk_svc_desc_t         *next;                          \/*!< for use in lists *\/$/;"	m	struct:_upk_svc_desc
+next	upk_json.h	/^    upk_json_stack_node_t  *next;$/;"	m	struct:_upk_json_stack_node
+next	upk_network.h	/^    upk_conn_handle_t      *next;$/;"	m	struct:_upk_conn_handle
+next	upk_network.h	/^    upk_netmsg_queue_t     *next;                          \/*!< next item *\/$/;"	m	struct:_upk_netmsg_queue
+next	upk_types.h	/^    upk_cust_actscr_list_t *next;                          \/*!< next, for use in lists *\/$/;"	m	struct:_upk_cust_actscr_list
+next	upk_types.h	/^    upk_svcid_t            *next;                          \/*!< next, for use in lists *\/$/;"	m	struct:_upk_svcid
+node	upk_uuid.h	/^    uint8_t                 node[6];                       \/*!< unique, usually random number (random in this impl) *\/$/;"	m	struct:_upk_uuid
+obj	upk_json.h	/^        struct json_object     *obj;$/;"	m	union:_upk_json_type::__anon51	typeref:struct:_upk_json_type::__anon51::json_object
+opts	upk_json.c	/^    upk_json_data_output_opts_t opts;$/;"	m	struct:_upk_json_output_data	file:
+p	upk_json.c	/^        char                   *p;$/;"	m	struct:_upk_stream_string::__anon25	file:
+pad	upk_json_fmt.h	/^    char                   *pad;$/;"	m	struct:_upk_json_data_output_options
+payload	upk_protocol.h	/^    upk_payload_types_u     payload;$/;"	m	struct:_upk_payload
+payload	upk_protocol.h	/^    void                   *payload;$/;"	m	struct:__anon2
+payload_len	upk_protocol.h	/^    uint32_t                payload_len;                   \/* not size_t, because this would force the arch of the$/;"	m	struct:__anon2
+pkg	upk_types.h	/^    char                    pkg[UPK_MAX_STRING_LEN];       \/*!< service package-prefix *\/$/;"	m	struct:_upk_svcid
+pkttype	upk_protocol.h	/^    upk_pkttype_t           pkttype;                       \/* will be forced into a uint32_t; even on 64bit *\/$/;"	m	struct:__anon2
+pub_cancelation	upk_protocol.h	/^    upk_pub_cancelation_t   pub_cancelation;$/;"	m	union:_upk_payload_types
+pub_publication	upk_protocol.h	/^    upk_pub_publication_t   pub_publication;$/;"	m	union:_upk_payload_types
+rand	upk_compat.h	10;"	d
+readbuf	upk_network.h	/^    upk_pkt_buf_t           readbuf[UPK_MAX_PACKET_SIZE];$/;"	m	struct:_upk_conn_handle
+repl_ack	upk_protocol.h	/^    upk_repl_ack_t          repl_ack;$/;"	m	union:_upk_payload_types
+repl_error	upk_protocol.h	/^    upk_repl_error_t        repl_error;$/;"	m	union:_upk_payload_types
+repl_listing	upk_protocol.h	/^    upk_repl_listing_t      repl_listing;$/;"	m	union:_upk_payload_types
+repl_preamble	upk_protocol.h	/^    upk_repl_preamble_t     repl_preamble;$/;"	m	union:_upk_payload_types
+repl_result	upk_protocol.h	/^    upk_repl_result_t       repl_result;$/;"	m	union:_upk_payload_types
+repl_seq_end	upk_protocol.h	/^    upk_repl_seq_end_t      repl_seq_end;$/;"	m	union:_upk_payload_types
+repl_seq_start	upk_protocol.h	/^    upk_repl_seq_start_t    repl_seq_start;$/;"	m	union:_upk_payload_types
+repl_svcinfo	upk_protocol.h	/^    upk_repl_svcinfo_t      repl_svcinfo;$/;"	m	union:_upk_payload_types
+req_action	upk_protocol.h	/^    upk_req_action_t        req_action;$/;"	m	union:_upk_payload_types
+req_disconnect	upk_protocol.h	/^    upk_req_disconnect_t    req_disconnect;$/;"	m	union:_upk_payload_types
+req_list	upk_protocol.h	/^    upk_req_list_t          req_list;$/;"	m	union:_upk_payload_types
+req_preamble	upk_protocol.h	/^    upk_req_preamble_t      req_preamble;$/;"	m	union:_upk_payload_types
 req_preamble_len	upk_protocol.c	/^req_preamble_len(upk_req_preamble_t * preamble)$/;"	f	file:
-seq_num	protocol.h	/^    uint32_t                seq_num;$/;"	m	struct:__anon30
-seq_num	protocol.h	/^    uint32_t seq_num;$/;"	m	struct:__anon51
-serial_pkt_dispatch	upk_v0_protocol_serializer.c	/^serialize_payload_t     serial_pkt_dispatch[] = {$/;"	v
+req_seq_end	upk_protocol.h	/^    upk_req_seq_end_t       req_seq_end;$/;"	m	union:_upk_payload_types
+req_seq_start	upk_protocol.h	/^    upk_req_seq_start_t     req_seq_start;$/;"	m	union:_upk_payload_types
+req_signal	upk_protocol.h	/^    upk_req_signal_t        req_signal;$/;"	m	union:_upk_payload_types
+req_status	upk_protocol.h	/^    upk_req_status_t        req_status;$/;"	m	union:_upk_payload_types
+req_subscribe	upk_protocol.h	/^    upk_req_subscribe_t     req_subscribe;$/;"	m	union:_upk_payload_types
+req_unsubscribe	upk_protocol.h	/^    upk_req_unsubscribe_t   req_unsubscribe;$/;"	m	union:_upk_payload_types
+script	upk_types.h	/^    char                   *script;                        \/*!< script to run for action *\/$/;"	m	struct:_upk_cust_actscr_list
+sep	upk_json_fmt.h	/^    char                   *sep;$/;"	m	struct:_upk_json_data_output_options
+seq_num	upk_protocol.h	/^    uint32_t                seq_num;$/;"	m	struct:__anon2
+seq_num	upk_protocol.h	/^    uint32_t                seq_num;$/;"	m	struct:__anon23
+serial_pkt_dispatch	upk_v0_protocol_serializer.c	/^static serialize_payload_t     serial_pkt_dispatch[] = {$/;"	v	file:
 serial_pub_cancel	upk_v0_protocol_serializer.c	/^serial_pub_cancel(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
-serial_pub_dispatch	upk_v0_protocol_serializer.c	/^serialize_payload_t     serial_pub_dispatch[] = {$/;"	v
+serial_pub_dispatch	upk_v0_protocol_serializer.c	/^static serialize_payload_t     serial_pub_dispatch[] = {$/;"	v	file:
 serial_pub_pub	upk_v0_protocol_serializer.c	/^serial_pub_pub(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_repl_ack	upk_v0_protocol_serializer.c	/^serial_repl_ack(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
-serial_repl_dispatch	upk_v0_protocol_serializer.c	/^serialize_payload_t     serial_repl_dispatch[] = {$/;"	v
+serial_repl_dispatch	upk_v0_protocol_serializer.c	/^static serialize_payload_t     serial_repl_dispatch[] = {$/;"	v	file:
 serial_repl_err	upk_v0_protocol_serializer.c	/^serial_repl_err(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_repl_listing	upk_v0_protocol_serializer.c	/^serial_repl_listing(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_repl_result	upk_v0_protocol_serializer.c	/^serial_repl_result(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
@@ -293,7 +527,7 @@ serial_repl_seq_start	upk_v0_protocol_serializer.c	/^serial_repl_seq_start(void 
 serial_repl_svcinfo	upk_v0_protocol_serializer.c	/^serial_repl_svcinfo(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_req_action	upk_v0_protocol_serializer.c	/^serial_req_action(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_req_disconnect	upk_v0_protocol_serializer.c	/^serial_req_disconnect(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
-serial_req_dispatch	upk_v0_protocol_serializer.c	/^serialize_payload_t     serial_req_dispatch[] = {$/;"	v
+serial_req_dispatch	upk_v0_protocol_serializer.c	/^static serialize_payload_t     serial_req_dispatch[] = {$/;"	v	file:
 serial_req_list	upk_v0_protocol_serializer.c	/^serial_req_list(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_req_seq_end	upk_v0_protocol_serializer.c	/^serial_req_seq_end(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serial_req_seq_start	upk_v0_protocol_serializer.c	/^serial_req_seq_start(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
@@ -306,135 +540,254 @@ serialize_payload_t	upk_v0_protocol_serializer.c	/^typedef upk_pkt_buf_t  *(*ser
 serialize_pub_payload	upk_v0_protocol_serializer.c	/^serialize_pub_payload(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serialize_repl_payload	upk_v0_protocol_serializer.c	/^serialize_repl_payload(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
 serialize_req_payload	upk_v0_protocol_serializer.c	/^serialize_req_payload(void *UPK_DATA_PTR, size_t UPK_DATA_LEN)$/;"	f	file:
-sockfd	protocol.h	/^    int sockfd;$/;"	m	struct:__anon51
+srand	upk_compat.h	9;"	d
+str	upk_json.c	/^    } str;$/;"	m	union:_upk_stream_string	typeref:struct:_upk_stream_string::__anon25	file:
+str	upk_json.h	/^        upk_json_string_t      str;$/;"	m	union:_upk_json_type::__anon51
+stringify	upk_config.c	17;"	d	file:
 strnlen	strnlen.c	/^strnlen (const char *string, size_t maxlen)$/;"	f
-svc	types.h	/^    unsigned char           svc[UPK_MAX_STRING_LEN];$/;"	m	struct:_upk_svclist
-true	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon25
+suppress_null_values	upk_json_fmt.h	/^    bool                    suppress_null_values;$/;"	m	struct:_upk_json_data_output_options
+svclist	upk_config.h	/^    upk_svc_desc_meta_t    *svclist;                       \/*!< meta-pointer to list of service descriptions *\/$/;"	m	struct:_upk_controller_config
+time_high_and_version	upk_uuid.h	/^    uint16_t                time_high_and_version;         \/*!< high-resolution bits, and the version id of the uuid (time_high is random in this impl; version is 0x40) *\/$/;"	m	struct:_upk_uuid
+time_low	upk_uuid.h	/^    uint32_t                time_low;                      \/*!< low resolution bits, usually seconds since epoch (random in this impl) *\/$/;"	m	struct:_upk_uuid
+time_mid	upk_uuid.h	/^    uint16_t                time_mid;                      \/*!< mid resolution bits (random in this impl) *\/$/;"	m	struct:_upk_uuid
+true	stdbool.in.h	/^typedef enum { _Bool_must_promote_to_int = -1, false = 0, true = 1 } _Bool;$/;"	e	enum:__anon26
 true	stdbool.in.h	119;"	d
 true	stdbool.in.h	67;"	d
-upk_ack_repl_t	protocol.h	/^} upk_ack_repl_t;$/;"	t	typeref:struct:__anon47
-upk_action_req_t	protocol.h	/^} upk_action_req_t;$/;"	t	typeref:struct:__anon35
-upk_cancel_pubmsg_t	protocol.h	/^} upk_cancel_pubmsg_t;$/;"	t	typeref:struct:__anon50
+type	upk_json.c	/^    upk_json_output_type_t  type;$/;"	m	struct:_upk_json_output_data	file:
+type	upk_json.h	/^    uint8_t                 type;$/;"	m	struct:_upk_json_type
+type	upk_protocol.h	/^    upk_msgtype_t           type;$/;"	m	struct:_upk_payload
+upk_alert	upk_error.h	140;"	d
+upk_boolean_string	upk_util.c	/^upk_boolean_string(const char *string, bool * val)$/;"	f
+upk_call_received_packet_callbacks	upk_network.c	/^upk_call_received_packet_callbacks(upk_packet_t *pkt, upk_conn_handle_meta_t *handles)$/;"	f	file:
+upk_client_event_hook	upk_client.c	/^upk_client_event_hook(void)$/;"	f
+upk_concat_svcid	upk_config.c	/^upk_concat_svcid(char *dest, const char *pkg, const char *name)$/;"	f
+upk_conf_error_handler	upk_config.c	/^upk_conf_error_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_config_loadfile	upk_config.c	/^upk_config_loadfile(const char *filename)$/;"	f	file:
+upk_conn_handle_meta_t	upk_network.h	/^typedef                 UPKLIST_METANODE(upk_conn_handle_t, upk_conn_handle_meta_p), upk_conn_handle_meta_t;$/;"	t
+upk_conn_handle_t	upk_network.h	/^typedef struct _upk_conn_handle upk_conn_handle_t;$/;"	t	typeref:struct:_upk_conn_handle
+upk_controller_config_t	upk_config.h	/^} upk_controller_config_t;$/;"	t	typeref:struct:_upk_controller_config
 upk_crc32	upk_crc32.c	/^upk_crc32(unsigned char *block, uint32_t len)$/;"	f
-upk_create_ack_repl	upk_protocol.c	/^upk_create_ack_repl(upk_protocol_handle_t * handle)$/;"	f
-upk_create_action_req	upk_protocol.c	/^upk_create_action_req(upk_protocol_handle_t * handle, char *svc_id, char *action)$/;"	f
-upk_create_cancel_pubmsg	upk_protocol.c	/^upk_create_cancel_pubmsg(upk_protocol_handle_t * handle)$/;"	f
 upk_create_crc32_table	upk_crc32.c	/^upk_create_crc32_table(uint32_t crc_table[256])$/;"	f
-upk_create_discon_req	upk_protocol.c	/^upk_create_discon_req(upk_protocol_handle_t * handle)$/;"	f
-upk_create_error_repl	upk_protocol.c	/^upk_create_error_repl(upk_protocol_handle_t * handle, char *svc_id, char *errmsg, upk_errlevel_t errlvl)$/;"	f
-upk_create_list_req	upk_protocol.c	/^upk_create_list_req(upk_protocol_handle_t * handle)$/;"	f
-upk_create_listing_repl	upk_protocol.c	/^upk_create_listing_repl(upk_protocol_handle_t * handle, char *svc_id)$/;"	f
 upk_create_pkt	upk_protocol.c	/^upk_create_pkt(void *payload, uint32_t payload_len, upk_pkttype_t pkttype, uint32_t proto_ver)$/;"	f
-upk_create_pub_pubmsg	upk_protocol.c	/^upk_create_pub_pubmsg(upk_protocol_handle_t * handle)$/;"	f
+upk_create_pub_cancelation	upk_protocol.c	/^upk_create_pub_cancelation(upk_protocol_handle_t * handle)$/;"	f
+upk_create_pub_publication	upk_protocol.c	/^upk_create_pub_publication(upk_protocol_handle_t * handle)$/;"	f
+upk_create_repl_ack	upk_protocol.c	/^upk_create_repl_ack(upk_protocol_handle_t * handle)$/;"	f
+upk_create_repl_error	upk_protocol.c	/^upk_create_repl_error(upk_protocol_handle_t * handle, char *svc_id, char *errmsg, upk_errlevel_t errlvl)$/;"	f
+upk_create_repl_listing	upk_protocol.c	/^upk_create_repl_listing(upk_protocol_handle_t * handle, char *svc_id)$/;"	f
+upk_create_repl_result	upk_protocol.c	/^upk_create_repl_result(upk_protocol_handle_t * handle, char *msg, bool successful)$/;"	f
 upk_create_repl_seq_end	upk_protocol.c	/^upk_create_repl_seq_end(upk_protocol_handle_t * handle, bool commit)$/;"	f
-upk_create_repl_seq_start	upk_protocol.c	/^upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_repl_msgtype_t seq_type, uint32_t count)$/;"	f
+upk_create_repl_seq_start	upk_protocol.c	/^upk_create_repl_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)$/;"	f
+upk_create_repl_svcinfo	upk_protocol.c	/^upk_create_repl_svcinfo(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo)$/;"	f
+upk_create_req_action	upk_protocol.c	/^upk_create_req_action(upk_protocol_handle_t * handle, char *svc_id, char *action)$/;"	f
+upk_create_req_disconnect	upk_protocol.c	/^upk_create_req_disconnect(upk_protocol_handle_t * handle)$/;"	f
+upk_create_req_list	upk_protocol.c	/^upk_create_req_list(upk_protocol_handle_t * handle)$/;"	f
 upk_create_req_preamble	upk_protocol.c	/^upk_create_req_preamble(char *client_name)$/;"	f
 upk_create_req_seq_end	upk_protocol.c	/^upk_create_req_seq_end(upk_protocol_handle_t * handle, bool commit)$/;"	f
-upk_create_req_seq_start	upk_protocol.c	/^upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_req_msgtype_t seq_type, uint32_t count)$/;"	f
-upk_create_result_repl	upk_protocol.c	/^upk_create_result_repl(upk_protocol_handle_t * handle, char *msg, bool successful)$/;"	f
-upk_create_signal_req	upk_protocol.c	/^upk_create_signal_req(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal, bool signal_sid,$/;"	f
-upk_create_status_req	upk_protocol.c	/^upk_create_status_req(upk_protocol_handle_t * handle, char *svc_id)$/;"	f
-upk_create_subscr_req	upk_protocol.c	/^upk_create_subscr_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)$/;"	f
-upk_create_svcinfo_repl	upk_protocol.c	/^upk_create_svcinfo_repl(upk_protocol_handle_t * handle, char *svc_id, upk_svcinfo_t * svcinfo)$/;"	f
-upk_create_unsubs_req	upk_protocol.c	/^upk_create_unsubs_req(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)$/;"	f
+upk_create_req_seq_start	upk_protocol.c	/^upk_create_req_seq_start(upk_protocol_handle_t * handle, upk_msgtype_t seq_type, uint32_t count)$/;"	f
+upk_create_req_signal	upk_protocol.c	/^upk_create_req_signal(upk_protocol_handle_t * handle, char *svc_id, upk_signal_t signal, bool signal_sid,$/;"	f
+upk_create_req_status	upk_protocol.c	/^upk_create_req_status(upk_protocol_handle_t * handle, char *svc_id)$/;"	f
+upk_create_req_subscribe	upk_protocol.c	/^upk_create_req_subscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)$/;"	f
+upk_create_req_unsubscribe	upk_protocol.c	/^upk_create_req_unsubscribe(upk_protocol_handle_t * handle, char *svc_id, bool all_svcs)$/;"	f
+upk_crit	upk_error.h	141;"	d
+upk_ctrl_configuration_file	upk_config.c	/^char                    upk_ctrl_configuration_file[UPK_MAX_PATH_LEN] = stringify(CONF_SYSCONFDIR) "\/upkeeper.conf";$/;"	v
+upk_ctrl_free_config	upk_config.c	/^upk_ctrl_free_config(void)$/;"	f
+upk_ctrl_load_config	upk_config.c	/^upk_ctrl_load_config(void)$/;"	f
+upk_ctrlconf_double_handler	upk_config.c	/^upk_ctrlconf_double_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_ctrlconf_free	upk_config.c	/^upk_ctrlconf_free(upk_controller_config_t * cfg)$/;"	f
+upk_ctrlconf_object_handler	upk_config.c	/^upk_ctrlconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_ctrlconf_pack	upk_config.c	/^upk_ctrlconf_pack(upk_controller_config_t * cfg, const char *json_string)$/;"	f	file:
+upk_ctrlconf_string_handler	upk_config.c	/^upk_ctrlconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_ctrlconf_toplvl_obj	upk_config.c	/^upk_ctrlconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_cust_actscr_list_t	upk_types.h	/^typedef struct _upk_cust_actscr_list upk_cust_actscr_list_t;$/;"	t	typeref:struct:_upk_cust_actscr_list
+upk_cust_actscr_meta_t	upk_types.h	/^typedef                 UPKLIST_METANODE(upk_cust_actscr_list_t, _upk_cust_actscr_meta_p), upk_cust_actscr_meta_t;$/;"	t
+upk_debug0	upk_error.h	147;"	d
+upk_debug1	upk_error.h	148;"	d
+upk_default_configuration	upk_config.c	/^    upk_default_configuration;$/;"	v
+upk_default_configuration_vec	upk_config.c	/^const char upk_default_configuration_vec[] = $/;"	v
 upk_deserialize_packet	upk_protocol_serializer.c	/^upk_deserialize_packet(upk_pkt_buf_t * UPK_BUF)$/;"	f
 upk_deserialize_payload	upk_protocol_serializer.c	/^upk_deserialize_payload(upk_pkt_buf_t * payload_buf, upk_pkttype_t pkttype, uint32_t version_id)$/;"	f	file:
-upk_discon_req_t	protocol.h	/^} upk_discon_req_t;$/;"	t	typeref:struct:__anon41
-upk_errlevel_t	types.h	/^} upk_errlevel_t;$/;"	t	typeref:enum:__anon22
-upk_error_repl_t	protocol.h	/^} upk_error_repl_t;$/;"	t	typeref:struct:__anon48
-upk_error_t	types.h	/^} upk_error_t;$/;"	t	typeref:enum:__anon23
+upk_diag_verbosity	upk_error.c	/^int32_t                 upk_diag_verbosity = UPK_DIAGLVL_NOTICE;$/;"	v
+upk_diaglvl_t	upk_error.h	/^} upk_diaglvl_t;$/;"	t	typeref:enum:__anon27
+upk_disconnect_handle	upk_network.c	/^upk_disconnect_handle(upk_conn_handle_meta_t *handles)$/;"	f
+upk_errlevel_t	upk_error.h	/^} upk_errlevel_t;$/;"	t	typeref:enum:__anon28
+upk_error	upk_error.h	142;"	d
+upk_error_t	upk_error.h	/^} upk_error_t;$/;"	t	typeref:enum:__anon29
+upk_fatal	upk_error.h	139;"	d
+upk_file_configuration	upk_config.c	/^    upk_file_configuration;$/;"	v
+upk_finalize_svc_desc	upk_config.c	/^upk_finalize_svc_desc(upk_svc_desc_t * dest, upk_svc_desc_t * orig)$/;"	f
 upk_free_payload	upk_protocol.c	/^upk_free_payload(upk_packet_t * pkt)$/;"	f	file:
-upk_list_req_t	protocol.h	/^} upk_list_req_t;$/;"	t	typeref:struct:__anon37
-upk_listing_repl_t	protocol.h	/^} upk_listing_repl_t;$/;"	t	typeref:struct:__anon45
-upk_packet_t	protocol.h	/^} upk_packet_t;$/;"	t	typeref:struct:__anon30
-upk_pkt_buf_t	protocol.h	/^typedef unsigned char   upk_pkt_buf_t;$/;"	t
+upk_gen_uuid_bytes	uuid.c	/^upk_gen_uuid_bytes(upk_uuid_t * buf)$/;"	f
+upk_get_msgsize	upk_protocol.c	/^upk_get_msgsize(upk_msgtype_t type)$/;"	f
+upk_get_msgtype	upk_protocol.c	/^upk_get_msgtype(upk_packet_t * pkt)$/;"	f
+upk_info	upk_error.h	145;"	d
+upk_json_append_string	upk_json.c	/^upk_json_append_string(upk_json_output_data_t * data, char *string)$/;"	f	file:
+upk_json_data_output_opts_t	upk_json_fmt.h	/^} upk_json_data_output_opts_t;$/;"	t	typeref:struct:_upk_json_data_output_options
+upk_json_handler_t	upk_json.h	/^typedef void            (*upk_json_handler_t) (upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v);$/;"	t
+upk_json_handlers_t	upk_json.h	/^} upk_json_handlers_t;$/;"	t	typeref:struct:_upk_json_stack_handlers
+upk_json_obj_iter	upk_json.c	/^typedef struct upk_json_obj_iter {$/;"	s	file:
+upk_json_obj_iter_t	upk_json.c	/^} upk_json_obj_iter_t;$/;"	t	typeref:struct:upk_json_obj_iter	file:
+upk_json_obj_serializer	upk_json.c	/^upk_json_obj_serializer(struct json_object *obj, upk_json_output_data_t * data)$/;"	f	file:
+upk_json_obj_to_stream	upk_json.c	/^upk_json_obj_to_stream(struct json_object *obj, FILE * stream, upk_json_data_output_opts_t opts)$/;"	f
+upk_json_obj_to_string	upk_json.c	/^upk_json_obj_to_string(struct json_object *obj, upk_json_data_output_opts_t opts)$/;"	f
+upk_json_output_after_json_array_pop_handler	upk_json.c	/^upk_json_output_after_json_array_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_after_json_obj_pop_handler	upk_json.c	/^upk_json_output_after_json_obj_pop_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_array_handler	upk_json.c	/^upk_json_output_array_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_bool_handler	upk_json.c	/^upk_json_output_bool_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_data_t	upk_json.c	/^} upk_json_output_data_t;$/;"	t	typeref:struct:_upk_json_output_data	file:
+upk_json_output_double_handler	upk_json.c	/^upk_json_output_double_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_int_handler	upk_json.c	/^upk_json_output_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_null_handler	upk_json.c	/^upk_json_output_null_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_object_handler	upk_json.c	/^upk_json_output_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_string_handler	upk_json.c	/^upk_json_output_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_json_output_type_t	upk_json.c	/^} upk_json_output_type_t;$/;"	t	typeref:enum:__anon24	file:
+upk_json_parse_array	upk_json.c	/^upk_json_parse_array(upk_json_stack_meta_t * meta, char *key, struct json_object *jarray)$/;"	f	file:
+upk_json_parse_node	upk_json.c	/^upk_json_parse_node(upk_json_stack_meta_t * meta, char *key, struct json_object *obj)$/;"	f
+upk_json_parse_obj	upk_json.c	/^upk_json_parse_obj(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj)$/;"	f	file:
+upk_json_parse_string	upk_json.c	/^upk_json_parse_string(const char *string)$/;"	f
+upk_json_print_indent	upk_json.c	/^upk_json_print_indent(upk_json_stack_meta_t * meta, upk_json_output_data_t * data)$/;"	f	file:
+upk_json_serialize_or_null	upk_config.c	/^upk_json_serialize_or_null(enum json_type type, void *val)$/;"	f	file:
+upk_json_serialize_svc_config	upk_config.c	/^upk_json_serialize_svc_config(upk_svc_desc_t * svc, upk_json_data_output_opts_t opts)$/;"	f
+upk_json_stack_meta_t	upk_json.h	/^typedef                 UPKLIST_METANODE(upk_json_stack_node_t, upk_json_stack_meta_p), upk_json_stack_meta_t;$/;"	t
+upk_json_stack_node_t	upk_json.h	/^typedef struct _upk_json_stack_node upk_json_stack_node_t;$/;"	t	typeref:struct:_upk_json_stack_node
+upk_json_stack_pop	upk_json.c	/^upk_json_stack_pop(upk_json_stack_meta_t * meta)$/;"	f
+upk_json_stack_push	upk_json.c	/^upk_json_stack_push(upk_json_stack_meta_t * meta, upk_json_stack_node_t * node)$/;"	f
+upk_json_string_t	upk_json.h	/^} upk_json_string_t;$/;"	t	typeref:struct:_upk_json_string
+upk_json_unescape_forwardslash	upk_json.c	/^upk_json_unescape_forwardslash(char *str)$/;"	f	file:
+upk_json_val_t	upk_json.h	/^} upk_json_val_t;$/;"	t	typeref:struct:_upk_json_type
+upk_json_value	upk_json.c	/^upk_json_value(upk_json_stack_meta_t * meta, char *key, struct json_object *jobj)$/;"	f	file:
+upk_load_runtime_service_file	upk_config.c	/^upk_load_runtime_service_file(const char *filename)$/;"	f
+upk_load_runtime_services	upk_config.c	/^upk_load_runtime_services(void)$/;"	f
+upk_msgtype_t	upk_protocol.h	/^} upk_msgtype_t;$/;"	t	typeref:enum:_upk_msgtype
+upk_net_callback_t	upk_network.h	/^typedef void            (*upk_net_callback_t) (upk_conn_handle_meta_t * handles, upk_payload_t * msg);$/;"	t
+upk_netmsg_queue_meta_t	upk_network.h	/^typedef                 UPKLIST_METANODE(upk_netmsg_queue_t, upk_netmsg_queue_meta_p), upk_netmsg_queue_meta_t;$/;"	t
+upk_netmsg_queue_t	upk_network.h	/^typedef struct _upk_netmsg_queue upk_netmsg_queue_t;$/;"	t	typeref:struct:_upk_netmsg_queue
+upk_notice	upk_error.h	144;"	d
+upk_numeric_string	upk_util.c	/^upk_numeric_string(const char *string, long *num)$/;"	f
+upk_output_json_string	upk_json.c	/^upk_output_json_string(upk_json_output_data_t * data, char *fmt, ...)$/;"	f	file:
+upk_overlay_ctrlconf_values	upk_config.c	/^upk_overlay_ctrlconf_values(upk_controller_config_t * dest, upk_controller_config_t * high)$/;"	f
+upk_overlay_svcconf_values	upk_config.c	/^upk_overlay_svcconf_values(upk_svc_desc_t * dest, upk_svc_desc_t * high)$/;"	f
+upk_packet_t	upk_protocol.h	/^} upk_packet_t;$/;"	t	typeref:struct:__anon2
+upk_parse_svc_id	upk_config.c	/^upk_parse_svc_id(char *key, upk_svc_desc_t * svc)$/;"	f
+upk_payload_t	upk_protocol.h	/^} upk_payload_t;$/;"	t	typeref:struct:_upk_payload
+upk_payload_types_u	upk_protocol.h	/^} upk_payload_types_u;$/;"	t	typeref:union:_upk_payload_types
+upk_pkt_buf_t	upk_protocol.h	/^typedef unsigned char   upk_pkt_buf_t;$/;"	t
 upk_pkt_free	upk_protocol.c	/^upk_pkt_free(upk_packet_t * pkt)$/;"	f
 upk_pkt_proto_limit	upk_protocol_serializer.c	/^upk_pkttype_t           upk_pkt_proto_limit[] = {$/;"	v
-upk_pkttype_t	protocol.h	/^} upk_pkttype_t;$/;"	t	typeref:enum:__anon26
-upk_protocol_handle_t	protocol.h	/^} upk_protocol_handle_t;$/;"	t	typeref:struct:__anon51
-upk_pub_msgtype_t	protocol.h	/^} upk_pub_msgtype_t;$/;"	t	typeref:enum:__anon29
-upk_pub_proto_limit	upk_protocol_serializer.c	/^upk_pub_msgtype_t       upk_pub_proto_limit[] = {$/;"	v
-upk_pub_pubmsg_t	protocol.h	/^} upk_pub_pubmsg_t;$/;"	t	typeref:struct:__anon49
+upk_pkttype_t	upk_protocol.h	/^} upk_pkttype_t;$/;"	t	typeref:enum:__anon1
+upk_protocol_handle_t	upk_protocol.h	/^} upk_protocol_handle_t;$/;"	t	typeref:struct:__anon23
+upk_pub_cancelation_t	upk_protocol.h	/^} upk_pub_cancelation_t;$/;"	t	typeref:struct:__anon22
+upk_pub_proto_limit	upk_protocol_serializer.c	/^upk_msgtype_t       upk_pub_proto_limit[] = {$/;"	v
+upk_pub_publication_t	upk_protocol.h	/^} upk_pub_publication_t;$/;"	t	typeref:struct:__anon21
+upk_read_packet	upk_network.c	/^upk_read_packet(upk_conn_handle_meta_t *handles)$/;"	f
+upk_reg_diag_callback	upk_error.c	/^upk_reg_diag_callback(diag_output_callback_t func)$/;"	f
 upk_reg_err_msg_callback	upk_error.c	/^upk_reg_err_msg_callback(err_rpt_msg_callback_t func)$/;"	f
 upk_reg_error_callback	upk_error.c	/^upk_reg_error_callback(err_rpt_callback_t func)$/;"	f
-upk_repl_msgtype_t	protocol.h	/^} upk_repl_msgtype_t;$/;"	t	typeref:enum:__anon28
-upk_repl_preamble_t	protocol.h	/^} upk_repl_preamble_t;$/;"	t	typeref:struct:__anon32
-upk_repl_proto_limit	upk_protocol_serializer.c	/^upk_repl_msgtype_t      upk_repl_proto_limit[] = {$/;"	v
-upk_repl_seq_end_t	protocol.h	/^} upk_repl_seq_end_t;$/;"	t	typeref:struct:__anon43
-upk_repl_seq_start_t	protocol.h	/^} upk_repl_seq_start_t;$/;"	t	typeref:struct:__anon42
+upk_repl_ack_t	upk_protocol.h	/^} upk_repl_ack_t;$/;"	t	typeref:struct:__anon19
+upk_repl_error_t	upk_protocol.h	/^} upk_repl_error_t;$/;"	t	typeref:struct:__anon20
+upk_repl_listing_t	upk_protocol.h	/^} upk_repl_listing_t;$/;"	t	typeref:struct:__anon17
+upk_repl_preamble_t	upk_protocol.h	/^} upk_repl_preamble_t;$/;"	t	typeref:struct:__anon4
+upk_repl_proto_limit	upk_protocol_serializer.c	/^upk_msgtype_t      upk_repl_proto_limit[] = {$/;"	v
+upk_repl_result_t	upk_protocol.h	/^} upk_repl_result_t;$/;"	t	typeref:struct:__anon16
+upk_repl_seq_end_t	upk_protocol.h	/^} upk_repl_seq_end_t;$/;"	t	typeref:struct:__anon15
+upk_repl_seq_start_t	upk_protocol.h	/^} upk_repl_seq_start_t;$/;"	t	typeref:struct:__anon14
+upk_repl_svcinfo_t	upk_protocol.h	/^} upk_repl_svcinfo_t;$/;"	t	typeref:struct:__anon18
+upk_replace_string	upk_util.c	/^upk_replace_string(char **haystack, const char *needle, const char *repl)$/;"	f
 upk_report_error	upk_error.c	/^upk_report_error(upk_error_t err)$/;"	f
 upk_report_error_msg	upk_error.c	/^upk_report_error_msg(upk_error_t err, unsigned const char *msg)$/;"	f
-upk_req_msgtype_t	protocol.h	/^} upk_req_msgtype_t;$/;"	t	typeref:enum:__anon27
-upk_req_preamble_t	protocol.h	/^} upk_req_preamble_t;$/;"	t	typeref:struct:__anon31
-upk_req_proto_limit	upk_protocol_serializer.c	/^upk_req_msgtype_t       upk_req_proto_limit[] = {$/;"	v
-upk_req_seq_end_t	protocol.h	/^} upk_req_seq_end_t;$/;"	t	typeref:struct:__anon34
-upk_req_seq_start_t	protocol.h	/^} upk_req_seq_start_t;$/;"	t	typeref:struct:__anon33
-upk_result_repl_t	protocol.h	/^} upk_result_repl_t;$/;"	t	typeref:struct:__anon44
+upk_req_action_t	upk_protocol.h	/^} upk_req_action_t;$/;"	t	typeref:struct:__anon7
+upk_req_disconnect_t	upk_protocol.h	/^} upk_req_disconnect_t;$/;"	t	typeref:struct:__anon13
+upk_req_list_t	upk_protocol.h	/^} upk_req_list_t;$/;"	t	typeref:struct:__anon9
+upk_req_preamble_t	upk_protocol.h	/^} upk_req_preamble_t;$/;"	t	typeref:struct:__anon3
+upk_req_proto_limit	upk_protocol_serializer.c	/^upk_msgtype_t       upk_req_proto_limit[] = {$/;"	v
+upk_req_seq_end_t	upk_protocol.h	/^} upk_req_seq_end_t;$/;"	t	typeref:struct:__anon6
+upk_req_seq_start_t	upk_protocol.h	/^} upk_req_seq_start_t;$/;"	t	typeref:struct:__anon5
+upk_req_signal_t	upk_protocol.h	/^} upk_req_signal_t;$/;"	t	typeref:struct:__anon8
+upk_req_status_t	upk_protocol.h	/^} upk_req_status_t;$/;"	t	typeref:struct:__anon10
+upk_req_subscribe_t	upk_protocol.h	/^} upk_req_subscribe_t;$/;"	t	typeref:struct:__anon11
+upk_req_unsubscribe_t	upk_protocol.h	/^} upk_req_unsubscribe_t;$/;"	t	typeref:struct:__anon12
+upk_runtime_configuration	upk_config.c	/^    upk_runtime_configuration;$/;"	v
 upk_serialize_packet	upk_protocol_serializer.c	/^upk_serialize_packet(upk_packet_t * UPK_DATA_PTR)$/;"	f
 upk_serialize_payload	upk_protocol_serializer.c	/^upk_serialize_payload(upk_packet_t * pkt)$/;"	f	file:
-upk_signal_req_t	protocol.h	/^} upk_signal_req_t;$/;"	t	typeref:struct:__anon36
-upk_signal_t	types.h	/^} upk_signal_t;$/;"	t	typeref:enum:__anon24
-upk_state_t	types.h	/^} upk_state_t;$/;"	t	typeref:enum:__anon21
-upk_status_req_t	protocol.h	/^} upk_status_req_t;$/;"	t	typeref:struct:__anon38
+upk_signal_t	upk_types.h	/^} upk_signal_t;$/;"	t	typeref:enum:__anon31
+upk_socket_connect	upk_network.c	/^upk_socket_connect(const char *sockpath)$/;"	f
+upk_socket_retry	upk_network.c	/^upk_socket_retry(int retries, const char *sockpath) $/;"	f
+upk_state_t	upk_types.h	/^} upk_state_t;$/;"	t	typeref:enum:__anon30
+upk_stream_string_t	upk_json.c	/^} upk_stream_string_t;$/;"	t	typeref:union:_upk_stream_string	file:
 upk_strerror	upk_error.c	/^upk_strerror(upk_error_t err)$/;"	f
-upk_subscr_req_t	protocol.h	/^} upk_subscr_req_t;$/;"	t	typeref:struct:__anon39
-upk_svcinfo_repl_t	protocol.h	/^} upk_svcinfo_repl_t;$/;"	t	typeref:struct:__anon46
-upk_svcinfo_t	types.h	/^} upk_svcinfo_t;$/;"	t	typeref:struct:__anon20
-upk_svclist_t	types.h	/^typedef struct _upk_svclist upk_svclist_t;$/;"	t	typeref:struct:_upk_svclist
-upk_unsubs_req_t	protocol.h	/^} upk_unsubs_req_t;$/;"	t	typeref:struct:__anon40
+upk_string_to_uuid	uuid.c	/^upk_string_to_uuid(const char *string, upk_uuid_t * uuid)$/;"	f
+upk_svc_desc_clear	upk_config.c	/^upk_svc_desc_clear(upk_svc_desc_t * svc)$/;"	f
+upk_svc_desc_free	upk_config.c	/^upk_svc_desc_free(upk_svc_desc_t * svc)$/;"	f
+upk_svc_desc_meta_t	upk_config.h	/^typedef                 UPKLIST_METANODE(upk_svc_desc_t, upk_svc_desc_meta_p), upk_svc_desc_meta_t;$/;"	t
+upk_svc_desc_t	upk_config.h	/^typedef struct _upk_svc_desc upk_svc_desc_t;$/;"	t	typeref:struct:_upk_svc_desc
+upk_svc_desc_to_json_obj	upk_config.c	/^upk_svc_desc_to_json_obj(upk_svc_desc_t * svc)$/;"	f
+upk_svc_id	upk_config.c	/^upk_svc_id(char *dest, upk_svc_desc_t * svc)$/;"	f
+upk_svcconf_bool_handler	upk_config.c	/^upk_svcconf_bool_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_svcconf_int_handler	upk_config.c	/^upk_svcconf_int_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_svcconf_object_handler	upk_config.c	/^upk_svcconf_object_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_svcconf_pack	upk_config.c	/^upk_svcconf_pack(upk_controller_config_t * cfg, const char *json_string)$/;"	f
+upk_svcconf_setup_handlers	upk_config.c	/^upk_svcconf_setup_handlers(upk_json_handlers_t * handlers)$/;"	f	file:
+upk_svcconf_string_handler	upk_config.c	/^upk_svcconf_string_handler(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_svcconf_toplvl_obj	upk_config.c	/^upk_svcconf_toplvl_obj(upk_json_stack_meta_t * meta, void *data, char *key, upk_json_val_t v)$/;"	f	file:
+upk_svcid_meta_t	upk_types.h	/^typedef                 UPKLIST_METANODE(upk_svcid_t, _upk_svcid_meta_p), upk_svcid_meta_t;$/;"	t
+upk_svcid_t	upk_types.h	/^typedef struct _upk_svcid upk_svcid_t;$/;"	t	typeref:struct:_upk_svcid
+upk_svcinfo_t	upk_types.h	/^} upk_svcinfo_t;$/;"	t	typeref:struct:_upk_svcinfo
+upk_svclist_free	upk_config.c	/^upk_svclist_free(upk_svc_desc_meta_t * svclist)$/;"	f
+upk_svclist_to_json_obj	upk_config.c	/^upk_svclist_to_json_obj(upk_svc_desc_meta_t * svclist)$/;"	f
+upk_uuid_open_random	uuid.c	/^upk_uuid_open_random(void)$/;"	f
+upk_uuid_seed_random	uuid.c	/^upk_uuid_seed_random(void)$/;"	f
+upk_uuid_t	upk_uuid.h	/^} upk_uuid_t;$/;"	t	typeref:struct:_upk_uuid
+upk_uuid_to_string	uuid.c	/^upk_uuid_to_string(char *buf, const upk_uuid_t * uuid)$/;"	f
+upk_verbose	upk_error.h	146;"	d
 upk_verify_crc32	upk_crc32.c	/^upk_verify_crc32(unsigned char *block, uint32_t crc32, uint32_t len)$/;"	f
-v0_ack_repl_t	v0_protocol.h	/^} v0_ack_repl_t;$/;"	t	typeref:struct:__anon16
-v0_action_req_t	v0_protocol.h	/^} v0_action_req_t;$/;"	t	typeref:struct:__anon3
-v0_cancel_pubmsg_t	v0_protocol.h	/^} v0_cancel_pubmsg_t;$/;"	t	typeref:struct:__anon19
-v0_create_ack_repl	upk_v0_protocol.c	/^v0_create_ack_repl(void)$/;"	f
-v0_create_action_req	upk_v0_protocol.c	/^v0_create_action_req(char *svc_id, char *action)$/;"	f
-v0_create_cancel_pubmsg	upk_v0_protocol.c	/^v0_create_cancel_pubmsg(void)$/;"	f
-v0_create_discon_req	upk_v0_protocol.c	/^v0_create_discon_req(void)$/;"	f
-v0_create_error_repl	upk_v0_protocol.c	/^v0_create_error_repl(char *svc_id, char *msg, upk_errlevel_t errlevel)$/;"	f
-v0_create_list_req	upk_v0_protocol.c	/^v0_create_list_req(void)$/;"	f
-v0_create_listing_repl	upk_v0_protocol.c	/^v0_create_listing_repl(char *svc_id)$/;"	f
-v0_create_pub_pubmsg	upk_v0_protocol.c	/^v0_create_pub_pubmsg(void)$/;"	f
+upk_warn	upk_error.h	143;"	d
+upk_write_packet	upk_network.c	/^upk_write_packet(upk_conn_handle_meta_t *handles)$/;"	f
+uuid	upk_types.h	/^    upk_uuid_t              uuid;                          \/*!< not sure I need this here; but just in case for now *\/$/;"	m	struct:_upk_svcid
+v0_create_pub_cancelation	upk_v0_protocol.c	/^v0_create_pub_cancelation(void)$/;"	f
+v0_create_pub_publication	upk_v0_protocol.c	/^v0_create_pub_publication(void)$/;"	f
+v0_create_repl_ack	upk_v0_protocol.c	/^v0_create_repl_ack(void)$/;"	f
+v0_create_repl_error	upk_v0_protocol.c	/^v0_create_repl_error(char *svc_id, char *msg, upk_errlevel_t errlevel)$/;"	f
+v0_create_repl_listing	upk_v0_protocol.c	/^v0_create_repl_listing(char *svc_id)$/;"	f
+v0_create_repl_result	upk_v0_protocol.c	/^v0_create_repl_result(char *msg, bool successful)$/;"	f
 v0_create_repl_seq_end	upk_v0_protocol.c	/^v0_create_repl_seq_end(bool commit)$/;"	f
-v0_create_repl_seq_start	upk_v0_protocol.c	/^v0_create_repl_seq_start(upk_repl_msgtype_t msg_seq_type, uint32_t msg_seq_count)$/;"	f
+v0_create_repl_seq_start	upk_v0_protocol.c	/^v0_create_repl_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count)$/;"	f
+v0_create_repl_svcinfo	upk_v0_protocol.c	/^v0_create_repl_svcinfo(char *svc_id, v0_svcinfo_t * svcinfo)$/;"	f
+v0_create_req_action	upk_v0_protocol.c	/^v0_create_req_action(char *svc_id, char *action)$/;"	f
+v0_create_req_disconnect	upk_v0_protocol.c	/^v0_create_req_disconnect(void)$/;"	f
+v0_create_req_list	upk_v0_protocol.c	/^v0_create_req_list(void)$/;"	f
 v0_create_req_seq_end	upk_v0_protocol.c	/^v0_create_req_seq_end(bool commit)$/;"	f
-v0_create_req_seq_start	upk_v0_protocol.c	/^v0_create_req_seq_start(upk_req_msgtype_t msg_seq_type, uint32_t msg_seq_count)$/;"	f
-v0_create_result_repl	upk_v0_protocol.c	/^v0_create_result_repl(char *msg, bool successful)$/;"	f
-v0_create_signal_req	upk_v0_protocol.c	/^v0_create_signal_req(char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp)$/;"	f
-v0_create_status_req	upk_v0_protocol.c	/^v0_create_status_req(char *svc_id)$/;"	f
-v0_create_subscr_req	upk_v0_protocol.c	/^v0_create_subscr_req(char *svc_id, bool all_svcs)$/;"	f
-v0_create_svcinfo_repl	upk_v0_protocol.c	/^v0_create_svcinfo_repl(char *svc_id, v0_svcinfo_t * svcinfo)$/;"	f
-v0_create_unsubs_req	upk_v0_protocol.c	/^v0_create_unsubs_req(char *svc_id, bool all_svcs)$/;"	f
+v0_create_req_seq_start	upk_v0_protocol.c	/^v0_create_req_seq_start(upk_msgtype_t msg_seq_type, uint32_t msg_seq_count)$/;"	f
+v0_create_req_signal	upk_v0_protocol.c	/^v0_create_req_signal(char *svc_id, upk_signal_t signal, bool signal_sid, bool signal_pgrp)$/;"	f
+v0_create_req_status	upk_v0_protocol.c	/^v0_create_req_status(char *svc_id)$/;"	f
+v0_create_req_subscribe	upk_v0_protocol.c	/^v0_create_req_subscribe(char *svc_id, bool all_svcs)$/;"	f
+v0_create_req_unsubscribe	upk_v0_protocol.c	/^v0_create_req_unsubscribe(char *svc_id, bool all_svcs)$/;"	f
 v0_deserialize_payload	upk_v0_protocol_serializer.c	/^v0_deserialize_payload(upk_pkt_buf_t * UPK_BUF, upk_pkttype_t pkttype)$/;"	f
-v0_discon_req_t	v0_protocol.h	/^} v0_discon_req_t;$/;"	t	typeref:struct:__anon9
-v0_error_repl_t	v0_protocol.h	/^} v0_error_repl_t;$/;"	t	typeref:struct:__anon17
-v0_free_action_req	upk_v0_protocol.c	/^v0_free_action_req(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_error_repl	upk_v0_protocol.c	/^v0_free_error_repl(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_listing_repl	upk_v0_protocol.c	/^v0_free_listing_repl(void *UPK_DATA_PTR)$/;"	f	file:
 v0_free_payload	upk_v0_protocol.c	/^v0_free_payload(upk_packet_t *pkt)$/;"	f
 v0_free_repl_payload	upk_v0_protocol.c	/^v0_free_repl_payload(void *UPK_DATA_PTR)$/;"	f	file:
 v0_free_req_payload	upk_v0_protocol.c	/^v0_free_req_payload(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_result_repl	upk_v0_protocol.c	/^v0_free_result_repl(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_signal_req	upk_v0_protocol.c	/^v0_free_signal_req(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_status_req	upk_v0_protocol.c	/^v0_free_status_req(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_subscr_req	upk_v0_protocol.c	/^v0_free_subscr_req(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_svcinfo_repl	upk_v0_protocol.c	/^v0_free_svcinfo_repl(void *UPK_DATA_PTR)$/;"	f	file:
-v0_free_unsubs_req	upk_v0_protocol.c	/^v0_free_unsubs_req(void *UPK_DATA_PTR)$/;"	f	file:
-v0_list_req_t	v0_protocol.h	/^} v0_list_req_t;$/;"	t	typeref:struct:__anon5
-v0_listing_repl_t	v0_protocol.h	/^} v0_listing_repl_t;$/;"	t	typeref:struct:__anon13
-v0_pub_pubmsg_t	v0_protocol.h	/^} v0_pub_pubmsg_t;$/;"	t	typeref:struct:__anon18
-v0_repl_seq_end_t	v0_protocol.h	/^} v0_repl_seq_end_t;$/;"	t	typeref:struct:__anon11
-v0_repl_seq_start_t	v0_protocol.h	/^} v0_repl_seq_start_t;$/;"	t	typeref:struct:__anon10
-v0_req_seq_end_t	v0_protocol.h	/^} v0_req_seq_end_t;$/;"	t	typeref:struct:__anon2
-v0_req_seq_start_t	v0_protocol.h	/^} v0_req_seq_start_t;$/;"	t	typeref:struct:__anon1
-v0_result_repl_t	v0_protocol.h	/^} v0_result_repl_t;$/;"	t	typeref:struct:__anon12
+v0_pub_cancelation_t	upk_v0_protocol.h	/^} v0_pub_cancelation_t;$/;"	t	typeref:struct:__anon50
+v0_pub_publication_t	upk_v0_protocol.h	/^} v0_pub_publication_t;$/;"	t	typeref:struct:__anon49
+v0_repl_ack_t	upk_v0_protocol.h	/^} v0_repl_ack_t;$/;"	t	typeref:struct:__anon47
+v0_repl_error_t	upk_v0_protocol.h	/^} v0_repl_error_t;$/;"	t	typeref:struct:__anon48
+v0_repl_listing_t	upk_v0_protocol.h	/^} v0_repl_listing_t;$/;"	t	typeref:struct:__anon44
+v0_repl_result_t	upk_v0_protocol.h	/^} v0_repl_result_t;$/;"	t	typeref:struct:__anon43
+v0_repl_seq_end_t	upk_v0_protocol.h	/^} v0_repl_seq_end_t;$/;"	t	typeref:struct:__anon42
+v0_repl_seq_start_t	upk_v0_protocol.h	/^} v0_repl_seq_start_t;$/;"	t	typeref:struct:__anon41
+v0_repl_svcinfo_t	upk_v0_protocol.h	/^} v0_repl_svcinfo_t;$/;"	t	typeref:struct:__anon46
+v0_req_action_t	upk_v0_protocol.h	/^} v0_req_action_t;$/;"	t	typeref:struct:__anon34
+v0_req_disconnect_t	upk_v0_protocol.h	/^} v0_req_disconnect_t;$/;"	t	typeref:struct:__anon40
+v0_req_list_t	upk_v0_protocol.h	/^} v0_req_list_t;$/;"	t	typeref:struct:__anon36
+v0_req_seq_end_t	upk_v0_protocol.h	/^} v0_req_seq_end_t;$/;"	t	typeref:struct:__anon33
+v0_req_seq_start_t	upk_v0_protocol.h	/^} v0_req_seq_start_t;$/;"	t	typeref:struct:__anon32
+v0_req_signal_t	upk_v0_protocol.h	/^} v0_req_signal_t;$/;"	t	typeref:struct:__anon35
+v0_req_status_t	upk_v0_protocol.h	/^} v0_req_status_t;$/;"	t	typeref:struct:__anon37
+v0_req_subscribe_t	upk_v0_protocol.h	/^} v0_req_subscribe_t;$/;"	t	typeref:struct:__anon38
+v0_req_unsubscribe_t	upk_v0_protocol.h	/^} v0_req_unsubscribe_t;$/;"	t	typeref:struct:__anon39
 v0_serialize_payload	upk_v0_protocol_serializer.c	/^v0_serialize_payload(upk_packet_t * pkt)$/;"	f
-v0_signal_req_t	v0_protocol.h	/^} v0_signal_req_t;$/;"	t	typeref:struct:__anon4
-v0_status_req_t	v0_protocol.h	/^} v0_status_req_t;$/;"	t	typeref:struct:__anon6
-v0_subscr_req_t	v0_protocol.h	/^} v0_subscr_req_t;$/;"	t	typeref:struct:__anon7
-v0_svcinfo_repl_t	v0_protocol.h	/^} v0_svcinfo_repl_t;$/;"	t	typeref:struct:__anon15
-v0_svcinfo_t	protocol.h	294;"	d
-v0_svcinfo_t	protocol.h	298;"	d
-v0_svcinfo_t	v0_protocol.h	/^} v0_svcinfo_t;$/;"	t	typeref:struct:__anon14
-v0_unsubs_req_t	v0_protocol.h	/^} v0_unsubs_req_t;$/;"	t	typeref:struct:__anon8
-version_id	protocol.h	/^    uint32_t                version_id;$/;"	m	struct:__anon30
-version_id	protocol.h	/^    uint32_t version_id;$/;"	m	struct:__anon51
+v0_svcinfo_t	upk_protocol.h	357;"	d
+v0_svcinfo_t	upk_protocol.h	362;"	d
+v0_svcinfo_t	upk_v0_protocol.h	/^} v0_svcinfo_t;$/;"	t	typeref:struct:__anon45
+val	upk_json.c	/^    struct json_object     *val;$/;"	m	struct:upk_json_obj_iter	typeref:struct:upk_json_obj_iter::json_object	file:
+val	upk_json.h	/^    } val;$/;"	m	struct:_upk_json_type	typeref:union:_upk_json_type::__anon51
+version_id	upk_protocol.h	/^    uint32_t                version_id;$/;"	m	struct:__anon2
+version_id	upk_protocol.h	/^    uint32_t                version_id;$/;"	m	struct:__anon23
+writebuf	upk_network.h	/^    upk_pkt_buf_t           writebuf[UPK_MAX_PACKET_SIZE];$/;"	m	struct:_upk_conn_handle

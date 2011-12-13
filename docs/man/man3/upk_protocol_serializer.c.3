@@ -1,0 +1,130 @@
+.TH "libupkeeper/upkeeper/upk_protocol_serializer.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_protocol_serializer.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include 'upk_protocol.h'\fP
+.br
+\fC#include 'upk_v0_protocol.h'\fP
+.br
+\fC#include 'upk_error.h'\fP
+.br
+\fC#include 'upk_crc32.h'\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER_TYPEDEF\fP   \fBupk_msgtype_t\fP"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER\fP   msgtype"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER_TYPEDEF\fP   \fBupk_pkttype_t\fP"
+.br
+.ti -1c
+.RI "#define \fBUPK_MSG_IDENTIFIER\fP   pkttype"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void * \fBupk_deserialize_req_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_req_preamble\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
+.br
+.ti -1c
+.RI "void * \fBupk_deserialize_repl_preamble\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_repl_preamble\fP (void *UPK_DATA_PTR, \fBsize_t\fP UPK_DATA_LEN)"
+.br
+.ti -1c
+.RI "static void * \fBupk_deserialize_payload\fP (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fP pkttype, \fBuint32_t\fP version_id)"
+.br
+.ti -1c
+.RI "static \fBupk_pkt_buf_t\fP * \fBupk_serialize_payload\fP (\fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "\fBupk_packet_t\fP * \fBupk_deserialize_packet\fP (\fBupk_pkt_buf_t\fP *UPK_BUF)"
+.br
+.ti -1c
+.RI "\fBupk_pkt_buf_t\fP * \fBupk_serialize_packet\fP (\fBupk_packet_t\fP *UPK_DATA_PTR)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_pkttype_t\fP \fBupk_pkt_proto_limit\fP []"
+.br
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBupk_req_proto_limit\fP []"
+.br
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBupk_repl_proto_limit\fP []"
+.br
+.ti -1c
+.RI "\fBupk_msgtype_t\fP \fBupk_pub_proto_limit\fP []"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define UPK_MSG_IDENTIFIER   msgtype"
+.SS "#define UPK_MSG_IDENTIFIER   pkttype"
+.SS "#define UPK_MSG_IDENTIFIER_TYPEDEF   \fBupk_pkttype_t\fP"
+.SS "#define UPK_MSG_IDENTIFIER_TYPEDEF   \fBupk_msgtype_t\fP"
+.SH "Function Documentation"
+.PP 
+.SS "static void* upk_deserialize_payload (\fBupk_pkt_buf_t\fP *payload_buf, \fBupk_pkttype_t\fPpkttype, \fBuint32_t\fPversion_id)\fC [inline, static]\fP"
+.PP
+References v0_deserialize_payload().
+.PP
+Referenced by upk_deserialize_packet().
+.SS "static \fBupk_pkt_buf_t\fP* upk_serialize_payload (\fBupk_packet_t\fP *pkt)\fC [inline, static]\fP"
+.PP
+References v0_serialize_payload(), and upk_packet_t::version_id.
+.PP
+Referenced by upk_serialize_packet().
+.SH "Variable Documentation"
+.PP 
+.SS "\fBupk_pkttype_t\fP \fBupk_pkt_proto_limit\fP[]"\fBInitial value:\fP
+.PP
+.nf
+ {
+    PKT_V0_PROTO_LIMIT,
+}
+.fi
+.PP
+Referenced by upk_deserialize_packet().
+.SS "\fBupk_msgtype_t\fP \fBupk_pub_proto_limit\fP[]"\fBInitial value:\fP
+.PP
+.nf
+ {
+    UPK_PUB_V0_PROTO_LIMIT,
+}
+.fi
+.SS "\fBupk_msgtype_t\fP \fBupk_repl_proto_limit\fP[]"\fBInitial value:\fP
+.PP
+.nf
+ {
+    UPK_REPL_V0_PROTO_LIMIT,
+}
+.fi
+.SS "\fBupk_msgtype_t\fP \fBupk_req_proto_limit\fP[]"\fBInitial value:\fP
+.PP
+.nf
+ {
+    UPK_REQ_V0_PROTO_LIMIT,
+}
+.fi
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

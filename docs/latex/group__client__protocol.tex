@@ -1,0 +1,1476 @@
+\section{Client\_\-protocol}
+\label{group__client__protocol}\index{Client\_\-protocol@{Client\_\-protocol}}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf upk\_\-packet\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-preamble\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-preamble\_\-t}
+\item 
+struct {\bf upk\_\-generic\_\-msg\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-seq\_\-start\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-seq\_\-end\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-action\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-signal\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-list\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-status\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-subscribe\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-unsubscribe\_\-t}
+\item 
+struct {\bf upk\_\-req\_\-disconnect\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-seq\_\-start\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-seq\_\-end\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-result\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-listing\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-svcinfo\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-ack\_\-t}
+\item 
+struct {\bf upk\_\-repl\_\-error\_\-t}
+\item 
+struct {\bf upk\_\-pub\_\-publication\_\-t}
+\item 
+struct {\bf upk\_\-pub\_\-cancelation\_\-t}
+\item 
+union {\bf \_\-upk\_\-payload\_\-types}
+\item 
+struct {\bf \_\-upk\_\-payload}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-MAX\_\-PACKET\_\-SIZE}~65536
+\item 
+\#define {\bf UPK\_\-PACKET\_\-HEADER\_\-LEN}~16
+\item 
+\#define {\bf UPK\_\-PACKET\_\-FOOTER\_\-LEN}~4
+\item 
+\#define {\bf UPK\_\-MIN\_\-SUPPORTED\_\-PROTO}~0
+\item 
+\#define {\bf UPK\_\-MAX\_\-SUPPORTED\_\-PROTO}~0
+\item 
+\#define {\bf UPK\_\-DATA}~\_\-\_\-upk\_\-data
+\item 
+\#define {\bf UPK\_\-DATA\_\-PTR}~\_\-\_\-upk\_\-data\_\-ptr
+\item 
+\#define {\bf UPK\_\-DATA\_\-LEN}~\_\-\_\-upk\_\-data\_\-len
+\item 
+\#define {\bf UPK\_\-BUF}~\_\-\_\-upk\_\-buf
+\item 
+\#define {\bf UPK\_\-BUF\_\-PTR}~\_\-\_\-upk\_\-buf\_\-ptr
+\item 
+\#define {\bf UPK\_\-UINT8\_\-BUFFER}~\_\-\_\-upk\_\-uint8\_\-buf
+\item 
+\#define {\bf UPK\_\-UINT16\_\-BUFFER}~\_\-\_\-upk\_\-uint16\_\-buf
+\item 
+\#define {\bf UPK\_\-UINT32\_\-BUFFER}~\_\-\_\-upk\_\-uint32\_\-buf
+\item 
+\#define {\bf UPK\_\-STRING\_\-LENGTH}~\_\-\_\-upk\_\-string\_\-len
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-pkttype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER}~pkttype
+\item 
+\#define {\bf UPK\_\-INIT\_\-DESERIALIZE}(TYPE)
+\item 
+\#define {\bf UPK\_\-MEMB\_\-TO\_\-LEN}(MEMB)~MEMB \#\# \_\-len
+\item 
+\#define {\bf UPK\_\-INIT\_\-DESERIALIZE\_\-MSG}(TYPE)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT32\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT32}(MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T({\bf uint32\_\-t}, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT16\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT16}(MEMB)~UPK\_\-FETCH\_\-UINT16\_\-T({\bf uint16\_\-t}, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT8\_\-T}(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-UINT8}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T({\bf uint8\_\-t}, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-BOOL}(MEMB)~UPK\_\-FETCH\_\-UINT8\_\-T(bool, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-ENUM}(TYPE, MEMB)~UPK\_\-FETCH\_\-UINT32\_\-T(TYPE, MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF}(BUF, LEN)
+\item 
+\#define {\bf UPK\_\-FETCH\_\-DATA}(MEMB)~UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))
+\item 
+\#define {\bf UPK\_\-FETCH\_\-ARRAY}(MEMB, LEN)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE}(TYPE)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE\_\-BUF}(TYPE, LEN)
+\item 
+\#define {\bf UPK\_\-INIT\_\-SERIALIZE\_\-MSG}(TYPE)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT32}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT16}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-UINT8}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-BOOL}(MEMB)~UPK\_\-PUT\_\-UINT8(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-ENUM}(MEMB)~UPK\_\-PUT\_\-UINT32(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF}(BUF, LEN)
+\item 
+\#define {\bf UPK\_\-PUT\_\-DATA}(MEMB)~UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))
+\item 
+\#define {\bf UPK\_\-PUT\_\-ARRAY}(MEMB, LEN)
+\item 
+\#define {\bf UPK\_\-N\_\-SUPPORTED\_\-PROTOS}~(1 + UPK\_\-MAX\_\-SUPPORTED\_\-PROTO -\/ UPK\_\-MIN\_\-SUPPORTED\_\-PROTO)
+\item 
+\#define {\bf \_\-UPK\_\-N\_\-PER\_\-TYPE}(A)~(UPK\_\-\#\#A\#\#\_\-LIMIT -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN -\/ UPK\_\-N\_\-SUPPORTED\_\-PROTOS)
+\item 
+\#define {\bf UPK\_\-N\_\-REQ\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(REQ)
+\item 
+\#define {\bf UPK\_\-N\_\-REPL\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(REPL)
+\item 
+\#define {\bf UPK\_\-N\_\-PUB\_\-TYPES}~\_\-UPK\_\-N\_\-PER\_\-TYPE(PUB)
+\item 
+\#define {\bf \_\-UPK\_\-MSGTYPE\_\-OFFSET}(V, A, B)~(V $<$ UPK\_\-\#\#A\#\#\_\-LIMIT) ? (V -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN) + B
+\item 
+\#define {\bf UPK\_\-MSGTYPE\_\-IDX}(MSGTYPE)
+\item 
+\#define {\bf v0\_\-svcinfo\_\-t}~{\bf upk\_\-svcinfo\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef unsigned char {\bf upk\_\-pkt\_\-buf\_\-t}
+\item 
+typedef enum {\bf \_\-upk\_\-msgtype} {\bf upk\_\-msgtype\_\-t}
+\begin{DoxyCompactList}\small\item\em message type. \end{DoxyCompactList}\item 
+typedef union {\bf \_\-upk\_\-payload\_\-types} {\bf upk\_\-payload\_\-types\_\-u}
+\item 
+typedef struct {\bf \_\-upk\_\-payload} {\bf upk\_\-payload\_\-t}
+\item 
+typedef {\bf upk\_\-conn\_\-handle\_\-t} {\bf upk\_\-protocol\_\-handle\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf upk\_\-pkttype\_\-t} \{ \par
+{\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf PKT\_\-REQUEST} =  1, 
+{\bf PKT\_\-REPLY}, 
+{\bf PKT\_\-PUBMSG}, 
+{\bf PKT\_\-V0\_\-PROTO\_\-LIMIT}
+ \}
+\begin{DoxyCompactList}\small\item\em packet type. \end{DoxyCompactList}\item 
+enum {\bf \_\-upk\_\-msgtype} \{ \par
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+\par
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+{\bf UPK\_\-REQ\_\-LIST}, 
+{\bf UPK\_\-REQ\_\-STATUS}, 
+\par
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+\par
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+{\bf UPK\_\-REPL\_\-LISTING}, 
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+\par
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+\par
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-PUB\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+\par
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+{\bf UPK\_\-REQ\_\-LIST}, 
+\par
+{\bf UPK\_\-REQ\_\-STATUS}, 
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+\par
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+\par
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+{\bf UPK\_\-REPL\_\-LISTING}, 
+\par
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+\par
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+\par
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-ORIGIN} =  1, 
+{\bf UPK\_\-REQ\_\-PREAMBLE} =  1, 
+\par
+{\bf UPK\_\-REQ\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REQ\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REQ\_\-ACTION}, 
+{\bf UPK\_\-REQ\_\-SIGNAL}, 
+\par
+{\bf UPK\_\-REQ\_\-LIST}, 
+{\bf UPK\_\-REQ\_\-STATUS}, 
+{\bf UPK\_\-REQ\_\-SUBSCRIBE}, 
+{\bf UPK\_\-REQ\_\-UNSUBSCRIBE}, 
+\par
+{\bf UPK\_\-REQ\_\-DISCONNECT}, 
+{\bf UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REQ\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-ORIGIN} =  4096, 
+\par
+{\bf UPK\_\-REPL\_\-PREAMBLE} =  4096, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-START}, 
+{\bf UPK\_\-REPL\_\-SEQ\_\-END}, 
+{\bf UPK\_\-REPL\_\-RESULT}, 
+\par
+{\bf UPK\_\-REPL\_\-LISTING}, 
+{\bf UPK\_\-REPL\_\-SVCINFO}, 
+{\bf UPK\_\-REPL\_\-ACK}, 
+{\bf UPK\_\-REPL\_\-ERROR}, 
+\par
+{\bf UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-REPL\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-ORIGIN} =  8192, 
+{\bf UPK\_\-PUB\_\-PUBLICATION} =  8192, 
+\par
+{\bf UPK\_\-PUB\_\-CANCELATION}, 
+{\bf UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}, 
+{\bf UPK\_\-PUB\_\-LIMIT}
+ \}
+\begin{DoxyCompactList}\small\item\em message type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-packet} ({\bf upk\_\-packet\_\-t} $\ast$UPK\_\-DATA\_\-PTR)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-deserialize\_\-packet} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-req\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-req\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+void $\ast$ {\bf upk\_\-deserialize\_\-repl\_\-preamble} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf upk\_\-serialize\_\-repl\_\-preamble} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pkt} (void $\ast$payload, {\bf uint32\_\-t} payload\_\-len, {\bf upk\_\-pkttype\_\-t} pkttype, {\bf uint32\_\-t} proto\_\-ver)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$client\_\-name)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-action} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, char $\ast$action)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-signal} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-list} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-status} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-subscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-unsubscribe} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-req\_\-disconnect} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-preamble} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf uint32\_\-t} best\_\-version)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, {\bf upk\_\-msgtype\_\-t} seq\_\-type, {\bf uint32\_\-t} count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-seq\_\-end} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-result} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$msg, bool successful)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-listing} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-svcinfo} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-ack} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-repl\_\-error} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle, char $\ast$svc\_\-id, {\bf upk\_\-errno\_\-t} uerrno, char $\ast$errmsg, {\bf upk\_\-errlevel\_\-t} errlvl)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-publication} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf upk\_\-create\_\-pub\_\-cancelation} ({\bf upk\_\-protocol\_\-handle\_\-t} $\ast$handle)
+\item 
+void {\bf upk\_\-pkt\_\-free} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-get\_\-msgtype} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf size\_\-t} {\bf upk\_\-get\_\-msgsize} ({\bf upk\_\-msgtype\_\-t} type)
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{Client\_\-protocol@{Client\_\-protocol}!\_\-UPK\_\-MSGTYPE\_\-OFFSET@{\_\-UPK\_\-MSGTYPE\_\-OFFSET}}
+\index{\_\-UPK\_\-MSGTYPE\_\-OFFSET@{\_\-UPK\_\-MSGTYPE\_\-OFFSET}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{\_\-UPK\_\-MSGTYPE\_\-OFFSET}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPK\_\-MSGTYPE\_\-OFFSET(
+\begin{DoxyParamCaption}
+\item[{}]{V, }
+\item[{}]{A, }
+\item[{}]{B}
+\end{DoxyParamCaption}
+)~(V $<$ UPK\_\-\#\#A\#\#\_\-LIMIT) ? (V -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN) + B}\label{group__client__protocol_ga5f72d20e915db202fdc6b1cb07d60cc8}
+\index{Client\_\-protocol@{Client\_\-protocol}!\_\-UPK\_\-N\_\-PER\_\-TYPE@{\_\-UPK\_\-N\_\-PER\_\-TYPE}}
+\index{\_\-UPK\_\-N\_\-PER\_\-TYPE@{\_\-UPK\_\-N\_\-PER\_\-TYPE}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{\_\-UPK\_\-N\_\-PER\_\-TYPE}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPK\_\-N\_\-PER\_\-TYPE(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~(UPK\_\-\#\#A\#\#\_\-LIMIT -\/ UPK\_\-\#\#A\#\#\_\-ORIGIN -\/ UPK\_\-N\_\-SUPPORTED\_\-PROTOS)}\label{group__client__protocol_ga772d0d3ccab3d25e2ef6869185c82bdb}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-BUF@{UPK\_\-BUF}}
+\index{UPK\_\-BUF@{UPK\_\-BUF}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-BUF~\_\-\_\-upk\_\-buf}\label{group__client__protocol_ga2f8e3fdadca458dd0df4929c67687354}
+
+
+Referenced by deserialize\_\-pub\_\-payload(), deserialize\_\-repl\_\-payload(), deserialize\_\-req\_\-payload(), serial\_\-pub\_\-cancel(), serial\_\-pub\_\-pub(), serial\_\-repl\_\-ack(), serial\_\-repl\_\-err(), serial\_\-repl\_\-listing(), serial\_\-repl\_\-result(), serial\_\-repl\_\-seq\_\-end(), serial\_\-repl\_\-seq\_\-start(), serial\_\-repl\_\-svcinfo(), serial\_\-req\_\-action(), serial\_\-req\_\-disconnect(), serial\_\-req\_\-list(), serial\_\-req\_\-seq\_\-end(), serial\_\-req\_\-seq\_\-start(), serial\_\-req\_\-signal(), serial\_\-req\_\-status(), serial\_\-req\_\-subscribe(), serial\_\-req\_\-unsub(), serial\_\-svcinfo\_\-data(), upk\_\-serialize\_\-packet(), upk\_\-serialize\_\-repl\_\-preamble(), upk\_\-serialize\_\-req\_\-preamble(), and v0\_\-deserialize\_\-payload().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-BUF\_\-PTR@{UPK\_\-BUF\_\-PTR}}
+\index{UPK\_\-BUF\_\-PTR@{UPK\_\-BUF\_\-PTR}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-BUF\_\-PTR}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-BUF\_\-PTR~\_\-\_\-upk\_\-buf\_\-ptr}\label{group__client__protocol_gaf916eeceef858d64ba063052210159f9}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-DATA@{UPK\_\-DATA}}
+\index{UPK\_\-DATA@{UPK\_\-DATA}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-DATA~\_\-\_\-upk\_\-data}\label{group__client__protocol_ga3c63e3d81e8528b3300170bb020ef84b}
+
+
+Referenced by deserial\_\-pub\_\-cancel(), deserial\_\-pub\_\-pub(), deserial\_\-repl\_\-ack(), deserial\_\-repl\_\-err(), deserial\_\-repl\_\-listing(), deserial\_\-repl\_\-result(), deserial\_\-repl\_\-seq\_\-end(), deserial\_\-repl\_\-seq\_\-start(), deserial\_\-repl\_\-svcinfo(), deserial\_\-req\_\-action(), deserial\_\-req\_\-disconnect(), deserial\_\-req\_\-list(), deserial\_\-req\_\-seq\_\-end(), deserial\_\-req\_\-seq\_\-start(), deserial\_\-req\_\-signal(), deserial\_\-req\_\-status(), deserial\_\-req\_\-subscribe(), deserial\_\-req\_\-unsub(), deserial\_\-svcinfo\_\-data(), serial\_\-repl\_\-svcinfo(), serial\_\-svcinfo\_\-data(), upk\_\-deserialize\_\-packet(), upk\_\-deserialize\_\-repl\_\-preamble(), upk\_\-deserialize\_\-req\_\-preamble(), upk\_\-serialize\_\-packet(), and v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-DATA\_\-LEN@{UPK\_\-DATA\_\-LEN}}
+\index{UPK\_\-DATA\_\-LEN@{UPK\_\-DATA\_\-LEN}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-DATA\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-DATA\_\-LEN~\_\-\_\-upk\_\-data\_\-len}\label{group__client__protocol_ga838601628956e1c6bb1455484e147e6e}
+
+
+Referenced by serialize\_\-pub\_\-payload(), serialize\_\-repl\_\-payload(), serialize\_\-req\_\-payload(), and v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-DATA\_\-PTR@{UPK\_\-DATA\_\-PTR}}
+\index{UPK\_\-DATA\_\-PTR@{UPK\_\-DATA\_\-PTR}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-DATA\_\-PTR}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-DATA\_\-PTR~\_\-\_\-upk\_\-data\_\-ptr}\label{group__client__protocol_gac298973e7b451bf04b2dcb4d2088e2c4}
+
+
+Referenced by serialize\_\-pub\_\-payload(), serialize\_\-repl\_\-payload(), and serialize\_\-req\_\-payload().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-ARRAY@{UPK\_\-FETCH\_\-ARRAY}}
+\index{UPK\_\-FETCH\_\-ARRAY@{UPK\_\-FETCH\_\-ARRAY}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-ARRAY}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-ARRAY(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga9231bfac6be62483e2540c1af442c99a}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, LEN); \
+    UPK_BUF_PTR += LEN
+\end{DoxyCode}
+
+
+Referenced by deserial\_\-svcinfo\_\-data().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-BOOL@{UPK\_\-FETCH\_\-BOOL}}
+\index{UPK\_\-FETCH\_\-BOOL@{UPK\_\-FETCH\_\-BOOL}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-BOOL}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-BOOL(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-UINT8\_\-T(bool, MEMB)}\label{group__client__protocol_gace840787c519ae8568f206f0409486ce}
+
+
+Referenced by deserial\_\-repl\_\-result(), deserial\_\-repl\_\-seq\_\-end(), deserial\_\-req\_\-seq\_\-end(), deserial\_\-req\_\-signal(), deserial\_\-req\_\-subscribe(), and deserial\_\-req\_\-unsub().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-DATA@{UPK\_\-FETCH\_\-DATA}}
+\index{UPK\_\-FETCH\_\-DATA@{UPK\_\-FETCH\_\-DATA}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-DATA(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))}\label{group__client__protocol_gac4914d9faed2c3770345a00ab72c0cf2}
+
+
+Referenced by upk\_\-deserialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF@{UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF}}
+\index{UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF@{UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF(
+\begin{DoxyParamCaption}
+\item[{}]{BUF, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga9213b489238b9cf7bc3bd2ddaa35fe36}
+{\bfseries Value:}
+\begin{DoxyCode}
+BUF = calloc(1, UPK_DATA->LEN); \
+    memcpy(BUF, UPK_BUF_PTR, UPK_DATA->LEN); \
+    UPK_BUF_PTR += UPK_DATA->LEN
+\end{DoxyCode}
+
+
+Referenced by deserial\_\-repl\_\-svcinfo().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-ENUM@{UPK\_\-FETCH\_\-ENUM}}
+\index{UPK\_\-FETCH\_\-ENUM@{UPK\_\-FETCH\_\-ENUM}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-ENUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-ENUM(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-UINT32\_\-T(TYPE, MEMB)}\label{group__client__protocol_ga78962b2083a90b4e3c276dd505fc3ceb}
+
+
+Referenced by deserial\_\-repl\_\-err(), deserial\_\-repl\_\-seq\_\-start(), deserial\_\-req\_\-seq\_\-start(), deserial\_\-req\_\-signal(), deserial\_\-svcinfo\_\-data(), and upk\_\-deserialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-STRING@{UPK\_\-FETCH\_\-STRING}}
+\index{UPK\_\-FETCH\_\-STRING@{UPK\_\-FETCH\_\-STRING}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-STRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-STRING(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga185f4f2771b53ad3b8f3d6f52507ba64}
+{\bfseries Value:}
+\begin{DoxyCode}
+/* memset(UPK_DATA->MEMB,0,sizeof(UPK_DATA->MEMB)); */ \
+    /* UPK_DATA->MEMB = calloc(1, UPK_DATA->UPK_MEMB_TO_LEN(MEMB) + 1);  * null t
+      erminate */ \
+    memcpy(UPK_DATA->MEMB, UPK_BUF_PTR, UPK_DATA->UPK_MEMB_TO_LEN(MEMB)); \
+    UPK_BUF_PTR += UPK_DATA->UPK_MEMB_TO_LEN(MEMB)
+\end{DoxyCode}
+
+
+Referenced by deserial\_\-repl\_\-err(), deserial\_\-repl\_\-listing(), deserial\_\-repl\_\-result(), deserial\_\-repl\_\-svcinfo(), deserial\_\-req\_\-action(), deserial\_\-req\_\-signal(), deserial\_\-req\_\-status(), deserial\_\-req\_\-subscribe(), deserial\_\-req\_\-unsub(), and upk\_\-deserialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT16@{UPK\_\-FETCH\_\-UINT16}}
+\index{UPK\_\-FETCH\_\-UINT16@{UPK\_\-FETCH\_\-UINT16}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT16}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT16(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-UINT16\_\-T({\bf uint16\_\-t}, MEMB)}\label{group__client__protocol_ga925fa3a5499566c9cc2dd8f564fae4ce}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT16\_\-T@{UPK\_\-FETCH\_\-UINT16\_\-T}}
+\index{UPK\_\-FETCH\_\-UINT16\_\-T@{UPK\_\-FETCH\_\-UINT16\_\-T}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT16\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT16\_\-T(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4fbec843866b8e04d8c1db8e50397178}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(&UPK_UINT16_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) ntohs( UPK_UINT16_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT32@{UPK\_\-FETCH\_\-UINT32}}
+\index{UPK\_\-FETCH\_\-UINT32@{UPK\_\-FETCH\_\-UINT32}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT32}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT32(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-UINT32\_\-T({\bf uint32\_\-t}, MEMB)}\label{group__client__protocol_ga922f6d4edd47629a72059028c8a9b2d7}
+
+
+Referenced by deserial\_\-repl\_\-err(), deserial\_\-repl\_\-listing(), deserial\_\-repl\_\-result(), deserial\_\-repl\_\-seq\_\-start(), deserial\_\-repl\_\-svcinfo(), deserial\_\-req\_\-action(), deserial\_\-req\_\-seq\_\-start(), deserial\_\-req\_\-signal(), deserial\_\-req\_\-status(), deserial\_\-req\_\-subscribe(), deserial\_\-req\_\-unsub(), deserial\_\-svcinfo\_\-data(), upk\_\-deserialize\_\-packet(), upk\_\-deserialize\_\-repl\_\-preamble(), and upk\_\-deserialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT32\_\-T@{UPK\_\-FETCH\_\-UINT32\_\-T}}
+\index{UPK\_\-FETCH\_\-UINT32\_\-T@{UPK\_\-FETCH\_\-UINT32\_\-T}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT32\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT32\_\-T(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga9a47112ae5c848a99f81e06650875a06}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(&UPK_UINT32_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT32_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) ntohl( UPK_UINT32_BUFFER ); \
+    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT8@{UPK\_\-FETCH\_\-UINT8}}
+\index{UPK\_\-FETCH\_\-UINT8@{UPK\_\-FETCH\_\-UINT8}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT8}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT8(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-FETCH\_\-UINT8\_\-T({\bf uint8\_\-t}, MEMB)}\label{group__client__protocol_gac6f7a7f9d40fc189ce0fb3c7c718e67b}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-FETCH\_\-UINT8\_\-T@{UPK\_\-FETCH\_\-UINT8\_\-T}}
+\index{UPK\_\-FETCH\_\-UINT8\_\-T@{UPK\_\-FETCH\_\-UINT8\_\-T}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-FETCH\_\-UINT8\_\-T}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FETCH\_\-UINT8\_\-T(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga82d22a720ac32f32381e2cd09d62f351}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(&UPK_UINT8_BUFFER, UPK_BUF_PTR, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_DATA->MEMB = (TYPE) UPK_UINT8_BUFFER; \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-INIT\_\-DESERIALIZE@{UPK\_\-INIT\_\-DESERIALIZE}}
+\index{UPK\_\-INIT\_\-DESERIALIZE@{UPK\_\-INIT\_\-DESERIALIZE}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-INIT\_\-DESERIALIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-DESERIALIZE(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gaaaafc9b0eedc14615222be8eb09dfe0f}
+{\bfseries Value:}
+\begin{DoxyCode}
+TYPE * UPK_DATA = NULL; \
+    unsigned char * UPK_BUF_PTR = UPK_BUF; \
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0; \
+    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \
+    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \
+    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0
+\end{DoxyCode}
+
+
+Referenced by deserial\_\-svcinfo\_\-data(), and upk\_\-deserialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-INIT\_\-DESERIALIZE\_\-MSG@{UPK\_\-INIT\_\-DESERIALIZE\_\-MSG}}
+\index{UPK\_\-INIT\_\-DESERIALIZE\_\-MSG@{UPK\_\-INIT\_\-DESERIALIZE\_\-MSG}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-INIT\_\-DESERIALIZE\_\-MSG}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-DESERIALIZE\_\-MSG(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gafdbc5b1b94ac848744b473d4d651aee4}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_INIT_DESERIALIZE(TYPE); \
+    UPK_DATA = calloc(1,sizeof(*UPK_DATA)); \
+    UPK_FETCH_ENUM(UPK_MSG_IDENTIFIER_TYPEDEF, UPK_MSG_IDENTIFIER)
+\end{DoxyCode}
+
+
+Referenced by deserial\_\-pub\_\-cancel(), deserial\_\-pub\_\-pub(), deserial\_\-repl\_\-ack(), deserial\_\-repl\_\-err(), deserial\_\-repl\_\-listing(), deserial\_\-repl\_\-result(), deserial\_\-repl\_\-seq\_\-end(), deserial\_\-repl\_\-seq\_\-start(), deserial\_\-repl\_\-svcinfo(), deserial\_\-req\_\-action(), deserial\_\-req\_\-disconnect(), deserial\_\-req\_\-list(), deserial\_\-req\_\-seq\_\-end(), deserial\_\-req\_\-seq\_\-start(), deserial\_\-req\_\-signal(), deserial\_\-req\_\-status(), deserial\_\-req\_\-subscribe(), deserial\_\-req\_\-unsub(), upk\_\-deserialize\_\-repl\_\-preamble(), and upk\_\-deserialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-INIT\_\-SERIALIZE@{UPK\_\-INIT\_\-SERIALIZE}}
+\index{UPK\_\-INIT\_\-SERIALIZE@{UPK\_\-INIT\_\-SERIALIZE}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-INIT\_\-SERIALIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-SERIALIZE(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4e839e8dfd0239f7b137a581c5a5d202}
+{\bfseries Value:}
+\begin{DoxyCode}
+TYPE * UPK_DATA = (TYPE *) UPK_DATA_PTR; \
+    upk_pkt_buf_t * UPK_BUF = NULL; \
+    upk_pkt_buf_t * UPK_BUF_PTR = NULL; \
+    uint32_t UPK_UINT32_BUFFER = 0; \
+    uint16_t UPK_UINT16_BUFFER = 0; \
+    uint8_t UPK_UINT8_BUFFER = 0; \
+    size_t UPK_STRING_LENGTH = 0; \
+    UPK_UINT32_BUFFER = UPK_UINT32_BUFFER + 0; \
+    UPK_UINT16_BUFFER = UPK_UINT16_BUFFER + 0; \
+    UPK_UINT8_BUFFER = UPK_UINT8_BUFFER + 0; \
+    UPK_STRING_LENGTH = UPK_STRING_LENGTH + 0
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-INIT\_\-SERIALIZE\_\-BUF@{UPK\_\-INIT\_\-SERIALIZE\_\-BUF}}
+\index{UPK\_\-INIT\_\-SERIALIZE\_\-BUF@{UPK\_\-INIT\_\-SERIALIZE\_\-BUF}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-INIT\_\-SERIALIZE\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-SERIALIZE\_\-BUF(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga7a90d2e9d331454aacb57d267c82123d}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_INIT_SERIALIZE(TYPE); \
+    UPK_BUF = calloc(1, LEN); \
+    UPK_BUF_PTR = UPK_BUF
+\end{DoxyCode}
+
+
+Referenced by serial\_\-svcinfo\_\-data(), and upk\_\-serialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-INIT\_\-SERIALIZE\_\-MSG@{UPK\_\-INIT\_\-SERIALIZE\_\-MSG}}
+\index{UPK\_\-INIT\_\-SERIALIZE\_\-MSG@{UPK\_\-INIT\_\-SERIALIZE\_\-MSG}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-INIT\_\-SERIALIZE\_\-MSG}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-INIT\_\-SERIALIZE\_\-MSG(
+\begin{DoxyParamCaption}
+\item[{}]{TYPE}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga6cdbbc0c7eef16ceb644b444ea564718}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_INIT_SERIALIZE_BUF(TYPE, UPK_DATA_LEN); \
+    UPK_PUT_ENUM(UPK_MSG_IDENTIFIER)
+\end{DoxyCode}
+
+
+Referenced by serial\_\-pub\_\-cancel(), serial\_\-pub\_\-pub(), serial\_\-repl\_\-ack(), serial\_\-repl\_\-err(), serial\_\-repl\_\-listing(), serial\_\-repl\_\-result(), serial\_\-repl\_\-seq\_\-end(), serial\_\-repl\_\-seq\_\-start(), serial\_\-repl\_\-svcinfo(), serial\_\-req\_\-action(), serial\_\-req\_\-disconnect(), serial\_\-req\_\-list(), serial\_\-req\_\-seq\_\-end(), serial\_\-req\_\-seq\_\-start(), serial\_\-req\_\-signal(), serial\_\-req\_\-status(), serial\_\-req\_\-subscribe(), serial\_\-req\_\-unsub(), upk\_\-serialize\_\-repl\_\-preamble(), and upk\_\-serialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MAX\_\-PACKET\_\-SIZE@{UPK\_\-MAX\_\-PACKET\_\-SIZE}}
+\index{UPK\_\-MAX\_\-PACKET\_\-SIZE@{UPK\_\-MAX\_\-PACKET\_\-SIZE}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MAX\_\-PACKET\_\-SIZE}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MAX\_\-PACKET\_\-SIZE~65536}\label{group__client__protocol_ga12cb200dc853e42582ceae43528fd80a}
+64k should be enough for anyone 
+
+Referenced by upk\_\-deserialize\_\-packet(), and upk\_\-read\_\-packets().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MAX\_\-SUPPORTED\_\-PROTO@{UPK\_\-MAX\_\-SUPPORTED\_\-PROTO}}
+\index{UPK\_\-MAX\_\-SUPPORTED\_\-PROTO@{UPK\_\-MAX\_\-SUPPORTED\_\-PROTO}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MAX\_\-SUPPORTED\_\-PROTO}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MAX\_\-SUPPORTED\_\-PROTO~0}\label{group__client__protocol_ga845e1f4da3372f878635c308b1465f0f}
+
+
+Referenced by ctrl\_\-req\_\-preamble\_\-handler(), upk\_\-create\_\-req\_\-preamble(), upk\_\-deserialize\_\-packet(), and upk\_\-read\_\-packets().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MEMB\_\-TO\_\-LEN@{UPK\_\-MEMB\_\-TO\_\-LEN}}
+\index{UPK\_\-MEMB\_\-TO\_\-LEN@{UPK\_\-MEMB\_\-TO\_\-LEN}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MEMB\_\-TO\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MEMB\_\-TO\_\-LEN(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~MEMB \#\# \_\-len}\label{group__client__protocol_ga2c06486a36c97c9435999880e4c67754}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MIN\_\-SUPPORTED\_\-PROTO@{UPK\_\-MIN\_\-SUPPORTED\_\-PROTO}}
+\index{UPK\_\-MIN\_\-SUPPORTED\_\-PROTO@{UPK\_\-MIN\_\-SUPPORTED\_\-PROTO}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MIN\_\-SUPPORTED\_\-PROTO}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MIN\_\-SUPPORTED\_\-PROTO~0}\label{group__client__protocol_gafebb05a5b0ab9fe4f6ec8ba2fc7001fb}
+
+
+Referenced by ctrl\_\-req\_\-preamble\_\-handler(), upk\_\-create\_\-req\_\-preamble(), upk\_\-deserialize\_\-packet(), and upk\_\-read\_\-packets().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}}
+\index{UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER~pkttype}\label{group__client__protocol_ga085168993b6f7b7f00302e0c30df8302}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-pkttype\_\-t}}\label{group__client__protocol_gadc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-MSGTYPE\_\-IDX@{UPK\_\-MSGTYPE\_\-IDX}}
+\index{UPK\_\-MSGTYPE\_\-IDX@{UPK\_\-MSGTYPE\_\-IDX}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-MSGTYPE\_\-IDX}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSGTYPE\_\-IDX(
+\begin{DoxyParamCaption}
+\item[{}]{MSGTYPE}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gad9b7e8c40ab66ea44d07826b155dc315}
+{\bfseries Value:}
+\begin{DoxyCode}
+( _UPK_MSGTYPE_OFFSET(MSGTYPE,REQ,0) : _UPK_MSGTYPE_OFFSET(MSGTYPE,REPL,
+      UPK_N_REQ_TYPES) : \
+    _UPK_MSGTYPE_OFFSET(MSGTYPE,PUB,UPK_N_REQ_TYPES+UPK_N_REPL_TYPES) : -1 )
+\end{DoxyCode}
+
+
+Referenced by init\_\-callback\_\-handlers(), upk\_\-call\_\-received\_\-packet\_\-callbacks(), and upk\_\-get\_\-msgsize().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-N\_\-PUB\_\-TYPES@{UPK\_\-N\_\-PUB\_\-TYPES}}
+\index{UPK\_\-N\_\-PUB\_\-TYPES@{UPK\_\-N\_\-PUB\_\-TYPES}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-N\_\-PUB\_\-TYPES}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-N\_\-PUB\_\-TYPES~\_\-UPK\_\-N\_\-PER\_\-TYPE(PUB)}\label{group__client__protocol_ga3b95948f33a532906897f998010c26c4}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-N\_\-REPL\_\-TYPES@{UPK\_\-N\_\-REPL\_\-TYPES}}
+\index{UPK\_\-N\_\-REPL\_\-TYPES@{UPK\_\-N\_\-REPL\_\-TYPES}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-N\_\-REPL\_\-TYPES}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-N\_\-REPL\_\-TYPES~\_\-UPK\_\-N\_\-PER\_\-TYPE(REPL)}\label{group__client__protocol_ga39e6f45e037d18790fc450dfa197ff5f}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-N\_\-REQ\_\-TYPES@{UPK\_\-N\_\-REQ\_\-TYPES}}
+\index{UPK\_\-N\_\-REQ\_\-TYPES@{UPK\_\-N\_\-REQ\_\-TYPES}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-N\_\-REQ\_\-TYPES}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-N\_\-REQ\_\-TYPES~\_\-UPK\_\-N\_\-PER\_\-TYPE(REQ)}\label{group__client__protocol_ga11010acfb9cde9fd30b31d9dbabc3859}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-N\_\-SUPPORTED\_\-PROTOS@{UPK\_\-N\_\-SUPPORTED\_\-PROTOS}}
+\index{UPK\_\-N\_\-SUPPORTED\_\-PROTOS@{UPK\_\-N\_\-SUPPORTED\_\-PROTOS}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-N\_\-SUPPORTED\_\-PROTOS}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-N\_\-SUPPORTED\_\-PROTOS~(1 + UPK\_\-MAX\_\-SUPPORTED\_\-PROTO -\/ UPK\_\-MIN\_\-SUPPORTED\_\-PROTO)}\label{group__client__protocol_ga0054661ac76c836ef32f6c19ac783492}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PACKET\_\-FOOTER\_\-LEN@{UPK\_\-PACKET\_\-FOOTER\_\-LEN}}
+\index{UPK\_\-PACKET\_\-FOOTER\_\-LEN@{UPK\_\-PACKET\_\-FOOTER\_\-LEN}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PACKET\_\-FOOTER\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PACKET\_\-FOOTER\_\-LEN~4}\label{group__client__protocol_ga7f89b21b5bdec5ea97f2fffa12893990}
+
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-read\_\-packets().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PACKET\_\-HEADER\_\-LEN@{UPK\_\-PACKET\_\-HEADER\_\-LEN}}
+\index{UPK\_\-PACKET\_\-HEADER\_\-LEN@{UPK\_\-PACKET\_\-HEADER\_\-LEN}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PACKET\_\-HEADER\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PACKET\_\-HEADER\_\-LEN~16}\label{group__client__protocol_ga24f73662144614e8a14026b567c45fc5}
+
+
+Referenced by upk\_\-queue\_\-packet(), and upk\_\-read\_\-packets().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-ARRAY@{UPK\_\-PUT\_\-ARRAY}}
+\index{UPK\_\-PUT\_\-ARRAY@{UPK\_\-PUT\_\-ARRAY}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-ARRAY}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-ARRAY(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga065d946f37c97e6e2a6602dca6b242f4}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, LEN); \
+    UPK_BUF_PTR += LEN
+\end{DoxyCode}
+
+
+Referenced by serial\_\-svcinfo\_\-data().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-BOOL@{UPK\_\-PUT\_\-BOOL}}
+\index{UPK\_\-PUT\_\-BOOL@{UPK\_\-PUT\_\-BOOL}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-BOOL}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-BOOL(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-PUT\_\-UINT8(MEMB)}\label{group__client__protocol_ga707febaef37d003d7d32946b655aca3f}
+
+
+Referenced by serial\_\-repl\_\-result(), serial\_\-repl\_\-seq\_\-end(), serial\_\-req\_\-seq\_\-end(), serial\_\-req\_\-signal(), serial\_\-req\_\-subscribe(), and serial\_\-req\_\-unsub().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-DATA@{UPK\_\-PUT\_\-DATA}}
+\index{UPK\_\-PUT\_\-DATA@{UPK\_\-PUT\_\-DATA}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-DATA}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-DATA(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF(UPK\_\-DATA-\/$>$MEMB, UPK\_\-MEMB\_\-TO\_\-LEN(MEMB))}\label{group__client__protocol_gae62777b9d53e266713ef68782d16c44a}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF@{UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF}}
+\index{UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF@{UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF(
+\begin{DoxyParamCaption}
+\item[{}]{BUF, }
+\item[{}]{LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gafe30ab3562da3a63a90a2d43d9a6f474}
+{\bfseries Value:}
+\begin{DoxyCode}
+memcpy(UPK_BUF_PTR, BUF, UPK_DATA->LEN); \
+    UPK_BUF_PTR += UPK_DATA->LEN
+\end{DoxyCode}
+
+
+Referenced by serial\_\-repl\_\-svcinfo(), and upk\_\-serialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-ENUM@{UPK\_\-PUT\_\-ENUM}}
+\index{UPK\_\-PUT\_\-ENUM@{UPK\_\-PUT\_\-ENUM}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-ENUM}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-ENUM(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)~UPK\_\-PUT\_\-UINT32(MEMB)}\label{group__client__protocol_gaea1c85c387bdd484b04bfd7ddc351f7b}
+
+
+Referenced by serial\_\-repl\_\-err(), serial\_\-repl\_\-seq\_\-start(), serial\_\-req\_\-seq\_\-start(), serial\_\-req\_\-signal(), serial\_\-svcinfo\_\-data(), and upk\_\-serialize\_\-packet().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-STRING@{UPK\_\-PUT\_\-STRING}}
+\index{UPK\_\-PUT\_\-STRING@{UPK\_\-PUT\_\-STRING}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-STRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-STRING(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga2b02996dc2060bc5b1e4c1a4b3d091cd}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_STRING_LENGTH = strnlen(UPK_DATA->MEMB, UPK_MAX_STRING_LEN); \
+    memcpy(UPK_BUF_PTR, UPK_DATA->MEMB, strnlen(UPK_DATA->MEMB, 
+      UPK_STRING_LENGTH)); \
+    UPK_BUF_PTR += UPK_STRING_LENGTH
+\end{DoxyCode}
+
+
+Referenced by serial\_\-repl\_\-err(), serial\_\-repl\_\-listing(), serial\_\-repl\_\-result(), serial\_\-repl\_\-svcinfo(), serial\_\-req\_\-action(), serial\_\-req\_\-signal(), serial\_\-req\_\-status(), serial\_\-req\_\-subscribe(), serial\_\-req\_\-unsub(), and upk\_\-serialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-UINT16@{UPK\_\-PUT\_\-UINT16}}
+\index{UPK\_\-PUT\_\-UINT16@{UPK\_\-PUT\_\-UINT16}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-UINT16}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-UINT16(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gaa18f4562c8b2b2ec7083343ebed6cccb}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_UINT16_BUFFER = htons( (uint16_t) UPK_DATA->MEMB ); \
+    memcpy(UPK_BUF_PTR, &UPK_UINT16_BUFFER, sizeof(UPK_UINT16_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT16_BUFFER)
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-UINT32@{UPK\_\-PUT\_\-UINT32}}
+\index{UPK\_\-PUT\_\-UINT32@{UPK\_\-PUT\_\-UINT32}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-UINT32}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-UINT32(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gadeb5637679537c1ebcbb93b9916b181a}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_UINT32_BUFFER = htonl( (uint32_t) UPK_DATA->MEMB ); \
+    memcpy(UPK_BUF_PTR, &UPK_UINT32_BUFFER, sizeof(UPK_UINT32_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT32_BUFFER)
+\end{DoxyCode}
+
+
+Referenced by serial\_\-repl\_\-err(), serial\_\-repl\_\-listing(), serial\_\-repl\_\-result(), serial\_\-repl\_\-seq\_\-start(), serial\_\-repl\_\-svcinfo(), serial\_\-req\_\-action(), serial\_\-req\_\-seq\_\-start(), serial\_\-req\_\-signal(), serial\_\-req\_\-status(), serial\_\-req\_\-subscribe(), serial\_\-req\_\-unsub(), serial\_\-svcinfo\_\-data(), upk\_\-serialize\_\-packet(), upk\_\-serialize\_\-repl\_\-preamble(), and upk\_\-serialize\_\-req\_\-preamble().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUT\_\-UINT8@{UPK\_\-PUT\_\-UINT8}}
+\index{UPK\_\-PUT\_\-UINT8@{UPK\_\-PUT\_\-UINT8}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-PUT\_\-UINT8}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-PUT\_\-UINT8(
+\begin{DoxyParamCaption}
+\item[{}]{MEMB}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga7945932893c86b955cc693e89de831cc}
+{\bfseries Value:}
+\begin{DoxyCode}
+UPK_UINT8_BUFFER = (uint8_t) UPK_DATA->MEMB; \
+    memcpy(UPK_BUF_PTR, &UPK_UINT8_BUFFER, sizeof(UPK_UINT8_BUFFER)); \
+    UPK_BUF_PTR += sizeof(UPK_UINT8_BUFFER)
+\end{DoxyCode}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-STRING\_\-LENGTH@{UPK\_\-STRING\_\-LENGTH}}
+\index{UPK\_\-STRING\_\-LENGTH@{UPK\_\-STRING\_\-LENGTH}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-STRING\_\-LENGTH}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-STRING\_\-LENGTH~\_\-\_\-upk\_\-string\_\-len}\label{group__client__protocol_ga28583106fa016b484942d95c904a209a}
+
+
+Referenced by v0\_\-create\_\-repl\_\-svcinfo().
+
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-UINT16\_\-BUFFER@{UPK\_\-UINT16\_\-BUFFER}}
+\index{UPK\_\-UINT16\_\-BUFFER@{UPK\_\-UINT16\_\-BUFFER}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-UINT16\_\-BUFFER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-UINT16\_\-BUFFER~\_\-\_\-upk\_\-uint16\_\-buf}\label{group__client__protocol_gafa0b01f804c4cae1ab30abf31924a5f2}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-UINT32\_\-BUFFER@{UPK\_\-UINT32\_\-BUFFER}}
+\index{UPK\_\-UINT32\_\-BUFFER@{UPK\_\-UINT32\_\-BUFFER}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-UINT32\_\-BUFFER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-UINT32\_\-BUFFER~\_\-\_\-upk\_\-uint32\_\-buf}\label{group__client__protocol_ga350f04aa944c7b184810a882f79a4ab0}
+\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-UINT8\_\-BUFFER@{UPK\_\-UINT8\_\-BUFFER}}
+\index{UPK\_\-UINT8\_\-BUFFER@{UPK\_\-UINT8\_\-BUFFER}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{UPK\_\-UINT8\_\-BUFFER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-UINT8\_\-BUFFER~\_\-\_\-upk\_\-uint8\_\-buf}\label{group__client__protocol_gaa40bdc0e154dbe9dbc32f319d1971f76}
+\index{Client\_\-protocol@{Client\_\-protocol}!v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}}
+\index{v0\_\-svcinfo\_\-t@{v0\_\-svcinfo\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{v0\_\-svcinfo\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}\#define {\bf v0\_\-svcinfo\_\-t}~{\bf upk\_\-svcinfo\_\-t}}\label{group__client__protocol_ga5eaabf9c7c85d9fb75104c8a7c77dcb1}
+
+
+\subsection{Typedef Documentation}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-msgtype\_\-t@{upk\_\-msgtype\_\-t}}
+\index{upk\_\-msgtype\_\-t@{upk\_\-msgtype\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-msgtype\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef enum {\bf \_\-upk\_\-msgtype}  {\bf upk\_\-msgtype\_\-t}}\label{group__client__protocol_gae8601e305aeb87ddf70b14f2fb357952}
+
+
+message type. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ $\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-payload\_\-t@{upk\_\-payload\_\-t}}
+\index{upk\_\-payload\_\-t@{upk\_\-payload\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-payload}  {\bf upk\_\-payload\_\-t}}\label{group__client__protocol_gaa54f28065ff66bf44e65ecfd2ed89764}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-payload\_\-types\_\-u@{upk\_\-payload\_\-types\_\-u}}
+\index{upk\_\-payload\_\-types\_\-u@{upk\_\-payload\_\-types\_\-u}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-payload\_\-types\_\-u}]{\setlength{\rightskip}{0pt plus 5cm}typedef union {\bf \_\-upk\_\-payload\_\-types}  {\bf upk\_\-payload\_\-types\_\-u}}\label{group__client__protocol_ga0ea150662dae4a0aa5c289821c81db99}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-pkt\_\-buf\_\-t@{upk\_\-pkt\_\-buf\_\-t}}
+\index{upk\_\-pkt\_\-buf\_\-t@{upk\_\-pkt\_\-buf\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-pkt\_\-buf\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef unsigned char {\bf upk\_\-pkt\_\-buf\_\-t}}\label{group__client__protocol_gaa79480f1d86444e4054e06d50c886fe9}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-protocol\_\-handle\_\-t@{upk\_\-protocol\_\-handle\_\-t}}
+\index{upk\_\-protocol\_\-handle\_\-t@{upk\_\-protocol\_\-handle\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-protocol\_\-handle\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-conn\_\-handle\_\-t} {\bf upk\_\-protocol\_\-handle\_\-t}}\label{group__client__protocol_ga9b638e014b70b34a96880dc2b62b268f}
+
+
+\subsection{Enumeration Type Documentation}
+\index{Client\_\-protocol@{Client\_\-protocol}!\_\-upk\_\-msgtype@{\_\-upk\_\-msgtype}}
+\index{\_\-upk\_\-msgtype@{\_\-upk\_\-msgtype}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{\_\-upk\_\-msgtype}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf \_\-upk\_\-msgtype}}\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282}
+
+
+message type. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ $\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}}\item[{\em 
+UPK\_\-REQ\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3}
+}]\index{UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REQ\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f}
+}]\index{UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c}
+}]\index{UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b}
+}]\index{UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}}\item[{\em 
+UPK\_\-REQ\_\-ACTION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809}
+}]\index{UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}}\item[{\em 
+UPK\_\-REQ\_\-SIGNAL\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54}
+}]\index{UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}}\item[{\em 
+UPK\_\-REQ\_\-LIST\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc}
+}]\index{UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}}\item[{\em 
+UPK\_\-REQ\_\-STATUS\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2}
+}]\index{UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-SUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9}
+}]\index{UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-UNSUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975}
+}]\index{UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}}\item[{\em 
+UPK\_\-REQ\_\-DISCONNECT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07}
+}]\index{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444}
+}]\index{UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30}
+}]\index{UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}}\item[{\em 
+UPK\_\-REPL\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163}
+}]\index{UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REPL\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4}
+}]\index{UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d}
+}]\index{UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2}
+}]\index{UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}}\item[{\em 
+UPK\_\-REPL\_\-RESULT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c}
+}]\index{UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}}\item[{\em 
+UPK\_\-REPL\_\-LISTING\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f}
+}]\index{UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}}\item[{\em 
+UPK\_\-REPL\_\-SVCINFO\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37}
+}]\index{UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}}\item[{\em 
+UPK\_\-REPL\_\-ACK\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d}
+}]\index{UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}}\item[{\em 
+UPK\_\-REPL\_\-ERROR\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d}
+}]\index{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524}
+}]\index{UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e}
+}]\index{UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}}\item[{\em 
+UPK\_\-PUB\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b}
+}]\index{UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}}\item[{\em 
+UPK\_\-PUB\_\-PUBLICATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e}
+}]\index{UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}}\item[{\em 
+UPK\_\-PUB\_\-CANCELATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785}
+}]\index{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52}
+}]\index{UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236}
+}]\index{UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}}\item[{\em 
+UPK\_\-REQ\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3}
+}]idenitfy start of range \index{UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REQ\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f}
+}]A preamble message, used to negotiate version, and handshake \index{UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c}
+}]The start of a request sequence \index{UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b}
+}]the end of a request sequence \index{UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}}\item[{\em 
+UPK\_\-REQ\_\-ACTION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809}
+}]An action request (e.g. start, stop, reload, or custom actions) \index{UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}}\item[{\em 
+UPK\_\-REQ\_\-SIGNAL\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54}
+}]a signal request (e.g. send signal N) \index{UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}}\item[{\em 
+UPK\_\-REQ\_\-LIST\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc}
+}]A listing request. for a listing of all service-\/ids known to the controller \index{UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}}\item[{\em 
+UPK\_\-REQ\_\-STATUS\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2}
+}]A status request, to get information on a particular service \index{UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-SUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9}
+}]subscribe to a feed of status updates \index{UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-UNSUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975}
+}]unsubscribe from a feed of status updates \index{UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}}\item[{\em 
+UPK\_\-REQ\_\-DISCONNECT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07}
+}]notify controller of your intent to disconnect \index{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444}
+}]all valid v0 requests are $<$ this \index{UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30}
+}]all requests are $<$ this \index{UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}}\item[{\em 
+UPK\_\-REPL\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163}
+}]identify start of range \index{UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REPL\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4}
+}]the reply to a preamble request, used to send back what the server decided was the best protocol, and complete the handshake \index{UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d}
+}]the start of a sequence of replies \index{UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2}
+}]the end of a sequence of replies \index{UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}}\item[{\em 
+UPK\_\-REPL\_\-RESULT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c}
+}]the result of an action or signal request (or anything else that might benefit from a result msg \index{UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}}\item[{\em 
+UPK\_\-REPL\_\-LISTING\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f}
+}]the name of a service in a sequence listing all services \index{UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}}\item[{\em 
+UPK\_\-REPL\_\-SVCINFO\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37}
+}]all the information known about a service \index{UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}}\item[{\em 
+UPK\_\-REPL\_\-ACK\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d}
+}]an ack, when nothing else really fits, but a reply is still mandated \index{UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}}\item[{\em 
+UPK\_\-REPL\_\-ERROR\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d}
+}]report an error to the client, for instance, if the named service doesn't exist, or an action doesn't exist, etc \index{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524}
+}]All valid v0 replies are $<$ this \index{UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e}
+}]All replies are $<$ this \index{UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}}\item[{\em 
+UPK\_\-PUB\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b}
+}]pub origin \index{UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}}\item[{\em 
+UPK\_\-PUB\_\-PUBLICATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e}
+}]a message sent from the controller to a subscriber, followed by svcinfo packets for all subscribed services \index{UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}}\item[{\em 
+UPK\_\-PUB\_\-CANCELATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785}
+}]notification that a particular service is no longer available to subscribe to, for instance if its been removed \index{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52}
+}]All valid pub v0 publication messages are $<$ this \index{UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236}
+}]All publication messages are $<$ this \index{UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ORIGIN@{UPK\_\-REQ\_\-ORIGIN}}\item[{\em 
+UPK\_\-REQ\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa5879fbdcdb401b30fcf4f767352d9c3}
+}]\index{UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-PREAMBLE@{UPK\_\-REQ\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REQ\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96be342a0774c92adf59773972e0be0f}
+}]\index{UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-START@{UPK\_\-REQ\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a07f49887f23ef6336294e25df0ab8f5c}
+}]\index{UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SEQ\_\-END@{UPK\_\-REQ\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REQ\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a192270581b5ac3a2c49c9552a33a153b}
+}]\index{UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-ACTION@{UPK\_\-REQ\_\-ACTION}}\item[{\em 
+UPK\_\-REQ\_\-ACTION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a9ac48dc153d5fa1d79280c078a1a5809}
+}]\index{UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SIGNAL@{UPK\_\-REQ\_\-SIGNAL}}\item[{\em 
+UPK\_\-REQ\_\-SIGNAL\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a18577c0608f2efad2dc0f8465a655b54}
+}]\index{UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIST@{UPK\_\-REQ\_\-LIST}}\item[{\em 
+UPK\_\-REQ\_\-LIST\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a214198b799b71f6705738276654176bc}
+}]\index{UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-STATUS@{UPK\_\-REQ\_\-STATUS}}\item[{\em 
+UPK\_\-REQ\_\-STATUS\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae002aeb3886facb9128f69cb6d759ac2}
+}]\index{UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-SUBSCRIBE@{UPK\_\-REQ\_\-SUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-SUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282afcbcfdd7d845ec9e37e7e3a22099ffd9}
+}]\index{UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-UNSUBSCRIBE@{UPK\_\-REQ\_\-UNSUBSCRIBE}}\item[{\em 
+UPK\_\-REQ\_\-UNSUBSCRIBE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3a207b0c96d2936ebed88675937c2975}
+}]\index{UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-DISCONNECT@{UPK\_\-REQ\_\-DISCONNECT}}\item[{\em 
+UPK\_\-REQ\_\-DISCONNECT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0b4801fa26542f7fa70286275175ee07}
+}]\index{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a47f2714f45ebd848d8dc1cfa2ecd1444}
+}]\index{UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REQ\_\-LIMIT@{UPK\_\-REQ\_\-LIMIT}}\item[{\em 
+UPK\_\-REQ\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a48b2d4b569c9fc0f9032fa34a6c6dd30}
+}]\index{UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ORIGIN@{UPK\_\-REPL\_\-ORIGIN}}\item[{\em 
+UPK\_\-REPL\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282add29cfc837c5ebedb09f56117e74c163}
+}]\index{UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-PREAMBLE@{UPK\_\-REPL\_\-PREAMBLE}}\item[{\em 
+UPK\_\-REPL\_\-PREAMBLE\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a96215c5d056e77a04493e423dc22c6b4}
+}]\index{UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-START@{UPK\_\-REPL\_\-SEQ\_\-START}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-START\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282af5f2208106bd9e4b85b58abf0c91016d}
+}]\index{UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SEQ\_\-END@{UPK\_\-REPL\_\-SEQ\_\-END}}\item[{\em 
+UPK\_\-REPL\_\-SEQ\_\-END\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a08f5de1191d69da4a59758eeef26bac2}
+}]\index{UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-RESULT@{UPK\_\-REPL\_\-RESULT}}\item[{\em 
+UPK\_\-REPL\_\-RESULT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a553cb105e6ff4b627e2799cfc3f8f74c}
+}]\index{UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LISTING@{UPK\_\-REPL\_\-LISTING}}\item[{\em 
+UPK\_\-REPL\_\-LISTING\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ac158a8306626930b47ef905a7830e07f}
+}]\index{UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-SVCINFO@{UPK\_\-REPL\_\-SVCINFO}}\item[{\em 
+UPK\_\-REPL\_\-SVCINFO\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282ae1add19bc555a5ce4badb159f98e0e37}
+}]\index{UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ACK@{UPK\_\-REPL\_\-ACK}}\item[{\em 
+UPK\_\-REPL\_\-ACK\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282acbf1523c6bf5cc236d060d6d0ba7db2d}
+}]\index{UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-ERROR@{UPK\_\-REPL\_\-ERROR}}\item[{\em 
+UPK\_\-REPL\_\-ERROR\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282aa041df31800d879a09a3ce477e222c6d}
+}]\index{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a2eb1a2fa31ca50bb78d16ce51c2c4524}
+}]\index{UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-REPL\_\-LIMIT@{UPK\_\-REPL\_\-LIMIT}}\item[{\em 
+UPK\_\-REPL\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a02e71af273f9b7092b8cc2f782f3da5e}
+}]\index{UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-ORIGIN@{UPK\_\-PUB\_\-ORIGIN}}\item[{\em 
+UPK\_\-PUB\_\-ORIGIN\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a64e55f7bd2b88ea1d929a5e158b0a64b}
+}]\index{UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-PUBLICATION@{UPK\_\-PUB\_\-PUBLICATION}}\item[{\em 
+UPK\_\-PUB\_\-PUBLICATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a0aca3ba5b1fdb79e07fb737421a3de5e}
+}]\index{UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-CANCELATION@{UPK\_\-PUB\_\-CANCELATION}}\item[{\em 
+UPK\_\-PUB\_\-CANCELATION\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a3bbda7fcc6c4d7fc4a103003f65a8785}
+}]\index{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT@{UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a6c36a01a04deabca901ce631c8975f52}
+}]\index{UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!UPK\_\-PUB\_\-LIMIT@{UPK\_\-PUB\_\-LIMIT}}\item[{\em 
+UPK\_\-PUB\_\-LIMIT\label{group__client__protocol_gab04f5fc5314f6296f0ef4b171d1b4282a8c483e1fbf3bcff3358549d3fbc0e236}
+}]\end{description}
+\end{Desc}
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-pkttype\_\-t@{upk\_\-pkttype\_\-t}}
+\index{upk\_\-pkttype\_\-t@{upk\_\-pkttype\_\-t}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-pkttype\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf upk\_\-pkttype\_\-t}}\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126}
+
+
+packet type. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ enums for packet type description; anything $>$= V0\_\-PROTO\_\-LIMIT is invalid $\ast$ in version 0 of the protocol; future protocol extensions may be added after V0\_\-PROTO\_\-LIMIT in enumeration, and terminated with V1\_\-PROTO\_\-LIMIT, etc. For the sake of simplicity; these will be forced into uint32\_\-t space; regardless of what the arch's enum size may actually be \begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{PKT\_\-REQUEST@{PKT\_\-REQUEST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REQUEST@{PKT\_\-REQUEST}}\item[{\em 
+PKT\_\-REQUEST\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0}
+}]\index{PKT\_\-REPLY@{PKT\_\-REPLY}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REPLY@{PKT\_\-REPLY}}\item[{\em 
+PKT\_\-REPLY\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f}
+}]\index{PKT\_\-PUBMSG@{PKT\_\-PUBMSG}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-PUBMSG@{PKT\_\-PUBMSG}}\item[{\em 
+PKT\_\-PUBMSG\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6}
+}]\index{PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+PKT\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb}
+}]\index{PKT\_\-REQUEST@{PKT\_\-REQUEST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REQUEST@{PKT\_\-REQUEST}}\item[{\em 
+PKT\_\-REQUEST\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0}
+}]\index{PKT\_\-REPLY@{PKT\_\-REPLY}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REPLY@{PKT\_\-REPLY}}\item[{\em 
+PKT\_\-REPLY\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f}
+}]\index{PKT\_\-PUBMSG@{PKT\_\-PUBMSG}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-PUBMSG@{PKT\_\-PUBMSG}}\item[{\em 
+PKT\_\-PUBMSG\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6}
+}]\index{PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+PKT\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb}
+}]\index{PKT\_\-REQUEST@{PKT\_\-REQUEST}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REQUEST@{PKT\_\-REQUEST}}\item[{\em 
+PKT\_\-REQUEST\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a43f9e2f1883bc88517b6e918e544c1e0}
+}]\index{PKT\_\-REPLY@{PKT\_\-REPLY}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-REPLY@{PKT\_\-REPLY}}\item[{\em 
+PKT\_\-REPLY\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a7295c183b01607afd8a447ae0be1d52f}
+}]\index{PKT\_\-PUBMSG@{PKT\_\-PUBMSG}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-PUBMSG@{PKT\_\-PUBMSG}}\item[{\em 
+PKT\_\-PUBMSG\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a1717680ac7530e8b342c2b44981f64c6}
+}]\index{PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}!Client\_\-protocol@{Client\_\-protocol}}\index{Client\_\-protocol@{Client\_\-protocol}!PKT\_\-V0\_\-PROTO\_\-LIMIT@{PKT\_\-V0\_\-PROTO\_\-LIMIT}}\item[{\em 
+PKT\_\-V0\_\-PROTO\_\-LIMIT\label{group__client__protocol_ga434039581eb81ed8ad335ab19ad1d126a347bdf55875f65a7ab62f532c5ea0bbb}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{Function Documentation}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-pkt@{upk\_\-create\_\-pkt}}
+\index{upk\_\-create\_\-pkt@{upk\_\-create\_\-pkt}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-pkt}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-pkt (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{payload, }
+\item[{{\bf uint32\_\-t}}]{payload\_\-len, }
+\item[{{\bf upk\_\-pkttype\_\-t}}]{pkttype, }
+\item[{{\bf uint32\_\-t}}]{proto\_\-ver}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4bf0c5692ae4bcac2293d8baaa5fdc33}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-pub\_\-cancelation@{upk\_\-create\_\-pub\_\-cancelation}}
+\index{upk\_\-create\_\-pub\_\-cancelation@{upk\_\-create\_\-pub\_\-cancelation}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-pub\_\-cancelation}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-pub\_\-cancelation (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga7bfaf178f1b11124211d19bc96be4358}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-pub\_\-publication@{upk\_\-create\_\-pub\_\-publication}}
+\index{upk\_\-create\_\-pub\_\-publication@{upk\_\-create\_\-pub\_\-publication}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-pub\_\-publication}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-pub\_\-publication (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga002986cfdd3e4c4e7a66d1f27316ccf6}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-ack@{upk\_\-create\_\-repl\_\-ack}}
+\index{upk\_\-create\_\-repl\_\-ack@{upk\_\-create\_\-repl\_\-ack}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-ack}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-ack (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gadfff2845832ab613c057539d7912b514}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-error@{upk\_\-create\_\-repl\_\-error}}
+\index{upk\_\-create\_\-repl\_\-error@{upk\_\-create\_\-repl\_\-error}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-error (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-errno\_\-t}}]{uerrno, }
+\item[{char $\ast$}]{errmsg, }
+\item[{{\bf upk\_\-errlevel\_\-t}}]{errlvl}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga5523678045bfbadd33d88bed25a22180}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-listing@{upk\_\-create\_\-repl\_\-listing}}
+\index{upk\_\-create\_\-repl\_\-listing@{upk\_\-create\_\-repl\_\-listing}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-listing}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-listing (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gace883045af180111f98ac411f8f256fb}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-preamble@{upk\_\-create\_\-repl\_\-preamble}}
+\index{upk\_\-create\_\-repl\_\-preamble@{upk\_\-create\_\-repl\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{{\bf uint32\_\-t}}]{best\_\-version}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga8783766294f8c67dd8390b90f26f046e}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-result@{upk\_\-create\_\-repl\_\-result}}
+\index{upk\_\-create\_\-repl\_\-result@{upk\_\-create\_\-repl\_\-result}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-result (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{msg, }
+\item[{bool}]{successful}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gab9819a3a46c2c5c962bbe5a363c8df00}
+
+
+References v0\_\-create\_\-repl\_\-result(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=304pt]{group__client__protocol_gab9819a3a46c2c5c962bbe5a363c8df00_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-seq\_\-end@{upk\_\-create\_\-repl\_\-seq\_\-end}}
+\index{upk\_\-create\_\-repl\_\-seq\_\-end@{upk\_\-create\_\-repl\_\-seq\_\-end}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{bool}]{commit}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga1192852b5ba479b3fc75a98f6518c480}
+
+
+References v0\_\-create\_\-repl\_\-seq\_\-end(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=330pt]{group__client__protocol_ga1192852b5ba479b3fc75a98f6518c480_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-seq\_\-start@{upk\_\-create\_\-repl\_\-seq\_\-start}}
+\index{upk\_\-create\_\-repl\_\-seq\_\-start@{upk\_\-create\_\-repl\_\-seq\_\-start}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{{\bf upk\_\-msgtype\_\-t}}]{seq\_\-type, }
+\item[{{\bf uint32\_\-t}}]{count}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gae9d46060f2534d41022301bb466eed79}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-repl\_\-svcinfo@{upk\_\-create\_\-repl\_\-svcinfo}}
+\index{upk\_\-create\_\-repl\_\-svcinfo@{upk\_\-create\_\-repl\_\-svcinfo}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-repl\_\-svcinfo (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-svcinfo\_\-t} $\ast$}]{svcinfo}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga7f1f94e26874ff1f2fb7188243bbe2a6}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-action@{upk\_\-create\_\-req\_\-action}}
+\index{upk\_\-create\_\-req\_\-action@{upk\_\-create\_\-req\_\-action}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-action (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{char $\ast$}]{action}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4a223dc1789d567857d4027864c96a38}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-disconnect@{upk\_\-create\_\-req\_\-disconnect}}
+\index{upk\_\-create\_\-req\_\-disconnect@{upk\_\-create\_\-req\_\-disconnect}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gae0326e499d4821a8e2c5b0d52a456155}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-list@{upk\_\-create\_\-req\_\-list}}
+\index{upk\_\-create\_\-req\_\-list@{upk\_\-create\_\-req\_\-list}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-list (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga539525025ae3769acfcad9447fb70697}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-preamble@{upk\_\-create\_\-req\_\-preamble}}
+\index{upk\_\-create\_\-req\_\-preamble@{upk\_\-create\_\-req\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{client\_\-name}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gac4d30dd77c618f7dc65c109ed287537d}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-seq\_\-end@{upk\_\-create\_\-req\_\-seq\_\-end}}
+\index{upk\_\-create\_\-req\_\-seq\_\-end@{upk\_\-create\_\-req\_\-seq\_\-end}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{bool}]{commit}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gad49d09abb4fc1e5aef6d088f5455c90c}
+
+
+References v0\_\-create\_\-req\_\-seq\_\-end(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=326pt]{group__client__protocol_gad49d09abb4fc1e5aef6d088f5455c90c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-seq\_\-start@{upk\_\-create\_\-req\_\-seq\_\-start}}
+\index{upk\_\-create\_\-req\_\-seq\_\-start@{upk\_\-create\_\-req\_\-seq\_\-start}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{{\bf upk\_\-msgtype\_\-t}}]{seq\_\-type, }
+\item[{{\bf uint32\_\-t}}]{count}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gae7bcaac788e23b97a8888570ccce6f45}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-signal@{upk\_\-create\_\-req\_\-signal}}
+\index{upk\_\-create\_\-req\_\-signal@{upk\_\-create\_\-req\_\-signal}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-signal (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf upk\_\-signal\_\-t}}]{signal, }
+\item[{bool}]{signal\_\-sid, }
+\item[{bool}]{signal\_\-pgrp}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gab73fb097863d0233bd52ea933e25e481}
+
+
+References v0\_\-create\_\-req\_\-signal(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=302pt]{group__client__protocol_gab73fb097863d0233bd52ea933e25e481_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-status@{upk\_\-create\_\-req\_\-status}}
+\index{upk\_\-create\_\-req\_\-status@{upk\_\-create\_\-req\_\-status}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-status (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{{\bf uint32\_\-t}}]{restart\_\-window\_\-seconds}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gabd73122fae7f5b2a8de06a5400713072}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-subscribe@{upk\_\-create\_\-req\_\-subscribe}}
+\index{upk\_\-create\_\-req\_\-subscribe@{upk\_\-create\_\-req\_\-subscribe}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-subscribe (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{bool}]{all\_\-svcs}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gaa0e2537f813b322269c31230f3fbd813}
+
+
+References v0\_\-create\_\-req\_\-subscribe(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=336pt]{group__client__protocol_gaa0e2537f813b322269c31230f3fbd813_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-create\_\-req\_\-unsubscribe@{upk\_\-create\_\-req\_\-unsubscribe}}
+\index{upk\_\-create\_\-req\_\-unsubscribe@{upk\_\-create\_\-req\_\-unsubscribe}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-create\_\-req\_\-unsubscribe}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-create\_\-req\_\-unsubscribe (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-protocol\_\-handle\_\-t} $\ast$}]{handle, }
+\item[{char $\ast$}]{svc\_\-id, }
+\item[{bool}]{all\_\-svcs}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4d9387ead342167aedab47b8ffaaba6a}
+
+
+References v0\_\-create\_\-req\_\-unsubscribe(), and \_\-upk\_\-conn\_\-handle::version\_\-id.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{group__client__protocol_ga4d9387ead342167aedab47b8ffaaba6a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-deserialize\_\-packet@{upk\_\-deserialize\_\-packet}}
+\index{upk\_\-deserialize\_\-packet@{upk\_\-deserialize\_\-packet}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-deserialize\_\-packet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-packet\_\-t}$\ast$ upk\_\-deserialize\_\-packet (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gad663abc34c20639fbc173d9f7584bd9c}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-deserialize\_\-repl\_\-preamble@{upk\_\-deserialize\_\-repl\_\-preamble}}
+\index{upk\_\-deserialize\_\-repl\_\-preamble@{upk\_\-deserialize\_\-repl\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-deserialize\_\-repl\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ upk\_\-deserialize\_\-repl\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga545eb262d1c2b43e3b70c0535d709300}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-deserialize\_\-req\_\-preamble@{upk\_\-deserialize\_\-req\_\-preamble}}
+\index{upk\_\-deserialize\_\-req\_\-preamble@{upk\_\-deserialize\_\-req\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-deserialize\_\-req\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ upk\_\-deserialize\_\-req\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga4f0b2a5d8e1f979259f698fdd87054e4}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-get\_\-msgsize@{upk\_\-get\_\-msgsize}}
+\index{upk\_\-get\_\-msgsize@{upk\_\-get\_\-msgsize}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-get\_\-msgsize}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} upk\_\-get\_\-msgsize (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-msgtype\_\-t}}]{type}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga5cb9fea02ec780b31324509f4a7d4cc7}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-get\_\-msgtype@{upk\_\-get\_\-msgtype}}
+\index{upk\_\-get\_\-msgtype@{upk\_\-get\_\-msgtype}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-get\_\-msgtype}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} upk\_\-get\_\-msgtype (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga5339221ed534f0fcc851c6f1ea5f64d8}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-pkt\_\-free@{upk\_\-pkt\_\-free}}
+\index{upk\_\-pkt\_\-free@{upk\_\-pkt\_\-free}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-pkt\_\-free}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-pkt\_\-free (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gab7efe972a36f4f23cb9b811892cf142c}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-serialize\_\-packet@{upk\_\-serialize\_\-packet}}
+\index{upk\_\-serialize\_\-packet@{upk\_\-serialize\_\-packet}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-serialize\_\-packet}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t}$\ast$ upk\_\-serialize\_\-packet (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{UPK\_\-DATA\_\-PTR}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gac79bbd2e82607a6e936e01c4c1f816ee}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-serialize\_\-repl\_\-preamble@{upk\_\-serialize\_\-repl\_\-preamble}}
+\index{upk\_\-serialize\_\-repl\_\-preamble@{upk\_\-serialize\_\-repl\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-serialize\_\-repl\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t}$\ast$ upk\_\-serialize\_\-repl\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_ga9d746d3c3531cf9092767e8e85dee5c6}
+\index{Client\_\-protocol@{Client\_\-protocol}!upk\_\-serialize\_\-req\_\-preamble@{upk\_\-serialize\_\-req\_\-preamble}}
+\index{upk\_\-serialize\_\-req\_\-preamble@{upk\_\-serialize\_\-req\_\-preamble}!Client_protocol@{Client\_\-protocol}}
+\subsubsection[{upk\_\-serialize\_\-req\_\-preamble}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t}$\ast$ upk\_\-serialize\_\-req\_\-preamble (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)}\label{group__client__protocol_gafc67a2e4d7e644ef60eafa1ec8278b72}

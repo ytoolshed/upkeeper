@@ -1,0 +1,521 @@
+.TH "sqlite3" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3 \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "int \fBnDb\fP"
+.br
+.ti -1c
+.RI "\fBDb\fP * \fBaDb\fP"
+.br
+.ti -1c
+.RI "int \fBflags\fP"
+.br
+.ti -1c
+.RI "int \fBopenFlags\fP"
+.br
+.ti -1c
+.RI "int \fBerrCode\fP"
+.br
+.ti -1c
+.RI "int \fBerrMask\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBautoCommit\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBtemp_store\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBmallocFailed\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdfltLockMode\fP"
+.br
+.ti -1c
+.RI "signed char \fBnextAutovac\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBsuppressErr\fP"
+.br
+.ti -1c
+.RI "int \fBnextPagesize\fP"
+.br
+.ti -1c
+.RI "int \fBnTable\fP"
+.br
+.ti -1c
+.RI "\fBCollSeq\fP * \fBpDfltColl\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBlastRowid\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBmagic\fP"
+.br
+.ti -1c
+.RI "int \fBnChange\fP"
+.br
+.ti -1c
+.RI "int \fBnTotalChange\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBmutex\fP"
+.br
+.ti -1c
+.RI "int \fBaLimit\fP [SQLITE_N_LIMIT]"
+.br
+.ti -1c
+.RI "\fBsqlite3::sqlite3InitInfo\fP \fBinit\fP"
+.br
+.ti -1c
+.RI "int \fBnExtension\fP"
+.br
+.ti -1c
+.RI "void ** \fBaExtension\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpVdbe\fP"
+.br
+.ti -1c
+.RI "int \fBactiveVdbeCnt\fP"
+.br
+.ti -1c
+.RI "int \fBwriteVdbeCnt\fP"
+.br
+.ti -1c
+.RI "void(* \fBxTrace\fP )(void *, const char *)"
+.br
+.ti -1c
+.RI "void * \fBpTraceArg\fP"
+.br
+.ti -1c
+.RI "void(* \fBxProfile\fP )(void *, const char *, \fBu64\fP)"
+.br
+.ti -1c
+.RI "void * \fBpProfileArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpCommitArg\fP"
+.br
+.ti -1c
+.RI "int(* \fBxCommitCallback\fP )(void *)"
+.br
+.ti -1c
+.RI "void * \fBpRollbackArg\fP"
+.br
+.ti -1c
+.RI "void(* \fBxRollbackCallback\fP )(void *)"
+.br
+.ti -1c
+.RI "void * \fBpUpdateArg\fP"
+.br
+.ti -1c
+.RI "void(* \fBxUpdateCallback\fP )(void *, int, const char *, const char *, \fBsqlite_int64\fP)"
+.br
+.ti -1c
+.RI "int(* \fBxWalCallback\fP )(void *, \fBsqlite3\fP *, const char *, int)"
+.br
+.ti -1c
+.RI "void * \fBpWalArg\fP"
+.br
+.ti -1c
+.RI "void(* \fBxCollNeeded\fP )(void *, \fBsqlite3\fP *, int eTextRep, const char *)"
+.br
+.ti -1c
+.RI "void(* \fBxCollNeeded16\fP )(void *, \fBsqlite3\fP *, int eTextRep, const void *)"
+.br
+.ti -1c
+.RI "void * \fBpCollNeededArg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP * \fBpErr\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg16\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   volatile int \fBisInterrupted\fP"
+.br
+.ti -1c
+.RI "   double \fBnotUsed1\fP"
+.br
+.ti -1c
+.RI "} \fBu1\fP"
+.br
+.ti -1c
+.RI "\fBLookaside\fP \fBlookaside\fP"
+.br
+.ti -1c
+.RI "int(* \fBxAuth\fP )(void *, int, const char *, const char *, const char *, const char *)"
+.br
+.ti -1c
+.RI "void * \fBpAuthArg\fP"
+.br
+.ti -1c
+.RI "int(* \fBxProgress\fP )(void *)"
+.br
+.ti -1c
+.RI "void * \fBpProgressArg\fP"
+.br
+.ti -1c
+.RI "int \fBnProgressOps\fP"
+.br
+.ti -1c
+.RI "\fBHash\fP \fBaModule\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpVTab\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP ** \fBaVTrans\fP"
+.br
+.ti -1c
+.RI "int \fBnVTrans\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP * \fBpDisconnect\fP"
+.br
+.ti -1c
+.RI "\fBFuncDefHash\fP \fBaFunc\fP"
+.br
+.ti -1c
+.RI "\fBHash\fP \fBaCollSeq\fP"
+.br
+.ti -1c
+.RI "\fBBusyHandler\fP \fBbusyHandler\fP"
+.br
+.ti -1c
+.RI "int \fBbusyTimeout\fP"
+.br
+.ti -1c
+.RI "\fBDb\fP \fBaDbStatic\fP [2]"
+.br
+.ti -1c
+.RI "\fBSavepoint\fP * \fBpSavepoint\fP"
+.br
+.ti -1c
+.RI "int \fBnSavepoint\fP"
+.br
+.ti -1c
+.RI "int \fBnStatement\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisTransactionSavepoint\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBnDeferredCons\fP"
+.br
+.ti -1c
+.RI "int * \fBpnBytesFreed\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "\fBDb\fP * \fBaDb\fP"
+.br
+.ti -1c
+.RI "\fBCollSeq\fP * \fBpDfltColl\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP * \fBmutex\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3::sqlite3InitInfo\fP \fBinit\fP"
+.br
+.ti -1c
+.RI "void ** \fBaExtension\fP"
+.br
+.ti -1c
+.RI "\fBVdbe\fP * \fBpVdbe\fP"
+.br
+.ti -1c
+.RI "void * \fBpTraceArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpProfileArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpCommitArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpRollbackArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpUpdateArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpWalArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpCollNeededArg\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_value\fP * \fBpErr\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg\fP"
+.br
+.ti -1c
+.RI "char * \fBzErrMsg16\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   volatile int \fBisInterrupted\fP"
+.br
+.ti -1c
+.RI "   double \fBnotUsed1\fP"
+.br
+.ti -1c
+.RI "} \fBu1\fP"
+.br
+.ti -1c
+.RI "void * \fBpAuthArg\fP"
+.br
+.ti -1c
+.RI "void * \fBpProgressArg\fP"
+.br
+.ti -1c
+.RI "\fBTable\fP * \fBpVTab\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP ** \fBaVTrans\fP"
+.br
+.ti -1c
+.RI "\fBVTable\fP * \fBpDisconnect\fP"
+.br
+.ti -1c
+.RI "\fBSavepoint\fP * \fBpSavepoint\fP"
+.br
+.ti -1c
+.RI "int * \fBpnBytesFreed\fP"
+.br
+.in -1c
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsqlite3InitInfo\fP"
+.br
+.ti -1c
+.RI "struct \fBsqlite3InitInfo\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBHash\fP \fBsqlite3::aCollSeq\fP"
+.PP
+.SS "int \fBsqlite3::activeVdbeCnt\fP"
+.PP
+.SS "\fBDb\fP* \fBsqlite3::aDb\fP"
+.PP
+.SS "\fBDb\fP* \fBsqlite3::aDb\fP"
+.PP
+.SS "\fBDb\fP \fBsqlite3::aDbStatic\fP"
+.PP
+.SS "void** \fBsqlite3::aExtension\fP"
+.PP
+.SS "void** \fBsqlite3::aExtension\fP"
+.PP
+.SS "\fBFuncDefHash\fP \fBsqlite3::aFunc\fP"
+.PP
+.SS "int \fBsqlite3::aLimit\fP"
+.PP
+.SS "\fBHash\fP \fBsqlite3::aModule\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::autoCommit\fP"
+.PP
+.SS "\fBVTable\fP** \fBsqlite3::aVTrans\fP"
+.PP
+.SS "\fBVTable\fP** \fBsqlite3::aVTrans\fP"
+.PP
+.SS "\fBBusyHandler\fP \fBsqlite3::busyHandler\fP"
+.PP
+.SS "int \fBsqlite3::busyTimeout\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::dfltLockMode\fP"
+.PP
+.SS "int \fBsqlite3::errCode\fP"
+.PP
+.SS "int \fBsqlite3::errMask\fP"
+.PP
+.SS "int \fBsqlite3::flags\fP"
+.PP
+.SS "struct \fBsqlite3::sqlite3InitInfo\fP  \fBsqlite3::init\fP"
+.PP
+.SS "struct \fBsqlite3::sqlite3InitInfo\fP  \fBsqlite3::init\fP"
+.PP
+.SS "volatile int \fBsqlite3::isInterrupted\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::isTransactionSavepoint\fP"
+.PP
+.SS "\fBi64\fP \fBsqlite3::lastRowid\fP"
+.PP
+.SS "\fBLookaside\fP \fBsqlite3::lookaside\fP"
+.PP
+.SS "\fBu32\fP \fBsqlite3::magic\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::mallocFailed\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBsqlite3::mutex\fP"
+.PP
+.SS "\fBsqlite3_mutex\fP* \fBsqlite3::mutex\fP"
+.PP
+.SS "int \fBsqlite3::nChange\fP"
+.PP
+.SS "int \fBsqlite3::nDb\fP"
+.PP
+.SS "\fBi64\fP \fBsqlite3::nDeferredCons\fP"
+.PP
+.SS "signed char \fBsqlite3::nextAutovac\fP"
+.PP
+.SS "int \fBsqlite3::nExtension\fP"
+.PP
+.SS "int \fBsqlite3::nextPagesize\fP"
+.PP
+.SS "double \fBsqlite3::notUsed1\fP"
+.PP
+.SS "int \fBsqlite3::nProgressOps\fP"
+.PP
+.SS "int \fBsqlite3::nSavepoint\fP"
+.PP
+.SS "int \fBsqlite3::nStatement\fP"
+.PP
+.SS "int \fBsqlite3::nTable\fP"
+.PP
+.SS "int \fBsqlite3::nTotalChange\fP"
+.PP
+.SS "int \fBsqlite3::nVTrans\fP"
+.PP
+.SS "int \fBsqlite3::openFlags\fP"
+.PP
+.SS "void* \fBsqlite3::pAuthArg\fP"
+.PP
+.SS "void* \fBsqlite3::pAuthArg\fP"
+.PP
+.SS "void* \fBsqlite3::pCollNeededArg\fP"
+.PP
+.SS "void* \fBsqlite3::pCollNeededArg\fP"
+.PP
+.SS "void* \fBsqlite3::pCommitArg\fP"
+.PP
+.SS "void* \fBsqlite3::pCommitArg\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBsqlite3::pDfltColl\fP"
+.PP
+.SS "\fBCollSeq\fP* \fBsqlite3::pDfltColl\fP"
+.PP
+.SS "\fBVTable\fP* \fBsqlite3::pDisconnect\fP"
+.PP
+.SS "\fBVTable\fP* \fBsqlite3::pDisconnect\fP"
+.PP
+.SS "\fBsqlite3_value\fP* \fBsqlite3::pErr\fP"
+.PP
+.SS "\fBsqlite3_value\fP* \fBsqlite3::pErr\fP"
+.PP
+.SS "int* \fBsqlite3::pnBytesFreed\fP"
+.PP
+.SS "int* \fBsqlite3::pnBytesFreed\fP"
+.PP
+.SS "void* \fBsqlite3::pProfileArg\fP"
+.PP
+.SS "void* \fBsqlite3::pProfileArg\fP"
+.PP
+.SS "void* \fBsqlite3::pProgressArg\fP"
+.PP
+.SS "void* \fBsqlite3::pProgressArg\fP"
+.PP
+.SS "void* \fBsqlite3::pRollbackArg\fP"
+.PP
+.SS "void* \fBsqlite3::pRollbackArg\fP"
+.PP
+.SS "\fBSavepoint\fP* \fBsqlite3::pSavepoint\fP"
+.PP
+.SS "\fBSavepoint\fP* \fBsqlite3::pSavepoint\fP"
+.PP
+.SS "void* \fBsqlite3::pTraceArg\fP"
+.PP
+.SS "void* \fBsqlite3::pTraceArg\fP"
+.PP
+.SS "void* \fBsqlite3::pUpdateArg\fP"
+.PP
+.SS "void* \fBsqlite3::pUpdateArg\fP"
+.PP
+.SS "struct \fBVdbe\fP* \fBsqlite3::pVdbe\fP"
+.PP
+.SS "struct \fBVdbe\fP* \fBsqlite3::pVdbe\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBsqlite3::pVfs\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBsqlite3::pVfs\fP"
+.PP
+.SS "\fBTable\fP* \fBsqlite3::pVTab\fP"
+.PP
+.SS "\fBTable\fP* \fBsqlite3::pVTab\fP"
+.PP
+.SS "void* \fBsqlite3::pWalArg\fP"
+.PP
+.SS "void* \fBsqlite3::pWalArg\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::suppressErr\fP"
+.PP
+.SS "\fBu8\fP \fBsqlite3::temp_store\fP"
+.PP
+.SS "union { ... }   \fBsqlite3::u1\fP"
+.PP
+.SS "union { ... }   \fBsqlite3::u1\fP"
+.PP
+.SS "int \fBsqlite3::writeVdbeCnt\fP"
+.PP
+.SS "int(* \fBsqlite3::xAuth\fP"
+.PP
+.SS "void(* \fBsqlite3::xCollNeeded\fP"
+.PP
+.SS "void(* \fBsqlite3::xCollNeeded16\fP"
+.PP
+.SS "int(* \fBsqlite3::xCommitCallback\fP"
+.PP
+.SS "void(* \fBsqlite3::xProfile\fP"
+.PP
+.SS "int(* \fBsqlite3::xProgress\fP"
+.PP
+.SS "void(* \fBsqlite3::xRollbackCallback\fP"
+.PP
+.SS "void(* \fBsqlite3::xTrace\fP"
+.PP
+.SS "void(* \fBsqlite3::xUpdateCallback\fP"
+.PP
+.SS "int(* \fBsqlite3::xWalCallback\fP"
+.PP
+.SS "char* \fBsqlite3::zErrMsg\fP"
+.PP
+.SS "char* \fBsqlite3::zErrMsg\fP"
+.PP
+.SS "char* \fBsqlite3::zErrMsg16\fP"
+.PP
+.SS "char* \fBsqlite3::zErrMsg16\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

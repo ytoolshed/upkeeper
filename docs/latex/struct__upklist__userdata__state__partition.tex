@@ -1,0 +1,64 @@
+\section{\_\-upklist\_\-userdata\_\-state\_\-partition Struct Reference}
+\label{struct__upklist__userdata__state__partition}\index{\_\-upklist\_\-userdata\_\-state\_\-partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}}
+
+
+a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about.  
+
+
+
+
+{\ttfamily \#include $<$upk\_\-network\_\-types.h$>$}
+
+
+
+Collaboration diagram for \_\-upklist\_\-userdata\_\-state\_\-partition:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{struct__upklist__userdata__state__partition__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+void $\ast$ {\bf global\_\-userdata}
+\item 
+{\bf upk\_\-net\_\-state\_\-t} $\ast$ {\bf global\_\-state}
+\item 
+void($\ast$ {\bf userdata\_\-free\_\-func} )(void $\ast$)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+a struct to use as 'userdata' to be passed around, which partitions the 'userdata' segment into global state and then any other userdata you might care about. 
+
+\subsection{Field Documentation}
+\index{\_\-upklist\_\-userdata\_\-state\_\-partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}!global\_\-state@{global\_\-state}}
+\index{global\_\-state@{global\_\-state}!_upklist_userdata_state_partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}}
+\subsubsection[{global\_\-state}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-net\_\-state\_\-t} $\ast$ {\bf \_\-upklist\_\-userdata\_\-state\_\-partition::global\_\-state}}\label{struct__upklist__userdata__state__partition_a6c670d7155218987784644ae9c04d5a0}
+global state data for this handle 
+
+Referenced by upk\_\-net\_\-conn\_\-handles\_\-init(), upk\_\-net\_\-get\_\-global\_\-state(), and upk\_\-partitioned\_\-userdata\_\-free().
+
+\index{\_\-upklist\_\-userdata\_\-state\_\-partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}!global\_\-userdata@{global\_\-userdata}}
+\index{global\_\-userdata@{global\_\-userdata}!_upklist_userdata_state_partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}}
+\subsubsection[{global\_\-userdata}]{\setlength{\rightskip}{0pt plus 5cm}void $\ast$ {\bf \_\-upklist\_\-userdata\_\-state\_\-partition::global\_\-userdata}}\label{struct__upklist__userdata__state__partition_a8d8b13ef1c480630e6c7e4343c51b800}
+generic place to stuff data you might need 
+
+Referenced by upk\_\-net\_\-conn\_\-handles\_\-init(), upk\_\-net\_\-get\_\-global\_\-userdata(), and upk\_\-partitioned\_\-userdata\_\-free().
+
+\index{\_\-upklist\_\-userdata\_\-state\_\-partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}!userdata\_\-free\_\-func@{userdata\_\-free\_\-func}}
+\index{userdata\_\-free\_\-func@{userdata\_\-free\_\-func}!_upklist_userdata_state_partition@{\_\-upklist\_\-userdata\_\-state\_\-partition}}
+\subsubsection[{userdata\_\-free\_\-func}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ {\bf \_\-upklist\_\-userdata\_\-state\_\-partition::userdata\_\-free\_\-func})(void $\ast$)}\label{struct__upklist__userdata__state__partition_aa8508108ec668d8779a2cb9d951a6328}
+function to free your userdata 
+
+Referenced by upk\_\-net\_\-conn\_\-handles\_\-init(), and upk\_\-partitioned\_\-userdata\_\-free().
+
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+libupkeeper/upkeeper/{\bf upk\_\-network\_\-types.h}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

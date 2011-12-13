@@ -1,0 +1,84 @@
+\section{sigaction Struct Reference}
+\label{structsigaction}\index{sigaction@{sigaction}}
+
+
+Collaboration diagram for sigaction:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=114pt]{structsigaction__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_sighandler\_t {\bf sa\_handler}\\
+\>void($\ast$ {\bf sa\_sigaction} )(int, {\bf siginfo\_t} $\ast$, void $\ast$)\\
+\} {\bf \_\_sigaction\_handler}\\
+
+\end{tabbing}\item 
+{\bf \_\-\_\-sigset\_\-t} {\bf sa\_\-mask}
+\item 
+int {\bf sa\_\-flags}
+\item 
+void($\ast$ {\bf sa\_\-restorer} )(void)
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>\_\_sighandler\_t {\bf sa\_handler}\\
+\>void($\ast$ {\bf sa\_sigaction} )(int, {\bf siginfo\_t} $\ast$, void $\ast$)\\
+\} {\bf \_\_sigaction\_handler}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sigaction@{sigaction}!\_\-\_\-sigaction\_\-handler@{\_\-\_\-sigaction\_\-handler}}
+\index{\_\-\_\-sigaction\_\-handler@{\_\-\_\-sigaction\_\-handler}!sigaction@{sigaction}}
+\subsubsection[{\_\-\_\-sigaction\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \} 
+     {\bf sigaction::\_\-\_\-sigaction\_\-handler}}\label{structsigaction_af7546947a65ae0c56c5db530fbc31159}
+\index{sigaction@{sigaction}!\_\-\_\-sigaction\_\-handler@{\_\-\_\-sigaction\_\-handler}}
+\index{\_\-\_\-sigaction\_\-handler@{\_\-\_\-sigaction\_\-handler}!sigaction@{sigaction}}
+\subsubsection[{\_\-\_\-sigaction\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf sigaction::\_\-\_\-sigaction\_\-handler}}\label{structsigaction_a4039498d31a1ed3720510748f2ff2b5e}
+\index{sigaction@{sigaction}!sa\_\-flags@{sa\_\-flags}}
+\index{sa\_\-flags@{sa\_\-flags}!sigaction@{sigaction}}
+\subsubsection[{sa\_\-flags}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf sigaction::sa\_\-flags}}\label{structsigaction_aea0dabe7a03641c8b426521f4406b425}
+
+
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-init(), commit\_\-buddycide(), and ctrl\_\-setup\_\-sighandlers().
+
+\index{sigaction@{sigaction}!sa\_\-handler@{sa\_\-handler}}
+\index{sa\_\-handler@{sa\_\-handler}!sigaction@{sigaction}}
+\subsubsection[{sa\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-sighandler\_\-t {\bf sigaction::sa\_\-handler}}\label{structsigaction_a758a699ea5845e043e3ff61df1b59de8}
+
+
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-init(), commit\_\-buddycide(), and ctrl\_\-setup\_\-sighandlers().
+
+\index{sigaction@{sigaction}!sa\_\-mask@{sa\_\-mask}}
+\index{sa\_\-mask@{sa\_\-mask}!sigaction@{sigaction}}
+\subsubsection[{sa\_\-mask}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-sigset\_\-t} {\bf sigaction::sa\_\-mask}}\label{structsigaction_aeecd65682885b6da3cd8b24ebb9a7e4b}
+
+
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-init(), commit\_\-buddycide(), and ctrl\_\-setup\_\-sighandlers().
+
+\index{sigaction@{sigaction}!sa\_\-restorer@{sa\_\-restorer}}
+\index{sa\_\-restorer@{sa\_\-restorer}!sigaction@{sigaction}}
+\subsubsection[{sa\_\-restorer}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ {\bf sigaction::sa\_\-restorer})(void)}\label{structsigaction_a59e4a1b183425f92f2a102a6ce7691b2}
+\index{sigaction@{sigaction}!sa\_\-sigaction@{sa\_\-sigaction}}
+\index{sa\_\-sigaction@{sa\_\-sigaction}!sigaction@{sigaction}}
+\subsubsection[{sa\_\-sigaction}]{\setlength{\rightskip}{0pt plus 5cm}void($\ast$ {\bf sigaction::sa\_\-sigaction})(int, {\bf siginfo\_\-t} $\ast$, void $\ast$)}\label{structsigaction_a93e1e3dcb806bc2c6c28a936694ef600}
+
+
+Referenced by buddy\_\-init().
+
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

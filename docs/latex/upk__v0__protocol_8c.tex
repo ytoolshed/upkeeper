@@ -1,0 +1,98 @@
+\section{libupkeeper/upkeeper/upk\_\-v0\_\-protocol.c File Reference}
+\label{upk__v0__protocol_8c}\index{libupkeeper/upkeeper/upk\_\-v0\_\-protocol.c@{libupkeeper/upkeeper/upk\_\-v0\_\-protocol.c}}
+
+
+version 0 of the protocol between clients and controlelr  
+
+
+{\ttfamily \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+Include dependency graph for upk\_\-v0\_\-protocol.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__v0__protocol_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf PROTOCOL\_\-VERSION}~0
+\item 
+\#define {\bf UPK\_\-INIT\_\-HELPER}(TYPE, MSGTYPE)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT32}(MEMB)~UPK\_\-HELPER\_\-UINT32\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT16}(MEMB)~UPK\_\-HELPER\_\-UINT16\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-UINT8}(MEMB)~UPK\_\-HELPER\_\-UINT8\_\-EXPLICIT(UPK\_\-DATA-\/$>$MEMB, MEMB);
+\item 
+\#define {\bf UPK\_\-HELPER\_\-ENUM}(MEMB)~UPK\_\-HELPER\_\-UINT32(MEMB)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-BOOL}(MEMB)~UPK\_\-HELPER\_\-UINT8(MEMB)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-BUF}(DEST, SRC, LEN)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-ANSISTRING}(DEST, SRC)
+\item 
+\#define {\bf UPK\_\-HELPER\_\-STRING}(MEMB)
+\item 
+\#define {\bf UPK\_\-END\_\-HELPER}(PKT\_\-TYPE)~return upk\_\-create\_\-pkt(UPK\_\-DATA, UPK\_\-DATA\_\-LEN, PKT\_\-TYPE, PROTOCOL\_\-VERSION)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bf free\_\-data\_\-t} )(void $\ast$)
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf v0\_\-free\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-seq\_\-start} ({\bf upk\_\-msgtype\_\-t} msg\_\-seq\_\-type, {\bf uint32\_\-t} msg\_\-seq\_\-count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-seq\_\-end} (bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-action} (char $\ast$svc\_\-id, char $\ast$action)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-signal} (char $\ast$svc\_\-id, {\bf upk\_\-signal\_\-t} signal, bool signal\_\-sid, bool signal\_\-pgrp)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-list} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-status} (char $\ast$svc\_\-id, {\bf uint32\_\-t} restart\_\-window\_\-seconds)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-subscribe} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-unsubscribe} (char $\ast$svc\_\-id, bool all\_\-svcs)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-req\_\-disconnect} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-seq\_\-start} ({\bf upk\_\-msgtype\_\-t} msg\_\-seq\_\-type, {\bf uint32\_\-t} msg\_\-seq\_\-count)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-seq\_\-end} (bool commit)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-result} (char $\ast$msg, bool successful)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-listing} (char $\ast$svc\_\-id)
+\item 
+static {\bf uint32\_\-t} {\bf get\_\-svcinfo\_\-len} ({\bf v0\_\-svcinfo\_\-t} s)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-svcinfo} (char $\ast$svc\_\-id, {\bf v0\_\-svcinfo\_\-t} $\ast$svcinfo)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-ack} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-repl\_\-error} (char $\ast$svc\_\-id, {\bf upk\_\-errno\_\-t} uerrno, char $\ast$msg, {\bf upk\_\-errlevel\_\-t} errlevel)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-pub\_\-publication} (void)
+\item 
+{\bf upk\_\-packet\_\-t} $\ast$ {\bf v0\_\-create\_\-pub\_\-cancelation} (void)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+version 0 of the protocol between clients and controlelr 

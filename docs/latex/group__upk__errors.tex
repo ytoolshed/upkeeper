@@ -1,0 +1,686 @@
+\section{Upk\_\-errors}
+\label{group__upk__errors}\index{Upk\_\-errors@{Upk\_\-errors}}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-ERR\_\-INIT}
+\item 
+\#define {\bf CLEAR\_\-UPK\_\-ERROR}~{\bf \_\-\_\-upk\_\-errno\_\-type} = 0
+\item 
+\#define {\bf UPK\_\-FUNC\_\-ASSERT}(A, B)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\item 
+\#define {\bf UPK\_\-FUNC\_\-ASSERT\_\-MSG}(A, B,...)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; memset((char $\ast$) {\bf \_\-\_\-upk\_\-err\_\-buf},0,sizeof({\bf \_\-\_\-upk\_\-err\_\-buf})); snprintf((char $\ast$){\bf \_\-\_\-upk\_\-err\_\-buf}, UPK\_\-MAX\_\-STRING\_\-LEN -\/ 1, \_\-\_\-VA\_\-ARGS\_\-\_\-); goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)
+\item 
+\#define {\bf IF\_\-UPK\_\-ERROR}
+\item 
+\#define {\bf \_\-UPK\_\-AS\_\-STRING}(A)~\#A
+\item 
+\#define {\bf UPK\_\-AS\_\-STRING}(A)~\_\-UPK\_\-AS\_\-STRING(A)
+\item 
+\#define {\bf \_\-UPK\_\-DIAG\_\-LOCATION}~\_\-\_\-FILE\_\-\_\- \char`\"{}:\char`\"{} UPK\_\-AS\_\-STRING(\_\-\_\-LINE\_\-\_\-)
+\item 
+\#define {\bf upk\_\-fatal}(...)~\_\-upk\_\-fatal(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-alert}(...)~\_\-upk\_\-alert(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-crit}(...)~\_\-upk\_\-crit(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-error}(...)~\_\-upk\_\-error(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-warn}(...)~\_\-upk\_\-warn(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-notice}(...)~\_\-upk\_\-notice(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-info}(...)~\_\-upk\_\-info(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-verbose}(...)~\_\-upk\_\-verbose(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-debug0}(...)~\_\-upk\_\-debug0(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\item 
+\#define {\bf upk\_\-debug1}(...)~\_\-upk\_\-debug1(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void($\ast$ {\bf err\_\-rpt\_\-callback\_\-t} )({\bf upk\_\-errno\_\-t})
+\item 
+typedef void($\ast$ {\bf err\_\-rpt\_\-msg\_\-callback\_\-t} )({\bf upk\_\-errno\_\-t}, const char $\ast$)
+\item 
+typedef void($\ast$ {\bf diag\_\-output\_\-callback\_\-t} )({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$label, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf upk\_\-diaglvl\_\-t} \{ \par
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}, 
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-FATAL} =  0, 
+{\bf UPK\_\-DIAGLVL\_\-ALERT}, 
+{\bf UPK\_\-DIAGLVL\_\-CRIT}, 
+{\bf UPK\_\-DIAGLVL\_\-ERROR}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-WARN}, 
+{\bf UPK\_\-DIAGLVL\_\-NOTICE}, 
+{\bf UPK\_\-DIAGLVL\_\-VERBOSE}, 
+{\bf UPK\_\-DIAGLVL\_\-INFO}, 
+\par
+{\bf UPK\_\-DIAGLVL\_\-DEBUG0}, 
+{\bf UPK\_\-DIAGLVL\_\-DEBUG1}
+ \}
+\item 
+enum {\bf upk\_\-errlevel\_\-t} \{ {\bf UPK\_\-ERRLVL\_\-ERROR}, 
+{\bf UPK\_\-ERRLVL\_\-ERROR}, 
+{\bf UPK\_\-ERRLVL\_\-ERROR}
+ \}
+\item 
+enum {\bf upk\_\-errno\_\-t} \{ \par
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+\par
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+{\bf UPK\_\-SQL\_\-ERROR}, 
+{\bf UPK\_\-CONF\_\-ERROR}, 
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+\par
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+\par
+{\bf UPK\_\-SQL\_\-ERROR}, 
+{\bf UPK\_\-CONF\_\-ERROR}, 
+{\bf UPK\_\-ERR\_\-UNKNOWN} =  0, 
+{\bf UPK\_\-ERR\_\-UNSUP}, 
+\par
+{\bf UPK\_\-ERR\_\-INVALID\_\-PKT}, 
+{\bf UPK\_\-SOCKET\_\-FAILURE}, 
+{\bf UPK\_\-JSON\_\-PARSE\_\-ERROR}, 
+{\bf UPK\_\-SQL\_\-ERROR}, 
+\par
+{\bf UPK\_\-CONF\_\-ERROR}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ {\bf upk\_\-strerror} ({\bf upk\_\-errno\_\-t} err)
+\item 
+void {\bf upk\_\-report\_\-error} ({\bf upk\_\-errno\_\-t} err)
+\item 
+void {\bf upk\_\-report\_\-error\_\-msg} ({\bf upk\_\-errno\_\-t} err, const char $\ast$msg)
+\item 
+{\bf err\_\-rpt\_\-callback\_\-t} {\bf upk\_\-reg\_\-error\_\-callback} ({\bf err\_\-rpt\_\-callback\_\-t} func)
+\item 
+{\bf err\_\-rpt\_\-msg\_\-callback\_\-t} {\bf upk\_\-reg\_\-err\_\-msg\_\-callback} ({\bf err\_\-rpt\_\-msg\_\-callback\_\-t} func)
+\item 
+{\bf diag\_\-output\_\-callback\_\-t} {\bf upk\_\-reg\_\-diag\_\-callback} ({\bf diag\_\-output\_\-callback\_\-t} func)
+\item 
+int32\_\-t {\bf \_\-upk\_\-fatal} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-alert} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-crit} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-error} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-warn} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-notice} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-info} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-verbose} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug0} (const char $\ast$loc, const char $\ast$fmt,...)
+\item 
+int32\_\-t {\bf \_\-upk\_\-debug1} (const char $\ast$loc, const char $\ast$fmt,...)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static const char {\bf upk\_\-diag\_\-label\_\-idx} [$\,$][16]
+\item 
+static const char {\bf \_\-\_\-upk\_\-errors} [$\,$][128]
+\item 
+char {\bf \_\-\_\-upk\_\-err\_\-buf} [4096]
+\item 
+{\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type}
+\item 
+int32\_\-t {\bf upk\_\-diag\_\-verbosity}
+\item 
+char {\bf label\_\-idx} [$\,$][16]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-UPK\_\-AS\_\-STRING@{\_\-UPK\_\-AS\_\-STRING}}
+\index{\_\-UPK\_\-AS\_\-STRING@{\_\-UPK\_\-AS\_\-STRING}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-UPK\_\-AS\_\-STRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPK\_\-AS\_\-STRING(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\#A}\label{group__upk__errors_ga180b6e204db6cbaad95075f6be4f2bd3}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-UPK\_\-DIAG\_\-LOCATION@{\_\-UPK\_\-DIAG\_\-LOCATION}}
+\index{\_\-UPK\_\-DIAG\_\-LOCATION@{\_\-UPK\_\-DIAG\_\-LOCATION}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-UPK\_\-DIAG\_\-LOCATION}]{\setlength{\rightskip}{0pt plus 5cm}\#define \_\-UPK\_\-DIAG\_\-LOCATION~\_\-\_\-FILE\_\-\_\- \char`\"{}:\char`\"{} UPK\_\-AS\_\-STRING(\_\-\_\-LINE\_\-\_\-)}\label{group__upk__errors_gae63f3530cff7c66fdfe1756e20776b6b}
+\index{Upk\_\-errors@{Upk\_\-errors}!CLEAR\_\-UPK\_\-ERROR@{CLEAR\_\-UPK\_\-ERROR}}
+\index{CLEAR\_\-UPK\_\-ERROR@{CLEAR\_\-UPK\_\-ERROR}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{CLEAR\_\-UPK\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define CLEAR\_\-UPK\_\-ERROR~{\bf \_\-\_\-upk\_\-errno\_\-type} = 0}\label{group__upk__errors_ga564509085d4eef0bebc6f155fc047796}
+\index{Upk\_\-errors@{Upk\_\-errors}!IF\_\-UPK\_\-ERROR@{IF\_\-UPK\_\-ERROR}}
+\index{IF\_\-UPK\_\-ERROR@{IF\_\-UPK\_\-ERROR}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{IF\_\-UPK\_\-ERROR}]{\setlength{\rightskip}{0pt plus 5cm}\#define IF\_\-UPK\_\-ERROR}\label{group__upk__errors_ga4508c0711c4f98ebbef1ab10d8cb4bc5}
+{\bfseries Value:}
+\begin{DoxyCode}
+__upk_err_label: \
+    if(__upk_errno_type) upk_error("%s: %s\n", upk_strerror(__upk_errno_type), (*
+      __upk_err_buf) ? (__upk_err_buf) : ""); \
+    if(__upk_errno_type)
+\end{DoxyCode}
+
+
+Referenced by ctrl\_\-sock\_\-setup(), upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-get\_\-single\_\-text(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-try\_\-insert(), upk\_\-db\_\-try\_\-update(), upk\_\-deserialize\_\-packet(), and upk\_\-json\_\-parse\_\-string().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-alert@{upk\_\-alert}}
+\index{upk\_\-alert@{upk\_\-alert}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-alert}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-alert(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-alert(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga1ef09a90d15a152ba8ad072b93db9048}
+
+
+Referenced by buddy\_\-connect(), buddy\_\-exec\_\-action(), upk\_\-conf\_\-error\_\-handler(), upk\_\-svcconf\_\-bool\_\-handler(), upk\_\-svcconf\_\-int\_\-handler(), and upk\_\-svcconf\_\-string\_\-handler().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-AS\_\-STRING@{UPK\_\-AS\_\-STRING}}
+\index{UPK\_\-AS\_\-STRING@{UPK\_\-AS\_\-STRING}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{UPK\_\-AS\_\-STRING}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-AS\_\-STRING(
+\begin{DoxyParamCaption}
+\item[{}]{A}
+\end{DoxyParamCaption}
+)~\_\-UPK\_\-AS\_\-STRING(A)}\label{group__upk__errors_gac6d905e0fd783709186efa413a000882}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-crit@{upk\_\-crit}}
+\index{upk\_\-crit@{upk\_\-crit}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-crit}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-crit(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-crit(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gafe364c8a356d8829afbc3fb973e7df4a}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-debug0@{upk\_\-debug0}}
+\index{upk\_\-debug0@{upk\_\-debug0}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-debug0}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-debug0(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-debug0(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gadd55bdd9c057c4b73f28e38959693283}
+
+
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-init\_\-socket(), buddy\_\-readstate(), and buddy\_\-start\_\-proc().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-debug1@{upk\_\-debug1}}
+\index{upk\_\-debug1@{upk\_\-debug1}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-debug1}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-debug1(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-debug1(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga13c310d9d7c7ebe0eca8b4a6690af032}
+
+
+Referenced by buddy\_\-accept(), buddy\_\-disconnect(), buddy\_\-event\_\-loop(), buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-readstate(), buddy\_\-record\_\-state(), buddy\_\-zero\_\-info(), commit\_\-buddycide(), ctrl\_\-req\_\-action\_\-handler(), ctrl\_\-req\_\-disconnect\_\-handler(), ctrl\_\-req\_\-preamble\_\-handler(), event\_\-loop(), sa\_\-sigaction\_\-func(), upk\_\-clnet\_\-req\_\-disconnect(), upk\_\-config\_\-loadfile(), upk\_\-db\_\-get\_\-single\_\-text(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-try\_\-insert(), upk\_\-db\_\-upsert\_\-options(), upk\_\-load\_\-runtime\_\-services(), and upk\_\-read\_\-packets().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-INIT@{UPK\_\-ERR\_\-INIT}}
+\index{UPK\_\-ERR\_\-INIT@{UPK\_\-ERR\_\-INIT}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{UPK\_\-ERR\_\-INIT}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-ERR\_\-INIT}\label{group__upk__errors_ga1b43ad263f5d7e61e7ad7befa1b98ea2}
+
+
+Referenced by upk\_\-deserialize\_\-packet(), and upk\_\-json\_\-parse\_\-string().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-error@{upk\_\-error}}
+\index{upk\_\-error@{upk\_\-error}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-error(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-error(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga80aab179a6b3e0e9996c66d669339c85}
+
+
+Referenced by upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-signal(), upk\_\-clnet\_\-req\_\-status(), upk\_\-db\_\-get\_\-single\_\-text(), upk\_\-db\_\-try\_\-insert(), upk\_\-db\_\-try\_\-update(), and upk\_\-read\_\-packets().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-fatal@{upk\_\-fatal}}
+\index{upk\_\-fatal@{upk\_\-fatal}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-fatal}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-fatal(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-fatal(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gab9c146049fed5ed1b55496ee9dd5136b}
+
+
+Referenced by buddy\_\-init\_\-paths(), ctrl\_\-setup\_\-sighandlers(), main(), spawn\_\-buddy(), upk\_\-clnet\_\-req\_\-preamble(), upk\_\-ctrl\_\-attach\_\-db(), upk\_\-ctrl\_\-init\_\-db(), upk\_\-ctrlconf\_\-double\_\-handler(), upk\_\-ctrlconf\_\-int\_\-handler(), upk\_\-ctrlconf\_\-string\_\-handler(), upk\_\-db\_\-path(), and upk\_\-state\_\-init().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-FUNC\_\-ASSERT@{UPK\_\-FUNC\_\-ASSERT}}
+\index{UPK\_\-FUNC\_\-ASSERT@{UPK\_\-FUNC\_\-ASSERT}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{UPK\_\-FUNC\_\-ASSERT}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FUNC\_\-ASSERT(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B}
+\end{DoxyParamCaption}
+)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)}\label{group__upk__errors_gab40957c9fa173393a490b924f97ea17e}
+
+
+Referenced by ctrl\_\-sock\_\-setup(), and upk\_\-deserialize\_\-packet().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-FUNC\_\-ASSERT\_\-MSG@{UPK\_\-FUNC\_\-ASSERT\_\-MSG}}
+\index{UPK\_\-FUNC\_\-ASSERT\_\-MSG@{UPK\_\-FUNC\_\-ASSERT\_\-MSG}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{UPK\_\-FUNC\_\-ASSERT\_\-MSG}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-FUNC\_\-ASSERT\_\-MSG(
+\begin{DoxyParamCaption}
+\item[{}]{A, }
+\item[{}]{B, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~do \{ CLEAR\_\-UPK\_\-ERROR; if(! (A)) \{ $\ast$(({\bf upk\_\-errno\_\-t} $\ast$) \&{\bf \_\-\_\-upk\_\-errno\_\-type}) = B; memset((char $\ast$) {\bf \_\-\_\-upk\_\-err\_\-buf},0,sizeof({\bf \_\-\_\-upk\_\-err\_\-buf})); snprintf((char $\ast$){\bf \_\-\_\-upk\_\-err\_\-buf}, UPK\_\-MAX\_\-STRING\_\-LEN -\/ 1, \_\-\_\-VA\_\-ARGS\_\-\_\-); goto \_\-\_\-upk\_\-err\_\-label; \} \} while(0)}\label{group__upk__errors_ga691ea7a49d632dc0d129e6c80cb1e817}
+
+
+Referenced by ctrl\_\-sock\_\-setup(), upk\_\-db\_\-add\_\-new\_\-service(), upk\_\-db\_\-get\_\-single\_\-text(), upk\_\-db\_\-insert\_\-cfg(), upk\_\-db\_\-try\_\-insert(), upk\_\-db\_\-try\_\-update(), and upk\_\-json\_\-parse\_\-string().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-info@{upk\_\-info}}
+\index{upk\_\-info@{upk\_\-info}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-info(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-info(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gaf5085abefa19153457b124a28a343c67}
+
+
+Referenced by upk\_\-load\_\-runtime\_\-services().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-notice@{upk\_\-notice}}
+\index{upk\_\-notice@{upk\_\-notice}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-notice}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-notice(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-notice(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_ga0a5a9b9dcc79caca6fe5d22c8d81580c}
+
+
+Referenced by buddy\_\-exec\_\-action(), buddy\_\-handle\_\-flags(), buddy\_\-init(), buddy\_\-start\_\-proc(), upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-preamble(), and upk\_\-clnet\_\-req\_\-signal().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-verbose@{upk\_\-verbose}}
+\index{upk\_\-verbose@{upk\_\-verbose}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-verbose}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-verbose(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-verbose(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gac74e3303066212cc1123d460d86c3e0f}
+
+
+Referenced by buddy\_\-handle\_\-command(), buddy\_\-init(), create\_\-buddy\_\-statedir(), phone\_\-home\_\-if\_\-appropriate(), remove\_\-buddy\_\-statedir(), spawn\_\-buddy(), and upk\_\-db\_\-upsert().
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-warn@{upk\_\-warn}}
+\index{upk\_\-warn@{upk\_\-warn}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-warn}]{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-warn(
+\begin{DoxyParamCaption}
+\item[{}]{...}
+\end{DoxyParamCaption}
+)~\_\-upk\_\-warn(\_\-UPK\_\-DIAG\_\-LOCATION, \_\-\_\-VA\_\-ARGS\_\-\_\-)}\label{group__upk__errors_gab79b47b21f3a7a5e54120d7dbc64e187}
+
+
+Referenced by buddy\_\-init(), upk\_\-clnet\_\-req\_\-action(), upk\_\-clnet\_\-req\_\-signal(), upk\_\-clnet\_\-req\_\-status(), upk\_\-config\_\-loadfile(), upk\_\-mkdir\_\-p(), and upk\_\-rm\_\-rf().
+
+
+
+\subsection{Typedef Documentation}
+\index{Upk\_\-errors@{Upk\_\-errors}!diag\_\-output\_\-callback\_\-t@{diag\_\-output\_\-callback\_\-t}}
+\index{diag\_\-output\_\-callback\_\-t@{diag\_\-output\_\-callback\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{diag\_\-output\_\-callback\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf diag\_\-output\_\-callback\_\-t})({\bf upk\_\-diaglvl\_\-t} diaglvl, const char $\ast$label, const char $\ast$loc, const char $\ast$fmt, va\_\-list ap)}\label{group__upk__errors_ga87fb65c6a60c48ba64273c389d1fba1f}
+\index{Upk\_\-errors@{Upk\_\-errors}!err\_\-rpt\_\-callback\_\-t@{err\_\-rpt\_\-callback\_\-t}}
+\index{err\_\-rpt\_\-callback\_\-t@{err\_\-rpt\_\-callback\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{err\_\-rpt\_\-callback\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf err\_\-rpt\_\-callback\_\-t})({\bf upk\_\-errno\_\-t})}\label{group__upk__errors_ga288518a849f000cbab3a64b181b667c0}
+\index{Upk\_\-errors@{Upk\_\-errors}!err\_\-rpt\_\-msg\_\-callback\_\-t@{err\_\-rpt\_\-msg\_\-callback\_\-t}}
+\index{err\_\-rpt\_\-msg\_\-callback\_\-t@{err\_\-rpt\_\-msg\_\-callback\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{err\_\-rpt\_\-msg\_\-callback\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void($\ast$ {\bf err\_\-rpt\_\-msg\_\-callback\_\-t})({\bf upk\_\-errno\_\-t}, const char $\ast$)}\label{group__upk__errors_gaaacf9b7f9daf89c473706185f68ff493}
+
+
+\subsection{Enumeration Type Documentation}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-diaglvl\_\-t@{upk\_\-diaglvl\_\-t}}
+\index{upk\_\-diaglvl\_\-t@{upk\_\-diaglvl\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-diaglvl\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf upk\_\-diaglvl\_\-t}}\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}}\item[{\em 
+UPK\_\-DIAGLVL\_\-FATAL\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95}
+}]\index{UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ALERT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb}
+}]\index{UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-CRIT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1}
+}]\index{UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ERROR\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2}
+}]\index{UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}}\item[{\em 
+UPK\_\-DIAGLVL\_\-WARN\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168}
+}]\index{UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-NOTICE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558}
+}]\index{UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-VERBOSE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888}
+}]\index{UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}}\item[{\em 
+UPK\_\-DIAGLVL\_\-INFO\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8}
+}]\index{UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG0\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39}
+}]\index{UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG1\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530}
+}]\index{UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}}\item[{\em 
+UPK\_\-DIAGLVL\_\-FATAL\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95}
+}]fatal error, operation cannot continue \index{UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ALERT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb}
+}]alert; something really bad happened, but we believe we can continue \index{UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-CRIT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1}
+}]critical; something really bad happened, that probably shouldn't happen; we can continue \index{UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ERROR\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2}
+}]An error occurred. \index{UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}}\item[{\em 
+UPK\_\-DIAGLVL\_\-WARN\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168}
+}]A warning, serious, but not too serious \index{UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-NOTICE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558}
+}]Something you might want to notice; possibly normal operation \index{UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-VERBOSE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888}
+}]verbose, probably normal operation \index{UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}}\item[{\em 
+UPK\_\-DIAGLVL\_\-INFO\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8}
+}]information, definitely normal operation, intended to aid in troubleshooting user-\/configurable things \index{UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG0\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39}
+}]debug0, intended to help find bugs in the program; but may also help in finding configuration or environment problems \index{UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG1\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530}
+}]debug1, useful in finding and demonstrating bugs in the program (you should probably be using gdb by this point) \index{UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-FATAL@{UPK\_\-DIAGLVL\_\-FATAL}}\item[{\em 
+UPK\_\-DIAGLVL\_\-FATAL\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a600f5dbf5250560dfb55d2b960d25b95}
+}]\index{UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ALERT@{UPK\_\-DIAGLVL\_\-ALERT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ALERT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a42b4debd590867bfd13127c7998ca3eb}
+}]\index{UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-CRIT@{UPK\_\-DIAGLVL\_\-CRIT}}\item[{\em 
+UPK\_\-DIAGLVL\_\-CRIT\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2459215f50532f8bd045d8926b09cbe1}
+}]\index{UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-ERROR@{UPK\_\-DIAGLVL\_\-ERROR}}\item[{\em 
+UPK\_\-DIAGLVL\_\-ERROR\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a554508c4755c0b5a7254b5032c8220d2}
+}]\index{UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-WARN@{UPK\_\-DIAGLVL\_\-WARN}}\item[{\em 
+UPK\_\-DIAGLVL\_\-WARN\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a28fff8a74dfb72e3c0fad13c8fcd6168}
+}]\index{UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-NOTICE@{UPK\_\-DIAGLVL\_\-NOTICE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-NOTICE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2d096c4906e4df530e7b2368d0169558}
+}]\index{UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-VERBOSE@{UPK\_\-DIAGLVL\_\-VERBOSE}}\item[{\em 
+UPK\_\-DIAGLVL\_\-VERBOSE\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af4ab159278a3a1599c370e89858ec888}
+}]\index{UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-INFO@{UPK\_\-DIAGLVL\_\-INFO}}\item[{\em 
+UPK\_\-DIAGLVL\_\-INFO\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a2bb69eb89e08c5587c87186e04b0aaa8}
+}]\index{UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG0@{UPK\_\-DIAGLVL\_\-DEBUG0}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG0\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8af6a6be2812d975c859910213b5361e39}
+}]\index{UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-DIAGLVL\_\-DEBUG1@{UPK\_\-DIAGLVL\_\-DEBUG1}}\item[{\em 
+UPK\_\-DIAGLVL\_\-DEBUG1\label{group__upk__errors_ga69a581dfd708ad2e18688e01cbcc0ff8a77aa4e5c1c3416dea8d1e7299aaa1530}
+}]\end{description}
+\end{Desc}
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-errlevel\_\-t@{upk\_\-errlevel\_\-t}}
+\index{upk\_\-errlevel\_\-t@{upk\_\-errlevel\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-errlevel\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf upk\_\-errlevel\_\-t}}\label{group__upk__errors_ga179a7b997b68dd92bc7cd4602b8aa4db}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}}\item[{\em 
+UPK\_\-ERRLVL\_\-ERROR\label{group__upk__errors_ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79}
+}]\index{UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}}\item[{\em 
+UPK\_\-ERRLVL\_\-ERROR\label{group__upk__errors_ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79}
+}]semantically similar to diaglvl; but for error-\/reporting; may become purely protocol \index{UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERRLVL\_\-ERROR@{UPK\_\-ERRLVL\_\-ERROR}}\item[{\em 
+UPK\_\-ERRLVL\_\-ERROR\label{group__upk__errors_ga179a7b997b68dd92bc7cd4602b8aa4dba2e8866ffdd6a886515e3315b840d3f79}
+}]\end{description}
+\end{Desc}
+
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-errno\_\-t@{upk\_\-errno\_\-t}}
+\index{upk\_\-errno\_\-t@{upk\_\-errno\_\-t}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-errno\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf upk\_\-errno\_\-t}}\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020a}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}}\item[{\em 
+UPK\_\-ERR\_\-UNKNOWN\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c}
+}]\index{UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}}\item[{\em 
+UPK\_\-ERR\_\-UNSUP\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619}
+}]\index{UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}}\item[{\em 
+UPK\_\-ERR\_\-INVALID\_\-PKT\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab}
+}]\index{UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}}\item[{\em 
+UPK\_\-SOCKET\_\-FAILURE\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9}
+}]\index{UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}}\item[{\em 
+UPK\_\-JSON\_\-PARSE\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9}
+}]\index{UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}}\item[{\em 
+UPK\_\-SQL\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999}
+}]\index{UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}}\item[{\em 
+UPK\_\-CONF\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1}
+}]\index{UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}}\item[{\em 
+UPK\_\-ERR\_\-UNKNOWN\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c}
+}]unknown error \index{UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}}\item[{\em 
+UPK\_\-ERR\_\-UNSUP\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619}
+}]unsupported \index{UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}}\item[{\em 
+UPK\_\-ERR\_\-INVALID\_\-PKT\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab}
+}]invalid packet, possibly invalid protocol, packet dimensions, or checksum \index{UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}}\item[{\em 
+UPK\_\-SOCKET\_\-FAILURE\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9}
+}]unable to bind/connect/accept/listen on a socket \index{UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}}\item[{\em 
+UPK\_\-JSON\_\-PARSE\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9}
+}]json parse error; additional information should also be provided \index{UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}}\item[{\em 
+UPK\_\-SQL\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999}
+}]SQLite Error \index{UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}}\item[{\em 
+UPK\_\-CONF\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1}
+}]Configuration error \index{UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNKNOWN@{UPK\_\-ERR\_\-UNKNOWN}}\item[{\em 
+UPK\_\-ERR\_\-UNKNOWN\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8615449e0673546bd4efd9b3ef92fb1c}
+}]\index{UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-UNSUP@{UPK\_\-ERR\_\-UNSUP}}\item[{\em 
+UPK\_\-ERR\_\-UNSUP\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8cf76a288b9a273b8b40dfcdbc25c619}
+}]\index{UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-ERR\_\-INVALID\_\-PKT@{UPK\_\-ERR\_\-INVALID\_\-PKT}}\item[{\em 
+UPK\_\-ERR\_\-INVALID\_\-PKT\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa7c6c8e23f4e0f07190ea70b9555868ab}
+}]\index{UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SOCKET\_\-FAILURE@{UPK\_\-SOCKET\_\-FAILURE}}\item[{\em 
+UPK\_\-SOCKET\_\-FAILURE\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa8aa6de73b0042e07d3793da091cab2c9}
+}]\index{UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-JSON\_\-PARSE\_\-ERROR@{UPK\_\-JSON\_\-PARSE\_\-ERROR}}\item[{\em 
+UPK\_\-JSON\_\-PARSE\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0df92a123484dbef1d2f12d381dc52e9}
+}]\index{UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-SQL\_\-ERROR@{UPK\_\-SQL\_\-ERROR}}\item[{\em 
+UPK\_\-SQL\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa596742161cd5ae35955b3e1baab5a999}
+}]\index{UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}!Upk\_\-errors@{Upk\_\-errors}}\index{Upk\_\-errors@{Upk\_\-errors}!UPK\_\-CONF\_\-ERROR@{UPK\_\-CONF\_\-ERROR}}\item[{\em 
+UPK\_\-CONF\_\-ERROR\label{group__upk__errors_ga0abba5d980180c5f12823c366a12020aa0541e0eaeb37bd29c74319cac488dff1}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{Function Documentation}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-alert@{\_\-upk\_\-alert}}
+\index{\_\-upk\_\-alert@{\_\-upk\_\-alert}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-alert}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-alert (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga14fbd0376694a618a0e98bb862da66cf}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-crit@{\_\-upk\_\-crit}}
+\index{\_\-upk\_\-crit@{\_\-upk\_\-crit}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-crit}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-crit (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga830899129eb356f088c66417cbbead5d}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-debug0@{\_\-upk\_\-debug0}}
+\index{\_\-upk\_\-debug0@{\_\-upk\_\-debug0}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-debug0}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-debug0 (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gab05f454cac6e59e119a4ff0cfdc892c3}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-debug1@{\_\-upk\_\-debug1}}
+\index{\_\-upk\_\-debug1@{\_\-upk\_\-debug1}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-debug1}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-debug1 (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga0da64f3c069edb277f7c963b56c8c8fe}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-error@{\_\-upk\_\-error}}
+\index{\_\-upk\_\-error@{\_\-upk\_\-error}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-error (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gae2a2e8001ef8b39d8ee0ff0051a41afc}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-fatal@{\_\-upk\_\-fatal}}
+\index{\_\-upk\_\-fatal@{\_\-upk\_\-fatal}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-fatal}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-fatal (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gaccd0f0f9c125762bdc053b8afe1add61}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-info@{\_\-upk\_\-info}}
+\index{\_\-upk\_\-info@{\_\-upk\_\-info}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-info}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-info (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga5b2c9995df403c620ffbd6d7cfbb35ef}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-notice@{\_\-upk\_\-notice}}
+\index{\_\-upk\_\-notice@{\_\-upk\_\-notice}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-notice}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-notice (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga6679b1df8a52310e0bde67fcba85e423}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-verbose@{\_\-upk\_\-verbose}}
+\index{\_\-upk\_\-verbose@{\_\-upk\_\-verbose}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-verbose}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-verbose (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gaac96aeafac9fa5757997f6e1f17008cd}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-upk\_\-warn@{\_\-upk\_\-warn}}
+\index{\_\-upk\_\-warn@{\_\-upk\_\-warn}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-upk\_\-warn}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t \_\-upk\_\-warn (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{loc, }
+\item[{const char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga0a4edf34d171f279337dfd0b16e58b4c}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-reg\_\-diag\_\-callback@{upk\_\-reg\_\-diag\_\-callback}}
+\index{upk\_\-reg\_\-diag\_\-callback@{upk\_\-reg\_\-diag\_\-callback}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-reg\_\-diag\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf diag\_\-output\_\-callback\_\-t} upk\_\-reg\_\-diag\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf diag\_\-output\_\-callback\_\-t}}]{func}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gac9a242755fb6967d2803f71c24f919fb}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-reg\_\-err\_\-msg\_\-callback@{upk\_\-reg\_\-err\_\-msg\_\-callback}}
+\index{upk\_\-reg\_\-err\_\-msg\_\-callback@{upk\_\-reg\_\-err\_\-msg\_\-callback}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-reg\_\-err\_\-msg\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf err\_\-rpt\_\-msg\_\-callback\_\-t} upk\_\-reg\_\-err\_\-msg\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf err\_\-rpt\_\-msg\_\-callback\_\-t}}]{func}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga74efddd6a209a08d895b71a3a5821d94}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-reg\_\-error\_\-callback@{upk\_\-reg\_\-error\_\-callback}}
+\index{upk\_\-reg\_\-error\_\-callback@{upk\_\-reg\_\-error\_\-callback}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-reg\_\-error\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}{\bf err\_\-rpt\_\-callback\_\-t} upk\_\-reg\_\-error\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf err\_\-rpt\_\-callback\_\-t}}]{func}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gaf60458d478570367a81c90081cbbfab1}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-report\_\-error@{upk\_\-report\_\-error}}
+\index{upk\_\-report\_\-error@{upk\_\-report\_\-error}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-report\_\-error}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-report\_\-error (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-errno\_\-t}}]{err}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga91dbcf14e12a59b6adfe78b40aa7e336}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-report\_\-error\_\-msg@{upk\_\-report\_\-error\_\-msg}}
+\index{upk\_\-report\_\-error\_\-msg@{upk\_\-report\_\-error\_\-msg}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-report\_\-error\_\-msg}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-report\_\-error\_\-msg (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-errno\_\-t}}]{err, }
+\item[{const char $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_ga18dffab91240a91111ba6eb6c685da04}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-strerror@{upk\_\-strerror}}
+\index{upk\_\-strerror@{upk\_\-strerror}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-strerror}]{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ upk\_\-strerror (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-errno\_\-t}}]{err}
+\end{DoxyParamCaption}
+)}\label{group__upk__errors_gad357577e479d0ef889ce0d51ec45c4a3}
+
+
+\subsection{Variable Documentation}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-\_\-upk\_\-err\_\-buf@{\_\-\_\-upk\_\-err\_\-buf}}
+\index{\_\-\_\-upk\_\-err\_\-buf@{\_\-\_\-upk\_\-err\_\-buf}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-\_\-upk\_\-err\_\-buf}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf \_\-\_\-upk\_\-err\_\-buf}[4096]}\label{group__upk__errors_ga18589e292a0da22fe88d249892682072}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-\_\-upk\_\-errno\_\-type@{\_\-\_\-upk\_\-errno\_\-type}}
+\index{\_\-\_\-upk\_\-errno\_\-type@{\_\-\_\-upk\_\-errno\_\-type}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-\_\-upk\_\-errno\_\-type}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-errno\_\-t} {\bf \_\-\_\-upk\_\-errno\_\-type}}\label{group__upk__errors_ga5fdc1cd196465282d0afed92c091ac81}
+\index{Upk\_\-errors@{Upk\_\-errors}!\_\-\_\-upk\_\-errors@{\_\-\_\-upk\_\-errors}}
+\index{\_\-\_\-upk\_\-errors@{\_\-\_\-upk\_\-errors}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{\_\-\_\-upk\_\-errors}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf \_\-\_\-upk\_\-errors}[$\,$][128]\hspace{0.3cm}{\ttfamily  [static]}}\label{group__upk__errors_gacefe2af45cf41d39ec20663163ad444b}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    "unknown",
+    "unsupported",
+    "invalid packet",
+    "socket failure",
+    "JSON parser error",
+    "SQlite Error",
+    "Configuration Error",
+}
+\end{DoxyCode}
+\index{Upk\_\-errors@{Upk\_\-errors}!label\_\-idx@{label\_\-idx}}
+\index{label\_\-idx@{label\_\-idx}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{label\_\-idx}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf label\_\-idx}[$\,$][16]}\label{group__upk__errors_ga9d2bce202c2ba97f9c8c02d46857552a}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-diag\_\-label\_\-idx@{upk\_\-diag\_\-label\_\-idx}}
+\index{upk\_\-diag\_\-label\_\-idx@{upk\_\-diag\_\-label\_\-idx}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-diag\_\-label\_\-idx}]{\setlength{\rightskip}{0pt plus 5cm}const char {\bf upk\_\-diag\_\-label\_\-idx}[$\,$][16]\hspace{0.3cm}{\ttfamily  [static]}}\label{group__upk__errors_gae422812b612ba3ecf5f411f023416c38}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_DIAGLVL_FATAL] = "FATAL",
+    [UPK_DIAGLVL_ALERT] = "ALERT",
+    [UPK_DIAGLVL_CRIT] = "CRITICAL",
+    [UPK_DIAGLVL_ERROR] = "ERROR",
+    [UPK_DIAGLVL_WARN] = "WARNING",
+    [UPK_DIAGLVL_NOTICE] = "NOTICE",
+    [UPK_DIAGLVL_VERBOSE] = "VERBOSE",
+    [UPK_DIAGLVL_INFO] = "INFO",
+    [UPK_DIAGLVL_DEBUG0] = "DEBUG0",
+    [UPK_DIAGLVL_DEBUG1] = "DEBUG1"
+}
+\end{DoxyCode}
+\index{Upk\_\-errors@{Upk\_\-errors}!upk\_\-diag\_\-verbosity@{upk\_\-diag\_\-verbosity}}
+\index{upk\_\-diag\_\-verbosity@{upk\_\-diag\_\-verbosity}!Upk_errors@{Upk\_\-errors}}
+\subsubsection[{upk\_\-diag\_\-verbosity}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t {\bf upk\_\-diag\_\-verbosity}}\label{group__upk__errors_gad9883b6b44bf3fa3e1abac4266ca1b65}

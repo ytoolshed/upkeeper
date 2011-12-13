@@ -1,0 +1,181 @@
+\section{siginfo Struct Reference}
+\label{structsiginfo}\index{siginfo@{siginfo}}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+int {\bf si\_\-signo}
+\item 
+int {\bf si\_\-errno}
+\item 
+int {\bf si\_\-code}
+\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int {\bf \_pad} [((128/sizeof(int))-\/4)]\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\} {\bf \_kill}\\
+\>struct \{\\
+\>\>int {\bf si\_tid}\\
+\>\>int {\bf si\_overrun}\\
+\>\>{\bf sigval\_t} {\bf si\_sigval}\\
+\>\} {\bf \_timer}\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\>{\bf sigval\_t} {\bf si\_sigval}\\
+\>\} {\bf \_rt}\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\>int {\bf si\_status}\\
+\>\>{\bf \_\_clock\_t} {\bf si\_utime}\\
+\>\>{\bf \_\_clock\_t} {\bf si\_stime}\\
+\>\} {\bf \_sigchld}\\
+\>struct \{\\
+\>\>void $\ast$ {\bf si\_addr}\\
+\>\} {\bf \_sigfault}\\
+\>struct \{\\
+\>\>long int {\bf si\_band}\\
+\>\>int {\bf si\_fd}\\
+\>\} {\bf \_sigpoll}\\
+\} {\bf \_sifields}\\
+
+\end{tabbing}\item 
+\begin{tabbing}
+xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=xx\=\kill
+union \{\\
+\>int {\bf \_pad} [((128/sizeof(int))-\/4)]\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\} {\bf \_kill}\\
+\>struct \{\\
+\>\>int {\bf si\_tid}\\
+\>\>int {\bf si\_overrun}\\
+\>\>{\bf sigval\_t} {\bf si\_sigval}\\
+\>\} {\bf \_timer}\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\>{\bf sigval\_t} {\bf si\_sigval}\\
+\>\} {\bf \_rt}\\
+\>struct \{\\
+\>\>{\bf \_\_pid\_t} {\bf si\_pid}\\
+\>\>{\bf \_\_uid\_t} {\bf si\_uid}\\
+\>\>int {\bf si\_status}\\
+\>\>{\bf \_\_clock\_t} {\bf si\_utime}\\
+\>\>{\bf \_\_clock\_t} {\bf si\_stime}\\
+\>\} {\bf \_sigchld}\\
+\>struct \{\\
+\>\>void $\ast$ {\bf si\_addr}\\
+\>\} {\bf \_sigfault}\\
+\>struct \{\\
+\>\>long int {\bf si\_band}\\
+\>\>int {\bf si\_fd}\\
+\>\} {\bf \_sigpoll}\\
+\} {\bf \_sifields}\\
+
+\end{tabbing}\end{DoxyCompactItemize}
+
+
+\subsection{Field Documentation}
+\index{siginfo@{siginfo}!\_\-kill@{\_\-kill}}
+\index{\_\-kill@{\_\-kill}!siginfo@{siginfo}}
+\subsubsection[{\_\-kill}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-kill}}\label{structsiginfo_a907a260989869cc2b15fdc28d8cf7c62}
+\index{siginfo@{siginfo}!\_\-kill@{\_\-kill}}
+\index{\_\-kill@{\_\-kill}!siginfo@{siginfo}}
+\subsubsection[{\_\-kill}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-kill}}\label{structsiginfo_a39425c4cd34a2da1a19c30dd7aacc805}
+\index{siginfo@{siginfo}!\_\-pad@{\_\-pad}}
+\index{\_\-pad@{\_\-pad}!siginfo@{siginfo}}
+\subsubsection[{\_\-pad}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::\_\-pad}[((128/sizeof(int))-\/4)]}\label{structsiginfo_a88001c4cf16f9f27c53fef986cc2eaee}
+\index{siginfo@{siginfo}!\_\-rt@{\_\-rt}}
+\index{\_\-rt@{\_\-rt}!siginfo@{siginfo}}
+\subsubsection[{\_\-rt}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-rt}}\label{structsiginfo_a48320a087aad89dc97d8ec2cf6624c50}
+\index{siginfo@{siginfo}!\_\-rt@{\_\-rt}}
+\index{\_\-rt@{\_\-rt}!siginfo@{siginfo}}
+\subsubsection[{\_\-rt}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-rt}}\label{structsiginfo_acd3bab02e8bc899bde101a9984417e50}
+\index{siginfo@{siginfo}!\_\-sifields@{\_\-sifields}}
+\index{\_\-sifields@{\_\-sifields}!siginfo@{siginfo}}
+\subsubsection[{\_\-sifields}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf siginfo::\_\-sifields}}\label{structsiginfo_a1feb4cc517c965009266429c744ea29a}
+\index{siginfo@{siginfo}!\_\-sifields@{\_\-sifields}}
+\index{\_\-sifields@{\_\-sifields}!siginfo@{siginfo}}
+\subsubsection[{\_\-sifields}]{\setlength{\rightskip}{0pt plus 5cm}union \{ ... \}   {\bf siginfo::\_\-sifields}}\label{structsiginfo_a84fb6d3e32c1540635739866f7fc42e6}
+\index{siginfo@{siginfo}!\_\-sigchld@{\_\-sigchld}}
+\index{\_\-sigchld@{\_\-sigchld}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigchld}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigchld}}\label{structsiginfo_ae9e789075c5bb797adcf7f456305e649}
+\index{siginfo@{siginfo}!\_\-sigchld@{\_\-sigchld}}
+\index{\_\-sigchld@{\_\-sigchld}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigchld}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigchld}}\label{structsiginfo_ae769d06a28f2fa861a48b98b28bcd40b}
+\index{siginfo@{siginfo}!\_\-sigfault@{\_\-sigfault}}
+\index{\_\-sigfault@{\_\-sigfault}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigfault}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigfault}}\label{structsiginfo_ad5e23dffbee9c3e0d39b681c9e3cb430}
+\index{siginfo@{siginfo}!\_\-sigfault@{\_\-sigfault}}
+\index{\_\-sigfault@{\_\-sigfault}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigfault}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigfault}}\label{structsiginfo_a18f356db8c6086dc0b1e20322e601ed9}
+\index{siginfo@{siginfo}!\_\-sigpoll@{\_\-sigpoll}}
+\index{\_\-sigpoll@{\_\-sigpoll}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigpoll}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigpoll}}\label{structsiginfo_aaaf752a5a8e464e7056f7f4f7ade0555}
+\index{siginfo@{siginfo}!\_\-sigpoll@{\_\-sigpoll}}
+\index{\_\-sigpoll@{\_\-sigpoll}!siginfo@{siginfo}}
+\subsubsection[{\_\-sigpoll}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-sigpoll}}\label{structsiginfo_aded5406eeb80f27b5857bcc1c552a9e4}
+\index{siginfo@{siginfo}!\_\-timer@{\_\-timer}}
+\index{\_\-timer@{\_\-timer}!siginfo@{siginfo}}
+\subsubsection[{\_\-timer}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-timer}}\label{structsiginfo_a5a2cab68aa3cf96663f5d9a5a134e1d4}
+\index{siginfo@{siginfo}!\_\-timer@{\_\-timer}}
+\index{\_\-timer@{\_\-timer}!siginfo@{siginfo}}
+\subsubsection[{\_\-timer}]{\setlength{\rightskip}{0pt plus 5cm}struct \{ ... \}   {\bf siginfo::\_\-timer}}\label{structsiginfo_ab7e85eb7702c6e6db6c366999d59f986}
+\index{siginfo@{siginfo}!si\_\-addr@{si\_\-addr}}
+\index{si\_\-addr@{si\_\-addr}!siginfo@{siginfo}}
+\subsubsection[{si\_\-addr}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ {\bf siginfo::si\_\-addr}}\label{structsiginfo_aa9babf5ab1dcfa795cd056bc2f294cab}
+\index{siginfo@{siginfo}!si\_\-band@{si\_\-band}}
+\index{si\_\-band@{si\_\-band}!siginfo@{siginfo}}
+\subsubsection[{si\_\-band}]{\setlength{\rightskip}{0pt plus 5cm}long int {\bf siginfo::si\_\-band}}\label{structsiginfo_ad65aeab629d5c5cee65eec42126a129c}
+\index{siginfo@{siginfo}!si\_\-code@{si\_\-code}}
+\index{si\_\-code@{si\_\-code}!siginfo@{siginfo}}
+\subsubsection[{si\_\-code}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-code}}\label{structsiginfo_ab1b78958b8876452628ee5efe78538a2}
+\index{siginfo@{siginfo}!si\_\-errno@{si\_\-errno}}
+\index{si\_\-errno@{si\_\-errno}!siginfo@{siginfo}}
+\subsubsection[{si\_\-errno}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-errno}}\label{structsiginfo_abf9dec8158a137583e984dca217e773c}
+\index{siginfo@{siginfo}!si\_\-fd@{si\_\-fd}}
+\index{si\_\-fd@{si\_\-fd}!siginfo@{siginfo}}
+\subsubsection[{si\_\-fd}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-fd}}\label{structsiginfo_ab566047c68eef8146fa12c6c89507fba}
+\index{siginfo@{siginfo}!si\_\-overrun@{si\_\-overrun}}
+\index{si\_\-overrun@{si\_\-overrun}!siginfo@{siginfo}}
+\subsubsection[{si\_\-overrun}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-overrun}}\label{structsiginfo_a5ea3ed790ec78135ea10d283757eb2a5}
+\index{siginfo@{siginfo}!si\_\-pid@{si\_\-pid}}
+\index{si\_\-pid@{si\_\-pid}!siginfo@{siginfo}}
+\subsubsection[{si\_\-pid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-pid\_\-t} {\bf siginfo::si\_\-pid}}\label{structsiginfo_af4ef052b7a69fd37b17eda536bd0a161}
+
+
+Referenced by handle\_\-signals().
+
+\index{siginfo@{siginfo}!si\_\-signo@{si\_\-signo}}
+\index{si\_\-signo@{si\_\-signo}!siginfo@{siginfo}}
+\subsubsection[{si\_\-signo}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-signo}}\label{structsiginfo_a84b1160a9490d9d969791d80331316c3}
+\index{siginfo@{siginfo}!si\_\-sigval@{si\_\-sigval}}
+\index{si\_\-sigval@{si\_\-sigval}!siginfo@{siginfo}}
+\subsubsection[{si\_\-sigval}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sigval\_\-t} {\bf siginfo::si\_\-sigval}}\label{structsiginfo_aee2f3fe809bfbbcb2ef60668dfa5ed79}
+\index{siginfo@{siginfo}!si\_\-status@{si\_\-status}}
+\index{si\_\-status@{si\_\-status}!siginfo@{siginfo}}
+\subsubsection[{si\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-status}}\label{structsiginfo_aa33926c9f3227b0daa08089220bc4bec}
+\index{siginfo@{siginfo}!si\_\-stime@{si\_\-stime}}
+\index{si\_\-stime@{si\_\-stime}!siginfo@{siginfo}}
+\subsubsection[{si\_\-stime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-clock\_\-t} {\bf siginfo::si\_\-stime}}\label{structsiginfo_ac1b0ed6510e22192ee8299204e4732bd}
+\index{siginfo@{siginfo}!si\_\-tid@{si\_\-tid}}
+\index{si\_\-tid@{si\_\-tid}!siginfo@{siginfo}}
+\subsubsection[{si\_\-tid}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf siginfo::si\_\-tid}}\label{structsiginfo_acfb2d6ffe22944308a64502549a844c5}
+\index{siginfo@{siginfo}!si\_\-uid@{si\_\-uid}}
+\index{si\_\-uid@{si\_\-uid}!siginfo@{siginfo}}
+\subsubsection[{si\_\-uid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-uid\_\-t} {\bf siginfo::si\_\-uid}}\label{structsiginfo_aa73498edf7082bbee1c28aa21d348eb0}
+\index{siginfo@{siginfo}!si\_\-utime@{si\_\-utime}}
+\index{si\_\-utime@{si\_\-utime}!siginfo@{siginfo}}
+\subsubsection[{si\_\-utime}]{\setlength{\rightskip}{0pt plus 5cm}{\bf \_\-\_\-clock\_\-t} {\bf siginfo::si\_\-utime}}\label{structsiginfo_a864e2b8e0acbdef640abc7d475ed8459}
+
+
+The documentation for this struct was generated from the following files:\begin{DoxyCompactItemize}
+\item 
+controller/{\bf tp.c}\item 
+{\bf tp.c}\end{DoxyCompactItemize}

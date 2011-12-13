@@ -1,0 +1,1027 @@
+\section{libupkeeper/upkeeper/upk\_\-json.c File Reference}
+\label{upk__json_8c}\index{libupkeeper/upkeeper/upk\_\-json.c@{libupkeeper/upkeeper/upk\_\-json.c}}
+{\ttfamily \#include \char`\"{}upk\_\-json.h\char`\"{}}\par
+{\ttfamily \#include $<$stdarg.h$>$}\par
+Include dependency graph for upk\_\-json.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+union {\bf \_\-upk\_\-stream\_\-string}
+\item 
+struct {\bf \_\-upk\_\-json\_\-output\_\-data}
+\item 
+struct {\bf upk\_\-json\_\-obj\_\-iter}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef union {\bf \_\-upk\_\-stream\_\-string} {\bf upk\_\-stream\_\-string\_\-t}
+\item 
+typedef struct {\bf \_\-upk\_\-json\_\-output\_\-data} {\bf upk\_\-json\_\-output\_\-data\_\-t}
+\item 
+typedef struct {\bf upk\_\-json\_\-obj\_\-iter} {\bf upk\_\-json\_\-obj\_\-iter\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bf upk\_\-json\_\-output\_\-type\_\-t} \{ {\bf data\_\-type\_\-stream}, 
+{\bf data\_\-type\_\-string}
+ \}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void {\bf upk\_\-json\_\-print\_\-indent} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, {\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$data)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-null\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-bool\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-double\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-int\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-string\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-array\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-object\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, void $\ast$data, char $\ast$key, {\bf upk\_\-json\_\-val\_\-t} v)
+\item 
+static void {\bf upk\_\-json\_\-value} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$jobj)
+\item 
+static void {\bf upk\_\-json\_\-parse\_\-array} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$jarray)
+\item 
+static void {\bf \_\-upk\_\-json\_\-parse\_\-node} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$obj)
+\item 
+static void {\bf upk\_\-json\_\-append\_\-string} ({\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$data, char $\ast$string)
+\item 
+static void {\bf upk\_\-output\_\-json\_\-string} ({\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$data, char $\ast$fmt,...)
+\item 
+void {\bf upk\_\-json\_\-stack\_\-pop} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta)
+\item 
+void {\bf upk\_\-json\_\-stack\_\-push} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, {\bf upk\_\-json\_\-stack\_\-node\_\-t} $\ast$node)
+\item 
+static char $\ast$ {\bf upk\_\-json\_\-unescape\_\-forwardslash} (char $\ast$str)
+\item 
+static void {\bf upk\_\-json\_\-parse\_\-obj} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$jobj)
+\item 
+void {\bf upk\_\-json\_\-parse\_\-node} ({\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$meta, char $\ast$key, struct json\_\-object $\ast$obj)
+\item 
+struct json\_\-object $\ast$ {\bf upk\_\-json\_\-parse\_\-string} (const char $\ast$string)
+\item 
+static void {\bf upk\_\-json\_\-obj\_\-serializer} (struct json\_\-object $\ast$obj, {\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$data)
+\item 
+char $\ast$ {\bf upk\_\-json\_\-obj\_\-to\_\-string} (struct json\_\-object $\ast$obj, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\item 
+void {\bf upk\_\-json\_\-obj\_\-to\_\-stream} (struct json\_\-object $\ast$obj, {\bf FILE} $\ast$stream, {\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t} opts)
+\end{DoxyCompactItemize}
+
+
+\subsection{Typedef Documentation}
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-obj\_\-iter\_\-t@{upk\_\-json\_\-obj\_\-iter\_\-t}}
+\index{upk\_\-json\_\-obj\_\-iter\_\-t@{upk\_\-json\_\-obj\_\-iter\_\-t}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-obj\_\-iter\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf upk\_\-json\_\-obj\_\-iter}  {\bf upk\_\-json\_\-obj\_\-iter\_\-t}}\label{upk__json_8c_a4bc8258c47794bfdb36f78a20952b6b5}
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-data\_\-t@{upk\_\-json\_\-output\_\-data\_\-t}}
+\index{upk\_\-json\_\-output\_\-data\_\-t@{upk\_\-json\_\-output\_\-data\_\-t}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-data\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-upk\_\-json\_\-output\_\-data}  {\bf upk\_\-json\_\-output\_\-data\_\-t}}\label{upk__json_8c_a05c57d4e8825bad1cdf9d478b7ef9548}
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-stream\_\-string\_\-t@{upk\_\-stream\_\-string\_\-t}}
+\index{upk\_\-stream\_\-string\_\-t@{upk\_\-stream\_\-string\_\-t}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-stream\_\-string\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef union {\bf \_\-upk\_\-stream\_\-string}  {\bf upk\_\-stream\_\-string\_\-t}}\label{upk__json_8c_a0736cf00ddaa3a0ed1ecc9df7399fe83}
+
+
+\subsection{Enumeration Type Documentation}
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-type\_\-t@{upk\_\-json\_\-output\_\-type\_\-t}}
+\index{upk\_\-json\_\-output\_\-type\_\-t@{upk\_\-json\_\-output\_\-type\_\-t}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-type\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}enum {\bf upk\_\-json\_\-output\_\-type\_\-t}}\label{upk__json_8c_a2f2cddd37f48fa0401e336a969836ca0}
+\begin{Desc}
+\item[Enumerator: ]\par
+\begin{description}
+\index{data\_\-type\_\-stream@{data\_\-type\_\-stream}!upk\_\-json.c@{upk\_\-json.c}}\index{upk\_\-json.c@{upk\_\-json.c}!data\_\-type\_\-stream@{data\_\-type\_\-stream}}\item[{\em 
+data\_\-type\_\-stream\label{upk__json_8c_a2f2cddd37f48fa0401e336a969836ca0ac35c777301ad0908311645f4a8d898ca}
+}]\index{data\_\-type\_\-string@{data\_\-type\_\-string}!upk\_\-json.c@{upk\_\-json.c}}\index{upk\_\-json.c@{upk\_\-json.c}!data\_\-type\_\-string@{data\_\-type\_\-string}}\item[{\em 
+data\_\-type\_\-string\label{upk__json_8c_a2f2cddd37f48fa0401e336a969836ca0a672eed2f9ed1c3d6fb48feb0ef51e6b5}
+}]\end{description}
+\end{Desc}
+
+
+
+\subsection{Function Documentation}
+\index{upk\_\-json.c@{upk\_\-json.c}!\_\-upk\_\-json\_\-parse\_\-node@{\_\-upk\_\-json\_\-parse\_\-node}}
+\index{\_\-upk\_\-json\_\-parse\_\-node@{\_\-upk\_\-json\_\-parse\_\-node}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{\_\-upk\_\-json\_\-parse\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}static void \_\-upk\_\-json\_\-parse\_\-node (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{obj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_acb7e3ebc2582a60a1ed89547f9f3fc43}
+
+
+References \_\-upk\_\-json\_\-type::obj, \_\-upk\_\-json\_\-type::type, upk\_\-json\_\-parse\_\-array(), upk\_\-json\_\-parse\_\-obj(), upk\_\-json\_\-stack\_\-pop(), upk\_\-json\_\-value(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-json\_\-parse\_\-array(), upk\_\-json\_\-parse\_\-node(), and upk\_\-json\_\-parse\_\-obj().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_acb7e3ebc2582a60a1ed89547f9f3fc43_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_acb7e3ebc2582a60a1ed89547f9f3fc43_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-append\_\-string@{upk\_\-json\_\-append\_\-string}}
+\index{upk\_\-json\_\-append\_\-string@{upk\_\-json\_\-append\_\-string}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-append\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-append\_\-string (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$}]{data, }
+\item[{char $\ast$}]{string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a6da16344cd521702f884eaa92f5dfdbf}
+
+
+References calloc(), \_\-upk\_\-json\_\-output\_\-data::d, \_\-upk\_\-stream\_\-string::len, \_\-upk\_\-stream\_\-string::p, realloc(), \_\-upk\_\-stream\_\-string::str, strnlen(), and UPK\_\-MAX\_\-STRING\_\-LEN.
+
+
+
+Referenced by upk\_\-output\_\-json\_\-string().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=248pt]{upk__json_8c_a6da16344cd521702f884eaa92f5dfdbf_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a6da16344cd521702f884eaa92f5dfdbf_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-obj\_\-serializer@{upk\_\-json\_\-obj\_\-serializer}}
+\index{upk\_\-json\_\-obj\_\-serializer@{upk\_\-json\_\-obj\_\-serializer}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-obj\_\-serializer}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-obj\_\-serializer (
+\begin{DoxyParamCaption}
+\item[{struct json\_\-object $\ast$}]{obj, }
+\item[{{\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_af1db52886c19222aa7efc1217809d8a3}
+
+
+References calloc(), \_\-upk\_\-json\_\-stack\_\-node::data, upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-bool\_\-handler(), upk\_\-json\_\-output\_\-double\_\-handler(), upk\_\-json\_\-output\_\-int\_\-handler(), upk\_\-json\_\-output\_\-null\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-json\_\-output\_\-string\_\-handler(), upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-stack\_\-meta\_\-t, upk\_\-json\_\-stack\_\-push(), and UPKLIST\_\-FREE.
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-to\_\-stream(), and upk\_\-json\_\-obj\_\-to\_\-string().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_af1db52886c19222aa7efc1217809d8a3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_af1db52886c19222aa7efc1217809d8a3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-obj\_\-to\_\-stream@{upk\_\-json\_\-obj\_\-to\_\-stream}}
+\index{upk\_\-json\_\-obj\_\-to\_\-stream@{upk\_\-json\_\-obj\_\-to\_\-stream}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-obj\_\-to\_\-stream}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-obj\_\-to\_\-stream (
+\begin{DoxyParamCaption}
+\item[{struct json\_\-object $\ast$}]{obj, }
+\item[{{\bf FILE} $\ast$}]{stream, }
+\item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
+\end{DoxyParamCaption}
+)}\label{upk__json_8c_a95a5c8d27288affe2621f3521975483c}
+
+
+References data\_\-type\_\-stream, \_\-upk\_\-json\_\-output\_\-data::type, and upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a95a5c8d27288affe2621f3521975483c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-obj\_\-to\_\-string@{upk\_\-json\_\-obj\_\-to\_\-string}}
+\index{upk\_\-json\_\-obj\_\-to\_\-string@{upk\_\-json\_\-obj\_\-to\_\-string}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-obj\_\-to\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ upk\_\-json\_\-obj\_\-to\_\-string (
+\begin{DoxyParamCaption}
+\item[{struct json\_\-object $\ast$}]{obj, }
+\item[{{\bf upk\_\-json\_\-data\_\-output\_\-opts\_\-t}}]{opts}
+\end{DoxyParamCaption}
+)}\label{upk__json_8c_a40b01bf12283a69e42e025934ef029b0}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::d, data\_\-type\_\-string, \_\-upk\_\-stream\_\-string::p, \_\-upk\_\-stream\_\-string::str, \_\-upk\_\-json\_\-output\_\-data::type, and upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Referenced by upk\_\-json\_\-serialize\_\-svc\_\-config().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a40b01bf12283a69e42e025934ef029b0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=346pt]{upk__json_8c_a40b01bf12283a69e42e025934ef029b0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler@{upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler}}
+\index{upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler@{upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_a25b0308f662aa7dea52534288993207a}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, upk\_\-json\_\-print\_\-indent(), and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a25b0308f662aa7dea52534288993207a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a25b0308f662aa7dea52534288993207a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler@{upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler}}
+\index{upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler@{upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_a4b825528607ee2a03439afce2fcec5b7}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, upk\_\-json\_\-print\_\-indent(), and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a4b825528607ee2a03439afce2fcec5b7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a4b825528607ee2a03439afce2fcec5b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-array\_\-handler@{upk\_\-json\_\-output\_\-array\_\-handler}}
+\index{upk\_\-json\_\-output\_\-array\_\-handler@{upk\_\-json\_\-output\_\-array\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-array\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-array\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_a9fb09a069d997308594e425c1868c826}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, strnlen(), upk\_\-json\_\-print\_\-indent(), upk\_\-json\_\-stack\_\-push(), UPK\_\-MAX\_\-STRING\_\-LEN, and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a9fb09a069d997308594e425c1868c826_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a9fb09a069d997308594e425c1868c826_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-bool\_\-handler@{upk\_\-json\_\-output\_\-bool\_\-handler}}
+\index{upk\_\-json\_\-output\_\-bool\_\-handler@{upk\_\-json\_\-output\_\-bool\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-bool\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-bool\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_ab44ca7d0a6aed103e17d41f6c88b59b7}
+
+
+References \_\-upk\_\-json\_\-type::bl, \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, upk\_\-json\_\-print\_\-indent(), upk\_\-output\_\-json\_\-string(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ab44ca7d0a6aed103e17d41f6c88b59b7_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ab44ca7d0a6aed103e17d41f6c88b59b7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-double\_\-handler@{upk\_\-json\_\-output\_\-double\_\-handler}}
+\index{upk\_\-json\_\-output\_\-double\_\-handler@{upk\_\-json\_\-output\_\-double\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-double\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-double\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_a5f5a138522f9324835f5c0b2c74e04eb}
+
+
+References \_\-upk\_\-json\_\-type::dbl, \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, upk\_\-json\_\-print\_\-indent(), upk\_\-output\_\-json\_\-string(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a5f5a138522f9324835f5c0b2c74e04eb_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a5f5a138522f9324835f5c0b2c74e04eb_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-int\_\-handler@{upk\_\-json\_\-output\_\-int\_\-handler}}
+\index{upk\_\-json\_\-output\_\-int\_\-handler@{upk\_\-json\_\-output\_\-int\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-int\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-int\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_aee71a17fa3faac4078e58c3a4bb3d436}
+
+
+References \_\-upk\_\-json\_\-type::i, \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, upk\_\-json\_\-print\_\-indent(), upk\_\-output\_\-json\_\-string(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_aee71a17fa3faac4078e58c3a4bb3d436_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_aee71a17fa3faac4078e58c3a4bb3d436_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-null\_\-handler@{upk\_\-json\_\-output\_\-null\_\-handler}}
+\index{upk\_\-json\_\-output\_\-null\_\-handler@{upk\_\-json\_\-output\_\-null\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-null\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-null\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_ad78e8d76fff4dcfeb76acfca38820070}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, \_\-upk\_\-json\_\-data\_\-output\_\-options::suppress\_\-null\_\-values, upk\_\-json\_\-print\_\-indent(), and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ad78e8d76fff4dcfeb76acfca38820070_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ad78e8d76fff4dcfeb76acfca38820070_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-object\_\-handler@{upk\_\-json\_\-output\_\-object\_\-handler}}
+\index{upk\_\-json\_\-output\_\-object\_\-handler@{upk\_\-json\_\-output\_\-object\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-object\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-object\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_aa10d5d2f7e3f28e46022ce50b05f85e9}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, strnlen(), upk\_\-json\_\-print\_\-indent(), upk\_\-json\_\-stack\_\-push(), UPK\_\-MAX\_\-STRING\_\-LEN, and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_aa10d5d2f7e3f28e46022ce50b05f85e9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_aa10d5d2f7e3f28e46022ce50b05f85e9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-output\_\-string\_\-handler@{upk\_\-json\_\-output\_\-string\_\-handler}}
+\index{upk\_\-json\_\-output\_\-string\_\-handler@{upk\_\-json\_\-output\_\-string\_\-handler}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-output\_\-string\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-output\_\-string\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{void $\ast$}]{data, }
+\item[{char $\ast$}]{key, }
+\item[{{\bf upk\_\-json\_\-val\_\-t}}]{v}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__json_8c_ad295eeafdaed2e66036326592b93566c}
+
+
+References \_\-upk\_\-json\_\-string::esc\_\-str, \_\-upk\_\-json\_\-output\_\-data::opts, \_\-upk\_\-json\_\-data\_\-output\_\-options::pad, \_\-upk\_\-json\_\-data\_\-output\_\-options::sep, \_\-upk\_\-json\_\-type::str, upk\_\-json\_\-print\_\-indent(), upk\_\-output\_\-json\_\-string(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by upk\_\-json\_\-obj\_\-serializer().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ad295eeafdaed2e66036326592b93566c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ad295eeafdaed2e66036326592b93566c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-parse\_\-array@{upk\_\-json\_\-parse\_\-array}}
+\index{upk\_\-json\_\-parse\_\-array@{upk\_\-json\_\-parse\_\-array}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-parse\_\-array}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-parse\_\-array (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{jarray}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_ab4bc14dcf5e5563eb94c9b1a9ec7e051}
+
+
+References \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Referenced by \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ab4bc14dcf5e5563eb94c9b1a9ec7e051_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ab4bc14dcf5e5563eb94c9b1a9ec7e051_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-parse\_\-node@{upk\_\-json\_\-parse\_\-node}}
+\index{upk\_\-json\_\-parse\_\-node@{upk\_\-json\_\-parse\_\-node}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-parse\_\-node}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-parse\_\-node (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{obj}
+\end{DoxyParamCaption}
+)}\label{upk__json_8c_a3891bac92c944806a5ad5155656fe5ad}
+
+
+References \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Referenced by upk\_\-ctrlconf\_\-pack(), upk\_\-json\_\-obj\_\-serializer(), and upk\_\-svcconf\_\-pack().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a3891bac92c944806a5ad5155656fe5ad_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a3891bac92c944806a5ad5155656fe5ad_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-parse\_\-obj@{upk\_\-json\_\-parse\_\-obj}}
+\index{upk\_\-json\_\-parse\_\-obj@{upk\_\-json\_\-parse\_\-obj}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-parse\_\-obj}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-parse\_\-obj (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{jobj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a8581c8f275844b5e23e13d3a74c36dec}
+
+
+References \_\-upk\_\-json\_\-parse\_\-node(), upk\_\-json\_\-obj\_\-iter::key, and upk\_\-json\_\-obj\_\-iter::val.
+
+
+
+Referenced by \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a8581c8f275844b5e23e13d3a74c36dec_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a8581c8f275844b5e23e13d3a74c36dec_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-parse\_\-string@{upk\_\-json\_\-parse\_\-string}}
+\index{upk\_\-json\_\-parse\_\-string@{upk\_\-json\_\-parse\_\-string}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-parse\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}struct json\_\-object$\ast$ upk\_\-json\_\-parse\_\-string (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{string}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [read]}}\label{upk__json_8c_a2537c9031342aede9398e0c0e3ecf826}
+
+
+References IF\_\-UPK\_\-ERROR, UPK\_\-ERR\_\-INIT, UPK\_\-FUNC\_\-ASSERT\_\-MSG, and UPK\_\-JSON\_\-PARSE\_\-ERROR.
+
+
+
+Referenced by main(), upk\_\-ctrlconf\_\-pack(), and upk\_\-svcconf\_\-pack().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a2537c9031342aede9398e0c0e3ecf826_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-print\_\-indent@{upk\_\-json\_\-print\_\-indent}}
+\index{upk\_\-json\_\-print\_\-indent@{upk\_\-json\_\-print\_\-indent}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-print\_\-indent}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-print\_\-indent (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{{\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$}]{data}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a35c1571829c8b52d6810f25193f6f1f0}
+
+
+References \_\-upk\_\-json\_\-data\_\-output\_\-options::indent, \_\-upk\_\-json\_\-output\_\-data::opts, and upk\_\-output\_\-json\_\-string().
+
+
+
+Referenced by upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-bool\_\-handler(), upk\_\-json\_\-output\_\-double\_\-handler(), upk\_\-json\_\-output\_\-int\_\-handler(), upk\_\-json\_\-output\_\-null\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), and upk\_\-json\_\-output\_\-string\_\-handler().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a35c1571829c8b52d6810f25193f6f1f0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a35c1571829c8b52d6810f25193f6f1f0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-stack\_\-pop@{upk\_\-json\_\-stack\_\-pop}}
+\index{upk\_\-json\_\-stack\_\-pop@{upk\_\-json\_\-stack\_\-pop}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-stack\_\-pop}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-stack\_\-pop (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta}
+\end{DoxyParamCaption}
+)}\label{upk__json_8c_a8ca65d0a84d16aad7204129ac833f306}
+
+
+References UPKLIST\_\-FOREACH, and UPKLIST\_\-UNLINK.
+
+
+
+Referenced by \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a8ca65d0a84d16aad7204129ac833f306_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-stack\_\-push@{upk\_\-json\_\-stack\_\-push}}
+\index{upk\_\-json\_\-stack\_\-push@{upk\_\-json\_\-stack\_\-push}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-stack\_\-push}]{\setlength{\rightskip}{0pt plus 5cm}void upk\_\-json\_\-stack\_\-push (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{{\bf upk\_\-json\_\-stack\_\-node\_\-t} $\ast$}]{node}
+\end{DoxyParamCaption}
+)}\label{upk__json_8c_a0f2e70a432b238a91e18691188ff6d4c}
+
+
+References UPKLIST\_\-PREPEND.
+
+
+
+Referenced by upk\_\-ctrlconf\_\-object\_\-handler(), upk\_\-ctrlconf\_\-pack(), upk\_\-ctrlconf\_\-toplvl\_\-obj(), upk\_\-json\_\-obj\_\-serializer(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-svcconf\_\-array\_\-handler(), upk\_\-svcconf\_\-nested\_\-object\_\-handler(), upk\_\-svcconf\_\-object\_\-handler(), upk\_\-svcconf\_\-pack(), and upk\_\-svcconf\_\-toplvl\_\-obj().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a0f2e70a432b238a91e18691188ff6d4c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-unescape\_\-forwardslash@{upk\_\-json\_\-unescape\_\-forwardslash}}
+\index{upk\_\-json\_\-unescape\_\-forwardslash@{upk\_\-json\_\-unescape\_\-forwardslash}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-unescape\_\-forwardslash}]{\setlength{\rightskip}{0pt plus 5cm}static char$\ast$ upk\_\-json\_\-unescape\_\-forwardslash (
+\begin{DoxyParamCaption}
+\item[{char $\ast$}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_ae536e721cac37830f53096cf3b546e8e}
+
+
+Referenced by upk\_\-json\_\-value().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_ae536e721cac37830f53096cf3b546e8e_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-json\_\-value@{upk\_\-json\_\-value}}
+\index{upk\_\-json\_\-value@{upk\_\-json\_\-value}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-json\_\-value}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-json\_\-value (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-stack\_\-meta\_\-t} $\ast$}]{meta, }
+\item[{char $\ast$}]{key, }
+\item[{struct json\_\-object $\ast$}]{jobj}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a2dd679424ce4646b0456b270dbd0b99d}
+
+
+References \_\-upk\_\-json\_\-type::bl, \_\-upk\_\-json\_\-string::c\_\-str, \_\-upk\_\-json\_\-type::dbl, \_\-upk\_\-json\_\-string::esc\_\-str, \_\-upk\_\-json\_\-type::i, \_\-upk\_\-json\_\-type::obj, \_\-upk\_\-json\_\-type::str, \_\-upk\_\-json\_\-type::type, upk\_\-json\_\-unescape\_\-forwardslash(), and \_\-upk\_\-json\_\-type::val.
+
+
+
+Referenced by \_\-upk\_\-json\_\-parse\_\-node().
+
+
+
+Here is the call graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=328pt]{upk__json_8c_a2dd679424ce4646b0456b270dbd0b99d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a2dd679424ce4646b0456b270dbd0b99d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-json.c@{upk\_\-json.c}!upk\_\-output\_\-json\_\-string@{upk\_\-output\_\-json\_\-string}}
+\index{upk\_\-output\_\-json\_\-string@{upk\_\-output\_\-json\_\-string}!upk_json.c@{upk\_\-json.c}}
+\subsubsection[{upk\_\-output\_\-json\_\-string}]{\setlength{\rightskip}{0pt plus 5cm}static void upk\_\-output\_\-json\_\-string (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-json\_\-output\_\-data\_\-t} $\ast$}]{data, }
+\item[{char $\ast$}]{fmt, }
+\item[{}]{...}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__json_8c_a7778d21faa09208bfba7f29f8723153d}
+
+
+References \_\-upk\_\-json\_\-output\_\-data::d, data\_\-type\_\-stream, data\_\-type\_\-string, \_\-upk\_\-stream\_\-string::file, \_\-upk\_\-json\_\-output\_\-data::type, upk\_\-json\_\-append\_\-string(), and UPK\_\-MAX\_\-STRING\_\-LEN.
+
+
+
+Referenced by upk\_\-json\_\-output\_\-after\_\-json\_\-array\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-after\_\-json\_\-obj\_\-pop\_\-handler(), upk\_\-json\_\-output\_\-array\_\-handler(), upk\_\-json\_\-output\_\-bool\_\-handler(), upk\_\-json\_\-output\_\-double\_\-handler(), upk\_\-json\_\-output\_\-int\_\-handler(), upk\_\-json\_\-output\_\-null\_\-handler(), upk\_\-json\_\-output\_\-object\_\-handler(), upk\_\-json\_\-output\_\-string\_\-handler(), and upk\_\-json\_\-print\_\-indent().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a7778d21faa09208bfba7f29f8723153d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__json_8c_a7778d21faa09208bfba7f29f8723153d_icgraph}
+\end{center}
+\end{figure}
+
+

@@ -1,0 +1,407 @@
+\section{controller/controller.h File Reference}
+\label{controller_8h}\index{controller/controller.h@{controller/controller.h}}
+{\ttfamily \#include $<$upkeeper.h$>$}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$ctrl\_\-protocol.h$>$}\par
+{\ttfamily \#include $<$sqlite3.h$>$}\par
+Include dependency graph for controller.h:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct {\bf \_\-ctrl\_\-sigqueue}
+\end{DoxyCompactItemize}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-CTRL\_\-MAX\_\-CLIENTS}~FD\_\-SETSIZE
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef struct {\bf \_\-ctrl\_\-sigqueue} {\bf ctrl\_\-sigqueue\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf UPKLIST\_\-METANODE} ({\bf ctrl\_\-sigqueue\_\-t}, {\bf ctrl\_\-sigqueue\_\-meta\_\-p})
+\item 
+int {\bf socket\_\-setup} (const char $\ast$sock\_\-path)
+\item 
+void {\bf handle\_\-signals} (void)
+\begin{DoxyCompactList}\small\item\em deal with signals pending action in signal\_\-queue. \end{DoxyCompactList}\item 
+void {\bf handle\_\-buddies} (void)
+\item 
+int32\_\-t {\bf ctrl\_\-sock\_\-setup} (void)
+\begin{DoxyCompactList}\small\item\em setup controller's socket \end{DoxyCompactList}\item 
+void {\bf event\_\-loop} (int32\_\-t listen\_\-sock)
+\begin{DoxyCompactList}\small\item\em the main event loop. \end{DoxyCompactList}\item 
+int {\bf upk\_\-ctrl\_\-init} (void)
+\item 
+void {\bf create\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+void {\bf remove\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+int {\bf buddy\_\-connect} (const char $\ast$sockpath)
+\item 
+{\bf buddy\_\-info\_\-t} $\ast$ {\bf buddy\_\-readstate} (int fd)
+\item 
+bool {\bf kill\_\-buddy} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf start\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf stop\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\item 
+bool {\bf reload\_\-buddy\_\-svc} ({\bf upk\_\-svc\_\-desc\_\-t} $\ast$buddy)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+typedef {\bf ctrl\_\-sigqueue\_\-meta\_\-t}
+\item 
+{\bf sqlite3} $\ast$ {\bf ctrl\_\-dbh}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{controller.h@{controller.h}!UPK\_\-CTRL\_\-MAX\_\-CLIENTS@{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}}
+\index{UPK\_\-CTRL\_\-MAX\_\-CLIENTS@{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}!controller.h@{controller.h}}
+\subsubsection[{UPK\_\-CTRL\_\-MAX\_\-CLIENTS}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-CTRL\_\-MAX\_\-CLIENTS~FD\_\-SETSIZE}\label{controller_8h_a0b5b90624855687b6a19e350ff11bf83}
+
+
+\subsection{Typedef Documentation}
+\index{controller.h@{controller.h}!ctrl\_\-sigqueue\_\-t@{ctrl\_\-sigqueue\_\-t}}
+\index{ctrl\_\-sigqueue\_\-t@{ctrl\_\-sigqueue\_\-t}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-sigqueue\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef struct {\bf \_\-ctrl\_\-sigqueue} {\bf ctrl\_\-sigqueue\_\-t}}\label{controller_8h_a2e5900687be90a901d406b81bc6624c3}
+
+
+\subsection{Function Documentation}
+\index{controller.h@{controller.h}!buddy\_\-connect@{buddy\_\-connect}}
+\index{buddy\_\-connect@{buddy\_\-connect}!controller.h@{controller.h}}
+\subsubsection[{buddy\_\-connect}]{\setlength{\rightskip}{0pt plus 5cm}int buddy\_\-connect (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{sockpath}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a702a0c4cef2ab68a8567086357066d3c}
+
+
+Referenced by handle\_\-buddies(), kill\_\-buddy(), reload\_\-buddy\_\-svc(), start\_\-buddy\_\-svc(), and stop\_\-buddy\_\-svc().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=258pt]{controller_8h_a702a0c4cef2ab68a8567086357066d3c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!buddy\_\-readstate@{buddy\_\-readstate}}
+\index{buddy\_\-readstate@{buddy\_\-readstate}!controller.h@{controller.h}}
+\subsubsection[{buddy\_\-readstate}]{\setlength{\rightskip}{0pt plus 5cm}{\bf buddy\_\-info\_\-t}$\ast$ buddy\_\-readstate (
+\begin{DoxyParamCaption}
+\item[{int}]{fd}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a7bd4c4275367b7d6c5e5950928968c01}
+
+
+Referenced by send\_\-buddy\_\-cmd().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=394pt]{controller_8h_a7bd4c4275367b7d6c5e5950928968c01_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!create\_\-buddy@{create\_\-buddy}}
+\index{create\_\-buddy@{create\_\-buddy}!controller.h@{controller.h}}
+\subsubsection[{create\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}void create\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_ab5645904078d1ac29f24cf8f6f9f95b3}
+
+
+Referenced by main().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{controller_8h_ab5645904078d1ac29f24cf8f6f9f95b3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!ctrl\_\-sock\_\-setup@{ctrl\_\-sock\_\-setup}}
+\index{ctrl\_\-sock\_\-setup@{ctrl\_\-sock\_\-setup}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-sock\_\-setup}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t ctrl\_\-sock\_\-setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_ad055a2a21d52bb93290db5ecee7b62b5}
+
+
+setup controller's socket 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+Referenced by main().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{controller_8h_ad055a2a21d52bb93290db5ecee7b62b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!event\_\-loop@{event\_\-loop}}
+\index{event\_\-loop@{event\_\-loop}!controller.h@{controller.h}}
+\subsubsection[{event\_\-loop}]{\setlength{\rightskip}{0pt plus 5cm}void event\_\-loop (
+\begin{DoxyParamCaption}
+\item[{int32\_\-t}]{listen\_\-sock}
+\end{DoxyParamCaption}
+)}\label{controller_8h_afcb5edca8881b0c26ccbc120775ed38b}
+
+
+the main event loop. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+
+Referenced by main().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{controller_8h_afcb5edca8881b0c26ccbc120775ed38b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!handle\_\-buddies@{handle\_\-buddies}}
+\index{handle\_\-buddies@{handle\_\-buddies}!controller.h@{controller.h}}
+\subsubsection[{handle\_\-buddies}]{\setlength{\rightskip}{0pt plus 5cm}void handle\_\-buddies (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8}
+
+
+Referenced by event\_\-loop().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{controller_8h_a1e00be01f0ecc2a3b84e03bae75e9bd8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!handle\_\-signals@{handle\_\-signals}}
+\index{handle\_\-signals@{handle\_\-signals}!controller.h@{controller.h}}
+\subsubsection[{handle\_\-signals}]{\setlength{\rightskip}{0pt plus 5cm}void handle\_\-signals (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_ad90d54275c3f302332ac0724037f3371}
+
+
+deal with signals pending action in signal\_\-queue. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Block all signals during copy to avoid annoying race conditions. 
+
+Referenced by event\_\-loop().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{controller_8h_ad90d54275c3f302332ac0724037f3371_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!kill\_\-buddy@{kill\_\-buddy}}
+\index{kill\_\-buddy@{kill\_\-buddy}!controller.h@{controller.h}}
+\subsubsection[{kill\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}bool kill\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_ac08a0cf9a291c08c1d7d25bab3fb789a}
+
+
+Referenced by remove\_\-buddy().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=220pt]{controller_8h_ac08a0cf9a291c08c1d7d25bab3fb789a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!reload\_\-buddy\_\-svc@{reload\_\-buddy\_\-svc}}
+\index{reload\_\-buddy\_\-svc@{reload\_\-buddy\_\-svc}!controller.h@{controller.h}}
+\subsubsection[{reload\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool reload\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a732e458dbb31507c5d6e25fe8051c526}
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_8h_a732e458dbb31507c5d6e25fe8051c526_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!remove\_\-buddy@{remove\_\-buddy}}
+\index{remove\_\-buddy@{remove\_\-buddy}!controller.h@{controller.h}}
+\subsubsection[{remove\_\-buddy}]{\setlength{\rightskip}{0pt plus 5cm}void remove\_\-buddy (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a885b8908c44426b410c5849bbf7ab9b1}
+
+
+Referenced by handle\_\-buddies().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=244pt]{controller_8h_a885b8908c44426b410c5849bbf7ab9b1_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!socket\_\-setup@{socket\_\-setup}}
+\index{socket\_\-setup@{socket\_\-setup}!controller.h@{controller.h}}
+\subsubsection[{socket\_\-setup}]{\setlength{\rightskip}{0pt plus 5cm}int socket\_\-setup (
+\begin{DoxyParamCaption}
+\item[{const char $\ast$}]{sock\_\-path}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a6c6381684bcb3c3529d35032cb7b5bdf}
+\index{controller.h@{controller.h}!start\_\-buddy\_\-svc@{start\_\-buddy\_\-svc}}
+\index{start\_\-buddy\_\-svc@{start\_\-buddy\_\-svc}!controller.h@{controller.h}}
+\subsubsection[{start\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool start\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_abac768e7b1b76398ad7e25e651f776ea}
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_8h_abac768e7b1b76398ad7e25e651f776ea_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!stop\_\-buddy\_\-svc@{stop\_\-buddy\_\-svc}}
+\index{stop\_\-buddy\_\-svc@{stop\_\-buddy\_\-svc}!controller.h@{controller.h}}
+\subsubsection[{stop\_\-buddy\_\-svc}]{\setlength{\rightskip}{0pt plus 5cm}bool stop\_\-buddy\_\-svc (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-svc\_\-desc\_\-t} $\ast$}]{buddy}
+\end{DoxyParamCaption}
+)}\label{controller_8h_af36be3e8ca1253b0d412f404dcde2629}
+
+
+Referenced by ctrl\_\-req\_\-action\_\-handler().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{controller_8h_af36be3e8ca1253b0d412f404dcde2629_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{controller.h@{controller.h}!upk\_\-ctrl\_\-init@{upk\_\-ctrl\_\-init}}
+\index{upk\_\-ctrl\_\-init@{upk\_\-ctrl\_\-init}!controller.h@{controller.h}}
+\subsubsection[{upk\_\-ctrl\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-ctrl\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a253734ff940e671ba2bd35fc159a9471}
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ \index{controller.h@{controller.h}!UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}}
+\index{UPKLIST\_\-METANODE@{UPKLIST\_\-METANODE}!controller.h@{controller.h}}
+\subsubsection[{UPKLIST\_\-METANODE}]{\setlength{\rightskip}{0pt plus 5cm}typedef UPKLIST\_\-METANODE (
+\begin{DoxyParamCaption}
+\item[{{\bf ctrl\_\-sigqueue\_\-t}}]{, }
+\item[{{\bf ctrl\_\-sigqueue\_\-meta\_\-p}}]{}
+\end{DoxyParamCaption}
+)}\label{controller_8h_a0b5475aae35992f577c165a6af3f74ac}
+
+
+\subsection{Variable Documentation}
+\index{controller.h@{controller.h}!ctrl\_\-dbh@{ctrl\_\-dbh}}
+\index{ctrl\_\-dbh@{ctrl\_\-dbh}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-dbh}]{\setlength{\rightskip}{0pt plus 5cm}{\bf sqlite3}$\ast$ {\bf ctrl\_\-dbh}}\label{controller_8h_ab907e74d7ad6a0a44e7c050fdad06b33}
+\index{controller.h@{controller.h}!ctrl\_\-sigqueue\_\-meta\_\-t@{ctrl\_\-sigqueue\_\-meta\_\-t}}
+\index{ctrl\_\-sigqueue\_\-meta\_\-t@{ctrl\_\-sigqueue\_\-meta\_\-t}!controller.h@{controller.h}}
+\subsubsection[{ctrl\_\-sigqueue\_\-meta\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf ctrl\_\-sigqueue\_\-meta\_\-t}}\label{controller_8h_a6ef378243e5a3a8c5874ffc519e33922}

@@ -1,0 +1,44 @@
+.TH "_upk_cust_actscr_list" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_cust_actscr_list \- 
+.PP
+linked list of custom action scripts.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "char \fBname\fP [2048]"
+.br
+.ti -1c
+.RI "char * \fBscript\fP"
+.br
+.ti -1c
+.RI "\fBupk_cust_actscr_list_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+linked list of custom action scripts. 
+.SH "Field Documentation"
+.PP 
+.SS "char \fB_upk_cust_actscr_list::name\fP"name of custom action 
+.PP
+Referenced by create_buddy_statedir(), remove_buddy_statedir(), upk_db_upsert_options(), upk_svc_desc_to_json_obj(), and upk_svcconf_customaction_array_appender().
+.SS "\fBupk_cust_actscr_list_t\fP * \fB_upk_cust_actscr_list::next\fP"next, for use in lists 
+.PP
+Referenced by upk_db_upsert_options(), and upk_overlay_svcconf_values().
+.SS "char * \fB_upk_cust_actscr_list::script\fP"script to run for action 
+.PP
+Referenced by create_buddy_statedir(), upk_db_upsert_options(), upk_overlay_svcconf_values(), upk_svc_desc_free(), upk_svc_desc_to_json_obj(), and upk_svcconf_customaction_array_appender().
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,349 @@
+.TH "Pager" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Pager \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBexclusiveMode\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBjournalMode\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBuseJournal\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnoReadlock\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBnoSync\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBfullSync\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBsync_flags\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBtempFile\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBreadOnly\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBmemDb\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBeState\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBeLock\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBchangeCountDone\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBsetMaster\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdoNotSpill\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBdoNotSyncSpill\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBsubjInMemory\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBdbSize\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBdbOrigSize\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBdbFileSize\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBdbHintSize\fP"
+.br
+.ti -1c
+.RI "int \fBerrCode\fP"
+.br
+.ti -1c
+.RI "int \fBnRec\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBcksumInit\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBnSubRec\fP"
+.br
+.ti -1c
+.RI "\fBBitvec\fP * \fBpInJournal\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBfd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBjfd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBsjfd\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBjournalOff\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBjournalHdr\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_backup\fP * \fBpBackup\fP"
+.br
+.ti -1c
+.RI "\fBPagerSavepoint\fP * \fBaSavepoint\fP"
+.br
+.ti -1c
+.RI "int \fBnSavepoint\fP"
+.br
+.ti -1c
+.RI "char \fBdbFileVers\fP [16]"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBnExtra\fP"
+.br
+.ti -1c
+.RI "\fBi16\fP \fBnReserve\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBvfsFlags\fP"
+.br
+.ti -1c
+.RI "\fBu32\fP \fBsectorSize\fP"
+.br
+.ti -1c
+.RI "int \fBpageSize\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBmxPgno\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBjournalSizeLimit\fP"
+.br
+.ti -1c
+.RI "char * \fBzFilename\fP"
+.br
+.ti -1c
+.RI "char * \fBzJournal\fP"
+.br
+.ti -1c
+.RI "int(* \fBxBusyHandler\fP )(void *)"
+.br
+.ti -1c
+.RI "void * \fBpBusyHandlerArg\fP"
+.br
+.ti -1c
+.RI "void(* \fBxReiniter\fP )(\fBDbPage\fP *)"
+.br
+.ti -1c
+.RI "char * \fBpTmpSpace\fP"
+.br
+.ti -1c
+.RI "\fBPCache\fP * \fBpPCache\fP"
+.br
+.ti -1c
+.RI "\fBWal\fP * \fBpWal\fP"
+.br
+.ti -1c
+.RI "char * \fBzWal\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_vfs\fP * \fBpVfs\fP"
+.br
+.ti -1c
+.RI "\fBBitvec\fP * \fBpInJournal\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBfd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBjfd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_file\fP * \fBsjfd\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_backup\fP * \fBpBackup\fP"
+.br
+.ti -1c
+.RI "\fBPagerSavepoint\fP * \fBaSavepoint\fP"
+.br
+.ti -1c
+.RI "char * \fBzFilename\fP"
+.br
+.ti -1c
+.RI "char * \fBzJournal\fP"
+.br
+.ti -1c
+.RI "void * \fBpBusyHandlerArg\fP"
+.br
+.ti -1c
+.RI "char * \fBpTmpSpace\fP"
+.br
+.ti -1c
+.RI "\fBPCache\fP * \fBpPCache\fP"
+.br
+.ti -1c
+.RI "\fBWal\fP * \fBpWal\fP"
+.br
+.ti -1c
+.RI "char * \fBzWal\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBPagerSavepoint\fP* \fBPager::aSavepoint\fP"
+.PP
+.SS "\fBPagerSavepoint\fP* \fBPager::aSavepoint\fP"
+.PP
+.SS "\fBu8\fP \fBPager::changeCountDone\fP"
+.PP
+.SS "\fBu32\fP \fBPager::cksumInit\fP"
+.PP
+.SS "\fBPgno\fP \fBPager::dbFileSize\fP"
+.PP
+.SS "char \fBPager::dbFileVers\fP"
+.PP
+.SS "\fBPgno\fP \fBPager::dbHintSize\fP"
+.PP
+.SS "\fBPgno\fP \fBPager::dbOrigSize\fP"
+.PP
+.SS "\fBPgno\fP \fBPager::dbSize\fP"
+.PP
+.SS "\fBu8\fP \fBPager::doNotSpill\fP"
+.PP
+.SS "\fBu8\fP \fBPager::doNotSyncSpill\fP"
+.PP
+.SS "\fBu8\fP \fBPager::eLock\fP"
+.PP
+.SS "int \fBPager::errCode\fP"
+.PP
+.SS "\fBu8\fP \fBPager::eState\fP"
+.PP
+.SS "\fBu8\fP \fBPager::exclusiveMode\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::fd\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::fd\fP"
+.PP
+.SS "\fBu8\fP \fBPager::fullSync\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::jfd\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::jfd\fP"
+.PP
+.SS "\fBi64\fP \fBPager::journalHdr\fP"
+.PP
+.SS "\fBu8\fP \fBPager::journalMode\fP"
+.PP
+.SS "\fBi64\fP \fBPager::journalOff\fP"
+.PP
+.SS "\fBi64\fP \fBPager::journalSizeLimit\fP"
+.PP
+.SS "\fBu8\fP \fBPager::memDb\fP"
+.PP
+.SS "\fBPgno\fP \fBPager::mxPgno\fP"
+.PP
+.SS "\fBu16\fP \fBPager::nExtra\fP"
+.PP
+.SS "\fBu8\fP \fBPager::noReadlock\fP"
+.PP
+.SS "\fBu8\fP \fBPager::noSync\fP"
+.PP
+.SS "int \fBPager::nRec\fP"
+.PP
+.SS "\fBi16\fP \fBPager::nReserve\fP"
+.PP
+.SS "int \fBPager::nSavepoint\fP"
+.PP
+.SS "\fBu32\fP \fBPager::nSubRec\fP"
+.PP
+.SS "int \fBPager::pageSize\fP"
+.PP
+.SS "\fBsqlite3_backup\fP* \fBPager::pBackup\fP"
+.PP
+.SS "\fBsqlite3_backup\fP* \fBPager::pBackup\fP"
+.PP
+.SS "void* \fBPager::pBusyHandlerArg\fP"
+.PP
+.SS "void* \fBPager::pBusyHandlerArg\fP"
+.PP
+.SS "\fBBitvec\fP* \fBPager::pInJournal\fP"
+.PP
+.SS "\fBBitvec\fP* \fBPager::pInJournal\fP"
+.PP
+.SS "\fBPCache\fP* \fBPager::pPCache\fP"
+.PP
+.SS "\fBPCache\fP* \fBPager::pPCache\fP"
+.PP
+.SS "char* \fBPager::pTmpSpace\fP"
+.PP
+.SS "char* \fBPager::pTmpSpace\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBPager::pVfs\fP"
+.PP
+.SS "\fBsqlite3_vfs\fP* \fBPager::pVfs\fP"
+.PP
+.SS "\fBWal\fP* \fBPager::pWal\fP"
+.PP
+.SS "\fBWal\fP* \fBPager::pWal\fP"
+.PP
+.SS "\fBu8\fP \fBPager::readOnly\fP"
+.PP
+.SS "\fBu32\fP \fBPager::sectorSize\fP"
+.PP
+.SS "\fBu8\fP \fBPager::setMaster\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::sjfd\fP"
+.PP
+.SS "\fBsqlite3_file\fP* \fBPager::sjfd\fP"
+.PP
+.SS "\fBu8\fP \fBPager::subjInMemory\fP"
+.PP
+.SS "\fBu8\fP \fBPager::sync_flags\fP"
+.PP
+.SS "\fBu8\fP \fBPager::tempFile\fP"
+.PP
+.SS "\fBu8\fP \fBPager::useJournal\fP"
+.PP
+.SS "\fBu32\fP \fBPager::vfsFlags\fP"
+.PP
+.SS "int(* \fBPager::xBusyHandler\fP"
+.PP
+.SS "void(* \fBPager::xReiniter\fP"
+.PP
+.SS "char* \fBPager::zFilename\fP"
+.PP
+.SS "char* \fBPager::zFilename\fP"
+.PP
+.SS "char* \fBPager::zJournal\fP"
+.PP
+.SS "char* \fBPager::zJournal\fP"
+.PP
+.SS "char* \fBPager::zWal\fP"
+.PP
+.SS "char* \fBPager::zWal\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

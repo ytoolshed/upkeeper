@@ -1,0 +1,93 @@
+\section{api/upk\_\-api.c File Reference}
+\label{upk__api_8c}\index{api/upk_api.c@{api/upk\_\-api.c}}
+{\tt \#include $<$libgen.h$>$}\par
+{\tt \#include $<$stdio.h$>$}\par
+{\tt \#include $<$stdlib.h$>$}\par
+{\tt \#include $<$sqlite3.h$>$}\par
+{\tt \#include $<$fcntl.h$>$}\par
+{\tt \#include $<$time.h$>$}\par
+{\tt \#include $<$unistd.h$>$}\par
+{\tt \#include $<$string.h$>$}\par
+{\tt \#include $<$errno.h$>$}\par
+{\tt \#include $<$sys/types.h$>$}\par
+{\tt \#include $<$signal.h$>$}\par
+{\tt \#include $<$assert.h$>$}\par
+{\tt \#include $<$sys/stat.h$>$}\par
+{\tt \#include $<$sys/socket.h$>$}\par
+{\tt \#include $<$sys/un.h$>$}\par
+{\tt \#include \char`\"{}store/upk\_\-db.h\char`\"{}}\par
+{\tt \#include \char`\"{}api/upk\_\-api.h\char`\"{}}\par
+\subsection*{Defines}
+\begin{CompactItemize}
+\item 
+\#define \bf{upk\_\-handle\_\-valid}(x)~assert( x $\rightarrow$ magic[3] == UPK\_\-MAGIC[3] )
+\item 
+\#define \bf{upk\_\-api\_\-handle\_\-to\_\-srvc}(pupk\_\-api\_\-p, package\_\-p, service\_\-p, srvc\_\-p)
+\end{CompactItemize}
+\subsection*{Functions}
+\begin{CompactItemize}
+\item 
+int \bf{upk\_\-api\_\-init} (struct \bf{upk\_\-api} $\ast$pupk\_\-api)
+\item 
+int \bf{upk\_\-api\_\-service\_\-desired\_\-status\_\-set} (struct \bf{upk\_\-api} $\ast$pupk\_\-api, char $\ast$package, char $\ast$service, upk\_\-status\_\-t upk\_\-status)
+\item 
+const char $\ast$ \bf{upk\_\-api\_\-service\_\-desired\_\-status\_\-get} (struct \bf{upk\_\-api} $\ast$pupk\_\-api, char $\ast$package, char $\ast$service)
+\item 
+const char $\ast$ \bf{upk\_\-api\_\-service\_\-actual\_\-status\_\-get} (struct \bf{upk\_\-api} $\ast$pupk\_\-api, char $\ast$package, char $\ast$service)
+\item 
+int \bf{upk\_\-api\_\-service\_\-set} (struct \bf{upk\_\-api} $\ast$pupk\_\-api, char $\ast$package, char $\ast$service, char $\ast$cmdline)
+\item 
+int \bf{upk\_\-api\_\-service\_\-visitor} (struct \bf{upk\_\-api} $\ast$pupk\_\-api, void($\ast$callback)(), void $\ast$context)
+\end{CompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk_api.c@{upk\_\-api.c}!upk_api_handle_to_srvc@{upk\_\-api\_\-handle\_\-to\_\-srvc}}
+\index{upk_api_handle_to_srvc@{upk\_\-api\_\-handle\_\-to\_\-srvc}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-api\_\-handle\_\-to\_\-srvc(pupk\_\-api\_\-p, package\_\-p, service\_\-p, srvc\_\-p)}\label{upk__api_8c_33894e8dc142f4829e6f210dcb8e991f}
+
+
+\textbf{Value:}
+
+\begin{Code}\begin{verbatim}srvc_p.upk_db  = pupk_api_p->upk_db; \
+    srvc_p.package = package_p; \
+    srvc_p.service = service_p;
+\end{verbatim}\end{Code}
+\index{upk_api.c@{upk\_\-api.c}!upk_handle_valid@{upk\_\-handle\_\-valid}}
+\index{upk_handle_valid@{upk\_\-handle\_\-valid}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}\#define upk\_\-handle\_\-valid(x)~assert( x $\rightarrow$ magic[3] == UPK\_\-MAGIC[3] )}\label{upk__api_8c_e64192edf9549611bdc6b9e6e1447172}
+
+
+
+
+\subsection{Function Documentation}
+\index{upk_api.c@{upk\_\-api.c}!upk_api_init@{upk\_\-api\_\-init}}
+\index{upk_api_init@{upk\_\-api\_\-init}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-api\_\-init (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api})}\label{upk__api_8c_01bd93a8e7f2570c795503b7c0befe50}
+
+
+\index{upk_api.c@{upk\_\-api.c}!upk_api_service_actual_status_get@{upk\_\-api\_\-service\_\-actual\_\-status\_\-get}}
+\index{upk_api_service_actual_status_get@{upk\_\-api\_\-service\_\-actual\_\-status\_\-get}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ upk\_\-api\_\-service\_\-actual\_\-status\_\-get (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api}, char $\ast$ {\em package}, char $\ast$ {\em service})}\label{upk__api_8c_d17079094d87dcd352345eae7c4bdb2e}
+
+
+\index{upk_api.c@{upk\_\-api.c}!upk_api_service_desired_status_get@{upk\_\-api\_\-service\_\-desired\_\-status\_\-get}}
+\index{upk_api_service_desired_status_get@{upk\_\-api\_\-service\_\-desired\_\-status\_\-get}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}const char$\ast$ upk\_\-api\_\-service\_\-desired\_\-status\_\-get (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api}, char $\ast$ {\em package}, char $\ast$ {\em service})}\label{upk__api_8c_dc1420ce785c7612b69bd08c0231e6dd}
+
+
+\index{upk_api.c@{upk\_\-api.c}!upk_api_service_desired_status_set@{upk\_\-api\_\-service\_\-desired\_\-status\_\-set}}
+\index{upk_api_service_desired_status_set@{upk\_\-api\_\-service\_\-desired\_\-status\_\-set}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-api\_\-service\_\-desired\_\-status\_\-set (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api}, char $\ast$ {\em package}, char $\ast$ {\em service}, upk\_\-status\_\-t {\em upk\_\-status})}\label{upk__api_8c_15f19eb0c06b3aadcb0665f9f78e1040}
+
+
+\index{upk_api.c@{upk\_\-api.c}!upk_api_service_set@{upk\_\-api\_\-service\_\-set}}
+\index{upk_api_service_set@{upk\_\-api\_\-service\_\-set}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-api\_\-service\_\-set (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api}, char $\ast$ {\em package}, char $\ast$ {\em service}, char $\ast$ {\em cmdline})}\label{upk__api_8c_efd8a314977ae94075b1730d29fe0cb1}
+
+
+\index{upk_api.c@{upk\_\-api.c}!upk_api_service_visitor@{upk\_\-api\_\-service\_\-visitor}}
+\index{upk_api_service_visitor@{upk\_\-api\_\-service\_\-visitor}!upk_api.c@{upk\_\-api.c}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int upk\_\-api\_\-service\_\-visitor (struct \bf{upk\_\-api} $\ast$ {\em pupk\_\-api}, void($\ast$)() {\em callback}, void $\ast$ {\em context})}\label{upk__api_8c_93ad493d377d3b400a088d6b3e5b1491}
+
+

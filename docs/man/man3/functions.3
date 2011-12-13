@@ -1,0 +1,112 @@
+.TH "Functions" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Functions \- 
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fBupk_svc_desc_free\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_svclist_free\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrlconf_free\fP (\fBupk_controller_config_t\fP *cfg)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_free_config\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_svcconf_pack\fP (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.br
+.ti -1c
+.RI "void \fBupk_ctrl_load_config\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_svc_desc_clear\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "char * \fBupk_concat_svcid\fP (char *dest, const char *pkg, const char *name)"
+.br
+.ti -1c
+.RI "char * \fBupk_svc_id\fP (char *dest, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "void \fBupk_parse_svc_id\fP (char *key, \fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svclist_to_json_obj\fP (\fBupk_svc_desc_meta_t\fP *svclist)"
+.br
+.ti -1c
+.RI "struct json_object * \fBupk_svc_desc_to_json_obj\fP (\fBupk_svc_desc_t\fP *svc)"
+.br
+.ti -1c
+.RI "char * \fBupk_json_serialize_svc_config\fP (\fBupk_svc_desc_t\fP *svc, \fBupk_json_data_output_opts_t\fP opts)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_svcconf_values\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_overlay_ctrlconf_values\fP (\fBupk_controller_config_t\fP *dest, \fBupk_controller_config_t\fP *high)"
+.br
+.ti -1c
+.RI "void \fBupk_finalize_svc_desc\fP (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *orig)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_service_file\fP (const char *filename)"
+.br
+.ti -1c
+.RI "void \fBupk_load_runtime_services\fP (void)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "char \fBupk_ctrl_configuration_file\fP [8192]"
+.br
+.ti -1c
+.RI "const char \fBupk_default_configuration_str\fP []"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_file_configuration\fP"
+.br
+.ti -1c
+.RI "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "char* upk_concat_svcid (char *dest, const char *pkg, const char *name)"
+.SS "void upk_ctrl_free_config (void)"
+.SS "void upk_ctrl_load_config (void)"
+.SS "void upk_ctrlconf_free (\fBupk_controller_config_t\fP *cfg)"
+.SS "void upk_finalize_svc_desc (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *orig)"
+.SS "char* upk_json_serialize_svc_config (\fBupk_svc_desc_t\fP *svc, \fBupk_json_data_output_opts_t\fPopts)"
+.SS "void upk_load_runtime_service_file (const char *filename)"
+.SS "void upk_load_runtime_services (void)"
+.SS "void upk_overlay_ctrlconf_values (\fBupk_controller_config_t\fP *dest, \fBupk_controller_config_t\fP *high)"
+.SS "void upk_overlay_svcconf_values (\fBupk_svc_desc_t\fP *dest, \fBupk_svc_desc_t\fP *high)"
+.SS "void upk_parse_svc_id (char *key, \fBupk_svc_desc_t\fP *svc)"
+.SS "void upk_svc_desc_clear (\fBupk_svc_desc_t\fP *svc)"
+.SS "void upk_svc_desc_free (\fBupk_svc_desc_t\fP *svc)"
+.SS "struct json_object* upk_svc_desc_to_json_obj (\fBupk_svc_desc_t\fP *svc)\fC [read]\fP"
+.SS "char* upk_svc_id (char *dest, \fBupk_svc_desc_t\fP *svc)"
+.SS "void upk_svcconf_pack (\fBupk_controller_config_t\fP *cfg, const char *json_string)"
+.SS "void upk_svclist_free (\fBupk_svc_desc_meta_t\fP *svclist)"
+.SS "struct json_object* upk_svclist_to_json_obj (\fBupk_svc_desc_meta_t\fP *svclist)\fC [read]\fP"
+.SH "Variable Documentation"
+.PP 
+.SS "char \fBupk_ctrl_configuration_file\fP[8192]"
+.SS "\fBupk_controller_config_t\fP \fBupk_default_configuration\fP"
+.SS "const char \fBupk_default_configuration_str\fP[]"
+.SS "\fBupk_controller_config_t\fP \fBupk_file_configuration\fP"
+.SS "\fBupk_controller_config_t\fP \fBupk_runtime_configuration\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,56 @@
+.TH "libupkeeper/s.c" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/s.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upkeeper.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBn_protos\fP   (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)"
+.br
+.ti -1c
+.RI "#define \fBn_per\fP(A)   (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - n_protos)"
+.br
+.ti -1c
+.RI "#define \fBt_scs\fP(A, B)   (type < UPK_##A##_LIMIT) ? (type - UPK_##A##_ORIGIN) + B"
+.br
+.ti -1c
+.RI "#define \fBt_idx\fP   t_scs(REQ, 0) : t_scs(REPL, n_per(REQ)) : t_scs(PUB, n_per(REQ) + n_per(REPL)) : -1"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBcrap\fP (\fBupk_msgtype_t\fP type)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv, char **envp)"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define n_per(A)   (UPK_##A##_LIMIT - UPK_##A##_ORIGIN - n_protos)"
+.SS "#define n_protos   (1 + UPK_MAX_SUPPORTED_PROTO - UPK_MIN_SUPPORTED_PROTO)"
+.SS "#define t_idx   t_scs(REQ, 0) : t_scs(REPL, n_per(REQ)) : t_scs(PUB, n_per(REQ) + n_per(REPL)) : -1"
+.PP
+Referenced by crap().
+.SS "#define t_scs(A, B)   (type < UPK_##A##_LIMIT) ? (type - UPK_##A##_ORIGIN) + B"
+.SH "Function Documentation"
+.PP 
+.SS "int crap (\fBupk_msgtype_t\fPtype)"
+.PP
+References t_idx.
+.SS "int main (intargc, char **argv, char **envp)"
+.PP
+References upk_req_preamble_t::client_name, upk_conn_handle_meta_p::head, _upk_conn_handle::last_pkt_data, _upk_payload::payload, _upk_payload_types::req_preamble, SOCK_STREAM, socketpair(), _upk_payload::type, upk_clientid(), upk_create_req_action(), upk_create_req_preamble(), upk_fatal, upk_net_add_socket_handle(), upk_net_conn_handles_init(), upk_net_event_dispatcher(), and upk_queue_packet().
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

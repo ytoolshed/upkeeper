@@ -1,0 +1,160 @@
+.TH "controller/controller.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+controller/controller.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <upkeeper.h>\fP
+.br
+\fC#include <stdio.h>\fP
+.br
+\fC#include <ctrl_protocol.h>\fP
+.br
+\fC#include <sqlite3.h>\fP
+.br
+
+.SS "Data Structures"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_ctrl_sigqueue\fP"
+.br
+.in -1c
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBUPK_CTRL_MAX_CLIENTS\fP   FD_SETSIZE"
+.br
+.in -1c
+.SS "Typedefs"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_ctrl_sigqueue\fP \fBctrl_sigqueue_t\fP"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBUPKLIST_METANODE\fP (\fBctrl_sigqueue_t\fP, \fBctrl_sigqueue_meta_p\fP)"
+.br
+.ti -1c
+.RI "int \fBsocket_setup\fP (const char *sock_path)"
+.br
+.ti -1c
+.RI "void \fBhandle_signals\fP (void)"
+.br
+.RI "\fIdeal with signals pending action in signal_queue. \fP"
+.ti -1c
+.RI "void \fBhandle_buddies\fP (void)"
+.br
+.ti -1c
+.RI "int32_t \fBctrl_sock_setup\fP (void)"
+.br
+.RI "\fIsetup controller's socket \fP"
+.ti -1c
+.RI "void \fBevent_loop\fP (int32_t listen_sock)"
+.br
+.RI "\fIthe main event loop. \fP"
+.ti -1c
+.RI "int \fBupk_ctrl_init\fP (void)"
+.br
+.ti -1c
+.RI "void \fBcreate_buddy\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.ti -1c
+.RI "void \fBremove_buddy\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.ti -1c
+.RI "int \fBbuddy_connect\fP (const char *sockpath)"
+.br
+.ti -1c
+.RI "\fBbuddy_info_t\fP * \fBbuddy_readstate\fP (int fd)"
+.br
+.ti -1c
+.RI "bool \fBkill_buddy\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.ti -1c
+.RI "bool \fBstart_buddy_svc\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.ti -1c
+.RI "bool \fBstop_buddy_svc\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.ti -1c
+.RI "bool \fBreload_buddy_svc\fP (\fBupk_svc_desc_t\fP *buddy)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "typedef \fBctrl_sigqueue_meta_t\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3\fP * \fBctrl_dbh\fP"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define UPK_CTRL_MAX_CLIENTS   FD_SETSIZE"
+.SH "Typedef Documentation"
+.PP 
+.SS "typedef struct \fB_ctrl_sigqueue\fP \fBctrl_sigqueue_t\fP"
+.SH "Function Documentation"
+.PP 
+.SS "int buddy_connect (const char *sockpath)"
+.PP
+Referenced by handle_buddies(), kill_buddy(), reload_buddy_svc(), start_buddy_svc(), and stop_buddy_svc().
+.SS "\fBbuddy_info_t\fP* buddy_readstate (intfd)"
+.PP
+Referenced by send_buddy_cmd().
+.SS "void create_buddy (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by main().
+.SS "int32_t ctrl_sock_setup (void)"
+.PP
+setup controller's socket ***************************************************************************************************************** 
+.PP
+Referenced by main().
+.SS "void event_loop (int32_tlisten_sock)"
+.PP
+the main event loop. ***************************************************************************************************************** This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+.PP
+Referenced by main().
+.SS "void handle_buddies (void)"
+.PP
+Referenced by event_loop().
+.SS "void handle_signals (void)"
+.PP
+deal with signals pending action in signal_queue. ***************************************************************************************************************** Block all signals during copy to avoid annoying race conditions. 
+.PP
+Referenced by event_loop().
+.SS "bool kill_buddy (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by remove_buddy().
+.SS "bool reload_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by ctrl_req_action_handler().
+.SS "void remove_buddy (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by handle_buddies().
+.SS "int socket_setup (const char *sock_path)"
+.SS "bool start_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by ctrl_req_action_handler().
+.SS "bool stop_buddy_svc (\fBupk_svc_desc_t\fP *buddy)"
+.PP
+Referenced by ctrl_req_action_handler().
+.SS "int upk_ctrl_init (void)"****************************************************************************************************************** 
+.SS "typedef UPKLIST_METANODE (\fBctrl_sigqueue_t\fP, \fBctrl_sigqueue_meta_p\fP)"
+.SH "Variable Documentation"
+.PP 
+.SS "\fBsqlite3\fP* \fBctrl_dbh\fP"
+.SS "typedef \fBctrl_sigqueue_meta_t\fP"
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

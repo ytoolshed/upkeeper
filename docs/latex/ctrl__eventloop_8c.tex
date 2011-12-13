@@ -1,0 +1,593 @@
+\section{controller/ctrl\_\-eventloop.c File Reference}
+\label{ctrl__eventloop_8c}\index{controller/ctrl\_\-eventloop.c@{controller/ctrl\_\-eventloop.c}}
+{\ttfamily \#include \char`\"{}controller.h\char`\"{}}\par
+{\ttfamily \#include $<$stdio.h$>$}\par
+{\ttfamily \#include $<$errno.h$>$}\par
+Include dependency graph for ctrl\_\-eventloop.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf controller\_\-packet\_\-callback} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients, {\bf upk\_\-payload\_\-t} $\ast$)
+\item 
+void {\bf ctrl\_\-req\_\-action\_\-handler} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handler to call when an action request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. \end{DoxyCompactList}\item 
+void {\bf ctrl\_\-req\_\-preamble\_\-handler} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handler to call when an preamble request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. \end{DoxyCompactList}\item 
+void {\bf ctrl\_\-req\_\-disconnect\_\-handler} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients, {\bf upk\_\-payload\_\-t} $\ast$msg)
+\begin{DoxyCompactList}\small\item\em Handler to call when an disconnect request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. \end{DoxyCompactList}\item 
+static void {\bf init\_\-callback\_\-handlers} ({\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients)
+\begin{DoxyCompactList}\small\item\em setup initial callback handlers \end{DoxyCompactList}\item 
+static void {\bf ctrl\_\-accept\_\-conn} (int32\_\-t listen\_\-sock, {\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$clients)
+\begin{DoxyCompactList}\small\item\em \doxyref{accept()}{p.}{controller_2tp_8c_a27d7dff6f11f268fb5bdad349a32a548} and setup a handle for an incomming connection. \end{DoxyCompactList}\item 
+void {\bf sa\_\-sigaction\_\-func} (int signal, {\bf siginfo\_\-t} $\ast${\bf siginfo}, void $\ast${\bf ucontext})
+\begin{DoxyCompactList}\small\item\em place received signals into a queue to handle later. \end{DoxyCompactList}\item 
+void {\bf ctrl\_\-exit\_\-cleanup} (void)
+\begin{DoxyCompactList}\small\item\em cleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues \end{DoxyCompactList}\item 
+static void {\bf ctrl\_\-setup\_\-sighandlers} (void)
+\begin{DoxyCompactList}\small\item\em setup signal handlers \end{DoxyCompactList}\item 
+{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ {\bf ctrl\_\-init} (void)
+\begin{DoxyCompactList}\small\item\em initialization before eventloop \end{DoxyCompactList}\item 
+void {\bf event\_\-loop} (int32\_\-t listen\_\-sock)
+\begin{DoxyCompactList}\small\item\em the main event loop. \end{DoxyCompactList}\item 
+int32\_\-t {\bf ctrl\_\-sock\_\-setup} (void)
+\begin{DoxyCompactList}\small\item\em setup controller's socket \end{DoxyCompactList}\item 
+void {\bf handle\_\-signals} (void)
+\begin{DoxyCompactList}\small\item\em deal with signals pending action in signal\_\-queue. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf ctrl\_\-sigqueue\_\-meta\_\-t} $\ast$ {\bf ctrl\_\-signal\_\-queue}
+\item 
+static {\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$ {\bf clients\_\-list\_\-for\_\-cleanup}
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!controller\_\-packet\_\-callback@{controller\_\-packet\_\-callback}}
+\index{controller\_\-packet\_\-callback@{controller\_\-packet\_\-callback}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{controller\_\-packet\_\-callback}]{\setlength{\rightskip}{0pt plus 5cm}void controller\_\-packet\_\-callback (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_a741093d702f88c44f02aa5fbbd20f3b7}
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-accept\_\-conn@{ctrl\_\-accept\_\-conn}}
+\index{ctrl\_\-accept\_\-conn@{ctrl\_\-accept\_\-conn}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-accept\_\-conn}]{\setlength{\rightskip}{0pt plus 5cm}static void ctrl\_\-accept\_\-conn (
+\begin{DoxyParamCaption}
+\item[{int32\_\-t}]{listen\_\-sock, }
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__eventloop_8c_a8b37090bbf8a037f548ce443b49a064a}
+
+
+\doxyref{accept()}{p.}{controller_2tp_8c_a27d7dff6f11f268fb5bdad349a32a548} and setup a handle for an incomming connection. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em listen\_\-sock} & The socket the request is coming in on. \\
+\hline
+\mbox{\tt in,out}  & {\em clients} & The llist of clients, which will be modified if the connection is accepted. \\
+\hline
+\end{DoxyParams}
+
+
+References accept(), and upk\_\-net\_\-add\_\-socket\_\-handle().
+
+
+
+Referenced by event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{ctrl__eventloop_8c_a8b37090bbf8a037f548ce443b49a064a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{ctrl__eventloop_8c_a8b37090bbf8a037f548ce443b49a064a_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-exit\_\-cleanup@{ctrl\_\-exit\_\-cleanup}}
+\index{ctrl\_\-exit\_\-cleanup@{ctrl\_\-exit\_\-cleanup}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-exit\_\-cleanup}]{\setlength{\rightskip}{0pt plus 5cm}void ctrl\_\-exit\_\-cleanup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_ae150e0430351943d2feb1798ce483d10}
+
+
+cleanup allocated structures at exit; makes valgrind happy, so I can find more signicant issues 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References UPKLIST\_\-FREE.
+
+
+
+Referenced by ctrl\_\-init().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=318pt]{ctrl__eventloop_8c_ae150e0430351943d2feb1798ce483d10_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-init@{ctrl\_\-init}}
+\index{ctrl\_\-init@{ctrl\_\-init}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-conn\_\-handle\_\-meta\_\-t}$\ast$ ctrl\_\-init (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_a22e1808ae5381c736fb81ab04a0b44f3}
+
+
+initialization before eventloop 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+
+References calloc(), ctrl\_\-exit\_\-cleanup(), ctrl\_\-setup\_\-sighandlers(), init\_\-callback\_\-handlers(), and upk\_\-net\_\-conn\_\-handles\_\-init().
+
+
+
+Referenced by event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_a22e1808ae5381c736fb81ab04a0b44f3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=192pt]{ctrl__eventloop_8c_a22e1808ae5381c736fb81ab04a0b44f3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-req\_\-action\_\-handler@{ctrl\_\-req\_\-action\_\-handler}}
+\index{ctrl\_\-req\_\-action\_\-handler@{ctrl\_\-req\_\-action\_\-handler}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-req\_\-action\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void ctrl\_\-req\_\-action\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_a5112d1e28056ffe613e005caf9066db3}
+
+
+Handler to call when an action request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em clients} & The llist of handles, and clients-\/$>$thisp is the current handle. \\
+\hline
+\mbox{\tt in}  & {\em msg} & The action request message. \\
+\hline
+\end{DoxyParams}
+
+
+References upk\_\-req\_\-action\_\-t::action, \_\-upk\_\-svc\_\-desc::Name, \_\-upk\_\-payload::payload, reload\_\-buddy\_\-svc(), \_\-upk\_\-payload\_\-types::req\_\-action, start\_\-buddy\_\-svc(), stop\_\-buddy\_\-svc(), upk\_\-req\_\-action\_\-t::svc\_\-id, \_\-upk\_\-controller\_\-config::svclist, upk\_\-svc\_\-desc\_\-meta\_\-p::thisp, upk\_\-conn\_\-handle\_\-meta\_\-p::thisp, upk\_\-create\_\-repl\_\-result(), upk\_\-debug1, UPK\_\-MAX\_\-STRING\_\-LEN, upk\_\-pkt\_\-free(), upk\_\-queue\_\-packet(), upk\_\-runtime\_\-configuration, and UPKLIST\_\-FOREACH.
+
+
+
+Referenced by init\_\-callback\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=312pt]{ctrl__eventloop_8c_a5112d1e28056ffe613e005caf9066db3_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_a5112d1e28056ffe613e005caf9066db3_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-req\_\-disconnect\_\-handler@{ctrl\_\-req\_\-disconnect\_\-handler}}
+\index{ctrl\_\-req\_\-disconnect\_\-handler@{ctrl\_\-req\_\-disconnect\_\-handler}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-req\_\-disconnect\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void ctrl\_\-req\_\-disconnect\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_a4f1536d3d1e98d423cf2127594f407e8}
+
+
+Handler to call when an disconnect request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em clients} & The llist of handles, and clients-\/$>$thisp is the current handle. \\
+\hline
+\mbox{\tt in}  & {\em msg} & The disconnect request message. \\
+\hline
+\end{DoxyParams}
+
+
+References \_\-upk\_\-conn\_\-handle::cl\_\-name, upk\_\-conn\_\-handle\_\-meta\_\-p::thisp, upk\_\-create\_\-req\_\-disconnect(), upk\_\-debug1, upk\_\-net\_\-shutdown\_\-callback(), upk\_\-pkt\_\-free(), and upk\_\-queue\_\-packet().
+
+
+
+Referenced by init\_\-callback\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=358pt]{ctrl__eventloop_8c_a4f1536d3d1e98d423cf2127594f407e8_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_a4f1536d3d1e98d423cf2127594f407e8_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-req\_\-preamble\_\-handler@{ctrl\_\-req\_\-preamble\_\-handler}}
+\index{ctrl\_\-req\_\-preamble\_\-handler@{ctrl\_\-req\_\-preamble\_\-handler}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-req\_\-preamble\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}void ctrl\_\-req\_\-preamble\_\-handler (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients, }
+\item[{{\bf upk\_\-payload\_\-t} $\ast$}]{msg}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_abe67c79dacfd5a3938a3eea359bbc293}
+
+
+Handler to call when an preamble request is received from a client, signature is of upk\_\-net\_\-callback\_\-t,. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em clients} & The llist of handles, and clients-\/$>$thisp is the current handle. \\
+\hline
+\mbox{\tt in}  & {\em msg} & The preamble request message. \\
+\hline
+\end{DoxyParams}
+
+
+References \_\-upk\_\-conn\_\-handle::cl\_\-name, upk\_\-req\_\-preamble\_\-t::client\_\-name, upk\_\-req\_\-preamble\_\-t::max\_\-supported\_\-ver, upk\_\-req\_\-preamble\_\-t::min\_\-supported\_\-ver, upk\_\-packet\_\-t::payload, \_\-upk\_\-payload::payload, \_\-upk\_\-payload\_\-types::req\_\-preamble, upk\_\-conn\_\-handle\_\-meta\_\-p::thisp, upk\_\-create\_\-repl\_\-preamble(), upk\_\-debug1, UPK\_\-MAX\_\-STRING\_\-LEN, UPK\_\-MAX\_\-SUPPORTED\_\-PROTO, UPK\_\-MIN\_\-SUPPORTED\_\-PROTO, upk\_\-pkt\_\-free(), and upk\_\-queue\_\-packet().
+
+
+
+Referenced by init\_\-callback\_\-handlers().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{ctrl__eventloop_8c_abe67c79dacfd5a3938a3eea359bbc293_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_abe67c79dacfd5a3938a3eea359bbc293_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-setup\_\-sighandlers@{ctrl\_\-setup\_\-sighandlers}}
+\index{ctrl\_\-setup\_\-sighandlers@{ctrl\_\-setup\_\-sighandlers}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-setup\_\-sighandlers}]{\setlength{\rightskip}{0pt plus 5cm}static void ctrl\_\-setup\_\-sighandlers (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{ctrl__eventloop_8c_a7dd0909c839d869fe05e1cf8d4af19e2}
+
+
+setup signal handlers 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sa\_\-sigaction\_\-func(), sigaction(), sigemptyset(), sigfillset(), and upk\_\-fatal.
+
+
+
+Referenced by ctrl\_\-init().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=290pt]{ctrl__eventloop_8c_a7dd0909c839d869fe05e1cf8d4af19e2_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{ctrl__eventloop_8c_a7dd0909c839d869fe05e1cf8d4af19e2_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-sock\_\-setup@{ctrl\_\-sock\_\-setup}}
+\index{ctrl\_\-sock\_\-setup@{ctrl\_\-sock\_\-setup}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-sock\_\-setup}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t ctrl\_\-sock\_\-setup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_ad055a2a21d52bb93290db5ecee7b62b5}
+
+
+setup controller's socket 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References bind(), \_\-upk\_\-controller\_\-config::controller\_\-socket, fcntl(), IF\_\-UPK\_\-ERROR, listen(), SOCK\_\-STREAM, socket(), sockaddr\_\-un::sun\_\-family, sockaddr\_\-un::sun\_\-path, UPK\_\-FUNC\_\-ASSERT, UPK\_\-FUNC\_\-ASSERT\_\-MSG, upk\_\-runtime\_\-configuration, and UPK\_\-SOCKET\_\-FAILURE.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=212pt]{ctrl__eventloop_8c_ad055a2a21d52bb93290db5ecee7b62b5_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=204pt]{ctrl__eventloop_8c_ad055a2a21d52bb93290db5ecee7b62b5_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!event\_\-loop@{event\_\-loop}}
+\index{event\_\-loop@{event\_\-loop}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{event\_\-loop}]{\setlength{\rightskip}{0pt plus 5cm}void event\_\-loop (
+\begin{DoxyParamCaption}
+\item[{int32\_\-t}]{listen\_\-sock}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_afcb5edca8881b0c26ccbc120775ed38b}
+
+
+the main event loop. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ This will handle signals, poll buddies, poll clients, publish events, and cleanup sockets. 
+
+References \_\-upk\_\-controller\_\-config::BuddyPollingInterval, ctrl\_\-accept\_\-conn(), ctrl\_\-init(), handle\_\-buddies(), handle\_\-signals(), select(), upk\_\-debug1, upk\_\-net\_\-event\_\-dispatcher(), upk\_\-net\_\-flush\_\-closed\_\-sockets(), and upk\_\-runtime\_\-configuration.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_afcb5edca8881b0c26ccbc120775ed38b_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=182pt]{ctrl__eventloop_8c_afcb5edca8881b0c26ccbc120775ed38b_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!handle\_\-signals@{handle\_\-signals}}
+\index{handle\_\-signals@{handle\_\-signals}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{handle\_\-signals}]{\setlength{\rightskip}{0pt plus 5cm}void handle\_\-signals (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_ad90d54275c3f302332ac0724037f3371}
+
+
+deal with signals pending action in signal\_\-queue. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Block all signals during copy to avoid annoying race conditions. 
+
+References ctrl\_\-sigqueue\_\-meta\_\-p::count, siginfo::si\_\-pid, sigfillset(), \_\-ctrl\_\-sigqueue::siginfo, \_\-ctrl\_\-sigqueue::signal, sigprocmask(), sigset(), ctrl\_\-sigqueue\_\-meta\_\-p::thisp, UPKLIST\_\-HEAD, UPKLIST\_\-UNLINK, and waitpid().
+
+
+
+Referenced by event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{ctrl__eventloop_8c_ad90d54275c3f302332ac0724037f3371_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=226pt]{ctrl__eventloop_8c_ad90d54275c3f302332ac0724037f3371_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!init\_\-callback\_\-handlers@{init\_\-callback\_\-handlers}}
+\index{init\_\-callback\_\-handlers@{init\_\-callback\_\-handlers}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{init\_\-callback\_\-handlers}]{\setlength{\rightskip}{0pt plus 5cm}static void init\_\-callback\_\-handlers (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-conn\_\-handle\_\-meta\_\-t} $\ast$}]{clients}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__eventloop_8c_a17b8185080472699e32223cdf67f28e0}
+
+
+setup initial callback handlers 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ 
+
+References \_\-upk\_\-net\_\-state::callback\_\-stack, ctrl\_\-req\_\-action\_\-handler(), ctrl\_\-req\_\-disconnect\_\-handler(), ctrl\_\-req\_\-preamble\_\-handler(), upk\_\-net\_\-cb\_\-stk\_\-meta\_\-p::head, \_\-upk\_\-net\_\-cb\_\-stk::msg\_\-handlers, UPK\_\-MSGTYPE\_\-IDX, upk\_\-net\_\-get\_\-global\_\-state(), UPK\_\-REQ\_\-ACTION, UPK\_\-REQ\_\-DISCONNECT, UPK\_\-REQ\_\-PREAMBLE, and UPKLIST\_\-PREPEND.
+
+
+
+Referenced by ctrl\_\-init().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_a17b8185080472699e32223cdf67f28e0_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=340pt]{ctrl__eventloop_8c_a17b8185080472699e32223cdf67f28e0_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!sa\_\-sigaction\_\-func@{sa\_\-sigaction\_\-func}}
+\index{sa\_\-sigaction\_\-func@{sa\_\-sigaction\_\-func}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{sa\_\-sigaction\_\-func}]{\setlength{\rightskip}{0pt plus 5cm}void sa\_\-sigaction\_\-func (
+\begin{DoxyParamCaption}
+\item[{int}]{signal, }
+\item[{{\bf siginfo\_\-t} $\ast$}]{siginfo, }
+\item[{void $\ast$}]{ucontext}
+\end{DoxyParamCaption}
+)}\label{ctrl__eventloop_8c_a39174bf64f8dd75ed3e494b33e2f3b12}
+
+
+place received signals into a queue to handle later. 
+
+$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$$\ast$ Because most signal handling will have fairly significant work to do, all signal handling is done via queuing the receipt to the 'ctrl\_\-signal\_\-queue', and processing is deferred to the event loop; specifically the \char`\"{}handle\_\-signals\char`\"{} function called first in the event loop. 
+
+References \_\-ctrl\_\-sigqueue::siginfo, \_\-ctrl\_\-sigqueue::signal, ctrl\_\-sigqueue\_\-meta\_\-p::thisp, and UPKLIST\_\-APPEND.
+
+
+
+Referenced by ctrl\_\-setup\_\-sighandlers().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{ctrl__eventloop_8c_a39174bf64f8dd75ed3e494b33e2f3b12_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!clients\_\-list\_\-for\_\-cleanup@{clients\_\-list\_\-for\_\-cleanup}}
+\index{clients\_\-list\_\-for\_\-cleanup@{clients\_\-list\_\-for\_\-cleanup}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{clients\_\-list\_\-for\_\-cleanup}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-conn\_\-handle\_\-meta\_\-t}$\ast$ {\bf clients\_\-list\_\-for\_\-cleanup}\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__eventloop_8c_aafb584a009e319bc5b3cf6dc57227c63}
+\index{ctrl\_\-eventloop.c@{ctrl\_\-eventloop.c}!ctrl\_\-signal\_\-queue@{ctrl\_\-signal\_\-queue}}
+\index{ctrl\_\-signal\_\-queue@{ctrl\_\-signal\_\-queue}!ctrl_eventloop.c@{ctrl\_\-eventloop.c}}
+\subsubsection[{ctrl\_\-signal\_\-queue}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ctrl\_\-sigqueue\_\-meta\_\-t}$\ast$ {\bf ctrl\_\-signal\_\-queue}\hspace{0.3cm}{\ttfamily  [static]}}\label{ctrl__eventloop_8c_a09a9da48820270547e0a56b3d6e98bd1}

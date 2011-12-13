@@ -1,0 +1,106 @@
+.TH "sqlite3_io_methods" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_io_methods \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBiVersion\fP"
+.br
+.ti -1c
+.RI "int(* \fBxClose\fP )(\fBsqlite3_file\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxRead\fP )(\fBsqlite3_file\fP *, void *, int iAmt, \fBsqlite3_int64\fP iOfst)"
+.br
+.ti -1c
+.RI "int(* \fBxWrite\fP )(\fBsqlite3_file\fP *, const void *, int iAmt, \fBsqlite3_int64\fP iOfst)"
+.br
+.ti -1c
+.RI "int(* \fBxTruncate\fP )(\fBsqlite3_file\fP *, \fBsqlite3_int64\fP size)"
+.br
+.ti -1c
+.RI "int(* \fBxSync\fP )(\fBsqlite3_file\fP *, int flags)"
+.br
+.ti -1c
+.RI "int(* \fBxFileSize\fP )(\fBsqlite3_file\fP *, \fBsqlite3_int64\fP *pSize)"
+.br
+.ti -1c
+.RI "int(* \fBxLock\fP )(\fBsqlite3_file\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBxUnlock\fP )(\fBsqlite3_file\fP *, int)"
+.br
+.ti -1c
+.RI "int(* \fBxCheckReservedLock\fP )(\fBsqlite3_file\fP *, int *pResOut)"
+.br
+.ti -1c
+.RI "int(* \fBxFileControl\fP )(\fBsqlite3_file\fP *, int op, void *pArg)"
+.br
+.ti -1c
+.RI "int(* \fBxSectorSize\fP )(\fBsqlite3_file\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxDeviceCharacteristics\fP )(\fBsqlite3_file\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxShmMap\fP )(\fBsqlite3_file\fP *, int iPg, int pgsz, int, void volatile **)"
+.br
+.ti -1c
+.RI "int(* \fBxShmLock\fP )(\fBsqlite3_file\fP *, int offset, int n, int flags)"
+.br
+.ti -1c
+.RI "void(* \fBxShmBarrier\fP )(\fBsqlite3_file\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxShmUnmap\fP )(\fBsqlite3_file\fP *, int deleteFlag)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "int \fBsqlite3_io_methods::iVersion\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xCheckReservedLock\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xClose\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xDeviceCharacteristics\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xFileControl\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xFileSize\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xLock\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xRead\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xSectorSize\fP"
+.PP
+.SS "void(* \fBsqlite3_io_methods::xShmBarrier\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xShmLock\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xShmMap\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xShmUnmap\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xSync\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xTruncate\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xUnlock\fP"
+.PP
+.SS "int(* \fBsqlite3_io_methods::xWrite\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

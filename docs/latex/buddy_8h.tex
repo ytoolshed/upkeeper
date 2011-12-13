@@ -1,0 +1,317 @@
+\section{controller/buddy.h File Reference}
+\label{buddy_8h}\index{controller/buddy.h@{controller/buddy.h}}
+{\ttfamily \#include \char`\"{}buddyinc.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}ctrl\_\-protocol.h\char`\"{}}\par
+{\ttfamily \#include $<$upkeeper/upk\_\-error.h$>$}\par
+{\ttfamily \#include $<$upkeeper/upk\_\-uuid.h$>$}\par
+{\ttfamily \#include $<$upkeeper/upk\_\-types.h$>$}\par
+Include dependency graph for buddy.h:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{buddy_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf BUDDY\_\-MAX\_\-STRING\_\-LEN}~UPK\_\-MAX\_\-STRING\_\-LEN
+\item 
+\#define {\bf BUDDY\_\-MAX\_\-PATH\_\-LEN}~UPK\_\-MAX\_\-PATH\_\-LEN
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void {\bf buddy\_\-init} ({\bf diag\_\-output\_\-callback\_\-t} logger)
+\item 
+void {\bf commit\_\-buddycide} (int32\_\-t signum)
+\item 
+int32\_\-t {\bf buddy\_\-event\_\-loop} (void)
+\item 
+void {\bf buddy\_\-cleanup} (void)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-uuid\_\-t} {\bf buddy\_\-uuid}
+\item 
+char $\ast$ {\bf buddy\_\-service\_\-name}
+\item 
+char {\bf buddy\_\-root\_\-path} [8192]
+\item 
+{\bf uid\_\-t} {\bf buddy\_\-setuid}
+\item 
+{\bf gid\_\-t} {\bf buddy\_\-setgid}
+\item 
+{\bf size\_\-t} {\bf ringbuffer\_\-size}
+\item 
+char $\ast$$\ast$ {\bf proc\_\-envp}
+\item 
+long {\bf reconnect\_\-retries}
+\item 
+bool {\bf randomize\_\-ratelimit}
+\item 
+bool {\bf initialize\_\-supplemental\_\-groups}
+\item 
+bool {\bf clear\_\-supplemental\_\-groups}
+\item 
+{\bf uint32\_\-t} {\bf user\_\-ratelimit}
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{buddy.h@{buddy.h}!BUDDY\_\-MAX\_\-PATH\_\-LEN@{BUDDY\_\-MAX\_\-PATH\_\-LEN}}
+\index{BUDDY\_\-MAX\_\-PATH\_\-LEN@{BUDDY\_\-MAX\_\-PATH\_\-LEN}!buddy.h@{buddy.h}}
+\subsubsection[{BUDDY\_\-MAX\_\-PATH\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define BUDDY\_\-MAX\_\-PATH\_\-LEN~UPK\_\-MAX\_\-PATH\_\-LEN}\label{buddy_8h_a64b79a6c5e830efc3d0064b7d084988c}
+
+
+Referenced by buddy\_\-exec\_\-action(), and buddy\_\-init\_\-paths().
+
+\index{buddy.h@{buddy.h}!BUDDY\_\-MAX\_\-STRING\_\-LEN@{BUDDY\_\-MAX\_\-STRING\_\-LEN}}
+\index{BUDDY\_\-MAX\_\-STRING\_\-LEN@{BUDDY\_\-MAX\_\-STRING\_\-LEN}!buddy.h@{buddy.h}}
+\subsubsection[{BUDDY\_\-MAX\_\-STRING\_\-LEN}]{\setlength{\rightskip}{0pt plus 5cm}\#define BUDDY\_\-MAX\_\-STRING\_\-LEN~UPK\_\-MAX\_\-STRING\_\-LEN}\label{buddy_8h_a462995f5190216b7ba9802072b3c7b86}
+
+
+Referenced by opt\_\-parse().
+
+
+
+\subsection{Function Documentation}
+\index{buddy.h@{buddy.h}!buddy\_\-cleanup@{buddy\_\-cleanup}}
+\index{buddy\_\-cleanup@{buddy\_\-cleanup}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-cleanup}]{\setlength{\rightskip}{0pt plus 5cm}void buddy\_\-cleanup (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{buddy_8h_ae71e6bfc3369a9182bd124873f3c4c54}
+
+
+References buddy\_\-flush\_\-ringbuffer(), buddy\_\-free\_\-ringbuffer(), buddy\_\-path(), buddy\_\-service\_\-name, buddy\_\-stop\_\-proc(), free(), and proc\_\-pid.
+
+
+
+Referenced by buddy\_\-init(), commit\_\-buddycide(), and main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h_ae71e6bfc3369a9182bd124873f3c4c54_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h_ae71e6bfc3369a9182bd124873f3c4c54_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy.h@{buddy.h}!buddy\_\-event\_\-loop@{buddy\_\-event\_\-loop}}
+\index{buddy\_\-event\_\-loop@{buddy\_\-event\_\-loop}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-event\_\-loop}]{\setlength{\rightskip}{0pt plus 5cm}int32\_\-t buddy\_\-event\_\-loop (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\label{buddy_8h_ae6ccfa70197441b53a9e94023ee4671c}
+
+
+References buddy\_\-accept(), buddy\_\-build\_\-fd\_\-set(), buddy\_\-ctrlfd, buddy\_\-flush\_\-ringbuffer(), buddy\_\-handle\_\-command(), buddy\_\-handle\_\-flags(), BUDDY\_\-SELECT\_\-TIMEOUT\_\-SEC, BUDDY\_\-SELECT\_\-TIMEOUT\_\-USEC, buddy\_\-shutdown, buddy\_\-sockfd, commit\_\-buddycide(), highest\_\-fd, read\_\-ctrl(), select(), this\_\-command, timeval::tv\_\-sec, timeval::tv\_\-usec, and upk\_\-debug1.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h_ae6ccfa70197441b53a9e94023ee4671c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=214pt]{buddy_8h_ae6ccfa70197441b53a9e94023ee4671c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy.h@{buddy.h}!buddy\_\-init@{buddy\_\-init}}
+\index{buddy\_\-init@{buddy\_\-init}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-init}]{\setlength{\rightskip}{0pt plus 5cm}void buddy\_\-init (
+\begin{DoxyParamCaption}
+\item[{{\bf diag\_\-output\_\-callback\_\-t}}]{logger}
+\end{DoxyParamCaption}
+)}\label{buddy_8h_a8243634d0b4e7fe2b2ece3c97bbbd060}
+
+
+References buddy\_\-cleanup(), buddy\_\-ctrlfd, buddy\_\-init\_\-paths(), buddy\_\-init\_\-ringbuffer(), buddy\_\-init\_\-socket(), buddy\_\-path(), buddy\_\-setgid, buddy\_\-setuid, buddy\_\-sockfd, sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sigaction::sa\_\-sigaction, sa\_\-sigaction\_\-func(), sigaction(), sigaddset(), sigemptyset(), sigfillset(), sigset(), upk\_\-notice, upk\_\-reg\_\-diag\_\-callback(), upk\_\-verbose, and upk\_\-warn.
+
+
+
+Referenced by main().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h_a8243634d0b4e7fe2b2ece3c97bbbd060_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{buddy_8h_a8243634d0b4e7fe2b2ece3c97bbbd060_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{buddy.h@{buddy.h}!commit\_\-buddycide@{commit\_\-buddycide}}
+\index{commit\_\-buddycide@{commit\_\-buddycide}!buddy.h@{buddy.h}}
+\subsubsection[{commit\_\-buddycide}]{\setlength{\rightskip}{0pt plus 5cm}void commit\_\-buddycide (
+\begin{DoxyParamCaption}
+\item[{int32\_\-t}]{signum}
+\end{DoxyParamCaption}
+)}\label{buddy_8h_ab7a98a53dac20e00f111f46389698b1d}
+
+
+References buddy\_\-cleanup(), getpid(), sigaction::sa\_\-flags, sigaction::sa\_\-handler, sigaction::sa\_\-mask, sigaction(), sigemptyset(), sigfillset(), sigprocmask(), sigset(), and upk\_\-debug1.
+
+
+
+Referenced by buddy\_\-event\_\-loop().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{buddy_8h_ab7a98a53dac20e00f111f46389698b1d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=348pt]{buddy_8h_ab7a98a53dac20e00f111f46389698b1d_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{buddy.h@{buddy.h}!buddy\_\-root\_\-path@{buddy\_\-root\_\-path}}
+\index{buddy\_\-root\_\-path@{buddy\_\-root\_\-path}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-root\_\-path}]{\setlength{\rightskip}{0pt plus 5cm}char {\bf buddy\_\-root\_\-path}[8192]}\label{buddy_8h_a97a960eb2ad1d03155879c0cb585f4c4}
+
+
+Referenced by buddy\_\-init\_\-paths(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!buddy\_\-service\_\-name@{buddy\_\-service\_\-name}}
+\index{buddy\_\-service\_\-name@{buddy\_\-service\_\-name}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-service\_\-name}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$ {\bf buddy\_\-service\_\-name}}\label{buddy_8h_a46bdaaaea058028488e4a2fa4abcf80b}
+
+
+Referenced by buddy\_\-cleanup(), buddy\_\-init\_\-paths(), buddy\_\-start\_\-proc(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!buddy\_\-setgid@{buddy\_\-setgid}}
+\index{buddy\_\-setgid@{buddy\_\-setgid}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-setgid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf gid\_\-t} {\bf buddy\_\-setgid}}\label{buddy_8h_a94f0c0963c51ae59585d090bd146267c}
+
+
+Referenced by buddy\_\-init(), buddy\_\-setreguid(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!buddy\_\-setuid@{buddy\_\-setuid}}
+\index{buddy\_\-setuid@{buddy\_\-setuid}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-setuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uid\_\-t} {\bf buddy\_\-setuid}}\label{buddy_8h_a2ef8d11cc4ac2862fbe8ce2112e2e4fb}
+
+
+Referenced by buddy\_\-init(), buddy\_\-setreguid(), buddy\_\-supp\_\-groups(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!buddy\_\-uuid@{buddy\_\-uuid}}
+\index{buddy\_\-uuid@{buddy\_\-uuid}!buddy.h@{buddy.h}}
+\subsubsection[{buddy\_\-uuid}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-uuid\_\-t} {\bf buddy\_\-uuid}}\label{buddy_8h_a3e9321d881ca257289c65b5022b693c8}
+
+
+Referenced by buddy\_\-record\_\-state(), opt\_\-parse(), and spawn\_\-buddy().
+
+\index{buddy.h@{buddy.h}!clear\_\-supplemental\_\-groups@{clear\_\-supplemental\_\-groups}}
+\index{clear\_\-supplemental\_\-groups@{clear\_\-supplemental\_\-groups}!buddy.h@{buddy.h}}
+\subsubsection[{clear\_\-supplemental\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf clear\_\-supplemental\_\-groups}}\label{buddy_8h_a535a3bdf28e5f018da53680703092e1b}
+
+
+Referenced by buddy\_\-supp\_\-groups(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!initialize\_\-supplemental\_\-groups@{initialize\_\-supplemental\_\-groups}}
+\index{initialize\_\-supplemental\_\-groups@{initialize\_\-supplemental\_\-groups}!buddy.h@{buddy.h}}
+\subsubsection[{initialize\_\-supplemental\_\-groups}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf initialize\_\-supplemental\_\-groups}}\label{buddy_8h_ab0872a08f4362ca27dba55fcef64c24f}
+
+
+Referenced by buddy\_\-supp\_\-groups(), and opt\_\-parse().
+
+\index{buddy.h@{buddy.h}!proc\_\-envp@{proc\_\-envp}}
+\index{proc\_\-envp@{proc\_\-envp}!buddy.h@{buddy.h}}
+\subsubsection[{proc\_\-envp}]{\setlength{\rightskip}{0pt plus 5cm}char$\ast$$\ast$ {\bf proc\_\-envp}}\label{buddy_8h_adcfeefdfcc71ba2dc2cddac18f4dcb4d}
+
+
+Referenced by buddy\_\-exec\_\-action(), and main().
+
+\index{buddy.h@{buddy.h}!randomize\_\-ratelimit@{randomize\_\-ratelimit}}
+\index{randomize\_\-ratelimit@{randomize\_\-ratelimit}!buddy.h@{buddy.h}}
+\subsubsection[{randomize\_\-ratelimit}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf randomize\_\-ratelimit}}\label{buddy_8h_ac77b45e275dcc4a554fd495516deaa04}
+\index{buddy.h@{buddy.h}!reconnect\_\-retries@{reconnect\_\-retries}}
+\index{reconnect\_\-retries@{reconnect\_\-retries}!buddy.h@{buddy.h}}
+\subsubsection[{reconnect\_\-retries}]{\setlength{\rightskip}{0pt plus 5cm}long {\bf reconnect\_\-retries}}\label{buddy_8h_a5d96c4625ef6fb62b61353fd2766b0d9}
+
+
+Referenced by opt\_\-parse(), and phone\_\-home\_\-if\_\-appropriate().
+
+\index{buddy.h@{buddy.h}!ringbuffer\_\-size@{ringbuffer\_\-size}}
+\index{ringbuffer\_\-size@{ringbuffer\_\-size}!buddy.h@{buddy.h}}
+\subsubsection[{ringbuffer\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}{\bf size\_\-t} {\bf ringbuffer\_\-size}}\label{buddy_8h_aaf0b4e8526897974d594cc330ece0b5c}
+
+
+Referenced by buddy\_\-free\_\-ringbuffer(), buddy\_\-init\_\-ringbuffer(), buddy\_\-record\_\-state(), main(), opt\_\-parse(), and phone\_\-home\_\-if\_\-appropriate().
+
+\index{buddy.h@{buddy.h}!user\_\-ratelimit@{user\_\-ratelimit}}
+\index{user\_\-ratelimit@{user\_\-ratelimit}!buddy.h@{buddy.h}}
+\subsubsection[{user\_\-ratelimit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf uint32\_\-t} {\bf user\_\-ratelimit}}\label{buddy_8h_ae27137b4c4b5c8be0a91356bfab19ee1}

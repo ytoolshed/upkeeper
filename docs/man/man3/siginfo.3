@@ -1,0 +1,244 @@
+.TH "siginfo" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+siginfo \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int \fBsi_signo\fP"
+.br
+.ti -1c
+.RI "int \fBsi_errno\fP"
+.br
+.ti -1c
+.RI "int \fBsi_code\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fB_pad\fP [((128/sizeof(int))-4)]"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "   } \fB_kill\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      int \fBsi_tid\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_overrun\fP"
+.br
+.ti -1c
+.RI "      \fBsigval_t\fP \fBsi_sigval\fP"
+.br
+.ti -1c
+.RI "   } \fB_timer\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "      \fBsigval_t\fP \fBsi_sigval\fP"
+.br
+.ti -1c
+.RI "   } \fB_rt\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_status\fP"
+.br
+.ti -1c
+.RI "      \fB__clock_t\fP \fBsi_utime\fP"
+.br
+.ti -1c
+.RI "      \fB__clock_t\fP \fBsi_stime\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigchld\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      void * \fBsi_addr\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigfault\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      long int \fBsi_band\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_fd\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigpoll\fP"
+.br
+.ti -1c
+.RI "} \fB_sifields\fP"
+.br
+.ti -1c
+.RI "union {"
+.br
+.ti -1c
+.RI "   int \fB_pad\fP [((128/sizeof(int))-4)]"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "   } \fB_kill\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      int \fBsi_tid\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_overrun\fP"
+.br
+.ti -1c
+.RI "      \fBsigval_t\fP \fBsi_sigval\fP"
+.br
+.ti -1c
+.RI "   } \fB_timer\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "      \fBsigval_t\fP \fBsi_sigval\fP"
+.br
+.ti -1c
+.RI "   } \fB_rt\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      \fB__pid_t\fP \fBsi_pid\fP"
+.br
+.ti -1c
+.RI "      \fB__uid_t\fP \fBsi_uid\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_status\fP"
+.br
+.ti -1c
+.RI "      \fB__clock_t\fP \fBsi_utime\fP"
+.br
+.ti -1c
+.RI "      \fB__clock_t\fP \fBsi_stime\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigchld\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      void * \fBsi_addr\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigfault\fP"
+.br
+.ti -1c
+.RI "   struct {"
+.br
+.ti -1c
+.RI "      long int \fBsi_band\fP"
+.br
+.ti -1c
+.RI "      int \fBsi_fd\fP"
+.br
+.ti -1c
+.RI "   } \fB_sigpoll\fP"
+.br
+.ti -1c
+.RI "} \fB_sifields\fP"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "struct { ... }   \fBsiginfo::_kill\fP"
+.SS "struct { ... }   \fBsiginfo::_kill\fP"
+.SS "int \fBsiginfo::_pad\fP[((128/sizeof(int))-4)]"
+.SS "struct { ... }   \fBsiginfo::_rt\fP"
+.SS "struct { ... }   \fBsiginfo::_rt\fP"
+.SS "union { ... }   \fBsiginfo::_sifields\fP"
+.SS "union { ... }   \fBsiginfo::_sifields\fP"
+.SS "struct { ... }   \fBsiginfo::_sigchld\fP"
+.SS "struct { ... }   \fBsiginfo::_sigchld\fP"
+.SS "struct { ... }   \fBsiginfo::_sigfault\fP"
+.SS "struct { ... }   \fBsiginfo::_sigfault\fP"
+.SS "struct { ... }   \fBsiginfo::_sigpoll\fP"
+.SS "struct { ... }   \fBsiginfo::_sigpoll\fP"
+.SS "struct { ... }   \fBsiginfo::_timer\fP"
+.SS "struct { ... }   \fBsiginfo::_timer\fP"
+.SS "void* \fBsiginfo::si_addr\fP"
+.SS "long int \fBsiginfo::si_band\fP"
+.SS "int \fBsiginfo::si_code\fP"
+.SS "int \fBsiginfo::si_errno\fP"
+.SS "int \fBsiginfo::si_fd\fP"
+.SS "int \fBsiginfo::si_overrun\fP"
+.SS "\fB__pid_t\fP \fBsiginfo::si_pid\fP"
+.PP
+Referenced by handle_signals().
+.SS "int \fBsiginfo::si_signo\fP"
+.SS "\fBsigval_t\fP \fBsiginfo::si_sigval\fP"
+.SS "int \fBsiginfo::si_status\fP"
+.SS "\fB__clock_t\fP \fBsiginfo::si_stime\fP"
+.SS "int \fBsiginfo::si_tid\fP"
+.SS "\fB__uid_t\fP \fBsiginfo::si_uid\fP"
+.SS "\fB__clock_t\fP \fBsiginfo::si_utime\fP"
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

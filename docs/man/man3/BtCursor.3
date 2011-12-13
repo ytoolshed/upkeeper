@@ -1,0 +1,154 @@
+.TH "BtCursor" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+BtCursor \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBBtree\fP * \fBpBtree\fP"
+.br
+.ti -1c
+.RI "\fBBtShared\fP * \fBpBt\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpPrev\fP"
+.br
+.ti -1c
+.RI "\fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP \fBpgnoRoot\fP"
+.br
+.ti -1c
+.RI "\fBsqlite3_int64\fP \fBcachedRowid\fP"
+.br
+.ti -1c
+.RI "\fBCellInfo\fP \fBinfo\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBwrFlag\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBatLast\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBvalidNKey\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBeState\fP"
+.br
+.ti -1c
+.RI "void * \fBpKey\fP"
+.br
+.ti -1c
+.RI "\fBi64\fP \fBnKey\fP"
+.br
+.ti -1c
+.RI "int \fBskipNext\fP"
+.br
+.ti -1c
+.RI "\fBu8\fP \fBisIncrblobHandle\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP * \fBaOverflow\fP"
+.br
+.ti -1c
+.RI "\fBi16\fP \fBiPage\fP"
+.br
+.ti -1c
+.RI "\fBMemPage\fP * \fBapPage\fP [BTCURSOR_MAX_DEPTH]"
+.br
+.ti -1c
+.RI "\fBu16\fP \fBaiIdx\fP [BTCURSOR_MAX_DEPTH]"
+.br
+.ti -1c
+.RI "\fBBtree\fP * \fBpBtree\fP"
+.br
+.ti -1c
+.RI "\fBBtShared\fP * \fBpBt\fP"
+.br
+.ti -1c
+.RI "\fBBtCursor\fP * \fBpNext\fP"
+.br
+.ti -1c
+.RI "\fBKeyInfo\fP * \fBpKeyInfo\fP"
+.br
+.ti -1c
+.RI "void * \fBpKey\fP"
+.br
+.ti -1c
+.RI "\fBPgno\fP * \fBaOverflow\fP"
+.br
+.ti -1c
+.RI "\fBMemPage\fP * \fBapPage\fP [BTCURSOR_MAX_DEPTH]"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBu16\fP \fBBtCursor::aiIdx\fP"
+.PP
+.SS "\fBPgno\fP* \fBBtCursor::aOverflow\fP"
+.PP
+.SS "\fBPgno\fP* \fBBtCursor::aOverflow\fP"
+.PP
+.SS "\fBMemPage\fP* \fBBtCursor::apPage\fP[BTCURSOR_MAX_DEPTH]"
+.PP
+.SS "\fBMemPage\fP* \fBBtCursor::apPage\fP[BTCURSOR_MAX_DEPTH]"
+.PP
+.SS "\fBu8\fP \fBBtCursor::atLast\fP"
+.PP
+.SS "\fBsqlite3_int64\fP \fBBtCursor::cachedRowid\fP"
+.PP
+.SS "\fBu8\fP \fBBtCursor::eState\fP"
+.PP
+.SS "\fBCellInfo\fP \fBBtCursor::info\fP"
+.PP
+.SS "\fBi16\fP \fBBtCursor::iPage\fP"
+.PP
+.SS "\fBu8\fP \fBBtCursor::isIncrblobHandle\fP"
+.PP
+.SS "\fBi64\fP \fBBtCursor::nKey\fP"
+.PP
+.SS "\fBBtShared\fP* \fBBtCursor::pBt\fP"
+.PP
+.SS "\fBBtShared\fP* \fBBtCursor::pBt\fP"
+.PP
+.SS "\fBBtree\fP* \fBBtCursor::pBtree\fP"
+.PP
+.SS "\fBBtree\fP* \fBBtCursor::pBtree\fP"
+.PP
+.SS "\fBPgno\fP \fBBtCursor::pgnoRoot\fP"
+.PP
+.SS "void* \fBBtCursor::pKey\fP"
+.PP
+.SS "void* \fBBtCursor::pKey\fP"
+.PP
+.SS "struct \fBKeyInfo\fP* \fBBtCursor::pKeyInfo\fP"
+.PP
+.SS "struct \fBKeyInfo\fP* \fBBtCursor::pKeyInfo\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBBtCursor::pNext\fP"
+.PP
+.SS "\fBBtCursor\fP* \fBBtCursor::pNext\fP"
+.PP
+.SS "\fBBtCursor\fP * \fBBtCursor::pPrev\fP"
+.PP
+.SS "int \fBBtCursor::skipNext\fP"
+.PP
+.SS "\fBu8\fP \fBBtCursor::validNKey\fP"
+.PP
+.SS "\fBu8\fP \fBBtCursor::wrFlag\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

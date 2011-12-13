@@ -1,0 +1,122 @@
+.TH "uptop/main.c" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+uptop/main.c \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <stdio.h>\fP
+.br
+\fC#include <stdlib.h>\fP
+.br
+\fC#include <getopt.h>\fP
+.br
+\fC#include '../store/upk_db.h'\fP
+.br
+\fC#include <unistd.h>\fP
+.br
+\fC#include 'uptop.h'\fP
+.br
+\fC#include <signal.h>\fP
+.br
+\fC#include <ncurses.h>\fP
+.br
+\fC#include <time.h>\fP
+.br
+\fC#include <assert.h>\fP
+.br
+\fC#include <string.h>\fP
+.br
+
+.SS "Defines"
+
+.in +1c
+.ti -1c
+.RI "#define \fBCOMPONENT\fP   'uptop'"
+.br
+.in -1c
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBoptions_parse\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "void \fBuptop_signal_handler\fP (int sig)"
+.br
+.ti -1c
+.RI "const char * \fBtime_as_string\fP ()"
+.br
+.ti -1c
+.RI "void \fBclock_update\fP ()"
+.br
+.ti -1c
+.RI "void \fBcursor_corner\fP ()"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.ti -1c
+.RI "void \fBuptop_print_callback\fP (void *ignored, upk_srvc_t srvc, const char *status_desired, const char *status_actual)"
+.br
+.ti -1c
+.RI "void \fBuptop_services_print\fP (sqlite3 *pdb)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "int \fBDEBUG\fP = 0"
+.br
+.ti -1c
+.RI "int \fBDB_CHECK_INTERVAL\fP = 10"
+.br
+.ti -1c
+.RI "int \fBDB_CHECK_LAST\fP = 0"
+.br
+.ti -1c
+.RI "upk_db \fBUPK_DB\fP"
+.br
+.ti -1c
+.RI "static int \fBOPT_VERSION\fP = 0"
+.br
+.in -1c
+.SH "Define Documentation"
+.PP 
+.SS "#define COMPONENT   'uptop'"
+.PP
+.SH "Function Documentation"
+.PP 
+.SS "void clock_update ()"
+.PP
+.SS "void cursor_corner ()"
+.PP
+.SS "int main (int argc, char * argv[])"
+.PP
+.SS "int options_parse (int argc, char * argv[])"
+.PP
+.SS "const char * time_as_string ()"
+.PP
+.SS "void uptop_print_callback (void * ignored, upk_srvc_t srvc, const char * status_desired, const char * status_actual)"
+.PP
+.SS "void uptop_services_print (sqlite3 * pdb)"
+.PP
+.SS "void uptop_signal_handler (int sig)"
+.PP
+.SH "Variable Documentation"
+.PP 
+.SS "int \fBDB_CHECK_INTERVAL\fP = 10"
+.PP
+.SS "int \fBDB_CHECK_LAST\fP = 0"
+.PP
+.SS "int \fBDEBUG\fP = 0"
+.PP
+.SS "int \fBOPT_VERSION\fP = 0\fC [static]\fP"
+.PP
+.SS "struct upk_db \fBUPK_DB\fP"
+.PP
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

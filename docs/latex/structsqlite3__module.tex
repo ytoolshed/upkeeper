@@ -1,0 +1,158 @@
+\section{sqlite3\_\-module Struct Reference}
+\label{structsqlite3__module}\index{sqlite3_module@{sqlite3\_\-module}}
+{\tt \#include $<$sqlite3.h$>$}
+
+\subsection*{Data Fields}
+\begin{CompactItemize}
+\item 
+int \bf{i\-Version}
+\item 
+int($\ast$ \bf{x\-Create} )(\bf{sqlite3} $\ast$, void $\ast$p\-Aux, int argc, const char $\ast$const $\ast$argv, \bf{sqlite3\_\-vtab} $\ast$$\ast$pp\-VTab, char $\ast$$\ast$)
+\item 
+int($\ast$ \bf{x\-Connect} )(\bf{sqlite3} $\ast$, void $\ast$p\-Aux, int argc, const char $\ast$const $\ast$argv, \bf{sqlite3\_\-vtab} $\ast$$\ast$pp\-VTab, char $\ast$$\ast$)
+\item 
+int($\ast$ \bf{x\-Best\-Index} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab, \bf{sqlite3\_\-index\_\-info} $\ast$)
+\item 
+int($\ast$ \bf{x\-Disconnect} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Destroy} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Open} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab, \bf{sqlite3\_\-vtab\_\-cursor} $\ast$$\ast$pp\-Cursor)
+\item 
+int($\ast$ \bf{x\-Close} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$)
+\item 
+int($\ast$ \bf{x\-Filter} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$, int idx\-Num, const char $\ast$idx\-Str, int argc, \bf{sqlite3\_\-value} $\ast$$\ast$argv)
+\item 
+int($\ast$ \bf{x\-Next} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$)
+\item 
+int($\ast$ \bf{x\-Eof} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$)
+\item 
+int($\ast$ \bf{x\-Column} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$, \bf{sqlite3\_\-context} $\ast$, int)
+\item 
+int($\ast$ \bf{x\-Rowid} )(\bf{sqlite3\_\-vtab\_\-cursor} $\ast$, \bf{sqlite3\_\-int64} $\ast$p\-Rowid)
+\item 
+int($\ast$ \bf{x\-Update} )(\bf{sqlite3\_\-vtab} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$, \bf{sqlite3\_\-int64} $\ast$)
+\item 
+int($\ast$ \bf{x\-Begin} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Sync} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Commit} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Rollback} )(\bf{sqlite3\_\-vtab} $\ast$p\-VTab)
+\item 
+int($\ast$ \bf{x\-Find\-Function} )(\bf{sqlite3\_\-vtab} $\ast$p\-Vtab, int n\-Arg, const char $\ast$z\-Name, void($\ast$$\ast$px\-Func)(\bf{sqlite3\_\-context} $\ast$, int, \bf{sqlite3\_\-value} $\ast$$\ast$), void $\ast$$\ast$pp\-Arg)
+\item 
+int($\ast$ \bf{x\-Rename} )(\bf{sqlite3\_\-vtab} $\ast$p\-Vtab, const char $\ast$z\-New)
+\end{CompactItemize}
+
+
+\subsection{Field Documentation}
+\index{sqlite3_module@{sqlite3\_\-module}!iVersion@{iVersion}}
+\index{iVersion@{iVersion}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int \bf{sqlite3\_\-module::i\-Version}}\label{structsqlite3__module_fef2611c66971e53f85f17feeb1b4fc2}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xBegin@{xBegin}}
+\index{xBegin@{xBegin}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Begin}}\label{structsqlite3__module_dfcd6063c9a071987271fcfac38b5195}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xBestIndex@{xBestIndex}}
+\index{xBestIndex@{xBestIndex}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Best\-Index}}\label{structsqlite3__module_418be1b6005d39e388daf4acaccf7794}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xClose@{xClose}}
+\index{xClose@{xClose}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Close}}\label{structsqlite3__module_4cef2d430dbdd97a69b08dade4c3892f}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xColumn@{xColumn}}
+\index{xColumn@{xColumn}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Column}}\label{structsqlite3__module_b82e352a35ce17316b2721932c53be4f}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xCommit@{xCommit}}
+\index{xCommit@{xCommit}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Commit}}\label{structsqlite3__module_ad283bda0eda37c15b68ecc8ab2ce44d}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xConnect@{xConnect}}
+\index{xConnect@{xConnect}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Connect}}\label{structsqlite3__module_4626dfdf9dd89d9951886ea730d8650e}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xCreate@{xCreate}}
+\index{xCreate@{xCreate}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Create}}\label{structsqlite3__module_0804f4454608f76cd31f5f7dacef817b}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xDestroy@{xDestroy}}
+\index{xDestroy@{xDestroy}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Destroy}}\label{structsqlite3__module_5ae62464da6727cab09f4dc7960f0b63}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xDisconnect@{xDisconnect}}
+\index{xDisconnect@{xDisconnect}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Disconnect}}\label{structsqlite3__module_23d89da2e74572fdd76016b9f6917661}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xEof@{xEof}}
+\index{xEof@{xEof}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Eof}}\label{structsqlite3__module_0eebd73c948f0a4230663debf705b9e4}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xFilter@{xFilter}}
+\index{xFilter@{xFilter}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Filter}}\label{structsqlite3__module_625ee6679584728d528ab35d7d61e069}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xFindFunction@{xFindFunction}}
+\index{xFindFunction@{xFindFunction}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Find\-Function}}\label{structsqlite3__module_54cf6954bf9148a3ab2b943f324e3538}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xNext@{xNext}}
+\index{xNext@{xNext}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Next}}\label{structsqlite3__module_02eaba7121f9761202eab885c2db97c5}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xOpen@{xOpen}}
+\index{xOpen@{xOpen}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Open}}\label{structsqlite3__module_75d1c930ae4431ada153235b6eeab144}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xRename@{xRename}}
+\index{xRename@{xRename}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Rename}}\label{structsqlite3__module_9c0bc0e78b88cde6a6efef5539f8a813}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xRollback@{xRollback}}
+\index{xRollback@{xRollback}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Rollback}}\label{structsqlite3__module_b3362bac28bf869ef24340da324f0832}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xRowid@{xRowid}}
+\index{xRowid@{xRowid}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Rowid}}\label{structsqlite3__module_2280ce46a41483d8454a0b971b2a28c6}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xSync@{xSync}}
+\index{xSync@{xSync}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Sync}}\label{structsqlite3__module_3be1fb97de096d7aaffe6f2303eca71c}
+
+
+\index{sqlite3_module@{sqlite3\_\-module}!xUpdate@{xUpdate}}
+\index{xUpdate@{xUpdate}!sqlite3_module@{sqlite3\_\-module}}
+\subsubsection{\setlength{\rightskip}{0pt plus 5cm}int($\ast$ \bf{sqlite3\_\-module::x\-Update}}\label{structsqlite3__module_9c0ae465b08a6b8e82b6c783483094fc}
+
+
+
+
+The documentation for this struct was generated from the following files:\begin{CompactItemize}
+\item 
+deps/sqlite/\bf{sqlite3.c}\item 
+deps/sqlite/\bf{sqlite3.h}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.c}\item 
+deps/sqlite-3.7.3/\bf{sqlite3.h}\end{CompactItemize}

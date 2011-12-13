@@ -1,0 +1,1018 @@
+\section{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-serializer.c File Reference}
+\label{upk__v0__protocol__serializer_8c}\index{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-serializer.c@{libupkeeper/upkeeper/upk\_\-v0\_\-protocol\_\-serializer.c}}
+{\ttfamily \#include \char`\"{}upk\_\-v0\_\-protocol.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}upk\_\-error.h\char`\"{}}\par
+{\ttfamily \#include $<$assert.h$>$}\par
+Include dependency graph for upk\_\-v0\_\-protocol\_\-serializer.c:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__v0__protocol__serializer_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Defines}
+\begin{DoxyCompactItemize}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER}~msgtype
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\item 
+\#define {\bf UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}~{\bf upk\_\-msgtype\_\-t}
+\end{DoxyCompactItemize}
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef void $\ast$($\ast$ {\bf deserialize\_\-payload\_\-t} )({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$)
+\item 
+typedef {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$($\ast$ {\bf serialize\_\-payload\_\-t} )(void $\ast$, {\bf size\_\-t})
+\end{DoxyCompactItemize}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-req\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-repl\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serialize\_\-pub\_\-payload} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static void $\ast$ {\bf deserialize\_\-req\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserialize\_\-repl\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserialize\_\-pub\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-seq\_\-start} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-seq\_\-end} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-action} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-signal} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-list} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-status} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-subscribe} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-unsub} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-req\_\-disconnect} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-seq\_\-start} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-seq\_\-end} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-result} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-listing} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static {\bf v0\_\-svcinfo\_\-t} $\ast$ {\bf deserial\_\-svcinfo\_\-data} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-svcinfo} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-ack} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-repl\_\-err} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-pub\_\-pub} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static void $\ast$ {\bf deserial\_\-pub\_\-cancel} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-action} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-signal} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-list} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-status} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-subscribe} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-unsub} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-req\_\-disconnect} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-start} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-seq\_\-end} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-result} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-listing} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-svcinfo\_\-data} ({\bf v0\_\-svcinfo\_\-t} $\ast$data, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-svcinfo} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-ack} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-repl\_\-err} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-pub} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf serial\_\-pub\_\-cancel} (void $\ast$UPK\_\-DATA\_\-PTR, {\bf size\_\-t} UPK\_\-DATA\_\-LEN)
+\item 
+void $\ast$ {\bf v0\_\-deserialize\_\-payload} ({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$UPK\_\-BUF, {\bf upk\_\-pkttype\_\-t} pkttype)
+\item 
+{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ {\bf v0\_\-serialize\_\-payload} ({\bf upk\_\-packet\_\-t} $\ast$pkt)
+\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+{\bf upk\_\-pkttype\_\-t} {\bf upk\_\-pkt\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-req\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-repl\_\-proto\_\-limit} [$\,$]
+\item 
+{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-pub\_\-proto\_\-limit} [$\,$]
+\item 
+static {\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-pkt\_\-dispatch} [$\,$]
+\item 
+static {\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-req\_\-dispatch} [$\,$]
+\item 
+static {\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-repl\_\-dispatch} [$\,$]
+\item 
+static {\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-pub\_\-dispatch} [$\,$]
+\item 
+static {\bf serialize\_\-payload\_\-t} {\bf serial\_\-pkt\_\-dispatch} [$\,$]
+\item 
+static {\bf serialize\_\-payload\_\-t} {\bf serial\_\-req\_\-dispatch} [$\,$]
+\item 
+static {\bf serialize\_\-payload\_\-t} {\bf serial\_\-repl\_\-dispatch} [$\,$]
+\item 
+static {\bf serialize\_\-payload\_\-t} {\bf serial\_\-pub\_\-dispatch} [$\,$]
+\end{DoxyCompactItemize}
+
+
+\subsection{Define Documentation}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}}
+\index{UPK\_\-MSG\_\-IDENTIFIER@{UPK\_\-MSG\_\-IDENTIFIER}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER~msgtype}\label{upk__v0__protocol__serializer_8c_a085168993b6f7b7f00302e0c30df8302}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}}
+\index{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF@{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF}]{\setlength{\rightskip}{0pt plus 5cm}\#define UPK\_\-MSG\_\-IDENTIFIER\_\-TYPEDEF~{\bf upk\_\-msgtype\_\-t}}\label{upk__v0__protocol__serializer_8c_adc68886f7e9cb52b8b404cb9c8c75ecb}
+
+
+\subsection{Typedef Documentation}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-payload\_\-t@{deserialize\_\-payload\_\-t}}
+\index{deserialize\_\-payload\_\-t@{deserialize\_\-payload\_\-t}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserialize\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef void$\ast$($\ast$ {\bf deserialize\_\-payload\_\-t})({\bf upk\_\-pkt\_\-buf\_\-t} $\ast$)}\label{upk__v0__protocol__serializer_8c_a30c8d18ab54ab167db699212122a1e72}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize\_\-payload\_\-t@{serialize\_\-payload\_\-t}}
+\index{serialize\_\-payload\_\-t@{serialize\_\-payload\_\-t}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serialize\_\-payload\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}typedef {\bf upk\_\-pkt\_\-buf\_\-t}$\ast$($\ast$ {\bf serialize\_\-payload\_\-t})(void $\ast$, {\bf size\_\-t})}\label{upk__v0__protocol__serializer_8c_a863c6f51e7f5a7bf644629730de75189}
+
+
+\subsection{Function Documentation}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-pub\_\-cancel@{deserial\_\-pub\_\-cancel}}
+\index{deserial\_\-pub\_\-cancel@{deserial\_\-pub\_\-cancel}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-pub\_\-cancel}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-pub\_\-cancel (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a3e41f82602ee96f0a9853d2863e674ed}
+
+
+References UPK\_\-DATA, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-pub\_\-pub@{deserial\_\-pub\_\-pub}}
+\index{deserial\_\-pub\_\-pub@{deserial\_\-pub\_\-pub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-pub\_\-pub}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-pub\_\-pub (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_aa83f438379a3227a46c6a601cac1b0c7}
+
+
+References UPK\_\-DATA, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-ack@{deserial\_\-repl\_\-ack}}
+\index{deserial\_\-repl\_\-ack@{deserial\_\-repl\_\-ack}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-ack}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-ack (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae0600ebe2382a1c63246adc46c5beeb8}
+
+
+References UPK\_\-DATA, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-err@{deserial\_\-repl\_\-err}}
+\index{deserial\_\-repl\_\-err@{deserial\_\-repl\_\-err}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-err}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-err (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_aa917ff8e4141b978bc701237c8714b67}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-listing@{deserial\_\-repl\_\-listing}}
+\index{deserial\_\-repl\_\-listing@{deserial\_\-repl\_\-listing}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-listing}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-listing (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a12e06056f73bc90d609430208ff0b3fa}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-result@{deserial\_\-repl\_\-result}}
+\index{deserial\_\-repl\_\-result@{deserial\_\-repl\_\-result}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-result (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a92fd0ac6e0b21908457907308675d72c}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-seq\_\-end@{deserial\_\-repl\_\-seq\_\-end}}
+\index{deserial\_\-repl\_\-seq\_\-end@{deserial\_\-repl\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a4bd2393af57fb3cb399bb41f7bfa5c37}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-seq\_\-start@{deserial\_\-repl\_\-seq\_\-start}}
+\index{deserial\_\-repl\_\-seq\_\-start@{deserial\_\-repl\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a434ea312633359e9aee7618d3e2fbd6e}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-svcinfo@{deserial\_\-repl\_\-svcinfo}}
+\index{deserial\_\-repl\_\-svcinfo@{deserial\_\-repl\_\-svcinfo}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-repl\_\-svcinfo (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a49e5e421a6a81d4cc33981c9e41d1a7a}
+
+
+References deserial\_\-svcinfo\_\-data(), free(), UPK\_\-DATA, UPK\_\-FETCH\_\-DATA\_\-TO\_\-BUF, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=378pt]{upk__v0__protocol__serializer_8c_a49e5e421a6a81d4cc33981c9e41d1a7a_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-action@{deserial\_\-req\_\-action}}
+\index{deserial\_\-req\_\-action@{deserial\_\-req\_\-action}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-action (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a0fca3044e1f2349c65f892e43beb324d}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-disconnect@{deserial\_\-req\_\-disconnect}}
+\index{deserial\_\-req\_\-disconnect@{deserial\_\-req\_\-disconnect}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a064ee2c415b5f18a287d5602efcdc57b}
+
+
+References UPK\_\-DATA, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-list@{deserial\_\-req\_\-list}}
+\index{deserial\_\-req\_\-list@{deserial\_\-req\_\-list}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-list (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a8abd2c7e2e4cb79669a556e1dc87b896}
+
+
+References UPK\_\-DATA, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-seq\_\-end@{deserial\_\-req\_\-seq\_\-end}}
+\index{deserial\_\-req\_\-seq\_\-end@{deserial\_\-req\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a295e062e800b4850d3cd386fe259e55f}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-seq\_\-start@{deserial\_\-req\_\-seq\_\-start}}
+\index{deserial\_\-req\_\-seq\_\-start@{deserial\_\-req\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a2fd463a2430ff389cc2bee8d1a9a93d6}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-signal@{deserial\_\-req\_\-signal}}
+\index{deserial\_\-req\_\-signal@{deserial\_\-req\_\-signal}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-signal (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae85b7ef6f65dec0d185c9db7741d2958}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-status@{deserial\_\-req\_\-status}}
+\index{deserial\_\-req\_\-status@{deserial\_\-req\_\-status}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-status (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a89db537e657cf4ed1e76b8fd772c0ff1}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-subscribe@{deserial\_\-req\_\-subscribe}}
+\index{deserial\_\-req\_\-subscribe@{deserial\_\-req\_\-subscribe}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-subscribe (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_aff58f1e9bc19a4d8007c3720d2f2d33e}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-unsub@{deserial\_\-req\_\-unsub}}
+\index{deserial\_\-req\_\-unsub@{deserial\_\-req\_\-unsub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-unsub}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserial\_\-req\_\-unsub (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a7074880df9a926a0365454623fd02e3d}
+
+
+References UPK\_\-DATA, UPK\_\-FETCH\_\-BOOL, UPK\_\-FETCH\_\-STRING, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-svcinfo\_\-data@{deserial\_\-svcinfo\_\-data}}
+\index{deserial\_\-svcinfo\_\-data@{deserial\_\-svcinfo\_\-data}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-svcinfo\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf v0\_\-svcinfo\_\-t} $\ast$ deserial\_\-svcinfo\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__v0__protocol__serializer_8c_a6e9fd786326406d3284b87b110c769dc}
+
+
+References calloc(), proc\_\-pid, UPK\_\-DATA, UPK\_\-FETCH\_\-ARRAY, UPK\_\-FETCH\_\-ENUM, UPK\_\-FETCH\_\-UINT32, and UPK\_\-INIT\_\-DESERIALIZE.
+
+
+
+Referenced by deserial\_\-repl\_\-svcinfo().
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=234pt]{upk__v0__protocol__serializer_8c_a6e9fd786326406d3284b87b110c769dc_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=300pt]{upk__v0__protocol__serializer_8c_a6e9fd786326406d3284b87b110c769dc_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-pub\_\-payload@{deserialize\_\-pub\_\-payload}}
+\index{deserialize\_\-pub\_\-payload@{deserialize\_\-pub\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserialize\_\-pub\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-pub\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_aa4e86ea82db539799ff0b9bd6776199c}
+
+
+References deserial\_\-pub\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-PUB\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{upk__v0__protocol__serializer_8c_aa4e86ea82db539799ff0b9bd6776199c_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-repl\_\-payload@{deserialize\_\-repl\_\-payload}}
+\index{deserialize\_\-repl\_\-payload@{deserialize\_\-repl\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserialize\_\-repl\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-repl\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a381061a0878337fbd4ac022897b6527e}
+
+
+References deserial\_\-repl\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-REPL\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=242pt]{upk__v0__protocol__serializer_8c_a381061a0878337fbd4ac022897b6527e_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserialize\_\-req\_\-payload@{deserialize\_\-req\_\-payload}}
+\index{deserialize\_\-req\_\-payload@{deserialize\_\-req\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserialize\_\-req\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static void $\ast$ deserialize\_\-req\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae6e8cfee60933cc6520c32092a992956}
+
+
+References deserial\_\-req\_\-dispatch, ntohl(), UPK\_\-BUF, and UPK\_\-REQ\_\-ORIGIN.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=238pt]{upk__v0__protocol__serializer_8c_ae6e8cfee60933cc6520c32092a992956_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-pub\_\-cancel@{serial\_\-pub\_\-cancel}}
+\index{serial\_\-pub\_\-cancel@{serial\_\-pub\_\-cancel}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-pub\_\-cancel}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-cancel (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a7e3b1db573953ff9cc1ac270f27240a5}
+
+
+References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-pub\_\-pub@{serial\_\-pub\_\-pub}}
+\index{serial\_\-pub\_\-pub@{serial\_\-pub\_\-pub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-pub\_\-pub}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-pub\_\-pub (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_acc83c28819178e7bed7deb95fd1cc431}
+
+
+References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-ack@{serial\_\-repl\_\-ack}}
+\index{serial\_\-repl\_\-ack@{serial\_\-repl\_\-ack}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-ack}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-ack (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a030fbd0f4115a0059cef2f5664ccc477}
+
+
+References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-err@{serial\_\-repl\_\-err}}
+\index{serial\_\-repl\_\-err@{serial\_\-repl\_\-err}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-err}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-err (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a2ae33e0de73d13c81ace087901cc3722}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-listing@{serial\_\-repl\_\-listing}}
+\index{serial\_\-repl\_\-listing@{serial\_\-repl\_\-listing}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-listing}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-listing (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a21b40510948c3dc3e76ca32edd9ec64e}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-result@{serial\_\-repl\_\-result}}
+\index{serial\_\-repl\_\-result@{serial\_\-repl\_\-result}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-result}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-result (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a245d2d408d763b7e5c2db5f071c2c5a9}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-seq\_\-end@{serial\_\-repl\_\-seq\_\-end}}
+\index{serial\_\-repl\_\-seq\_\-end@{serial\_\-repl\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_abfffa9f6059fb78d2b0d2f68b1842128}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, and UPK\_\-PUT\_\-BOOL.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-seq\_\-start@{serial\_\-repl\_\-seq\_\-start}}
+\index{serial\_\-repl\_\-seq\_\-start@{serial\_\-repl\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ae55b43f34c3465f49fff1b8565da09b5}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-svcinfo@{serial\_\-repl\_\-svcinfo}}
+\index{serial\_\-repl\_\-svcinfo@{serial\_\-repl\_\-svcinfo}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-svcinfo}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-repl\_\-svcinfo (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a377d6e80f5b80a02f7c9e9416f8db715}
+
+
+References free(), serial\_\-svcinfo\_\-data(), UPK\_\-BUF, UPK\_\-DATA, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-DATA\_\-FROM\_\-BUF, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+
+
+Here is the call graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{upk__v0__protocol__serializer_8c_a377d6e80f5b80a02f7c9e9416f8db715_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-action@{serial\_\-req\_\-action}}
+\index{serial\_\-req\_\-action@{serial\_\-req\_\-action}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-action}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-action (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a79c54f8183aab98df0cd4ad2851df6ac}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-disconnect@{serial\_\-req\_\-disconnect}}
+\index{serial\_\-req\_\-disconnect@{serial\_\-req\_\-disconnect}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-disconnect}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-disconnect (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a931fea96e7fd5f9cba816e96b7b7dcef}
+
+
+References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-list@{serial\_\-req\_\-list}}
+\index{serial\_\-req\_\-list@{serial\_\-req\_\-list}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-list}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-list (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a49513fce7c0acf97dc9422c3e44b8646}
+
+
+References UPK\_\-BUF, and UPK\_\-INIT\_\-SERIALIZE\_\-MSG.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-seq\_\-end@{serial\_\-req\_\-seq\_\-end}}
+\index{serial\_\-req\_\-seq\_\-end@{serial\_\-req\_\-seq\_\-end}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-seq\_\-end}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-end (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_add8393b0c9392de61d1663f33b3cbc71}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, and UPK\_\-PUT\_\-BOOL.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-seq\_\-start@{serial\_\-req\_\-seq\_\-start}}
+\index{serial\_\-req\_\-seq\_\-start@{serial\_\-req\_\-seq\_\-start}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-seq\_\-start}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-seq\_\-start (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a9d5b02532183b02dfe988f4487c8c44b}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-ENUM, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-signal@{serial\_\-req\_\-signal}}
+\index{serial\_\-req\_\-signal@{serial\_\-req\_\-signal}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-signal}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-signal (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a5c5b295095a0b95a2fae4f1fdd79e127}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\_\-PUT\_\-ENUM, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-status@{serial\_\-req\_\-status}}
+\index{serial\_\-req\_\-status@{serial\_\-req\_\-status}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-status}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-status (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a0cdcde35f662d2f3492f5433c608bc5a}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-subscribe@{serial\_\-req\_\-subscribe}}
+\index{serial\_\-req\_\-subscribe@{serial\_\-req\_\-subscribe}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-subscribe}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-subscribe (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_acb68dda242509bb87928dd149438f6cc}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-unsub@{serial\_\-req\_\-unsub}}
+\index{serial\_\-req\_\-unsub@{serial\_\-req\_\-unsub}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-unsub}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-req\_\-unsub (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a57653a96e534c72aba3b92e823f2c531}
+
+
+References UPK\_\-BUF, UPK\_\-INIT\_\-SERIALIZE\_\-MSG, UPK\_\-PUT\_\-BOOL, UPK\_\-PUT\_\-STRING, and UPK\_\-PUT\_\-UINT32.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-svcinfo\_\-data@{serial\_\-svcinfo\_\-data}}
+\index{serial\_\-svcinfo\_\-data@{serial\_\-svcinfo\_\-data}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-svcinfo\_\-data}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serial\_\-svcinfo\_\-data (
+\begin{DoxyParamCaption}
+\item[{{\bf v0\_\-svcinfo\_\-t} $\ast$}]{data, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [inline, static]}}\label{upk__v0__protocol__serializer_8c_a2f75c16dc4c834198e6063930ea1a0a9}
+
+
+References proc\_\-pid, UPK\_\-BUF, UPK\_\-DATA, UPK\_\-INIT\_\-SERIALIZE\_\-BUF, UPK\_\-PUT\_\-ARRAY, UPK\_\-PUT\_\-ENUM, and UPK\_\-PUT\_\-UINT32.
+
+
+
+Referenced by serial\_\-repl\_\-svcinfo().
+
+
+
+Here is the caller graph for this function:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=278pt]{upk__v0__protocol__serializer_8c_a2f75c16dc4c834198e6063930ea1a0a9_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize\_\-pub\_\-payload@{serialize\_\-pub\_\-payload}}
+\index{serialize\_\-pub\_\-payload@{serialize\_\-pub\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serialize\_\-pub\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-pub\_\-payload (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a20067f4f8f9c72a662b2200917a82981}
+
+
+References upk\_\-generic\_\-msg\_\-t::msgtype, serial\_\-pub\_\-dispatch, UPK\_\-DATA\_\-LEN, UPK\_\-DATA\_\-PTR, and UPK\_\-PUB\_\-ORIGIN.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize\_\-repl\_\-payload@{serialize\_\-repl\_\-payload}}
+\index{serialize\_\-repl\_\-payload@{serialize\_\-repl\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serialize\_\-repl\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-repl\_\-payload (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a1cf56afb5c22768589b2f2b77ca80e0b}
+
+
+References upk\_\-generic\_\-msg\_\-t::msgtype, serial\_\-repl\_\-dispatch, UPK\_\-DATA\_\-LEN, UPK\_\-DATA\_\-PTR, and UPK\_\-REPL\_\-ORIGIN.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serialize\_\-req\_\-payload@{serialize\_\-req\_\-payload}}
+\index{serialize\_\-req\_\-payload@{serialize\_\-req\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serialize\_\-req\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf upk\_\-pkt\_\-buf\_\-t} $\ast$ serialize\_\-req\_\-payload (
+\begin{DoxyParamCaption}
+\item[{void $\ast$}]{UPK\_\-DATA\_\-PTR, }
+\item[{{\bf size\_\-t}}]{UPK\_\-DATA\_\-LEN}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_ada92418b0e2ec39810cc967cc4ec79fa}
+
+
+References upk\_\-generic\_\-msg\_\-t::msgtype, serial\_\-req\_\-dispatch, UPK\_\-DATA\_\-LEN, UPK\_\-DATA\_\-PTR, and UPK\_\-REQ\_\-ORIGIN.
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!v0\_\-deserialize\_\-payload@{v0\_\-deserialize\_\-payload}}
+\index{v0\_\-deserialize\_\-payload@{v0\_\-deserialize\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{v0\_\-deserialize\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ v0\_\-deserialize\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-pkt\_\-buf\_\-t} $\ast$}]{UPK\_\-BUF, }
+\item[{{\bf upk\_\-pkttype\_\-t}}]{pkttype}
+\end{DoxyParamCaption}
+)}\label{upk__v0__protocol__serializer_8c_ab4cdfb488dae87d1e636a2ebd26b9e04}
+
+
+References deserial\_\-pkt\_\-dispatch, and UPK\_\-BUF.
+
+
+
+Referenced by upk\_\-deserialize\_\-payload().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__v0__protocol__serializer_8c_ab4cdfb488dae87d1e636a2ebd26b9e04_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!v0\_\-serialize\_\-payload@{v0\_\-serialize\_\-payload}}
+\index{v0\_\-serialize\_\-payload@{v0\_\-serialize\_\-payload}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{v0\_\-serialize\_\-payload}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkt\_\-buf\_\-t}$\ast$ v0\_\-serialize\_\-payload (
+\begin{DoxyParamCaption}
+\item[{{\bf upk\_\-packet\_\-t} $\ast$}]{pkt}
+\end{DoxyParamCaption}
+)}\label{upk__v0__protocol__serializer_8c_ae79e7dbcde1fd7e12de6b1a44d213bf8}
+
+
+References upk\_\-packet\_\-t::payload, upk\_\-packet\_\-t::payload\_\-len, upk\_\-packet\_\-t::pkttype, and serial\_\-pkt\_\-dispatch.
+
+
+
+Referenced by upk\_\-serialize\_\-payload().
+
+
+
+Here is the caller graph for this function:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=400pt]{upk__v0__protocol__serializer_8c_ae79e7dbcde1fd7e12de6b1a44d213bf8_icgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{Variable Documentation}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-pkt\_\-dispatch@{deserial\_\-pkt\_\-dispatch}}
+\index{deserial\_\-pkt\_\-dispatch@{deserial\_\-pkt\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-pkt\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-pkt\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a8d51ace6d3825228de0e34cc69f7f306}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [PKT_REQUEST] = deserialize_req_payload,
+    [PKT_REPLY] = deserialize_repl_payload,
+    [PKT_PUBMSG] = deserialize_pub_payload,
+}
+\end{DoxyCode}
+
+
+Referenced by v0\_\-deserialize\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-pub\_\-dispatch@{deserial\_\-pub\_\-dispatch}}
+\index{deserial\_\-pub\_\-dispatch@{deserial\_\-pub\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-pub\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-pub\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a22052408dd487a48f772e043dcb9dac7}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_PUB_PUBLICATION - UPK_PUB_ORIGIN] = deserial_pub_pub,
+    [UPK_PUB_CANCELATION - UPK_PUB_ORIGIN] = deserial_pub_cancel,
+}
+\end{DoxyCode}
+
+
+Referenced by deserialize\_\-pub\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-repl\_\-dispatch@{deserial\_\-repl\_\-dispatch}}
+\index{deserial\_\-repl\_\-dispatch@{deserial\_\-repl\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-repl\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-repl\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a835df861d1f4ad5654ede65cb3d41658}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_REPL_PREAMBLE - UPK_REPL_ORIGIN] = upk_deserialize_repl_preamble,
+    [UPK_REPL_SEQ_START - UPK_REPL_ORIGIN] = deserial_repl_seq_start,
+    [UPK_REPL_SEQ_END - UPK_REPL_ORIGIN] = deserial_repl_seq_end,
+    [UPK_REPL_RESULT - UPK_REPL_ORIGIN] = deserial_repl_result,
+    [UPK_REPL_LISTING - UPK_REPL_ORIGIN] = deserial_repl_listing,
+    [UPK_REPL_SVCINFO - UPK_REPL_ORIGIN] = deserial_repl_svcinfo,
+    [UPK_REPL_ACK - UPK_REPL_ORIGIN] = deserial_repl_ack,
+    [UPK_REPL_ERROR - UPK_REPL_ORIGIN] = deserial_repl_err,
+}
+\end{DoxyCode}
+
+
+Referenced by deserialize\_\-repl\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!deserial\_\-req\_\-dispatch@{deserial\_\-req\_\-dispatch}}
+\index{deserial\_\-req\_\-dispatch@{deserial\_\-req\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{deserial\_\-req\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf deserialize\_\-payload\_\-t} {\bf deserial\_\-req\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a7374e093f0fbf29244bce257767cb7d9}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_REQ_PREAMBLE - UPK_REQ_ORIGIN] = upk_deserialize_req_preamble,
+    [UPK_REQ_SEQ_START - UPK_REQ_ORIGIN] = deserial_req_seq_start,
+    [UPK_REQ_SEQ_END - UPK_REQ_ORIGIN] = deserial_req_seq_end,
+    [UPK_REQ_ACTION - UPK_REQ_ORIGIN] = deserial_req_action,
+    [UPK_REQ_SIGNAL - UPK_REQ_ORIGIN] = deserial_req_signal,
+    [UPK_REQ_LIST - UPK_REQ_ORIGIN] = deserial_req_list,
+    [UPK_REQ_STATUS - UPK_REQ_ORIGIN] = deserial_req_status,
+    [UPK_REQ_SUBSCRIBE - UPK_REQ_ORIGIN] = deserial_req_subscribe,
+    [UPK_REQ_UNSUBSCRIBE - UPK_REQ_ORIGIN] = deserial_req_unsub,
+    [UPK_REQ_DISCONNECT - UPK_REQ_ORIGIN] = deserial_req_disconnect,
+}
+\end{DoxyCode}
+
+
+Referenced by deserialize\_\-req\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-pkt\_\-dispatch@{serial\_\-pkt\_\-dispatch}}
+\index{serial\_\-pkt\_\-dispatch@{serial\_\-pkt\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-pkt\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf serialize\_\-payload\_\-t} {\bf serial\_\-pkt\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a066174863784e6367e72582cba603995}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [PKT_REQUEST] = serialize_req_payload,
+    [PKT_REPLY] = serialize_repl_payload,
+    [PKT_PUBMSG] = serialize_pub_payload,
+}
+\end{DoxyCode}
+
+
+Referenced by v0\_\-serialize\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-pub\_\-dispatch@{serial\_\-pub\_\-dispatch}}
+\index{serial\_\-pub\_\-dispatch@{serial\_\-pub\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-pub\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf serialize\_\-payload\_\-t} {\bf serial\_\-pub\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a6e02e12734343c43736cd33fc08c8906}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_PUB_PUBLICATION - UPK_PUB_ORIGIN] = serial_pub_pub,
+    [UPK_PUB_CANCELATION - UPK_PUB_ORIGIN] = serial_pub_cancel,
+}
+\end{DoxyCode}
+
+
+Referenced by serialize\_\-pub\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-repl\_\-dispatch@{serial\_\-repl\_\-dispatch}}
+\index{serial\_\-repl\_\-dispatch@{serial\_\-repl\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-repl\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf serialize\_\-payload\_\-t} {\bf serial\_\-repl\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a8ac8faf1c7767fa5373b1857d3de9e02}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_REPL_PREAMBLE - UPK_REPL_ORIGIN] = upk_serialize_repl_preamble,
+    [UPK_REPL_SEQ_START - UPK_REPL_ORIGIN] = serial_repl_seq_start,
+    [UPK_REPL_SEQ_END - UPK_REPL_ORIGIN] = serial_repl_seq_end,
+    [UPK_REPL_RESULT - UPK_REPL_ORIGIN] = serial_repl_result,
+    [UPK_REPL_LISTING - UPK_REPL_ORIGIN] = serial_repl_listing,
+    [UPK_REPL_SVCINFO - UPK_REPL_ORIGIN] = serial_repl_svcinfo,
+    [UPK_REPL_ACK - UPK_REPL_ORIGIN] = serial_repl_ack,
+    [UPK_REPL_ERROR - UPK_REPL_ORIGIN] = serial_repl_err,
+}
+\end{DoxyCode}
+
+
+Referenced by serialize\_\-repl\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!serial\_\-req\_\-dispatch@{serial\_\-req\_\-dispatch}}
+\index{serial\_\-req\_\-dispatch@{serial\_\-req\_\-dispatch}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{serial\_\-req\_\-dispatch}]{\setlength{\rightskip}{0pt plus 5cm}{\bf serialize\_\-payload\_\-t} {\bf serial\_\-req\_\-dispatch}[$\,$]\hspace{0.3cm}{\ttfamily  [static]}}\label{upk__v0__protocol__serializer_8c_a033ee00f99796af241b31067b169e33f}
+{\bfseries Initial value:}
+\begin{DoxyCode}
+ {
+    [UPK_REQ_PREAMBLE - UPK_REQ_ORIGIN] = upk_serialize_req_preamble,
+    [UPK_REQ_SEQ_START - UPK_REQ_ORIGIN] = serial_req_seq_start,
+    [UPK_REQ_SEQ_END - UPK_REQ_ORIGIN] = serial_req_seq_end,
+    [UPK_REQ_ACTION - UPK_REQ_ORIGIN] = serial_req_action,
+    [UPK_REQ_SIGNAL - UPK_REQ_ORIGIN] = serial_req_signal,
+    [UPK_REQ_LIST - UPK_REQ_ORIGIN] = serial_req_list,
+    [UPK_REQ_STATUS - UPK_REQ_ORIGIN] = serial_req_status,
+    [UPK_REQ_SUBSCRIBE - UPK_REQ_ORIGIN] = serial_req_subscribe,
+    [UPK_REQ_UNSUBSCRIBE - UPK_REQ_ORIGIN] = serial_req_unsub,
+    [UPK_REQ_DISCONNECT - UPK_REQ_ORIGIN] = serial_req_disconnect,
+}
+\end{DoxyCode}
+
+
+Referenced by serialize\_\-req\_\-payload().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk\_\-pkt\_\-proto\_\-limit@{upk\_\-pkt\_\-proto\_\-limit}}
+\index{upk\_\-pkt\_\-proto\_\-limit@{upk\_\-pkt\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-pkt\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-pkttype\_\-t} {\bf upk\_\-pkt\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_ae68958999ec86cc64f3a4890000e55ac}
+
+
+Referenced by upk\_\-deserialize\_\-packet().
+
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk\_\-pub\_\-proto\_\-limit@{upk\_\-pub\_\-proto\_\-limit}}
+\index{upk\_\-pub\_\-proto\_\-limit@{upk\_\-pub\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-pub\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-pub\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_a14dea902b70e94c33ef604fa46f155fc}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk\_\-repl\_\-proto\_\-limit@{upk\_\-repl\_\-proto\_\-limit}}
+\index{upk\_\-repl\_\-proto\_\-limit@{upk\_\-repl\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-repl\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-repl\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_a05506541d609817a37f3332197cd7b45}
+\index{upk\_\-v0\_\-protocol\_\-serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}!upk\_\-req\_\-proto\_\-limit@{upk\_\-req\_\-proto\_\-limit}}
+\index{upk\_\-req\_\-proto\_\-limit@{upk\_\-req\_\-proto\_\-limit}!upk_v0_protocol_serializer.c@{upk\_\-v0\_\-protocol\_\-serializer.c}}
+\subsubsection[{upk\_\-req\_\-proto\_\-limit}]{\setlength{\rightskip}{0pt plus 5cm}{\bf upk\_\-msgtype\_\-t} {\bf upk\_\-req\_\-proto\_\-limit}[$\,$]}\label{upk__v0__protocol__serializer_8c_a6ab96c29b9358b9d52158aebbdb6aeaa}

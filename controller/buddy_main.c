@@ -1,10 +1,23 @@
+
+/****************************************************************************
+ * Copyright (c) 2011 Yahoo! Inc. All rights reserved. Licensed under the
+ * Apache License, Version 2.0 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of the License
+ * at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable
+ * law or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
+ * See accompanying LICENSE file. 
+ ************************************************************************** */
+
 #include "buddy.h"
 #include <getopt.h>
 #include <stdio.h>
 #include <errno.h>
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static void
 buddy_usage(char *progname)
 {
@@ -19,6 +32,22 @@ buddy_usage(char *progname)
         "     setuid",
         "  -g GID, --setgid",
         "     setgid",
+        "  -l=SECONDS, --respawn_ratelimit=SECONDS",
+        "     Seconds to wait between all restart attempts",
+        "  -w=SECONDS, --restart_window=SECONDS",
+        "     Duration of the restart window for <max_restarts> to occur before imposing",
+        "     <respawn_ratelimit>; this is to prevent runaways"
+        "  -M=NUM, --max_restarts=NUM",
+        "     Maximum number of restarts to allow within <restart_window> seconds",
+        "  -L=SECONDS, --runaway_ratelimit=SECONDS",
+        "     Seconds to wait if a process exceeds <max_restarts> within <restart_window> seconds",
+        "  -k SECONDS, --kill_timeout=SECONDS",
+        "     Time to wait before sending managed process a term, and if necessary a kill signal, -1",
+        "     to never do this",
+        "  -i, --init_sup_groups, --initialize_supplemental_groups",
+        "     On exec, set supplemental groups to those belonging to the running UID (if running setuid)",
+        "  -c, --clear_sup_groups, --clear_supplemental_groups",
+        "     Clear supplemental groups to an empty list",
         "  -q, --quite",
         "     Decrease verbosity",
         "  -v, --verbose",
@@ -29,8 +58,8 @@ buddy_usage(char *progname)
     };
     size_t                  n = 0;
 
-    printf("Usage: %s [ -R NUM | --ringbuffer_size=NUM ] [ -r NUM | --retries=NUM ] \n\
-           [ -u | --setuid UID ] [-g | --setgid ] \n\
+    printf("Usage: %s [ -R NUM | --ringbuffer_size=NUM ] [ -r NUM | --retries=NUM ]\n\
+           [ -u | --setuid UID [-i | --init_sup_groups ] ] [-g | --setgid ] [ -c | --clear_sup_groups ]\n\
            [ -q | --quite] [-v | --verbose] [ -V | --version ] \n\
            service-name\n\n", progname);
     for(n = 0; n < sizeof(usage_txt) / 128; n++) {
@@ -41,7 +70,7 @@ buddy_usage(char *progname)
 
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static inline           bool
 numeric_string(const char *string, long *num)
 {
@@ -66,7 +95,7 @@ numeric_string(const char *string, long *num)
 
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static int
 opt_parse(int argc, char **argv, char **envp)
 {
@@ -81,16 +110,28 @@ opt_parse(int argc, char **argv, char **envp)
         {"verbose", 0, 0, 'v'},
         {"version", 0, 0, 'V'},
         {"help", 0, 0, 'h'},
-        {"ringbuffer_size", 1, 0, 'R'},
+        {"ringbuffer_size", 1, 0, 'R'},                    /*!< ringbuffer size */
+        {"rb_size", 1, 0, 'R'},                            /*!< ringbuffer size */
         {"retries", 1, 0, 'r'},
         {"setuid", 1, 0, 'u'},
         {"setgid", 1, 0, 'g'},
+        {"respawn_ratelimit",1, 0, 'l'},
+        {"restart_window",1, 0, 'w'},
+        {"max_restarts",1,0,'M'},
+        {"runaway_ratelimit",1, 0, 'L'},
         {"buddy_path", 1, 0, 0},
         {"buddy_uuid", 1, 0, 0},
+        {"kill_timeout",1,0,'k'}, 
+        {"initialize_supplemental_groups", 0, 0, 'i'},     /*!< initialize supplemental groups */
+        {"init_sup_groups", 0, 0, 'i'},                    /*!< initialize supplemental groups */
+        {"isg", 0, 0, 'i'},                                /*!< initialize supplemental groups */
+        {"clear_supplemental_groups", 0, 0, 'c'},          /*!< clear supplemental groups */
+        {"clear_sup_groups", 0, 0, 'c'},                   /*!< clear supplemental groups */
+        {"csg", 0, 0, 'c'},                                /*!< clear supplemental groups */
         {0, 0, 0, 0}
     };
 
-    while((c = getopt_long(argc, argv, "qhvR:r:u:g:", long_options, &option_index)) > 0) {
+    while((c = getopt_long(argc, argv, "qhvR:r:u:g:", long_options, &option_index)) >= 0) {
         *(cbuf + 1) = (option_index) ? '-' : c;
         p = (option_index) ? long_options[option_index].name : pbuf;
 
@@ -99,12 +140,12 @@ opt_parse(int argc, char **argv, char **envp)
             if(strncmp("buddy_path", long_options[option_index].name, strlen("buddy_path")) == 0) {
                 strncpy(buddy_root_path, optarg, sizeof(buddy_root_path) - 1);
                 break;
+            } else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
+                if(is_valid_upk_uuid_string(optarg)) {
+                    upk_string_to_uuid(&buddy_uuid, optarg);
+                    break;
+                }
             }
-            else if(strncmp("buddy_uuid", long_options[option_index].name, strlen("buddy_uuid")) == 0) {
-                strncpy(buddy_uuid, optarg, sizeof(buddy_uuid) - 1);
-                break;
-            }
-
             valid = false;
             break;
         case 'q':
@@ -137,6 +178,42 @@ opt_parse(int argc, char **argv, char **envp)
             else
                 buddy_setgid = num;
             break;
+        case 'l':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_ratelimit = num;
+            break;
+        case 'w':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_restart_window = num;
+            break;
+        case 'M':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_max_restarts = num;
+            break;
+        case 'L':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                runaway_ratelimit = num;
+            break;
+        case 'i':
+            initialize_supplemental_groups = true;
+            break;
+        case 'c':
+            clear_supplemental_groups = true;
+            break;
+        case 'k':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                kill_timeout = num;
+            break;
         case ':':
             printf("%s: option `%s' requires an argument\n", argv[0], argv[optind - 1]);
             valid = false;
@@ -159,8 +236,7 @@ opt_parse(int argc, char **argv, char **envp)
         strncpy(buddy_service_name, argv[optind], len);
     }
 
-    /* if(strnlen(buddy_uuid, 37) != 36)
-        valid = false; */
+    /* if(strnlen(buddy_uuid, 37) != 36) valid = false; */
 
     if(!valid)
         buddy_usage(argv[0]);
@@ -169,11 +245,12 @@ opt_parse(int argc, char **argv, char **envp)
 }
 
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
+   ******************************************************************************************************************* */
 static void
 buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, const char *fmt, va_list ap)
 {
-    static bool show_label, show_loc;
+    static bool             show_label, show_loc;
+
     show_label = show_loc = false;
 
     if(diaglvl < UPK_DIAGLVL_ERROR || diaglvl > UPK_DIAGLVL_INFO)
@@ -183,25 +260,25 @@ buddy_diag_handler(upk_diaglvl_t diaglvl, const char *label, const char *loc, co
         show_loc = show_label = true;
 
     switch (diaglvl) {
-        case UPK_DIAGLVL_FATAL:
-        case UPK_DIAGLVL_ALERT:
-        case UPK_DIAGLVL_CRIT:
-        case UPK_DIAGLVL_ERROR:
-            show_label = true;
-        default:
-            if(strlen(loc) > 0 && show_loc) 
-                fprintf(stderr, "%s: ", loc);
-            if(strlen(label) > 0 && show_label)
-                fprintf(stderr, "%s: ", label);
-            vfprintf(stderr, fmt, ap);
-            break;
+    case UPK_DIAGLVL_FATAL:
+    case UPK_DIAGLVL_ALERT:
+    case UPK_DIAGLVL_CRIT:
+    case UPK_DIAGLVL_ERROR:
+        show_label = true;
+    default:
+        if(strlen(loc) > 0 && show_loc)
+            fprintf(stderr, "%s: ", loc);
+        if(strlen(label) > 0 && show_label)
+            fprintf(stderr, "%s: ", label);
+        vfprintf(stderr, fmt, ap);
+        break;
     }
 }
 
-extern 
+extern
 /* ********************************************************************************************************************
- * ******************************************************************************************************************* */
-int
+   ******************************************************************************************************************* */
+    int
 main(int argc, char **argv, char **envp)
 {
     int                     retval = 0;
@@ -210,8 +287,7 @@ main(int argc, char **argv, char **envp)
     upk_diag_verbosity = 5;
 
     chdir("/");
-    /* fclose(stdin);
-    fclose(stderr); */
+    /* fclose(stdin); fclose(stderr); */
 
     if((retval = (int) opt_parse(argc, argv, envp))) {
         proc_envp = envp;

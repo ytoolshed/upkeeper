@@ -1,0 +1,54 @@
+.TH "_upk_net_cb_stk" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+_upk_net_cb_stk \- 
+.PP
+a callback-stack for use in nesting/branching expectations in a conversation  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <upk_network_types.h>\fP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBmsg_handlers\fP [((UPK_REQ_LIMIT-UPK_REQ_ORIGIN-(1+0-0))+(UPK_REPL_LIMIT-UPK_REPL_ORIGIN-(1+0-0))+(UPK_PUB_LIMIT-UPK_PUB_ORIGIN-(1+0-0)))]"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBnet_dispatch_pre\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBnet_dispatch_foreach\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_callback_t\fP \fBnet_dispatch_post\fP"
+.br
+.ti -1c
+.RI "\fBupk_net_cb_stk_t\fP * \fBnext\fP"
+.br
+.in -1c
+.SH "Detailed Description"
+.PP 
+a callback-stack for use in nesting/branching expectations in a conversation 
+.SH "Field Documentation"
+.PP 
+.SS "\fBupk_net_callback_t\fP \fB_upk_net_cb_stk::msg_handlers\fP"the array of callback handlers for each type of message, set the appropriate bucket with the function that handles the type of messages you expect next. Use the macro \fBUPK_MSGTYPE_IDX(msgtype)\fP to find the appropriate bucket 
+.PP
+Referenced by init_callback_handlers(), and upk_call_received_packet_callbacks().
+.SS "\fBupk_net_callback_t\fP \fB_upk_net_cb_stk::net_dispatch_foreach\fP"run this for every message 
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "\fBupk_net_callback_t\fP \fB_upk_net_cb_stk::net_dispatch_post\fP"run this after dispatching to a handler 
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "\fBupk_net_callback_t\fP \fB_upk_net_cb_stk::net_dispatch_pre\fP"before dispatching the event to the handler in msg_handlers 
+.PP
+Referenced by upk_net_event_dispatcher().
+.SS "\fBupk_net_cb_stk_t\fP * \fB_upk_net_cb_stk::next\fP"next 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

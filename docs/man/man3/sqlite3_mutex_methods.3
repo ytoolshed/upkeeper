@@ -1,0 +1,81 @@
+.TH "sqlite3_mutex_methods" 3 "20 Jul 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+sqlite3_mutex_methods \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <sqlite3.h>\fP
+.PP
+.SS "Data Fields"
+
+.in +1c
+.ti -1c
+.RI "int(* \fBxMutexInit\fP )(void)"
+.br
+.ti -1c
+.RI "int(* \fBxMutexEnd\fP )(void)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBxMutexAlloc\fP )(int)"
+.br
+.ti -1c
+.RI "void(* \fBxMutexFree\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBxMutexEnter\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxMutexTry\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "void(* \fBxMutexLeave\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxMutexHeld\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "int(* \fBxMutexNotheld\fP )(\fBsqlite3_mutex\fP *)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBxMutexAlloc\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBxMutexAlloc\fP )(int)"
+.br
+.ti -1c
+.RI "\fBsqlite3_mutex\fP *(* \fBxMutexAlloc\fP )(int)"
+.br
+.in -1c
+.SH "Field Documentation"
+.PP 
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_mutex_methods::xMutexAlloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_mutex_methods::xMutexAlloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_mutex_methods::xMutexAlloc\fP)(int)"
+.PP
+.SS "\fBsqlite3_mutex\fP*(* \fBsqlite3_mutex_methods::xMutexAlloc\fP)(int)"
+.PP
+.SS "int(* \fBsqlite3_mutex_methods::xMutexEnd\fP"
+.PP
+.SS "void(* \fBsqlite3_mutex_methods::xMutexEnter\fP"
+.PP
+.SS "void(* \fBsqlite3_mutex_methods::xMutexFree\fP"
+.PP
+.SS "int(* \fBsqlite3_mutex_methods::xMutexHeld\fP"
+.PP
+.SS "int(* \fBsqlite3_mutex_methods::xMutexInit\fP"
+.PP
+.SS "void(* \fBsqlite3_mutex_methods::xMutexLeave\fP"
+.PP
+.SS "int(* \fBsqlite3_mutex_methods::xMutexNotheld\fP"
+.PP
+.SS "int(* \fBsqlite3_mutex_methods::xMutexTry\fP"
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.

@@ -1,0 +1,41 @@
+.TH "libupkeeper/upkeeper/upk_client_net.h" 3 "Wed Dec 7 2011" "Version 1" "upkeeper" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+libupkeeper/upkeeper/upk_client_net.h \- 
+.SH SYNOPSIS
+.br
+.PP
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBupk_payload_t\fP * \fBupk_clnet_serial_request\fP (\fBupk_conn_handle_meta_t\fP *ctrl, \fBupk_packet_t\fP *pkt)"
+.br
+.ti -1c
+.RI "void \fBupk_clnet_req_preamble\fP (\fBupk_conn_handle_meta_t\fP *ctrl)"
+.br
+.ti -1c
+.RI "\fBupk_conn_handle_meta_t\fP * \fBupk_clnet_ctrl_connect\fP (void)"
+.br
+.ti -1c
+.RI "void \fBupk_clnet_req_disconnect\fP (\fBupk_conn_handle_meta_t\fP *ctrl)"
+.br
+.ti -1c
+.RI "void \fBupk_clnet_ctrl_disconnect\fP (\fBupk_conn_handle_meta_t\fP *ctrl)"
+.br
+.ti -1c
+.RI "_Bool \fBupk_clnet_req_action\fP (\fBupk_conn_handle_meta_t\fP *ctrl, char *svc_id, char *action)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "\fBupk_conn_handle_meta_t\fP* upk_clnet_ctrl_connect (void)"**************************************************************************************************************** 
+.SS "void upk_clnet_ctrl_disconnect (\fBupk_conn_handle_meta_t\fP *ctrl)"**************************************************************************************************************** 
+.SS "_Bool upk_clnet_req_action (\fBupk_conn_handle_meta_t\fP *ctrl, char *svc_id, char *action)"**************************************************************************************************************** 
+.SS "void upk_clnet_req_disconnect (\fBupk_conn_handle_meta_t\fP *ctrl)"**************************************************************************************************************** 
+.SS "void upk_clnet_req_preamble (\fBupk_conn_handle_meta_t\fP *ctrl)"**************************************************************************************************************** 
+.SS "\fBupk_payload_t\fP* upk_clnet_serial_request (\fBupk_conn_handle_meta_t\fP *ctrl, \fBupk_packet_t\fP *pkt)"**************************************************************************************************************** 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for upkeeper from the source code.
