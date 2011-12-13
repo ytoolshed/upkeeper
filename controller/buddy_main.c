@@ -32,6 +32,18 @@ buddy_usage(char *progname)
         "     setuid",
         "  -g GID, --setgid",
         "     setgid",
+        "  -l=SECONDS, --respawn_ratelimit=SECONDS",
+        "     Seconds to wait between all restart attempts",
+        "  -w=SECONDS, --restart_window=SECONDS",
+        "     Duration of the restart window for <max_restarts> to occur before imposing",
+        "     <respawn_ratelimit>; this is to prevent runaways"
+        "  -M=NUM, --max_restarts=NUM",
+        "     Maximum number of restarts to allow within <restart_window> seconds",
+        "  -L=SECONDS, --runaway_ratelimit=SECONDS",
+        "     Seconds to wait if a process exceeds <max_restarts> within <restart_window> seconds",
+        "  -k SECONDS, --kill_timeout=SECONDS",
+        "     Time to wait before sending managed process a term, and if necessary a kill signal, -1",
+        "     to never do this",
         "  -i, --init_sup_groups, --initialize_supplemental_groups",
         "     On exec, set supplemental groups to those belonging to the running UID (if running setuid)",
         "  -c, --clear_sup_groups, --clear_supplemental_groups",
@@ -103,8 +115,13 @@ opt_parse(int argc, char **argv, char **envp)
         {"retries", 1, 0, 'r'},
         {"setuid", 1, 0, 'u'},
         {"setgid", 1, 0, 'g'},
+        {"respawn_ratelimit",1, 0, 'l'},
+        {"restart_window",1, 0, 'w'},
+        {"max_restarts",1,0,'M'},
+        {"runaway_ratelimit",1, 0, 'L'},
         {"buddy_path", 1, 0, 0},
         {"buddy_uuid", 1, 0, 0},
+        {"kill_timeout",1,0,'k'}, 
         {"initialize_supplemental_groups", 0, 0, 'i'},     /*!< initialize supplemental groups */
         {"init_sup_groups", 0, 0, 'i'},                    /*!< initialize supplemental groups */
         {"isg", 0, 0, 'i'},                                /*!< initialize supplemental groups */
@@ -161,15 +178,45 @@ opt_parse(int argc, char **argv, char **envp)
             else
                 buddy_setgid = num;
             break;
-        case ':':
-            printf("%s: option `%s' requires an argument\n", argv[0], argv[optind - 1]);
-            valid = false;
+        case 'l':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_ratelimit = num;
+            break;
+        case 'w':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_restart_window = num;
+            break;
+        case 'M':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                user_max_restarts = num;
+            break;
+        case 'L':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                runaway_ratelimit = num;
             break;
         case 'i':
             initialize_supplemental_groups = true;
             break;
         case 'c':
             clear_supplemental_groups = true;
+            break;
+        case 'k':
+            if(!(valid = numeric_string(optarg, &num)))
+                printf("%s: option `%s' requires a numeric argument\n", argv[0], argv[optind]);
+            else
+                kill_timeout = num;
+            break;
+        case ':':
+            printf("%s: option `%s' requires an argument\n", argv[0], argv[optind - 1]);
+            valid = false;
             break;
         default:
             valid = false;

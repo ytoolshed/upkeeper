@@ -27,8 +27,8 @@
    2) Audit - buddy implements a fixed ringbuffer, which it uses to queue events it has monitored, and report those back to the controller
    daemon if/when the controller is available. To that end, buddy will send the entire-contents of its ringbuffer to a controller when it
    connects to buddy. However, two circumstances exist where the buddy may need to actively connect the controller, rather than passively
-   waiting for one to come by; they are a) when the ringbuffer has exceeded 3/4 fullness and b) when a buddy is terminated in a mannor other 
-   than a controller shutting it down.
+   waiting for one to come by; they are a) when the ringbuffer has exceeded 3/4 fullness and b) when a buddy is terminated in a mannor
+   other than a controller shutting it down.
 
    3) Flexibility - While buddy must remain somewhat limited in what it can do itself, it has been designed specifically to remain flexible
    in how it is used, and amenable to the use of adjuncts to extend and enhance its own functionality. In essence, buddy will avoid any
@@ -49,9 +49,9 @@
 
    * sometime later, a controller connects to the buddy, and issues a command, eg, start, or runonce, etc.
 
-   * buddy performs the action associated with whatever command it received, and reports back to the controller everything in its ringbuffer, 
-   the last item being the state of the buddy after completing the last action (but not necessarily the result of that last action; the
-   controller may not obtain a result until some future poll)
+   * buddy performs the action associated with whatever command it received, and reports back to the controller everything in its
+   ringbuffer, the last item being the state of the buddy after completing the last action (but not necessarily the result of that last
+   action; the controller may not obtain a result until some future poll)
 
    * the 'start' action is the only action that will be monitored. The script associated with the start action is what buddy will monitor;
    hence, that script should usually 'exec /path/to/yourservice' after performing any initialization you may require.
@@ -88,7 +88,11 @@ extern long             reconnect_retries;
 extern bool             randomize_ratelimit;
 extern bool             initialize_supplemental_groups;
 extern bool             clear_supplemental_groups;
+extern uint32_t         runaway_ratelimit;
 extern uint32_t         user_ratelimit;
+extern uint32_t         user_max_restarts;
+extern uint32_t         user_restart_window;
+extern int32_t          kill_timeout;
 extern void             buddy_init(diag_output_callback_t logger);
 extern void             commit_buddycide(int32_t signum);
 extern int32_t          buddy_event_loop(void);

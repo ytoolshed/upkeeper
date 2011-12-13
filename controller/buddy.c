@@ -11,74 +11,89 @@
  * See accompanying LICENSE file. 
  ************************************************************************** */
 
+/**
+  @file
+  
+  @addtogroup buddy
+  @{
+  */
+
 #include "buddy.h"
 #include <assert.h>
 #include <stdarg.h>
 #include <upkeeper/upk_error.h>
 
+/* TODO: This will become configurable; already ahve the config stubs */
 #define BUDDY_RETRY_TIMEOUT_SEC 1
 #define BUDDY_RETRY_TIMEOUT_NSEC 0
 
 #define BUDDY_SELECT_TIMEOUT_SEC 1
-#define BUDDY_SELECT_TIMEOUT_USEC 0                        // 0000
+#define BUDDY_SELECT_TIMEOUT_USEC 0
 
-#define RESPAWN_WINDOW 5                                   /* seconds */
-#define MAX_RESPAWN_COUNT 10                               /* max number of times a process may restart
-                                                              within the restart window before mandatory
-                                                              ratelimit is applied */
-#define RESPAWN_RATELIMIT 300                              /* seconds to wait before trying to respawn again
-                                                              after respawning too fast */
-
-/* exportable */
-// char buddy_uuid[37] = "";
-upk_uuid_t              buddy_uuid;
-char                   *buddy_service_name = NULL;
-char                    buddy_root_path[BUDDY_MAX_PATH_LEN] = "";
-uid_t                   buddy_setuid;
-gid_t                   buddy_setgid;
-size_t                  ringbuffer_size = 32;
-char                  **proc_envp = NULL;
-long                    reconnect_retries = 5;
-bool                    randomize_ratelimit = false;
-bool                    initialize_supplemental_groups = false;
-bool                    clear_supplemental_groups = false;
-uint32_t                user_ratelimit = 0;
+upk_uuid_t              buddy_uuid;                                                      /*!< uuid of this buddy, as reported by the
+                                                                                            controller */
+char                   *buddy_service_name = NULL;                                       /*!< service name, as reported by controller */
+char                    buddy_root_path[BUDDY_MAX_PATH_LEN] = "";                        /*!< path to where buddy calls home */
+uid_t                   buddy_setuid;                                                    /*!< the uid to setuid to, if possible */
+gid_t                   buddy_setgid;                                                    /*!< the gid to setgid to, if possible */
+size_t                  ringbuffer_size = 1024;                                          /*!< size of the ringbuffer to pre-allocate when
+                                                                                            buddy starts */
+char                  **proc_envp = NULL;                                                /*!< pointer to envp */
+long                    reconnect_retries = 5;                                           /*!< how many times to attempt to retry the
+                                                                                            controller on for emergent reporting */
+bool                    initialize_supplemental_groups = false;                          /*!< flag of whether or not to attempt to init
+                                                                                            supgroups */
+bool                    clear_supplemental_groups = false;                               /*!< flag of whether or not to attempt to clear
+                                                                                            supgroups */
+uint32_t                runaway_ratelimit = 300;                                         /*!< duration to pause if a runaway is detected
+                                                                                            (num_restarts > max_restarts within
+                                                                                            restart_window) */
+uint32_t                user_ratelimit = 0;                                              /*!< rate-limit to apply for every restart */
+bool                    randomize_ratelimit = false;                                     /*!< whether or not a random jitter should be
+                                                                                            added to the user_ratelimit */
+uint32_t                user_max_restarts = 10;                                          /*!< max restarts within restart_window */
+uint32_t                user_restart_window = 5;                                         /*!< duration (in seconds) of restart_window */
+int32_t                 kill_timeout = -1;                                               /*!< duration to wait before sending term/kill
+                                                                                            signals to a managed process; < 0 for never */
 
 void                    buddy_init(diag_output_callback_t logger);
 int32_t                 buddy_event_loop(void);
 void                    buddy_cleanup(void);
 
 /* not exportable */
-static time_t           respawn_timestamp = 0;
-static uint32_t         rapid_respawn_count = 0;
-static bool             force_ratelimit = false;
+static time_t           respawn_timestamp = 0;                                           /*!< timestamp of last respawn */
+static uint32_t         rapid_respawn_count = 0;                                         /*!< running total of respawns within
+                                                                                            restart_window */
+static bool             force_ratelimit = false;                                         /*!< flag used to demonstrate that the
+                                                                                            runaway_ratelimit should be imposed */
 
-static size_t           ringbuffer_pending = 0;
-static bool             chld_terminated = false;
-static pid_t            proc_pid = 0;
-static buddy_cmnd_t     last_command = UPK_CTRL_NONE;
-static buddy_cmnd_t     this_command = UPK_CTRL_NONE;
-static int              buddy_shutdown = 0;
-static buddy_info_t    *info_ringbuffer = NULL;
+static size_t volatile  ringbuffer_pending = 0;                                          /*!< pending messages in ringbuffer */
+static bool             chld_terminated = false;                                         /*!< whether or not the managed process
+                                                                                            terminated */
+static pid_t volatile   proc_pid = 0;                                                    /*!< pid of the managed process */
+static buddy_cmnd_t     last_command = UPK_CTRL_NONE;                                    /*!< value of the last command received */
+static buddy_cmnd_t     this_command = UPK_CTRL_NONE;                                    /*!< value of the current command received */
+static int              buddy_shutdown = 0;                                              /*!< flag to tell buddy to shutdown */
+static buddy_info_t volatile *volatile info_ringbuffer = NULL;                           /*!< the ringbuffer used to store messages */
 
-static int              buddy_sockfd = -1;
-static int              buddy_ctrlfd = -1;
+static int              buddy_sockfd = -1;                                               /*!< the fd of the listen-socket buddy uses to
+                                                                                            receive commands from controller */
+static int              buddy_ctrlfd = -1;                                               /*!< the fd of the socket we use to connect to
+                                                                                            controller, if needed */
 
-static char             buddy_path_buf[BUDDY_MAX_PATH_LEN] = "";
-static char             buddy_path_prefix[BUDDY_MAX_PATH_LEN] = "";
-static char             buddy_string_buf[BUDDY_MAX_PATH_LEN] = "";
+static char             buddy_path_buf[BUDDY_MAX_PATH_LEN] = "";                         /*!< a temporary buffer for paths */
+static char             buddy_path_prefix[BUDDY_MAX_PATH_LEN] = "";                      /*!< the path_prefix buffer */
+static char             buddy_string_buf[BUDDY_MAX_PATH_LEN] = "";                       /*!< a generic temporary string buffer */
 
-static struct sockaddr_un buddy_sockaddr = { 0 };
-static socklen_t        buddy_sockaddr_len = 0;
+static struct sockaddr_un buddy_sockaddr = { 0 };                                        /*!< buffer for sockaddr's */
+static socklen_t        buddy_sockaddr_len = 0;                                          /*!< buffer for socklen */
 
-static int              sockopts = 0;
-static int              highest_fd = 0;
-static struct timeval   timeout = {.tv_sec = BUDDY_SELECT_TIMEOUT_SEC,.tv_usec = BUDDY_SELECT_TIMEOUT_USEC };
-static struct timespec  nanotimeout = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec =
-        BUDDY_RETRY_TIMEOUT_NSEC };
-static size_t           ncount = 0;
+static int              sockopts = 0;                                                    /*!< buffer for sockopts */
+static int              highest_fd = 0;                                                  /*!< buffer for highest_fd, used in select */
+static struct timeval   timeout = {.tv_sec = BUDDY_SELECT_TIMEOUT_SEC,.tv_usec = BUDDY_SELECT_TIMEOUT_USEC };   /*!< buffer for timevals */
+static struct timespec  nanotimeout = {.tv_sec = BUDDY_RETRY_TIMEOUT_SEC,.tv_nsec = BUDDY_RETRY_TIMEOUT_NSEC }; /*!< buffer for timespecs */
 
-static buddy_runstate_t desired_state = BUDDY_STOPPED;
+static buddy_runstate_t desired_state = BUDDY_STOPPED;                                   /*!< the current desired state for buddy */
 
 
 /* functions */
@@ -101,7 +116,7 @@ static inline void      buddy_handle_command(void);
 static inline void      buddy_setreguid(void);
 static inline void      buddy_setup_fds(void);
 static inline int32_t   read_ctrl(buddy_cmnd_t * buf);
-static inline int32_t   write_ctrl(buddy_info_t * buf);
+static inline int32_t   write_ctrl(buddy_info_t volatile *volatile buf);
 
 static pid_t            buddy_exec_action(void);
 static bool             buddy_start_proc(void);
@@ -109,8 +124,12 @@ static void             resolve_symlink(void);
 static void             buddy_flush_ringbuffer(void);
 static void             sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext);
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief signal handler.
+  
+  Records receipt of signals to ringubuffer, and sets any flags necessary
+
+ ******************************************************************************************************************** */
 static void
 sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
 {
@@ -139,11 +158,19 @@ sa_sigaction_func(int signal, siginfo_t * siginfo, void *ucontext)
         buddy_shutdown = signal;
         break;
     }
+    /* sigaction doesn't reset the handler to SIG_DFL unless you explicitely tell it to do that; hence we don't have to explicitely reset
+       it here */
     return;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Concatinate path components based on the buddy_path prefix.
+
+  @param[in] suffixfmt              Format string used for concatination.
+  @param[in] ...                    Arguments for format.
+
+  @return pointer to static buffer containing concatinated path; will be clobbered on subsequent calls.
+ ******************************************************************************************************************** */
 static char            *
 buddy_path(const char *suffixfmt, ...)
 {
@@ -161,8 +188,9 @@ buddy_path(const char *suffixfmt, ...)
     return buddy_path_buf;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Do bounds checking and initialization of path components during initialization.
+ ******************************************************************************************************************** */
 static inline void
 buddy_init_paths(void)
 {
@@ -172,20 +200,20 @@ buddy_init_paths(void)
     if(strnlen(buddy_service_name, UPK_MAX_STRING_LEN) > UPK_MAX_STRING_LEN)
         upk_fatal("service name is too long, cannot continue");
 
-    if((strnlen(buddy_root_path, BUDDY_MAX_PATH_LEN) + strnlen(buddy_service_name, UPK_MAX_STRING_LEN)) >
-       BUDDY_MAX_PATH_LEN)
+    if((strnlen(buddy_root_path, BUDDY_MAX_PATH_LEN) + strnlen(buddy_service_name, UPK_MAX_STRING_LEN)) > BUDDY_MAX_PATH_LEN)
         upk_fatal("compined path length of buddy root and service name is too long, cannot continue");
 
     /* "actions/reload" should be the longest string we ever try to assemble */
-    if((strnlen(buddy_root_path, BUDDY_MAX_PATH_LEN) + strnlen(buddy_service_name, UPK_MAX_STRING_LEN) +
-        strlen("actions/reload")) > BUDDY_MAX_PATH_LEN)
+    if((strnlen(buddy_root_path, BUDDY_MAX_PATH_LEN) + strnlen(buddy_service_name, UPK_MAX_STRING_LEN) + strlen("actions/reload")) >
+       BUDDY_MAX_PATH_LEN)
         upk_fatal("compined path length of buddy root and service name is too long, cannot continue");
 
     snprintf(buddy_path_prefix, sizeof(buddy_path_prefix) - 1, "%s/%s", buddy_root_path, buddy_service_name);
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief socket initialization during startup.
+ ******************************************************************************************************************** */
 static inline void
 buddy_init_socket(void)
 {
@@ -196,8 +224,7 @@ buddy_init_socket(void)
 
     upk_debug0("initalizing socket %s\n", buddy_path("buddy.sock"));
 
-    strncpy(buddy_sockaddr.sun_path, (const char *) buddy_path("buddy.sock"),
-            sizeof(buddy_sockaddr.sun_path) - 1);
+    strncpy(buddy_sockaddr.sun_path, (const char *) buddy_path("buddy.sock"), sizeof(buddy_sockaddr.sun_path) - 1);
     buddy_sockaddr.sun_family = AF_UNIX;
 
     oldumask = umask(077);
@@ -211,10 +238,25 @@ buddy_init_socket(void)
     umask(oldumask);
 }
 
+/** *******************************************************************************************************************
+  @brief Initialize buddy randomization.
+ ******************************************************************************************************************** */
+void
+buddy_init_rand(void)
+{
+    struct timeval          buf;
+
+    gettimeofday(&buf, NULL);
+    srand(buf.tv_sec + buf.tv_usec + time(NULL) + getpid());
+}
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+
+/** *******************************************************************************************************************
+  @brief Initialize buddy.
+
+  @param[in] logger                 Logger callback function to use, which is currently defined in buddy_main.c
+ ******************************************************************************************************************** */
 void
 buddy_init(diag_output_callback_t logger)
 {
@@ -232,6 +274,8 @@ buddy_init(diag_output_callback_t logger)
 
     buddy_ctrlfd = -1;
     buddy_sockfd = -1;
+
+    buddy_init_rand();
 
 #ifdef HAVE_ATEXIT
     atexit(buddy_cleanup);
@@ -265,16 +309,32 @@ buddy_init(diag_output_callback_t logger)
     upk_notice("Buddy initialized\n");
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Handle flags set via signal handler.
+
+  Currently handles the chld_terminated flag and the buddy_shutdown.
+
+  @return true if buddy should shutdown as a result of some flags, false otherwise.
+ ******************************************************************************************************************** */
 static inline           bool
 buddy_handle_flags(void)
 {
+    static uint32_t         jitter = 0;
+
     if(buddy_shutdown > 0)
         return true;
 
     if(chld_terminated && desired_state == BUDDY_RUNNING) {
-        if(force_ratelimit && ((respawn_timestamp + RESPAWN_RATELIMIT) > time(NULL)))
+        /* Handle user_ratelimiting */
+        if(user_ratelimit) {
+            if(randomize_ratelimit)
+                jitter = user_ratelimit + (int) ((float) (user_ratelimit / 2) * (rand() / (RAND_MAX + 1.0)));
+            if((respawn_timestamp + user_ratelimit + jitter) > time(NULL))
+                return false;
+        }
+
+        /* Handle runaway_ratelimiting */
+        if(force_ratelimit && ((respawn_timestamp + runaway_ratelimit) > time(NULL)))
             return false;
         else
             force_ratelimit = false;
@@ -287,8 +347,11 @@ buddy_handle_flags(void)
     return false;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief cleanup and exit buddy.
+
+  @params[in] signum                The signal sent to buddy that inspired this buddycide.
+ ******************************************************************************************************************** */
 void
 commit_buddycide(int32_t signum)
 {
@@ -315,8 +378,11 @@ commit_buddycide(int32_t signum)
     kill(getpid(), signum);
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief the event loop, where everything happens.
+
+  @return if it returns, it returns 0
+ ******************************************************************************************************************** */
 int32_t
 buddy_event_loop(void)
 {
@@ -355,8 +421,9 @@ buddy_event_loop(void)
     return 0;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief cleanup.
+ ******************************************************************************************************************** */
 void
 buddy_cleanup(void)
 {
@@ -376,8 +443,9 @@ buddy_cleanup(void)
     }
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief attempt to reach controller when there are emergencies.
+ ******************************************************************************************************************** */
 static inline           bool
 buddy_phone_home(void)
 {
@@ -395,8 +463,9 @@ buddy_phone_home(void)
     return false;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief grab a snapshot of the current buddy-state into the ringbuffer.
+ ******************************************************************************************************************** */
 static inline void
 buddy_record_state(void)
 {
@@ -413,21 +482,22 @@ buddy_record_state(void)
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief zero out the current ringbuffer_element, leaving the ->next pointer intact.
+ ******************************************************************************************************************** */
 static inline void
 buddy_zero_info(void)
 {
     upk_debug1("Clearing ringbuffer slot\n");
     if(info_ringbuffer->populated)
         ringbuffer_pending = (ringbuffer_pending <= 1) ? 0 : ringbuffer_pending - 1;
-    memset(info_ringbuffer, 0,
-           sizeof(*info_ringbuffer) - sizeof(info_ringbuffer->next) - sizeof(info_ringbuffer->slot_n));
+    memset((void *) info_ringbuffer, 0, sizeof(*info_ringbuffer) - sizeof(info_ringbuffer->next) - sizeof(info_ringbuffer->slot_n));
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief initialize the ringbuffer.
+ ******************************************************************************************************************** */
 static inline void
 buddy_init_ringbuffer(void)
 {
@@ -448,8 +518,9 @@ buddy_init_ringbuffer(void)
     return;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief free the ringbuffer.
+ ******************************************************************************************************************** */
 static inline void
 buddy_free_ringbuffer(void)
 {
@@ -458,15 +529,16 @@ buddy_free_ringbuffer(void)
 
     for(n = 0; n < ringbuffer_size; n++) {
         nodep = info_ringbuffer->next;
-        free(info_ringbuffer);
+        free((void *) info_ringbuffer);
         info_ringbuffer = nodep;
     }
     info_ringbuffer = NULL;
     return;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief accept a connection from controller.
+ ******************************************************************************************************************** */
 static inline void
 buddy_accept(void)
 {
@@ -492,8 +564,12 @@ buddy_accept(void)
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief disconnect from controller (if count < 0).
+
+  @param[in] count                  If less than 1, go ahead with the disconnect, otherwise remain connected (so the
+                                    value of read/write can indicate the need to disconnect, if errno agrees).
+ ******************************************************************************************************************** */
 static inline           bool
 buddy_disconnect(size_t count)
 {
@@ -508,8 +584,11 @@ buddy_disconnect(size_t count)
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief assemble the fd set.
+
+  @return highest_fd
+ ******************************************************************************************************************** */
 static inline int
 buddy_build_fd_set(fd_set * socks, bool listen_sock)
 {
@@ -529,9 +608,9 @@ buddy_build_fd_set(fd_set * socks, bool listen_sock)
 static inline void
 buddy_supp_groups(void)
 {
-    static struct passwd * pw = NULL;
-    
-    pw = getpwuid(buddy_setuid);  
+    static struct passwd   *pw = NULL;
+
+    pw = getpwuid(buddy_setuid);
 
 #ifdef HAVE_SETGROUPS
     if(clear_supplemental_groups)
@@ -540,14 +619,17 @@ buddy_supp_groups(void)
 #ifdef HAVE_INITGROUPS
     if(pw) {
         if(initialize_supplemental_groups && buddy_setuid)
-            initgroups(pw->pw_name,pw->pw_gid);
+            initgroups(pw->pw_name, pw->pw_gid);
     }
 #endif
-} 
+}
 
 
-/*********************************************************************************************************************
- *********************************************************************************************************************/
+/** ******************************************************************************************************************
+  @brief fork/exec an action script.
+
+  @return pid of the forked process.
+ ******************************************************************************************************************* */
 static                  pid_t
 buddy_exec_action(void)
 {
@@ -584,14 +666,13 @@ buddy_exec_action(void)
         sigaction(SIGPIPE, &sigact, NULL);
 
 
-        /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting
-           ulimits */
+        /* dynamic allocation is mostly safe here; if it fails, the exec will probably fail; discounting ulimits */
 
         buddy_supp_groups();
 
         buddy_setreguid();
 
-        /* TODO: Add support for ulimit contraints on managed processes */
+        /* TODO: Add support for ulimit contraints on managed processes (probably easier handle by process wrapper) */
 
 
         if(proc_pid)
@@ -602,16 +683,17 @@ buddy_exec_action(void)
         upk_debug0("redirecting output\n");
         buddy_setup_fds();
 
-        /* a child may reset these itself, but if a user knows that their service does not; they may use one
-           or both identifiers to ensure that all of the services children have exited before considering the 
-           service stopped, or perhaps more interesting things */
+        /* a child may reset these itself, but if a user knows that their service does not; they may use one or both identifiers to ensure
+           that all of the services children have exited before considering the service stopped, or perhaps more interesting things */
 
         setsid();
-        setpgid(0, 0); /* should have already happened via setsid */
+        setpgid(0, 0);                                                                   /* should have already happened via setsid, but
+                                                                                            just in case (I can't recal which off hand, but 
+                                                                                            I swear I've encountered a platform that
+                                                                                            doesn't do this correctly) */
 
-        /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid
-           above, but in a way that cannot be abandoned by the monitored process; can then use the cgroup
-           context to set process limits) */
+        /* TODO: Support cgroups on linux (i.e. use cgcreate/cgexec to be used similarly to the pgrp or sid above, but in a way that cannot 
+           be abandoned by the monitored process; can then use the cgroup context to set process limits) */
 
         memset(buddy_string_buf, 0, sizeof(buddy_string_buf));
         snprintf(buddy_string_buf, sizeof(buddy_string_buf) - 1, "%d", proc_pid);
@@ -620,12 +702,12 @@ buddy_exec_action(void)
         errno = 0;
         if(proc_pid) {
             execle(path_buf, path_buf, buddy_string_buf, (char *) NULL, proc_envp);
+            upk_error("exec failed for %s %d; This should not happen!: %s\n", path_buf, proc_pid, strerror(errno));
         } else {
             execle(path_buf, path_buf, (char *) NULL, proc_envp);
+            upk_error("exec failed for %s; This should not happen!: %s\n", path_buf, strerror(errno));
         }
 
-        // fprintf(oldstderr, "exec failed for %s %d; This should never happen!: %s\n", path_buf, proc_pid,
-        // strerror(errno));
         _exit(errno);
     }
     sigprocmask(SIG_SETMASK, &oldset, NULL);
@@ -633,8 +715,11 @@ buddy_exec_action(void)
     return pid;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Action "start"
+
+  @return true if successful, false otherwise.
+ ******************************************************************************************************************** */
 static                  bool
 buddy_start_proc(void)
 {
@@ -647,14 +732,13 @@ buddy_start_proc(void)
 
         buddy_path("actions/start");
 
-        if(respawn_timestamp + RESPAWN_WINDOW > time(NULL))
+        if(respawn_timestamp + user_restart_window > time(NULL))
             ++rapid_respawn_count;
         else
             rapid_respawn_count = 0;
 
-        if(rapid_respawn_count > MAX_RESPAWN_COUNT) {
-            upk_notice("%s's start script respawning too fast, imposing ratelimit for %d seconds\n",
-                       buddy_service_name, RESPAWN_RATELIMIT);
+        if(rapid_respawn_count > user_max_restarts) {
+            upk_notice("%s's start script respawning too fast, imposing ratelimit for %d seconds\n", buddy_service_name, runaway_ratelimit);
             force_ratelimit = true;
             return false;
         }
@@ -671,46 +755,50 @@ buddy_start_proc(void)
     return true;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief action "stop"
+ ******************************************************************************************************************** */
 static inline void
 buddy_stop_proc(void)
 {
     static uint8_t          n = 0;
+    static uint32_t         kill_timeout_nsec = 0;
 
-    nanotimeout.tv_sec = 0;
-    nanotimeout.tv_nsec = 5000000L;                         /* 5/1000th a second; */
-                                                                 
+    kill_timeout_nsec = (((float) kill_timeout / 10.0) - (float) (kill_timeout / 10)) * 1000000000L;    /* 9 zeros... */
+
+    nanotimeout.tv_sec = (kill_timeout >= 0) ? (int) kill_timeout / 10 : 0;
+    nanotimeout.tv_nsec = 5000000L + kill_timeout_nsec;                                  /* 5/1000th a second; */
+
 
     if(proc_pid != 0) {
         buddy_path("actions/stop");
         buddy_exec_action();
 
-        /* XXX: Should this level of insistance that the stop script work be located here, or should it only
-           be in buddy_cleanup? */
+        /* XXX: Should this level of insistance that the stop script work be located here, or should it only be in buddy_cleanup? */
 
         /* give child time to terminate normally */
-        /* FIXME: should be configurable duration to wait for a child to exit cleanly - JB
-         There is already configuration parameters for this, just need to implement in controller and here */
         while(proc_pid && n++ < 10)
             nanosleep(&nanotimeout, NULL);
 
+        /* FIXME: this should be done via event-loop, and not sit here blocking on a sleep */
         /* send signal a TERM directly, in the hopes this will do the trick */
-        // if(proc_pid)
-        // kill(proc_pid, SIGTERM);
+        if(kill_timeout) {
+            if(proc_pid)
+                kill(proc_pid, SIGTERM);
 
-        /* FIXME: again, should be configurable - JB */
-        // while(proc_pid && n++ < 20)
-        // nanosleep(&nanotimeout, NULL);
+            while(proc_pid && n++ < 20)
+                nanosleep(&nanotimeout, NULL);
 
-        // if(proc_pid)
-        // kill(proc_pid, SIGKILL);
+            if(proc_pid)
+                kill(proc_pid, SIGKILL);
+        }
     }
     return;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief action "reload".
+ ******************************************************************************************************************** */
 static inline void
 buddy_reload_proc(void)
 {
@@ -721,8 +809,9 @@ buddy_reload_proc(void)
     return;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief any custom actions.
+ ******************************************************************************************************************** */
 static inline void
 buddy_cust_action(uint32_t act_num)
 {
@@ -732,8 +821,9 @@ buddy_cust_action(uint32_t act_num)
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Process commands from controller.
+ ******************************************************************************************************************** */
 static inline void
 buddy_handle_command(void)
 {
@@ -776,35 +866,36 @@ buddy_handle_command(void)
         break;
     }
     if(this_command >= UPK_CTRL_CUSTOM_ACTION_00 && this_command <= UPK_CTRL_CUSTOM_ACTION_31) {
-        upk_verbose("command to invoke action %2d' received\n",
-                    (uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
+        upk_verbose("command to invoke action %2d' received\n", (uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
         last_command = this_command;
         buddy_cust_action((uint32_t) (this_command - UPK_CTRL_CUSTOM_ACTION_00));
         return;
     } else if(this_command >= UPK_CTRL_SIGNAL_01 && this_command <= UPK_CTRL_SIGNAL_32) {
-        upk_verbose("command `signal' (with signal `%d') received\n",
-                    (this_command - UPK_CTRL_SIGNAL_01) + 1);
+        upk_verbose("command `signal' (with signal `%d') received\n", (this_command - UPK_CTRL_SIGNAL_01) + 1);
         last_command = this_command;
         kill(proc_pid, (uint32_t) (this_command - UPK_CTRL_SIGNAL_01) + 1);
         return;
     }
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief Setreguid if possible.
+ ******************************************************************************************************************** */
 static inline void
 buddy_setreguid(void)
 {
     if(buddy_setuid)
-        setreuid(buddy_setuid, buddy_setuid);              /* no point in capturing errors here, because
-                                                              there's nothing we can really do; we complain
-                                                              in buddy_init() if we think this won't work */
+        setreuid(buddy_setuid, buddy_setuid);                                            /* no point in capturing errors here, because
+                                                                                            there's nothing we can really do; we complain
+                                                                                            in buddy_init() if we think this won't work */
     if(buddy_setgid)
-        setregid(buddy_setgid, buddy_setgid);              /* ditto */
+        setregid(buddy_setgid, buddy_setgid);                                            /* ditto */
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief map std(in|out|err) to logical places for invoked scripts.
+ ******************************************************************************************************************** */
+/* FIXME: map these to action-specific places */
 static inline void
 buddy_setup_fds(void)
 {
@@ -813,8 +904,12 @@ buddy_setup_fds(void)
     freopen(buddy_path("log/stderr"), "a", stderr);
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief resolve symlinks until either a real file is found, or a maximum of 32 links have been followed.
+  
+  You cannot bind to a socket via symlink, but you can use a symlink to leave breadcrumbs to the socket, and then
+  manually resolve the symlink to find the socket. This function is used to follow the breadcrumbs.
+ ******************************************************************************************************************** */
 static void
 resolve_symlink(void)
 {
@@ -834,12 +929,18 @@ resolve_symlink(void)
 }
 
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief read a packet from the controller.
+
+  @param[out] buf                    The buffer to place the read-packet into.
+
+  @return the number of bytes read.
+ ******************************************************************************************************************** */
 static inline           int32_t
 read_ctrl(buddy_cmnd_t * buf)
 {
     static fd_set           ctrlfdset;
+    static size_t           ncount = 0;
 
     timeout.tv_sec = BUDDY_SELECT_TIMEOUT_SEC;
     timeout.tv_usec = BUDDY_SELECT_TIMEOUT_USEC;
@@ -858,12 +959,18 @@ read_ctrl(buddy_cmnd_t * buf)
     return ncount;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief write a packet from the ringbuffer to the controller.
+
+  @param buf[in]                    The struct to write to controller.
+
+  @return the number of bytes written.
+ ******************************************************************************************************************** */
 static inline           int32_t
-write_ctrl(buddy_info_t * buf)
+write_ctrl(buddy_info_t volatile *volatile buf)
 {
     static fd_set           ctrlfdset;
+    static size_t           ncount = 0;
 
     timeout.tv_sec = BUDDY_SELECT_TIMEOUT_SEC;
     timeout.tv_usec = BUDDY_SELECT_TIMEOUT_USEC;
@@ -873,7 +980,7 @@ write_ctrl(buddy_info_t * buf)
     if(select(highest_fd + 1, NULL, &ctrlfdset, NULL, &timeout) && FD_ISSET(buddy_ctrlfd, &ctrlfdset)) {
         do {
             errno = 0;
-            ncount = write(buddy_ctrlfd, buf, sizeof(*buf));
+            ncount = write(buddy_ctrlfd, (void *) buf, sizeof(*buf));
             if(buddy_disconnect(ncount))
                 break;
         } while(ncount < 1);
@@ -881,8 +988,9 @@ write_ctrl(buddy_info_t * buf)
     return ncount;
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief determine if there is an emergent situation, and phone home if it is appropriate.
+ ******************************************************************************************************************** */
 static inline void
 phone_home_if_appropriate(void)
 {
@@ -893,7 +1001,7 @@ phone_home_if_appropriate(void)
             if(buddy_shutdown || (ringbuffer_pending >= (ringbuffer_size - (ringbuffer_size / 4)))) {
                 if(!buddy_phone_home()) {
                     nanotimeout.tv_sec = 0;
-                    nanotimeout.tv_nsec = 500000000L;      /* 1/10th a second; */
+                    nanotimeout.tv_nsec = 500000000L;                                    /* 1/10th a second; */
                     upk_verbose("Retrying connection to controller\n");
                     nanosleep(&nanotimeout, NULL);
                     continue;
@@ -904,14 +1012,15 @@ phone_home_if_appropriate(void)
     }
 }
 
-/* ********************************************************************************************************************
-   ******************************************************************************************************************* */
+/** *******************************************************************************************************************
+  @brief send everything in the ringbuffer to the controller.
+ ******************************************************************************************************************** */
 static void
 buddy_flush_ringbuffer(void)
 {
     static sigset_t         sigset, oldset;
     static buddy_cmnd_t     ack, curcmnd;
-    static buddy_info_t    *thisp;
+    static buddy_info_t volatile *volatile thisp;
 
     ack = curcmnd = this_command;
     sigfillset(&sigset);
